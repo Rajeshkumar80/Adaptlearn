@@ -47,4 +47,17 @@ router.get("/tests/:id/cheat-report", requireAuth, requireTeacher, async (req: A
   res.json({ flags });
 });
 
+// All cheat flags across the teacher's tests (global integrity view).
+router.get("/cheat-flags", requireAuth, requireTeacher, async (req: AuthRequest, res) => {
+  const flags = await prisma.cheatFlag.findMany({
+    where: { test: { createdByTeacherId: req.user!.id } },
+    include: {
+      student: { select: { name: true, usn: true } },
+      test: { select: { title: true } },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+  res.json({ flags });
+});
+
 export default router;

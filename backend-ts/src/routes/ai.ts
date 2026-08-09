@@ -59,14 +59,21 @@ RETRIEVED CONTENT:\n${context}`,
       ),
     ]);
 
-    let followUpMcq: { question: string; options: string[]; correctIndex: number } | null = null;
+    let followUpMcq: { question: string; options: string[]; correctIndex: number; topicId: string | null } | null = null;
     try {
       const cleaned = mcqJson.replace(/```json|```/g, "").trim();
       const parsed = JSON.parse(cleaned);
+      // Bind the MCQ to a topic in scope so the student's answer feeds BKT.
+      const scopeModule = moduleNumber ?? chunks[0]?.moduleNumber ?? null;
+      const topic = await prisma.topic.findFirst({
+        where: { subjectCode, ...(scopeModule ? { moduleNumber: scopeModule } : {}) },
+        orderBy: { order: "asc" },
+      });
       followUpMcq = {
         question: parsed.question,
         options: parsed.options,
         correctIndex: parsed.correctIndex,
+        topicId: topic?.id ?? null,
       };
     } catch {
       followUpMcq = null;

@@ -29,3 +29,4 @@ Thumbs.db
 
 # Uploads
 backend-ts/uploads/
+.gstack/

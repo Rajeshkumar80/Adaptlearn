@@ -52,8 +52,7 @@ router.post("/", requireAuth, requireTeacher, validate(testSchema), async (req: 
 });
 
 // Teacher lists own tests
-router.get("/", requireAuth, requireTeacher, async (req: AuthRequest, res) => {
-  const tests = await prisma.test.findMany({
+router.get("/", requireAuth, requireTeacher, async (req: AuthRequest, res) => {  const tests = await prisma.test.findMany({
     where: { createdByTeacherId: req.user!.id },
     include: { _count: { select: { questions: true, results: true, cheatFlags: true } } },
     orderBy: { createdAt: "desc" },
@@ -62,6 +61,22 @@ router.get("/", requireAuth, requireTeacher, async (req: AuthRequest, res) => {
 });
 
 // Student: available active tests for their class
+// Teacher deletes a test (only own tests)
+router.delete("/:id", requireAuth, requireTeacher, async (req: AuthRequest, res) => {
+  try {
+    const result = await prisma.test.deleteMany({
+      where: { id: req.params.id, createdByTeacherId: req.user!.id },
+    });
+    if (result.count === 0) {
+      res.status(404).json({ error: "Test not found or not yours" });
+      return;
+    }
+    res.json({ deleted: result.count });
+  } catch (err) {
+    res.status(500).json({ error: "Delete failed", detail: String(err) });
+  }
+});
+
 router.get("/available", requireAuth, async (req: AuthRequest, res) => {
   const user = await prisma.user.findUnique({ where: { id: req.user!.id }, select: { classId: true } });
   const tests = await prisma.test.findMany({

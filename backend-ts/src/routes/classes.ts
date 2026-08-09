@@ -30,6 +30,31 @@ router.get("/", requireAuth, requireTeacher, async (req: AuthRequest, res) => {
   res.json({ classes });
 });
 
+// Teacher: list all students (for roster assignment)
+router.get("/students", requireAuth, requireTeacher, async (req: AuthRequest, res) => {
+  const students = await prisma.user.findMany({
+    where: { role: "STUDENT" },
+    select: { id: true, name: true, usn: true, email: true, classId: true },
+    orderBy: { name: "asc" },
+  });
+  res.json({ students });
+});
+
+// Teacher: roster of a class
+router.get("/:id/students", requireAuth, requireTeacher, async (req: AuthRequest, res) => {
+  const klass = await prisma.class.findFirst({ where: { id: req.params.id, createdByTeacherId: req.user!.id } });
+  if (!klass) {
+    res.status(404).json({ error: "Class not found or not yours" });
+    return;
+  }
+  const students = await prisma.user.findMany({
+    where: { role: "STUDENT", classId: klass.id },
+    select: { id: true, name: true, usn: true, email: true },
+    orderBy: { name: "asc" },
+  });
+  res.json({ students });
+});
+
 const addStudentSchema = z.object({
   studentId: z.string().min(1),
 });
