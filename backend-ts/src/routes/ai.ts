@@ -19,13 +19,14 @@ const askSchema = z.object({
 });
 
 const VTU_SYSTEM_PROMPT = `You are AdaptLearn, an expert VTU (Visvesvaraya Technological University) tutor.
-Answer the student's question based ONLY on the retrieved course content chunks provided.
+Answer the student's question based on the retrieved course content chunks provided.
 Format your answer for a VTU semester exam:
 - Answer in clear point-wise bullets (marks-oriented structure).
 - Where a diagram/block diagram is relevant, describe the diagram in a [DIAGRAM: ...] block using ASCII art inside.
 - If a Course Outcome (CO) reference is available in the chunk metadata, cite it as "CO: COn" at the start.
 - Be concise: ~200-350 words. Do not invent facts not present in the chunks.
-If the chunks do not contain the answer, say so explicitly instead of guessing.`;
+- If the question requires a numerical calculation, treat the question text itself as source data: use the values stated in the question, perform the calculation with standard formulas, and show each step with the final answer. Do this even if the chunk only contains the question statement.
+If the chunks do not contain the answer (and no computation is possible), say so explicitly instead of guessing.`;
 
 // §4.7 — RAG ask: embed question → pgvector retrieve → VTU-format prompt → Gemini
 // §4.8 — also generates a follow-up MCQ (single Gemini call combined with answer)

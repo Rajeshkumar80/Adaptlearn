@@ -1,6 +1,9 @@
 import { Server as HttpServer } from "http";
 import { Server, Socket } from "socket.io";
+import { PrismaClient } from "@prisma/client";
 import { verifyToken } from "./utils/auth";
+
+const prisma = new PrismaClient();
 
 // Socket.io with JWT auth. Rooms:
 //   global        — everyone
@@ -27,11 +30,19 @@ export function initWebsocket(server: HttpServer): Server {
   });
 
   io.on("connection", (socket: Socket) => {
-    const user = (socket as any).user as { id: string; role: string; classId?: string };
+    const user = (socket as any).user as { id: string; role: string; classId?: string | null };
     socket.join("global");
     socket.join(`role:${user.role}`);
     if (user.classId) socket.join(`class:${user.classId}`);
-    socket.on("join-class", (classId: string) => socket.join(`class:${classId}`));
+    socket.on("join-class", async (classId: string) => {
+      if (user.role === "TEACHER" || user.role === "ADMIN") {
+        const owned = await prisma.class.findFirst({ where: { id: classId, createdByTeacherId: user.id } });
+        if (owned) socket.join(`class:${classId}`);
+        return;
+      }
+      const member = await prisma.user.findFirst({ where: { id: user.id, classId } });
+      if (member) socket.join(`class:${classId}`);
+    });
   });
 
   return io;

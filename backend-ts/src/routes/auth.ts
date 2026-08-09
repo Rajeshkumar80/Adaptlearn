@@ -60,7 +60,7 @@ router.post("/login", authLimiter, validate(loginSchema), async (req, res) => {
       res.status(401).json({ error: "Invalid credentials" });
       return;
     }
-    const payload = { id: user.id, email: user.email, role: user.role };
+    const payload = { id: user.id, email: user.email, role: user.role, classId: user.classId };
     res.json({
       user: {
         id: user.id,
