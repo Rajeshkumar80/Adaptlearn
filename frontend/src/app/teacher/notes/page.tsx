@@ -86,6 +86,10 @@ export default function TeacherNotesPage() {
       notify("error", "Give the note a title.");
       return;
     }
+    if (!file.name.toLowerCase().endsWith(".pdf")) {
+      notify("error", "Only PDF files are accepted — convert the file to PDF first.");
+      return;
+    }
     setUploading(true);
     try {
       const form = new FormData();
@@ -137,14 +141,17 @@ export default function TeacherNotesPage() {
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div>
             <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-ink-muted">
-              File (md, txt, pdf)
+              File (PDF only)
             </label>
             <input
               ref={fileRef}
               type="file"
-              accept=".md,.txt,.pdf,.docx"
+              accept=".pdf,application/pdf"
               className="w-full rounded-[2px] border border-hairline bg-paper px-3 py-2 text-[13px]"
             />
+            <p className="mt-1 text-[11px] text-ink-muted">
+              PDF only — students receive the note as a PDF download.
+            </p>
           </div>
           <div>
             <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-ink-muted">

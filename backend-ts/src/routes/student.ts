@@ -29,7 +29,9 @@ router.get("/notes", requireAuth, async (req: AuthRequest, res) => {
   }
   const notes = await prisma.notes.findMany({
     where: {
-      classId: user.classId ?? undefined,
+      // Notes with no classId are public (shared to all students);
+      // class-scoped notes are visible only to that class.
+      OR: [{ classId: null }, { classId: user.classId ?? "__none__" }],
       subjectCode: subject || undefined,
       moduleNumber: module ? Number(module) : undefined,
     },

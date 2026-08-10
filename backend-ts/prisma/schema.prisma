@@ -41,6 +41,8 @@ model User {
   assignmentsCreated Assignment[]     @relation("AssignmentsCreatedBy")
   classesCreated Class[]              @relation("ClassesCreatedBy")
   testsCreated   Test[]               @relation("TestsCreatedBy")
+  chatSessions   ChatSession[]
+  studyTasks     StudyTask[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -324,4 +326,52 @@ model Achievement {
   type      String
   name      String
   earnedAt  DateTime @default(now())
+}
+
+// ChatGPT-style chat history: one session per tutor conversation.
+model ChatSession {
+  id          String        @id @default(cuid())
+  userId      String
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  subjectCode String?
+  moduleNumber Int?
+  messages    ChatMessage[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([userId])
+}
+
+model ChatMessage {
+  id        String      @id @default(cuid())
+  sessionId String
+  session   ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  role      String // "user" | "assistant"
+  content   String
+  chunks    Json?
+  diagrams  Json?
+  quiz      Json?
+  createdAt DateTime    @default(now())
+
+  @@index([sessionId])
+}
+
+// User-created study plan tasks (subject/module/minutes), each markable done.
+model StudyTask {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subjectCode String
+  subjectName String   @default("")
+  moduleNumber Int?
+  topicId     String?
+  topicName   String
+  minutes     Int
+  date        String // YYYY-MM-DD
+  done        Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
 }

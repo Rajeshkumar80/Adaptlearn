@@ -15,6 +15,29 @@ interface Note {
   createdAt: string;
 }
 
+function downloadNote(note: Note) {
+  const url = `${BACKEND_URL}${note.fileUrl}`;
+  const fallback = window.open(url, "_blank", "noopener");
+  if (fallback) {
+    fallback.focus();
+    return;
+  }
+  fetch(url)
+    .then((res) => res.blob())
+    .then((blob) => {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `${note.title || "note"}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(a.href);
+    })
+    .catch(() => {
+      window.open(url, "_blank", "noopener");
+    });
+}
+
 export default function NotesPage() {
   const { subjects, loading: subjectsLoading } = useSubjects();
   const [subjectCode, setSubjectCode] = useState("");
@@ -116,14 +139,13 @@ export default function NotesPage() {
                   {new Date(n.createdAt).toLocaleDateString()}
                 </p>
               </div>
-              <a
-                href={`${BACKEND_URL}${n.fileUrl}`}
-                target="_blank"
-                rel="noreferrer"
+              <Badge tone="navy">PDF</Badge>
+              <button
+                onClick={() => downloadNote(n)}
                 className="inline-flex items-center gap-1.5 rounded-[2px] border border-hairline px-3 py-1.5 text-[12px] font-semibold text-navy hover:border-navy"
               >
-                <Download className="h-3.5 w-3.5" /> Open
-              </a>
+                <Download className="h-3.5 w-3.5" /> Download PDF
+              </button>
             </Card>
           ))}
         </div>

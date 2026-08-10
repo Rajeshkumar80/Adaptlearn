@@ -26,6 +26,7 @@ import aiRoutes from "./routes/ai";
 import documentsRoutes from "./routes/documents";
 import studyPlanRoutes from "./routes/study-plan";
 import vtuRoutes from "./routes/vtu";
+import chatRoutes from "./routes/chat";
 
 const prisma = new PrismaClient();
 
@@ -77,6 +78,7 @@ export function createApp() {
   app.use("/api/documents", documentsRoutes);
   app.use("/api/study-plan", studyPlanRoutes);
   app.use("/api/vtu", vtuRoutes);
+  app.use("/api/chat", chatRoutes);
 
   app.use((err: Error, _req: Request, res: Response, _next: any) => {
     res.status(500).json({ error: "Internal server error", detail: err.message });
