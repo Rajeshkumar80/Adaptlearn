@@ -12,7 +12,7 @@ function client(): GoogleGenerativeAI {
   return genAI;
 }
 
-export const GEMINI_MODEL = "gemini-2.5-flash";
+export const GEMINI_MODEL = "gemini-3.5-flash";
 
 export async function geminiGenerate(prompt: string, userId?: string): Promise<string> {
   const model = client().getGenerativeModel({ model: GEMINI_MODEL });

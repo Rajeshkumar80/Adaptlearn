@@ -11,10 +11,12 @@ export interface RetrievedChunk {
   sourceDocumentId: string;
   subjectCode: string;
   moduleNumber: number | null;
+  pageNumber: number | null;
   content: string;
   title: string;
   distance: number;
   similarity: number;
+  pageImage: { pageNumber: number; fileUrl: string } | null;
 }
 
 export async function retrieve(
@@ -31,7 +33,7 @@ export async function retrieve(
   if (moduleNumber != null) params.push(moduleNumber);
 
   const rows: any[] = await prisma.$queryRawUnsafe(
-    `SELECT dc.id, dc."sourceDocumentId", dc."subjectCode", dc."moduleNumber",
+    `SELECT dc.id, dc."sourceDocumentId", dc."subjectCode", dc."moduleNumber", dc."pageNumber",
             dc.content, d.title,
             (dc.embedding <=> $1::vector)::float8 AS distance
      FROM "DocumentChunk" dc
@@ -43,14 +45,33 @@ export async function retrieve(
     ...params
   );
 
-  return rows.map((r: any) => ({
-    id: r.id,
-    sourceDocumentId: r.sourceDocumentId,
-    subjectCode: r.subjectCode,
-    moduleNumber: r.moduleNumber,
-    content: r.content,
-    title: r.title,
-    distance: r.distance,
-    similarity: 1 - r.distance,
-  }));
+  const pageImages = await prisma.pageImage.findMany({
+    where: {
+      documentId: { in: rows.map((r: any) => r.sourceDocumentId) },
+    },
+  });
+  const imageByDocAndPage = new Map(
+    pageImages.map((im) => [`${im.documentId}:${im.pageNumber}`, im])
+  );
+
+  return rows.map((r: any) => {
+    const pageImage =
+      r.pageNumber != null
+        ? imageByDocAndPage.get(`${r.sourceDocumentId}:${r.pageNumber}`) ?? null
+        : null;
+    return {
+      id: r.id,
+      sourceDocumentId: r.sourceDocumentId,
+      subjectCode: r.subjectCode,
+      moduleNumber: r.moduleNumber,
+      pageNumber: r.pageNumber,
+      content: r.content,
+      title: r.title,
+      distance: r.distance,
+      similarity: 1 - r.distance,
+      pageImage: pageImage
+        ? { pageNumber: pageImage.pageNumber, fileUrl: pageImage.fileUrl }
+        : null,
+    };
+  });
 }

@@ -156,6 +156,7 @@ model Document {
   docType           String          @default("notes") // syllabus | notes | pyq | model-paper | co
   uploadedByTeacherId String?
   chunks            DocumentChunk[]
+  pageImages        PageImage[]
 
   createdAt DateTime @default(now())
 }
@@ -166,11 +167,24 @@ model DocumentChunk {
   sourceDocument   Document @relation(fields: [sourceDocumentId], references: [id], onDelete: Cascade)
   subjectCode      String
   moduleNumber     Int?
+  pageNumber       Int? // PDF page (1-based) this chunk was extracted from
   content          String
   embedding        Unsupported("vector(384)")
   createdAt        DateTime @default(now())
 
   @@index([subjectCode])
+}
+
+// One rendered PNG per PDF page — the "diagram" retrieval surface.
+model PageImage {
+  id          String   @id @default(cuid())
+  documentId  String
+  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  pageNumber  Int // 1-based PDF page
+  fileUrl     String
+  createdAt   DateTime @default(now())
+
+  @@unique([documentId, pageNumber])
 }
 
 model Notes {

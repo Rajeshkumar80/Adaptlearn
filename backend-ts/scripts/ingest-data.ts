@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import fs from "fs";
 import path from "path";
 import { chunkText, embedText } from "../src/services/embeddings";
+import { ingestPdfDocument } from "../src/services/ingest";
 import { scoreTopicsFromPyq, parsePyqMarkdown } from "../src/services/pyq-scorer";
 
 // Batch ingestion: walks the repo-level data/ tree (syllabus, textbooks-notes,
@@ -40,8 +41,11 @@ function detectMeta(rel: string) {
   const kind = docTypeMap[parts[0]] || "notes";
   const semMatch = parts.find((p) => /^sem\d+$/i.test(p)) || "";
   const semester = semMatch ? Number(semMatch.replace("sem", "")) : 0;
-  const subjectCode = parts.find((p) => /^[A-Z]{2,}\d{3}[A-Z]?$/.test(p)) || "";
   const filename = parts[parts.length - 1];
+  const basename = filename.replace(/\.(md|txt|pdf)$/i, "");
+  const subjectCode =
+    parts.find((p) => /^[A-Z]{2,}\d{3}[A-Z]?$/.test(p)) ||
+    (/^[A-Z]{2,}\d{3}[A-Z]?$/.test(basename) ? basename : "");
   return { kind, semester, subjectCode, filename };
 }
 
@@ -58,12 +62,17 @@ async function ingestFile(rel: string, fullPath: string) {
 
   let text: string;
   if (fullPath.endsWith(".pdf")) {
-    const pdf = await import("pdf-parse");
-    const parsed = await pdf.default(fs.readFileSync(fullPath));
-    text = parsed.text;
-  } else {
-    text = fs.readFileSync(fullPath, "utf-8");
+    const result = await ingestPdfDocument(prisma, {
+      pdfPath: fullPath,
+      subjectCode: subjectCode || "GENERAL",
+      moduleNumber: null,
+      title,
+      docType: kind,
+    });
+    console.log(`  ingested: ${rel} -> ${result.chunkCount} chunks, ${result.pageImages} page images`);
+    return result.chunkCount;
   }
+  text = fs.readFileSync(fullPath, "utf-8");
 
   const doc = await prisma.document.create({
     data: { title, subjectCode: subjectCode || "GENERAL", docType: kind, fileUrl: rel },

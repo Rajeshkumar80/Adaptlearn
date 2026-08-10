@@ -8,7 +8,7 @@ export default function StudentLayout({ children }: { children: ReactNode }) {
       <RoleGuard role="STUDENT" />
       <SideNav />
       <main className="flex-1 overflow-y-auto bg-paper">
-        <div className="mx-auto max-w-[900px] px-6 py-6">{children}</div>
+        <div className="mx-auto max-w-[1180px] px-6 py-6">{children}</div>
       </main>
     </div>
   );

@@ -4,10 +4,10 @@
   /* Academic Ledger — see DESIGN.md */
   --color-ink: #26221c;
   --color-ink-muted: #6e6656;
-  --color-paper: #f7f3e8;
-  --color-paper-alt: #efe9d9;
-  --color-paper-deep: #e4dcc6;
-  --color-hairline: #d8cdb4;
+  --color-paper: #ffffff;
+  --color-paper-alt: #f7f7f5;
+  --color-paper-deep: #ececea;
+  --color-hairline: #e2e2de;
   --color-navy: #1e3a5f;
   --color-navy-deep: #16283f;
   --color-navy-soft: #e9eef5;

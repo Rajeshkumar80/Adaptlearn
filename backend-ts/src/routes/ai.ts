@@ -9,6 +9,14 @@ import { geminiGenerate } from "../services/gemini";
 import { updateBkt } from "../services/bkt";
 import { evaluateAchievements } from "../services/achievements";
 
+export interface QuizQuestion {
+  kind: "mcq" | "short";
+  question: string;
+  options?: string[];
+  correctIndex?: number;
+  modelAnswer?: string;
+}
+
 const prisma = new PrismaClient();
 const router = Router();
 
@@ -49,40 +57,71 @@ router.post("/ask", requireAuth, aiLimiter, validate(askSchema), async (req: Aut
 
     const answerPrompt = `${VTU_SYSTEM_PROMPT}\n\nSUBJECT: ${subjectCode}\nQUESTION: ${question}\n\nRETRIEVED CONTENT:\n${context}\n\nANSWER:`;
 
-    const [answer, mcqJson] = await Promise.all([
+    const [answer, quizJson] = await Promise.all([
       geminiGenerate(answerPrompt, req.user!.id),
       geminiGenerate(
-        `Based on the retrieved content below, generate ONE multiple-choice question testing the core concept of: "${question}".
-Return STRICT JSON only: {"question":"...","options":["a","b","c","d"],"correctIndex":0}
+        `Based on the retrieved content below, generate a "state tracing" quiz with EXACTLY 5 questions that traces understanding step by step, from recall to application (easy -> harder).
+Mix both kinds: at least 2 MCQs and at least 2 short-answer questions.
+MCQ: 4 options, one correct. Short: no options, include a concise model answer (1-2 lines) for grading.
+Return STRICT JSON only, no markdown:
+{"questions":[{"kind":"mcq","question":"...","options":["a","b","c","d"],"correctIndex":0},{"kind":"short","question":"...","modelAnswer":"..."}]}
 RETRIEVED CONTENT:\n${context}`,
         req.user!.id
       ),
     ]);
 
-    let followUpMcq: { question: string; options: string[]; correctIndex: number; topicId: string | null } | null = null;
+    let followUpQuiz: { topicId: string | null; questions: QuizQuestion[] } = {
+      topicId: null,
+      questions: [],
+    };
     try {
-      const cleaned = mcqJson.replace(/```json|```/g, "").trim();
+      const cleaned = quizJson.replace(/```json|```/g, "").trim();
       const parsed = JSON.parse(cleaned);
-      // Bind the MCQ to a topic in scope so the student's answer feeds BKT.
+      const raw = Array.isArray(parsed.questions) ? parsed.questions : [];
+      const questions: QuizQuestion[] = raw
+        .filter(
+          (q: any) =>
+            q && q.question &&
+            (q.kind === "short" || (q.kind === "mcq" && Array.isArray(q.options) && q.options.length >= 2))
+        )
+        .slice(0, 5)
+        .map((q: any) => ({
+          kind: q.kind === "short" ? "short" : "mcq",
+          question: String(q.question),
+          options: q.kind === "mcq" ? q.options.map(String) : undefined,
+          correctIndex: q.kind === "mcq" ? Number(q.correctIndex) : undefined,
+          modelAnswer: q.kind === "short" ? String(q.modelAnswer ?? "") : undefined,
+        }));
+      // Bind the quiz to a topic in scope so answers feed BKT.
       const scopeModule = moduleNumber ?? chunks[0]?.moduleNumber ?? null;
       const topic = await prisma.topic.findFirst({
         where: { subjectCode, ...(scopeModule ? { moduleNumber: scopeModule } : {}) },
         orderBy: { order: "asc" },
       });
-      followUpMcq = {
-        question: parsed.question,
-        options: parsed.options,
-        correctIndex: parsed.correctIndex,
-        topicId: topic?.id ?? null,
-      };
+      followUpQuiz = { topicId: topic?.id ?? null, questions };
     } catch {
-      followUpMcq = null;
+      followUpQuiz = { topicId: null, questions: [] };
     }
+
+    const diagrams = Array.from(
+      new Map(
+        chunks
+          .filter((c) => c.pageImage)
+          .map((c) => [c.pageImage!.fileUrl, { ...c.pageImage!, title: c.title }])
+      ).values()
+    );
 
     res.json({
       answer,
-      retrievedChunks: chunks.map((c) => ({ id: c.id, title: c.title, similarity: c.similarity, moduleNumber: c.moduleNumber })),
-      followUpMcq,
+      retrievedChunks: chunks.map((c) => ({
+        id: c.id,
+        title: c.title,
+        similarity: c.similarity,
+        moduleNumber: c.moduleNumber,
+        pageImage: c.pageImage,
+      })),
+      diagrams,
+      followUpQuiz,
     });
   } catch (err) {
     res.status(500).json({ error: "AI request failed", detail: String(err) });
@@ -94,20 +133,18 @@ const mcqResponseSchema = z.object({
   correct: z.boolean(),
 });
 
-// §4.8 — feed MCQ answer into BKT (lightweight quiz-based update)
-router.post("/mcq-response", requireAuth, aiLimiter, validate(mcqResponseSchema), async (req: AuthRequest, res) => {
-  const { topicId, correct } = req.body;
-
+async function applyQuizFeedback(userId: string, topicId: string, correct: boolean) {
   const topic = await prisma.topic.findUnique({ where: { id: topicId } });
   if (!topic) {
-    res.status(404).json({ error: "Topic not found" });
-    return;
+    const err = new Error("Topic not found") as Error & { status?: number };
+    err.status = 404;
+    throw err;
   }
 
   const state = await prisma.learningState.upsert({
-    where: { userId_topicId: { userId: req.user!.id, topicId } },
+    where: { userId_topicId: { userId, topicId } },
     update: {},
-    create: { userId: req.user!.id, topicId },
+    create: { userId, topicId },
   });
 
   const bkt = updateBkt(
@@ -132,19 +169,68 @@ router.post("/mcq-response", requireAuth, aiLimiter, validate(mcqResponseSchema)
   });
 
   await prisma.studySession.create({
-    data: { userId: req.user!.id, topicId, method: "ai-mcq", correct },
+    data: { userId, topicId, method: "state-trace", correct },
   });
 
-  const unlocked = await evaluateAchievements(prisma, req.user!.id);
+  const achievementsUnlocked = await evaluateAchievements(prisma, userId);
 
-  res.json({
+  return {
     state: updated,
     topic: { id: topic.id, name: topic.name, subjectCode: topic.subjectCode },
     masteryBefore: state.mastery,
     masteryAfter: updated.mastery,
     delta: Math.round((updated.mastery - state.mastery) * 1000) / 1000,
-    achievementsUnlocked: unlocked,
-  });
+    achievementsUnlocked,
+  };
+}
+
+// §4.8 — feed MCQ quiz answer into BKT (lightweight quiz-based update)
+router.post("/mcq-response", requireAuth, aiLimiter, validate(mcqResponseSchema), async (req: AuthRequest, res) => {
+  const { topicId, correct } = req.body;
+
+  try {
+    const result = await applyQuizFeedback(req.user!.id, topicId, correct);
+    res.json(result);
+  } catch (err: any) {
+    res.status(err.status ?? 500).json({ error: err.status ? err.message : "AI request failed", detail: String(err) });
+  }
+});
+
+const quizGradeSchema = z.object({
+  topicId: z.string().min(1),
+  question: z.string().min(1).max(1000),
+  studentAnswer: z.string().min(1).max(2000),
+  modelAnswer: z.string().min(1).max(2000),
+});
+
+// §4.8 — grade a short-answer state-tracing response with Gemini, then feed BKT.
+router.post("/quiz-grade", requireAuth, aiLimiter, validate(quizGradeSchema), async (req: AuthRequest, res) => {
+  const { topicId, question, studentAnswer, modelAnswer } = req.body;
+  try {
+    const gradeJson = await geminiGenerate(
+      `Grade this student's short answer to a VTU exam question. Be fair and strict: award correct=true only if the answer covers the core concept in the model answer.
+QUESTION: ${question}
+MODEL ANSWER: ${modelAnswer}
+STUDENT ANSWER: ${studentAnswer}
+Return STRICT JSON only: {"correct":true|false,"feedback":"1-2 sentences explaining what was right/missing"}`,
+      req.user!.id
+    );
+    let correct = false;
+    let feedback = "Could not grade — review the model answer.";
+    try {
+      const cleaned = gradeJson.replace(/```json|```/g, "").trim();
+      const parsed = JSON.parse(cleaned);
+      correct = Boolean(parsed.correct);
+      feedback = String(parsed.feedback ?? feedback);
+    } catch {
+      /* keep fallback */
+    }
+
+    const result = await applyQuizFeedback(req.user!.id, topicId, correct);
+    res.json({ correct, feedback, ...result });
+  } catch (err: any) {
+    res.status(err.status ?? 500).json({ error: err.status ? err.message : "AI request failed", detail: String(err) });
+  }
 });
 
 export default router;

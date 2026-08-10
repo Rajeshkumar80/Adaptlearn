@@ -1,29 +1,32 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Sparkles, BookOpen } from "lucide-react";
-import { api, errorMessage } from "@/lib/api";
-import { Button, Select, Textarea, Toast } from "@/components/ui";
+import { Send, Sparkles, BookOpen, Image as ImageIcon } from "lucide-react";
+import { api, errorMessage, BACKEND_URL } from "@/lib/api";
+import { Button, Select, Textarea, Toast, Badge } from "@/components/ui";
 import { useSubjects } from "@/lib/subjects";
+import { useAuth } from "@/lib/auth";
+import QuizCard, { QuizQuestion } from "./QuizCard";
 
 interface ChatMessage {
   role: "user" | "assistant";
   content: string;
-  chunks?: { id: string; title: string; similarity: number; moduleNumber: number | null }[];
-  mcq?: {
-    question: string;
-    options: string[];
-    correctIndex: number;
-    topicId: string | null;
-  } | null;
-  mcqAnswered?: boolean;
-  mcqCorrect?: boolean;
-  masteryDelta?: string;
+  chunks?: {
+    id: string;
+    title: string;
+    similarity: number;
+    moduleNumber: number | null;
+    pageImage?: { pageNumber: number; fileUrl: string } | null;
+  }[];
+  diagrams?: { pageNumber: number; fileUrl: string; title: string }[];
+  quiz?: { topicId: string | null; questions: QuizQuestion[] };
 }
 
 export default function TutorPage() {
   const { subjects, loading } = useSubjects();
+  const { user } = useAuth();
+  const [semester, setSemester] = useState(5);
   const [subjectCode, setSubjectCode] = useState("");
   const [moduleNumber, setModuleNumber] = useState("");
   const [question, setQuestion] = useState("");
@@ -32,12 +35,33 @@ export default function TutorPage() {
   const [toast, setToast] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
 
+  const semesters = useMemo(() => {
+    const set = Array.from(new Set(subjects.map((s) => s.semester))).sort((a, b) => a - b);
+    if (set.length === 0) return [5, 6];
+    return set;
+  }, [subjects]);
+
+  const semSubjects = useMemo(
+    () => subjects.filter((s) => s.semester === semester),
+    [subjects, semester]
+  );
+
   useEffect(() => {
-    if (subjects.length > 0 && !subjectCode) {
-      setSubjectCode(subjects[0].code);
+    if (user?.semester) setSemester(user.semester);
+  }, [user?.semester]);
+
+  useEffect(() => {
+    if (semesters.length > 0 && !semesters.includes(semester)) {
+      setSemester(semesters[0]);
+    }
+  }, [semesters, semester]);
+
+  useEffect(() => {
+    if (semSubjects.length > 0 && !semSubjects.some((s) => s.code === subjectCode)) {
+      setSubjectCode(semSubjects[0].code);
       setModuleNumber("");
     }
-  }, [subjects, subjectCode]);
+  }, [semSubjects, subjectCode]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -58,13 +82,15 @@ export default function TutorPage() {
       });
       const data = res.data as {
         answer: string;
-        retrievedChunks?: { id: string; title: string; similarity: number; moduleNumber: number | null }[];
-        followUpMcq?: {
-          question: string;
-          options: string[];
-          correctIndex: number;
-          topicId: string | null;
-        } | null;
+        retrievedChunks?: {
+          id: string;
+          title: string;
+          similarity: number;
+          moduleNumber: number | null;
+          pageImage?: { pageNumber: number; fileUrl: string } | null;
+        }[];
+        diagrams?: { pageNumber: number; fileUrl: string; title: string }[];
+        followUpQuiz?: { topicId: string | null; questions: QuizQuestion[] };
       };
       setMessages((m) => [
         ...m,
@@ -72,7 +98,11 @@ export default function TutorPage() {
           role: "assistant",
           content: data.answer,
           chunks: data.retrievedChunks,
-          mcq: data.followUpMcq,
+          diagrams: data.diagrams,
+          quiz:
+            data.followUpQuiz && data.followUpQuiz.questions.length > 0
+              ? data.followUpQuiz
+              : undefined,
         },
       ]);
     } catch (err) {
@@ -85,37 +115,12 @@ export default function TutorPage() {
     }
   }
 
-  async function answerMcq(msgIndex: number, correct: boolean) {
-    const msg = messages[msgIndex];
-    if (!msg?.mcq) return;
-    setBusy(true);
-    try {
-      const res = await api.post("/ai/mcq-response", {
-        topicId: msg.mcq.topicId,
-        correct,
-      });
-      const data = res.data as { delta: number };
-      setMessages((m) =>
-        m.map((mm, i) =>
-          i === msgIndex
-            ? {
-                ...mm,
-                mcqAnswered: true,
-                mcqCorrect: correct,
-                masteryDelta: `mastery ${data.delta >= 0 ? "+" : ""}${data.delta.toFixed(3)}`,
-              }
-            : mm
-        )
-      );
-    } catch (err) {
-      setToast(errorMessage(err));
-    } finally {
-      setBusy(false);
-    }
-  }
-
   const moduleOptions =
     subjects.find((s) => s.code === subjectCode)?.modules ?? [];
+  const selectedSubject = subjects.find((s) => s.code === subjectCode);
+  const selectedModule = moduleOptions.find(
+    (m) => m.moduleNumber === Number(moduleNumber)
+  );
 
   return (
     <div className="flex h-full flex-col">
@@ -127,38 +132,93 @@ export default function TutorPage() {
         </p>
       </div>
 
-      <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <div>
-          <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-ink-muted">
-            Subject
-          </label>
-          <Select value={subjectCode} onChange={(e) => { setSubjectCode(e.target.value); setModuleNumber(""); }}>
-            {loading ? (
-              <option>Loading subjects…</option>
-            ) : (
-              subjects.map((s) => (
-                <option key={s.code} value={s.code}>
-                  {s.code} — {s.name}
+      <div className="ledger-card mb-4 p-4">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-[150px_minmax(0,1fr)_220px]">
+          <div>
+            <label
+              htmlFor="tutor-semester"
+              className="mb-1.5 block text-[12px] font-semibold uppercase tracking-wide text-ink-muted"
+            >
+              Semester
+            </label>
+            <Select
+              id="tutor-semester"
+              value={semester}
+              onChange={(e) => {
+                setSemester(Number(e.target.value));
+                setSubjectCode("");
+                setModuleNumber("");
+              }}
+            >
+              {semesters.map((sem) => (
+                <option key={sem} value={sem}>
+                  Sem {sem}
                 </option>
-              ))
-            )}
-          </Select>
+              ))}
+            </Select>
+          </div>
+          <div>
+            <label
+              htmlFor="tutor-subject"
+              className="mb-1.5 block text-[12px] font-semibold uppercase tracking-wide text-ink-muted"
+            >
+              Subject
+            </label>
+            <Select
+              id="tutor-subject"
+              value={subjectCode}
+              onChange={(e) => {
+                setSubjectCode(e.target.value);
+                setModuleNumber("");
+              }}
+            >
+              {loading ? (
+                <option>Loading subjects…</option>
+              ) : semSubjects.length === 0 ? (
+                <option value="">No subjects for Sem {semester}</option>
+              ) : (
+                semSubjects.map((s) => (
+                  <option key={s.code} value={s.code}>
+                    {s.code} — {s.name}
+                  </option>
+                ))
+              )}
+            </Select>
+          </div>
+          <div>
+            <label
+              htmlFor="tutor-module"
+              className="mb-1.5 block text-[12px] font-semibold uppercase tracking-wide text-ink-muted"
+            >
+              Module (optional)
+            </label>
+            <Select
+              id="tutor-module"
+              value={moduleNumber}
+              onChange={(e) => setModuleNumber(e.target.value)}
+            >
+              <option value="">All modules</option>
+              {moduleOptions.map((m) => (
+                <option key={m.id} value={m.moduleNumber}>
+                  Module {m.moduleNumber} — {m.name}
+                </option>
+              ))}
+            </Select>
+          </div>
         </div>
-        <div>
-          <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-ink-muted">
-            Module (optional)
-          </label>
-          <Select
-            value={moduleNumber}
-            onChange={(e) => setModuleNumber(e.target.value)}
-          >
-            <option value="">All modules</option>
-            {moduleOptions.map((m) => (
-              <option key={m.id} value={m.moduleNumber}>
-                Module {m.moduleNumber} — {m.name}
-              </option>
-            ))}
-          </Select>
+        <div className="mt-3 flex flex-wrap items-center gap-1.5 border-t border-hairline pt-3">
+          <span className="text-[11px] font-semibold uppercase tracking-wide text-ink-muted">
+            Tutor scope
+          </span>
+          <Badge tone="navy">Sem {semester}</Badge>
+          <Badge tone="brass" className="max-w-[280px] truncate">
+            {selectedSubject
+              ? `${selectedSubject.code} — ${selectedSubject.name}`
+              : "No subject selected"}
+          </Badge>
+          <Badge tone="navy">
+            {selectedModule ? `Module ${selectedModule.moduleNumber}` : "All modules"}
+          </Badge>
         </div>
       </div>
 
@@ -210,38 +270,37 @@ export default function TutorPage() {
                   </div>
                 )}
 
-                {m.mcq && !m.mcqAnswered && (
-                  <div className="mt-3 rounded-[2px] border border-brass bg-warning-soft p-3">
-                    <p className="mb-2 text-[13px] font-semibold text-ink">
-                      {m.mcq.question}
+                {m.diagrams && m.diagrams.length > 0 && (
+                  <div className="mt-3 border-t border-hairline pt-2">
+                    <p className="mb-1.5 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-widest text-ink-muted">
+                      <ImageIcon className="h-3 w-3" /> Diagram{ m.diagrams.length > 1 ? "s" : "" } from the notes
                     </p>
-                    <div className="grid gap-1.5">
-                      {m.mcq.options.map((opt, oi) => (
-                        <button
-                          key={oi}
-                          disabled={busy}
-                          onClick={() => answerMcq(i, oi === m.mcq!.correctIndex)}
-                          className="rounded-[2px] border border-hairline bg-paper px-3 py-1.5 text-left text-[12px] hover:border-brass hover:bg-paper-alt disabled:opacity-50"
+                    <div className="grid gap-2">
+                      {m.diagrams.map((d, di) => (
+                        <a
+                          key={`${d.fileUrl}-${di}`}
+                          href={`${BACKEND_URL}${d.fileUrl}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="group block"
                         >
-                          {String.fromCharCode(65 + oi)}. {opt}
-                        </button>
+                          <img
+                            src={`${BACKEND_URL}${d.fileUrl}`}
+                            alt={`${d.title} — page ${d.pageNumber}`}
+                            loading="lazy"
+                            className="max-h-[340px] w-full rounded-[2px] border border-hairline bg-paper object-contain"
+                          />
+                          <span className="mt-1 block text-[11px] text-ink-muted group-hover:text-brass">
+                            {d.title} · page {d.pageNumber} — open full size ↗
+                          </span>
+                        </a>
                       ))}
                     </div>
                   </div>
                 )}
 
-                {m.mcq && m.mcqAnswered && (
-                  <div
-                    className={`mt-3 rounded-[2px] border px-3 py-2 text-[12px] font-medium ${
-                      m.mcqCorrect
-                        ? "border-success bg-success-soft text-success"
-                        : "border-error bg-error-soft text-error"
-                    }`}
-                  >
-                    {m.mcqCorrect
-                      ? `Correct — ${m.masteryDelta}.`
-                      : `Not quite — ${m.masteryDelta}. Review the module notes and try again.`}
-                  </div>
+                {m.quiz && (
+                  <QuizCard topicId={m.quiz.topicId} questions={m.quiz.questions} />
                 )}
               </div>
             </motion.div>
@@ -256,17 +315,52 @@ export default function TutorPage() {
         <div ref={bottomRef} />
       </div>
 
-      <form onSubmit={ask} className="mt-4 flex gap-2">
+      <form onSubmit={ask} className="ledger-card mt-4 p-4">
+        <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+          <label
+            htmlFor="tutor-question"
+            className="text-[12px] font-semibold uppercase tracking-wide text-ink-muted"
+          >
+            Ask a question
+          </label>
+          <span className="text-[11px] text-ink-muted">
+            {selectedSubject
+              ? `${selectedSubject.code}${selectedModule ? ` · Module ${selectedModule.moduleNumber}` : " · all modules"}`
+              : "No subject selected"}
+            {busy && " · tutor is thinking…"}
+          </span>
+        </div>
         <Textarea
+          id="tutor-question"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
+          onKeyDown={(e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === "Enter" && question.trim() && !busy) {
+              e.preventDefault();
+              ask(e);
+            }
+          }}
           placeholder="Ask a question about the syllabus, a diagram, or a numerical…"
-          rows={2}
-          className="resize-none"
+          rows={4}
+          className="min-h-[130px] w-full resize-y text-[14px] leading-relaxed"
         />
-        <Button type="submit" disabled={busy || !question.trim()} className="shrink-0">
-          <Send className="h-4 w-4" /> Ask
-        </Button>
+        <div className="mt-2 flex justify-end">
+          <Button
+            type="submit"
+            disabled={busy || !question.trim()}
+            className="shrink-0"
+          >
+            {busy ? (
+              <span className="flex items-center gap-2">
+                <div className="skeleton h-3 w-3 rounded-full" /> Thinking…
+              </span>
+            ) : (
+              <>
+                <Send className="h-4 w-4" /> Ask
+              </>
+            )}
+          </Button>
+        </div>
       </form>
 
       <AnimatePresence>

@@ -7,6 +7,7 @@ import { z } from "zod";
 import { requireAuth, requireTeacher, AuthRequest } from "../middleware/auth";
 import { validate } from "../middleware/validation";
 import { chunkText, embedText } from "../services/embeddings";
+import { ingestPdfDocument, IngestedDoc } from "../services/ingest";
 
 const prisma = new PrismaClient();
 const router = Router();
@@ -38,14 +39,26 @@ router.post("/upload", requireAuth, requireTeacher, upload.single("file"), valid
     const { subjectCode, moduleNumber, docType } = req.body;
 
     let text: string;
+    let pdfIngest: IngestedDoc | null = null;
     if (req.file.mimetype === "application/pdf" || req.file.originalname.endsWith(".pdf")) {
-      const pdf = await import("pdf-parse");
-      const buf = fs.readFileSync(req.file.path);
-      const parsed = await pdf.default(buf);
-      text = parsed.text;
-    } else {
-      text = fs.readFileSync(req.file.path, "utf-8");
+      // Diagram-aware path: render every page to PNG, chunk per page with page numbers.
+      pdfIngest = await ingestPdfDocument(prisma, {
+        pdfPath: req.file.path,
+        subjectCode,
+        moduleNumber: moduleNumber || null,
+        title: req.file.originalname,
+        docType: docType || "notes",
+        uploadedByTeacherId: req.user!.id,
+      });
+      res.status(201).json({
+        document: { id: pdfIngest.documentId, title: req.file.originalname, subjectCode, moduleNumber: moduleNumber || null },
+        chunkCount: pdfIngest.chunkCount,
+        pageCount: pdfIngest.pageCount,
+        pageImages: pdfIngest.pageImages,
+      });
+      return;
     }
+    text = fs.readFileSync(req.file.path, "utf-8");
 
     const document = await prisma.document.create({
       data: {
