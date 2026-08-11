@@ -116,7 +116,11 @@ describe("notes scoping (§4.12)", () => {
       .field("moduleNumber", "1")
       .field("title", "Scoped note test")
       .field("classId", classId)
-      .attach("file", Buffer.from("# Test note content"), "test-note.md");
+      .attach(
+        "file",
+        Buffer.from("%PDF-1.4\n1 0 obj<</Type/Catalog>>endobj\ntrailer<</Root 1 0 R>>\n%%EOF"),
+        "test-note.pdf"
+      );
     expect(upload.status).toBe(201);
 
     const inClass = await request(app)

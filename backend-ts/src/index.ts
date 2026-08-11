@@ -81,7 +81,12 @@ export function createApp() {
   app.use("/api/chat", chatRoutes);
 
   app.use((err: Error, _req: Request, res: Response, _next: any) => {
-    res.status(500).json({ error: "Internal server error", detail: err.message });
+    // Multer / file-type rejections are client errors (e.g. non-PDF note upload).
+    const clientError =
+      (err as { code?: string }).code === "LIMIT_FILE_SIZE" ||
+      err.message.startsWith("Only PDF files") ||
+      err.name === "MulterError";
+    res.status(clientError ? 400 : 500).json({ error: clientError ? err.message : "Internal server error", detail: err.message });
   });
 
   return app;
