@@ -35,17 +35,17 @@ import {
 } from "@/components/ui";
 
 const C = {
-  navy: "#1e3a5f",
-  navySoft: "#e9eef5",
+  navy: "#1c4a2f",
+  navySoft: "#dfe9e0",
   brass: "#a67c2e",
   success: "#2f6b4f",
   error: "#a03a2e",
   warning: "#a05e1c",
   info: "#3e6d9c",
-  inkMuted: "#6e6656",
-  hairline: "#e2e2de",
-  grid: "#d8cdb4",
-  paperDeep: "#ececea",
+  inkMuted: "#6b6052",
+  hairline: "#cbbf9f",
+  grid: "#cbbf9f",
+  paperDeep: "#e7dfcc",
 };
 
 const PALETTE = [C.navy, C.brass, C.success, C.warning, C.info, C.error];
@@ -458,7 +458,7 @@ export default function TeacherAnalytics() {
         <Card>
           <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h2 className="font-display text-[17px] font-semibold text-ink">Integrity ledger</h2>
+              <h2 className="font-display text-[17px] font-semibold text-ink">Integrity log</h2>
               <p className="text-[12px] text-ink-muted">tab-switch & window-blur events</p>
             </div>
             <div className="flex items-center gap-1.5">

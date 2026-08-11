@@ -111,7 +111,7 @@ export default function StudentDashboard() {
   if (loading) {
     return (
       <div>
-        <PageTitle title="Dashboard" subtitle="Opening your study ledger…" />
+        <PageTitle title="Dashboard" subtitle="Pinning your study notices…" />
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <div key={i} className="skeleton h-24" />
@@ -138,6 +138,7 @@ export default function StudentDashboard() {
       value: `${Math.round(avgMastery * 100)}%`,
       tone: C.brass,
       footnote: `${states.length} topics tracked`,
+      sheet: "sheet-yellow",
     },
     {
       icon: BookOpenCheck,
@@ -145,6 +146,7 @@ export default function StudentDashboard() {
       value: mastered,
       tone: C.success,
       footnote: "≥ 70% mastery",
+      sheet: "sheet-green",
     },
     {
       icon: Trophy,
@@ -152,6 +154,7 @@ export default function StudentDashboard() {
       value: profile?.achievements.length ?? 0,
       tone: C.navy,
       footnote: "earned along the way",
+      sheet: "sheet-blue",
     },
     {
       icon: BellRing,
@@ -159,6 +162,7 @@ export default function StudentDashboard() {
       value: unread,
       tone: unread > 0 ? C.error : C.inkMuted,
       footnote: "from your teacher",
+      sheet: "sheet-pink",
     },
   ];
 
@@ -215,7 +219,7 @@ export default function StudentDashboard() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.22, delay: i * 0.05 }}
-            className="ledger-card p-4"
+            className={`ledger-card p-4 ${k.sheet}`}
           >
             <div className="flex items-center justify-between">
               <p className="text-[11px] font-semibold uppercase tracking-wide text-ink-muted">

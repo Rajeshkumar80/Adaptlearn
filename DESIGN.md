@@ -1,4 +1,4 @@
-# AdaptLearn — Design System (Academic Ledger)
+# AdaptLearn — Design System (Campus Notice Board)
 
 ## Product Context
 
@@ -10,21 +10,26 @@ classes, notes, assignments, tests, and anti-cheat reports.
 
 Two audiences, one system: student screens are warm and readable (long study
 sessions), teacher screens are data-dense (analytics, cheat reports) but share
-the same ledger DNA — no second app.
+the same notice-board DNA — no second app.
 
 ## Aesthetic Direction
 
-**"Academic Ledger"** — the visual language of an exam hall answer sheet and a
-well-kept marks register, translated to a modern EdTech product.
+**"Campus Notice Board"** — every screen is a real cork board with paper
+sheets pinned to it: the notice board outside the VTU admin office, translated
+to a modern EdTech product.
 
-- Deep navy = the ink of a formal register cover; cream = the paper itself.
-- Hairline rules (thin 1px lines) separate rows and sections, like ruled paper
-  and ledger columns, instead of heavy shadows or filled cards.
-- Brass/gold accents are reserved for marks, achievements, and mastery —
-  gold is what an answer earns.
-- Generous whitespace around text; dense, tabular rows for data.
-- Decoration level: LOW — structure comes from rules, spacing, and
-  typography, not gradients, blur, or glassmorphism.
+- The board itself is deep green cork (`board`); everything sits on it as a
+  pinned paper sheet (`paper`, or a colored `sheet-*` variant).
+- Sheets are held by red-headed push pins (`pin-red`) — physical hardware,
+  never drop shadows or glass.
+- Statuses are rubber stamps (`stamp`): rotated, uppercase, ink-edged
+  (APPROVED · DUE SOON · MASTERED) instead of pill badges.
+- Forms are pencil-underlined lines on paper (`.form-field`), not boxed
+  inputs.
+- Brass is reserved for earned things — marks, achievements, mastery: gold is
+  what an answer earns.
+- Decoration level: LOW — structure comes from the board, the sheets, the
+  pins and the stamps; no gradients, no blur, no glassmorphism, no shadows.
 
 This is a deliberate rejection of the generic shadcn look (gray-100 cards,
 blue-500 buttons, 8px rounded corners everywhere). Nothing here uses default
@@ -34,10 +39,9 @@ component styling.
 
 | Role | Font | Weight / Style | Notes |
 |---|---|---|---|
-| Display / Hero | Fraunces (serif) | 600, optical size auto | Brand headlines, empty-state titles, big numbers |
-| Headings h2–h4 | Fraunces | 500–600 | Section titles |
+| Display / Notice headers | Oswald (sans, condensed) | 500–700, UPPERCASE | Notice titles, section headers, big numbers |
 | Body | Public Sans (sans) | 400, 600 bold | All reading text |
-| UI / Labels / Buttons | Public Sans | 500–600, 13px | Caps for nav/labels at 12px |
+| UI / Labels / Buttons | Public Sans | 500–600, 13px | Caps for nav/labels at 12px, tracked |
 | Data / Tables / Mastery | Public Sans | 400 with `tabular-nums` | Ledger rows, scores, charts |
 | Micro / Captions | Public Sans | 400, 12px, muted | Timestamps, meta, help text |
 
@@ -48,26 +52,42 @@ micro 12. Line-height 1.5 body, 1.15 headings.
 
 | Token | Hex | Use |
 |---|---|---|
-| `ink` | `#26221C` | Primary text |
-| `ink-muted` | `#6E6656` | Secondary text, captions |
-| `paper` | `#F7F3E8` | Page background (cream) |
-| `paper-alt` | `#EFE9D9` | Raised panels, wells |
-| `paper-deep` | `#E4DCC6` | Hover wells, table header fill |
-| `hairline` | `#D8CDB4` | Borders, rules, dividers |
-| `navy` | `#1E3A5F` | Primary actions, active nav |
-| `navy-deep` | `#16283F` | Dark surfaces (splash, footer) |
-| `navy-soft` | `#E9EEF5` | Selected rows, info tint |
+| `board` | `#1C4A2F` | The cork board — page background, primary actions, active nav |
+| `board-deep` | `#123325` | Dark board surfaces (splash, footer) |
+| `board-soft` | `#2A6140` | Hover wells on the board, selected rows |
+| `ink` | `#221E17` | Primary text on paper |
+| `ink-muted` | `#6B6052` | Secondary text, captions |
+| `paper` | `#FAF6EA` | Default sheet (content cards, chat bubbles) |
+| `paper-alt` | `#F1EBDD` | Raised wells, table header fill |
+| `paper-deep` | `#E7DFCC` | Hover wells |
+| `hairline` | `#CBBF9F` | Sheet borders, rules, dividers |
+| `sheet-yellow` | `#F9E8A8` | Highlight notice sheets (KPIs, alerts) |
+| `sheet-pink` | `#F5D5CC` | Secondary notice sheets (warnings, notices) |
+| `sheet-blue` | `#DCE7F2` | Info sheets |
+| `sheet-green` | `#DFEBDD` | Success sheets |
+| `pin-red` | `#C4453A` | Pins, delete/destructive actions |
+| `pin-deep` | `#8F2E24` | Pin shadow/detail |
 | `brass` | `#A67C2E` | Marks, achievements, mastery, stars |
 | `success` | `#2F6B4F` | Correct, mastered, positive deltas |
-| `success-soft` | `#E4EDE7` | Success tint |
 | `warning` | `#A05E1C` | Due soon, warnings |
-| `warning-soft` | `#F3E8DA` | Warning tint |
 | `error` | `#A03A2E` | Wrong, blocked, cheat flags |
-| `error-soft` | `#F4E4E1` | Error tint |
 | `info` | `#3E6D9C` | Neutral information, links |
 
-Buttons: primary = navy; gold only for mastery/achievement actions.
-Semantic text colors pair with soft tints (e.g. success-soft + success border).
+Legacy aliases: `navy` → `board`, `navy-deep` → `board-deep`,
+`navy-soft` → soft board tint (`#DFE9E0`) — old class names still resolve.
+
+Buttons: primary = board green; gold only for mastery/achievement actions.
+
+## Pins, Sheets, Stamps
+
+- **Pin**: 8px red-headed pin (circle + highlight + brass stem) rendered in
+  the top-left/center-top of pinned cards; `pin-drop` animation on mount.
+- **Sheets**: `ledger-card` = paper sheet with hairline border + optional
+  `sheet-yellow|pink|blue|green` variant + optional `pinned` (pin shown).
+- **Stamp**: uppercase, 2px border, rotated −4°–3°, ink-colored
+  (`.stamp` + tone); lands with `stamp-land` animation.
+- Rules: one stamp per sheet max; pins only on the top edge; a sheet may be
+  pinned without a stamp, never stamped without a sheet.
 
 ## Spacing
 
@@ -78,40 +98,46 @@ teacher tables.
 
 ## Layout
 
-- 1px hairline rules (`hairline` color) define cards, table rows, section
-  dividers — cards are outlined, not shadowed (no default card look).
-- Student app: left rail nav (brand mark, subject picker, screen links) on
-  desktop; bottom tab bar on mobile. Teacher app: same rail, denser tables.
+- Green board background everywhere; content lives in pinned paper sheets
+  (`.ledger-card`), defined by hairline borders — no shadows, no default-card
+  look.
+- Student app: left board rail nav (painted brand sign, subject picker,
+  screen links pinned in) on desktop; bottom tab bar on mobile. Teacher app:
+  same rail, denser tables.
 - Grid: 12-col desktop, 6-col tablet, 1-col mobile; cards snap to 4/8/12.
-- Border radius: 2px (cards, buttons, inputs) — sharp ledger edges; pills
-  (999px) only for badges/chips.
+- Border radius: 2–3px (sheets, buttons, inputs) — sharp paper edges; pills
+  (999px) only for the stamp dot/skeleton pulse.
 
 ## Motion (Framer Motion)
 
-- Page transitions: 180ms fade + 8px rise, ease-out.
-- Cards/rows: hover 8px translateY? No — hover = hairline darkens + 1px
-  translateY at 120ms. Subtle, no bounce.
+- Page/notice entry: 180ms fade + 8px rise, ease-out.
+- Pins: `pin-drop` (pin falls from above, 220ms, once, on pinned sheets).
+- Stamps: `stamp-land` (scale 1.15 → 1 with ink blur settle, 200ms).
+- Cards/rows hover: hairline darkens + 1px translateY at 120ms. No bounce.
 - Skeletons: shimmer sweep 1.4s loop.
 - Toasts: slide in from top-right, 240ms, auto-dismiss 4s.
 - MCQ answer reveal: 200ms scale-in on the correct-answer banner.
-- Reduced motion respected (`prefers-reduced-motion` → transitions off).
+- Reduced motion respected (`prefers-reduced-motion` → all of the above
+  become instant).
 
 ## Empty / Loading / Error States
 
 Every list/table screen ships all three, designed:
 
-- **Empty**: Fraunces title + one-line explainer + primary action (e.g. "No
-  notes yet — upload the first module note").
+- **Empty**: Oswald notice title + one-line explainer + primary action
+  (e.g. "No notes pinned yet — upload the first module note").
 - **Loading**: skeleton rows matching final layout (shimmer).
-- **Error**: error color hairline panel, message, retry button.
+- **Error**: error-ink hairline sheet, message, retry button.
 
 ## Decisions Log
 
 | # | Decision | Why |
 |---|---|---|
-| 1 | Academic Ledger over dark ops-console | Master prompt requires a deliberate, non-generic direction; exam-register heritage fits VTU; screenshots/viva clarity |
-| 2 | Hairline-outlined cards over shadowed cards | Ledger paper feel; avoids default-card look |
-| 3 | Brass only for earned things | Gold-as-marks reinforces the mastery loop |
-| 4 | Fraunces + Public Sans | Serif display gives identity; Public Sans is civic/government-grade readable |
-| 5 | tabular-nums in all data tables | Ledger columns must align under a strict eye |
-| 6 | Mobile bottom tabs for students | §6.0 mandates mobile-usable student screens; teachers desktop-first |
+| 1 | Campus Notice Board over Academic Ledger | Impeccable direction roll (concept-seed `8c76c9d9`, assigned index 3); board+sheets+pins+stamps is distinctive, instantly readable, and carries the campus/VTU story; screenshots/viva clarity |
+| 2 | Pinned sheets over shadowed cards | Physical board metaphor; pins replace shadow as the depth cue |
+| 3 | Rubber stamps over pills | Statuses (APPROVED/DUE/MASTERED) gain weight and personality |
+| 4 | Oswald + Public Sans | Condensed uppercase display reads like printed notice headers; Public Sans is civic/government-grade readable |
+| 5 | Board-green navy alias | `navy` tokens kept as aliases so all legacy class usage resolves to the board |
+| 6 | tabular-nums in all data tables | Notice-board rosters must align under a strict eye |
+| 7 | Mobile bottom tabs for students | §6.0 mandates mobile-usable student screens; teachers desktop-first |
+| 8 | Functionality preserved across redesign | All routes, APIs, flows unchanged — look only (product constraint) |

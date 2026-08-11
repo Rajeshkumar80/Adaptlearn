@@ -1,38 +1,49 @@
 @import "tailwindcss";
 
 @theme {
-  /* Academic Ledger — see DESIGN.md */
-  --color-ink: #26221c;
-  --color-ink-muted: #6e6656;
-  --color-paper: #ffffff;
-  --color-paper-alt: #f7f7f5;
-  --color-paper-deep: #ececea;
-  --color-hairline: #e2e2de;
-  --color-navy: #1e3a5f;
-  --color-navy-deep: #16283f;
-  --color-navy-soft: #e9eef5;
+  /* Campus Notice Board — see DESIGN.md */
+  --color-ink: #221e17;
+  --color-ink-muted: #6b6052;
+  --color-paper: #faf6ea;
+  --color-paper-alt: #f1ebdd;
+  --color-paper-deep: #e7dfcc;
+  --color-hairline: #cbbf9f;
+  --color-board: #1c4a2f;
+  --color-board-deep: #123325;
+  --color-board-soft: #2a6140;
+  --color-navy: #1c4a2f;
+  --color-navy-deep: #123325;
+  --color-navy-soft: #dfe9e0;
   --color-brass: #a67c2e;
+  --color-brass-soft: #f3e9d3;
   --color-success: #2f6b4f;
-  --color-success-soft: #e4ede7;
+  --color-success-soft: #e2ece4;
   --color-warning: #a05e1c;
-  --color-warning-soft: #f3e8da;
+  --color-warning-soft: #f4e8d8;
   --color-error: #a03a2e;
-  --color-error-soft: #f4e4e1;
+  --color-error-soft: #f6e2de;
   --color-info: #3e6d9c;
+  --color-info-soft: #e2eaf2;
+  --color-sheet-yellow: #f9e8a8;
+  --color-sheet-pink: #f5d5cc;
+  --color-sheet-blue: #dce7f2;
+  --color-sheet-green: #dfebdd;
+  --color-pin-red: #c4453a;
+  --color-pin-deep: #8f2e24;
 
-  --font-display: "Fraunces", Georgia, serif;
+  --font-display: "Oswald", "Arial Narrow", sans-serif;
   --font-body: "Public Sans", "Segoe UI", sans-serif;
 
   --radius-xs: 2px;
   --radius-sm: 2px;
-  --radius-md: 2px;
-  --radius-lg: 2px;
+  --radius-md: 3px;
+  --radius-lg: 3px;
   --radius-xl: 4px;
 }
 
 html,
 body {
-  background: var(--color-paper);
+  background: var(--color-board);
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: 15px;
@@ -47,11 +58,54 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Hairline rule cards — the ledger signature */
+::selection {
+  background: var(--color-board-soft);
+  color: var(--color-paper);
+}
+
+::placeholder {
+  color: var(--color-ink-muted);
+}
+
+input,
+textarea,
+select {
+  caret-color: var(--color-board);
+}
+
+/* The sheet — a pinned notice / chart paper. The notice-board card. */
 .ledger-card {
+  position: relative;
   background: var(--color-paper);
   border: 1px solid var(--color-hairline);
   border-radius: var(--radius-lg);
+  box-shadow: 0 1px 2px rgba(18, 51, 37, 0.16), 0 3px 8px rgba(18, 51, 37, 0.1);
+}
+
+.ledger-card.sheet-yellow {
+  background: var(--color-sheet-yellow);
+}
+
+.ledger-card.sheet-pink {
+  background: var(--color-sheet-pink);
+}
+
+.ledger-card.sheet-blue {
+  background: var(--color-sheet-blue);
+}
+
+.ledger-card.sheet-green {
+  background: var(--color-sheet-green);
+}
+
+.ledger-card .pin {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%) rotate(0deg);
+  width: 22px;
+  height: 22px;
+  z-index: 2;
 }
 
 .ledger-panel {
@@ -60,6 +114,7 @@ body {
   border-radius: var(--radius-lg);
 }
 
+/* Ruled register row — the notice-board table row */
 .ledger-table-row {
   border-bottom: 1px solid var(--color-hairline);
 }
@@ -68,7 +123,47 @@ body {
   border-bottom: none;
 }
 
-/* Skeleton shimmer */
+/* Rubber stamp — states written in ink */
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+  background: transparent;
+  box-shadow: inset 0 0 0 2px transparent;
+}
+
+.stamp.stamp-rot {
+  transform: rotate(-3deg);
+}
+
+.stamp.stamp-straight {
+  transform: none;
+}
+
+/* Pencil underline form fields */
+.form-field {
+  background: var(--color-paper);
+  border: 1px solid var(--color-hairline);
+  border-bottom: 2px solid var(--color-board);
+  border-radius: var(--radius-xs);
+  transition: border-color 0.12s ease-out, box-shadow 0.12s ease-out;
+}
+
+.form-field:focus {
+  outline: none;
+  border-color: var(--color-board);
+  box-shadow: 0 0 0 3px var(--color-navy-soft);
+}
+
+/* Skeleton shimmer — ruled lines being typed */
 @keyframes shimmer {
   0% {
     background-position: -400px 0;
@@ -89,10 +184,70 @@ body {
   animation: shimmer 1.4s infinite linear;
 }
 
-/* Focus rings */
+/* Pin drop — sheets land like a pushpin */
+@keyframes pin-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.985);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(1px) scale(1.002);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.sheet-enter {
+  animation: pin-drop 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Stamp landing — the authored moment */
+@keyframes stamp-land {
+  0% {
+    opacity: 0;
+    transform: rotate(-6deg) scale(1.35);
+  }
+  70% {
+    opacity: 1;
+    transform: rotate(-2.5deg) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(-2deg) scale(1);
+  }
+}
+
+.stamp-enter {
+  animation: stamp-land 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Focus rings — gold ink */
 :focus-visible {
-  outline: 2px solid var(--color-navy);
+  outline: 2px solid var(--color-brass);
   outline-offset: 2px;
+}
+
+/* Browser surfaces belong to the world */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-board-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-board-soft);
+  border: 3px solid var(--color-board-deep);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brass);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth";
 
-export function RoleGuard({ role }: { role: "STUDENT" | "TEACHER" }) {
+export function RoleGuard({ role }: { role: "STUDENT" | "TEACHER" | "ADMIN" }) {
   const { user, loading } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
@@ -15,12 +15,14 @@ export function RoleGuard({ role }: { role: "STUDENT" | "TEACHER" }) {
       router.replace(`/login?next=${encodeURIComponent(pathname)}`);
       return;
     }
-    if (role === "TEACHER" && user.role !== "TEACHER") {
-      router.replace("/student/dashboard");
-      return;
-    }
-    if (role === "STUDENT" && user.role !== "STUDENT") {
-      router.replace("/teacher/dashboard");
+    const home =
+      user.role === "TEACHER"
+        ? "/teacher/dashboard"
+        : user.role === "ADMIN"
+          ? "/admin/dashboard"
+          : "/student/dashboard";
+    if (user.role !== role) {
+      router.replace(home);
     }
   }, [user, loading, role, router, pathname]);
 
@@ -29,7 +31,7 @@ export function RoleGuard({ role }: { role: "STUDENT" | "TEACHER" }) {
       <div className="flex h-screen items-center justify-center">
         <div className="flex items-center gap-3">
           <div className="skeleton h-6 w-6 rounded-full" />
-          <p className="text-[13px] text-ink-muted">Opening the ledger…</p>
+          <p className="text-[13px] text-ink-muted">Pinning the notices…</p>
         </div>
       </div>
     );
