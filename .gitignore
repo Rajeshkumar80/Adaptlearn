@@ -31,4 +31,7 @@ Thumbs.db
 backend-ts/uploads/
 .gstack/
 
+# Agent skills (installed by tooling, not app code)
+.agents/
+
 tsconfig.tsbuildinfo
