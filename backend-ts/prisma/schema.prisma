@@ -224,11 +224,15 @@ model AssignmentSubmission {
   assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
   studentId    String
   student      User       @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  fileUrl      String
+  content      String? // typed answer (text)
+  fileUrls     Json? // uploaded photo(s) of handwritten work
+  fileUrl      String? // legacy single URL (kept for existing rows)
   submittedAt  DateTime   @default(now())
   marks        Float?
   feedback     String?
   gradedAt     DateTime?
+  aiAnalysis   Json? // { recommendedScore, summary, strengths[], improvements[] }
+  aiEvaluatedAt DateTime?
 
   @@unique([assignmentId, studentId])
 }
