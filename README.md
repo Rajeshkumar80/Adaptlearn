@@ -15,7 +15,7 @@ Built greenfield per `000_MASTER_PROMPT.md` (no Docker; local PostgreSQL + pgvec
 | Frontend | Next.js 15 (App Router) + Tailwind v4 + Recharts + framer-motion | `frontend/` |
 | Database | PostgreSQL 18 local, pgvector 0.8.6, HNSW index on 384-dim embeddings | `adaptive_learning_platform` |
 | Embeddings | Gemini 2.5 Flash (`gemini-2.5-flash`, 768→384-dim projection) | `backend-ts/src/services/embeddings.ts` |
-| Design system | "Academic Ledger" — see `DESIGN.md` | root |
+| Design system | "Campus Notice Board" — see `DESIGN.md` | root |
 
 ## Setup
 
@@ -65,8 +65,8 @@ Ingest VTU syllabus + PYQ corpus:
 
 ## Tests
 
-- Backend: `cd backend-ts && npx jest` → **28 tests / 28 pass** (6 suites: BKT, SM-2,
-  embeddings, scheduler, PYQ scorer, API/auth).
+- Backend: `cd backend-ts && npx jest` → **32 tests / 32 pass** (7 suites: BKT, SM-2,
+  embeddings, scheduler, PYQ scorer, API/auth, AI quiz).
 - Frontend: `cd frontend && npx vitest run` → **4 tests / 4 pass** (RoleGuard).
 - Typecheck: `cd frontend && npx tsc --noEmit` → clean.
 
