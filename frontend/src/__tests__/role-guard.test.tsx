@@ -41,7 +41,7 @@ describe("RoleGuard", () => {
 
   it("shows the loading splash while auth is resolving", () => {
     renderWithRole(null, true);
-    expect(screen.getByText("Pinning the notices…")).toBeInTheDocument();
+    expect(screen.getByText("Opening the ledger…")).toBeInTheDocument();
   });
 
   it("redirects unauthenticated users to /login with the next path", async () => {

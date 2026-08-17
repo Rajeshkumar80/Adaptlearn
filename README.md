@@ -15,7 +15,7 @@ Built greenfield per `000_MASTER_PROMPT.md` (no Docker; local PostgreSQL + pgvec
 | Frontend | Next.js 15 (App Router) + Tailwind v4 + Recharts + framer-motion | `frontend/` |
 | Database | PostgreSQL 18 local, pgvector 0.8.6, HNSW index on 384-dim embeddings | `adaptive_learning_platform` |
 | Embeddings | Gemini 2.5 Flash (`gemini-2.5-flash`, 768→384-dim projection) | `backend-ts/src/services/embeddings.ts` |
-| Design system | "Campus Notice Board" — see `DESIGN.md` | root |
+| Design system | "Academic Ledger" — see `DESIGN.md` | root |
 
 ## Setup
 

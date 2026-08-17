@@ -29,14 +29,14 @@ import {
 import { useSubjects } from "@/lib/subjects";
 
 const C = {
-  navy: "#1c4a2f",
-  navySoft: "#dfe9e0",
+  navy: "#1e3a5f",
+  navySoft: "#e9eef5",
   brass: "#a67c2e",
   success: "#2f6b4f",
   error: "#a03a2e",
   warning: "#a05e1c",
-  inkMuted: "#6b6052",
-  hairline: "#cbbf9f",
+  inkMuted: "#6e6656",
+  hairline: "#e2e2de",
 };
 
 interface Assignment {

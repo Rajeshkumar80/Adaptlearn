@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { GraduationCap } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { errorMessage } from "@/lib/api";
-import { Button, Input, Pin } from "@/components/ui";
+import { Button, Input } from "@/components/ui";
 
 function LoginForm() {
   const { login } = useAuth();
@@ -27,8 +27,6 @@ function LoginForm() {
         router.replace(next);
       } else if (user.role === "TEACHER") {
         router.replace("/teacher/dashboard");
-      } else if (user.role === "ADMIN") {
-        router.replace("/admin/dashboard");
       } else {
         router.replace("/student/dashboard");
       }
@@ -40,23 +38,22 @@ function LoginForm() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-board px-4">
+    <div className="flex min-h-screen items-center justify-center bg-navy-deep px-4">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <GraduationCap className="mx-auto h-10 w-10 text-sheet-yellow" />
-          <h1 className="font-display mt-3 text-[34px] font-semibold uppercase tracking-[0.04em] text-paper">
+          <GraduationCap className="mx-auto h-10 w-10 text-brass" />
+          <h1 className="font-display mt-3 text-[28px] font-semibold text-paper">
             AdaptLearn
           </h1>
-          <p className="mt-1 text-[11px] uppercase tracking-[0.24em] text-paper/60">
+          <p className="mt-1 text-[12px] uppercase tracking-widest text-paper/60">
             Adaptive learning for VTU
           </p>
         </div>
 
-        <form onSubmit={onSubmit} className="ledger-card sheet-enter p-6 shadow-xl">
-          <Pin />
-          <p className="mb-4 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-muted">
-            Notice of entry
-          </p>
+        <form
+          onSubmit={onSubmit}
+          className="ledger-card bg-paper p-6 shadow-xl"
+        >
           <label className="mb-1 block text-[12px] font-semibold text-ink-muted">
             Email
           </label>

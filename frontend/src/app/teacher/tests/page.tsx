@@ -175,7 +175,7 @@ export default function TeacherTestsPage() {
     <div>
       <PageTitle
         title="Tests"
-        subtitle="Create auto-graded tests; review the integrity log per test."
+        subtitle="Create auto-graded tests; review the integrity ledger per test."
         right={
           <Button onClick={() => setShowForm((s) => !s)}>
             <Plus className="h-4 w-4" />

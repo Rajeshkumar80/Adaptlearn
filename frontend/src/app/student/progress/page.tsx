@@ -28,15 +28,15 @@ import { Badge, Card, ErrorState, PageTitle, Select, Skeleton } from "@/componen
 import { useAuth } from "@/lib/auth";
 
 const C = {
-  navy: "#1c4a2f",
-  navySoft: "#dfe9e0",
+  navy: "#1e3a5f",
+  navySoft: "#e9eef5",
   brass: "#a67c2e",
   success: "#2f6b4f",
   error: "#a03a2e",
   warning: "#a05e1c",
-  inkMuted: "#6b6052",
-  hairline: "#cbbf9f",
-  grid: "#cbbf9f",
+  inkMuted: "#6e6656",
+  hairline: "#e2e2de",
+  grid: "#d8cdb4",
 };
 
 interface GraphState {
@@ -147,7 +147,7 @@ export default function ProgressPage() {
   if (loading) {
     return (
       <div>
-        <PageTitle title="How I Learn" subtitle="Your forgetting curve and mastery board" />
+        <PageTitle title="How I Learn" subtitle="Your forgetting curve and mastery ledger" />
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <Skeleton key={i} className="h-24" />
@@ -414,7 +414,7 @@ export default function ProgressPage() {
         <div className="ledger-card divide-y divide-hairline">
           {weakest.length === 0 && (
             <p className="px-4 py-8 text-center text-[13px] text-ink-muted">
-              No learning states yet — study a topic to start pinning.
+              No learning states yet — study a topic to start the ledger.
             </p>
           )}
           {weakest.map((s, i) => {
