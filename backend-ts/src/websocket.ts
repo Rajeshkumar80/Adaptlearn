@@ -33,6 +33,7 @@ export function initWebsocket(server: HttpServer): Server {
     const user = (socket as any).user as { id: string; role: string; classId?: string | null };
     socket.join("global");
     socket.join(`role:${user.role}`);
+    socket.join(`user:${user.id}`);
     if (user.classId) socket.join(`class:${user.classId}`);
     socket.on("join-class", async (classId: string) => {
       if (user.role === "TEACHER" || user.role === "ADMIN") {
@@ -60,6 +61,5 @@ export function emitToClass(classId: string, event: string, payload: unknown): v
 
 export function emitToUser(userId: string, event: string, payload: unknown): void {
   if (!io) return;
-  io.to("global").except(`role:TEACHER`).except(`role:ADMIN`).emit(event, payload);
-  // direct per-user room is not tracked; notifications go via global + role filtering in client
+  io.to(`user:${userId}`).emit(event, payload);
 }
