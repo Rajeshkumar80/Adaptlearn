@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import fs from "fs";
 import path from "path";
 import { scoreTopicsFromPyq, parsePyqMarkdown } from "../src/services/pyq-scorer";
+import { subtopicsFromDescription } from "../src/services/subtopics";
 
 const prisma = new PrismaClient();
 
@@ -141,6 +142,12 @@ async function seedSubjects() {
             description: t.description,
             order: i + 1,
             prerequisites: prevModuleTopics.length > 0 ? { connect: prevModuleTopics.map((id) => ({ id })) } : undefined,
+            subTopics: {
+              create: subtopicsFromDescription(t.description).map((title, idx) => ({
+                title,
+                orderIndex: idx + 1,
+              })),
+            },
           },
         });
         topicIds.push(topic.id);
