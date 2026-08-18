@@ -24,6 +24,24 @@ router.get("/:subjectCode", requireAuth, async (req: AuthRequest, res) => {
   });
   const masteryOf = new Map(prereqStates.map((s) => [s.topicId, s.mastery]));
 
+  const topicIds = topics.map((t) => t.id);
+  const [subCounts, progressRows] = await Promise.all([
+    prisma.subTopic.groupBy({
+      by: ["topicId"],
+      where: { topicId: { in: topicIds } },
+      _count: { _all: true },
+    }),
+    prisma.subTopicProgress.findMany({
+      where: { studentId: req.user!.id, subTopic: { topicId: { in: topicIds } } },
+      select: { completed: true, subTopic: { select: { topicId: true } } },
+    }),
+  ]);
+  const totalByTopic = new Map(subCounts.map((s) => [s.topicId, s._count._all]));
+  const doneByTopic = new Map<string, number>();
+  for (const row of progressRows) {
+    if (row.completed) doneByTopic.set(row.subTopic.topicId, (doneByTopic.get(row.subTopic.topicId) ?? 0) + 1);
+  }
+
   const road = topics.map((t) => {
     const state = t.learningStates[0];
     const prereqInfo = t.prerequisites.map((p) => ({ id: p.id, name: p.name, mastery: masteryOf.get(p.id) ?? 0 }));
@@ -39,6 +57,8 @@ router.get("/:subjectCode", requireAuth, async (req: AuthRequest, res) => {
       prerequisites: prereqInfo,
       locked: lockedPrereqs.length > 0,
       lockedBy: lockedPrereqs,
+      subTopicsTotal: totalByTopic.get(t.id) ?? 0,
+      subTopicsDone: doneByTopic.get(t.id) ?? 0,
     };
   });
 
