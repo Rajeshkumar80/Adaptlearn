@@ -27,6 +27,7 @@ import documentsRoutes from "./routes/documents";
 import studyPlanRoutes from "./routes/study-plan";
 import vtuRoutes from "./routes/vtu";
 import chatRoutes from "./routes/chat";
+import subtopicRoutes from "./routes/subtopics";
 
 const prisma = new PrismaClient();
 
@@ -79,6 +80,7 @@ export function createApp() {
   app.use("/api/study-plan", studyPlanRoutes);
   app.use("/api/vtu", vtuRoutes);
   app.use("/api/chat", chatRoutes);
+  app.use("/api/topics", subtopicRoutes);
 
   app.use((err: Error, _req: Request, res: Response, _next: any) => {
     // Multer / file-type rejections are client errors (e.g. non-PDF note upload).
