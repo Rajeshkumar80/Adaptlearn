@@ -43,6 +43,7 @@ model User {
   testsCreated   Test[]               @relation("TestsCreatedBy")
   chatSessions   ChatSession[]
   studyTasks     StudyTask[]
+  subTopicProgress SubTopicProgress[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -111,10 +112,36 @@ model Topic {
 
   learningStates LearningState[]
   studySessions  StudySession[]
+  subTopics      SubTopic[]
 
   createdAt DateTime @default(now())
 
   @@index([subjectCode])
+}
+
+model SubTopic {
+  id         String   @id @default(cuid())
+  topicId    String
+  topic      Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  title      String
+  orderIndex Int
+  createdAt  DateTime @default(now())
+
+  progress SubTopicProgress[]
+
+  @@index([topicId])
+}
+
+model SubTopicProgress {
+  id          String   @id @default(cuid())
+  studentId   String
+  student     User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  subTopicId  String
+  subTopic    SubTopic @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
+  completed   Boolean  @default(false)
+  completedAt DateTime?
+
+  @@unique([studentId, subTopicId])
 }
 
 model LearningState {
