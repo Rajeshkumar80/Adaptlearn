@@ -1,0 +1,81 @@
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+.eggs/
+.venv/
+venv/
+env/
+*.ipynb_checkpoints/
+
+# ── Node ─────────────────────────────────────────────────────────────────────
+node_modules/
+.next/
+dist/
+*.tsbuildinfo
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+*.err
+dev-server.log
+dev-server.err.log
+server.log
+server-err.log
+dev.log
+
+# ── ML pipeline — generated data (keep locally, do NOT commit) ───────────────
+ml-pipeline/output/*.jsonl
+ml-pipeline/output/*.zip
+ml-pipeline/output/adaptlearn-lora/
+ml-pipeline/output/adaptlearn-lora-cpu/
+ml-pipeline/output/adaptlearn-merged/
+
+# ── ML pipeline — model weights (too large for Git) ─────────────────────────
+ml-pipeline/gguf-output/
+ml-pipeline/merged-model/
+adaptlearn-vtu-lora/
+
+# ── Old root-level tmp files ──────────────────────────────────────────────────
+tmp*.jsonl
+training_pilot*.jsonl
+training_data_v1.jsonl
+gen.err
+gen.log
+gen2.err
+gen2.log
+gen30*.log
+gen30*.err
+progress.json
+skipped_units.json
+
+# ── Secrets / env ─────────────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# ── Uploads (runtime) ─────────────────────────────────────────────────────────
+backend/uploads/diagrams/*
+backend/uploads/submissions/*
+!backend/uploads/.gitkeep
+
+# ── IDE / OS ──────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+
+# ── Misc ──────────────────────────────────────────────────────────────────────
+*.bak
+*.tmp
+*.temp
+*.orig
+.gstack/

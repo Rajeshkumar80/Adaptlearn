@@ -1,0 +1,301 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E./B.Tech. Degree Examination, Dec.2023/Jan.2024 
+Object Oriented Programming with Java    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                    2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                 Module – 1
+M
+L
+C
+Q.1 
+a.
+Discuss the different data types supported by Java along with the default 
+values and literals. 
+ 
+8 
+L2
+CO1
+ 
+b.
+Develop a Java program to convert Celsius temperature to Fahrenheit. 
+ 
+6 
+L3
+CO2
+ 
+c. Justify the statement “Compile once and run anywhere” in Java. 
+ 
+6 
+L2
+CO1
+                                                                           OR 
+Q.2 
+a.
+List the various operators supported by Java. Illustrate the working of >> 
+and >>> operators with an example. 
+ 
+8 
+L2
+CO1
+ 
+b.
+Develop a Java program to add two matrices using command line 
+argument. 
+ 
+10
+L3
+CO2
+ 
+c. Explain the syntax of declaration of 2D arrays in Java. 
+ 
+2 
+L2
+CO1
+                                                                      Module – 2  
+Q.3 
+a.
+Examine Java Garbage collection mechanism by classifying the 3 
+generations of Java heap. 
+ 
+6 
+L2
+CO1
+ 
+b.
+Develop a Java program to find area of rectangle, area of circle and area of 
+triangle using method overloading concept. Call these methods from main 
+method with suitable inputs. 
+ 
+10
+L3
+CO2
+ 
+c. Interpret the general form of a class with example. 
+ 
+4 
+L2
+CO2
+                                                                           OR 
+Q.4 
+a.
+Outline the following keywords with an example : 
+(i) 
+this  
+(ii) 
+static 
+ 
+6 
+L2
+CO2
+ 
+b.
+Develop a Java program to create a class called ‘Employee’ which contains 
+‘name’, ‘designation’, ‘empid’ and ‘basic salary’ as instance variables and 
+read ( ) and write ( ) as methods. Using this class, read and write five 
+employee information from main ( ) method. 
+ 
+10
+L3
+CO2
+ 
+c. Interpret with an example, types of constructions. 
+ 
+4 
+L2
+CO2
+                                                                     Module – 3 
+Q.5 
+a.
+Illustrate the usage of super keyword in Java with suitable example. Also 
+explain the dynamic method dispatch. 
+ 
+10
+L2
+CO3
+ 
+b.
+Build a Java program to create an interface Resizable with method resize 
+(int radius) that allow an object to be resized. Create a class circle that 
+implements resizable interface and implements the resize method. 
+ 
+10
+L3
+CO3
+                                                                          OR
+Q.6 
+a.
+Compare and contrast method overloading and method overriding with 
+suitable example. 
+ 
+8 
+L2
+CO2
+                                                                                    1 of 2                                
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS306A 
+VTU-12-04-2024 08:52:15am
+12-04-2024 09:01:58am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS306A 
+ 
+ 
+b.
+Define inheritance and list the different types of inheritance in Java. 
+ 
+4 
+L2
+CO3
+ 
+c. Build a Java program to create a class named ‘Shape’. Create 3 sub classes 
+namely circle, triangle and square ; each class has 2 methods named draw 
+( ) and erase ( ). Demonstrate polymorphism concepts by developing 
+suitable methods and main program. 
+ 
+8 
+L3
+CO3
+                                                                      Module – 4  
+Q.7 
+a.
+Examine the various levels of access protections available for packages and 
+their implications with suitable examples. 
+ 
+10
+L2
+CO4
+ 
+b.
+Build a Java program for a banking application to throw an exception, 
+where a person tries to withdraw the amount even though he/she has lesser 
+than minimum balance (Create a custom exception) 
+ 
+10
+L3
+CO4
+                                                                           OR 
+Q.8 
+a.
+Define Exception. Explain Exception handling mechanism provided in Java 
+along with syntax and example. 
+ 
+10
+L2
+CO4
+ 
+b.
+Build a Java program to create a package “balance” containing Account 
+Class with displayBalance ( ) method and import this package in another 
+program to access method of Account Class. 
+ 
+10
+L3
+CO4
+                                                                      Module – 5  
+Q.9 
+a.
+Define a thread. Also discuss the different ways of creating a thread. 
+ 
+6 
+L2
+CO5
+ 
+b.
+How synchronization can be achieved between threads in Java? Explain 
+with an example. 
+ 
+6 
+L2
+CO5
+ 
+c. Develop a Java program for automatic conversion of wrapper class type 
+into corresponding primitive type that demonstrates unboxing. 
+ 
+8 
+L3
+CO5
+                                                                           OR 
+Q.10
+a.
+Summarize the type wrappers supported in Java. 
+ 
+6 
+L2
+CO5
+ 
+b.
+Explain Autoboxing/Unboxing that occurs in expressions and operators. 
+ 
+6 
+L2
+CO5
+ 
+c. Develop a Java program to create a class myThread. Call the base class 
+constructor in this class’s constructor using super and start the thread. The 
+run method of the class starts after this. It can be observed that both main 
+thread and created child thread are executed concurrently. 
+ 
+8 
+L3
+CO5
+                                                                      * * * * * 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2 of 2 
+VTU-12-04-2024 08:52:15am
+12-04-2024 09:01:58am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

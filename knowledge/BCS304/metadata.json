@@ -1,0 +1,154 @@
+{
+  "subject_code": "BCS304",
+  "subject_name": "Data Structures and Applications",
+  "semester": 3,
+  "semester_label": "3RD SEM",
+  "modules": {
+    "1": {
+      "title": "Introduction to Data Structures — Arrays and Strings",
+      "topics": [
+        "DATA STRUCTURE",
+        "BASIC TERMINOLOGY",
+        "CLASSIFICATION OF DATA STRUCTURES",
+        "Linear Data Structure",
+        "Non-linear Data Structure",
+        "Linear Data Structure:",
+        "Non-linear Data Structure:",
+        "OPERATIONS ON DATA STRUCTURES",
+        "REVIEW OF POINTERS AND DYNAMIC MEMORY ALLOCATION",
+        "DYNAMIC MEMORY ALLOCATION"
+      ],
+      "sources": [
+        "BCS304-module-1-pdf.txt"
+      ],
+      "content_chars": 56146
+    },
+    "2": {
+      "title": "Stacks and Queues",
+      "topics": [
+        "QUEUES ABSTRACT DATA TYPE",
+        "DEFINITION",
+        "QUEUE REPRESENTATION USING ARRAY",
+        "Queue Create",
+        "Boolean IsEmptyQ(queue) ::= front ==rear",
+        "Boolean IsFullQ(queue) ::= rear == MAX_QUEUE_SIZE-1",
+        "CIRCULAR QUEUES",
+        "CIRCULAR QUEUES USING DYNAMIC ARRAYS",
+        "MULTIPLE STACKS AND QUEUES",
+        "LINKED LIST"
+      ],
+      "sources": [
+        "BCS304-module-2-pdf.txt"
+      ],
+      "content_chars": 24276
+    },
+    "3": {
+      "title": "Linked Lists",
+      "topics": [
+        "Inverting a singly linked list:",
+        "Finding the length of a circular list",
+        "SPARSE MATRIX REPRESENTATON",
+        "An information field INFO which contains the data of N",
+        "A pointer field LLINK (FORW) which contains the location of the next node in",
+        "A pointer field RLINK (BACK) which contains the location of the",
+        "DEFINITION",
+        "Root",
+        "Edge",
+        "Parent"
+      ],
+      "sources": [
+        "BCS304-module-3-pdf.txt"
+      ],
+      "content_chars": 27982
+    },
+    "5": {
+      "title": "Graphs and Hashing",
+      "topics": [
+        "INTRODUCTION",
+        "EFFICIENT",
+        "BINARY",
+        "SEARCH",
+        "Hashing",
+        "Hash Function",
+        "Computation of key should be simple.",
+        "Hash Table",
+        "HASHING",
+        "Types of Hash Functions"
+      ],
+      "sources": [
+        "BCS304-module-5-pdf.txt"
+      ],
+      "content_chars": 18626
+    },
+    "4": {
+      "title": "Trees",
+      "topics": [
+        "Binary Trees",
+        "Binary Search Trees (BST)",
+        "Tree Traversals (Inorder, Preorder, Postorder)",
+        "Random Binary Search Trees",
+        "Balanced Search Trees",
+        "Scapegoat Trees",
+        "Red-Black Trees"
+      ],
+      "sources": [
+        "R3_Open_Data_Structures_Morin.txt"
+      ],
+      "content_chars": 96112
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\BCS304-module-1-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\BCS304-module-2-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\BCS304-module-3-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\BCS304-module-4-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\BCS304-module-5-pdf.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\BCS304-module-1-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\BCS304-module-2-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\BCS304-module-3-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\BCS304-module-4-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\BCS304-module-5-pdf.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\question papers\\BCS304-dec-2023-jan-2024.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\question papers\\BCS304-dec-2023-jan-2024.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\question papers\\BCS304-dec-2024-jan-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\question papers\\BCS304-dec-2024-jan-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\question papers\\BCS304-dec-2025-jan-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\question papers\\BCS304-dec-2025-jan-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\question papers\\BCS304-june-july-2025-makeup.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\question papers\\BCS304-june-july-2025-makeup.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\question papers\\BCS304-june-july-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\question papers\\BCS304-june-july-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\question papers\\BCS304-model-set-1-paper.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS304\\question papers\\BCS304-model-set-1-paper.txt"
+    ],
+    "model_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\3RD SEM\\BCS304\\model_papers.md"
+    ],
+    "previous_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\3RD SEM\\BCS304\\previous_papers.md"
+    ],
+    "textbooks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS304_Data_Structures\\R1_Introduction_to_Algorithms_CLRS.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS304_Data_Structures\\R1_Introduction_to_Algorithms_CLRS.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS304_Data_Structures\\R2_Data_Structures_and_Algorithms_Made_Easy_Karumanchi.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS304_Data_Structures\\R2_Data_Structures_and_Algorithms_Made_Easy_Karumanchi.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS304_Data_Structures\\R3_Open_Data_Structures_Morin.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS304_Data_Structures\\R3_Open_Data_Structures_Morin.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_3\\BCS304\\BCS304_Data_Structures_and_Applications.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to Data Structures — Arrays and Strings",
+    "2": "Stacks and Queues",
+    "3": "Linked Lists",
+    "4": "Trees",
+    "5": "Graphs and Hashing"
+  }
+}

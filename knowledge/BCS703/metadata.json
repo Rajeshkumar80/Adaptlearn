@@ -1,0 +1,150 @@
+{
+  "subject_code": "BCS703",
+  "subject_name": "Information and Network Security",
+  "semester": 7,
+  "semester_label": "7TH SEM",
+  "modules": {
+    "1": {
+      "title": "Introduction to Cryptography",
+      "topics": [
+        "Security Transformation:",
+        "Secret Information:",
+        "Design a strong security algorithm",
+        "Generate secret keys",
+        "Develop secure key distribution methods",
+        "Specify protocols for communication using the algorithm and secret",
+        "Information Access Threats:",
+        "Service Threats:",
+        "Gatekeeper Functions:",
+        "Internal Controls:"
+      ],
+      "sources": [
+        "BCS703-module-1-pdf.txt"
+      ],
+      "content_chars": 81079
+    },
+    "2": {
+      "title": "Symmetric Key Cryptography",
+      "topics": [
+        "Key distribution – how to have secure communications",
+        "Digital signatures – how to verify a message comes",
+        "Ciphertext: This is the scrambled message produced as output. It depends on the",
+        "Generates a pair of keys to be used for the encryption and decryption",
+        "Places one of the two keys in a public register or other accessible file.",
+        "If Bob wishes to send a confidential message to Alice, Bob encrypts",
+        "When Alice receives the message, she decrypts it using her private",
+        "The two keys can be applied in either order:",
+        "Select two prime numbers, p = 17 and q = 11.",
+        "Calculate n = pq = 17 * 11 = 187."
+      ],
+      "sources": [
+        "BCS703-module-2-pdf.txt"
+      ],
+      "content_chars": 14705
+    },
+    "3": {
+      "title": "Asymmetric Key Cryptography",
+      "topics": [
+        "Password Protection – Store hash of passwords instead of the actual passwords.",
+        "Intrusion",
+        "Initialize n-bit hash to 0.",
+        "A can select a key and physically deliver it to B.",
+        "A third party can select the key and physically deliver it to A and B.",
+        "Using the newly minted session key for encryption, B sends a nonce, N2, to A.",
+        "Also using Ks, A responds with f(N2), where f is a function that performs some",
+        "When one host wishes to set up a connection to another host, it",
+        "The SSM saves that packet and applies to the KDC for permission to",
+        "The communication between the SSM and the KDC is encrypted using a"
+      ],
+      "sources": [
+        "BCS703-module-3-pdf.txt"
+      ],
+      "content_chars": 39249
+    },
+    "4": {
+      "title": "Authentication and Digital Signatures",
+      "topics": [
+        "USER AUTHENTICATION",
+        "KERBEROS",
+        "PCBC encryption: Encryption in version 4 makes use of a nonstandard mode of DES",
+        "REMOTE USER AUTHENTICATION USING ASYMMETRICENCRYPTION",
+        "Using IP Security (IPsec) — Figure 17.1(a):",
+        "Using Security Above TCP — Figure 17.1(b):",
+        "Application-Specific Security — Figure 17.1(c):",
+        "TLS-specific protocols –",
+        "Fragmentation: Messages split into blocks ≤16,384 bytes.",
+        "Compression: Optional, lossless."
+      ],
+      "sources": [
+        "BCS703-module-4-pdf.txt"
+      ],
+      "content_chars": 62340
+    },
+    "5": {
+      "title": "Network Security",
+      "topics": [
+        "The next level consists of professional bulk spammers. These attackers operate",
+        "LOCATION",
+        "IP SECURITY OVERVIEW",
+        "Only authorized users are able to access the VPN.",
+        "No eavesdropper on the Internet can read the transmitted data.",
+        "TRANSPORT AND TUNNEL MODES",
+        "AH/ESP fields are added to the original packet.",
+        "IP SECURITY POLICY",
+        "Security Parameters Index (SPI)",
+        "IP Destination Address"
+      ],
+      "sources": [
+        "BCS703-module-5-pdf.txt"
+      ],
+      "content_chars": 58198
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\BCS703-module-1-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\BCS703-module-2-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\BCS703-module-3-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\BCS703-module-4-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\BCS703-module-5-pdf.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\BCS703-module-1-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\BCS703-module-2-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\BCS703-module-3-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\BCS703-module-4-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\BCS703-module-5-pdf.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\question papers\\BCS703-dec-2025-jan-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\question papers\\BCS703-dec-2025-jan-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\question papers\\BCS703-module-1-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\question papers\\BCS703-module-1-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\question papers\\BCS703-module-2-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\question papers\\BCS703-module-2-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\question papers\\BCS703-module-3-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\question papers\\BCS703-module-3-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\question papers\\BCS703-module-4-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\question papers\\BCS703-module-4-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\question papers\\BCS703-module-5-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS703\\question papers\\BCS703-module-5-textbook.txt"
+    ],
+    "textbook_notes": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\7TH SEM\\BCS703\\textbook_notes.md"
+    ],
+    "textbooks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_7\\BCS703_Cloud_Computing\\T1_Building_Microservices_Sam_Newman.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_7\\BCS703_Cloud_Computing\\T1_Building_Microservices_Sam_Newman.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_7\\BCS703\\BCS703_Information_and_Network_Security.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to Cryptography",
+    "2": "Symmetric Key Cryptography",
+    "3": "Asymmetric Key Cryptography",
+    "4": "Authentication and Digital Signatures",
+    "5": "Network Security"
+  }
+}

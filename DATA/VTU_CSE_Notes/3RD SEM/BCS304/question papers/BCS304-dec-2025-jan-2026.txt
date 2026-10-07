@@ -1,0 +1,409 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E./B.Tech. Degree Examination, Dec.2025/Jan.2026 
+Data Structures and Applications    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                      2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Define Data Structure. Explain with neat diagram different types of data 
+structure with examples. What are the primitive operations that can be 
+performed? 
+ 
+10
+L2 CO1
+ 
+b.
+Define structure and union? Explain how they are different from each other, 
+with suitable example. 
+ 
+5 
+L2 CO1
+ 
+c. What do you mean by pattern matching? Outline Kruth, pattern matching 
+algorithm. 
+ 
+5 
+L2 CO1
+                                                                           OR 
+Q.2 
+a. Define stack. Give the implementation of push ( ) POP ( ) and Display ( ) 
+functions by considering its empty and full conditions. 
+ 
+7 
+L2 CO1
+ 
+b.
+Write an algorithm to evaluate a postfix expression and apply the same for 
+the given postfix expression 6, 2, 13, -4, 2,
+
+, 
+ 
+7 
+L3 CO1
+ 
+c. Write the postfix form of the following using stack, 
+(i) 
+F
+E
+D
+C
+B
+A
+
+
+)
+*
+*
+(
+*
+ 
+(ii) 
+
+)
+/(
+)
+*
+(
+E
+D
+C
+B
+A
+
+
+ 
+ 
+6 
+L3 CO1
+                                                                      Module – 2  
+Q.3 
+a. What are the disadvantages of ordinary queue? Discuss the implementation 
+of circular queue. 
+ 
+8 
+L2 CO2
+ 
+b.
+Write a note on multiple stacks and priority queue. 
+ 
+6 
+L2 CO2
+ 
+c. Define Queue. Discuss how to represent Queue using dynamic arrays. 
+ 
+6 
+L2 CO2
+                                                                           OR 
+Q.4 
+a. What are Linked list? Explain the different types of Linked List with neat 
+diagram. 
+ 
+4 
+L2 CO2
+ 
+b.
+Give the structure definition for Singly Linked List (SSL). Write a C 
+function to, 
+(i) 
+Insert an element at the end of SSL. 
+(ii) 
+Delete at node at the end of SSL. 
+ 
+8 
+L3 CO2
+1 of 3 
+ 
+ 
+ 
+USN 
+BCS304 
+VTU-10-02-2026 01:19:18pm
+10-02-2026 01:31:08pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS304 
+ 
+ 
+c. Write a C function to add two polynomials show the Linked List 
+representation of below two polynomials 
+1
+2
+3
+)
+(
+7
+14
+
+
+
+x
+x
+x
+p
+ 
+2
+3
+5
+8
+)
+(
+2
+5
+14
+
+
+
+
+x
+x
+x
+x
+q
+ 
+ 
+8 
+L3 CO2
+                                                                      Module – 3  
+Q.5 
+a. Write a C-function for the following operation on doubly Linked List 
+(DLL) : 
+(i) 
+Addition of a DLL node. 
+(ii) 
+Concatenation of two DLL. 
+ 
+8 
+L3 CO3
+ 
+b.
+Write a C-function for the following operations on circular Linked List 
+(i) 
+Inserting at the front of a List. 
+(ii) 
+Find the number of nodes in circular list. 
+ 
+8 
+L3 CO3
+ 
+c. Represent the given Sparse matrix using linked list representation. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+0
+6
+0
+0
+1
+1
+0
+7
+0
+0
+0
+0
+3
+0
+0
+4
+0
+0
+0
+2
+A
+ 
+ 
+4 
+L3 CO3
+                                                                           OR 
+Q.6 
+a. Explain the different types binary tree representation with example. 
+ 
+8 
+L3 CO3
+ 
+b.
+Define Threaded Binary tree. Discuss in threaded binary tree. 
+ 
+4 
+L3 CO3
+ 
+c. Discuss Inorder, preorder, postorder and level order traversal with suitable 
+recursive function for each. 
+ 
+8 
+L2 CO3
+                                                                      Module – 4  
+Q.7 
+a. Write a function to perform the following operations on Binary Search Tree 
+(BST) : 
+(i) 
+Inserting on element into BST. 
+(ii) 
+Recursive search of a BST. 
+ 
+8 
+L3 CO4
+ 
+b.
+Discuss selection Trees with suitable example. 
+ 
+8 
+L2 CO4
+ 
+c. Explain transforming a forest into a binary tree with an example. 
+ 
+4 
+L2 CO4
+                                                                           OR 
+Q.8 
+a. Define graph. Show the adjacency matrix and adjacency. List 
+representation of the graph given below. 
+ 
+Fig. Q8 (a) 
+6 
+L3 CO4
+2 of 3 
+VTU-10-02-2026 01:19:18pm
+10-02-2026 01:31:08pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS304 
+ 
+ 
+b.
+Define the following Terminologies with examples : 
+(i) 
+Vertex (node) 
+(ii) 
+Self loop 
+(iii) 
+Weighted graph 
+(iv) 
+Parallel edges 
+ 
+7 
+L1 CO4
+ 
+c. Explain in detail elementary graph operations. 
+ 
+7 
+L1 CO4
+                                                                      Module – 5  
+Q.9 
+a. What is collision? What are the methods to resolve collision? Explain linear 
+probing with example. 
+ 
+8 
+L2 CO5
+ 
+b.
+Explain in details about static and dynamic hashing. 
+ 
+6 
+L2 CO5
+ 
+c. Discuss Leftist Trees with an example. 
+ 
+6 
+L2 CO5
+                                                                           OR 
+Q.10
+a. Explain different types of HASH functions with example. 
+ 
+6 
+L2 CO5
+ 
+b.
+Discuss different types of rotations with suitable examples. 
+ 
+6 
+L3 CO5
+ 
+c. Define Red-Black Tree, Splay tree. Discuss the method to insert an element 
+into Red-Black tree. 
+ 
+8 
+L2 CO5
+                                                                      * * * * * 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3 of 3 
+VTU-10-02-2026 01:19:18pm
+10-02-2026 01:31:08pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

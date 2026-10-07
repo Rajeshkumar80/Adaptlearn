@@ -1,0 +1,166 @@
+{
+  "subject_code": "BCS501",
+  "subject_name": "Software Engineering and Project Management",
+  "semester": 5,
+  "semester_label": "5TH SEM",
+  "modules": {
+    "1": {
+      "title": "Introduction to Software Engineering",
+      "topics": [
+        "--INTRODUCTION",
+        "The Nature of software",
+        "Software",
+        "Data structures: Enable the programs to adequately manipulate information.",
+        "Software Application Domains",
+        "System Software:",
+        "Application Software:",
+        "Engineering/Scientific Software:",
+        "Embedded Software:",
+        "Product-line Software:"
+      ],
+      "sources": [
+        "BCS501-module-1-pdf-1.txt"
+      ],
+      "content_chars": 54966
+    },
+    "2": {
+      "title": "Requirements Engineering",
+      "topics": [
+        "—UNDERSTANDING REQUIREMENTS",
+        "REQUIREMENTS ENGINEERING",
+        "Requirements Engineering Task",
+        "ESTABLISHING THE GROUNDWORK",
+        "Identifying Stakeholders",
+        "Recognizing Multiple ViewPoints",
+        "Working toward Collaboration",
+        "Asking the First Questions",
+        "ELICITING REQUIREMENTS",
+        "DEVELOPING USE CASES"
+      ],
+      "sources": [
+        "BCS501-module-2-pdf-1.txt"
+      ],
+      "content_chars": 51680
+    },
+    "3": {
+      "title": "Software Design",
+      "topics": [
+        "---AGILE DEVELOPMENT",
+        "WHAT IS AGILITY?",
+        "AGILITY AND THE COST OF CHANGE",
+        "WHAT IS AN AGILE PROCESS?",
+        "Analysis, design, construction, and testing are not as predictable.",
+        "Agility Principles",
+        "Business people and developers must work together daily throughout the project.",
+        "Working software is the primary measure of progress.",
+        "Continuous attention to technical excellence and good design enhances agility.",
+        "Simplicity—the art of maximizing the amount of work not done—is essential."
+      ],
+      "sources": [
+        "BCS501-module-3-pdf-1.txt"
+      ],
+      "content_chars": 69098
+    },
+    "4": {
+      "title": "Software Testing",
+      "topics": [
+        "INTRODUCTION TO SOFTWARE PROJECT MANAGEMENT",
+        "WHY IS SOFTWARE PROJECT MANAGEMENT IMPORTANT ?",
+        "Time: amount of time required to complete the project.",
+        "Cost: calculated from the time variable",
+        "Scope: Requirements specified for the end result.",
+        "Risk: Potential points of failure.",
+        "Complexity Management",
+        "Requirement Management",
+        "Time and Budget Control",
+        "Risk Management"
+      ],
+      "sources": [
+        "BCS501-module-4-pdf-1.txt"
+      ],
+      "content_chars": 51299
+    },
+    "5": {
+      "title": "Project Management",
+      "topics": [
+        "INTRODUCTION",
+        "THE PLACE OF SOFTWARE QUALITY IN PROJECT PLANNING",
+        "THE IMPORTANCE OF SOFTWARE QUALITY",
+        "DEFINING SOFTWARE QUALITY",
+        "Definition/Description",
+        "Scale o Unit of Measurement:",
+        "Test",
+        "Minimally Acceptable",
+        "Target Range",
+        "Current Value"
+      ],
+      "sources": [
+        "BCS501-module-5-pdf-1.txt"
+      ],
+      "content_chars": 88021
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\BCS501-module-1-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\BCS501-module-2-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\BCS501-module-3-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\BCS501-module-4-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\BCS501-module-5-pdf-1.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\BCS501-module-1-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\BCS501-module-2-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\BCS501-module-3-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\BCS501-module-4-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\BCS501-module-5-pdf-1.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-dec-2024-jan-2025-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-dec-2024-jan-2025-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-dec-2025-jan-2026-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-dec-2025-jan-2026-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-june-july-2025-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-june-july-2025-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-june-july-2025-makeup-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-june-july-2025-makeup-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-model-set-1-paper-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-model-set-1-paper-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-module-1-textbook-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-module-1-textbook-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-module-2-textbook-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-module-2-textbook-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-module-3-textbook-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-module-3-textbook-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-module-4-textbook-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-module-4-textbook-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-module-5-textbook-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS501\\question papers\\BCS501-module-5-textbook-1.txt"
+    ],
+    "model_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BCS501\\model_papers.md"
+    ],
+    "previous_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BCS501\\previous_papers.md"
+    ],
+    "textbook_notes": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BCS501\\textbook_notes.md"
+    ],
+    "textbooks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_5\\BCS501_SEPM\\T1_Software_Engineering_Practitioners_Approach_Pressman.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_5\\BCS501_SEPM\\T1_Software_Engineering_Practitioners_Approach_Pressman.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_5\\BCS501_SEPM\\T2_Software_Engineering_Ian_Sommerville.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_5\\BCS501_SEPM\\T2_Software_Engineering_Ian_Sommerville.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_5\\BCS501\\BCS501_Software_Engineering_and_Project_Management.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to Software Engineering",
+    "2": "Requirements Engineering",
+    "3": "Software Design",
+    "4": "Software Testing",
+    "5": "Project Management"
+  }
+}

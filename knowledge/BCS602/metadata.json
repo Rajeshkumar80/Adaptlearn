@@ -1,0 +1,160 @@
+{
+  "subject_code": "BCS602",
+  "subject_name": "Machine Learning",
+  "semester": 6,
+  "semester_label": "6TH SEM",
+  "modules": {
+    "1": {
+      "title": "Introduction to Machine Learning",
+      "topics": [
+        "NEED FOR MACHINE LEARNING",
+        "MACHINE LEARNING EXPLAINED",
+        "Collection of data",
+        "MACHINE LEARNING IN RELATION TO OTHER FIELDS",
+        "Velocity: It refers to the speed at which the data is generated and processed.",
+        "TYPES OF MACHINE LEARNING",
+        "Supervised Learning",
+        "Unsupervised Learning",
+        "Semi-supervised Learning",
+        "Reinforcement Learning"
+      ],
+      "sources": [
+        "BCS602-module-1-pdf-1.txt"
+      ],
+      "content_chars": 68906
+    },
+    "2": {
+      "title": "Supervised Learning",
+      "topics": [
+        "INTRODUCTION",
+        "Decision Theory",
+        "Decision Theory",
+        "INTRODUCTION",
+        "Decision Theory",
+        "INTRODUCTION",
+        "Decision Theory",
+        "INTRODUCTION",
+        "Decision Theory",
+        "INTRODUCTION"
+      ],
+      "sources": [
+        "T1_Pattern_Recognition_and_Machine_Learning_Bishop.txt"
+      ],
+      "content_chars": 118872
+    },
+    "3": {
+      "title": "Unsupervised Learning",
+      "topics": [
+        "PROBABILITY DISTRIBUTIONS",
+        "The Gaussian Distribution",
+        "PROBABILITY DISTRIBUTIONS",
+        "The Gaussian Distribution",
+        "PROBABILITY DISTRIBUTIONS",
+        "The Gaussian Distribution",
+        "PROBABILITY DISTRIBUTIONS",
+        "The Gaussian Distribution",
+        "PROBABILITY DISTRIBUTIONS",
+        "The Gaussian Distribution"
+      ],
+      "sources": [
+        "T1_Pattern_Recognition_and_Machine_Learning_Bishop.txt"
+      ],
+      "content_chars": 118662
+    },
+    "4": {
+      "title": "Ensemble Methods and Model Evaluation",
+      "topics": [
+        "LINEAR MODELS FOR REGRESSION",
+        "The Bias-Variance Decomposition",
+        "LINEAR MODELS FOR REGRESSION",
+        "The Bias-Variance Decomposition",
+        "LINEAR MODELS FOR REGRESSION",
+        "Bayesian Linear Regression",
+        "Bayesian Linear Regression",
+        "LINEAR MODELS FOR REGRESSION",
+        "Bayesian Linear Regression",
+        "LINEAR MODELS FOR REGRESSION"
+      ],
+      "sources": [
+        "T1_Pattern_Recognition_and_Machine_Learning_Bishop.txt"
+      ],
+      "content_chars": 118803
+    },
+    "5": {
+      "title": "Neural Networks and Deep Learning Basics",
+      "topics": [
+        "LINEAR MODELS FOR CLASSIFICATION",
+        "Probabilistic Discriminative Models",
+        "LINEAR MODELS FOR CLASSIFICATION",
+        "Probabilistic Discriminative Models",
+        "LINEAR MODELS FOR CLASSIFICATION",
+        "Probabilistic Discriminative Models",
+        "LINEAR MODELS FOR CLASSIFICATION",
+        "Probabilistic Discriminative Models",
+        "LINEAR MODELS FOR CLASSIFICATION",
+        "The Laplace Approximation"
+      ],
+      "sources": [
+        "T1_Pattern_Recognition_and_Machine_Learning_Bishop.txt"
+      ],
+      "content_chars": 119156
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\BCS602-module-1-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\BCS602-module-1-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\BCS602-module-2-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\BCS602-module-4-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\BCS602-module-5-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\BCSS602-module-3-textbook.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\BCS602-module-1-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\BCS602-module-1-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\BCS602-module-2-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\BCS602-module-4-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\BCS602-module-5-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\BCSS602-module-3-textbook.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\question papers\\BCS602-june-july-2025-solution.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\question papers\\BCS602-june-july-2025-solution.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\question papers\\BCS602-june-july-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\question papers\\BCS602-june-july-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\question papers\\BCS602-module-1-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\question papers\\BCS602-module-2-written-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\question papers\\BCS602-module-3-written-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\question papers\\BCS602-module-4-written-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\question papers\\BCS602-module-5-written-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\question papers\\BCS602june-july-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\question papers\\BCS602june-july-2025.txt"
+    ],
+    "previous_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\6TH SEM\\BCS602\\previous_papers.md"
+    ],
+    "textbooks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_6\\BCS602_Machine_Learning\\T1_Pattern_Recognition_and_Machine_Learning_Bishop.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_6\\BCS602_Machine_Learning\\T1_Pattern_Recognition_and_Machine_Learning_Bishop.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_6\\BCS602_Machine_Learning\\T2_The_Elements_of_Statistical_Learning_Hastie.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_6\\BCS602_Machine_Learning\\T2_The_Elements_of_Statistical_Learning_Hastie.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_6\\BCS602\\BCS602_Machine_Learning.md"
+    ],
+    "written_answers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\question papers\\BCS602-module-1-written.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\question papers\\BCS602-module-2-written-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\question papers\\BCS602-module-3-written-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\question papers\\BCS602-module-4-written-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS602\\question papers\\BCS602-module-5-written-1.txt"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to Machine Learning",
+    "2": "Supervised Learning",
+    "3": "Unsupervised Learning",
+    "4": "Ensemble Methods and Model Evaluation",
+    "5": "Neural Networks and Deep Learning Basics"
+  }
+}

@@ -1,0 +1,238 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fifth Semester B.E./B.Tech. Degree Examination, Dec.2024/Jan.2025 
+Computer Networks    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                       2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. What is data communication? List and explain characteristics and 
+components of communication model. 
+06
+L1 CO1
+ 
+b.
+Define switching. Explain Circuit Switched Network and Packet Switched 
+Network. 
+06
+L2 CO1
+ 
+c. With neat sketch, explain different layers of TCP/IP protocol suite. 
+ 
+08
+L2 CO1
+                                                                           OR 
+Q.2 
+a. What are guided transmission media? Explain twisted pair cable in detail. 
+06
+L1 CO1
+ 
+b.
+What is Virtual Circuit Network (VCN)? With neat diagram, explain three 
+phases involved in VCN. 
+08
+L1 CO1
+ 
+c. Write a note on Encapsulation and decapsulation at Source Host for TCP/IP 
+protocol suite. 
+ 
+06
+L2 CO1
+                                                                      Module – 2  
+Q.3 
+a. Define Redundancy. Explain CRC encoder and CRC decoder operation 
+with block diagram. 
+08
+L2 CO2
+ 
+b.
+Distinguish between Flow Control and Error Control. Explain Stop and 
+Wait Protocol. 
+08
+L2 CO2
+ 
+c. List and explain Control Fields of I-frames, S-frames and U-frames. 
+ 
+04
+L2 CO2
+                                                                           OR 
+Q.4 
+a. What is Hamming distance? With example, explain Parity Check Code. 
+06
+L1 CO2
+ 
+b.
+Define Framing. Explain character oriented framing and bit-oriented 
+framing. 
+06
+L1 CO2
+ 
+c. With flow diagram, explain CSMA/CA. 
+ 
+08
+L2 CO2
+                                                                      Module – 3  
+Q.5 
+a. Explain virtual-circuit approach to route the packets in packet-switched 
+network. 
+10
+L2 CO3
+ 
+b.
+Illustrate the working of OSPF and BGP. 
+ 
+10
+L3 CO3
+                                                                           OR 
+Q.6 
+a. Explain IPv6 datagram format. 
+10
+L2 CO3
+ 
+b.
+Write an Dijikstra’s algorithm to compute shortest path through graph. 
+06
+L1 CO3
+ 
+c. Write a note on Routing Information Protocol (RIP) algorithm. 
+ 
+04
+L2 CO3
+                                                                      Module – 4  
+Q.7 
+a. Explain Go-Back-N protocol working. 
+10
+L2 CO4
+ 
+b.
+With neat sketch, explain three-way handshaking of TCP connection 
+establishment. 
+ 
+10
+L2 CO4
+ 
+1 of 2 
+ 
+USN 
+BCS502 
+VTU-13-01-2025 01:10:28pm
+13-01-2025 01:26:00pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+BCS502
+                                                                           OR 
+Q.8 
+a. With an outline, explain selective repeat protocol. 
+10
+L2 CO4
+ 
+b.
+List and explain various services provided by User Datagram Protocol 
+(UDP). 
+ 
+10
+L2 CO4
+                                                                      Module – 5  
+Q.9 
+a. Briefly explain Secure Shell (SSH). 
+10
+L2 CO4
+ 
+b.
+Write a note on Request message and response message formats of HTTP. 
+ 
+10
+L2 CO4
+                                                                           OR 
+Q.10
+a. With neat diagram, explain the basic model of FTP. 
+04
+L2 CO4
+ 
+b.
+Describe the architecture of electronic mail (e-mail). 
+06
+L3 CO4
+ 
+c. Briefly explain Recursive Resolution and Iterative Resolution in DNS. 
+ 
+10
+L2 CO4
+                                                                           
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2 of 2 
+VTU-13-01-2025 01:10:28pm
+13-01-2025 01:26:00pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

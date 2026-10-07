@@ -1,0 +1,178 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fifth Semester B.E./B.Tech. Degree Examination, Dec.2025/Jan.2026 
+Software Engineering and Project Management     
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                     2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Explain the domains of software applications. 
+08
+L2 CO1
+ 
+b.
+Outline the unique nature of WebApps. 
+08
+L2 CO1
+ 
+c. Explain various software myths. Discuss.   
+04
+L2 CO1
+                                                                           OR 
+Q.2 
+a. Explain the activities performed in a software process framework?  
+06
+L2 CO1
+ 
+b.
+Explain the waterfall model along with its pros and cons. 
+08
+L2 CO1
+ 
+c. Explain specialized process models. 
+06
+L2 CO1
+                                                                      Module – 2  
+Q.3 
+a. Explain how groundwork parameters are established in requirements 
+engineering. 
+08
+L2 CO2
+ 
+b.
+What is the importance of quality function deployment in eliciting 
+requirements? 
+06
+L1 CO2
+ 
+c. How can we validate requirements? 
+06
+L1 CO2
+                                                                           OR 
+Q.4 
+a. Explain about scenario based modelling. 
+10
+L2 CO2
+ 
+b.
+Illustrate regarding how can we create a Behavioral Model. 
+10
+L2 CO2
+                                                                      Module – 3  
+Q.5 
+a. Explain Agility along with the principles of Agility.  
+10
+L2 CO3
+ 
+b.
+Explain the Extreme Programming Process. 
+06
+L2 CO3
+ 
+c. Explain about the critics of XP. 
+04
+L2 CO3
+                                                                           OR 
+Q.6 
+a. Explain the scrum flow process.  
+08
+L2 CO3
+ 
+b.
+Explain the communication principles guiding framework activity.  
+08
+L2 CO3
+ 
+c. How can we validate and test principles in coding.  
+04
+L1 CO3
+                                                                      Module – 4  
+Q.7 
+a. Define Project. Show the contrast of software projects with other types of 
+projects.  
+06
+L2 CO4
+ 
+b.
+Explain the ISO 12207 software development life cycle with a neat 
+diagram. 
+10
+L2 CO4
+ 
+c. What are outsourced projects? 
+04
+L1 CO4
+                                                                           OR 
+Q.8 
+a. Illustrate the cost benefit evaluation techniques. 
+10
+L2 CO4
+ 
+b.
+Illustrate the concept of Risk evaluation.  
+10
+L2 CO4
+                                                                      Module – 5  
+Q.9 
+a. Explain the details to be drafted for achieving quality in software. 
+06
+L2 CO5
+ 
+b.
+Explain the software quality characteristics of ISO 9126. 
+08
+L2 CO5
+ 
+c. Explain process requirements for the process quality management. 
+06
+L2 CO5
+                                                                           OR 
+Q.10
+a. Explain about the decomposition techniques. 
+10
+L2 CO5
+ 
+b.
+Explain the COCOMO II model. 
+10
+L2 CO5
+                                                                    * * * * * 
+                
+USN 
+BCS501
+VTU-16-12-2025 01:08:25pm
+16-12-2025 01:31:18pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

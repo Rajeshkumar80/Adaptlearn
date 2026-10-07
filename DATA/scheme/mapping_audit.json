@@ -1,0 +1,190 @@
+[
+  {
+    "folder": "BCS301",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\3RD SEM\\BCS301",
+    "status": "ok"
+  },
+  {
+    "folder": "BCS302",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\3RD SEM\\BCS302",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Digital Design & Computer Organization",
+    "snippet_start": "30    Chapter 1  Digital Systems and Binary Numbers\ninto R1 and R2. The digital logic circuits produce the sum, which is transferred to register \nR3. The contents of R3 can now be transferred back to "
+  },
+  {
+    "folder": "BCS303",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\3RD SEM\\BCS303",
+    "status": "ok"
+  },
+  {
+    "folder": "BCS304",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\3RD SEM\\BCS304",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Data Structures and Applications",
+    "snippet_start": "DATA STRUCTURES-BCS304 \n \nMODULE 1 \n \n \n \n \n \n \n1 \n \nMODULE 1 \nINTRODUCTION TO DATA STRUCTURES: Data Structures, Classifications (Primitive \n& Non-Primitive), Data structure Operations Review of point"
+  },
+  {
+    "folder": "BCS306A",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\3RD SEM\\BCS306A",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Object Oriented Programming  with Java",
+    "snippet_start": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+    "folder": "BBOC407",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\4TH SEM\\BBOC407",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Biology for Computer Engineers",
+    "snippet_start": "                                            BIOLOGY FOR ENGINEERS (CSE)  \n \nPage 1 \n \n \n \nMODULE-01 \n \n \nCELL BASIC UNIT OF LIFE \n \nCell Definition: A cell is defined as the smallest, basic unit of li"
+  },
+  {
+    "folder": "BCS401",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\4TH SEM\\BCS401",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Analysis & Design of Algorithms",
+    "snippet_start": "1.1\nWhat Is an Algorithm?\n3\n1.1\nWhat Is an Algorithm?\nAlthough there is no universally agreed-on wording to describe this notion, there\nis general agreement about what the concept means:\nAn algorithm "
+  },
+  {
+    "folder": "BCS402",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\4TH SEM\\BCS402",
+    "status": "ok"
+  },
+  {
+    "folder": "BCS403",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\4TH SEM\\BCS403",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Database Management Systems",
+    "snippet_start": "Module 1 \nChapter 1: Introduction to Databases \n1.1 Introduction \nDatabases and database technology have a major impact on the growing use ofcomputers. It is fair \nto say that databases play a critica"
+  },
+  {
+    "folder": "BCS405A",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\4TH SEM\\BCS405A",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Discrete Mathematical Structures",
+    "snippet_start": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+    "folder": "BUHK408",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\4TH SEM\\BUHK408",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Universal human values course",
+    "snippet_start": " \n \n1 \n \n \n \n \n \n \n \n \n Self-Exploration–what is it? - Its content and process; „Natural Acceptance‟ and \nExperiential Validation as the process for self-exploration \n Continuous Happiness and Prosp"
+  },
+  {
+    "folder": "BCS501",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\5TH SEM\\BCS501",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Software Engineering & Project Management",
+    "snippet_start": "SOFTWARE ENGINEERING AND PROJECT MANAGEMENT (BCS501) \n \n1 \n \n \nMODULE –1 \nCHAPTER 1 --INTRODUCTION \nSoftware and Software Engineering \n \nSoftware Engineering is the product of two words, software, and"
+  },
+  {
+    "folder": "BCS502",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\5TH SEM\\BCS502",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Computer Networks",
+    "snippet_start": " \nDr. Devaraju B M  \nDept of CSE, RNSIT  \n1 \nMODULE-1: Data Communications & Networks \n \n1. DATA COMMUNICATIONS  \nData communication is the process of transferring data from one point to another using"
+  },
+  {
+    "folder": "BCS503",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\5TH SEM\\BCS503",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Theory of Computation",
+    "snippet_start": "MODULE 1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+    "folder": "BCS515B",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\5TH SEM\\BCS515B",
+    "status": "ok"
+  },
+  {
+    "folder": "BESK508",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\5TH SEM\\BESK508",
+    "status": "unknown_code",
+    "reason": "code not in map",
+    "official": ""
+  },
+  {
+    "folder": "BRMK557",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\5TH SEM\\BRMK557",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Research Methodology and IPR",
+    "snippet_start": " \nPage 1 \n \n \n \nMODULE 1: INTRODUCTION \n \nSyllabus \n \nMeaning of Research, Objectives of Engineering Research, and Motivation in Engineering \nResearch, Types of Engineering Research, Finding and Solvi"
+  },
+  {
+    "folder": "BCS601",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\6TH SEM\\BCS601",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Cloud Computing (Open Stack /Google)",
+    "snippet_start": "BCS601 Cloud Computing \nModule-1 \n \nModule-1 \nDistributed System Models and Enabling Technologies: \nScalable Computing Over the Internet, Technologies for Network Based Systems, System \nModels for Dis"
+  },
+  {
+    "folder": "BCS602",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\6TH SEM\\BCS602",
+    "status": "ok"
+  },
+  {
+    "folder": "BCS613A",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\6TH SEM\\BCS613A",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Blockchain Technology",
+    "snippet_start": "Block Chain Technology-BCS613A \n \n \n1 \nProf. Sruthi Krishna Assistant Professor, Department of CSE,BrCE \n \n \nIntroduction: \n• \nVitalik Buterin (https://vitalik.ca) conceptualized Ethereum (https://eth"
+  },
+  {
+    "folder": "BCS613C",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\6TH SEM\\BCS613C",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Compiler Design",
+    "snippet_start": "Block Chain Technology-BCS613A \n \n \n1 \nProf. Sruthi Krishna Assistant Professor, Department of CSE,BrCE \n \n \nIntroduction: \n• \nVitalik Buterin (https://vitalik.ca) conceptualized Ethereum (https://eth"
+  },
+  {
+    "folder": "BCV654C",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\6TH SEM\\BCV654C",
+    "status": "unknown_code",
+    "reason": "code not in map",
+    "official": ""
+  },
+  {
+    "folder": "BCS701",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\7TH SEM\\BCS701",
+    "status": "ok"
+  },
+  {
+    "folder": "BCS702",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\7TH SEM\\BCS702",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Parallel Computing",
+    "snippet_start": " \n \n \n \nMODULE-1 \n \nIntroduction to parallel programming, Parallel hardware and parallel software – \nClassifications of parallel computers, SIMD systems, MIMD systems, Interconnection \nnetworks, Cache"
+  },
+  {
+    "folder": "BCS703",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\7TH SEM\\BCS703",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Cryptography & Network Security",
+    "snippet_start": " \n1 | P a g e \n \n \n \n \nMODULE 1 \n \n \nModel for Network Security \nWhen two parties (called principals) exchange a message over the Internet, a logical \ninformation channel is established using communic"
+  },
+  {
+    "folder": "BCS714D",
+    "path": "D:/Adaptlearn/DATA/VTU_CSE_Notes\\7TH SEM\\BCS714D",
+    "status": "mismatch",
+    "reason": "mapping",
+    "official": "Big Data Analytics",
+    "snippet_start": " \nVtucircle.com \nPage 1 \n \n \n \n \n \n \nWhat is DATA? \n \nData is a raw fact and is defined as individual facts, such as numbers, words, \nmeasurements, observations or just descriptions of things. \nFor ex"
+  }
+]

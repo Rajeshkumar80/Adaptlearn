@@ -1,0 +1,444 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fifth Semester B.E./B.Tech. Degree Examination, June/July 2025 
+Theory of Computation     
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                      2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                 Module – 1
+M
+L
+C
+Q.1 
+a.
+Define the following with an example: 
+i) 
+Alphabet  
+ii) 
+Power of an alphabet 
+iii) String 
+iv) String concatenation  
+v) 
+Language  
+ 
+5 
+L1
+CO1
+ 
+b.
+Define Deterministic Finite Automata (DFA) and the language accepted by 
+it.  
+ 
+5 
+L1 
+CO1
+ 
+c. Design DFA to accept the following languages: 
+i) 
+L = {W {0, 1}* : W has 001 as a substring} 
+ii) 
+L = {W {0, 1}* : W mod 3 = 0} 
+10
+L3 
+CO1
+                                                                           OR 
+Q.2 
+a.
+Convert the following NFA to DFA 
+ 
+ 
+ 
+Fig.Q.2(a) 
+ 
+8 
+L2
+CO1
+ 
+b.
+Convert the following  - NFA to DFA 
+ 
+ 
+ 
+Fig.Q.2(b) 
+and define  - NFA  
+ 
+12
+L2 
+CO1
+                                                                     Module – 2 
+Q.3 
+a.
+Define regular expression. Write the regular expression for the following 
+languages: 
+i) 
+Representing for strings of a and b’s having odd length. 
+ii) 
+To accept 10 as substring over an alphabet  = {0, 1} 
+ 
+10
+L2
+CO2
+ 
+b.
+State and prove pumping Lemma for regular languages.  
+10
+L2 
+CO2
+1 of 3 
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503
+VTU-30-06-2025 01:27:09pm
+30-06-2025 01:32:05pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+BCS503
+                                                                          OR
+Q.4 
+a.
+Prove that regular languages are closed under complementation and 
+intersection.  
+ 
+10
+L2
+CO2
+ 
+b.
+i) 
+Obtain NFA (Non deterministic finite automata) for the regular 
+expression (a + b) abb. 
+ii) 
+Obtain NFA for the regular expression (a + ab) (a + b) 
+ 
+6 
+L2 
+CO2
+ 
+c. Write the applications of regular expression.  
+ 
+ 
+4 
+L2 
+CO2
+                                                                      Module – 3  
+Q.5 
+a.
+Define context free grammar. Write the CFG for the following languages: 
+i) 
+
+
+
+
+
+
+
+
+
+0
+m
+0
+n
+:
+c
+b
+a
+L
+m
+n
+n
+ 
+ii) 
+)}
+w
+(
+n
+)
+w
+(
+n
+:
+}
+b
+,a
+{
+w
+{
+L
+b
+a
+*
+
+
+
+ 
+10
+L2
+CO2
+ 
+b.
+i) 
+Define ambigious grammar with suitable example. 
+ii) 
+Consider the grammar 
+         E  + EE /  EE / - EE / x / y 
+Find the left most derivation, right most derivation and parse tree for the 
+string “+ -xyxy”. 
+ 
+ 
+10
+L2 
+CO2
+                                                                           OR 
+Q.6 
+a.
+Define PDA (Push Down Automata). Design a PDA to accept the following 
+language: 
+L = {anbn : n  0}. Draw the transition diagram and show that instantaneous 
+description for the string aaabbb.   
+10
+L3
+CO3
+ 
+b.
+Convert the following CFG to PDA: 
+i) 
+id
+E
+E
+E
+E
+E
+
+
+
+ 
+ii) 
+)
+E
+(
+E
+E
+I
+E
+
+
+ 
+I  id 
+ 
+6 
+L2 
+CO3
+ 
+c. Discuss the language accepted by PDA. 
+ 
+ 
+4 
+L1 
+CO3
+                                                                      Module – 4  
+Q.7 
+a.
+Convert the following grammar to CNF (Chomsky Normal Form) 
+
+
+/
+ASB
+S
+ 
+a
+/
+aAS
+A 
+ 
+bb
+A
+SbS
+B 
+ and define CNF 
+ 
+10
+L2
+CO3
+ 
+b.
+State and prove pumping Lemma for context free languages.  
+ 
+ 
+10
+L2 
+CO3
+ 
+2 of 3 
+ 
+VTU-30-06-2025 01:27:09pm
+30-06-2025 01:32:05pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS503
+ 
+                                                                          OR
+Q.8 
+a.
+What are useless and  productions? Eliminate , unit and useless 
+productions from the following grammar: 
+aa
+/
+Bba
+/
+bA
+A 
+ 
+D
+/
+b
+/
+aBa
+B 
+ 
+B
+/
+AC
+/
+CA
+C 
+ 
+
+
+/
+a
+D
+ 
+ 
+10
+L3
+CO3
+ 
+b.
+Prove that the family of context free languages is closed under union 
+concatenation and star closure.  
+10
+L2 
+CO3
+                                                                     Module – 5 
+Q.9 
+a.
+Define a Turing Machine. Explain the working and variants of Turing 
+machine.  
+ 
+10
+L1
+CO4
+ 
+b.
+Design a Turing machine to accept 
+
+
+0
+n
+c
+b
+a
+L
+n
+n
+n
+
+
+. Draw the transition 
+diagram. Show the moves mode for string aabbcc.  
+ 
+10
+L3 
+CO4
+                                                                           OR 
+Q.10
+a.
+Explain language acceptability and design of Turing Machines (Steps). 
+ 
+10
+L2
+CO5
+ 
+b.
+Explain the following: 
+i) 
+Programming techniques for turing machines 
+ii) 
+Undecidability problem.  
+ 
+10
+L2 
+CO5
+* * * * * 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3 of 3 
+VTU-30-06-2025 01:27:09pm
+30-06-2025 01:32:05pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

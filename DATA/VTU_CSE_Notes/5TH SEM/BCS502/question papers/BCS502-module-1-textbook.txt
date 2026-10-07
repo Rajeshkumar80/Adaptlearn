@@ -1,0 +1,3035 @@
+4
+PART I
+OVERVIEW
+1.1
+DATA COMMUNICATIONS
+When we communicate, we are sharing information. This sharing can be local or
+remote. Between individuals, local communication usually occurs face to face, while
+remote communication takes place over distance. The term telecommunication, which
+includes telephony, telegraphy, and television, means communication at a distance (tele
+is Greek for “far”). The word data refers to information presented in whatever form is
+agreed upon by the parties creating and using the data. 
+Data communications are the exchange of data between two devices via some
+form of transmission medium such as a wire cable. For data communications to occur,
+the communicating devices must be part of a communication system made up of a com-
+bination of hardware (physical equipment) and software (programs). The effectiveness
+of a data communications system depends on four fundamental characteristics: deliv-
+ery, accuracy, timeliness, and jitter.
+1. Delivery. The system must deliver data to the correct destination. Data must be
+received by the intended device or user and only by that device or user.
+2. Accuracy. The system must deliver the data accurately. Data that have been
+altered in transmission and left uncorrected are unusable.
+3. Timeliness. The system must deliver data in a timely manner. Data delivered late are
+useless. In the case of video and audio, timely delivery means delivering data as
+they are produced, in the same order that they are produced, and without signifi-
+cant delay. This kind of delivery is called real-time transmission.
+4. Jitter. Jitter refers to the variation in the packet arrival time. It is the uneven delay in
+the delivery of audio or video packets. For example, let us assume that video packets
+are sent every 30 ms. If some of the packets arrive with 30-ms delay and others with
+40-ms delay, an uneven quality in the video is the result. 
+1.1.1
+Components
+A data communications system has five components (see Figure 1.1).
+1. Message. The message is the information (data) to be communicated. Popular
+forms of information include text, numbers, pictures, audio, and video. 
+2. Sender. The sender is the device that sends the data message. It can be a com-
+puter, workstation, telephone handset, video camera, and so on.
+Figure 1.1
+Five components of data communication
+Transmission medium
+Message
+Protocol
+Protocol
+Rule 1:
+Rule 2:
+...
+Rule n:
+Rule 1:
+Rule 2:
+...
+Rule n:
+Sender
+Receiver
+MODULE 1
+
+CHAPTER 1
+INTRODUCTION
+5
+3. Receiver. The receiver is the device that receives the message. It can be a com-
+puter, workstation, telephone handset, television, and so on.
+4. Transmission medium. The transmission medium is the physical path by which
+a message travels from sender to receiver. Some examples of transmission media
+include twisted-pair wire, coaxial cable, fiber-optic cable, and radio waves.
+5. Protocol. A protocol is a set of rules that govern data communications. It repre-
+sents an agreement between the communicating devices. Without a protocol, two
+devices may be connected but not communicating, just as a person speaking French
+cannot be understood by a person who speaks only Japanese.
+1.1.2
+Data Representation
+Information today comes in different forms such as text, numbers, images, audio, and
+video. 
+Text
+In data communications, text is represented as a bit pattern, a sequence of bits (0s or
+1s). Different sets of bit patterns have been designed to represent text symbols. Each set
+is called a code, and the process of representing symbols is called coding. Today, the
+prevalent coding system is called Unicode, which uses 32 bits to represent a symbol or
+character used in any language in the world. The American Standard Code for Infor-
+mation Interchange (ASCII), developed some decades ago in the United States, now
+constitutes the first 127 characters in Unicode and is also referred to as Basic Latin.
+Appendix A includes part of the Unicode. 
+Numbers
+Numbers are also represented by bit patterns. However, a code such as ASCII is not used
+to represent numbers; the number is directly converted to a binary number to simplify
+mathematical operations. Appendix B discusses several different numbering systems. 
+Images
+Images are also represented by bit patterns. In its simplest form, an image is composed
+of a matrix of pixels (picture elements), where each pixel is a small dot. The size of the
+pixel depends on the resolution. For example, an image can be divided into 1000 pixels
+or 10,000 pixels. In the second case, there is a better representation of the image (better
+resolution), but more memory is needed to store the image.
+After an image is divided into pixels, each pixel is assigned a bit pattern. The size
+and the value of the pattern depend on the image. For an image made of only black-
+and-white dots (e.g., a chessboard), a 1-bit pattern is enough to represent a pixel. 
+If an image is not made of pure white and pure black pixels, we can increase the
+size of the bit pattern to include gray scale. For example, to show four levels of gray
+scale, we can use 2-bit patterns. A black pixel can be represented by 00, a dark gray
+pixel by 01, a light gray pixel by 10, and a white pixel by 11.
+There are several methods to represent color images. One method is called RGB,
+so called because each color is made of a combination of three primary colors: red,
+green, and blue. The intensity of each color is measured, and a bit pattern is assigned to
+
+6
+PART I
+OVERVIEW
+it. Another method is called YCM, in which a color is made of a combination of three
+other primary colors: yellow, cyan, and magenta.
+Audio
+Audio refers to the recording or broadcasting of sound or music. Audio is by nature
+different from text, numbers, or images. It is continuous, not discrete. Even when we
+use a microphone to change voice or music to an electric signal, we create a continuous
+signal. We will learn more about audio in Chapter 26. 
+Video
+Video refers to the recording or broadcasting of a picture or movie. Video can either be
+produced as a continuous entity (e.g., by a TV camera), or it can be a combination of
+images, each a discrete entity, arranged to convey the idea of motion. We will learn
+more about video in Chapter 26. 
+1.1.3
+Data Flow
+Communication between two devices can be simplex, half-duplex, or full-duplex as
+shown in Figure 1.2. 
+Simplex
+In simplex mode, the communication is unidirectional, as on a one-way street. Only one
+of the two devices on a link can transmit; the other can only receive (see Figure 1.2a).
+Keyboards and traditional monitors are examples of simplex devices. The key-
+board can only introduce input; the monitor can only accept output. The simplex mode
+can use the entire capacity of the channel to send data in one direction. 
+Figure 1.2
+Data flow (simplex, half-duplex, and full-duplex)
+Direction of data
+Monitor
+Mainframe
+a. Simplex
+b. Half-duplex
+c. Full-duplex
+Direction of data at time 1
+Direction of data at time 2
+Direction of data all the time
+
+CHAPTER 1
+INTRODUCTION
+7
+Half-Duplex
+In half-duplex mode, each station can both transmit and receive, but not at the same time.
+When one device is sending, the other can only receive, and vice versa (see Figure 1.2b).
+The half-duplex mode is like a one-lane road with traffic allowed in both direc-
+tions. When cars are traveling in one direction, cars going the other way must wait. In a
+half-duplex transmission, the entire capacity of a channel is taken over by whichever of
+the two devices is transmitting at the time. Walkie-talkies and CB (citizens band) radios
+are both half-duplex systems. 
+The half-duplex mode is used in cases where there is no need for communication
+in both directions at the same time; the entire capacity of the channel can be utilized for
+each direction. 
+Full-Duplex
+In full-duplex mode (also called duplex), both stations can transmit and receive simul-
+taneously (see Figure 1.2c).
+The full-duplex mode is like a two-way street with traffic flowing in both direc-
+tions at the same time. In full-duplex mode, signals going in one direction share the
+capacity of the link with signals going in the other direction. This sharing can occur in
+two ways: Either the link must contain two physically separate transmission paths, one
+for sending and the other for receiving; or the capacity of the channel is divided
+between signals traveling in both directions.
+One common example of full-duplex communication is the telephone network.
+When two people are communicating by a telephone line, both can talk and listen at the
+same time. 
+The full-duplex mode is used when communication in both directions is required
+all the time. The capacity of the channel, however, must be divided between the two
+directions. 
+1.2
+NETWORKS
+A network is the interconnection of a set of devices capable of communication. In this
+definition, a device can be a host (or an end system as it is sometimes called) such as a
+large computer, desktop, laptop, workstation, cellular phone, or security system. A
+device in this definition can also be a connecting device such as a router, which con-
+nects the network to other networks, a switch, which connects devices together, a
+modem (modulator-demodulator), which changes the form of data, and so on. These
+devices in a network are connected using wired or wireless transmission media such as
+cable or air. When we connect two computers at home using a plug-and-play router, we
+have created a network, although very small. 
+1.2.1
+Network Criteria
+A network must be able to meet a certain number of criteria. The most important of
+these are performance, reliability, and security.
+
+8
+PART I
+OVERVIEW
+Performance
+Performance can be measured in many ways, including transit time and response time.
+Transit time is the amount of time required for a message to travel from one device to
+another. Response time is the elapsed time between an inquiry and a response. The per-
+formance of a network depends on a number of factors, including the number of users,
+the type of transmission medium, the capabilities of the connected hardware, and the
+efficiency of the software.
+Performance is often evaluated by two networking metrics: throughput and delay.
+We often need more throughput and less delay. However, these two criteria are often
+contradictory. If we try to send more data to the network, we may increase throughput
+but we increase the delay because of traffic congestion in the network. 
+Reliability
+In addition to accuracy of delivery, network reliability is measured by the frequency of
+failure, the time it takes a link to recover from a failure, and the network’s robustness in
+a catastrophe.
+Security
+Network security issues include protecting data from unauthorized access, protecting
+data from damage and development, and implementing policies and procedures for
+recovery from breaches and data losses.
+1.2.2
+Physical Structures
+Before discussing networks, we need to define some network attributes.
+Type of Connection 
+A network is two or more devices connected through links. A link is a communications
+pathway that transfers data from one device to another. For visualization purposes, it is
+simplest to imagine any link as a line drawn between two points. For communication to
+occur, two devices must be connected in some way to the same link at the same time.
+There are two possible types of connections: point-to-point and multipoint.
+Point-to-Point
+A point-to-point connection provides a dedicated link between two devices. The
+entire capacity of the link is reserved for transmission between those two devices. Most
+point-to-point connections use an actual length of wire or cable to connect the two
+ends, but other options, such as microwave or satellite links, are also possible (see
+Figure 1.3a). When we change television channels by infrared remote control, we are
+establishing a point-to-point connection between the remote control and the television’s
+control system.
+Multipoint
+A multipoint (also called multidrop) connection is one in which more than two spe-
+cific devices share a single link (see Figure 1.3b). 
+
+CHAPTER 1
+INTRODUCTION
+9
+In a multipoint environment, the capacity of the channel is shared, either spatially
+or temporally. If several devices can use the link simultaneously, it is a spatially shared
+connection. If users must take turns, it is a timeshared connection.
+Physical Topology
+The term physical topology refers to the way in which a network is laid out physically.
+Two or more devices connect to a link; two or more links form a topology. The topology
+of a network is the geometric representation of the relationship of all the links and
+linking devices (usually called nodes) to one another. There are four basic topologies
+possible: mesh, star, bus, and ring.
+Mesh Topology
+In a mesh topology, every device has a dedicated point-to-point link to every other
+device. The term dedicated means that the link carries traffic only between the two
+devices it connects. To find the number of physical links in a fully connected mesh net-
+work with n nodes, we first consider that each node must be connected to every other
+node. Node 1 must be connected to n – 1 nodes, node 2 must be connected to n – 1
+nodes, and finally node n must be connected to n – 1 nodes. We need n (n – 1) physical
+links. However, if each physical link allows communication in both directions (duplex
+mode), we can divide the number of links by 2. In other words, we can say that in a mesh
+topology, we need  n (n – 1) / 2  duplex-mode links.  To accommodate that many links,
+every device on the network must have n – 1 input/output (I/O) ports (see Figure 1.4) to
+be connected to the other n – 1 stations. 
+A mesh offers several advantages over other network topologies. First, the use of
+dedicated links guarantees that each connection can carry its own data load, thus elimi-
+nating the traffic problems that can occur when links must be shared by multiple
+devices. Second, a mesh topology is robust. If one link becomes unusable, it does not
+incapacitate the entire system. Third, there is the advantage of privacy or security. When
+every message travels along a dedicated line, only the intended recipient sees it. Physical
+boundaries prevent other users from gaining access to messages. Finally, point-to-point
+links make fault identification and fault isolation easy. Traffic can be routed to avoid
+links with suspected problems. This facility enables the network manager to discover the
+precise location of the fault and aids in finding its cause and solution.
+Figure 1.3
+Types of connections: point-to-point and multipoint
+a. Point-to-point
+b. Multipoint
+Link
+Link
+Mainframe
+
+10
+PART I
+OVERVIEW
+The main disadvantages of a mesh are related to the amount of cabling and the
+number of I/O ports required. First, because every device must be connected to every
+other device, installation and reconnection are difficult. Second, the sheer bulk of the
+wiring can be greater than the available space (in walls, ceilings, or floors) can accom-
+modate. Finally, the hardware required to connect each link (I/O ports and cable) can be
+prohibitively expensive. For these reasons a mesh topology is usually implemented in a
+limited fashion, for example, as a backbone connecting the main computers of a hybrid
+network that can include several other topologies. 
+One practical example of a mesh topology is the connection of telephone regional
+offices in which each regional office needs to be connected to every other regional
+office. 
+Star Topology
+In a star topology, each device has a dedicated point-to-point link only to a central con-
+troller, usually called a hub. The devices are not directly linked to one another. Unlike a
+mesh topology, a star topology does not allow direct traffic between devices. The con-
+troller acts as an exchange: If one device wants to send data to another, it sends the
+data to the controller, which then relays the data to the other connected device (see
+Figure 1.5) .
+A star topology is less expensive than a mesh topology. In a star, each device needs
+only one link and one I/O port to connect it to any number of others. This factor also
+makes it easy to install and reconfigure. Far less cabling needs to be housed, and
+Figure 1.4
+A fully connected mesh topology (five devices)
+Figure 1.5
+A star topology connecting four stations
+n = 5
+10 links.
+Hub
+
+CHAPTER 1
+INTRODUCTION
+11
+additions, moves, and deletions involve only one connection: between that device and
+the hub.
+Other advantages include robustness. If one link fails, only that link is affected. All
+other links remain active. This factor also lends itself to easy fault identification and
+fault isolation. As long as the hub is working, it can be used to monitor link problems
+and bypass defective links.
+One big disadvantage of a star topology is the dependency of the whole topology
+on one single point, the hub. If the hub goes down, the whole system is dead. 
+Although a star requires far less cable than a mesh, each node must be linked to a
+central hub. For this reason, often more cabling is required in a star than in some other
+topologies (such as ring or bus). 
+The star topology is used in local-area networks (LANs), as we will see in Chapter 13.
+High-speed LANs often use a star topology with a central hub. 
+Bus Topology
+The preceding examples all describe point-to-point connections. A bus topology, on the
+other hand, is multipoint. One long cable acts as a backbone to link all the devices in a
+network (see Figure 1.6).
+Nodes are connected to the bus cable by drop lines and taps. A drop line is a con-
+nection running between the device and the main cable. A tap is a connector that either
+splices into the main cable or punctures the sheathing of a cable to create a contact with
+the metallic core. As a signal travels along the backbone, some of its energy is trans-
+formed into heat. Therefore, it becomes weaker and weaker as it travels farther and far-
+ther. For this reason there is a limit on the number of taps a bus can support and on the
+distance between those taps.
+Advantages of a bus topology include ease of installation. Backbone cable can be
+laid along the most efficient path, then connected to the nodes by drop lines of various
+lengths. In this way, a bus uses less cabling than mesh or star topologies. In a star, for
+example, four network devices in the same room require four lengths of cable reaching
+all the way to the hub. In a bus, this redundancy is eliminated. Only the backbone cable
+stretches through the entire facility. Each drop line has to reach only as far as the near-
+est point on the backbone.
+Disadvantages include difficult reconnection and fault isolation. A bus is usually
+designed to be optimally efficient at installation. It can therefore be difficult to add new
+devices. Signal reflection at the taps can cause degradation in quality. This degradation
+can be controlled by limiting the number and spacing of devices connected to a given
+Figure 1.6
+A bus topology connecting three stations
+Drop line
+Drop line
+Drop line
+Cable end
+Cable end
+Tap
+Tap
+Tap
+
+12
+PART I
+OVERVIEW
+length of cable. Adding new devices may therefore require modification or replacement
+of the backbone.
+In addition, a fault or break in the bus cable stops all transmission, even between
+devices on the same side of the problem. The damaged area reflects signals back in the
+direction of origin, creating noise in both directions.
+Bus topology was the one of the first topologies used in the design of early local-
+area networks. Traditional Ethernet LANs can use a bus topology, but they are less pop-
+ular now for reasons we will discuss in Chapter 13. 
+Ring Topology
+In a ring topology, each device has a dedicated point-to-point connection with only the
+two devices on either side of it. A signal is passed along the ring in one direction, from
+device to device, until it reaches its destination. Each device in the ring incorporates a
+repeater. When a device receives a signal intended for another device, its repeater
+regenerates the bits and passes them along (see Figure 1.7).
+A ring is relatively easy to install and reconfigure. Each device is linked to only its
+immediate neighbors (either physically or logically). To add or delete a device requires
+changing only two connections. The only constraints are media and traffic consider-
+ations (maximum ring length and number of devices). In addition, fault isolation is sim-
+plified. Generally, in a ring a signal is circulating at all times. If one device does not
+receive a signal within a specified period, it can issue an alarm. The alarm alerts the
+network operator to the problem and its location.
+However, unidirectional traffic can be a disadvantage. In a simple ring, a break in
+the ring (such as a disabled station) can disable the entire network. This weakness can
+be solved by using a dual ring or a switch capable of closing off the break.
+Ring topology was prevalent when IBM introduced its local-area network, Token
+Ring. Today, the need for higher-speed LANs has made this topology less popular. 
+Figure 1.7
+A ring topology connecting six stations
+Repeater
+Repeater
+Repeater
+Repeater
+Repeater
+Repeater
+
+CHAPTER 1
+INTRODUCTION
+13
+1.3
+NETWORK TYPES
+After defining networks in the previous section and discussing their physical structures,
+we need to discuss different types of networks we encounter in the world today. The crite-
+ria of distinguishing one type of network from another is difficult and sometimes confus-
+ing. We use a few criteria such as size, geographical coverage, and ownership to make this
+distinction. After discussing two types of networks, LANs and WANs, we define switch-
+ing, which is used to connect networks to form an  internetwork (a network of networks). 
+1.3.1
+Local Area Network
+A local area network (LAN) is usually privately owned and connects some hosts in a
+single office, building, or campus. Depending on the needs of an organization, a LAN
+can be as simple as two PCs and a printer in someone’s home office, or it can extend
+throughout a company and include audio and video devices. Each host in a LAN has an
+identifier, an address, that uniquely defines the host in the LAN. A packet sent by a host
+to another host carries both the source host’s and the destination host’s addresses.
+In the past, all hosts in a network were connected through a common cable, which
+meant that a packet sent from one host to another was received by all hosts. The intended
+recipient kept the packet; the others dropped the packet. Today, most LANs use a smart
+connecting switch, which is able to recognize the destination address of the packet and
+guide the packet to its destination without sending it to all other hosts. The switch allevi-
+ates the traffic in the LAN and allows more than one pair to communicate with each
+other at the same time if there is no common source and destination among them. Note
+that the above definition of a LAN does not define the minimum or maximum number of
+hosts in a LAN. Figure 1.8 shows a LAN using either a common cable or a switch.        
+Figure 1.8
+An isolated LAN in the past and today 
+Switch
+Host 2
+Host 3
+Host 4
+Host 5
+Host 6
+Host 7
+Host 8
+A host (of any type)
+A switch
+A cable tap
+A cable end
+A connection
+The common cable
+Host 1
+Host 2
+Host 3
+Host 4
+Host 5
+Host 6
+Host 7
+Host 8
+a. LAN with a common cable (past)
+b. LAN with a switch (today)
+Legend
+Host 1
+
+14
+PART I
+OVERVIEW
+When LANs were used in isolation (which is rare today), they were designed to allow
+resources to be shared between the hosts. As we will see shortly, LANs today are connected
+to each other and to WANs (discussed next) to create communication at a wider level. 
+1.3.2
+Wide Area Network
+A wide area network (WAN) is also an interconnection of devices capable of communica-
+tion. However, there are some differences between a LAN and a WAN. A LAN is normally
+limited in size, spanning an office, a building, or a campus; a WAN has a wider geographi-
+cal span, spanning a town, a state, a country, or even the world. A LAN interconnects hosts;
+a WAN interconnects connecting devices such as switches, routers, or modems. A LAN is
+normally privately owned by the organization that uses it; a WAN is normally created and
+run by communication companies and leased by an organization that uses it. We see two
+distinct examples of WANs today: point-to-point WANs and switched WANs.
+Point-to-Point WAN
+A point-to-point WAN is a network that connects two communicating devices through a trans-
+mission media (cable or air). We will see examples of these WANs when we discuss how to
+connect the networks to one another. Figure 1.9 shows an example of a point-to-point WAN. 
+Switched WAN
+A switched WAN is a network with more than two ends. A switched WAN, as we will
+see shortly, is used in the backbone of global communication today. We can say that a
+switched WAN is a combination of several point-to-point WANs that are connected by
+switches. Figure 1.10 shows an example of a switched WAN.  
+LANs are discussed in more detail in Part III of the book.
+Figure 1.9
+A point-to-point WAN
+Figure 1.10
+A switched WAN
+To another
+network
+To another
+network
+Legend
+A connecting device
+Connecting medium
+To another
+network
+To another
+network
+To another
+network
+To another
+network
+To another
+network
+To another
+network
+To another
+network
+To another
+network
+A switch
+Connecting medium
+Legend
+
+CHAPTER 1
+INTRODUCTION
+15
+Internetwork
+Today, it is very rare to see a LAN or a WAN in isolation; they are connected to one
+another. When two or more networks are connected, they make an internetwork, or
+internet. As an example, assume that an organization has two offices, one on the east
+coast and the other on the west coast. Each office has a LAN that allows all employees in
+the office to communicate with each other. To make the communication between employ-
+ees at different offices possible, the management leases a point-to-point dedicated WAN
+from a service provider, such as a telephone company, and connects the two LANs. Now
+the company has an internetwork, or a private internet (with lowercase i). Communication
+between offices is now possible. Figure 1.11 shows this internet. 
+When a host in the west coast office sends a message to another host in the same
+office, the router blocks the message, but the switch directs the message to the destination.
+On the other hand, when a host on the west coast sends a message to a host on the east
+coast, router R1 routes the packet to router R2, and the packet reaches the destination. 
+Figure 1.12 (see next page) shows another internet with several LANs and WANs
+connected. One of the WANs is a switched WAN with four switches. 
+1.3.3
+Switching
+An internet is a switched network in which a switch connects at least two links
+together. A switch needs to forward data from a network to another network when
+required. The two most common types of switched networks are circuit-switched and
+packet-switched networks. We discuss both next. 
+Circuit-Switched Network
+In a circuit-switched network, a dedicated connection, called a circuit, is always
+available between the two end systems; the switch can only make it active or inactive.
+Figure 1.13 shows a very simple switched network that connects four telephones to
+each end. We have used telephone sets instead of computers as an end system because
+circuit switching was very common in telephone networks in the past, although part of
+the telephone network today is a packet-switched network.
+In Figure 1.13, the four telephones at each side are connected to a switch. The
+switch connects a telephone set at one side to a telephone set at the other side. The thick
+WANs are discussed in more detail in Part II of the book. 
+Figure 1.11
+An internetwork made of two LANs and one point-to-point WAN
+Point-to-point 
+WAN
+Router
+R1
+East coast office
+West coast office
+LAN
+LAN
+Router
+R2
+
+16
+PART I
+OVERVIEW
+line connecting two switches is a high-capacity communication line that can handle
+four voice communications at the same time; the capacity can be shared between all
+pairs of telephone sets. The switches used in this example have forwarding tasks but no
+storing capability. 
+Let us look at two cases. In the first case, all telephone sets are busy; four people at
+one site are talking with four people at the other site; the capacity of the thick line is
+fully used. In the second case, only one telephone set at one side is connected to a tele-
+phone set at the other side; only one-fourth of the capacity of the thick line is used. This
+means that a circuit-switched network is efficient only when it is working at its full
+capacity; most of the time, it is inefficient because it is working at partial capacity. The
+reason that we need to make the capacity of the thick line four times the capacity of
+each voice line is that we do not want communication to fail when all telephone sets at
+one side want to be connected with all telephone sets at the other side. 
+Figure 1.12
+A heterogeneous network made of four WANs and three LANs
+Figure 1.13
+A circuit-switched network
+LAN
+Switched WAN
+Point-to-point 
+WAN
+Point-to-point 
+WAN
+Point-to-point 
+WAN
+LAN
+Router
+Router
+Router
+Router
+Modem
+Modem
+Resident
+Switch
+Switch
+Low-capacity line
+High-capacity line
+
+CHAPTER 1
+INTRODUCTION
+17
+Packet-Switched Network
+In a computer network, the communication between the two ends is done in blocks of
+data called packets. In other words, instead of the continuous communication we see
+between two telephone sets when they are being used, we see the exchange of individ-
+ual data packets between the two computers. This allows us to make the switches func-
+tion for both storing and forwarding because a packet is an independent entity that can
+be stored and sent later. Figure 1.14 shows a small packet-switched network that con-
+nects four computers at one site to four computers at the other site.
+A router in a packet-switched network has a queue that can store and forward the
+packet. Now assume that the capacity of the thick line is only twice the capacity of the
+data line connecting the computers to the routers. If only two computers (one at each
+site) need to communicate with each other, there is no waiting for the packets.
+However, if packets arrive at one router when the thick line is already working at its full
+capacity, the packets should be stored and forwarded in the order they arrived. The two
+simple examples show that a packet-switched network is more efficient than a circuit-
+switched network, but the packets may encounter some delays.
+In this book, we mostly discuss packet-switched networks. In Chapter 18, we discuss
+packet-switched networks in more detail and discuss the performance of these networks. 
+1.3.4
+The Internet
+As we discussed before, an internet (note the lowercase i) is two or more networks that
+can communicate with each other. The most notable internet is called the Internet
+(uppercase I ), and is composed of thousands of interconnected networks. Figure 1.15
+shows a conceptual (not geographical) view of the Internet.
+The figure shows the Internet as several backbones, provider networks, and cus-
+tomer networks. At the top level, the backbones are large networks owned by some
+communication companies such as Sprint, Verizon (MCI), AT&T, and NTT. The back-
+bone networks are connected through some complex switching systems, called peering
+points. At the second level, there are smaller networks, called provider networks, that
+use the services of the backbones for a fee. The provider networks are connected to
+backbones and sometimes to other provider networks. The customer networks are
+Figure 1.14
+A packet-switched network
+Router
+Queue
+Queue
+Low-capacity line
+High-capacity line
+Router
+
+18
+PART I
+OVERVIEW
+networks at the edge of the Internet that actually use the services provided by the Inter-
+net. They pay fees to provider networks for receiving services. 
+Backbones and provider networks are also called Internet Service Providers
+(ISPs). The backbones are often referred to as international ISPs; the provider net-
+works are often referred to as national or regional ISPs. 
+1.3.5
+Accessing the Internet
+The Internet today is an internetwork that allows any user to become part of it. The
+user, however, needs to be physically connected to an ISP. The physical connection is
+normally done through a point-to-point WAN. In this section, we briefly describe
+how this can happen, but we postpone the technical details of the connection until
+Chapters 14 and 16.
+Using Telephone Networks
+Today most residences and small businesses have telephone service, which means
+they are connected to a telephone network. Since most telephone networks have
+already connected themselves to the Internet, one option for residences and small
+businesses to connect to the Internet is to change the voice line between the residence
+or business and the telephone center to a point-to-point WAN. This can be done in
+two ways. 
+❑
+Dial-up service. The first solution is to add to the telephone line a modem that
+converts data to voice. The software installed on the computer dials the ISP and
+imitates making a telephone connection. Unfortunately, the dial-up service is
+Figure 1.15
+The Internet today
+Customer 
+network
+Customer 
+network
+Customer 
+network
+Customer 
+network
+Peering
+point
+Peering
+point
+Provider
+network
+Provider
+network
+Provider
+network
+Backbones
+Provider
+network
+Customer 
+network
+Customer 
+network
+Provider
+network
+Customer 
+network
+Customer 
+network
+Customer 
+network
+Customer 
+network
+
+CHAPTER 1
+INTRODUCTION
+19
+very slow, and when the line is used for Internet connection, it cannot be used for
+telephone (voice) connection. It is only useful for small residences. We discuss
+dial-up service in Chapter 14. 
+❑
+DSL Service. Since the advent of the Internet, some telephone companies have
+upgraded their telephone lines to provide higher speed Internet services to resi-
+dences or small businesses. The DSL service also allows the line to be used simul-
+taneously for voice and data communication. We discuss DSL in Chapter 14. 
+Using Cable Networks
+More and more residents over the last two decades have begun using cable TV services
+instead of antennas to receive TV broadcasting. The cable companies have been
+upgrading their cable networks and connecting to the Internet. A residence or a small
+business can be connected to the Internet by using this service. It provides a higher
+speed connection, but the speed varies depending on the number of neighbors that use
+the same cable. We discuss the cable networks in Chapter 14. 
+Using Wireless Networks
+Wireless connectivity has recently become increasingly popular. A household or a
+small business can use a combination of wireless and wired connections to access the
+Internet. With the growing wireless WAN access, a household or a small business can
+be connected to the Internet through a wireless WAN. We discuss wireless access in
+Chapter 16.
+Direct Connection to the Internet
+A large organization or a large corporation can itself become a local ISP and be con-
+nected to the Internet. This can be done if the organization or the corporation leases a
+high-speed WAN from a carrier provider and connects itself to a regional ISP. For
+example, a large university with several campuses can create an internetwork and then
+connect the internetwork to the Internet. 
+1.4
+INTERNET HISTORY
+Now that we have given an overview of the Internet, let us give a brief history of the
+Internet. This brief history makes it clear how the Internet has evolved from a private
+network to a global one in less than 40 years. 
+1.4.1
+Early History
+There were some communication networks, such as telegraph and telephone networks,
+before 1960. These networks were suitable for constant-rate communication at that time,
+which means that after a connection was made between two users, the encoded message
+(telegraphy) or voice (telephony) could be exchanged. A computer network, on the other
+hand, should be able to handle bursty data, which means data received at variable rates at
+different times. The world needed to wait for the packet-switched network to be invented. 
+
+32
+PART I
+OVERVIEW
+2.1
+PROTOCOL LAYERING
+We defined the term protocol in Chapter 1. In data communication and networking, a
+protocol defines the rules that both the sender and receiver and all intermediate devices
+need to follow to be able to communicate effectively. When communication is simple,
+we may need only one simple protocol; when the communication is complex, we may
+need to divide the task between different layers, in which case we need a protocol at
+each layer, or protocol layering.
+2.1.1
+Scenarios
+Let us develop two simple scenarios to better understand the need for protocol layering.
+First Scenario 
+In the first scenario, communication is so simple that it can occur in only one layer.
+Assume Maria and Ann are neighbors with a lot of common ideas. Communication
+between Maria and Ann takes place in one layer, face to face, in the same language, as
+shown in Figure 2.1. 
+Even in this simple scenario, we can see that a set of rules needs to be followed.
+First, Maria and Ann know that they should greet each other when they meet. Second,
+they know that they should confine their vocabulary to the level of their friendship.
+Third, each party knows that she should refrain from speaking when the other party
+is speaking. Fourth, each party knows that the conversation should be a dialog, not a
+monolog: both should have the opportunity to talk about the issue. Fifth, they should
+exchange some nice words when they leave. 
+We can see that the protocol used by Maria and Ann is different from the commu-
+nication between a professor and the students in a lecture hall. The communication in
+the second case is mostly monolog; the professor talks most of the time unless a student
+has a question, a situation in which the protocol dictates that she should raise her hand
+and wait for permission to speak. In this case, the communication is normally very for-
+mal and limited to the subject being taught. 
+Second Scenario
+In the second scenario, we assume that Ann is offered a higher-level position in her
+company, but needs to move to another branch located in a city very far from Maria.
+The two friends still want to continue their communication and exchange ideas because
+Figure 2.1
+A single-layer protocol
+Maria 
+Ann 
+Layer 1
+Listen/Talk
+Listen/Talk
+Air
+Layer 1
+
+CHAPTER 2
+NETWORK MODELS
+33
+they have come up with an innovative project to start a new business when they both
+retire. They decide to continue their conversation using regular mail through the post
+office. However, they do not want their ideas to be revealed by other people if the let-
+ters are intercepted. They agree on an encryption/decryption technique. The sender of
+the letter encrypts it to make it unreadable by an intruder; the receiver of the letter
+decrypts it to get the original letter. We discuss the encryption/decryption methods in
+Chapter 31, but for the moment we assume that Maria and Ann use one technique that
+makes it hard to decrypt the letter if one does not have the key for doing so. Now we
+can say that the communication between Maria and Ann takes place in three layers, as
+shown in Figure 2.2. We assume that Ann and Maria each have three machines (or
+robots) that can perform the task at each layer. 
+Let us assume that Maria sends the first letter to Ann. Maria talks to the machine at
+the third layer as though the machine is Ann and is listening to her. The third layer
+machine listens to what Maria says and creates the plaintext (a letter in English), which
+is passed to the second layer machine. The second layer machine takes the plaintext,
+encrypts it, and creates the ciphertext, which is passed to the first layer machine. The
+first layer machine, presumably a robot, takes the ciphertext, puts it in an envelope,
+adds the sender and receiver addresses, and mails it. 
+At Ann’s side, the first layer machine picks up the letter from Ann’s mail box, rec-
+ognizing the letter from Maria by the sender address. The machine takes out the cipher-
+text from the envelope and delivers it to the second layer machine. The second layer
+machine decrypts the message, creates the plaintext, and passes the plaintext to the
+third-layer machine. The third layer machine takes the plaintext and reads it as though
+Maria is speaking. 
+Figure 2.2
+A three-layer protocol
+Maria 
+Listen/Talk 
+Layer 3
+Layer 3
+Ann
+Listen/Talk 
+Plaintext
+Plaintext
+Ciphertext
+Ciphertext
+Mail 
+Mail 
+Encrypt/Decrypt 
+Send mail/
+receive mail 
+Layer 2
+Layer 1
+Encrypt/Decrypt 
+Send mail/
+receive mail 
+Layer 2
+Layer 1
+Identical objects
+Identical objects
+Identical objects
+Postal carrier facility
+US Post 
+US Post 
+
+34
+PART I
+OVERVIEW
+Protocol layering enables us to divide a complex task into several smaller and sim-
+pler tasks. For example, in Figure 2.2, we could have used only one machine to do the
+job of all three machines. However, if Maria and Ann decide that the encryption/
+decryption done by the machine is not enough to protect their secrecy, they would have
+to change the whole machine. In the present situation, they need to change only the sec-
+ond layer machine; the other two can remain the same. This is referred to as modularity.
+Modularity in this case means independent layers. A layer (module) can be defined as a
+black box with inputs and outputs, without concern about how inputs are changed to
+outputs. If two machines provide the same outputs when given the same inputs, they
+can replace each other. For example, Ann and Maria can buy the second layer machine
+from two different manufacturers. As long as the two machines create the same cipher-
+text from the same plaintext and vice versa, they do the job. 
+One of the advantages of protocol layering is that it allows us to separate the
+services from the implementation. A layer needs to be able to receive a set of ser-
+vices from the lower layer and to give the services to the upper layer; we don’t care
+about how the layer is implemented. For example, Maria may decide not to buy the
+machine (robot) for the first layer; she can do the job herself. As long as Maria can
+do the tasks provided by the first layer, in both directions, the communication
+system works. 
+Another advantage of protocol layering, which cannot be seen in our simple exam-
+ples but reveals itself when we discuss protocol layering in the Internet, is that commu-
+nication does not always use only two end systems; there are intermediate systems that
+need only some layers, but not all layers. If we did not use protocol layering, we would
+have to make each intermediate system as complex as the end systems, which makes
+the whole system more expensive. 
+Is there any disadvantage to protocol layering? One can argue that having a single
+layer makes the job easier. There is no need for each layer to provide a service to the
+upper layer and give service to the lower layer. For example, Ann and Maria could find
+or build one machine that could do all three tasks. However,  as mentioned above, if one
+day they found that their code was broken, each would have to replace the whole
+machine with a new one instead of just changing the machine in the second layer. 
+2.1.2
+Principles of Protocol Layering
+Let us discuss two principles of protocol layering. 
+First Principle
+The first principle dictates that if we want bidirectional communication, we need to
+make each layer so that it is able to perform two opposite tasks, one in each direction.
+For example, the third layer task is to listen (in one direction) and talk (in the other
+direction). The second layer needs to be able to encrypt and decrypt. The first layer
+needs to send and receive mail.
+Second Principle
+The second principle that we need to follow in protocol layering is that the two
+objects under each layer at both sites should be identical. For example, the object
+under layer 3 at both sites should be a plaintext letter. The object under layer 2 at
+
+CHAPTER 2
+NETWORK MODELS
+35
+both sites should be a ciphertext letter. The object under layer 1 at both sites should
+be a piece of mail. 
+2.1.3
+Logical Connections
+After following the above two principles, we can think about logical connection
+between each layer as shown in Figure 2.3. This means that we have layer-to-layer
+communication. Maria and Ann can think that there is a logical (imaginary) connection
+at each layer through which they can send the object created from that layer. We will
+see that the concept of logical connection will help us better understand the task of lay-
+ering we encounter in data communication and networking.    
+2.2
+TCP/IP PROTOCOL SUITE
+Now that we know about the concept of protocol layering and the logical communica-
+tion between layers in our second scenario, we can introduce the TCP/IP (Transmission
+Control Protocol/Internet Protocol). TCP/IP is a protocol suite (a set of protocols orga-
+nized in different layers) used in the Internet today. It is a hierarchical protocol made up
+of interactive modules, each of which provides a specific functionality. The term hier-
+archical means that each upper level protocol is supported by the services provided by
+one or more lower level protocols. The original TCP/IP protocol suite was defined as
+four software layers built upon the hardware. Today, however, TCP/IP is thought of as a
+five-layer model. Figure 2.4 shows both configurations.
+2.2.1
+Layered Architecture
+To show how the layers in the TCP/IP protocol suite are involved in communication
+between two hosts, we assume that we want to use the suite in a small internet made up
+of three LANs (links), each with a link-layer switch. We also assume that the links are
+connected by one router, as shown in Figure 2.5.  
+Figure 2.3
+Logical connection between peer layers
+Plaintext
+Maria 
+Ann
+Logical connection
+Logical connection
+Logical connection
+Mail 
+Send mail/
+receive mail 
+Encrypt/Decrypt 
+Layer 2
+Layer 1
+Encrypt/Decrypt 
+Layer 2
+Talk/Listen 
+Layer 3
+Layer 3
+Listen/Talk 
+Plaintext
+Ciphertext
+Ciphertext
+Mail 
+Send mail/
+receive mail 
+Layer 1
+
+36
+PART I
+OVERVIEW
+Let us assume that computer A communicates with computer B. As the figure
+shows, we have five communicating devices in this communication: source host
+(computer A), the link-layer switch in link 1, the router, the link-layer switch in link 2,
+and the destination host (computer B). Each device is involved with a set of layers
+depending on the role of the device in the internet. The two hosts are involved in all five
+layers; the source host needs to create a message in the application layer and send it
+down the layers so that it is physically sent to the destination host. The destination host
+needs to receive the communication at the physical layer and then deliver it through the
+other layers to the application layer. 
+Figure 2.4
+Layers in the TCP/IP protocol suite
+Figure 2.5
+Communication through an internet
+Application
+Internet
+Network Interface
+Hardware Devices
+Layer 1
+a. Original layers
+b. Layers used in this book
+Layer 2
+Layer 3
+Layer 4
+Layer 5
+Transport
+Application
+Network
+Data link
+Physical
+Transport
+Link 1
+Switch
+ A
+ Source (A)
+ B
+ C
+ Destination (B)
+Communication from A to B
+Router
+Router
+Link 2
+Link 3
+Physical
+Data link
+Network
+Transport
+Application
+Physical
+Physical
+Physical
+Physical
+Physical
+Data link
+Data link
+Data link
+Data link
+Data link
+Network
+Network
+Transport
+Application
+Switch
+
+CHAPTER 2
+NETWORK MODELS
+37
+The router is involved in only three layers; there is no transport or application layer
+in a router as long as the router is used only for routing. Although a router is always
+involved in one network layer, it is involved in n combinations of link and physical lay-
+ers in which n is the number of links the router is connected to. The reason is that each
+link may use its own data-link or physical protocol. For example, in the above figure, the
+router is involved in three links, but the message sent from source A to destination B is
+involved in two links. Each link may be using different link-layer and physical-layer
+protocols; the router needs to receive a packet from link 1 based on one pair of proto-
+cols and deliver it to link 2 based on another pair of protocols. 
+A link-layer switch in a link, however, is involved only in two layers, data-link and
+physical. Although each switch in the above figure has two different connections, the
+connections are in the same link, which uses only one set of protocols. This means that,
+unlike a router, a link-layer switch is involved only in one data-link and one physical
+layer.
+2.2.2
+Layers in the TCP/IP Protocol Suite
+After the above introduction, we briefly discuss the functions and duties of layers in
+the TCP/IP protocol suite. Each layer is discussed in detail in the next five parts of
+the book. To better understand the duties of each layer, we need to think about the
+logical connections between layers. Figure 2.6 shows logical connections in our sim-
+ple internet. 
+Using logical connections makes it easier for us to think about the duty of each
+layer. As the figure shows, the duty of the application, transport, and network layers is
+end-to-end. However, the duty of the data-link and physical layers is hop-to-hop, in
+which a hop is a host or router. In other words, the domain of duty of the top three
+layers is the internet, and the domain of duty of the two lower layers is the link. 
+Another way of thinking of the logical connections is to think about the data unit
+created from each layer. In the top three layers, the data unit (packets) should not be
+Figure 2.6
+Logical connections between layers of the TCP/IP protocol suite
+Link 1
+LAN
+Switch
+Logical connections
+Source
+host
+Destination
+host
+Source
+host
+Destination
+host
+Router
+Link 2
+LAN
+Physical
+Data link
+Network
+Transport
+Application
+Physical
+Data link
+Network
+Transport
+Application
+Switch
+Router
+To link 3
+
+38
+PART I
+OVERVIEW
+changed by any router or link-layer switch. In the bottom two layers, the packet created
+by the host is changed only by the routers, not by the link-layer switches. 
+Figure 2.7 shows the second principle discussed previously for protocol layering.
+We show the identical objects below each layer related to each device. 
+Note that, although the logical connection at the network layer is between the two
+hosts, we can only say that identical objects exist between two hops in this case because
+a router may fragment the packet at the network layer and send more packets than
+received (see fragmentation in Chapter 19). Note that the link between two hops does
+not change the object. 
+2.2.3
+Description of Each Layer
+After understanding the concept of logical communication, we are ready to briefly dis-
+cuss the duty of each layer. Our discussion in this chapter will be very brief, but we
+come back to the duty of each layer in next five parts of the book. 
+Physical Layer
+We can say that the physical layer is responsible for carrying individual bits in a frame
+across the link. Although the physical layer is the lowest level in the TCP/IP protocol
+suite, the communication between two devices at the physical layer is still a logical
+communication because there is another, hidden layer, the transmission media, under
+the physical layer. Two devices are connected by a transmission medium (cable or air).
+We need to know that the transmission medium does not carry bits; it carries electrical
+or optical signals. So the bits received in a frame from the data-link layer are trans-
+formed and sent through the transmission media, but we can think that the logical unit
+between two physical layers in two devices is a bit. There are several protocols that
+transform a bit to a signal. We discuss them in Part II when we discuss the physical
+layer and the transmission media. 
+Figure 2.7
+Identical objects in the TCP/IP protocol suite
+Physical
+Data link
+Network
+Transport
+Application
+Physical
+Data link
+Identical objects (messages)
+Notes: We have not shown switches because they don’t change objects.
+Identical objects (segments or user datagrams)
+Identical objects (datagrams)
+Identical objects (datagrams)
+Identical objects (frames)
+Identical objects (bits)
+Identical objects (bits)
+Identical objects (frames)
+Network
+Transport
+Application
+
+CHAPTER 2
+NETWORK MODELS
+39
+Data-link Layer
+We have seen that an internet is made up of several links (LANs and WANs) connected
+by routers. There may be several overlapping sets of links that a datagram can travel
+from the host to the destination. The routers are responsible for choosing the best links.
+However, when the next link to travel is determined by the router, the data-link layer is
+responsible for taking the datagram and moving it across the link. The link can be a
+wired LAN with a link-layer switch, a wireless LAN, a wired WAN, or a wireless
+WAN. We can also have different protocols used with any link type. In each case, the
+data-link layer is responsible for moving the packet through the link. 
+TCP/IP does not define any specific protocol for the data-link layer. It supports all
+the standard and proprietary protocols. Any protocol that can take the datagram and
+carry it through the link suffices for the network layer. The data-link layer takes a data-
+gram and encapsulates it in a packet called a frame. 
+Each link-layer protocol may provide a different service. Some link-layer proto-
+cols provide complete error detection and correction, some provide only error correc-
+tion. We discuss wired links in Chapters 13 and 14 and wireless links in Chapters 15
+and 16. 
+Network Layer
+The network layer is responsible for creating a connection between the source computer
+and the destination computer. The communication at the network layer is host-to-host.
+However, since there can be several routers from the source to the destination, the routers
+in the path are responsible for choosing the best route for each packet. We can say that the
+network layer is responsible for host-to-host communication and routing the packet
+through possible routes. Again, we may ask ourselves why we need the network layer. We
+could have added the routing duty to the transport layer and dropped this layer. One reason,
+as we said before, is the separation of different tasks between different layers. The second
+reason is that the routers do not need the application and transport layers. Separating the
+tasks allows us to use fewer protocols on the routers.
+ The network layer in the Internet includes the main protocol, Internet Protocol
+(IP), that defines the format of the packet, called a datagram at the network layer. IP
+also defines the format and the structure of addresses used in this layer. IP is also
+responsible for routing a packet from its source to its destination, which is achieved by
+each router forwarding the datagram to the next router in its path. 
+IP is a connectionless protocol that provides no flow control, no error control, and
+no congestion control services. This means that if any of theses services is required for
+an application, the application should rely only on the transport-layer protocol. The net-
+work layer also includes unicast (one-to-one) and multicast (one-to-many) routing pro-
+tocols. A routing protocol does not take part in routing (it is the responsibility of IP),
+but it creates forwarding tables for routers to help them in the routing process.
+The network layer also has some auxiliary protocols that help IP in its delivery and
+routing tasks. The Internet Control Message Protocol (ICMP) helps IP to report some
+problems when routing a packet. The Internet Group Management Protocol (IGMP) is
+another protocol that helps IP in multitasking. The Dynamic Host Configuration Proto-
+col (DHCP) helps IP to get the network-layer address for a host. The Address Resolu-
+tion Protocol (ARP) is a protocol that helps IP to find the link-layer address of a host or
+
+40
+PART I
+OVERVIEW
+a router when its network-layer address is given. ARP is discussed in Chapter 9, ICMP
+in Chapter 19, and IGMP in Chapter 21.
+Transport Layer
+The logical connection at the transport layer is also end-to-end. The transport layer at the
+source host gets the message from the application layer, encapsulates it in a transport-
+layer packet (called a segment or a user datagram in different protocols) and sends it,
+through the logical (imaginary) connection, to the transport layer at the destination host.
+In other words, the transport layer is responsible for giving services to the application
+layer: to get a message from an application program running on the source host and
+deliver it to the corresponding application program on the destination host. We may ask
+why we need an end-to-end transport layer when we already have an end-to-end applica-
+tion layer. The reason is the separation of tasks and duties, which we discussed earlier.
+The transport layer should be independent of the application layer. In addition, we will
+see that we have more than one protocol in the transport layer, which means that each
+application program can use the protocol that best matches its requirement.
+As we said, there are a few transport-layer protocols in the Internet, each designed
+for some specific task. The main protocol, Transmission Control Protocol (TCP), is a
+connection-oriented protocol that first establishes a logical connection between trans-
+port layers at two hosts before transferring data. It creates a logical pipe between two
+TCPs for transferring a stream of bytes. TCP provides flow control (matching the send-
+ing data rate of the source host with the receiving data rate of the destination host to
+prevent overwhelming the destination), error control (to guarantee that the segments
+arrive at the destination without error and resending the corrupted ones), and conges-
+tion control to reduce the loss of segments due to congestion in the network. The other
+common protocol, User Datagram Protocol (UDP), is a connectionless protocol that
+transmits user datagrams without first creating a logical connection. In UDP, each user
+datagram is an independent entity without being related to the previous or the next one
+(the meaning of the term connectionless). UDP is a simple protocol that does not pro-
+vide flow, error, or congestion control. Its simplicity, which means small overhead, is
+attractive to an application program that needs to send short messages and cannot
+afford the retransmission of the packets involved in TCP, when a packet is corrupted or
+lost. A new protocol, Stream Control Transmission Protocol (SCTP) is designed to
+respond to new applications that are emerging in the multimedia. We will discuss UDP,
+TCP, and SCTP in Chapter 24. 
+Application Layer
+As Figure 2.6 shows, the logical connection between the two application layers is end-
+to-end. The two application layers exchange messages between each other as though
+there were a bridge between the two layers. However, we should know that the commu-
+nication is done through all the layers. 
+Communication at the application layer is between two processes (two programs
+running at this layer). To communicate, a process sends a request to the other process
+and receives a response. Process-to-process communication is the duty of the applica-
+tion layer. The application layer in the Internet includes many predefined protocols, but
+
+CHAPTER 2
+NETWORK MODELS
+41
+a user can also create a pair of processes to be run at the two hosts. In Chapter 25, we
+explore this situation. 
+ The Hypertext Transfer Protocol (HTTP) is a vehicle for accessing the World
+Wide Web (WWW). The Simple Mail Transfer Protocol (SMTP) is the main protocol
+used in electronic mail (e-mail) service. The File Transfer Protocol (FTP) is used for
+transferring files from one host to another. The Terminal Network (TELNET) and
+Secure Shell (SSH) are used for accessing a site remotely. The Simple Network Man-
+agement Protocol (SNMP) is used by an administrator to manage the Internet at global
+and local levels. The Domain Name System (DNS) is used by other protocols to find
+the network-layer address of a computer. The Internet Group Management Protocol
+(IGMP) is used to collect membership in a group. We discuss most of these protocols in
+Chapter 26 and some in other chapters. 
+2.2.4
+Encapsulation and Decapsulation
+One of the important concepts in protocol layering in the Internet is encapsulation/
+decapsulation. Figure 2.8 shows this concept for the small internet in Figure 2.5. 
+We have not shown the layers for the link-layer switches because no encapsulation/
+decapsulation occurs in this device. In Figure 2.8, we show the encapsulation in the
+source host, decapsulation in the destination host, and encapsulation and decapsulation
+in the router. 
+Encapsulation at the Source Host 
+At the source, we have only encapsulation. 
+1. At the application layer, the data to be exchanged is referred to as a message. A
+message normally does not contain any header or trailer, but if it does, we refer to
+the whole as the message. The message is passed to the transport layer.
+2. The transport layer takes the message as the payload, the load that the transport
+layer should take care of. It adds the transport layer header to the payload, which
+contains the identifiers of the source and destination application programs that
+Figure 2.8
+Encapsulation/Decapsulation 
+Source host
+Destination host
+Router
+Message
+Encapsulate
+Decapsulate
+Legend
+Header at data-link layer
+2
+4
+3
+2
+Message
+4
+3
+Message
+4
+3
+2
+Message
+4
+3
+Message
+4
+3
+2
+Message
+4
+3
+Message
+4
+Message
+Message
+4
+3
+2
+Message
+4
+3
+Message
+4
+Message
+Header at network layer
+3
+Header at transport layer
+4
+Physical
+Physical
+Application
+Transport
+Network
+Data link
+Application
+Transport
+Network
+Data link
+
+42
+PART I
+OVERVIEW
+want to communicate plus some more information that is needed for the end-to-
+end delivery of the message, such as information needed for flow, error control, or
+congestion control. The result is the transport-layer packet, which is called the seg-
+ment (in TCP) and the user datagram (in UDP). The transport layer then passes the
+packet to the network layer.
+3. The network layer takes the transport-layer packet as data or payload and adds its
+own header to the payload. The header contains the addresses of the source and
+destination hosts and some more information used for error checking of the header,
+fragmentation information, and so on. The result is the network-layer packet,
+called a datagram. The network layer then passes the packet to the data-link layer.
+4. The data-link layer takes the network-layer packet as data or payload and adds its
+own header, which contains the link-layer addresses of the host or the next hop (the
+router). The result is the link-layer packet, which is called a frame. The frame is
+passed to the physical layer for transmission.
+Decapsulation and Encapsulation at the Router
+At the router, we have both decapsulation and encapsulation because the router is con-
+nected to two or more links.
+1. After the set of bits are delivered to the data-link layer, this layer decapsulates the
+datagram from the frame and passes it to the network layer.
+2. The network layer only inspects the source and destination addresses in the datagram
+header and consults its forwarding table to find the next hop to which the datagram is to
+be delivered. The contents of the datagram should not be changed by the network layer
+in the router unless there is a need to fragment the datagram if it is too big to be passed
+through the next link. The datagram is then passed to the data-link layer of the next link. 
+3. The data-link layer of the next link encapsulates the datagram in a frame and
+passes it to the physical layer for transmission.
+Decapsulation at the Destination Host
+At the destination host, each layer only decapsulates the packet received, removes the
+payload, and delivers the payload to the next-higher layer protocol until the message
+reaches the application layer. It is necessary to say that decapsulation in the host
+involves error checking. 
+2.2.5
+Addressing
+It is worth mentioning another concept related to protocol layering in the Internet,
+addressing. As we discussed before, we have logical communication between pairs of
+layers in this model. Any communication that involves two parties needs two addresses:
+source address and destination address. Although it looks as if we need five pairs of
+addresses, one pair per layer, we normally have only four because the physical layer does
+not need addresses; the unit of data exchange at the physical layer is a bit, which defi-
+nitely cannot have an address. Figure 2.9 shows the addressing at each layer.  
+As the figure shows, there is a relationship between the layer, the address used in
+that layer, and the packet name at that layer. At the application layer, we normally use
+names to define the site that provides services, such as someorg.com, or the e-mail
+
+CHAPTER 2
+NETWORK MODELS
+43
+address, such as somebody@coldmail.com. At the transport layer, addresses are called
+port numbers, and these define the application-layer programs at the source and
+destination. Port numbers are local addresses that distinguish between several programs
+running at the same time. At the network-layer, the addresses are global, with the whole
+Internet as the scope. A network-layer address uniquely defines the connection of a
+device to the Internet. The link-layer addresses, sometimes called MAC addresses, are
+locally defined addresses, each of which defines a specific host or router in a network
+(LAN or WAN). We will come back to these addresses in future chapters. 
+2.2.6
+Multiplexing and Demultiplexing
+Since the TCP/IP protocol suite uses several protocols at some layers, we can say that we
+have multiplexing at the source and demultiplexing at the destination. Multiplexing in this
+case means that a protocol at a layer can encapsulate a packet from several next-higher
+layer protocols (one at a time); demultiplexing means that a protocol can decapsulate and
+deliver a packet to several next-higher layer protocols (one at a time). Figure 2.10 shows
+the concept of multiplexing and demultiplexing at the three upper layers. 
+To be able to multiplex and demultiplex, a protocol needs to have a field in its
+header to identify to which protocol the encapsulated packets belong. At the transport
+Figure 2.9
+Addressing in the TCP/IP protocol suite
+Figure 2.10
+Multiplexing and demultiplexing
+Message
+Segment / User datagram
+Datagram
+Frame
+Bits
+Link-layer addresses
+Data-link layer
+Physical layer
+Addresses
+Layers
+Packet names
+Port numbers
+Transport layer
+Names
+Application layer
+Network layer
+Logical addresses
+a. Multiplexing at source
+b. Demultiplexing at destination
+SNMP
+DNS
+TCP
+UDP
+HTTP
+FTP
+IP
+SNMP
+DNS
+TCP
+UDP
+IP
+HTTP
+FTP
+
+44
+PART I
+OVERVIEW
+layer, either UDP or TCP can accept a message from several application-layer
+protocols. At the network layer, IP can accept a segment from TCP or a user datagram
+from UDP. IP can also accept a packet from other protocols such as ICMP, IGMP, and
+so on. At the data-link layer, a frame may carry the payload coming from IP or other
+protocols such as ARP (see Chapter 9). 
+2.3
+THE OSI MODEL
+Although, when speaking of the Internet, everyone talks about the TCP/IP protocol
+suite, this suite is not the only suite of protocols defined. Established in 1947, the
+International Organization for Standardization (ISO) is a multinational body
+dedicated to worldwide agreement on international standards. Almost three-fourths of
+the countries in the world are represented in the ISO. An ISO standard that covers all
+aspects of network communications is the Open Systems Interconnection (OSI)
+model. It was first introduced in the late 1970s. 
+An open system is a set of protocols that allows any two different systems to com-
+municate regardless of their underlying architecture. The purpose of the OSI model is
+to show how to facilitate communication between different systems without requiring
+changes to the logic of the underlying hardware and software. The OSI model is not a
+protocol; it is a model for understanding and designing a network architecture that is
+flexible, robust, and interoperable. The OSI model was intended to be the basis for the
+creation of the protocols in the OSI stack. 
+The OSI model is a layered framework for the design of network systems that
+allows communication between all types of computer systems. It consists of seven sep-
+arate but related layers, each of which defines a part of the process of moving information
+across a network (see Figure 2.11). 
+ISO is the organization; OSI is the model.
+Figure 2.11
+The OSI model
+Transport
+Application
+Presentation
+Session
+Network
+Data link
+Physical
+Layer 1
+Layer 2
+Layer 3
+Layer 4
+Layer 5
+Layer 6
+Layer 7
+
+CHAPTER 2
+NETWORK MODELS
+45
+2.3.1
+OSI versus TCP/IP
+When we compare the two models, we find that two layers, session and presentation,
+are missing from the TCP/IP protocol suite. These two layers were not added to the
+TCP/IP protocol suite after the publication of the OSI model. The application layer in
+the suite is usually considered to be the combination of three layers in the OSI model,
+as shown in Figure 2.12. 
+Two reasons were mentioned for this decision. First, TCP/IP has more than one
+transport-layer protocol. Some of the functionalities of the session layer are available
+in some of the transport-layer protocols. Second, the application layer is not only
+one piece of software. Many applications can be developed at this layer. If some of
+the functionalities mentioned in the session and presentation layers are needed for
+a particular application, they can be included in the development of that piece of
+software. 
+2.3.2
+Lack of OSI Model’s Success
+The OSI model appeared after the TCP/IP protocol suite. Most experts were at first
+excited and thought that the TCP/IP protocol would be fully replaced by the OSI
+model. This did not happen for several reasons, but we describe only three, which are
+agreed upon by all experts in the field. First, OSI was completed when TCP/IP was
+fully in place and a lot of time and money had been spent on the suite; changing it
+would cost a lot. Second, some layers in the OSI model were never fully defined. For
+example, although the services provided by the presentation and the session layers
+were listed in the document, actual protocols for these two layers were not fully
+defined, nor were they fully described, and the corresponding software was not fully
+Figure 2.12
+TCP/IP and OSI model
+OSI Model
+TCP/IP Protocol Suite
+Underlying
+LAN and WAN
+technology
+Internet Protocol
+and some helping
+protocols
+Several transport 
+protocols 
+Several application
+protocols 
+Session
+Presentation
+Application
+Application
+Data link
+Data link
+Network
+Network
+Transport
+Transport
+Physical
+Physical
+
+46
+PART I
+OVERVIEW
+developed. Third, when OSI was implemented by an organization in a different
+application, it did not show a high enough level of performance to entice the Internet
+authority to switch from the TCP/IP protocol suite to the OSI model. 
+2.4
+END-CHAPTER MATERIALS
+2.4.1
+Recommended Reading
+For more details about subjects discussed in this chapter, we recommend the following
+books, and RFCs. The items enclosed in brackets refer to the reference list at the end of
+the book. 
+Books and Papers
+Several books and papers give a thorough coverage about the materials discussed in this
+chapter: [Seg 98], [Lei et al. 98], [Kle 04], [Cer 89], and [Jen et al. 86]. 
+RFCs
+Two RFCs in particular discuss the TCP/IP suite: RFC 791 (IP) and RFC 817 (TCP). In
+future chapters we list different RFCs related to each protocol in each layer.
+2.4.2
+Key Terms
+International Organization for Standardization (ISO)
+Open Systems Interconnection (OSI) model
+protocol layering
+2.4.3
+Summary
+A protocol is a set of rules that governs communication. In protocol layering, we need
+to follow two principles to provide bidirectional communication. First, each layer needs
+to perform two opposite tasks. Second, two objects under each layer at both sides
+should be identical. In a protocol layering, we need to distinguish between a logical
+connection and a physical connection. Two protocols at the same layer can have a logi-
+cal connection; a physical connection is only possible through the physical layers.
+TCP/IP is a hierarchical protocol suite made of five layers: physical, data link, net-
+work, transport, and application. The physical layer coordinates the functions required
+to transmit a bit stream over a physical medium. The data-link layer is responsible for
+delivering data units from one station to the next without errors. The network layer is
+responsible for the source-to-destination delivery of a packet across multiple network
+links. The transport layer is responsible for the process-to-process delivery of the entire
+message. The application layer enables the users to access the network. 
+Four levels of addresses are used in an internet following the TCP/IP protocols: phys-
+ical (link) addresses, logical (IP) addresses, port addresses, and specific addresses. The
+physical address, also known as the link address, is the address of a node as defined by
+its LAN or WAN. The IP address uniquely defines a host on the Internet. The port
+address identifies a process on a host. A specific address is a user-friendly address.
+
+186
+PART II
+PHYSICAL LAYER
+7.1
+INTRODUCTION
+Transmission media are actually located below the physical layer and are directly con-
+trolled by the physical layer. We could say that transmission media belong to layer
+zero. Figure 7.1 shows the position of transmission media in relation to the physical
+layer. 
+A transmission medium can be broadly defined as anything that can carry infor-
+mation from a source to a destination. For example, the transmission medium for two
+people having a dinner conversation is the air. The air can also be used to convey the
+message in a smoke signal or semaphore. For a written message, the transmission
+medium might be a mail carrier, a truck, or an airplane. 
+In data communications the definition of the information and the transmission
+medium is more specific. The transmission medium is usually free space, metallic cable,
+or fiber-optic cable. The information is usually a signal that is the result of a conversion
+of data from another form.
+The use of long-distance communication using electric signals started with the
+invention of the telegraph by Morse in the 19th century. Communication by telegraph
+was slow and dependent on a metallic medium.
+Extending the range of the human voice became possible when the telephone was
+invented in 1869. Telephone communication at that time also needed a metallic medium
+to carry the electric signals that were the result of a conversion from the human voice.
+The communication was, however, unreliable due to the poor quality of the wires. The
+lines were often noisy and the technology was unsophisticated.
+Wireless communication started in 1895 when Hertz was able to send high-
+frequency signals. Later, Marconi devised a method to send telegraph-type messages
+over the Atlantic Ocean.
+We have come a long way. Better metallic media have been invented (twisted-pair
+and coaxial cables, for example). The use of optical fibers has increased the data rate
+incredibly. Free space (air, vacuum, and water) is used more efficiently, in part due
+to the technologies (such as modulation and multiplexing) discussed in the previous
+chapters. 
+As discussed in Chapter 3, computers and other telecommunication devices use
+signals to represent data. These signals are transmitted from one device to another in the
+form of electromagnetic energy, which is propagated through transmission media. 
+Electromagnetic energy, a combination of electric and magnetic fields vibrating in
+relation to each other, includes power, radio waves, infrared light, visible light, ultraviolet
+Figure 7.1
+Transmission medium and physical layer
+Physical layer
+Physical layer
+Cable or air
+Sender
+Receiver
+Transmission medium
+
+CHAPTER 7
+TRANSMISSION MEDIA
+187
+light, and X, gamma, and cosmic rays. Each of these constitutes a portion of the elec-
+tromagnetic spectrum. Not all portions of the spectrum are currently usable for tele-
+communications, however. The media to harness those that are usable are also limited
+to a few types.
+In telecommunications, transmission media can be divided into two broad catego-
+ries: guided and unguided. Guided media include twisted-pair cable, coaxial cable, and
+fiber-optic cable. Unguided medium is free space. Figure 7.2 shows this taxonomy. 
+7.2
+GUIDED MEDIA
+Guided media, which are those that provide a conduit from one device to another,
+include twisted-pair cable, coaxial cable, and fiber-optic cable. A signal traveling
+along any of these media is directed and contained by the physical limits of the
+medium. Twisted-pair and coaxial cable use metallic (copper) conductors that accept
+and transport signals in the form of electric current. Optical fiber is a cable that accepts
+and transports signals in the form of light.
+7.2.1
+Twisted-Pair Cable
+A twisted pair consists of two conductors (normally copper), each with its own plastic
+insulation, twisted together, as shown in Figure 7.3.  
+One of the wires is used to carry signals to the receiver, and the other is used only
+as a ground reference. The receiver uses the difference between the two. 
+In addition to the signal sent by the sender on one of the wires, interference (noise)
+and crosstalk may affect both wires and create unwanted signals. 
+If the two wires are parallel, the effect of these unwanted signals is not the same in
+both wires because they are at different locations relative to the noise or crosstalk sources
+(e.g., one is closer and the other is farther). This results in a difference at the receiver.
+Figure 7.2
+Classes of transmission media
+Figure 7.3
+Twisted-pair cable
+Transmission
+media
+Guided
+(wired)
+Unguided
+(wireless)
+Twisted-pair
+cable
+Coaxial
+cable
+Fiber-optic
+cable
+Radio wave
+Microwave
+Infrared
+Conductor
+Insulator
+
+188
+PART II
+PHYSICAL LAYER
+By twisting the pairs, a balance is maintained. For example, suppose in one twist, one
+wire is closer to the noise source and the other is farther; in the next twist, the reverse is
+true. Twisting makes it probable that both wires are equally affected by external influ-
+ences (noise or crosstalk). This means that the receiver, which calculates the difference
+between the two, receives no unwanted signals. The unwanted signals are mostly can-
+celed out. From the above discussion, it is clear that the number of twists per unit of
+length (e.g., inch) has some effect on the quality of the cable. 
+Unshielded Versus Shielded Twisted-Pair Cable
+The most common twisted-pair cable used in communications is referred to as
+unshielded twisted-pair (UTP). IBM has also produced a version of twisted-pair cable
+for its use, called shielded twisted-pair (STP). STP cable has a metal foil or braided-
+mesh covering that encases each pair of insulated conductors. Although metal casing
+improves the quality of cable by preventing the penetration of noise or crosstalk, it is
+bulkier and more expensive. Figure 7.4 shows the difference between UTP and STP.
+Our discussion focuses primarily on UTP because STP is seldom used outside of IBM. 
+Categories
+The Electronic Industries Association (EIA) has developed standards to classify
+unshielded twisted-pair cable into seven categories. Categories are determined by cable
+quality, with 1 as the lowest and 7 as the highest. Each EIA category is suitable for
+specific uses. Table 7.1 shows these categories.  
+Figure 7.4
+UTP and STP cables
+Table 7.1
+Categories of unshielded twisted-pair cables
+Category
+Specification
+Data Rate
+(Mbps)
+Use
+1
+Unshielded twisted-pair used in telephone 
+< 0.1
+Telephone
+2
+Unshielded twisted-pair originally used in
+T lines
+2
+T-1 lines
+3
+Improved CAT 2 used in LANs 
+10
+LANs
+4
+Improved CAT 3 used in Token Ring networks
+20
+LANs
+5
+Cable wire is normally 24 AWG with a jacket 
+and outside sheath 
+100
+LANs
+a. UTP
+b. STP
+Plastic cover
+Plastic cover
+Metal shield
+
+CHAPTER 7
+TRANSMISSION MEDIA
+189
+Connectors
+The most common UTP connector is RJ45 (RJ stands for registered jack), as shown
+in Figure 7.5. The RJ45 is a keyed connector, meaning the connector can be inserted in
+only one way. 
+Performance
+One way to measure the performance of twisted-pair cable is to compare attenuation
+versus frequency and distance. A twisted-pair cable can pass a wide range of frequencies.
+However, Figure 7.6 shows that with increasing frequency, the attenuation, measured in
+decibels per kilometer (dB/km), sharply increases with frequencies above 100 kHz. Note
+that gauge is a measure of the thickness of the wire. 
+Applications
+Twisted-pair cables are used in telephone lines to provide voice and data channels.
+The local loop—the line that connects subscribers to the central telephone office—
+commonly consists of unshielded twisted-pair cables. We discuss telephone networks
+in Chapter 14.
+The DSL lines that are used by the telephone companies to provide high-data-rate
+connections also use the high-bandwidth capability of unshielded twisted-pair cables.
+We discuss DSL technology in Chapter 14. 
+5E
+An extension to category 5 that includes 
+extra features to minimize the crosstalk and 
+electromagnetic interference
+125
+LANs
+6
+A new category with matched components 
+coming from the same manufacturer. The 
+cable must be tested at a 200-Mbps data rate.
+200
+LANs
+7
+Sometimes called SSTP (shielded screen 
+twisted-pair). Each pair is individually 
+wrapped in a helical metallic foil followed by 
+a metallic foil shield in addition to the outside 
+sheath. The shield decreases the effect of 
+crosstalk and increases the data rate.
+600
+LANs
+Figure 7.5
+UTP connector
+Table 7.1
+Categories of unshielded twisted-pair cables (continued)
+Category
+Specification
+Data Rate
+(Mbps)
+Use
+12345678
+12345678
+RJ-45 Female
+RJ-45 Male
+
+190
+PART II
+PHYSICAL LAYER
+Local-area networks, such as 10Base-T and 100Base-T, also use twisted-pair cables.
+We discuss these networks in Chapter 13.
+7.2.2
+Coaxial Cable
+Coaxial cable (or coax) carries signals of higher frequency ranges than those in twisted-
+pair cable, in part because the two media are constructed quite differently. Instead of
+having two wires, coax has a central core conductor of solid or stranded wire (usually
+copper) enclosed in an insulating sheath, which is, in turn, encased in an outer conductor
+of metal foil, braid, or a combination of the two. The outer metallic wrapping serves
+both as a shield against noise and as the second conductor, which completes the circuit.
+This outer conductor is also enclosed in an insulating sheath, and the whole cable is
+protected by a plastic cover (see Figure 7.7).
+Coaxial Cable Standards
+Coaxial cables are categorized by their Radio Government (RG) ratings. Each RG
+number denotes a unique set of physical specifications, including the wire gauge of the
+Figure 7.6
+UTP performance
+Figure 7.7
+Coaxial cable
+20
+18
+16
+14
+12
+10
+8
+6
+4
+2
+Attenuation (dB/km)
+1
+10
+100
+1000
+f (kHz)
+26 gauge
+24 gauge
+22 gauge
+18 gauge
+Gauge
+18
+22
+24
+26
+Diameter (inches)
+0.0403
+0.02320
+0.02010
+0.0159
+Plastic cover
+Inner conductor
+Outer conductor
+(shield)
+Insulator
+Insulator
+
+CHAPTER 7
+TRANSMISSION MEDIA
+191
+inner conductor, the thickness and type of the inner insulator, the construction of the
+shield, and the size and type of the outer casing. Each cable defined by an RG rating is
+adapted for a specialized function, as shown in Table 7.2. 
+Coaxial Cable Connectors
+To connect coaxial cable to devices, we need coaxial connectors. The most common
+type of connector used today is the Bayonet Neill-Concelman (BNC) connector.
+Figure 7.8 shows three popular types of these connectors: the BNC connector, the
+BNC T connector, and the BNC terminator.
+The BNC connector is used to connect the end of the cable to a device, such as a
+TV set. The BNC T connector is used in Ethernet networks (see Chapter 13) to branch
+out to a connection to a computer or other device. The BNC terminator is used at the
+end of the cable to prevent the reflection of the signal.
+Performance
+As we did with twisted-pair cable, we can measure the performance of a coaxial cable.
+We notice in Figure 7.9 that the attenuation is much higher in coaxial cable than in
+twisted-pair cable. In other words, although coaxial cable has a much higher bandwidth,
+the signal weakens rapidly and requires the frequent use of repeaters.  
+Applications
+Coaxial cable was widely used in analog telephone networks where a single coaxial
+network could carry 10,000 voice signals. Later it was used in digital telephone
+networks where a single coaxial cable could carry digital data up to 600 Mbps. How-
+ever, coaxial cable in telephone networks has largely been replaced today with fiber-
+optic cable.
+Table 7.2
+Categories of coaxial cables
+Category
+Impedance
+Use
+RG-59
+75 Ω
+Cable TV
+RG-58
+50 Ω
+Thin Ethernet
+RG-11
+50 Ω
+Thick Ethernet
+Figure 7.8
+BNC connectors
+Cable
+BNC T
+BNC connector
+50-W
+BNC terminator
+Ground
+wire
+
+192
+PART II
+PHYSICAL LAYER
+Cable TV networks (see Chapter 14) also use coaxial cables. In the traditional cable
+TV network, the entire network used coaxial cable. Later, however, cable TV providers
+replaced most of the media with fiber-optic cable; hybrid networks use coaxial cable
+only at the network boundaries, near the consumer premises. Cable TV uses RG-59
+coaxial cable.
+Another common application of coaxial cable is in traditional Ethernet LANs (see
+Chapter 13). Because of its high bandwidth, and consequently high data rate, coaxial
+cable was chosen for digital transmission in early Ethernet LANs. The 10Base-2, or Thin
+Ethernet, uses RG-58 coaxial cable with BNC connectors to transmit data at 10 Mbps
+with a range of 185 m. The 10Base5, or Thick Ethernet, uses RG-11 (thick coaxial cable)
+to transmit 10 Mbps with a range of 5000 m. Thick Ethernet has specialized connectors. 
+7.2.3
+Fiber-Optic Cable
+A fiber-optic cable is made of glass or plastic and transmits signals in the form of light.
+To understand optical fiber, we first need to explore several aspects of the nature of
+light.
+Light travels in a straight line as long as it is moving through a single uniform sub-
+stance. If a ray of light traveling through one substance suddenly enters another substance
+(of a different density), the ray changes direction. Figure 7.10 shows how a ray of light
+changes direction when going from a more dense to a less dense substance. 
+As the figure shows, if the angle of incidence I (the angle the ray makes with the
+line perpendicular to the interface between the two substances) is less than the critical
+angle, the ray refracts and moves closer to the surface. If the angle of incidence is
+equal to the critical angle, the light bends along the interface. If the angle is greater than
+the critical angle, the ray reflects (makes a turn) and travels again in the denser
+Figure 7.9
+Coaxial cable performance
+35
+30
+25
+20
+15
+10
+5
+Attenuation (dB/km)
+0.01
+1.0
+0.1
+10
+100
+f (MHz)
+0.7/2.9 mm
+1.2/4.4 mm
+2.6/9.5 mm
+
+CHAPTER 7
+TRANSMISSION MEDIA
+193
+substance. Note that the critical angle is a property of the substance, and its value differs
+from one substance to another. 
+Optical fibers use reflection to guide light through a channel. A glass or plastic core
+is surrounded by a cladding of less dense glass or plastic. The difference in density of the
+two materials must be such that a beam of light moving through the core is reflected off
+the cladding instead of being refracted into it. See Figure 7.11. 
+Propagation Modes
+Current technology supports two modes (multimode and single mode) for propagating light
+along optical channels, each requiring fiber with different physical characteristics. Multi-
+mode can be implemented in two forms: step-index or graded-index (see Figure 7.12).
+Multimode
+Multimode is so named because multiple beams from a light source move through the
+core in different paths. How these beams move within the cable depends on the struc-
+ture of the core, as shown in Figure 7.13. 
+Figure 7.10
+Bending of light ray
+Figure 7.11
+Optical fiber
+Figure 7.12
+Propagation modes
+I
+More
+dense
+More
+dense
+More
+dense
+I < critical angle,
+refraction 
+I = critical angle,
+refraction 
+I > critical angle,
+reflection 
+Less
+dense
+Less
+dense
+Less
+dense
+I
+I
+Cladding
+Receiver
+Core
+Cladding
+Sender
+Multimode
+Mode
+Single mode
+Step index
+Graded index
+
+194
+PART II
+PHYSICAL LAYER
+In multimode step-index fiber, the density of the core remains constant from the
+center to the edges. A beam of light moves through this constant density in a straight
+line until it reaches the interface of the core and the cladding. At the interface, there is
+an abrupt change due to a lower density; this alters the angle of the beam’s motion. The
+term step-index refers to the suddenness of this change, which contributes to the distor-
+tion of the signal as it passes through the fiber.
+A second type of fiber, called multimode graded-index fiber, decreases this dis-
+tortion of the signal through the cable. The word index here refers to the index of
+refraction. As we saw above, the index of refraction is related to density. A graded-
+index fiber, therefore, is one with varying densities. Density is highest at the center of
+the core and decreases gradually to its lowest at the edge. Figure 7.13 shows the impact
+of this variable density on the propagation of light beams.
+Single-Mode 
+Single-mode uses step-index fiber and a highly focused source of light that limits
+beams to a small range of angles, all close to the horizontal. The single-mode fiber
+itself is manufactured with a much smaller diameter than that of multimode fiber, and
+with substantially lower density (index of refraction). The decrease in density results in
+a critical angle that is close enough to 90° to make the propagation of beams almost
+horizontal. In this case, propagation of different beams is almost identical, and delays
+are negligible. All the beams arrive at the destination “together” and can be recombined
+with little distortion to the signal (see Figure 7.13).
+Figure 7.13
+Modes
+Source
+Destination
+Source
+Source
+Destination
+Destination
+a. Multimode, step index
+b. Multimode, graded index
+c. Single mode
+
+CHAPTER 7
+TRANSMISSION MEDIA
+195
+Fiber Sizes
+Optical fibers are defined by the ratio of the diameter of their core to the diameter of
+their cladding, both expressed in micrometers. The common sizes are shown in Table 7.3.
+Note that the last size listed is for single-mode only.
+Cable Composition
+Figure 7.14 shows the composition of a typical fiber-optic cable. The outer jacket is
+made of either PVC or Teflon. Inside the jacket are Kevlar strands to strengthen the cable.
+Kevlar is a strong material used in the fabrication of bulletproof vests. Below the Kevlar is
+another plastic coating to cushion the fiber. The fiber is at the center of the cable, and it
+consists of cladding and core. 
+Fiber-Optic Cable Connectors
+There are three types of connectors for fiber-optic cables, as shown in Figure 7.15. The
+subscriber channel (SC) connector is used for cable TV. It uses a push/pull locking
+system. The straight-tip (ST) connector is used for connecting cable to networking
+devices. It uses a bayonet locking system and is more reliable than SC. MT-RJ is a
+connector that is the same size as RJ45. 
+Performance
+The plot of attenuation versus wavelength in Figure 7.16 shows a very interesting
+phenomenon in fiber-optic cable. Attenuation is flatter than in the case of twisted-pair
+cable and coaxial cable. The performance is such that we need fewer (actually one-
+tenth as many) repeaters when we use fiber-optic cable. 
+Table 7.3
+Fiber types
+Type
+Core (μm)
+Cladding (μm)
+Mode
+50/125
+  50.0
+125
+Multimode, graded index
+62.5/125
+  62.5
+125
+Multimode, graded index
+100/125
+100.0
+125
+Multimode, graded index
+7/125
+    7.0
+125
+Single mode
+Figure 7.14
+Fiber construction
+Outer jacket
+Plastic
+buffer
+DuPont Kevlar
+for strength
+Glass or
+plastic core
+Cladding
+
+196
+PART II
+PHYSICAL LAYER
+Applications
+Fiber-optic cable is often found in backbone networks because its wide bandwidth is
+cost-effective. Today, with wavelength-division multiplexing (WDM), we can transfer
+data at a rate of 1600 Gbps. The SONET network that we discuss in Chapter 14 provides
+such a backbone.
+Some cable TV companies use a combination of optical fiber and coaxial cable,
+thus creating a hybrid network. Optical fiber provides the backbone structure while
+coaxial cable provides the connection to the user premises. This is a cost-effective con-
+figuration since the narrow bandwidth requirement at the user end does not justify the
+use of optical fiber. 
+Figure 7.15
+Fiber-optic cable connectors
+Figure 7.16
+Optical fiber performance
+SC connector
+MT-RJ connector
+ST connector
+RX
+ TX
+100
+50
+10
+5
+1
+0.5
+0.1
+0.05
+Loss (dB/km)
+0.01
+1200
+1400
+1000
+800
+1600
+1800
+Wavelength (nm)
+
+CHAPTER 7
+TRANSMISSION MEDIA
+197
+Local-area networks such as 100Base-FX network (Fast Ethernet) and 1000Base-X
+also use fiber-optic cable. 
+Advantages and Disadvantages of Optical Fiber
+Advantages
+Fiber-optic cable has several advantages over metallic cable (twisted-pair or coaxial).
+❑
+Higher bandwidth. Fiber-optic cable can support dramatically higher bandwidths
+(and hence data rates) than either twisted-pair or coaxial cable. Currently, data rates
+and bandwidth utilization over fiber-optic cable are limited not by the medium but
+by the signal generation and reception technology available.
+❑
+Less signal attenuation. Fiber-optic transmission distance is significantly greater
+than that of other guided media. A signal can run for 50 km without requiring
+regeneration. We need repeaters every 5 km for coaxial or twisted-pair cable.
+❑
+Immunity to electromagnetic interference. Electromagnetic noise cannot affect
+fiber-optic cables. 
+❑
+Resistance to corrosive materials. Glass is more resistant to corrosive materials
+than copper. 
+❑
+Light weight. Fiber-optic cables are much lighter than copper cables.
+❑
+Greater immunity to tapping. Fiber-optic cables are more immune to tapping than
+copper cables. Copper cables create antenna effects that can easily be tapped.
+Disadvantages
+There are some disadvantages in the use of optical fiber.
+❑
+Installation and maintenance. Fiber-optic cable is a relatively new technology. Its
+installation and maintenance require expertise that is not yet available everywhere.
+❑
+Unidirectional light propagation. Propagation of light is unidirectional. If we
+need bidirectional communication, two fibers are needed.
+❑
+Cost. The cable and the interfaces are relatively more expensive than those of other
+guided media. If the demand for bandwidth is not high, often the use of optical fiber
+cannot be justified. 
+7.3
+UNGUIDED MEDIA: WIRELESS
+Unguided medium transport electromagnetic waves without using a physical conduc-
+tor. This type of communication is often referred to as wireless communication. Sig-
+nals are normally broadcast through free space and thus are available to anyone who
+has a device capable of receiving them. 
+Figure 7.17 shows the part of the electromagnetic spectrum, ranging from 3 kHz to
+900 THz, used for wireless communication. 
+Unguided signals can travel from the source to the destination in several ways: ground
+propagation, sky propagation, and line-of-sight propagation, as shown in Figure 7.18.
+
+198
+PART II
+PHYSICAL LAYER
+In ground propagation, radio waves travel through the lowest portion of the atmo-
+sphere, hugging the earth. These low-frequency signals emanate in all directions from the
+transmitting antenna and follow the curvature of the planet. Distance depends on the
+amount of power in the signal: The greater the power, the greater the distance. In sky
+propagation, higher-frequency radio waves radiate upward into the ionosphere (the layer
+of atmosphere where particles exist as ions) where they are reflected back to earth. This
+type of transmission allows for greater distances with lower output power. In line-of-sight
+propagation, very high-frequency signals are transmitted in straight lines directly from
+antenna to antenna. Antennas must be directional, facing each other, and either tall
+enough or close enough together not to be affected by the curvature of the earth. Line-of-
+sight propagation is tricky because radio transmissions cannot be completely focused. 
+The section of the electromagnetic spectrum defined as radio waves and microwaves
+is divided into eight ranges, called bands, each regulated by government authorities.
+These bands are rated from very low frequency (VLF) to extremely high frequency (EHF). 
+Table 7.4 lists these bands, their ranges, propagation methods, and some applications.
+Figure 7.17
+Electromagnetic spectrum for wireless communication
+Figure 7.18
+Propagation methods
+Table 7.4
+Bands
+Band
+Range
+Propagation
+Application
+very low frequency (VLF)
+3–30 kHz
+Ground
+Long-range radio 
+navigation
+low frequency (LF)
+30–300 kHz
+Ground
+Radio beacons and 
+navigational locators
+400
+THz
+300
+GHz
+3
+kHz
+900
+THz
+Radio wave and microwave
+Infrared
+Light wave
+Ionosphere
+Ionosphere
+Ground propagation
+(below 2 MHz)
+Sky propagation
+(2–30 MHz)
+Ionosphere
+Line-of-sight propagation
+(above 30 MHz)
+
+CHAPTER 7
+TRANSMISSION MEDIA
+199
+We can divide wireless transmission into three broad groups: radio waves, micro-
+waves, and infrared waves. 
+7.3.1
+Radio Waves
+Although there is no clear-cut demarcation between radio waves and microwaves, elec-
+tromagnetic waves ranging in frequencies between 3 kHz and 1 GHz are normally called
+radio waves; waves ranging in frequencies between 1 and 300 GHz are called micro-
+waves. However, the behavior of the waves, rather than the frequencies, is a better
+criterion for classification. 
+Radio waves, for the most part, are omnidirectional. When an antenna transmits
+radio waves, they are propagated in all directions. This means that the sending and
+receiving antennas do not have to be aligned. A sending antenna sends waves that can
+be received by any receiving antenna. The omnidirectional property has a disadvantage,
+too. The radio waves transmitted by one antenna are susceptible to interference by
+another antenna that may send signals using the same frequency or band. 
+Radio waves, particularly those waves that propagate in the sky mode, can travel
+long distances. This makes radio waves a good candidate for long-distance broadcast-
+ing such as AM radio.
+Radio waves, particularly those of low and medium frequencies, can penetrate
+walls. This characteristic can be both an advantage and a disadvantage. It is an advan-
+tage because, for example, an AM radio can receive signals inside a building. It is a dis-
+advantage because we cannot isolate a communication to just inside or outside a
+building. The radio wave band is relatively narrow, just under 1 GHz, compared to
+the microwave band. When this band is divided into subbands, the subbands are also
+narrow, leading to a low data rate for digital communications.
+Almost the entire band is regulated by authorities (e.g., the FCC in the United
+States). Using any part of the band requires permission from the authorities.
+Omnidirectional Antenna
+Radio waves use omnidirectional antennas that send out signals in all directions.
+Based on the wavelength, strength, and the purpose of transmission, we can have sev-
+eral types of antennas. Figure 7.19 shows an omnidirectional antenna. 
+middle frequency (MF)
+300 kHz–3 MHz
+Sky
+AM radio
+high frequency (HF)
+3–30 MHz
+Sky
+Citizens band (CB),
+ship/aircraft
+very high frequency (VHF)
+30–300 MHz
+Sky and
+line-of-sight
+VHF TV, FM radio
+ultrahigh frequency (UHF)
+300 MHz–3 GHz Line-of-sight
+UHF TV, cellular phones, 
+paging, satellite
+superhigh frequency (SF)
+3–30 GHz
+Line-of-sight
+Satellite
+extremely high frequency (EHF)
+30–300 GHz
+Line-of-sight
+Radar, satellite
+Table 7.4
+Bands (continued)
+Band
+Range
+Propagation
+Application
+
+200
+PART II
+PHYSICAL LAYER
+Applications
+The omnidirectional characteristics of radio waves make them useful for multicasting,
+in which there is one sender but many receivers. AM and FM radio, television, mari-
+time radio, cordless phones, and paging are examples of multicasting. 
+7.3.2
+Microwaves
+Electromagnetic waves having frequencies between 1 and 300 GHz are called micro-
+waves. Microwaves are unidirectional. When an antenna transmits microwaves, they
+can be narrowly focused. This means that the sending and receiving antennas need to
+be aligned. The unidirectional property has an obvious advantage. A pair of antennas
+can be aligned without interfering with another pair of aligned antennas. The following
+describes some characteristics of microwave propagation:
+❑
+Microwave propagation is line-of-sight. Since the towers with the mounted antennas
+need to be in direct sight of each other, towers that are far apart need to be very tall.
+The curvature of the earth as well as other blocking obstacles do not allow two short
+towers to communicate by using microwaves. Repeaters are often needed for long-
+distance communication. 
+❑
+Very high-frequency microwaves cannot penetrate walls. This characteristic can be
+a disadvantage if receivers are inside buildings. 
+❑
+The microwave band is relatively wide, almost 299 GHz. Therefore wider subbands
+can be assigned, and a high data rate is possible. 
+❑
+Use of certain portions of the band requires permission from authorities.
+Unidirectional Antenna
+Microwaves need unidirectional antennas that send out signals in one direction. Two
+types of antennas are used for microwave communications: the parabolic dish and the
+horn (see Figure 7.20). 
+Figure 7.19
+Omnidirectional antenna
+Radio waves are used for multicast communications,
+such as radio and television, and paging systems.
+
+CHAPTER 7
+TRANSMISSION MEDIA
+201
+A parabolic dish antenna is based on the geometry of a parabola: Every line
+parallel to the line of symmetry (line of sight) reflects off the curve at angles such that
+all the lines intersect in a common point called the focus. The parabolic dish works as a
+funnel, catching a wide range of waves and directing them to a common point. In
+this way, more of the signal is recovered than would be possible with a single-point
+receiver.
+Outgoing transmissions are broadcast through a horn aimed at the dish. The micro-
+waves hit the dish and are deflected outward in a reversal of the receipt path.
+A horn antenna looks like a gigantic scoop. Outgoing transmissions are broadcast
+up a stem (resembling a handle) and deflected outward in a series of narrow parallel
+beams by the curved head. Received transmissions are collected by the scooped shape of
+the horn, in a manner similar to the parabolic dish, and are deflected down into the stem.
+Applications
+Microwaves, due to their unidirectional properties, are very useful when unicast (one-
+to-one) communication is needed between the sender and the receiver. They are used
+in cellular phones (Chapter 16), satellite networks (Chapter 16), and wireless LANs
+(Chapter 15). 
+7.3.3
+Infrared
+Infrared waves, with frequencies from 300 GHz to 400 THz (wavelengths from 1 mm
+to 770 nm), can be used for short-range communication. Infrared waves, having high
+frequencies, cannot penetrate walls. This advantageous characteristic prevents interfer-
+ence between one system and another; a short-range communication system in one
+room cannot be affected by another system in the next room. When we use our infrared
+remote control, we do not interfere with the use of the remote by our neighbors. How-
+ever, this same characteristic makes infrared signals useless for long-range communica-
+tion. In addition, we cannot use infrared waves outside a building because the sun’s
+rays contain infrared waves that can interfere with the communication.
+Figure 7.20
+Unidirectional antennas
+Microwaves are used for unicast communication such as cellular telephones,
+satellite networks, and wireless LANs.
+Waveguide
+b. Horn antenna
+Focus
+a. Parabolic dish antenna
+
+202
+PART II
+PHYSICAL LAYER
+Applications
+The infrared band, almost 400 THz, has an excellent potential for data transmission.
+Such a wide bandwidth can be used to transmit digital data with a very high data rate.
+The Infrared Data Association (IrDA), an association for sponsoring the use of infrared
+waves, has established standards for using these signals for communication between
+devices such as keyboards, mice, PCs, and printers. For example, some manufacturers
+provide a special port called the IrDA port that allows a wireless keyboard to commnicate
+with a PC. The standard originally defined a data rate of 75 kbps for a distance up to
+8 m. The recent standard defines a data rate of 4 Mbps. 
+Infrared signals defined by IrDA transmit through line of sight; the IrDA port on
+the keyboard needs to point to the PC for transmission to occur.
+7.4
+END-CHAPTER MATERIALS
+7.4.1
+Recommended Reading
+For more details about subjects discussed in this chapter, we recommend the following
+books. The items in brackets [. . .] refer to the reference list at the end of the text.
+Books
+Transmission media is discussed in [GW04], [Sta04], and [Tan03]. [SSS05] gives full
+coverage of transmission media.
+7.4.2
+Key Terms
+Infrared signals can be used for short-range communication in a closed 
+area using line-of-sight propagation
+angle of incidence
+Bayonet Neill-Concelman (BNC)
+cladding
+coaxial cable
+core
+critical angle
+electromagnetic spectrum
+fiber-optic cable
+gauge
+ground propagation
+guided media
+horn antenna
+infrared wave
+IrDA port
+line-of-sight propagation
+microwave
+MT-RJ
+multimode graded-index fiber
+multimode step-index fiber
+omnidirectional antenna
+optical fiber
+parabolic dish antenna
+Radio Government (RG) rating
+radio wave
+reflection
+refraction
+RJ45
+shielded twisted-pair (STP)
+single-mode fiber
+sky propagation
+straight-tip (ST) connector
+subscriber channel (SC) connector
+transmission medium
+twisted-pair cable
+unguided medium
+unidirectional antenna
+unshielded twisted-pair (UTP)
+wireless communication
+
+CHAPTER 8
+SWITCHING
+213
+8.2.3
+Delay
+Although a circuit-switched network normally has low efficiency, the delay in this type
+of network is minimal. During data transfer the data are not delayed at each switch; the
+resources are allocated for the duration of the connection. Figure 8.6 shows the idea of
+delay in a circuit-switched network when only two switches are involved.  
+As Figure 8.6 shows, there is no waiting time at each switch. The total delay is due
+to the time needed to create the connection, transfer data, and disconnect the circuit. The
+delay caused by the setup is the sum of four parts: the propagation time of the source
+computer request (slope of the first gray box), the request signal transfer time (height of
+the first gray box), the propagation time of the acknowledgment from the destination
+computer (slope of the second gray box), and the signal transfer time of the acknowledg-
+ment (height of the second gray box). The delay due to data transfer is the sum of two
+parts: the propagation time (slope of the colored box) and data transfer time (height of
+the colored box), which can be very long. The third box shows the time needed to tear
+down the circuit. We have shown the case in which the receiver requests disconnection,
+which creates the maximum delay.   
+8.3
+PACKET SWITCHING
+In data communications, we need to send messages from one end system to another. If
+the message is going to pass through a packet-switched network, it needs to be
+divided into packets of fixed or variable size. The size of the packet is determined by
+the network and the governing protocol. 
+In packet switching, there is no resource allocation for a packet. This means that
+there is no reserved bandwidth on the links, and there is no scheduled processing time
+for each packet. Resources are allocated on demand. The allocation is done on a first-
+come, first-served basis. When a switch receives a packet, no matter what the source or
+destination is, the packet must wait if there are other packets being processed. As with
+Figure 8.6
+Delay in a circuit-switched network
+A
+Data transfer
+Total delay
+Connect
+Time
+Time
+Time
+Time
+Disconnect
+B
+
+214
+PART II
+PHYSICAL LAYER
+other systems in our daily life, this lack of reservation may create delay. For example, if
+we do not have a reservation at a restaurant, we might have to wait. 
+We can have two types of packet-switched networks: datagram networks and virtual-
+circuit networks.
+8.3.1
+Datagram Networks
+In a datagram network, each packet is treated independently of all others. Even if a
+packet is part of a multipacket transmission, the network treats it as though it existed
+alone. Packets in this approach are referred to as datagrams.
+Datagram switching is normally done at the network layer. We briefly discuss
+datagram networks here as a comparison with circuit-switched and virtual-circuit-
+switched networks. In Chapter 18 of this text, we go into greater detail. 
+Figure 8.7 shows how the datagram approach is used to deliver four packets from
+station A to station X. The switches in a datagram network are traditionally referred to
+as routers. That is why we use a different symbol for the switches in the figure. 
+In this example, all four packets (or datagrams) belong to the same message, but
+may travel different paths to reach their destination. This is so because the links may be
+involved in carrying packets from other sources and do not have the necessary bandwidth
+available to carry all the packets from A to X. This approach can cause the datagrams of
+a transmission to arrive at their destination out of order with different delays between the
+packets. Packets may also be lost or dropped because of a lack of resources. In most
+protocols, it is the responsibility of an upper-layer protocol to reorder the datagrams or
+ask for lost datagrams before passing them on to the application.
+The datagram networks are sometimes referred to as connectionless networks. The
+term connectionless here means that the switch (packet switch) does not keep information
+about the connection state. There are no setup or teardown phases. Each packet is treated
+the same by a switch regardless of its source or destination.
+In a packet-switched network, there is no resource reservation;
+resources are allocated on demand. 
+Figure 8.7
+A datagram network with four switches (routers)
+A
+3
+2
+4
+3
+2
+1
+4
+3
+2
+1
+3
+1
+X
+Datagram network
+4
+1
+4
+2
+1
+
+CHAPTER 8
+SWITCHING
+215
+Routing Table
+If there are no setup or teardown phases, how are the packets routed to their destinations
+in a datagram network? In this type of network, each switch (or packet switch) has a rout-
+ing table which is based on the destination address. The routing tables are dynamic and
+are updated periodically. The destination addresses and the corresponding forwarding
+output ports are recorded in the tables. This is different from the table of a circuit-
+switched network (discussed later) in which each entry is created when the setup phase
+is completed and deleted when the teardown phase is over. Figure 8.8 shows the routing
+table for a switch. 
+Destination Address
+Every packet in a datagram network carries a header that contains, among other infor-
+mation, the destination address of the packet. When the switch receives the packet,
+this destination address is examined; the routing table is consulted to find the corre-
+sponding port through which the packet should be forwarded. This address, unlike the
+address in a virtual-circuit network, remains the same during the entire journey of the
+packet.    
+Efficiency
+The efficiency of a datagram network is better than that of a circuit-switched net-
+work; resources are allocated only when there are packets to be transferred. If a
+source sends a packet and there is a delay of a few minutes before another packet can
+be sent, the resources can be reallocated during these minutes for other packets from
+other sources. 
+Figure 8.8
+Routing table in a datagram network
+A switch in a datagram network uses a routing table that is based on the destination 
+address.
+The destination address in the header of a packet in a datagram network
+remains the same during the entire journey of the packet. 
+1
+2
+4
+3
+Output
+port
+Destination
+address
+1232
+1
+…
+…
+4150
+2
+9130
+3
+
+216
+PART II
+PHYSICAL LAYER
+Delay
+There may be greater delay in a datagram network than in a virtual-circuit network.
+Although there are no setup and teardown phases, each packet may experience a wait at a
+switch before it is forwarded. In addition, since not all packets in a message necessarily
+travel through the same switches, the delay is not uniform for the packets of a message.
+Figure 8.9 gives an example of delay in a datagram network for one packet.  
+The packet travels through two switches. There are three transmission times (3T),
+three propagation delays (slopes 3τ of the lines), and two waiting times (w1 + w2). We
+ignore the processing time in each switch. The total delay is
+8.3.2
+Virtual-Circuit Networks
+A virtual-circuit network is a cross between a circuit-switched network and a datagram
+network. It has some characteristics of both.
+1. As in a circuit-switched network, there are setup and teardown phases in addition
+to the data transfer phase. 
+2. Resources can be allocated during the setup phase, as in a circuit-switched network,
+or on demand, as in a datagram network.
+3. As in a datagram network, data are packetized and each packet carries an address in
+the header. However, the address in the header has local jurisdiction (it defines what
+the next switch should be and the channel on which the packet is being carried), not
+end-to-end jurisdiction. The reader may ask how the intermediate switches know
+where to send the packet if there is no final destination address carried by a packet.
+The answer will be clear when we discuss virtual-circuit identifiers in the next section.
+4. As in a circuit-switched network, all packets follow the same path established during
+the connection.
+Figure 8.9
+Delay in a datagram network
+Total delay 5 3T 1 3τ 1 w1 1 w2
+Total delay
+Transmission
+time
+Waiting
+time
+Waiting
+time
+Time
+Time
+Time
+Time
+B
+A
+
+CHAPTER 8
+SWITCHING
+217
+5. A virtual-circuit network is normally implemented in the data-link layer, while a
+circuit-switched network is implemented in the physical layer and a datagram net-
+work in the network layer. But this may change in the future. 
+Figure 8.10 is an example of a virtual-circuit network. The network has switches that
+allow traffic from sources to destinations. A source or destination can be a computer,
+packet switch, bridge, or any other device that connects other networks. 
+Addressing
+In a virtual-circuit network, two types of addressing are involved: global and local
+(virtual-circuit identifier). 
+Global Addressing
+A source or a destination needs to have a global address—an address that can be unique
+in the scope of the network or internationally if the network is part of an international
+network. However, we will see that a global address in virtual-circuit networks is used
+only to create a virtual-circuit identifier, as discussed next.
+Virtual-Circuit Identifier 
+The identifier that is actually used for data transfer is called the virtual-circuit identifier
+(VCI) or the label. A VCI, unlike a global address, is a small number that has only
+switch scope; it is used by a frame between two switches. When a frame arrives at a
+switch, it has a VCI; when it leaves, it has a different VCI. Figure 8.11 shows how the
+VCI in a data frame changes from one switch to another. Note that a VCI does not need
+to be a large number since each switch can use its own unique set of VCIs. 
+Figure 8.10
+Virtual-circuit network
+Figure 8.11
+Virtual-circuit identifier
+D
+B
+A
+C
+End system
+End system
+End system
+End system
+Switches
+14
+VCI
+Data
+77
+VCI
+Data
+
+218
+PART II
+PHYSICAL LAYER
+Three Phases
+As in a circuit-switched network, a source and destination need to go through three
+phases in a virtual-circuit network: setup, data transfer, and teardown. In the setup
+phase, the source and destination use their global addresses to help switches make table
+entries for the connection. In the teardown phase, the source and destination inform the
+switches to delete the corresponding entry. Data transfer occurs between these two
+phases. We first discuss the data-transfer phase, which is more straightforward; we then
+talk about the setup and teardown phases.
+Data-Transfer Phase
+To transfer a frame from a source to its destination, all switches need to have a table
+entry for this virtual circuit. The table, in its simplest form, has four columns. This
+means that the switch holds four pieces of information for each virtual circuit that is
+already set up. We show later how the switches make their table entries, but for the
+moment we assume that each switch has a table with entries for all active virtual cir-
+cuits. Figure 8.12 shows such a switch and its corresponding table. 
+Figure 8.12 shows a frame arriving at port 1 with a VCI of 14. When the frame
+arrives, the switch looks in its table to find port 1 and a VCI of 14. When it is found, the
+switch knows to change the VCI to 22 and send out the frame from port 3. 
+Figure 8.13 shows how a frame from source A reaches destination B and how its
+VCI changes during the trip. Each switch changes the VCI and routes the frame. 
+The data-transfer phase is active until the source sends all its frames to the destina-
+tion. The procedure at the switch is the same for each frame of a message. The process
+creates a virtual circuit, not a real circuit, between the source and destination.
+Setup Phase
+In the setup phase, a switch creates an entry for a virtual circuit. For example, suppose
+source A needs to create a virtual circuit to B. Two steps are required: the setup request
+and the acknowledgment.
+Figure 8.12
+Switch and tables in a virtual-circuit network
+2
+Port
+Port
+2
+41
+77
+1
+3
+22
+14
+1
+VCI
+VCI
+Outgoing
+Incoming
+41
+Data
+1
+3
+14
+Data
+22
+Data
+77
+Data
+
+CHAPTER 8
+SWITCHING
+219
+Setup Request
+A setup request frame is sent from the source to the destination. Figure 8.14 shows
+the process. 
+a. Source A sends a setup frame to switch 1.
+b. Switch 1 receives the setup request frame. It knows that a frame going from A to B
+goes out through port 3. How the switch has obtained this information is a point
+covered in future chapters. The switch, in the setup phase, acts as a packet switch;
+it has a routing table which is different from the switching table. For the moment,
+assume that it knows the output port. The switch creates an entry in its table for
+this virtual circuit, but it is only able to fill three of the four columns. The switch
+assigns the incoming port (1) and chooses an available incoming VCI (14) and the
+Figure 8.13
+Source-to-destination data transfer in a virtual-circuit network 
+Figure 8.14
+Setup request in a virtual-circuit network
+A
+1
+3
+4
+4
+1
+2
+1
+2
+3
+2
+Port
+Port
+2
+•••
+66
+•••
+1
+•••
+VCI
+VCI
+Outgoing
+Incoming
+22
+•••
+Port
+Port
+3
+•••
+14
+•••
+1
+•••
+VCI
+VCI
+Outgoing
+Incoming
+66
+•••
+Port
+Port
+3
+•••
+22
+•••
+2
+•••
+VCI
+VCI
+Outgoing
+Incoming
+77
+•••
+WAN
+14
+Data
+77
+Data
+22
+Data
+66
+Data
+B
+A
+1
+3
+1
+2
+3
+2
+VCI = 77
+e
+d
+c
+b
+a
+Port
+Port
+3
+14
+1
+VCI
+VCI
+Outgoing
+Incoming
+Port
+Port
+3
+22
+2
+VCI
+VCI
+Outgoing
+Incoming
+Port
+Port
+2
+66
+1
+VCI
+VCI
+Outgoing
+Incoming
+Switch 1
+Switch 2
+Switch 3
+ B
+
+220
+PART II
+PHYSICAL LAYER
+outgoing port (3). It does not yet know the outgoing VCI, which will be found dur-
+ing the acknowledgment step. The switch then forwards the frame through port 3
+to switch 2.
+c. Switch 2 receives the setup request frame. The same events happen here as at
+switch 1; three columns of the table are completed: in this case, incoming port (1),
+incoming VCI (66), and outgoing port (2). 
+d. Switch 3 receives the setup request frame. Again, three columns are completed:
+incoming port (2), incoming VCI (22), and outgoing port (3).
+e. Destination B receives the setup frame, and if it is ready to receive frames from A,
+it assigns a VCI to the incoming frames that come from A, in this case 77. This
+VCI lets the destination know that the frames come from A, and not other sources. 
+Acknowledgment 
+A special frame, called the acknowledgment frame, completes the entries in the switch-
+ing tables. Figure 8.15 shows the process. 
+a. The destination sends an acknowledgment to switch 3. The acknowledgment carries
+the global source and destination addresses so the switch knows which entry in the
+table is to be completed. The frame also carries VCI 77, chosen by the destination as
+the incoming VCI for frames from A. Switch 3 uses this VCI to complete the outgo-
+ing VCI column for this entry. Note that 77 is the incoming VCI for destination B,
+but the outgoing VCI for switch 3. 
+b. Switch 3 sends an acknowledgment to switch 2 that contains its incoming VCI in the
+table, chosen in the previous step. Switch 2 uses this as the outgoing VCI in the table.
+c. Switch 2 sends an acknowledgment to switch 1 that contains its incoming VCI in the
+table, chosen in the previous step. Switch 1 uses this as the outgoing VCI in the table.
+d. Finally switch 1 sends an acknowledgment to source A that contains its incoming
+VCI in the table, chosen in the previous step. 
+e. The source uses this as the outgoing VCI for the data frames to be sent to destina-
+tion B.
+Figure 8.15
+Setup acknowledgment in a virtual-circuit network
+ A
+VCI = 14
+a
+c
+b
+77
+22
+66
+d
+e
+14
+Port
+Port
+3
+14
+1
+VCI
+VCI
+Outgoing
+Incoming
+66
+Port
+Port
+3
+22
+2
+VCI
+VCI
+Outgoing
+Incoming
+77
+Port
+Port
+2
+66
+1
+VCI
+VCI
+Outgoing
+Incoming
+22
+1
+3
+1
+2
+3
+2
+VCI = 77
+Switch 2
+Switch 1
+Switch 3
+ B
+
+CHAPTER 8
+SWITCHING
+221
+Teardown Phase 
+In this phase, source A, after sending all frames to B, sends a special frame called a
+teardown request. Destination B responds with a teardown confirmation frame. All
+switches delete the corresponding entry from their tables. 
+Efficiency
+As we said before, resource reservation in a virtual-circuit network can be made during
+the setup or can be on demand during the data-transfer phase. In the first case, the delay
+for each packet is the same; in the second case, each packet may encounter different
+delays. There is one big advantage in a virtual-circuit network even if resource allocation
+is on demand. The source can check the availability of the resources, without actually
+reserving it. Consider a family that wants to dine at a restaurant. Although the restaurant
+may not accept reservations (allocation of the tables is on demand), the family can call
+and find out the waiting time. This can save the family time and effort. 
+Delay in Virtual-Circuit Networks
+In a virtual-circuit network, there is a one-time delay for setup and a one-time delay for
+teardown. If resources are allocated during the setup phase, there is no wait time for
+individual packets. Figure 8.16 shows the delay for a packet traveling through two
+switches in a virtual-circuit network.  
+The packet is traveling through two switches (routers). There are three transmis-
+sion times (3T ), three propagation times (3τ), data transfer depicted by the sloping
+lines, a setup delay (which includes transmission and propagation in two directions),
+In virtual-circuit switching, all packets belonging to the same source and destination 
+travel the same path, but the packets may arrive at the destination
+with different delays if resource allocation is on demand.
+Figure 8.16
+Delay in a virtual-circuit network
+Total delay
+Setup
+Time
+Time
+Time
+Time
+Transmission
+time
+Teardown
+A
+B
+
+222
+PART II
+PHYSICAL LAYER
+and a teardown delay (which includes transmission and propagation in one direction).
+We ignore the processing time in each switch. The total delay time is
+Circuit-Switched Technology in WANs
+As we will see in Chapter 14, virtual-circuit networks are used in switched WANs such
+as ATM networks. The data-link layer of these technologies is well suited to the virtual-
+circuit technology.
+8.4
+STRUCTURE OF A SWITCH
+We use switches in circuit-switched and packet-switched networks. In this section, we
+discuss the structures of the switches used in each type of network. 
+8.4.1
+Structure of Circuit Switches
+Circuit switching today can use either of two technologies: the space-division switch or
+the time-division switch.
+Space-Division Switch
+In space-division switching, the paths in the circuit are separated from one another
+spatially. This technology was originally designed for use in analog networks but is
+used currently in both analog and digital networks. It has evolved through a long history
+of many designs. 
+Crossbar Switch
+A crossbar switch connects n inputs to m outputs in a grid, using electronic micro-
+switches (transistors) at each crosspoint (see Figure 8.17). The major limitation of this
+design is the number of crosspoints required. To connect n inputs to m outputs using a
+Total delay 1 3T 1 3τ 1 setup delay 1 teardown delay
+Switching at the data-link layer in a switched WAN is normally
+implemented by using virtual-circuit techniques. 
+Figure 8.17
+Crossbar switch with three inputs and four outputs
+1
+2
+3
+I
+II
+III
+IV
+Crosspoint
+To control station

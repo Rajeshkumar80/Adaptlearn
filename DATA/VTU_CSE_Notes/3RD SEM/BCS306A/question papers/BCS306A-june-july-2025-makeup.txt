@@ -1,0 +1,292 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E./B.Tech. Degree Examination, June/July 2025 
+Object Oriented Programming with Java      
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                       2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                 Module – 1
+M
+L
+C
+Q.1 
+a.
+Outline primitive data types in Java. 
+5 
+L1
+CO1
+ 
+b.
+Explain Java type conversion and casting with a code snippet.  
+5 
+L2
+CO1
+ 
+c. Develop java code to transpose a matrix. 
+ 
+10
+L3
+CO1
+                                                                           OR 
+Q.2 
+a.
+Summarize Java Operators.  
+5 
+L2
+CO1
+ 
+b.
+Explain Java control statements.  
+ 
+5 
+L2
+CO1
+ 
+c. Develop Java code to add two matrices.  
+ 
+10
+L3
+CO1
+                                                                      Module – 2  
+Q.3 
+a.
+Define class, object, new, constructor and garbage collection in Java. 
+5 
+L1
+CO2
+ 
+b.
+Explain the general form of a class in Java and with an example.  
+5 
+L2
+CO2
+ 
+c. Develop a stack class to hold a maximum of 10 integers with suitable 
+methods. Develop a java main method to illustrate stack operations.   
+ 
+10
+L3
+CO2
+                                                                          OR
+Q.4 
+a.
+Define static, final, this keywords and access control in Java. 
+5 
+L1
+CO2
+ 
+b.
+Explain Java method overloading with a code snippet.  
+5 
+L2
+CO2
+ 
+c. Develop a class employee details with attributes ID, name and salary. 
+Implement a method raise salary (percent) which raises salary of an 
+employee for a given percent. Implement a class employee to demonstrate 
+the employee details and his salary increase by the given percent.  
+ 
+10
+L3
+CO2
+                                                                      Module – 3  
+Q.5 
+a.
+Define method overriding, dynamic method dispatch, abstract class and 
+uses of super in Java. 
+ 
+5 
+L1
+CO3
+ 
+b.
+Explain with a java code snippet how inheritance can be prevented?  
+ 
+5 
+L2
+CO3
+ 
+c. Develop a Java program to create a class named shape. Create three 
+sub-classes namely : circle, triangle and square, each class has two member 
+functions named draw( ) and erase( ). Demonstrate polymorphism concepts 
+by developing suitable methods, defining member data and main program.  
+ 
+10
+L3
+CO3
+ 
+1 of 2 
+ 
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS306A
+VTU-24-10-2025 08:42:26am
+24-10-2025 09:06:14am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+BCS306A
+                                                                          OR
+Q.6 
+a.
+Define interface, interface reference, variables in interfaces, nested 
+interface and multiple inheritance in Java.  
+5 
+L1
+CO3
+ 
+b.
+Explain the general form of an interface and implementing interface with 
+an example.  
+ 
+5 
+L2
+CO3
+ 
+c. Develop a Java program to create an interface resizable with methods resize 
+width (int size) and resize height (int height) that allow an object to be 
+resized. Create a class rectangle that implements the resizable interface and 
+implements both resize methods.  
+ 
+10
+L3
+CO3
+                                                                      Module – 4  
+Q.7 
+a.
+Define package, access protection, import packages, exception and 
+exception types in Java.  
+ 
+5 
+L1
+CO4
+ 
+b.
+Summarize class member access in Java. 
+ 
+5 
+L2
+CO4
+ 
+c. Develop a Java program to create a package named my pack and import 
+and implement it in a suitable class. 
+ 
+10
+L3
+CO4
+                                                                           OR 
+Q.8 
+a.
+Define try, catch, throw, throws and finally keywords in java exception 
+handling.  
+5 
+L1
+CO4
+ 
+b.
+Explain the general form of an exception handling block and throws clause 
+in Java exception handling.  
+ 
+5 
+L2
+CO4
+ 
+c. Develop a Java program to raise a custom exception (user defined 
+exception) for division by zero using try, catch, throw and finally.  
+10
+L3
+CO4
+                                                                      Module – 5  
+Q.9 
+a.
+Define multi-threaded programming, thread priorities, synchronization, 
+messaging and the main thread in Java.  
+5 
+L1
+CO5
+ 
+b.
+Explain the different methods of creating threads in Java. 
+5 
+L2
+CO5
+ 
+c. Implement Java code to demonstrate auto-boxing and auto-unboxing of 
+type wrappers.  
+ 
+10
+L3
+CO5
+                                                                           OR 
+Q.10
+a.
+Define 
+inter-thread 
+communication, 
+enumeration, 
+type 
+wrappers, 
+auto-boxing and auto-unboxing in Java.  
+5 
+L1
+CO5
+ 
+b.
+Explain with syntax values( ) and values of ( ) methods in Java.  
+5 
+L2
+CO5
+ 
+c. Develop a Java program to illustrate creation of threads using runnable 
+interface (start method start each of the newly created thread. Inside the run 
+method there is sleep( ) method for suspending the thread for 500 
+mill-seconds). 
+ 
+10
+L3
+CO5
+ 
+* * * * * 
+ 
+ 
+2 of 2 
+VTU-24-10-2025 08:42:26am
+24-10-2025 09:06:14am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

@@ -1,0 +1,435 @@
+ 
+     
+ 
+                   
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E/B.Tech. Degree Examination, Dec.2025/Jan.2026 
+Operating Systems 
+ 
+ 
+Time: 3 hrs.                                                                                                    Max. Marks:100 
+       
+      Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                       2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+ 
+ 
+Module – 1  
+M 
+L
+C
+1
+a.
+Explain the various types of system calls with an example for each.
+ 
+8
+L2 CO1
+b.
+Explain cloud computing its types and their services it offers. 
+ 
+8
+L2 CO1
+c.
+What is dual mode operation and what is the need of it?
+ 
+ 
+4
+L2 CO1
+                                                                      OR
+2
+a.
+Explain the different architecture of OS starting from Simple Structure, 
+Layered Structure, Micro Kernels, Modules and Hybrid Systems. 
+ 
+8
+L4 CO1
+b.
+Discuss the essential properties of the following types of systems :
+i. Time sharing system  
+ii. Multi-programmed batch systems. 
+ 
+ 
+6 
+6 
+L2 CO1
+                                                                  
+ 
+Module – 2 
+3
+a.
+Explain Inter Process Communication. 
+ 
+6
+L2
+CO2
+b.
+Discuss Multilevel Queue Scheduling Algorithm. 
+ 
+6
+L4
+CO2
+c.
+Consider the set of 3 processes whose arrival time and burst time are given 
+below.   
+ 
+Process Id 
+Arrival Time 
+Burst Time 
+P1 
+0 
+9 
+P2 
+1 
+4 
+P3 
+2 
+9 
+ 
+If the CPU scheduling policy is SRTF, calculate the average waiting time and 
+average turnaround time.  
+ 
+ 
+8
+L3 CO2
+1 of 3
+USN 
+BCS303
+VTU-06-02-2026 01:16:09pm
+06-02-2026 01:30:55pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+BCS303
+                                                                      OR 
+4
+a.
+Compare User Level Threads and Kernel Level threads. 
+ 
+4
+L4
+CO2
+b. 
+Illustrate with a neat sketch, Process States and Process Control Block (PCB). 
+ 
+8
+L2
+CO2
+c.
+Consider the set of 6 processes whose arrival time and burst time are given 
+below.  
+Process ID
+Arrival Time
+Burst Time
+P1
+5
+5
+P2
+4
+6
+P3
+3
+7
+P4
+1
+9
+P5
+2
+2
+P6
+6
+3
+ 
+If the CPU scheduling policy is Round Robin with time quantum = 3, 
+calculate Average Waiting time and Turnaround time.  
+ 
+8
+L3 CO2
+                                                                
+ 
+Module – 3 
+5
+a.
+Discuss in detail the critical section problem and write the algorithm for 
+producer consumer problem.  
+ 
+10
+L2 CO3
+b.
+Consider the following system using data structures in the Bankers Algorithm 
+with resource type ABC Maximum instance present in the system A = 10, 
+B = 5, C = 7. 
+ 
+Process
+Allocation
+Max
+Available
+A
+B
+C
+A
+B
+C
+A
+B
+C
+P0
+0
+1
+0
+7
+5
+3
+3
+3
+2
+P1
+2
+0
+0
+3
+2
+2
+P2
+3
+0
+2
+9
+0
+2
+P3
+2
+1
+1
+2
+2
+2
+P4
+0
+0
+2
+4
+3
+3
+ 
+i. 
+Calculate Need Matrix 
+ii. Check whether system is safe or not. 
+ 
+10
+L3 CO3
+                                                                        OR
+6
+a.
+Outline the solutions of Dinning –Philosopher problem.
+ 
+5
+L2 CO3
+b.
+Describe a resource allocation graph with an example.
+ 
+5
+L4 CO3
+c.
+Using Bankers algorithm, solve the following problem : 
+ 
+Process 
+Allocation
+Max
+Available
+A
+B
+C
+D
+A
+B
+C
+D
+A
+B
+C
+D
+P0
+0
+0
+1
+2
+0
+0
+1
+2
+1
+5
+2
+0
+P1
+1
+0
+0
+0
+1
+7
+5
+0
+P2
+1
+3
+5
+4
+2
+3
+5
+6
+P3
+0
+6
+3
+2
+0
+6
+5
+2
+P4
+0
+0
+1
+4
+0
+6
+5
+6
+ 
+i. Calculate the Need Matrix  
+ii. Check whether system is safe or not.   
+10
+L2 CO3
+2 of 3
+VTU-06-02-2026 01:16:09pm
+06-02-2026 01:30:55pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+BCS303
+                                                                
+ 
+Module – 4 
+7
+a.
+Discuss the given memory management technique with diagram.
+i. Paging  
+ii. Translation Look-Aside Buffer. 
+ 
+6 
+6 
+L2 CO4
+b.
+Discuss about Contiguous Memory Allocation with a neat diagram.
+ 
+ 
+8
+L2 CO4
+                                                                       OR
+8
+a.
+Consider the reference string :
+ 
+6, 1, 1, 2, 0, 3, 4, 6, 0, 2, 1, 2, 1, 2, 0, 3, 2, 1, 2, 0 
+ 
+For a memory with three frames and calculate number of page faults by using  
+i. LRU replacement 
+ii. FIFO replacement.   
+ 
+10
+L3 CO4
+b.
+Describe the process of demand paging in OS.
+ 
+10
+L2 CO4
+                                                                
+ 
+Module – 5 
+9
+a.
+Explain in detail about directory and disc structure. 
+ 
+6
+L2 CO5
+b.
+Analyze the file system implementation. 
+ 
+6
+L4 CO5
+c.
+The requested tracks, in the order received are 
+ 
+{176, 79, 34, 60, 92, 11, 41, 114} 
+ 
+Apply the following disk scheduling algorithms starting track at 50. 
+ 
+i) FCFS      
+ii) SSTF. 
+ 
+Calculate the total seek time. 
+ 
+ 
+8
+L3 CO5
+                                                                      OR
+10
+a.
+Explain Free Space Management with an example. 
+ 
+6
+L2
+CO2
+b.
+Explain the Access Matrix method of system protection with the domain as 
+objects and its implementation.  
+ 
+6
+L2
+CO2
+c.
+The requested tracks, the order received are 
+ 
+{176, 79, 34, 60, 92, 11, 41, 114} 
+ 
+Apply the following disk scheduling algorithms starting track at 50. 
+i) Look      
+ii) C – Look. 
+ 
+Calculate the total seek time. 
+ 
+8
+L3 CO3
+* * * * * 
+ 
+3 of 3 
+VTU-06-02-2026 01:16:09pm
+06-02-2026 01:30:55pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

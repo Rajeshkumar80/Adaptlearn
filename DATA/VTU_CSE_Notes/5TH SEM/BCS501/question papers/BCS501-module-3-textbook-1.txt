@@ -1,0 +1,2684 @@
+3.1
+WHAT IS AGILITY?
+Just what is agility in the context of software engineering work? Ivar Jacobson
+[Jac02a] provides a useful discussion:
+Agility has become today’s buzzword when describing a modern software process. Every-
+one is agile. An agile team is a nimble team able to appropriately respond to changes.
+Change is what software development is very much about. Changes in the software be-
+ing built, changes to the team members, changes because of new technology, changes of
+all kinds that may have an impact on the product they build or the project that creates the
+product. Support for changes should be built-in everything we do in software, something
+we embrace because it is the heart and soul of software. An agile team recognizes that
+software is developed by individuals working in teams and that the skills of these people,
+their ability to collaborate is at the core for the success of the project.
+In Jacobson’s view, the pervasiveness of change is the primary driver for agility. Soft-
+ware engineers must be quick on their feet if they are to accommodate the rapid
+changes that Jacobson describes.
+But agility is more than an effective response to change. It also encompasses the
+philosophy espoused in the manifesto noted at the beginning of this chapter. It
+encourages team structures and attitudes that make communication (among team
+members, between technologists and business people, between software engineers
+and their managers) more facile. It emphasizes rapid delivery of operational soft-
+ware and de-emphasizes the importance of intermediate work products (not always
+a good thing); it adopts the customer as a part of the development team and works
+to eliminate the “us and them” attitude that continues to pervade many software
+projects; it recognizes that planning in an uncertain world has its limits and that a
+project plan must be flexible.
+Agility can be applied to any software process. However, to accomplish this, it is
+essential that the process be designed in a way that allows the project team to adapt
+tasks and to streamline them, conduct planning in a way that understands the fluid-
+ity of an agile development approach, eliminate all but the most essential work prod-
+ucts and keep them lean, and emphasize an incremental delivery strategy that gets
+working software to the customer as rapidly as feasible for the product type and
+operational environment.
+3.2
+AGILITY AND THE COST OF CHANGE
+The conventional wisdom in software development (supported by decades of expe-
+rience) is that the cost of change increases nonlinearly as a project progresses
+(Figure 3.1, solid black curve). It is relatively easy to accommodate a change when a
+software team is gathering requirements (early in a project). A usage scenario might
+have to be modified, a list of functions may be extended, or a written specification
+can be edited. The costs of doing this work are minimal, and the time required will
+CHAPTER 3
+AGILE DEVELOPMENT
+67
+Don’t make the
+mistake of assuming
+that agility gives you
+license to hack out
+solutions. A process is
+required and discipline
+is essential.
+MODULE 3
+
+not adversely affect the outcome of the project. But what if we fast-forward a num-
+ber of months? The team is in the middle of validation testing (something that occurs
+relatively late in the project), and an important stakeholder is requesting a major
+functional change. The change requires a modification to the architectural design of
+the software, the design and construction of three new components, modifications
+to another five components, the design of new tests, and so on. Costs escalate
+quickly, and the time and cost required to ensure that the change is made without
+unintended side effects is nontrivial.
+Proponents of agility (e.g., [Bec00], [Amb04]) argue that a well-designed agile
+process “flattens” the cost of change curve (Figure 3.1, shaded, solid curve), allowing
+a software team to accommodate changes late in a software project without dramatic
+cost and time impact. You’ve already learned that the agile process encompasses in-
+cremental delivery. When incremental delivery is coupled with other agile practices
+such as continuous unit testing and pair programming (discussed later in this chap-
+ter), the cost of making a change is attenuated. Although debate about the degree to
+which the cost curve flattens is ongoing, there is evidence [Coc01a] to suggest that a
+significant reduction in the cost of change can be achieved.
+3.3
+WHAT IS AN AGILE PROCESS?
+Any agile software process is characterized in a manner that addresses a number of
+key assumptions [Fow02] about the majority of software projects: 
+1.
+It is difficult to predict in advance which software requirements will persist
+and which will change. It is equally difficult to predict how customer
+priorities will change as the project proceeds.
+68
+PART ONE
+THE SOFTWARE PROCESS
+Cost of change
+using conventional
+software processes
+Cost of change
+using agile processes
+Idealized cost of change
+using agile process
+Development schedule progress
+Development cost
+FIGURE 3.1
+Change costs
+as a function
+of time in
+development
+uote:
+“Agility is dynamic,
+content specific,
+aggressively
+change embracing,
+and growth
+oriented.”
+–Steven
+Goldman et al.
+An agile process
+reduces the cost of
+change because
+software is released in
+increments and change
+can be better
+controlled within an
+increment.
+
+2.
+For many types of software, design and construction are interleaved. That is,
+both activities should be performed in tandem so that design models are
+proven as they are created. It is difficult to predict how much design is
+necessary before construction is used to prove the design.
+3.
+Analysis, design, construction, and testing are not as predictable (from a
+planning point of view) as we might like.
+Given these three assumptions, an important question arises: How do we create a
+process that can manage unpredictability? The answer, as I have already noted, lies
+in process adaptability (to rapidly changing project and technical conditions). An
+agile process, therefore, must be adaptable.
+But continual adaptation without forward progress accomplishes little. Therefore,
+an agile software process must adapt incrementally. To accomplish incremental adap-
+tation, an agile team requires customer feedback (so that the appropriate adaptations
+can be made). An effective catalyst for customer feedback is an operational prototype
+or a portion of an operational system. Hence, an incremental development strategy
+should be instituted. Software increments (executable prototypes or portions of an op-
+erational system) must be delivered in short time periods so that adaptation keeps pace
+with change (unpredictability). This iterative approach enables the customer to evalu-
+ate the software increment regularly, provide necessary feedback to the software team,
+and influence the process adaptations that are made to accommodate the feedback.
+3.3.1
+Agility Principles
+The Agile Alliance (see [Agi03], [Fow01]) defines 12 agility principles for those who
+want to achieve agility: 
+1.
+Our highest priority is to satisfy the customer through early and continuous
+delivery of valuable software.
+2.
+Welcome changing requirements, even late in development. Agile processes
+harness change for the customer’s competitive advantage.
+3.
+Deliver working software frequently, from a couple of weeks to a couple of
+months, with a preference to the shorter timescale.
+4.
+Business people and developers must work together daily throughout the
+project.
+5.
+Build projects around motivated individuals. Give them the environment and
+support they need, and trust them to get the job done.
+6.
+The most efficient and effective method of conveying information to and
+within a development team is face-to-face conversation.
+7.
+Working software is the primary measure of progress.
+8.
+Agile processes promote sustainable development. The sponsors, developers,
+and users should be able to maintain a constant pace indefinitely.
+CHAPTER 3
+AGILE DEVELOPMENT
+69
+WebRef
+A comprehensive
+collection of articles on
+the agile process 
+can be found at
+www.aanpo.org/
+articles/index.
+Although agile
+processes embrace
+change, it is still
+important to examine
+the reasons for
+change.
+Working software is
+important, but don’t
+forget that it must also
+exhibit a variety of
+quality attributes
+including reliability,
+usability, and 
+maintainability.
+
+9.
+Continuous attention to technical excellence and good design enhances
+agility.
+10.
+Simplicity—the art of maximizing the amount of work not done—is 
+essential.
+11.
+The best architectures, requirements, and designs emerge from self–
+organizing teams.
+12.
+At regular intervals, the team reflects on how to become more effective, then
+tunes and adjusts its behavior accordingly.
+Not every agile process model applies these 12 principles with equal weight, and
+some models choose to ignore (or at least downplay) the importance of one or more
+of the principles. However, the principles define an agile spirit that is maintained in
+each of the process models presented in this chapter.
+3.3.2
+The Politics of Agile Development
+There is considerable debate (sometimes strident) about the benefits and applicabil-
+ity of agile software development as opposed to more conventional software engi-
+neering processes. Jim Highsmith [Hig02a] (facetiously) states the extremes when he
+characterizes the feeling of the pro-agility camp (“agilists”). “Traditional methodolo-
+gists are a bunch of stick-in-the-muds who’d rather produce flawless documentation
+than a working system that meets business needs.” As a counterpoint, he states
+(again, facetiously) the position of the traditional software engineering camp: “Light-
+weight, er, ‘agile’ methodologists are a bunch of glorified hackers who are going to
+be in for a heck of a surprise when they try to scale up their toys into enterprise-wide
+software.”
+Like all software technology arguments, this methodology debate risks degener-
+ating into a religious war. If warfare breaks out, rational thought disappears and
+beliefs rather than facts guide decision making.
+No one is against agility. The real question is: What is the best way to achieve it?
+As important, how do you build software that meets customers’ needs today and
+exhibits the quality characteristics that will enable it to be extended and scaled to
+meet customers’ needs over the long term?
+There are no absolute answers to either of these questions. Even within the agile
+school itself, there are many proposed process models (Section 3.4), each with a
+subtly different approach to the agility problem. Within each model there is a set of
+“ideas” (agilists are loath to call them “work tasks”) that represent a significant
+departure from traditional software engineering. And yet, many agile concepts are
+simply adaptations of good software engineering concepts. Bottom line: there is
+much that can be gained by considering the best of both schools and virtually
+nothing to be gained by denigrating either approach.
+If you have further interest, see [Hig01], [Hig02a], and [DeM02] for an entertain-
+ing summary of other important technical and political issues.
+70
+PART ONE
+THE SOFTWARE PROCESS
+You don’t have to
+choose between agility
+and software engi-
+neering. Rather, define
+a software engineering
+approach that is agile.
+
+3.3.3
+Human Factors
+Proponents of agile software development take great pains to emphasize the impor-
+tance of “people factors.” As Cockburn and Highsmith [Coc01a] state, “Agile devel-
+opment focuses on the talents and skills of individuals, molding the process to
+specific people and teams.” The key point in this statement is that the process molds
+to the needs of the people and team, not the other way around.2
+If members of the software team are to drive the characteristics of the process that
+is applied to build software, a number of key traits must exist among the people on
+an agile team and the team itself:
+Competence.
+In an agile development (as well as software engineering)
+context, “competence” encompasses innate talent, specific software-related
+skills, and overall knowledge of the process that the team has chosen to
+apply. Skill and knowledge of process can and should be taught to all people
+who serve as agile team members.
+Common focus.
+Although members of the agile team may perform differ-
+ent tasks and bring different skills to the project, all should be focused on one
+goal—to deliver a working software increment to the customer within the
+time promised. To achieve this goal, the team will also focus on continual
+adaptations (small and large) that will make the process fit the needs of the
+team.
+Collaboration.
+Software engineering (regardless of process) is about as-
+sessing, analyzing, and using information that is communicated to the soft-
+ware team; creating information that will help all stakeholders understand
+the work of the team; and building information (computer software and rele-
+vant databases) that provides business value for the customer. To accomplish
+these tasks, team members must collaborate—with one another and all other
+stakeholders.
+Decision-making ability.
+Any good software team (including agile teams)
+must be allowed the freedom to control its own destiny. This implies that the
+team is given autonomy—decision-making authority for both technical and
+project issues.
+Fuzzy problem-solving ability.
+Software managers must recognize that
+the agile team will continually have to deal with ambiguity and will continu-
+ally be buffeted by change. In some cases, the team must accept the fact that
+the problem they are solving today may not be the problem that needs to be
+solved tomorrow. However, lessons learned from any problem-solving
+CHAPTER 3
+AGILE DEVELOPMENT
+71
+2
+Successful software engineering organizations recognize this reality regardless of the process
+model they choose.
+uote:
+“Agile methods
+derive much of
+their agility by
+relying on the
+tacit knowledge
+embodied in the
+team, rather than
+writing the
+knowledge down
+in plans.”
+Barry Boehm
+What key
+traits must
+exist among the
+people on an
+effective software
+team?
+?
+uote:
+“What counts as
+barely sufficient
+for one team is
+either overly
+sufficient or
+insufficient for
+another.”
+Alistair
+Cockburn
+
+activity (including those that solve the wrong problem) may be of benefit to
+the team later in the project.
+Mutual trust and respect.
+The agile team must become what DeMarco
+and Lister [DeM98] call a “jelled” team (Chapter 24). A jelled team exhibits
+the trust and respect that are necessary to make them “so strongly knit that
+the whole is greater than the sum of the parts.” [DeM98]
+Self-organization.
+In the context of agile development, self-organization
+implies three things: (1) the agile team organizes itself for the work to be
+done, (2) the team organizes the process to best accommodate its local envi-
+ronment, (3) the team organizes the work schedule to best achieve delivery
+of the software increment. Self-organization has a number of technical bene-
+fits, but more importantly, it serves to improve collaboration and boost team
+morale. In essence, the team serves as its own management. Ken Schwaber
+[Sch02] addresses these issues when he writes: “The team selects how much
+work it believes it can perform within the iteration, and the team commits to
+the work. Nothing demotivates a team as much as someone else making
+commitments for it. Nothing motivates a team as much as accepting the
+responsibility for fulfilling commitments that it made itself.”
+3.4
+EXTREME PROGRAMMING (XP)
+In order to illustrate an agile process in a bit more detail, I’ll provide you with an
+overview of Extreme Programming (XP), the most widely used approach to agile soft-
+ware development. Although early work on the ideas and methods associated with
+XP occurred during the late 1980s, the seminal work on the subject has been written
+by Kent Beck [Bec04a]. More recently, a variant of XP, called Industrial XP (IXP) has
+been proposed [Ker05]. IXP refines XP and targets the agile process specifically for
+use within large organizations.
+3.4.1
+XP Values
+Beck [Bec04a] defines a set of five values that establish a foundation for all work per-
+formed as part of XP—communication, simplicity, feedback, courage, and respect. Each
+of these values is used as a driver for specific XP activities, actions, and tasks.
+In order to achieve effective communication between software engineers and
+other stakeholders (e.g., to establish required features and functions for the soft-
+ware), XP emphasizes close, yet informal (verbal) collaboration between customers
+and developers, the establishment of effective metaphors3 for communicating
+important concepts, continuous feedback, and the avoidance of voluminous docu-
+mentation as a communication medium.
+72
+PART ONE
+THE SOFTWARE PROCESS
+A self-organizing team
+is in control of the
+work it performs. The
+team makes its own
+commitments and
+defines plans to
+achieve them.
+3
+In the XP context, a metaphor is “a story that everyone—customers, programmers, and managers—
+can tell about how the system works” [Bec04a].
+
+To achieve simplicity, XP restricts developers to design only for immediate needs,
+rather than consider future needs. The intent is to create a simple design that can be
+easily implemented in code). If the design must be improved, it can be refactored4 at
+a later time.
+Feedback is derived from three sources: the implemented software itself, the
+customer, and other software team members. By designing and implementing an
+effective testing strategy (Chapters 17 through 20), the software (via test results) pro-
+vides the agile team with feedback. XP makes use of the unit test as its primary test-
+ing tactic. As each class is developed, the team develops a unit test to exercise each
+operation according to its specified functionality. As an increment is delivered to a
+customer, the user stories or use cases (Chapter 5) that are implemented by the
+increment are used as a basis for acceptance tests. The degree to which the software
+implements the output, function, and behavior of the use case is a form of feedback.
+Finally, as new requirements are derived as part of iterative planning, the team pro-
+vides the customer with rapid feedback regarding cost and schedule impact.
+Beck [Bec04a] argues that strict adherence to certain XP practices demands
+courage. A better word might be discipline. For example, there is often significant
+pressure to design for future requirements. Most software teams succumb, arguing
+that “designing for tomorrow” will save time and effort in the long run. An agile XP
+team must have the discipline (courage) to design for today, recognizing that future
+requirements may change dramatically, thereby demanding substantial rework of
+the design and implemented code.
+By following each of these values, the agile team inculcates respect among it
+members, between other stakeholders and team members, and indirectly, for the
+software itself. As they achieve successful delivery of software increments, the team
+develops growing respect for the XP process.
+3.4.2
+The XP Process
+Extreme Programming uses an object-oriented approach (Appendix 2) as its pre-
+ferred development paradigm and encompasses a set of rules and practices that
+occur within the context of four framework activities: planning, design, coding, and
+testing. Figure 3.2 illustrates the XP process and notes some of the key ideas and
+tasks that are associated with each framework activity. Key XP activities are sum-
+marized in the paragraphs that follow.
+Planning.
+The planning activity (also called the planning game) begins with
+listening—a requirements gathering activity that enables the technical members of
+the XP team to understand the business context for the software and to get a broad
+CHAPTER 3
+AGILE DEVELOPMENT
+73
+4
+Refactoring allows a software engineer to improve the internal structure of a design (or source
+code) without changing its external functionality or behavior. In essence, refactoring can be used
+to improve the efficiency, readability, or performance of a design or the code that implements a
+design.
+Keep it simple
+whenever you can, but
+recognize that
+continual “refactoring”
+can absorb significant
+time and resources.
+uote:
+“XP is the answer
+to the question,
+‘How little can we
+do and still build
+great software?’“
+Anonymous
+WebRef
+An excellent overview
+of “rules” for XP can
+be found at www
+.extremeprogramm
+ing.org/rules.html.
+
+feel for required output and major features and functionality. Listening leads to the
+creation of a set of “stories” (also called user stories) that describe required output,
+features, and functionality for software to be built. Each story (similar to use cases
+described in Chapter 5) is written by the customer and is placed on an index card.
+The customer assigns a value (i.e., a priority) to the story based on the overall busi-
+ness value of the feature or function.5 Members of the XP team then assess each
+story and assign a cost—measured in development weeks—to it. If the story is esti-
+mated to require more than three development weeks, the customer is asked to split
+the story into smaller stories and the assignment of value and cost occurs again. It
+is important to note that new stories can be written at any time.
+Customers and developers work together to decide how to group stories into the
+next release (the next software increment) to be developed by the XP team. Once a
+basic commitment (agreement on stories to be included, delivery date, and other
+project matters) is made for a release, the XP team orders the stories that will be de-
+veloped in one of three ways: (1) all stories will be implemented immediately (within
+a few weeks), (2) the stories with highest value will be moved up in the schedule and
+implemented first, or (3) the riskiest stories will be moved up in the schedule and
+implemented first.
+After the first project release (also called a software increment) has been deliv-
+ered, the XP team computes project velocity. Stated simply, project velocity is the
+74
+PART ONE
+THE SOFTWARE PROCESS
+user stories
+ values
+ acceptance test criteria
+iteration plan
+simple design
+ CRC cards
+unit test
+ continuous integration
+software increment
+ project velocity computed
+spike solutions
+ prototypes
+refactoring
+pair programming
+acceptance testing
+Release
+design
+coding
+planning
+test
+FIGURE 3.2
+The Extreme
+Programming
+process
+5
+The value of a story may also be dependent on the presence of another story.
+WebRef
+A worthwhile XP
+“planning game” can
+be found at:
+c2.com/cgi/
+wiki?planningGame.
+What is an
+XP “story”?
+?
+
+number of customer stories implemented during the first release. Project velocity can
+then be used to (1) help estimate delivery dates and schedule for subsequent releases
+and (2) determine whether an overcommitment has been made for all stories across
+the entire development project. If an overcommitment occurs, the content of releases
+is modified or end delivery dates are changed.
+As development work proceeds, the customer can add stories, change the value
+of an existing story, split stories, or eliminate them. The XP team then reconsiders all
+remaining releases and modifies its plans accordingly.
+Design.
+XP design rigorously follows the KIS (keep it simple) principle. A simple
+design is always preferred over a more complex representation. In addition, the de-
+sign provides implementation guidance for a story as it is written—nothing less,
+nothing more. The design of extra functionality (because the developer assumes it
+will be required later) is discouraged.6
+XP encourages the use of CRC cards (Chapter 7) as an effective mechanism for
+thinking about the software in an object-oriented context. CRC (class-responsibility-
+collaborator) cards identify and organize the object-oriented classes7 that are rele-
+vant to the current software increment. The XP team conducts the design exercise
+using a process similar to the one described in Chapter 8. The CRC cards are the only
+design work product produced as part of the XP process.
+If a difficult design problem is encountered as part of the design of a story, XP rec-
+ommends the immediate creation of an operational prototype of that portion of the
+design. Called a spike solution, the design prototype is implemented and evaluated.
+The intent is to lower risk when true implementation starts and to validate the orig-
+inal estimates for the story containing the design problem.
+In the preceding section, we noted that XP encourages refactoring—a construction
+technique that is also a method for design optimization. Fowler [Fow00] describes
+refactoring in the following manner:
+Refactoring is the process of changing a software system in such a way that it does not
+alter the external behavior of the code yet improves the internal structure. It is a disci-
+plined way to clean up code [and modify/simplify the internal design] that minimizes the
+chances of introducing bugs. In essence, when you refactor you are improving the design
+of the code after it has been written.
+Because XP design uses virtually no notation and produces few, if any, work prod-
+ucts other than CRC cards and spike solutions, design is viewed as a transient arti-
+fact that can and should be continually modified as construction proceeds. The intent
+of refactoring is to control these modifications by suggesting small design changes
+CHAPTER 3
+AGILE DEVELOPMENT
+75
+Project velocity is a
+subtle measure of
+team productivity.
+6
+These design guidelines should be followed in every software engineering method, although there
+are times when sophisticated design notation and terminology may get in the way of simplicity.
+7
+Object-oriented classes are discussed in Appendix 2, in Chapter 8, and throughout Part 2 of this
+book.
+XP deemphasizes the
+importance of design.
+Not everyone agrees.
+In fact, there are times
+when design should be
+emphasized.
+WebRef
+Refactoring techniques
+and tools can be
+found at:
+www.refactoring
+.com.
+
+that “can radically improve the design” [Fow00]. It should be noted, however, that
+the effort required for refactoring can grow dramatically as the size of an application
+grows.
+A central notion in XP is that design occurs both before and after coding com-
+mences. Refactoring means that design occurs continuously as the system is con-
+structed. In fact, the construction activity itself will provide the XP team with
+guidance on how to improve the design.
+Coding.
+After stories are developed and preliminary design work is done, the team
+does not move to code, but rather develops a series of unit tests that will exercise
+each of the stories that is to be included in the current release (software increment).8
+Once the unit test9 has been created, the developer is better able to focus on what
+must be implemented to pass the test. Nothing extraneous is added (KIS). Once the
+code is complete, it can be unit-tested immediately, thereby providing instantaneous
+feedback to the developers.
+A key concept during the coding activity (and one of the most talked about aspects
+of XP) is pair programming. XP recommends that two people work together at one
+computer workstation to create code for a story. This provides a mechanism for real-
+time problem solving (two heads are often better than one) and real-time quality as-
+surance (the code is reviewed as it is created). It also keeps the developers focused
+on the problem at hand. In practice, each person takes on a slightly different role. For
+example, one person might think about the coding details of a particular portion of
+the design while the other ensures that coding standards (a required part of XP) are
+being followed or that the code for the story will satisfy the unit test that has been
+developed to validate the code against the story.
+As pair programmers complete their work, the code they develop is integrated
+with the work of others. In some cases this is performed on a daily basis by an inte-
+gration team. In other cases, the pair programmers have integration responsibility.
+This “continuous integration” strategy helps to avoid compatibility and interfacing
+problems and provides a “smoke testing” environment (Chapter 17) that helps to
+uncover errors early.
+Testing.
+I have already noted that the creation of unit tests before coding com-
+mences is a key element of the XP approach. The unit tests that are created should
+be implemented using a framework that enables them to be automated (hence, they
+can be executed easily and repeatedly). This encourages a regression testing strat-
+egy (Chapter 17) whenever code is modified (which is often, given the XP refactor-
+ing philosophy).
+76
+PART ONE
+THE SOFTWARE PROCESS
+Refactoring improves
+the internal structure of
+a design (or source
+code) without
+changing its external
+functionality or
+behavior.
+WebRef
+Useful information on
+XP can be obtained 
+at www
+.xprogramming.
+com.
+8
+This approach is analogous to knowing the exam questions before you begin to study. It makes
+studying much easier by focusing attention only on the questions that will be asked.
+9
+Unit testing, discussed in detail in Chapter 17, focuses on an individual software component, exer-
+cising the component’s interface, data structures, and functionality in an effort to uncover errors
+that are local to the component.
+What is 
+pair
+programming?
+?
+Many software teams
+are populated by indi-
+vidualists. You’ll have
+to work to change that
+culture if pair program-
+ming is to work effec-
+tively.
+How are unit
+tests used in
+XP??
+
+As the individual unit tests are organized into a “universal testing suite” [Wel99],
+integration and validation testing of the system can occur on a daily basis. This pro-
+vides the XP team with a continual indication of progress and also can raise warn-
+ing flags early if things go awry. Wells [Wel99] states: “Fixing small problems every
+few hours takes less time than fixing huge problems just before the deadline.”
+XP acceptance tests, also called customer tests, are specified by the customer and
+focus on overall system features and functionality that are visible and reviewable by
+the customer. Acceptance tests are derived from user stories that have been imple-
+mented as part of a software release.
+3.4.3
+Industrial XP
+Joshua Kerievsky [Ker05] describes Industrial Extreme Programming (IXP) in the fol-
+lowing manner: “IXP is an organic evolution of XP. It is imbued with XP’s minimal-
+ist, customer-centric, test-driven spirit. IXP differs most from the original XP in its
+greater inclusion of management, its expanded role for customers, and its upgraded
+technical practices.” IXP incorporates six new practices that are designed to help
+ensure that an XP project works successfully for significant projects within a large
+organization.
+Readiness assessment.
+Prior to the initiation of an IXP project, the organ-
+ization should conduct a readiness assessment. The assessment ascertains
+whether (1) an appropriate development environment exists to support IXP,
+(2) the team will be populated by the proper set of stakeholders, (3) the or-
+ganization has a distinct quality program and supports continuous improve-
+ment, (4) the organizational culture will support the new values of an agile
+team, and (5) the broader project community will be populated appropriately.
+Project community.
+Classic XP suggests that the right people be used to
+populate the agile team to ensure success. The implication is that people on
+the team must be well-trained, adaptable and skilled, and have the proper
+temperament to contribute to a self-organizing team. When XP is to be
+applied for a significant project in a large organization, the concept of the
+“team” should morph into that of a community. A community may have a
+technologist and customers who are central to the success of a project as
+well as many other stakeholders (e.g., legal staff, quality auditors, manufac-
+turing or sales types) who “are often at the periphery of an IXP project yet
+they may play important roles on the project” [Ker05]. In IXP, the community
+members and their roles should be explicitly defined and mechanisms for
+communication and coordination between community members should be
+established.
+Project chartering.
+The IXP team assesses the project itself to determine
+whether an appropriate business justification for the project exists and
+whether the project will further the overall goals and objectives of the
+CHAPTER 3
+AGILE DEVELOPMENT
+77
+XP acceptance tests
+are derived from user
+stories.
+What new
+practices are
+appended to XP
+to create IXP?
+?
+uote:
+“Ability is what
+you’re capable of
+doing. Motivation
+determines what
+you do. Attitude
+determines how
+well you do it.”
+Lou Holtz
+
+organization. Chartering also examines the context of the project to deter-
+mine how it complements, extends, or replaces existing systems or
+processes.
+Test-driven management.
+An IXP project requires measurable criteria for
+assessing the state of the project and the progress that has been made to
+date. Test-driven management establishes a series of measurable “destina-
+tions” [Ker05] and then defines mechanisms for determining whether or not
+these destinations have been reached.
+Retrospectives.
+An IXP team conducts a specialized technical review
+(Chapter 15) after a software increment is delivered. Called a retrospective,
+the review examines “issues, events, and lessons-learned” [Ker05] across a
+software increment and/or the entire software release. The intent is to
+improve the IXP process.
+Continuous learning.
+Because learning is a vital part of continuous
+process improvement, members of the XP team are encouraged (and possi-
+bly, incented) to learn new methods and techniques that can lead to a higher-
+quality product.
+In addition to the six new practices discussed, IXP modifies a number of existing
+XP practices. Story-driven development (SDD) insists that stories for acceptance tests
+be written before a single line of code is generated. Domain-driven design (DDD) is
+an improvement on the “system metaphor” concept used in XP. DDD [Eva03] sug-
+gests the evolutionary creation of a domain model that “accurately represents how
+domain experts think about their subject” [Ker05]. Pairing extends the XP pair-
+programming concept to include managers and other stakeholders. The intent is to
+improve knowledge sharing among XP team members who may not be directly in-
+volved in technical development. Iterative usability discourages front-loaded inter-
+face design in favor of usability design that evolves as software increments are
+delivered and users’ interaction with the software is studied.
+IXP makes smaller modifications to other XP practices and redefines certain roles
+and responsibilities to make them more amenable to significant projects for large
+organizations. For further discussion of IXP, visit http://industrialxp.org.
+3.4.4
+The XP Debate
+All new process models and methods spur worthwhile discussion and in some in-
+stances heated debate. Extreme Programming has done both. In an interesting book
+that examines the efficacy of XP, Stephens and Rosenberg [Ste03] argue that many
+XP practices are worthwhile, but others have been overhyped, and a few are prob-
+lematic. The authors suggest that the codependent nature of XP practices are both
+its strength and its weakness. Because many organizations adopt only a subset of XP
+practices, they weaken the efficacy of the entire process. Proponents counter that
+XP is continuously evolving and that many of the issues raised by critics have been
+78
+PART ONE
+THE SOFTWARE PROCESS
+
+addressed as XP practice matures. Among the issues that continue to trouble some
+critics of XP are:10
+• Requirements volatility. Because the customer is an active member of the XP
+team, changes to requirements are requested informally. As a consequence,
+the scope of the project can change and earlier work may have to be
+modified to accommodate current needs. Proponents argue that this happens
+regardless of the process that is applied and that XP provides mechanisms for
+controlling scope creep.
+• Conflicting customer needs. Many projects have multiple customers, each with
+his own set of needs. In XP, the team itself is tasked with assimilating the
+needs of different customers, a job that may be beyond their scope of
+authority.
+• Requirements are expressed informally. User stories and acceptance tests are
+the only explicit manifestation of requirements in XP. Critics argue that a
+more formal model or specification is often needed to ensure that omissions,
+inconsistencies, and errors are uncovered before the system is built. Propo-
+nents counter that the changing nature of requirements makes such models
+and specification obsolete almost as soon as they are developed.
+• Lack of formal design. XP deemphasizes the need for architectural design and
+in many instances, suggests that design of all kinds should be relatively
+informal. Critics argue that when complex systems are built, design must be
+emphasized to ensure that the overall structure of the software will exhibit
+quality and maintainability. XP proponents suggest that the incremental
+nature of the XP process limits complexity (simplicity is a core value) and
+therefore reduces the need for extensive design.
+You should note that every software process has flaws and that many software or-
+ganizations have used XP successfully. The key is to recognize where a process may
+have weaknesses and to adapt it to the specific needs of your organization.
+CHAPTER 3
+AGILE DEVELOPMENT
+79
+10 For a detailed look at some thoughtful criticism that has been leveled at XP, visit
+www.softwarereality.com/ExtremeProgramming.jsp.
+What are
+some of the
+issues that lead to
+an XP debate?
+?
+The scene: Doug Miller’s office.
+The Players: Doug Miller, software engineering
+manager; Jamie Lazar, software team member; Vinod
+Raman, software team member.
+The conversation:
+(A knock on the door, Jamie and Vinod enter Doug’s office)
+Jamie: Doug, you got a minute?
+SAFEHOME
+Considering Agile Software Development
+
+3.5
+OTHER AGILE PROCESS MODELS
+The history of software engineering is littered with dozens of obsolete process
+descriptions and methodologies, modeling methods and notations, tools, and
+technology. Each flared in notoriety and was then eclipsed by something new and
+(purportedly) better. With the introduction of a wide array of agile process models—
+each contending for acceptance within the software development community—the
+agile movement is following the same historical path.11
+As I noted in the last section, the most widely used of all agile process models
+is Extreme Programming (XP). But many other agile process models have been
+proposed and are in use across the industry. Among the most common are:
+• Adaptive Software Development (ASD)
+• Scrum
+• Dynamic Systems Development Method (DSDM)
+80
+PART ONE
+THE SOFTWARE PROCESS
+Doug: Sure Jamie, what’s up?
+Jamie: We’ve been thinking about our process
+discussion yesterday . . . you know, what process we’re
+going to choose for this new SafeHome project.
+Doug: And?
+Vinod: I was talking to a friend at another company,
+and he was telling me about Extreme Programming. It’s
+an agile process model . . . heard of it?
+Doug: Yeah, some good, some bad.
+Jamie: Well, it sounds pretty good to us. Lets you
+develop software really fast, uses something called pair
+programming to do real-time quality checks . . . it’s pretty
+cool, I think.
+Doug: It does have a lot of really good ideas. I like the
+pair-programming concept, for instance, and the idea
+that stakeholders should be part of the team.
+Jamie: Huh? You mean that marketing will work on the
+project team with us?
+Doug (nodding): They’re a stakeholder, aren’t they?
+Jamie: Jeez . . . they’ll be requesting changes every five
+minutes.
+Vinod: Not necessarily. My friend said that there are
+ways to “embrace” changes during an XP project.
+Doug: So you guys think we should use XP?
+Jamie: It’s definitely worth considering.
+Doug: I agree. And even if we choose an incremental
+model as our approach, there’s no reason why we can’t
+incorporate much of what XP has to offer.
+Vinod: Doug, before you said “some good, some bad.”
+What was the “bad”?
+Doug: The thing I don’t like is the way XP downplays
+analysis and design . . . sort of says that writing code is
+where the action is . . . 
+(The team members look at one another and smile.)
+Doug: So you agree with the XP approach?
+Jamie (speaking for both): Writing code is what
+we do, Boss!
+Doug (laughing): True, but I’d like to see you spend a
+little less time coding and then recoding and a little more
+time analyzing what has to be done and designing a
+solution that works.
+Vinod: Maybe we can have it both ways, agility with a
+little discipline.
+Doug: I think we can, Vinod. In fact, I’m sure of it.
+uote:
+“Our profession
+goes through
+methodologies like
+a 14-year-old goes
+through clothing.”
+Stephen
+Hawrysh and
+Jim Ruprecht
+11 This is not a bad thing. Before one or more models or methods are accepted as a de facto standard,
+all must contend for the hearts and minds of software engineers. The “winners” evolve into best
+practice, while the “losers” either disappear or merge with the winning models.
+
+• Crystal
+• Feature Drive Development (FDD)
+• Lean Software Development (LSD)
+• Agile Modeling (AM)
+• Agile Unified Process (AUP)
+In the sections that follow, I present a very brief overview of each of these agile
+process models. It is important to note that all agile process models conform (to a
+greater or lesser degree) to the Manifesto for Agile Software Development and the prin-
+ciples noted in Section 3.3.1. For additional detail, refer to the references noted in
+each subsection or for a survey, examine the “agile software development” entry
+in Wikipedia.12
+3.5.1
+Adaptive Software Development (ASD)
+Adaptive Software Development (ASD) has been proposed by Jim Highsmith [Hig00] as
+a technique for building complex software and systems. The philosophical under-
+pinnings of ASD focus on human collaboration and team self-organization.
+Highsmith argues that an agile, adaptive development approach based on collab-
+oration is “as much a source of order in our complex interactions as discipline and
+engineering.” He defines an ASD “life cycle” (Figure 3.3) that incorporates three
+phases, speculation, collaboration, and learning.
+CHAPTER 3
+AGILE DEVELOPMENT
+81
+12 See http://en.wikipedia.org/wiki/Agile_software_development#Agile_methods.
+WebRef
+Useful resources for
+ASD can be found at
+www.adaptivesd
+.com.
+adaptive cycle planning
+ mission statement
+ project constraints
+ basic requirements
+time-boxed release plan
+components implemented/tested
+ focus groups for feedback
+ formal technical reviews
+postmortems
+Requirements gathering
+ JAD
+ mini-specs
+software increment
+ adjustments for subsequent cycles
+Release
+collaboration
+speculation
+learning
+FIGURE 3.3
+Adaptive
+software
+development
+
+During speculation, the project is initiated and adaptive cycle planning is con-
+ducted. Adaptive cycle planning uses project initiation information—the customer’s
+mission statement, project constraints (e.g., delivery dates or user descriptions), and
+basic requirements—to define the set of release cycles (software increments) that
+will be required for the project.
+No matter how complete and farsighted the cycle plan, it will invariably change.
+Based on information obtained at the completion of the first cycle, the plan is re-
+viewed and adjusted so that planned work better fits the reality in which an ASD
+team is working.
+Motivated people use collaboration in a way that multiplies their talent and cre-
+ative output beyond their absolute numbers. This approach is a recurring theme in
+all agile methods. But collaboration is not easy. It encompasses communication and
+teamwork, but it also emphasizes individualism, because individual creativity plays
+an important role in collaborative thinking. It is, above all, a matter of trust. People
+working together must trust one another to (1) criticize without animosity, (2) assist
+without resentment, (3) work as hard as or harder than they do, (4) have the skill set
+to contribute to the work at hand, and (5) communicate problems or concerns in a
+way that leads to effective action.
+As members of an ASD team begin to develop the components that are part of an
+adaptive cycle, the emphasis is on “learning” as much as it is on progress toward
+a completed cycle. In fact, Highsmith [Hig00] argues that software developers often
+overestimate their own understanding (of the technology, the process, and the proj-
+ect) and that learning will help them to improve their level of real understanding.
+ASD teams learn in three ways: focus groups (Chapter 5), technical reviews (Chap-
+ter 14), and project postmortems.
+The ASD philosophy has merit regardless of the process model that is used. ASD’s
+overall emphasis on the dynamics of self-organizing teams, interpersonal collabo-
+ration, and individual and team learning yield software project teams that have a
+much higher likelihood of success.
+3.5.2
+Scrum
+Scrum (the name is derived from an activity that occurs during a rugby match13) is
+an agile software development method that was conceived by Jeff Sutherland and his
+development team in the early 1990s. In recent years, further development on the
+Scrum methods has been performed by Schwaber and Beedle [Sch01a].
+Scrum principles are consistent with the agile manifesto and are used to guide
+development activities within a process that incorporates the following framework
+activities: requirements, analysis, design, evolution, and delivery. Within each
+82
+PART ONE
+THE SOFTWARE PROCESS
+Effective collaboration
+with your customer will
+only occur if you
+jettison any “us and
+them” attitudes.
+ASD emphasizes
+learning as a key
+element in achieving 
+a “self-organizing”
+team.
+13 A group of players forms around the ball and the teammates work together (sometimes violently!)
+to move the ball downfield.
+WebRef
+Useful Scrum
+information and
+resources can be found
+at www
+.controlchaos.com.
+
+every 24
+hours
+30 days
+Scrum: 15 minute daily meeting.
+Team members respond to basics:
+1) What did you do since last Scrum
+ 
+meeting?
+2) Do you have any obstacles?
+3) What will you do before next
+ 
+meeting?
+Sprint Backlog:
+Feature(s)
+assigned
+to sprint
+Product Backlog:
+Prioritized product features desired by the customer
+Backlog
+items
+expanded
+by team
+New functionality
+is demonstrated
+at end of sprint
+framework activity, work tasks occur within a process pattern (discussed in the fol-
+lowing paragraph) called a sprint. The work conducted within a sprint (the number
+of sprints required for each framework activity will vary depending on product com-
+plexity and size) is adapted to the problem at hand and is defined and often modified
+in real time by the Scrum team. The overall flow of the Scrum process is illustrated
+in Figure 3.4.
+Scrum emphasizes the use of a set of software process patterns [Noy02] that have
+proven effective for projects with tight timelines, changing requirements, and business
+criticality. Each of these process patterns defines a set of development actions:
+Backlog—a prioritized list of project requirements or features that provide busi-
+ness value for the customer. Items can be added to the backlog at any time (this is
+how changes are introduced). The product manager assesses the backlog and
+updates priorities as required.
+Sprints—consist of work units that are required to achieve a requirement de-
+fined in the backlog that must be fit into a predefined time-box14 (typically 30 days).
+CHAPTER 3
+AGILE DEVELOPMENT
+83
+14 A time-box is a project management term (see Part 4 of this book) that indicates a period of time
+that has been allocated to accomplish some task.
+FIGURE 3.4
+Scrum process
+flow
+Scrum incorporates a
+set of process patterns
+that emphasize project
+priorities,
+compartmentalized
+work units,
+communication, and
+frequent customer
+feedback.
+
+Changes (e.g., backlog work items) are not introduced during the sprint. Hence, the
+sprint allows team members to work in a short-term, but stable environment.
+Scrum meetings—are short (typically 15 minutes) meetings held daily by the Scrum
+team. Three key questions are asked and answered by all team members [Noy02]:
+• What did you do since the last team meeting?
+• What obstacles are you encountering?
+• What do you plan to accomplish by the next team meeting?
+A team leader, called a Scrum master, leads the meeting and assesses the responses
+from each person. The Scrum meeting helps the team to uncover potential problems
+as early as possible. Also, these daily meetings lead to “knowledge socialization”
+[Bee99] and thereby promote a self-organizing team structure.
+Demos—deliver the software increment to the customer so that functionality that
+has been implemented can be demonstrated and evaluated by the customer. It is im-
+portant to note that the demo may not contain all planned functionality, but rather
+those functions that can be delivered within the time-box that was established.
+Beedle and his colleagues [Bee99] present a comprehensive discussion of these pat-
+terns in which they state: “Scrum assumes up-front the existence of chaos. . . . ” The
+Scrum process patterns enable a software team to work successfully in a world
+where the elimination of uncertainty is impossible.
+3.5.3
+Dynamic Systems Development Method (DSDM)
+The Dynamic Systems Development Method (DSDM) [Sta97] is an agile software devel-
+opment approach that “provides a framework for building and maintaining systems
+which meet tight time constraints through the use of incremental prototyping in a con-
+trolled project environment” [CCS02]. The DSDM philosophy is borrowed from a mod-
+ified version of the Pareto principle—80 percent of an application can be delivered in
+20 percent of the time it would take to deliver the complete (100 percent) application.
+DSDM is an iterative software process in which each iteration follows the 80 per-
+cent rule. That is, only enough work is required for each increment to facilitate
+movement to the next increment. The remaining detail can be completed later when
+more business requirements are known or changes have been requested and
+accommodated.
+The DSDM Consortium (www.dsdm.org) is a worldwide group of member com-
+panies that collectively take on the role of “keeper” of the method. The consortium
+has defined an agile process model, called the DSDM life cycle that defines three dif-
+ferent iterative cycles, preceded by two additional life cycle activities:
+Feasibility study—establishes the basic business requirements and constraints
+associated with the application to be built and then assesses whether the applica-
+tion is a viable candidate for the DSDM process.
+84
+PART ONE
+THE SOFTWARE PROCESS
+WebRef
+Useful resources for
+DSSD can be found at
+www.dsdm.org.
+
+Business study—establishes the functional and information requirements that
+will allow the application to provide business value; also, defines the basic
+application architecture and identifies the maintainability requirements for the
+application.
+Functional model iteration—produces a set of incremental prototypes that
+demonstrate functionality for the customer. (Note: All DSDM prototypes are in-
+tended to evolve into the deliverable application.) The intent during this iterative
+cycle is to gather additional requirements by eliciting feedback from users as they
+exercise the prototype.
+Design and build iteration—revisits prototypes built during functional model
+iteration to ensure that each has been engineered in a manner that will enable it to
+provide operational business value for end users. In some cases, functional model
+iteration and design and build iteration occur concurrently.
+Implementation—places the latest software increment (an “operationalized” pro-
+totype) into the operational environment. It should be noted that (1) the increment
+may not be 100 percent complete or (2) changes may be requested as the incre-
+ment is put into place. In either case, DSDM development work continues by
+returning to the functional model iteration activity.
+DSDM can be combined with XP (Section 3.4) to provide a combination approach
+that defines a solid process model (the DSDM life cycle) with the nuts and bolts prac-
+tices (XP) that are required to build software increments. In addition, the ASD con-
+cepts of collaboration and self-organizing teams can be adapted to a combined
+process model.
+3.5.4
+Crystal
+Alistair Cockburn [Coc05] and Jim Highsmith [Hig02b] created the Crystal family of
+agile methods15 in order to achieve a software development approach that puts a
+premium on “maneuverability” during what Cockburn characterizes as “a resource-
+limited, cooperative game of invention and communication, with a primary goal of
+delivering useful, working software and a secondary goal of setting up for the next
+game” [Coc02].
+To achieve maneuverability, Cockburn and Highsmith have defined a set of
+methodologies, each with core elements that are common to all, and roles, process
+patterns, work products, and practice that are unique to each. The Crystal family is
+actually a set of example agile processes that have been proven effective for differ-
+ent types of projects. The intent is to allow agile teams to select the member of the
+crystal family that is most appropriate for their project and environment.
+CHAPTER 3
+AGILE DEVELOPMENT
+85
+15 The name “crystal” is derived from the characteristics of geological crystals, each with its own
+color, shape, and hardness.
+Crystal is a family of
+process models with
+the same “genetic
+code” but different
+methods for adapting
+to project
+characteristics.
+DSDM is a process
+framework that can
+adopt the tactics of
+another agile approach
+such as XP.
+
+3.5.5
+Feature Driven Development (FDD)
+Feature Driven Development (FDD) was originally conceived by Peter Coad and his
+colleagues [Coa99] as a practical process model for object-oriented software engi-
+neering. Stephen Palmer and John Felsing [Pal02] have extended and improved
+Coad’s work, describing an adaptive, agile process that can be applied to moderately
+sized and larger software projects.
+Like other agile approaches, FDD adopts a philosophy that (1) emphasizes col-
+laboration among people on an FDD team; (2) manages problem and project
+complexity using feature-based decomposition followed by the integration of
+software increments, and (3) communication of technical detail using verbal,
+graphical, and text-based means. FDD emphasizes software quality assurance
+activities by encouraging an incremental development strategy, the use of design
+and code inspections, the application of software quality assurance audits (Chap-
+ter 16), the collection of metrics, and the use of patterns (for analysis, design, and
+construction).
+In the context of FDD, a feature “is a client-valued function that can be imple-
+mented in two weeks or less” [Coa99]. The emphasis on the definition of features
+provides the following benefits:
+• Because features are small blocks of deliverable functionality, users can
+describe them more easily; understand how they relate to one another more
+readily; and better review them for ambiguity, error, or omissions.
+• Features can be organized into a hierarchical business-related grouping.
+• Since a feature is the FDD deliverable software increment, the team develops
+operational features every two weeks.
+• Because features are small, their design and code representations are easier
+to inspect effectively.
+• Project planning, scheduling, and tracking are driven by the feature
+hierarchy, rather than an arbitrarily adopted software engineering 
+task set.
+Coad and his colleagues [Coa99] suggest the following template for defining a
+feature:
+<action> the <result> <by for of to> a(n) <object>
+where an <object> is “a person, place, or thing (including roles, moments in time or
+intervals of time, or catalog-entry-like descriptions).” Examples of features for an 
+e-commerce application might be:
+Add the product to shopping cart
+Display the technical-specifications of the product
+Store the shipping-information for the customer
+86
+PART ONE
+THE SOFTWARE PROCESS
+WebRef
+A wide variety of
+articles and
+presentations on FDD
+can be found at:
+www.featuredrive
+ndevelopment
+.com/.
+
+A feature set groups related features into business-related categories and is defined
+[Coa99] as:
+<action><-ing> a(n) <object>
+For example: Making a product sale is a feature set that would encompass the fea-
+tures noted earlier and others.
+The FDD approach defines five “collaborating” [Coa99] framework activities (in
+FDD these are called “processes”) as shown in Figure 3.5.
+FDD provides greater emphasis on project management guidelines and tech-
+niques than many other agile methods. As projects grow in size and complexity,
+ad hoc project management is often inadequate. It is essential for developers, their
+managers, and other stakeholders to understand project status—what accomplish-
+ments have been made and problems have been encountered. If deadline pressure
+is significant, it is critical to determine if software increments (features) are properly
+scheduled. To accomplish this, FDD defines six milestones during the design and
+implementation of a feature: “design walkthrough, design, design inspection, code,
+code inspection, promote to build” [Coa99].
+3.5.6
+Lean Software Development (LSD)
+Lean Software Development (LSD) has adapted the principles of lean manufacturing
+to the world of software engineering. The lean principles that inspire the LSD process
+can be summarized ([Pop03], [Pop06a]) as eliminate waste, build quality in, create
+knowledge, defer commitment, deliver fast, respect people, and optimize the whole.
+Each of these principles can be adapted to the software process. For example,
+eliminate waste within the context of an agile software project can be interpreted
+to mean [Das05]: (1) adding no extraneous features or functions, (2) assessing the
+cost and schedule impact of any newly requested requirement, (3) removing any
+superfluous process steps, (4) establishing mechanisms to improve the way team
+members find information, (5) ensuring the testing finds as many errors as possible,
+CHAPTER 3
+AGILE DEVELOPMENT
+87
+Develop
+an
+Overall
+Model
+Build a
+Features
+List
+Plan
+By
+Feature
+Design
+By
+Feature
+Build
+By
+Feature
+(more shape
+than content)
+A list of features
+grouped into sets
+and subject areas
+A development plan
+Class owners
+Feature Set Owners
+A design
+package
+(sequences)
+Completed
+client-value
+function
+FIGURE 3.5
+Feature Driven
+Development
+[Coa99] (with
+permission)
+
+(6) reducing the time required to request and get a decision that affects the software
+or the process that is applied to create it, and (7) streamlining the manner in which
+information is transmitted to all stakeholders involved in the process.
+For a detailed discussion of LSD and pragmatic guidelines for implementing the
+process, you should examine [Pop06a] and [Pop06b].
+3.5.7
+Agile Modeling (AM)
+There are many situations in which software engineers must build large, business-
+critical systems. The scope and complexity of such systems must be modeled so that
+(1) all constituencies can better understand what needs to be accomplished, (2) the
+problem can be partitioned effectively among the people who must solve it, and
+(3) quality can be assessed as the system is being engineered and built.
+Over the past 30 years, a wide variety of software engineering modeling methods
+and notation have been proposed for analysis and design (both architectural and
+component-level). These methods have merit, but they have proven to be difficult
+to apply and challenging to sustain (over many projects). Part of the problem is the
+“weight” of these modeling methods. By this I mean the volume of notation required,
+the degree of formalism suggested, the sheer size of the models for large projects,
+and the difficulty in maintaining the model(s) as changes occur. Yet analysis and de-
+sign modeling have substantial benefit for large projects—if for no other reason than
+to make these projects intellectually manageable. Is there an agile approach to soft-
+ware engineering modeling that might provide an alternative?
+At “The Official Agile Modeling Site,” Scott Ambler [Amb02a] describes agile mod-
+eling (AM) in the following manner:
+Agile Modeling (AM) is a practice-based methodology for effective modeling and documen-
+tation of software-based systems. Simply put, Agile Modeling (AM) is a collection of values,
+principles, and practices for modeling software that can be applied on a software develop-
+ment project in an effective and light-weight manner. Agile models are more effective than
+traditional models because they are just barely good, they don’t have to be perfect.
+Agile modeling adopts all of the values that are consistent with the agile manifesto.
+The agile modeling philosophy recognizes that an agile team must have the courage
+to make decisions that may cause it to reject a design and refactor. The team must
+also have the humility to recognize that technologists do not have all the answers and
+that business experts and other stakeholders should be respected and embraced.
+Although AM suggests a wide array of “core” and “supplementary” modeling prin-
+ciples, those that make AM unique are [Amb02a]:
+Model with a purpose.
+A developer who uses AM should have a specific
+goal (e.g., to communicate information to the customer or to help better un-
+derstand some aspect of the software) in mind before creating the model.
+Once the goal for the model is identified, the type of notation to be used and
+level of detail required will be more obvious.
+88
+PART ONE
+THE SOFTWARE PROCESS
+WebRef
+Comprehensive
+information on agile
+modeling can be found
+at: www
+.agilemodeling.com.
+uote:
+“I was in the drug
+store the other day
+trying to get a cold
+medication . . . not
+easy. There’s an
+entire wall of
+products you need.
+You stand there
+going, Well, this
+one is quick acting
+but this is long
+lasting. . . . Which
+is more important,
+the present or the
+future?”
+Jerry Seinfeld
+
+Use multiple models.
+There are many different models and notations that
+can be used to describe software. Only a small subset is essential for most
+projects. AM suggests that to provide needed insight, each model should
+present a different aspect of the system and only those models that provide
+value to their intended audience should be used.
+Travel light.
+As software engineering work proceeds, keep only those mod-
+els that will provide long-term value and jettison the rest. Every work product
+that is kept must be maintained as changes occur. This represents work that
+slows the team down. Ambler [Amb02a] notes that “Every time you decide to
+keep a model you trade-off agility for the convenience of having that informa-
+tion available to your team in an abstract manner (hence potentially enhanc-
+ing communication within your team as well as with project stakeholders).”
+Content is more important than representation.
+Modeling should im-
+part information to its intended audience. A syntactically perfect model that
+imparts little useful content is not as valuable as a model with flawed nota-
+tion that nevertheless provides valuable content for its audience.
+Know the models and the tools you use to create them.
+Understand
+the strengths and weaknesses of each model and the tools that are used to
+create it.
+Adapt locally.
+The modeling approach should be adapted to the needs of
+the agile team.
+A major segment of the software engineering community has adopted the Unified
+Modeling Language (UML)16 as the preferred method for representing analysis and
+design models. The Unified Process (Chapter 2) has been developed to provide a
+framework for the application of UML. Scott Ambler [Amb06] has developed a sim-
+plified version of the UP that integrates his agile modeling philosophy.
+3.5.8
+Agile Unified Process (AUP)
+The Agile Unified Process (AUP) adopts a “serial in the large” and “iterative in the
+small” [Amb06] philosophy for building computer-based systems. By adopting the
+classic UP phased activities—inception, elaboration, construction, and transition—AUP
+provides a serial overlay (i.e., a linear sequence of software engineering activities)
+that enables a team to visualize the overall process flow for a software project. How-
+ever, within each of the activities, the team iterates to achieve agility and to deliver
+meaningful software increments to end users as rapidly as possible. Each AUP iter-
+ation addresses the following activities [Amb06]: 
+• Modeling. UML representations of the business and problem domains are
+created. However, to stay agile, these models should be “just barely good
+enough” [Amb06] to allow the team to proceed.
+CHAPTER 3
+AGILE DEVELOPMENT
+89
+“Traveling light” is an
+appropriate philosophy
+for all software engi-
+neering work. Build
+only those models that
+provide value … no
+more, no less.
+16 A brief tutorial on UML is presented in Appendix 1.
+
+• Implementation. Models are translated into source code.
+• Testing. Like XP, the team designs and executes a series of tests to uncover
+errors and ensure that the source code meets its requirements.
+• Deployment. Like the generic process activity discussed in Chapters 1 and 2,
+deployment in this context focuses on the delivery of a software increment
+and the acquisition of feedback from end users.
+• Configuration and project management. In the context of AUP, configuration
+management (Chapter 22) addresses change management, risk manage-
+ment, and the control of any persistent work products17 that are produced by
+the team. Project management tracks and controls the progress of the team
+and coordinates team activities.
+• Environment management. Environment management coordinates a process
+infrastructure that includes standards, tools, and other support technology
+available to the team.
+Although the AUP has historical and technical connections to the Unified Modeling
+Language, it is important to note that UML modeling can be using in conjunction
+with any of the agile process models described in Section 3.5.
+90
+PART ONE
+THE SOFTWARE PROCESS
+17 A persistent work product is a model or document or test case produced by the team that will be kept
+for an indeterminate period of time. It will not be discarded once the software increment is
+delivered.
+18 Tools noted here do not represent an endorsement, but rather a sampling of tools in this category.
+In most cases, tool names are trademarked by their respective developers.
+Agile Development
+Objective: The objective of agile development
+tools is to assist in one or more aspects of agile
+development with an emphasis on facilitating the rapid
+generation of operational software. These tools can also
+be used when prescriptive process models (Chapter 2) are
+applied.
+Mechanics: Tool mechanics vary. In general, agile tool
+sets encompass automated support for project planning,
+use case development and requirements gathering, rapid
+design, code generation, and testing.
+Representative Tools:18
+Note: Because agile development is a hot topic, most
+software tools vendors purport to sell tools that support 
+the agile approach. The tools noted here have
+characteristics that make them particularly useful for
+agile projects.
+OnTime, developed by Axosoft (www.axosoft.com),
+provides agile process management support for
+various technical activities within the process.
+Ideogramic UML, developed by Ideogramic
+(www.ideogramic.com) is a UML tool set
+specifically developed for use within an agile 
+process.
+Together Tool Set, distributed by Borland
+(www.borland.com), provides a tools suite that
+supports many technical activities within XP and other
+agile processes.
+SOFTWARE TOOLS
+
+3.6
+A TOOL SET FOR THE AGILE PROCESS
+Some proponents of the agile philosophy argue that automated software tools (e.g.,
+design tools) should be viewed as a minor supplement to the team’s activities, and
+not at all pivotal to the success of the team. However, Alistair Cockburn [Coc04] sug-
+gests that tools can have a benefit and that “agile teams stress using tools that per-
+mit the rapid flow of understanding. Some of those tools are social, starting even at
+the hiring stage. Some tools are technological, helping distributed teams simulate
+being physically present. Many tools are physical, allowing people to manipulate
+them in workshops.”
+Because acquiring the right people (hiring), team collaboration, stakeholder com-
+munication, and indirect management are key elements in virtually all agile process
+models, Cockburn argues that “tools” that address these issues are critical success
+factors for agility. For example, a hiring “tool” might be the requirement to have a
+prospective team member spend a few hours pair programming with an existing
+member of the team. The “fit” can be assessed immediately.
+Collaborative and communication “tools” are generally low tech and incorporate
+any mechanism (“physical proximity, whiteboards, poster sheets, index cards, and
+sticky notes” [Coc04]) that provides information and coordination among agile de-
+velopers. Active communication is achieved via the team dynamics (e.g., pair pro-
+gramming), while passive communication is achieved by “information radiators”
+(e.g., a flat panel display that presents the overall status of different components of
+an increment). Project management tools deemphasize the Gantt chart and replace
+it with earned value charts or “graphs of tests created versus passed . . . other agile
+tools are used to optimize the environment in which the agile team works (e.g., more
+efficient meeting areas), improve the team culture by nurturing social interactions
+(e.g., collocated teams), physical devices (e.g., electronic whiteboards), and process
+enhancement (e.g., pair programming or time-boxing)” [Coc04].
+Are any of these things really tools? They are, if they facilitate the work performed
+by an agile team member and enhance the quality of the end product.
+3.7
+SUMMARY
+In a modern economy, market conditions change rapidly, customer and end-user
+needs evolve, and new competitive threats emerge without warning. Practitioners
+must approach software engineering in a manner that allows them to remain agile—
+to define maneuverable, adaptive, lean processes that can accommodate the needs
+of modern business.
+An agile philosophy for software engineering stresses four key issues: the impor-
+tance of self-organizing teams that have control over the work they perform, com-
+munication and collaboration between team members and between practitioners
+and their customers, a recognition that change represents an opportunity, and
+CHAPTER 3
+AGILE DEVELOPMENT
+91
+The “tool set” that
+supports agile
+processes focuses
+more on people issues
+than it does on
+technology issues.
+
+MODELING
+95
+P A R T
+Two
+I
+n this part of Software Engineering: A Practitioner’s Approach
+you’ll learn about the principles, concepts, and methods that are
+used to create high-quality requirements and design models.
+These questions are addressed in the chapters that follow:
+•
+What concepts and principles guide software engineering
+practice?
+•
+What is requirements engineering and what are the underly-
+ing concepts that lead to good requirements analysis?
+•
+How is the requirements model created and what are its
+elements?
+•
+What are the elements of a good design?
+•
+How does architectural design establish a framework for all
+other design actions and what models are used?
+•
+How do we design high-quality software components?
+•
+What concepts, models, and methods are applied as a user
+interface is designed?
+•
+What is pattern-based design?
+•
+What specialized strategies and methods are used to design
+WebApps?
+Once these questions are answered you’ll be better prepared to
+apply software engineering practice.
+
+CHAPTER 4
+PRINCIPLES THAT GUIDE PRACTICE
+97
+A dark image of software engineering practice to be sure, but upon reflection,
+many of the readers of this book will be able to relate to it.
+People who create computer software practice the art or craft or discipline1 that
+is software engineering. But what is software engineering “practice”? In a generic
+sense, practice is a collection of concepts, principles, methods, and tools that a soft-
+ware engineer calls upon on a daily basis. Practice allows managers to manage soft-
+ware projects and software engineers to build computer programs. Practice
+populates a software process model with the necessary technical and management
+how-to’s to get the job done. Practice transforms a haphazard unfocused approach
+into something that is more organized, more effective, and more likely to achieve
+success.
+Various aspects of software engineering practice will be examined throughout the
+remainder of this book. In this chapter, my focus is on principles and concepts that
+guide software engineering practice in general.
+4.1
+SOFTWARE ENGINEERING KNOWLEDGE
+In an editorial published in IEEE Software a decade ago, Steve McConnell [McC99]
+made the following comment:
+Many software practitioners think of software engineering knowledge almost exclusively
+as knowledge of specific technologies: Java, Perl, html, C, Linux, Windows NT, and so
+on. Knowledge of specific technology details is necessary to perform computer program-
+ming. If someone assigns you to write a program in C, you have to know something
+about C to get your program to work.
+You often hear people say that software development knowledge has a 3-year 
+half-life: half of what you need to know today will be obsolete within 3 years. In the
+domain of technology-related knowledge, that’s probably about right. But there is
+another kind of software development knowledge—a kind that I think of as “software
+engineering principles”—that does not have a three-year half-life. These software engi-
+neering principles are likely to serve a professional programmer throughout his or her
+career.
+McConnell goes on to argue that the body of software engineering knowledge
+(circa the year 2000) had evolved to a “stable core” that he estimated represented
+about “75 percent of the knowledge needed to develop a complex system.” But what
+resides within this stable core?
+As McConnell indicates, core principles—the elemental ideas that guide software
+engineers in the work that they do—now provide a foundation from which software
+engineering models, methods, and tools can be applied and evaluated.
+1
+Some writers argue for one of these terms to the exclusion of the others. In reality, software
+engineering is all three.
+
+4.2
+CORE PRINCIPLES
+Software engineering is guided by a collection of core principles that help in the ap-
+plication of a meaningful software process and the execution of effective software
+engineering methods. At the process level, core principles establish a philosophical
+foundation that guides a software team as it performs framework and umbrella ac-
+tivities, navigates the process flow, and produces a set of software engineering work
+products. At the level of practice, core principles establish a collection of values and
+rules that serve as a guide as you analyze a problem, design a solution, implement
+and test the solution, and ultimately deploy the software in the user community.
+In Chapter 1, I identified a set of general principles that span software engineering
+process and practice: (1) provide value to end users, (2) keep it simple, (3) maintain
+the vision (of the product and the project), (4) recognize that others consume (and
+must understand) what you produce, (5) be open to the future, (6) plan ahead for
+reuse, and (7) think! Although these general principles are important, they are char-
+acterized at such a high level of abstraction that they are sometimes difficult to trans-
+late into day-to-day software engineering practice. In the subsections that follow, I
+take a more detailed look at the core principles that guide process and practice.
+4.2.1
+Principles That Guide Process
+In Part 1 of this book I discussed the importance of the software process and
+described the many different process models that have been proposed for software
+engineering work. Regardless of whether a model is linear or iterative, prescriptive
+or agile, it can be characterized using the generic process framework that is appli-
+cable for all process models. The following set of core principles can be applied to
+the framework, and by extension, to every software process.
+Principle 1. Be agile.
+Whether the process model you choose is prescrip-
+tive or agile, the basic tenets of agile development should govern your
+approach. Every aspect of the work you do should emphasize economy of
+action—keep your technical approach as simple as possible, keep the work
+products you produce as concise as possible, and make decisions locally
+whenever possible.
+Principle 2. Focus on quality at every step.
+The exit condition for every
+process activity, action, and task should focus on the quality of the work
+product that has been produced.
+Principle 3. Be ready to adapt.
+Process is not a religious experience, and
+dogma has no place in it. When necessary, adapt your approach to con-
+straints imposed by the problem, the people, and the project itself.
+Principle 4. Build an effective team.
+Software engineering process and
+practice are important, but the bottom line is people. Build a self-organizing
+team that has mutual trust and respect.
+98
+PART TWO
+MODELING
+uote:
+“In theory there is
+no difference
+between theory and
+practice. But, in
+practice, there is.”
+Jan van de
+Snepscheut
+Every project and
+every team is unique.
+That means that you
+must adapt your
+process to best fit your
+needs.
+
+Principle 5. Establish mechanisms for communication and coordination.
+Projects fail because important information falls into the cracks and/or
+stakeholders fail to coordinate their efforts to create a successful end prod-
+uct. These are management issues and they must be addressed.
+Principle 6. Manage change.
+The approach may be either formal or infor-
+mal, but mechanisms must be established to manage the way changes are
+requested, assessed, approved, and implemented.
+Principle 7. Assess risk.
+Lots of things can go wrong as software is being
+developed. It’s essential that you establish contingency plans.
+Principle 8. Create work products that provide value for others.
+Create only those work products that provide value for other process
+activities, actions, or tasks. Every work product that is produced as part of
+software engineering practice will be passed on to someone else. A list of
+required functions and features will be passed along to the person (people)
+who will develop a design, the design will be passed along to those who
+generate code, and so on. Be sure that the work product imparts the necessary
+information without ambiguity or omission.
+Part 4 of this book focuses on project and process management issues and
+considers various aspects of each of these principles in some detail.
+4.2.2
+Principles That Guide Practice
+Software engineering practice has a single overriding goal—to deliver on-time, high-
+quality, operational software that contains functions and features that meet the
+needs of all stakeholders. To achieve this goal, you should adopt a set of core prin-
+ciples that guide your technical work. These principles have merit regardless of the
+analysis and design methods that you apply, the construction techniques (e.g., pro-
+gramming language, automated tools) that you use, or the verification and valida-
+tion approach that you choose. The following set of core principles are fundamental
+to the practice of software engineering:
+Principle 1. Divide and conquer.
+Stated in a more technical manner,
+analysis and design should always emphasize separation of concerns (SoC). A
+large problem is easier to solve if it is subdivided into a collection of elements
+(or concerns). Ideally, each concern delivers distinct functionality that can be
+developed, and in some cases validated, independently of other concerns.
+Principle 2. Understand the use of abstraction.
+At its core, an abstrac-
+tion is a simplification of some complex element of a system used to commu-
+nicate meaning in a single phrase. When I use the abstraction spreadsheet, it
+is assumed that you understand what a spreadsheet is, the general structure
+of content that a spreadsheet presents, and the typical functions that can be
+applied to it. In software engineering practice, you use many different levels
+CHAPTER 4
+PRINCIPLES THAT GUIDE PRACTICE
+99
+uote:
+“The truth of the
+matter is that you
+always know the
+right thing to do.
+The hard part is
+doing it.”
+General H.
+Norman
+Schwarzkopf
+Problems are easier to
+solve when they are
+subdivided into
+separate concerns,
+each distinct,
+individually solvable,
+and verifiable.
+
+of abstraction, each imparting or implying meaning that must be communi-
+cated. In analysis and design work, a software team normally begins with
+models that represent high levels of abstraction (e.g., a spreadsheet) and
+slowly refines those models into lower levels of abstraction (e.g., a column
+or the SUM function).
+Joel Spolsky [Spo02] suggests that “all non-trivial abstractions, to some
+degree, are leaky.” The intent of an abstraction is to eliminate the need to
+communicate details. But sometimes, problematic effects precipitated by
+these details “leak” through. Without an understanding of the details, the
+cause of a problem cannot be easily diagnosed.
+Principle 3. Strive for consistency.
+Whether it’s creating a requirements
+model, developing a software design, generating source code, or creating
+test cases, the principle of consistency suggests that a familiar context makes
+software easier to use. As an example, consider the design of a user interface
+for a WebApp. Consistent placement of menu options, the use of a consistent
+color scheme, and the consistent use of recognizable icons all help to make
+the interface ergonomically sound.
+Principle 4. Focus on the transfer of information.
+Software is about
+information transfer—from a database to an end user, from a legacy system
+to a WebApp, from an end user into a graphic user interface (GUI), from an
+operating system to an application, from one software component to an-
+other—the list is almost endless. In every case, information flows across an
+interface, and as a consequence, there are opportunities for error, or omis-
+sion, or ambiguity. The implication of this principle is that you must pay spe-
+cial attention to the analysis, design, construction, and testing of interfaces.
+Principle 5. Build software that exhibits effective modularity.
+Separation of concerns (Principle 1) establishes a philosophy for software.
+Modularity provides a mechanism for realizing the philosophy. Any complex
+system can be divided into modules (components), but good software engi-
+neering practice demands more. Modularity must be effective. That is, each
+module should focus exclusively on one well-constrained aspect of the
+system—it should be cohesive in its function and/or constrained in the
+content it represents. Additionally, modules should be interconnected in a
+relatively simple manner—each module should exhibit low coupling to other
+modules, to data sources, and to other environmental aspects.
+Principle 6. Look for patterns.
+Brad Appleton [App00] suggests that: 
+The goal of patterns within the software community is to create a body of literature
+to help software developers resolve recurring problems encountered throughout
+all of software development. Patterns help create a shared language for commu-
+nicating insight and experience about these problems and their solutions. Formally
+codifying these solutions and their relationships lets us successfully capture the
+100
+PART TWO
+MODELING
+Use patterns 
+(Chapter 12) to
+capture knowledge and
+experience for future
+generations of
+software engineers.
+
+body of knowledge which defines our understanding of good architectures that
+meet the needs of their users.
+Principle 7. When possible, represent the problem and its solution
+from a number of different perspectives.
+When a problem and its solution
+are examined from a number of different perspectives, it is more likely that
+greater insight will be achieved and that errors and omissions will be uncov-
+ered. For example, a requirements model can be represented using a data-
+oriented viewpoint, a function-oriented viewpoint, or a behavioral viewpoint
+(Chapters 6 and 7). Each provides a different view of the problem and its
+requirements.
+Principle 8. Remember that someone will maintain the software.
+Over
+the long term, software will be corrected as defects are uncovered, adapted
+as its environment changes, and enhanced as stakeholders request more
+capabilities. These maintenance activities can be facilitated if solid software
+engineering practice is applied throughout the software process.
+These principles are not all you’ll need to build high-quality software, but they do
+establish a foundation for every software engineering method discussed in this book.
+4.3
+PRINCIPLES THAT GUIDE EACH FRAMEWORK ACTIVITY
+In the sections that follow I consider principles that have a strong bearing on the suc-
+cess of each generic framework activity defined as part of the software process. In
+many cases, the principles that are discussed for each of the framework activities are
+a refinement of the principles presented in Section 4.2. They are simply core princi-
+ples stated at a lower level of abstraction.
+4.3.1
+Communication Principles
+Before customer requirements can be analyzed, modeled, or specified they must
+be gathered through the communication activity. A customer has a problem that may
+be amenable to a computer-based solution. You respond to the customer’s request
+for help. Communication has begun. But the road from communication to under-
+standing is often full of potholes.
+Effective communication (among technical peers, with the customer and other
+stakeholders, and with project managers) is among the most challenging activities
+that you will confront. In this context, I discuss communication principles as they
+apply to customer communication. However, many of the principles apply equally to
+all forms of communication that occur within a software project.
+Principle 1. Listen.
+Try to focus on the speaker’s words, rather than formu-
+lating your response to those words. Ask for clarification if something is un-
+clear, but avoid constant interruptions. Never become contentious in your words
+or actions (e.g., rolling your eyes or shaking your head) as a person is talking.
+CHAPTER 4
+PRINCIPLES THAT GUIDE PRACTICE
+101
+uote:
+“The ideal engineer
+is a composite. . . .
+He is not a
+scientist, he is not a
+mathematician, he
+is not a sociologist
+or a writer; but he
+may use the
+knowledge and
+techniques of any
+or all of these
+disciplines in
+solving engineering
+problems.”
+N. W.
+Dougherty
+
+Principle 2. Prepare before you communicate.
+Spend the time to under-
+stand the problem before you meet with others. If necessary, do some re-
+search to understand business domain jargon. If you have responsibility for
+conducting a meeting, prepare an agenda in advance of the meeting.
+Principle 3. Someone should facilitate the activity.
+Every communica-
+tion meeting should have a leader (a facilitator) to keep the conversation
+moving in a productive direction, (2) to mediate any conflict that does occur,
+and (3) to ensure than other principles are followed.
+Principle 4. Face-to-face communication is best.
+But it usually works
+better when some other representation of the relevant information is present.
+For example, a participant may create a drawing or a “strawman” document
+that serves as a focus for discussion.
+Principle 5. Take notes and document decisions.
+Things have a way of
+falling into the cracks. Someone participating in the communication should
+serve as a “recorder” and write down all important points and decisions.
+Principle 6. Strive for collaboration.
+Collaboration and consensus occur
+when the collective knowledge of members of the team is used to
+describe product or system functions or features. Each small collaboration
+serves to build trust among team members and creates a common goal for
+the team.
+Principle 7. Stay focused; modularize your discussion.
+The more
+people involved in any communication, the more likely that discussion will
+bounce from one topic to the next. The facilitator should keep the conversation
+modular, leaving one topic only after it has been resolved (however, see
+Principle 9).
+Principle 8. If something is unclear, draw a picture. Verbal communica-
+tion goes only so far. A sketch or drawing can often provide clarity when
+words fail to do the job.
+Principle 9. (a) Once you agree to something, move on. (b) If you can’t
+agree to something, move on. (c) If a feature or function is unclear
+and cannot be clarified at the moment, move on.
+Communication, like
+any software engineering activity, takes time. Rather than iterating endlessly,
+the people who participate should recognize that many topics require discus-
+sion (see Principle 2) and that “moving on” is sometimes the best way to
+achieve communication agility.
+Principle 10. Negotiation is not a contest or a game. It works best
+when both parties win.
+There are many instances in which you and other
+stakeholders must negotiate functions and features, priorities, and delivery
+dates. If the team has collaborated well, all parties have a common goal. Still,
+negotiation will demand compromise from all parties.
+102
+PART TWO
+MODELING
+Before communicating
+be sure you under-
+stand the point of view
+of the other party,
+know a bit about his or
+her needs, and then
+listen.
+uote:
+“Plain questions
+and plain answers
+make the shortest
+road to most
+perplexities.”
+Mark Twain
+What
+happens if I
+can’t come to an
+agreement with
+the customer on
+some project-
+related issue?
+?
+
+CHAPTER 4
+PRINCIPLES THAT GUIDE PRACTICE
+103
+Communication Mistakes
+The scene: Software engineering
+team workspace
+The players: Jamie Lazar, software team member;
+Vinod Raman, software team member; Ed Robbins,
+software team member.
+The conversation:
+Ed: “What have you heard about this SafeHome
+project?”
+Vinod: “The kick-off meeting is scheduled for next
+week.”
+Jamie: “I’ve already done a little bit of investigation, but
+it didn’t go well.”
+Ed: “What do you mean?”
+Jamie: “Well, I gave Lisa Perez a call. She’s the
+marketing honcho on this thing.”
+Vinod: “And . . . ?”
+Jamie: “I wanted her to tell me about SafeHome features
+and functions . . . that sort of thing. Instead, she began
+asking me questions about security systems, surveillance
+systems . . . I’m no expert.”
+Vinod: “What does that tell you?”
+(Jamie shrugs.)
+Vinod: “That marketing will need us to act as consultants
+and that we’d better do some homework on this product
+area before our kick-off meeting. Doug said that he
+wanted us to ‘collaborate’ with our customer, so we’d
+better learn how to do that.”
+Ed: “Probably would have been better to stop by her office.
+Phone calls just don’t work as well for this sort of thing.”
+Jamie: “You’re both right. We’ve got to get our act
+together or our early communications will be a struggle.”
+Vinod: “I saw Doug reading a book on ‘requirements
+engineering.’ I’ll bet that lists some principles of good
+communication. I’m going to borrow it from him.”
+Jamie: “Good idea . . . then you can teach us.”
+Vinod (smiling): “Yeah, right.”
+SAFEHOME
+4.3.2
+Planning Principles
+The communication activity helps you to define your overall goals and objectives
+(subject, of course, to change as time passes). However, understanding these goals
+and objectives is not the same as defining a plan for getting there. The planning
+activity encompasses a set of management and technical practices that enable the
+software team to define a road map as it travels toward its strategic goal and tacti-
+cal objectives.
+The Difference Between Customers and End Users
+Software engineers communicate with many
+different stakeholders, but customers and end
+users have the most significant impact on the technical
+work that follows. In some cases the customer and the end
+user are one and the same, but for many projects, the
+customer and the end user are different people, working
+for different managers, in different business organizations.
+A customer is the person or group who (1) originally
+requested the software to be built, (2) defines overall
+business objectives for the software, (3) provides basic
+product requirements, and (4) coordinates funding for the
+project. In a product or system business, the customer
+is often the marketing department. In an information
+technology (IT) environment, the customer might be a
+business component or department.
+An end user is the person or group who (1) will
+actually use the software that is built to achieve some
+business purpose and (2) will define operational 
+details of the software so the business purpose can be
+achieved.
+INFO
+
+Try as we might, it’s impossible to predict exactly how a software project will
+evolve. There is no easy way to determine what unforeseen technical problems will
+be encountered, what important information will remain undiscovered until late in
+the project, what misunderstandings will occur, or what business issues will change.
+And yet, a good software team must plan its approach.
+There are many different planning philosophies.2 Some people are “minimalists,”
+arguing that change often obviates the need for a detailed plan. Others are “tradi-
+tionalists,” arguing that the plan provides an effective road map and the more detail
+it has, the less likely the team will become lost. Still others are “agilists,” arguing that
+a quick “planning game” may be necessary, but that the road map will emerge as
+“real work” on the software begins.
+What to do? On many projects, overplanning is time consuming and fruitless (too
+many things change), but underplanning is a recipe for chaos. Like most things in
+life, planning should be conducted in moderation, enough to provide useful guidance
+for the team—no more, no less. Regardless of the rigor with which planning is con-
+ducted, the following principles always apply:
+Principle 1. Understand the scope of the project.
+It’s impossible to use
+a road map if you don’t know where you’re going. Scope provides the soft-
+ware team with a destination.
+Principle 2. Involve stakeholders in the planning activity.
+Stakeholders
+define priorities and establish project constraints. To accommodate these
+realities, software engineers must often negotiate order of delivery, time
+lines, and other project-related issues.
+Principle 3. Recognize that planning is iterative.
+A project plan is never
+engraved in stone. As work begins, it is very likely that things will change. As
+a consequence, the plan must be adjusted to accommodate these changes. In
+addition, iterative, incremental process models dictate replanning after the
+delivery of each software increment based on feedback received from users.
+Principle 4. Estimate based on what you know.
+The intent of estimation
+is to provide an indication of effort, cost, and task duration, based on the
+team’s current understanding of the work to be done. If information is vague
+or unreliable, estimates will be equally unreliable.
+Principle 5. Consider risk as you define the plan.
+If you have identified
+risks that have high impact and high probability, contingency planning is
+necessary. In addition, the project plan (including the schedule) should be
+adjusted to accommodate the likelihood that one or more of these risks will
+occur.
+104
+PART TWO
+MODELING
+uote:
+“In preparing for
+battle I have
+always found that
+plans are useless,
+but planning is
+indispensable.”
+General Dwight
+D. Eisenhower
+WebRef
+An excellent repository
+of planning and project
+management
+information can be
+found at
+www.4pm.com/
+repository.htm.
+2
+A detailed discussion of software project planning and management is presented in Part 4 of this
+book.
+uote:
+“Success is more
+a function of
+consistent common
+sense than it is of
+genius.”
+An Wang
+
+Principle 6. Be realistic.
+People don’t work 100 percent of every day.
+Noise always enters into any human communication. Omissions and
+ambiguity are facts of life. Change will occur. Even the best software
+engineers make mistakes. These and other realities should be considered
+as a project plan is established.
+Principle 7. Adjust granularity as you define the plan.
+Granularity
+refers to the level of detail that is introduced as a project plan is developed.
+A “high-granularity” plan provides significant work task detail that is planned
+over relatively short time increments (so that tracking and control occur
+frequently). A “low-granularity” plan provides broader work tasks that are
+planned over longer time periods. In general, granularity moves from high to
+low as the project time line moves away from the current date. Over the
+next few weeks or months, the project can be planned in significant detail.
+Activities that won’t occur for many months do not require high granularity
+(too much can change).
+Principle 8. Define how you intend to ensure quality.
+The plan should
+identify how the software team intends to ensure quality. If technical
+reviews3 are to be conducted, they should be scheduled. If pair programming
+(Chapter 3) is to be used during construction, it should be explicitly defined
+within the plan.
+Principle 9. Describe how you intend to accommodate change.
+Even
+the best planning can be obviated by uncontrolled change. You should iden-
+tify how changes are to be accommodated as software engineering work
+proceeds. For example, can the customer request a change at any time? If a
+change is requested, is the team obliged to implement it immediately? How is
+the impact and cost of the change assessed?
+Principle 10. Track the plan frequently and make adjustments as re-
+quired.
+Software projects fall behind schedule one day at a time. Therefore,
+it makes sense to track progress on a daily basis, looking for problem areas
+and situations in which scheduled work does not conform to actual work
+conducted. When slippage is encountered, the plan is adjusted accordingly.
+To be most effective, everyone on the software team should participate in the
+planning activity. Only then will team members “sign up” to the plan.
+4.3.3
+Modeling Principles
+We create models to gain a better understanding of the actual entity to be built. When
+the entity is a physical thing (e.g., a building, a plane, a machine), we can build a
+model that is identical in form and shape but smaller in scale. However, when the
+CHAPTER 4
+PRINCIPLES THAT GUIDE PRACTICE
+105
+The term granularity
+refers to the detail
+with which some
+element of planning is
+represented or
+conducted.
+3
+Technical reviews are discussed in Chapter 15.
+
+entity to be built is software, our model must take a different form. It must be capa-
+ble of representing the information that software transforms, the architecture and
+functions that enable the transformation to occur, the features that users desire, and
+the behavior of the system as the transformation is taking place. Models must
+accomplish these objectives at different levels of abstraction—first depicting the soft-
+ware from the customer’s viewpoint and later representing the software at a more
+technical level.
+In software engineering work, two classes of models can be created: require-
+ments models and design models. Requirements models (also called analysis models)
+represent customer requirements by depicting the software in three different do-
+mains: the information domain, the functional domain, and the behavioral domain.
+Design models represent characteristics of the software that help practitioners to
+construct it effectively: the architecture, the user interface, and component-level
+detail.
+In their book on agile modeling, Scott Ambler and Ron Jeffries [Amb02b] define a
+set of modeling principles4 that are intended for those who use the agile process
+model (Chapter 3) but are appropriate for all software engineers who perform mod-
+eling actions and tasks: 
+Principle 1. The primary goal of the software team is to build soft-
+ware, not create models.
+Agility means getting software to the customer
+in the fastest possible time. Models that make this happen are worth creat-
+ing, but models that slow the process down or provide little new insight
+should be avoided.
+Principle 2. Travel light—don’t create more models than you need.
+Every model that is created must be kept up-to-date as changes occur. More
+importantly, every new model takes time that might otherwise be spent on
+construction (coding and testing). Therefore, create only those models that
+make it easier and faster to construct the software.
+Principle 3. Strive to produce the simplest model that will describe the
+problem or the software.
+Don’t overbuild the software [Amb02b]. By
+keeping models simple, the resultant software will also be simple. The result
+is software that is easier to integrate, easier to test, and easier to maintain (to
+change). In addition, simple models are easier for members of the software
+team to understand and critique, resulting in an ongoing form of feedback
+that optimizes the end result.
+Principle 4. Build models in a way that makes them amenable to change.
+Assume that your models will change, but in making this assumption don’t
+106
+PART TWO
+MODELING
+Requirements models
+represent customer
+requirements. Design
+models provide a
+concrete specification
+for the construction of
+the software.
+4
+The principles noted in this section have been abbreviated and rephrased for the purposes of this
+book.
+The intent of any
+model is to communi-
+cate information. To
+accomplish this, use a
+consistent format.
+Assume that you won’t
+be there to explain the
+model. It should stand
+on its own.
+
+get sloppy. For example, since requirements will change, there is a tendency
+to give requirements models short shrift. Why? Because you know that they’ll
+change anyway. The problem with this attitude is that without a reasonably
+complete requirements model, you’ll create a design (design model) that will
+invariably miss important functions and features.
+Principle 5. Be able to state an explicit purpose for each model that
+is created.
+Every time you create a model, ask yourself why you’re doing
+so. If you can’t provide solid justification for the existence of the model,
+don’t spend time on it.
+Principle 6. Adapt the models you develop to the system at hand.
+It
+may be necessary to adapt model notation or rules to the application; for ex-
+ample, a video game application might require a different modeling technique
+than real-time, embedded software that controls an automobile engine.
+Principle 7. Try to build useful models, but forget about building per-
+fect models.
+When building requirements and design models, a software
+engineer reaches a point of diminishing returns. That is, the effort required to
+make the model absolutely complete and internally consistent is not worth
+the benefits of these properties. Am I suggesting that modeling should be
+sloppy or low quality? The answer is “no.” But modeling should be conducted
+with an eye to the next software engineering steps. Iterating endlessly to
+make a model “perfect” does not serve the need for agility.
+Principle 8. Don’t become dogmatic about the syntax of the model. If
+it communicates content successfully, representation is secondary.
+Although everyone on a software team should try to use consistent notation
+during modeling, the most important characteristic of the model is to com-
+municate information that enables the next software engineering task. If a
+model does this successfully, incorrect syntax can be forgiven.
+Principle 9. If your instincts tell you a model isn’t right even though it
+seems okay on paper, you probably have reason to be concerned.
+If
+you are an experienced software engineer, trust your instincts. Software
+work teaches many lessons—some of them on a subconscious level. If some-
+thing tells you that a design model is doomed to fail (even though you can’t
+prove it explicitly), you have reason to spend additional time examining the
+model or developing a different one.
+Principle 10. Get feedback as soon as you can.
+Every model should be
+reviewed by members of the software team. The intent of these reviews is to
+provide feedback that can be used to correct modeling mistakes, change mis-
+interpretations, and add features or functions that were inadvertently omitted.
+Requirements modeling principles.
+Over the past three decades, a large num-
+ber of requirements modeling methods have been developed. Investigators have
+CHAPTER 4
+PRINCIPLES THAT GUIDE PRACTICE
+107
+
+identified requirements analysis problems and their causes and have developed
+a variety of modeling notations and corresponding sets of heuristics to overcome
+them. Each analysis method has a unique point of view. However, all analysis meth-
+ods are related by a set of operational principles:
+Principle 1. The information domain of a problem must be represented
+and understood.
+The information domain encompasses the data that flow
+into the system (from end users, other systems, or external devices), the data
+that flow out of the system (via the user interface, network interfaces, reports,
+graphics, and other means), and the data stores that collect and organize per-
+sistent data objects (i.e., data that are maintained permanently).
+Principle 2. The functions that the software performs must be defined.
+Software functions provide direct benefit to end users and also provide inter-
+nal support for those features that are user visible. Some functions transform
+data that flow into the system. In other cases, functions effect some level of
+control over internal software processing or external system elements. Func-
+tions can be described at many different levels of abstraction, ranging from a
+general statement of purpose to a detailed description of the processing
+elements that must be invoked.
+Principle 3. The behavior of the software (as a consequence of external
+events) must be represented.
+The behavior of computer software is driven
+by its interaction with the external environment. Input provided by end users,
+control data provided by an external system, or monitoring data collected
+over a network all cause the software to behave in a specific way.
+Principle 4. The models that depict information, function, and behavior
+must be partitioned in a manner that uncovers detail in a layered (or
+hierarchical) fashion.
+Requirements modeling is the first step in software
+engineering problem solving. It allows you to better understand the problem
+and establishes a basis for the solution (design). Complex problems are difficult
+to solve in their entirety. For this reason, you should use a divide-and-conquer
+strategy. A large, complex problem is divided into subproblems until each sub-
+problem is relatively easy to understand. This concept is called partitioning or
+separation of concerns, and it is a key strategy in requirements modeling.
+Principle 5. The analysis task should move from essential information
+toward implementation detail.
+Requirements modeling begins by describ-
+ing the problem from the end-user’s perspective. The “essence” of the
+problem is described without any consideration of how a solution will be
+implemented. For example, a video game requires that the player “instruct”
+its protagonist on what direction to proceed as she moves into a dangerous
+maze. That is the essence of the problem. Implementation detail (normally
+described as part of the design model) indicates how the essence will be
+implemented. For the video game, voice input might be used. Alternatively,
+108
+PART TWO
+MODELING
+Analysis modeling
+focuses on three
+attributes of software:
+information to be
+processed, function to
+be delivered, and
+behavior to be
+exhibited.
+uote:
+“The engineer’s
+first problem in
+any design
+situation is to
+discover what the
+problem really is.”
+Author unknown
+
+a keyboard command might be typed, a joystick (or mouse) might be pointed
+in a specific direction, or a motion-sensitive device might be waved in the air.
+By applying these principles, a software engineer approaches a problem system-
+atically. But how are these principles applied in practice? This question will be an-
+swered in Chapters 5 through 7.
+Design Modeling Principles.
+The software design model is analogous to an
+architect’s plans for a house. It begins by representing the totality of the thing to be
+built (e.g., a three-dimensional rendering of the house) and slowly refines the thing
+to provide guidance for constructing each detail (e.g., the plumbing layout). Similarly,
+the design model that is created for software provides a variety of different views of
+the system.
+There is no shortage of methods for deriving the various elements of a software
+design. Some methods are data driven, allowing the data structure to dictate the pro-
+gram architecture and the resultant processing components. Others are pattern
+driven, using information about the problem domain (the requirements model) to de-
+velop architectural styles and processing patterns. Still others are object oriented,
+using problem domain objects as the driver for the creation of data structures and
+the methods that manipulate them. Yet all embrace a set of design principles that can
+be applied regardless of the method that is used:
+Principle 1. Design should be traceable to the requirements model.
+The requirements model describes the information domain of the problem,
+user-visible functions, system behavior, and a set of requirements classes
+that package business objects with the methods that service them. The de-
+sign model translates this information into an architecture, a set of subsys-
+tems that implement major functions, and a set of components that are the
+realization of requirements classes. The elements of the design model should
+be traceable to the requirements model.
+Principle 2. Always consider the architecture of the system to be built.
+Software architecture (Chapter 9) is the skeleton of the system to be built. It
+affects interfaces, data structures, program control flow and behavior, the
+manner in which testing can be conducted, the maintainability of the result-
+ant system, and much more. For all of these reasons, design should start with
+architectural considerations. Only after the architecture has been established
+should component-level issues be considered.
+Principle 3. Design of data is as important as design of processing
+functions.
+Data design is an essential element of architectural design. The
+manner in which data objects are realized within the design cannot be left to
+chance. A well-structured data design helps to simplify program flow, makes
+the design and implementation of software components easier, and makes
+overall processing more efficient.
+CHAPTER 4
+PRINCIPLES THAT GUIDE PRACTICE
+109
+uote:
+“See first that the
+design is wise
+and just: that
+ascertained, pursue
+it resolutely; do not
+for one repulse
+forego the purpose
+that you resolved
+to effect.”
+William
+Shakespeare
+WebRef
+Insightful comments
+on the design process,
+along with a discussion
+of design aesthetics,
+can be found at
+cs.wwc.edu/
+~aabyan/Design/.
+
+Principle 4. Interfaces (both internal and external) must be designed
+with care.
+The manner in which data flows between the components of a
+system has much to do with processing efficiency, error propagation, and
+design simplicity. A well-designed interface makes integration easier and
+assists the tester in validating component functions.
+Principle 5. User interface design should be tuned to the needs of the
+end user. However, in every case, it should stress ease of use. The
+user interface is the visible manifestation of the software. No matter how
+sophisticated its internal functions, no matter how comprehensive its data
+structures, no matter how well designed its architecture, a poor interface
+design often leads to the perception that the software is “bad.”
+Principle 6. Component-level design should be functionally independ-
+ent.
+Functional independence is a measure of the “single-mindedness” of a
+software component. The functionality that is delivered by a component
+should be cohesive—that is, it should focus on one and only one function or
+subfunction.5
+Principle 7. Components should be loosely coupled to one another
+and to the external environment.
+Coupling is achieved in many ways—
+via a component interface, by messaging, through global data. As the level of
+coupling increases, the likelihood of error propagation also increases and the
+overall maintainability of the software decreases. Therefore, component cou-
+pling should be kept as low as is reasonable.
+Principle 8. Design representations (models) should be easily under-
+standable.
+The purpose of design is to communicate information to practi-
+tioners who will generate code, to those who will test the software, and to
+others who may maintain the software in the future. If the design is difficult
+to understand, it will not serve as an effective communication medium.
+Principle 9. The design should be developed iteratively. With each
+iteration, the designer should strive for greater simplicity.
+Like almost
+all creative activities, design occurs iteratively. The first iterations work to
+refine the design and correct errors, but later iterations should strive to make
+the design as simple as is possible.
+When these design principles are properly applied, you create a design that exhibits
+both external and internal quality factors [Mye78]. External quality factors are those
+properties of the software that can be readily observed by users (e.g., speed, reliability,
+correctness, usability). Internal quality factors are of importance to software engineers.
+They lead to a high-quality design from the technical perspective. To achieve internal
+quality factors, the designer must understand basic design concepts (Chapter 8).
+110
+PART TWO
+MODELING
+uote:
+“The differences
+are not minor—
+they are rather like
+the differences
+between Salieri
+and Mozart. Study
+after study shows
+that the very best
+designers produce
+structures that are
+faster, smaller,
+simpler, clearer,
+and produced with
+less effort.”
+Frederick P.
+Brooks
+5
+Additional discussion of cohesion can be found in Chapter 8.
+
+4.3.4
+Construction Principles
+The construction activity encompasses a set of coding and testing tasks that lead to
+operational software that is ready for delivery to the customer or end user. In mod-
+ern software engineering work, coding may be (1) the direct creation of program-
+ming language source code (e.g., Java), (2) the automatic generation of source code
+using an intermediate design-like representation of the component to be built, or
+(3) the automatic generation of executable code using a “fourth-generation pro-
+gramming language” (e.g., Visual C).
+The initial focus of testing is at the component level, often called unit testing. Other
+levels of testing include (1) integration testing (conducted as the system is con-
+structed), validation testing that assesses whether requirements have been met for
+the complete system (or software increment), and (3) acceptance testing that is con-
+ducted by the customer in an effort to exercise all required features and functions.
+The following set of fundamental principles and concepts are applicable to coding
+and testing:
+Coding Principles.
+The principles that guide the coding task are closely aligned
+with programming style, programming languages, and programming methods.
+However, there are a number of fundamental principles that can be stated:
+Preparation principles: Before you write one line of code, be sure you
+• Understand of the problem you’re trying to solve.
+• Understand basic design principles and concepts.
+• Pick a programming language that meets the needs of the software to be
+built and the environment in which it will operate.
+• Select a programming environment that provides tools that will make your
+work easier.
+• Create a set of unit tests that will be applied once the component you code is
+completed.
+Programming principles: As you begin writing code, be sure you
+• Constrain your algorithms by following structured programming [Boh00]
+practice.
+• Consider the use of pair programming.
+• Select data structures that will meet the needs of the design.
+• Understand the software architecture and create interfaces that are
+consistent with it.
+• Keep conditional logic as simple as possible.
+• Create nested loops in a way that makes them easily testable.
+• Select meaningful variable names and follow other local coding standards.
+CHAPTER 4
+PRINCIPLES THAT GUIDE PRACTICE
+111
+uote:
+“For much of my
+life, I have been a
+software voyeur,
+peeking furtively
+at other people’s
+dirty code.
+Occasionally, I find
+a real jewel, a well-
+structured program
+written in a
+consistent style,
+free of kludges,
+developed so that
+each component is
+simple and
+organized, and
+designed so that
+the product is easy
+to change.”
+David Parnas
+Avoid developing an
+elegant program that
+solves the wrong
+problem. Pay particular
+attention to the first
+preparation principle.
+
+• Write code that is self-documenting.
+• Create a visual layout (e.g., indentation and blank lines) that aids
+understanding.
+Validation Principles: After you’ve completed your first coding pass, 
+be sure you
+• Conduct a code walkthrough when appropriate.
+• Perform unit tests and correct errors you’ve uncovered.
+• Refactor the code.
+More books have been written about programming (coding) and the principles and
+concepts that guide it than about any other topic in the software process. Books on
+the subject include early works on programming style [Ker78], practical software
+construction [McC04], programming pearls [Ben99], the art of programming
+[Knu98], pragmatic programming issues [Hun99], and many, many other subjects.
+A comprehensive discussion of these principles and concepts is beyond the scope
+of this book. If you have further interest, examine one or more of the references
+noted.
+Testing Principles.
+In a classic book on software testing, Glen Myers [Mye79]
+states a number of rules that can serve well as testing objectives:
+• Testing is a process of executing a program with the intent of finding
+an error.
+• A good test case is one that has a high probability of finding an as-yet-
+undiscovered error.
+• A successful test is one that uncovers an as-yet-undiscovered error.
+These objectives imply a dramatic change in viewpoint for some software develop-
+ers. They move counter to the commonly held view that a successful test is one in
+which no errors are found. Your objective is to design tests that systematically un-
+cover different classes of errors and to do so with a minimum amount of time and
+effort.
+If testing is conducted successfully (according to the objectives stated previously),
+it will uncover errors in the software. As a secondary benefit, testing demonstrates
+that software functions appear to be working according to specification, and that
+behavioral and performance requirements appear to have been met. In addition, the
+data collected as testing is conducted provide a good indication of software reliabil-
+ity and some indication of software quality as a whole. But testing cannot show the
+absence of errors and defects; it can show only that software errors and defects are
+present. It is important to keep this (rather gloomy) statement in mind as testing is
+being conducted.
+112
+PART TWO
+MODELING
+WebRef
+A wide variety of links
+to coding standards can
+be found at www
+.literateprogramm
+ing.com/fpstyle
+.html.
+What are the
+objectives of
+software testing?
+?
+In a broader software
+design context, recall
+that you begin “in the
+large” by focusing on
+software architecture
+and end “in the small“
+focusing on compo-
+nents. For testing, you
+simply reverse the
+focus and test your
+way out.
+
+Davis [Dav95b] suggests a set of testing principles6 that have been adapted for use
+in this book:
+Principle 1. All tests should be traceable to customer requirements.7
+The objective of software testing is to uncover errors. It follows that the most
+severe defects (from the customer’s point of view) are those that cause the
+program to fail to meet its requirements.
+Principle 2. Tests should be planned long before testing begins.
+Test
+planning (Chapter 17) can begin as soon as the requirements model is com-
+plete. Detailed definition of test cases can begin as soon as the design model
+has been solidified. Therefore, all tests can be planned and designed before
+any code has been generated.
+Principle 3. The Pareto principle applies to software testing.
+In this
+context the Pareto principle implies that 80 percent of all errors uncovered
+during testing will likely be traceable to 20 percent of all program compo-
+nents. The problem, of course, is to isolate these suspect components and to
+thoroughly test them.
+Principle 4. Testing should begin “in the small” and progress toward
+testing “in the large.”
+The first tests planned and executed generally focus
+on individual components. As testing progresses, focus shifts in an attempt
+to find errors in integrated clusters of components and ultimately in the
+entire system.
+Principle 5. Exhaustive testing is not possible.
+The number of path per-
+mutations for even a moderately sized program is exceptionally large. For
+this reason, it is impossible to execute every combination of paths during
+testing. It is possible, however, to adequately cover program logic and to en-
+sure that all conditions in the component-level design have been exercised.
+4.3.5
+Deployment Principles
+As I noted earlier in Part 1 of this book, the deployment activity encompasses three
+actions: delivery, support, and feedback. Because modern software process models
+are evolutionary or incremental in nature, deployment happens not once, but a num-
+ber of times as software moves toward completion. Each delivery cycle provides the
+customer and end users with an operational software increment that provides usable
+functions and features. Each support cycle provides documentation and human
+assistance for all functions and features introduced during all deployment cycles to
+CHAPTER 4
+PRINCIPLES THAT GUIDE PRACTICE
+113
+6
+Only a small subset of Davis’s testing principles are noted here. For more information, see
+[Dav95b].
+7
+This principle refers to functional tests, i.e., tests that focus on requirements. Structural tests (tests
+that focus on architectural or logical detail) may not address specific requirements directly.
+
+date. Each feedback cycle provides the software team with important guidance that
+results in modifications to the functions, features, and approach taken for the next
+increment.
+The delivery of a software increment represents an important milestone for any
+software project. A number of key principles should be followed as the team pre-
+pares to deliver an increment:
+Principle 1. Customer expectations for the software must be managed.
+Too often, the customer expects more than the team has promised to deliver,
+and disappointment occurs immediately. This results in feedback that is not
+productive and ruins team morale. In her book on managing expectations,
+Naomi Karten [Kar94] states: “The starting point for managing expectations
+is to become more conscientious about what you communicate and how.”
+She suggests that a software engineer must be careful about sending the cus-
+tomer conflicting messages (e.g., promising more than you can reasonably
+deliver in the time frame provided or delivering more than you promise for
+one software increment and then less than promised for the next).
+Principle 2. A complete delivery package should be assembled and
+tested.
+A CD-ROM or other media (including Web-based downloads)
+containing all executable software, support data files, support documents,
+and other relevant information should be assembled and thoroughly 
+beta-tested with actual users. All installation scripts and other operational
+features should be thoroughly exercised in as many different computing
+configurations (i.e., hardware, operating systems, peripheral devices, net-
+working arrangements) as possible.
+Principle 3. A support regime must be established before the software
+is delivered.
+An end user expects responsiveness and accurate information
+when a question or problem arises. If support is ad hoc, or worse, nonexist-
+ent, the customer will become dissatisfied immediately. Support should be
+planned, support materials should be prepared, and appropriate record-
+keeping mechanisms should be established so that the software team can
+conduct a categorical assessment of the kinds of support requested.
+Principle 4. Appropriate instructional materials must be provided to
+end users.
+The software team delivers more than the software itself.
+Appropriate training aids (if required) should be developed; troubleshooting
+guidelines should be provided, and when necessary, a “what’s different about
+this software increment” description should be published.8
+114
+PART TWO
+MODELING
+Be sure that your cus-
+tomer knows what to
+expect before a soft-
+ware increment is
+delivered. Otherwise,
+you can bet the cus-
+tomer will expect more
+than you deliver.
+8
+During the communication activity, the software team should determine what types of help mate-
+rials users want.
+
+Principle 5. Buggy software should be fixed first, delivered later.
+Under
+time pressure, some software organizations deliver low-quality increments
+with a warning to the customer that bugs “will be fixed in the next release.”
+This is a mistake. There’s a saying in the software business: “Customers will
+forget you delivered a high-quality product a few days late, but they will
+never forget the problems that a low-quality product caused them. The soft-
+ware reminds them every day.”
+The delivered software provides benefit for the end user, but it also provides use-
+ful feedback for the software team. As the increment is put into use, end users should
+be encouraged to comment on features and functions, ease of use, reliability, and
+any other characteristics that are appropriate.
+4.4
+SUMMARY
+Software engineering practice encompasses principles, concepts, methods, and
+tools that software engineers apply throughout the software process. Every software
+engineering project is different. Yet, a set of generic principles apply to the process
+as a whole and to the practice of each framework activity regardless of the project
+or the product.
+A set of core principles help in the application of a meaningful software process
+and the execution of effective software engineering methods. At the process level,
+core principles establish a philosophical foundation that guides a software team as
+it navigates through the software process. At the level of practice, core principles
+establish a collection of values and rules that serve as a guide as you analyze a prob-
+lem, design a solution, implement and test the solution, and ultimately deploy the
+software in the user community.
+Communication principles focus on the need to reduce noise and improve band-
+width as the conversation between developer and customer progresses. Both parties
+must collaborate for the best communication to occur.
+Planning principles provide guidelines for constructing the best map for the
+journey to a completed system or product. The plan may be designed solely for a
+single software increment, or it may be defined for the entire project. Regardless,
+it must address what will be done, who will do it, and when the work will be
+completed.
+Modeling encompasses both analysis and design, describing representations of
+the software that progressively become more detailed. The intent of the models is to
+solidify understanding of the work to be done and to provide technical guidance to
+those who will implement the software. Modeling principles serve as a founda-
+tion for the methods and notation that are used to create representations of the
+software.
+Construction incorporates a coding and testing cycle in which source code for a
+component is generated and tested. Coding principles define generic actions that
+CHAPTER 4
+PRINCIPLES THAT GUIDE PRACTICE
+115

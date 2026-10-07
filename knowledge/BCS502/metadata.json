@@ -1,0 +1,164 @@
+{
+  "subject_code": "BCS502",
+  "subject_name": "Computer Networks",
+  "semester": 5,
+  "semester_label": "5TH SEM",
+  "modules": {
+    "1": {
+      "title": "Introduction to Computer Networks — Physical Layer",
+      "topics": [
+        "DATA COMMUNICATIONS",
+        "Components",
+        "Sender: The device that sends the message, such as a computer or smartphone.",
+        "Data Representation",
+        "Data Flow",
+        "NETWORKS",
+        "Network Criteria",
+        "Performance: This is evaluated by:",
+        "Reliability: This includes:",
+        "Physical Structures"
+      ],
+      "sources": [
+        "BCS502-module-1-pdf-1.txt"
+      ],
+      "content_chars": 77534
+    },
+    "2": {
+      "title": "Data Link Layer",
+      "topics": [
+        "PART III",
+        "INTRODUCTION",
+        "ERROR DETECTION AND CORRECTION",
+        "BLOCK CODING",
+        "The receiver has (or can find) a list of valid codewords.",
+        "The original codeword has changed to an invalid one.",
+        "PART III",
+        "ERROR DETECTION AND CORRECTION",
+        "The Hamming distance d(000, 011) is 2 because (000 ⊕ 011) is 011 (two 1s).",
+        "PART III"
+      ],
+      "sources": [
+        "BCS502-module-2-textbook.txt"
+      ],
+      "content_chars": 146129
+    },
+    "3": {
+      "title": "Network Layer",
+      "topics": [
+        "Packetizing",
+        "Routing",
+        "Forwarding",
+        "Error Control",
+        "Flow Control",
+        "Congestion Control",
+        "Quality of Service",
+        "Security",
+        "PACKET SWITCHING",
+        "Source A sends a request packet to router R1."
+      ],
+      "sources": [
+        "BCS502-module-3-pdf-1.txt"
+      ],
+      "content_chars": 85563
+    },
+    "4": {
+      "title": "Transport Layer",
+      "topics": [
+        "INTRODUCTION",
+        "Detecting and discarding corrupted packets.",
+        "Keeping track of lost and discarded packets and resending them.",
+        "Recognizing duplicate packets and discarding them.",
+        "Buffering out-of-order packets until the missing packets arrive.",
+        "INTRODUCTION",
+        "USER DATAGRAM PROTOCOL",
+        "TRANSMISSION CONTROL PROTOCOL",
+        "Empty chambers (white) that can be filled by the sending process.",
+        "Sent but unacknowledged bytes (colored), which remain in the buffer until"
+      ],
+      "sources": [
+        "BCS502-module-4-pdf-1.txt"
+      ],
+      "content_chars": 72828
+    },
+    "5": {
+      "title": "Application Layer",
+      "topics": [
+        "Client-Server Paradigm: One program (client) requests services, while the other",
+        "Peer-to-Peer (P2P) Paradigm: Both programs can request and provide services.",
+        "WORLD WIDE WEB AND HTTP",
+        "Protocol: This is like choosing the \"vehicle\" or method to reach the web page.",
+        "The client opens a TCP connection and sends a request.",
+        "The server sends the response and closes the connection.",
+        "Each object suffers a delivery delay of two RTTs— one RTT to establish the TCP",
+        "The server includes the cookie in the response that it sends to the client.",
+        "The browser establishes a TCP",
+        "The Web cache checks to see if it has a copy"
+      ],
+      "sources": [
+        "BCS502-module-5-pdf-1.txt"
+      ],
+      "content_chars": 81020
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\BCS502-module-1-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\BCS502-module-2-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\BCS502-module-3-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\BCS502-module-4-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\BCS502-module-5-pdf-1.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\BCS502-module-1-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\BCS502-module-2-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\BCS502-module-3-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\BCS502-module-4-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\BCS502-module-5-pdf-1.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS501-model-set-1-paper-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS501-model-set-1-paper-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS502-dec-2024-jan-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS502-dec-2024-jan-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS502-dec-2025-jan-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS502-dec-2025-jan-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS502-important-question-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS502-important-question-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS502-june-july-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS502-june-july-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS502-module-1-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS502-module-1-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS502-module-3-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS502-module-3-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS502-module-4-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS502-module-4-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS502-module-5-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS502\\question papers\\BCS502-module-5-textbook.txt"
+    ],
+    "model_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BCS502\\model_papers.md"
+    ],
+    "previous_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BCS502\\previous_papers.md"
+    ],
+    "textbook_notes": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BCS502\\textbook_notes.md"
+    ],
+    "textbooks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_5\\BCS502_Computer_Networks\\R1_Beejs_Guide_to_Network_Programming.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_5\\BCS502_Computer_Networks\\R1_Beejs_Guide_to_Network_Programming.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_5\\BCS502_Computer_Networks\\T1_Data_Communications_and_Networking_Forouzan.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_5\\BCS502_Computer_Networks\\T1_Data_Communications_and_Networking_Forouzan.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_5\\BCS502\\BCS502_Computer_Networks.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to Computer Networks — Physical Layer",
+    "2": "Data Link Layer",
+    "3": "Network Layer",
+    "4": "Transport Layer",
+    "5": "Application Layer"
+  }
+}

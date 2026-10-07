@@ -1,0 +1,427 @@
+{
+  "BCS301": {
+    "official_name": "Mathematics for Computer Science",
+    "semester": "III",
+    "type": "subject"
+  },
+  "BCS302": {
+    "official_name": "Digital Design & Computer Organization",
+    "semester": "III",
+    "type": "subject"
+  },
+  "BCS303": {
+    "official_name": "Operating Systems",
+    "semester": "III",
+    "type": "subject"
+  },
+  "BCS304": {
+    "official_name": "Data Structures and Applications",
+    "semester": "III",
+    "type": "subject"
+  },
+  "BCSL305": {
+    "official_name": "Data Structures Lab",
+    "semester": "III",
+    "type": "subject"
+  },
+  "BSCK307": {
+    "official_name": "Social Connect and Responsibility",
+    "semester": "III",
+    "type": "subject"
+  },
+  "BNSK359": {
+    "official_name": "National Service Scheme (NSS)",
+    "semester": "III",
+    "type": "subject"
+  },
+  "BPEK359": {
+    "official_name": "Physical Education (PE) (Sports and",
+    "semester": "III",
+    "type": "subject"
+  },
+  "BYOK359": {
+    "official_name": "Yoga",
+    "semester": "III",
+    "type": "subject"
+  },
+  "BCS306A": {
+    "official_name": "Object Oriented Programming  with Java",
+    "semester": "III",
+    "type": "subject"
+  },
+  "BCS306B": {
+    "official_name": "Object Oriented Programming  with C++",
+    "semester": "III",
+    "type": "subject"
+  },
+  "BCSL358A": {
+    "official_name": "Data analytics with Excel",
+    "semester": "III",
+    "type": "subject"
+  },
+  "BCSL358C": {
+    "official_name": "Project Management  with Git",
+    "semester": "III",
+    "type": "subject"
+  },
+  "BCSL358B": {
+    "official_name": "R  Programming",
+    "semester": "III",
+    "type": "subject"
+  },
+  "BCSL358D": {
+    "official_name": "Data Visualization with Python",
+    "semester": "III",
+    "type": "subject"
+  },
+  "BCS401": {
+    "official_name": "Analysis & Design of Algorithms",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BCS402": {
+    "official_name": "Microcontrollers",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BCS403": {
+    "official_name": "Database Management Systems",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BCSL404": {
+    "official_name": "Analysis & Design of Algorithms Lab",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BBOC407": {
+    "official_name": "Biology for Computer Engineers",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BUHK408": {
+    "official_name": "Universal human values course",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BNSK459": {
+    "official_name": "National Service Scheme (NSS)",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BPEK459": {
+    "official_name": "Physical Education (PE) (Sports and Athletics)",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BYOK459": {
+    "official_name": "Yoga",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BCS456A": {
+    "official_name": "Green IT and Sustainability",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BCS456C": {
+    "official_name": "UI/UX",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BCS456B": {
+    "official_name": "Capacity Planning for IT",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BCSL456D": {
+    "official_name": "Technical writing using LATEX",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BCS405A": {
+    "official_name": "Discrete Mathematical Structures",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BCS405C": {
+    "official_name": "Optimization Technique",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BCS405B": {
+    "official_name": "Graph Theory",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BCS405D": {
+    "official_name": "Linear Algebra",
+    "semester": "IV",
+    "type": "subject"
+  },
+  "BCS501": {
+    "official_name": "Software Engineering & Project Management",
+    "semester": "V",
+    "type": "subject"
+  },
+  "BCS502": {
+    "official_name": "Computer Networks",
+    "semester": "V",
+    "type": "subject"
+  },
+  "BCS503": {
+    "official_name": "Theory of Computation",
+    "semester": "V",
+    "type": "subject"
+  },
+  "BCSL504": {
+    "official_name": "Web Technology Lab",
+    "semester": "V",
+    "type": "subject"
+  },
+  "BCS586": {
+    "official_name": "Mini Project",
+    "semester": "V",
+    "type": "subject"
+  },
+  "BRMK557": {
+    "official_name": "Research Methodology and IPR",
+    "semester": "V",
+    "type": "subject"
+  },
+  "BCS508": {
+    "official_name": "Environmental Studies and E-waste Management",
+    "semester": "V",
+    "type": "subject"
+  },
+  "BNSK559": {
+    "official_name": "National Service Scheme (NSS)",
+    "semester": "V",
+    "type": "subject"
+  },
+  "BPEK559": {
+    "official_name": "Physical Education (PE) (Sports and Athletics)",
+    "semester": "V",
+    "type": "subject"
+  },
+  "BYOK559": {
+    "official_name": "Yoga",
+    "semester": "V",
+    "type": "subject"
+  },
+  "BCS515A": {
+    "official_name": "Computer Graphics",
+    "semester": "V",
+    "type": "subject"
+  },
+  "BCS515C": {
+    "official_name": "Unix System Programming",
+    "semester": "V",
+    "type": "subject"
+  },
+  "BCS515B": {
+    "official_name": "Artificial Intelligence",
+    "semester": "V",
+    "type": "subject"
+  },
+  "BCS515D": {
+    "official_name": "Distributed Systems",
+    "semester": "V",
+    "type": "subject"
+  },
+  "BCS601": {
+    "official_name": "Cloud Computing (Open Stack /Google)",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BCS602": {
+    "official_name": "Machine Learning",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BCS685": {
+    "official_name": "Project Phase I",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BCSL606": {
+    "official_name": "Machine Learning lab",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BNSK658": {
+    "official_name": "National Service Scheme (NSS)",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BPEK658": {
+    "official_name": "Physical Education (PE) (Sports and Athletics)",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BYOK658": {
+    "official_name": "Yoga",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BIKS609": {
+    "official_name": "Indian Knowledge System",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BCS613A": {
+    "official_name": "Blockchain Technology",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BCS613C": {
+    "official_name": "Compiler Design",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BCS613B": {
+    "official_name": "Computer Vision",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BCS613D": {
+    "official_name": "Advanced Java",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BCS654A": {
+    "official_name": "Introduction to Data Structures",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BIS654C": {
+    "official_name": "Mobile Application Development",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BCS654B": {
+    "official_name": "Fundamentals of Operating Systems",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BAI654D": {
+    "official_name": "Introduction to Artificial Intelligence",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BISL657A": {
+    "official_name": "Tosca – Automated Software testing",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BAIL657C": {
+    "official_name": "Generative AI",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BCSL657B": {
+    "official_name": "React",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BCSL657D": {
+    "official_name": "Devops",
+    "semester": "VI",
+    "type": "subject"
+  },
+  "BCS701": {
+    "official_name": "Internet of Things",
+    "semester": "VII",
+    "type": "subject"
+  },
+  "BCS702": {
+    "official_name": "Parallel Computing",
+    "semester": "VII",
+    "type": "subject"
+  },
+  "BCS703": {
+    "official_name": "Cryptography & Network Security",
+    "semester": "VII",
+    "type": "subject"
+  },
+  "BCS786": {
+    "official_name": "Major Project Phase-II",
+    "semester": "VII",
+    "type": "subject"
+  },
+  "BCS714A": {
+    "official_name": "Deep Learning",
+    "semester": "VII",
+    "type": "subject"
+  },
+  "BAD714D": {
+    "official_name": "Social Network Analysis (anomaly)",
+    "semester": "VII",
+    "type": "subject"
+  },
+  "BCS714B": {
+    "official_name": "Natural Language Processing",
+    "semester": "VII",
+    "type": "subject"
+  },
+  "BCS714D": {
+    "official_name": "Big Data Analytics",
+    "semester": "VII",
+    "type": "subject"
+  },
+  "BCS755A": {
+    "official_name": "Introduction to DBMS",
+    "semester": "VII",
+    "type": "subject"
+  },
+  "BCS755C": {
+    "official_name": "Software Engineering",
+    "semester": "VII",
+    "type": "subject"
+  },
+  "BCS755B": {
+    "official_name": "Introduction to Algorithms",
+    "semester": "VII",
+    "type": "subject"
+  },
+  "BCS755D": {
+    "official_name": "PCC: Professional Core Course, PCCL: Professional Core Course laboratory, PEC: Professional Elective Course, OEC: Open Elective Course PR: Project Work, L: Lecture, T:",
+    "semester": "VII",
+    "type": "subject"
+  },
+  "BCS803": {
+    "official_name": "Internship (Industry/Research) (14 - 20 weeks)",
+    "semester": "VIII",
+    "type": "subject"
+  },
+  "BCS801A": {
+    "official_name": "BOS will publish courses based on the availability",
+    "semester": "VIII",
+    "type": "subject"
+  },
+  "BCS801B": {
+    "official_name": "Open Elective Courses (Online Courses)",
+    "semester": "VIII",
+    "type": "subject"
+  },
+  "BCS801D": {
+    "official_name": "Open Elective Courses (Online Courses)",
+    "semester": "VIII",
+    "type": "subject"
+  },
+  "BCS802A": {
+    "official_name": "BOS will publish courses based on the availability",
+    "semester": "VIII",
+    "type": "subject"
+  },
+  "BCS802B": {
+    "official_name": "L: Lecture, T: Tutorial, P: Practical S= SDA: Skill Development Activity, CIE: Continuous Internal Evaluation, SEE: Semester End Evaluation. TD- Teaching Department, PSB:",
+    "semester": "VIII",
+    "type": "subject"
+  },
+  "BCS802D": {
+    "official_name": "L: Lecture, T: Tutorial, P: Practical S= SDA: Skill Development Activity, CIE: Continuous Internal Evaluation, SEE: Semester End Evaluation. TD- Teaching Department, PSB:",
+    "semester": "VIII",
+    "type": "subject"
+  }
+}

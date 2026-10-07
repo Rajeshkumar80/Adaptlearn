@@ -1,0 +1,165 @@
+{
+  "subject_code": "BCS401",
+  "subject_name": "Analysis and Design of Algorithms",
+  "semester": 4,
+  "semester_label": "4TH SEM",
+  "modules": {
+    "1": {
+      "title": "Introduction to Algorithms and Complexity",
+      "topics": [
+        "ALGORITHM",
+        "ALGORITHM",
+        "Do some research on al-Khorezmi (also al-Khwarizmi), the man from whose",
+        "Given that the ofﬁcial purpose of the U.S. patent system is the promotion",
+        "Design an algorithm for computing",
+        "The Analysis Framework",
+        "Asymptotic Notations and Basic Efficiency Classes",
+        "Mathematical Analysis of Non recursive Algorithms",
+        "Mathematical Analysis of Recursive Algorithms",
+        "ALGORITHM"
+      ],
+      "sources": [
+        "BCS401-module-1-textbook.txt"
+      ],
+      "content_chars": 112660
+    },
+    "2": {
+      "title": "Divide and Conquer",
+      "topics": [
+        "Design a linear-time algorithm to determine two extreme points of the convex",
+        "What modiﬁcation needs to be made in the brute-force algorithm for the",
+        "Write a program implementing the brute-force algorithm for the convex-hull",
+        "Consider the following small instance of the linear programming problem:",
+        "Exhaustive Search",
+        "Insertion Sort",
+        "Topological Sorting",
+        "Mergesort",
+        "Quicksort",
+        "Binary Tree Traversals and Related Properties"
+      ],
+      "sources": [
+        "BCS401-module-2-textbook.txt"
+      ],
+      "content_chars": 76981
+    },
+    "3": {
+      "title": "Greedy Algorithms",
+      "topics": [
+        "DEFINITION",
+        "Which of the following binary trees are AVL trees?",
+        "Draw diagrams of the single L-rotation and of the double RL-rotation in their",
+        "For each of the following lists, construct an AVL tree by inserting their ele-",
+        "Write a program for constructing an AVL tree for a given list of n distinct",
+        "Let TB and T2-3 be, respectively, a classical binary search tree and a 2-3 tree",
+        "For a 2-3 tree containing real numbers, design an algorithm for computing",
+        "Write a program for constructing a 2-3 tree for a given list of n integers.",
+        "DEFINITION",
+        "ALGORITHM"
+      ],
+      "sources": [
+        "BCS401-module-3-textbook.txt"
+      ],
+      "content_chars": 55424
+    },
+    "4": {
+      "title": "Dynamic Programming",
+      "topics": [
+        "ALGORITHM",
+        "ALGORITHM",
+        "ALGORITHM",
+        "What does dynamic programming have in common with divide-and-conquer?",
+        "Solve the instance 5, 1, 2, 10, 6 of the coin-row problem.",
+        "Apply the dynamic programming algorithm to ﬁnd all the solutions to the",
+        "Binomial coefﬁcient",
+        "Longest path in a dag",
+        "Maximum square submatrix",
+        "World Series odds"
+      ],
+      "sources": [
+        "BCS401-module-4-textbook.txt"
+      ],
+      "content_chars": 80545
+    },
+    "5": {
+      "title": "Backtracking and Branch-and-Bound",
+      "topics": [
+        "Find a tight lower bound for sorting an array by exchanging its adjacent",
+        "Give an adversary-argument proof that the time efﬁciency of any algorithm",
+        "What is the minimum number of comparisons needed for a comparison-based",
+        "Find the product of matrices A and B through a transformation to a product",
+        "Find a tight lower-bound class for the problem of ﬁnding two closest numbers",
+        "Find a tight lower-bound class for the number placement problem (Problem 9",
+        "Prove by mathematical induction that",
+        "Consider the problem of ﬁnding the median of a three-element set {a, b, c}",
+        "Jigsaw puzzle",
+        "A game of chess can be posed as the following decision problem: given a"
+      ],
+      "sources": [
+        "BCS401-module-5-textbook.txt"
+      ],
+      "content_chars": 104932
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\BCS401-module-1-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\BCS401-module-2-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\BCS401-module-3-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\BCS401-module-4-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\BCS401-module-5-textbook.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\BCS401-module-1-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\BCS401-module-2-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\BCS401-module-3-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\BCS401-module-4-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\BCS401-module-5-textbook.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-dec-2024-jan-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-dec-2024-jan-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-dec-2025-jan-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-dec-2025-jan-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-jun-july-2024.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-jun-july-2024.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-june-july-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-june-july-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-model-set-1-paper.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-model-set-1-paper.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-module-1-writtten.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-module-1-writtten.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-module-2-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-module-3-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-module-4-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-module-5-written.pdf"
+    ],
+    "model_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\4TH SEM\\BCS401\\model_papers.md"
+    ],
+    "previous_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\4TH SEM\\BCS401\\previous_papers.md"
+    ],
+    "textbooks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_4\\BCS401_ADA\\T1_Introduction_to_Algorithms_CLRS.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_4\\BCS401_ADA\\T1_Introduction_to_Algorithms_CLRS.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_4\\BCS401_ADA\\T2_Algorithms_Jeff_Erickson.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_4\\BCS401_ADA\\T2_Algorithms_Jeff_Erickson.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_4\\BCS401\\BCS401_Analysis_and_Design_of_Algorithms.md"
+    ],
+    "written_answers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-module-2-written.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-module-3-written.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-module-4-written.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS401\\question papers\\BCS401-module-5-written.txt"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to Algorithms and Complexity",
+    "2": "Divide and Conquer",
+    "3": "Greedy Algorithms",
+    "4": "Dynamic Programming",
+    "5": "Backtracking and Branch-and-Bound"
+  }
+}

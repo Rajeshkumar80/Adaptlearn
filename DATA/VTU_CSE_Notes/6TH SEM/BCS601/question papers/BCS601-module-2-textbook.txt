@@ -1,0 +1,2488 @@
+SUMMARY
+The reincarnation of virtual machines (VMs) presents a great opportunity for parallel, cluster, grid,
+cloud, and distributed computing. Virtualization technology benefits the computer and IT industries
+by enabling users to share expensive hardware resources by multiplexing VMs on the same set of
+hardware hosts. This chapter covers virtualization levels, VM architectures, virtual networking,
+virtual cluster construction, and virtualized data-center design and automation in cloud computing.
+In particular, the designs of dynamically structured clusters, grids, and clouds are presented with
+VMs and virtual clusters.
+3.1 IMPLEMENTATION LEVELS OF VIRTUALIZATION
+Virtualization is a computer architecture technology by which multiple virtual machines (VMs) are
+multiplexed in the same hardware machine. The idea of VMs can be dated back to the 1960s [53].
+The purpose of a VM is to enhance resource sharing by many users and improve computer perfor-
+mance in terms of resource utilization and application flexibility. Hardware resources (CPU, mem-
+ory, I/O devices, etc.) or software resources (operating system and software libraries) can be
+virtualized in various functional layers. This virtualization technology has been revitalized as the
+demand for distributed and cloud computing increased sharply in recent years [41].
+The idea is to separate the hardware from the software to yield better system efficiency. For
+example, computer users gained access to much enlarged memory space when the concept of virtual
+memory was introduced. Similarly, virtualization techniques can be applied to enhance the use of
+compute engines, networks, and storage. In this chapter we will discuss VMs and their applications
+for building distributed systems. According to a 2009 Gartner Report, virtualization was the top
+strategic technology poised to change the computer industry. With sufficient storage, any computer
+platform can be installed in another host computer, even if they use processors with different
+instruction sets and run with distinct operating systems on the same hardware.
+3.1.1 Levels of Virtualization Implementation
+A traditional computer runs with a host operating system specially tailored for its hardware architec-
+ture, as shown in Figure 3.1(a). After virtualization, different user applications managed by their
+own operating systems (guest OS) can run on the same hardware, independent of the host OS. This
+is often done by adding additional software, called a virtualization layer as shown in Figure 3.1(b).
+This virtualization layer is known as hypervisor or virtual machine monitor (VMM) [54]. The VMs
+are shown in the upper boxes, where applications run with their own guest OS over the virtualized
+CPU, memory, and I/O resources.
+The main function of the software layer for virtualization is to virtualize the physical hardware
+of a host machine into virtual resources to be used by the VMs, exclusively. This can be implemen-
+ted at various operational levels, as we will discuss shortly. The virtualization software creates the
+abstraction of VMs by interposing a virtualization layer at various levels of a computer system.
+Common virtualization layers include the instruction set architecture (ISA) level, hardware level,
+operating system level, library support level, and application level (see Figure 3.2).
+130
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+MODULE 2
+
+Application level
+JVM / .NET CLR / Panot
+WINE/ WABI/ LxRun / Visual MainWin / vCUDA
+Jail / Virtual Environment / Ensim’s VPS / FVM
+VMware / Virtual PC / Denali / Xen / L4 /
+Plex 86 / User mode Linux / Cooperative Linux
+Bochs / Crusoe / QEMU / BIRD / Dynamo
+Operating system level
+Library (user-level API) level
+Hardware abstraction layer (HAL) level
+Instruction set architecture (ISA) level
+FIGURE 3.2
+Virtualization ranging from hardware to applications in five abstraction levels.
+Application
+Host operating system
+Hardware
+Hardware running the Host OS
+(a) Traditional computer
+(b) After virtualization
+Application
+Guest OS
+Application
+Guest OS
+Virtual
+Machines
+Virtualization layer (Hypervisor or VMM)
+FIGURE 3.1
+The architecture of a computer system before and after virtualization, where VMM stands for virtual machine
+monitor.
+3.1 Implementation Levels of Virtualization
+131
+
+3.1.1.1 Instruction Set Architecture Level
+At the ISA level, virtualization is performed by emulating a given ISA by the ISA of the host
+machine. For example, MIPS binary code can run on an x86-based host machine with the help of
+ISA emulation. With this approach, it is possible to run a large amount of legacy binary code writ-
+ten for various processors on any given new hardware host machine. Instruction set emulation leads
+to virtual ISAs created on any hardware machine.
+The basic emulation method is through code interpretation. An interpreter program interprets the
+source instructions to target instructions one by one. One source instruction may require tens or
+hundreds of native target instructions to perform its function. Obviously, this process is relatively
+slow. For better performance, dynamic binary translation is desired. This approach translates basic
+blocks of dynamic source instructions to target instructions. The basic blocks can also be extended
+to program traces or super blocks to increase translation efficiency. Instruction set emulation
+requires binary translation and optimization. A virtual instruction set architecture (V-ISA) thus
+requires adding a processor-specific software translation layer to the compiler.
+3.1.1.2 Hardware Abstraction Level
+Hardware-level virtualization is performed right on top of the bare hardware. On the one hand, this
+approach generates a virtual hardware environment for a VM. On the other hand, the process manages
+the underlying hardware through virtualization. The idea is to virtualize a computer’s resources, such as
+its processors, memory, and I/O devices. The intention is to upgrade the hardware utilization rate by
+multiple users concurrently. The idea was implemented in the IBM VM/370 in the 1960s. More
+recently, the Xen hypervisor has been applied to virtualize x86-based machines to run Linux or other
+guest OS applications. We will discuss hardware virtualization approaches in more detail in Section 3.3.
+3.1.1.3 Operating System Level
+This refers to an abstraction layer between traditional OS and user applications. OS-level virtualiza-
+tion creates isolated containers on a single physical server and the OS instances to utilize the hard-
+ware and software in data centers. The containers behave like real servers. OS-level virtualization is
+commonly used in creating virtual hosting environments to allocate hardware resources among a
+large number of mutually distrusting users. It is also used, to a lesser extent, in consolidating server
+hardware by moving services on separate hosts into containers or VMs on one server. OS-level
+virtualization is depicted in Section 3.1.3.
+3.1.1.4 Library Support Level
+Most applications use APIs exported by user-level libraries rather than using lengthy system calls
+by the OS. Since most systems provide well-documented APIs, such an interface becomes another
+candidate for virtualization. Virtualization with library interfaces is possible by controlling the com-
+munication link between applications and the rest of a system through API hooks. The software
+tool WINE has implemented this approach to support Windows applications on top of UNIX hosts.
+Another example is the vCUDA which allows applications executing within VMs to leverage GPU
+hardware acceleration. This approach is detailed in Section 3.1.4.
+3.1.1.5 User-Application Level
+Virtualization at the application level virtualizes an application as a VM. On a traditional OS, an
+application often runs as a process. Therefore, application-level virtualization is also known as
+132
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+process-level virtualization. The most popular approach is to deploy high level language (HLL)
+VMs. In this scenario, the virtualization layer sits as an application program on top of the operating
+system, and the layer exports an abstraction of a VM that can run programs written and compiled
+to a particular abstract machine definition. Any program written in the HLL and compiled for this
+VM will be able to run on it. The Microsoft .NET CLR and Java Virtual Machine (JVM) are two
+good examples of this class of VM.
+Other forms of application-level virtualization are known as application isolation, application
+sandboxing, or application streaming. The process involves wrapping the application in a layer that
+is isolated from the host OS and other applications. The result is an application that is much easier
+to distribute and remove from user workstations. An example is the LANDesk application virtuali-
+zation platform which deploys software applications as self-contained, executable files in an isolated
+environment without requiring installation, system modifications, or elevated security privileges.
+3.1.1.6 Relative Merits of Different Approaches
+Table 3.1 compares the relative merits of implementing virtualization at various levels. The column
+headings correspond to four technical merits. “Higher Performance” and “Application Flexibility”
+are self-explanatory. “Implementation Complexity” implies the cost to implement that particular vir-
+tualization level. “Application Isolation” refers to the effort required to isolate resources committed
+to different VMs. Each row corresponds to a particular level of virtualization.
+The number of X’s in the table cells reflects the advantage points of each implementation level.
+Five X’s implies the best case and one X implies the worst case. Overall, hardware and OS support
+will yield the highest performance. However, the hardware and application levels are also the most
+expensive to implement. User isolation is the most difficult to achieve. ISA implementation offers
+the best application flexibility.
+3.1.2 VMM Design Requirements and Providers
+As mentioned earlier, hardware-level virtualization inserts a layer between real hardware and tradi-
+tional operating systems. This layer is commonly called the Virtual Machine Monitor (VMM) and it
+manages the hardware resources of a computing system. Each time programs access the hardware the
+VMM captures the process. In this sense, the VMM acts as a traditional OS. One hardware compo-
+nent, such as the CPU, can be virtualized as several virtual copies. Therefore, several traditional oper-
+ating systems which are the same or different can sit on the same set of hardware simultaneously.
+Table 3.1 Relative Merits of Virtualization at Various Levels (More “X”’s Means Higher Merit, with a
+Maximum of 5 X’s)
+Level of Implementation
+Higher
+Performance
+Application
+Flexibility
+Implementation
+Complexity
+Application
+Isolation
+ISA
+X
+XXXXX
+XXX
+XXX
+Hardware-level virtualization
+XXXXX
+XXX
+XXXXX
+XXXX
+OS-level virtualization
+XXXXX
+XX
+XXX
+XX
+Runtime library support
+XXX
+XX
+XX
+XX
+User application level
+XX
+XX
+XXXXX
+XXXXX
+3.1 Implementation Levels of Virtualization
+133
+
+There are three requirements for a VMM. First, a VMM should provide an environment for pro-
+grams which is essentially identical to the original machine. Second, programs run in this environ-
+ment should show, at worst, only minor decreases in speed. Third, a VMM should be in complete
+control of the system resources. Any program run under a VMM should exhibit a function identical
+to that which it runs on the original machine directly. Two possible exceptions in terms of differ-
+ences are permitted with this requirement: differences caused by the availability of system resources
+and differences caused by timing dependencies. The former arises when more than one VM is run-
+ning on the same machine.
+The hardware resource requirements, such as memory, of each VM are reduced, but the sum of
+them is greater than that of the real machine installed. The latter qualification is required because of
+the intervening level of software and the effect of any other VMs concurrently existing on the same
+hardware. Obviously, these two differences pertain to performance, while the function a VMM pro-
+vides stays the same as that of a real machine. However, the identical environment requirement
+excludes the behavior of the usual time-sharing operating system from being classed as a VMM.
+A VMM should demonstrate efficiency in using the VMs. Compared with a physical machine,
+no one prefers a VMM if its efficiency is too low. Traditional emulators and complete software
+interpreters (simulators) emulate each instruction by means of functions or macros. Such a method
+provides the most flexible solutions for VMMs. However, emulators or simulators are too slow to
+be used as real machines. To guarantee the efficiency of a VMM, a statistically dominant subset
+of the virtual processor’s instructions needs to be executed directly by the real processor, with no
+software intervention by the VMM. Table 3.2 compares four hypervisors and VMMs that are in
+use today.
+Complete control of these resources by a VMM includes the following aspects: (1) The VMM is
+responsible for allocating hardware resources for programs; (2) it is not possible for a program to
+access any resource not explicitly allocated to it; and (3) it is possible under certain circumstances
+for a VMM to regain control of resources already allocated. Not all processors satisfy these require-
+ments for a VMM. A VMM is tightly related to the architectures of processors. It is difficult to
+Table 3.2 Comparison of Four VMM and Hypervisor Software Packages
+Provider and
+References
+Host CPU
+Host OS
+Guest OS
+Architecture
+VMware
+Workstation [71]
+x86, x86-64
+Windows,
+Linux
+Windows, Linux,
+Solaris, FreeBSD,
+Netware, OS/2, SCO,
+BeOS, Darwin
+Full Virtualization
+VMware ESX
+Server [71]
+x86, x86-64
+No host OS
+The same as VMware
+Workstation
+Para-Virtualization
+Xen [7,13,42]
+x86, x86-64, IA-64
+NetBSD,
+Linux,
+Solaris
+FreeBSD, NetBSD,
+Linux, Solaris,
+Windows XP and
+2003 Server
+Hypervisor
+KVM [31]
+x86, x86-64, IA-64,
+S390, PowerPC
+Linux
+Linux, Windows,
+FreeBSD, Solaris
+Para-Virtualization
+134
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+implement a VMM for some types of processors, such as the x86. Specific limitations include the
+inability to trap on some privileged instructions. If a processor is not designed to support virtualiza-
+tion primarily, it is necessary to modify the hardware to satisfy the three requirements for a VMM.
+This is known as hardware-assisted virtualization.
+3.1.3 Virtualization Support at the OS Level
+With the help of VM technology, a new computing mode known as cloud computing is emerging.
+Cloud computing is transforming the computing landscape by shifting the hardware and staffing costs
+of managing a computational center to third parties, just like banks. However, cloud computing has at
+least two challenges. The first is the ability to use a variable number of physical machines and VM
+instances depending on the needs of a problem. For example, a task may need only a single CPU dur-
+ing some phases of execution but may need hundreds of CPUs at other times. The second challenge
+concerns the slow operation of instantiating new VMs. Currently, new VMs originate either as fresh
+boots or as replicates of a template VM, unaware of the current application state. Therefore, to better
+support cloud computing, a large amount of research and development should be done.
+3.1.3.1 Why OS-Level Virtualization?
+As mentioned earlier, it is slow to initialize a hardware-level VM because each VM creates its own
+image from scratch. In a cloud computing environment, perhaps thousands of VMs need to be initi-
+alized simultaneously. Besides slow operation, storing the VM images also becomes an issue. As a
+matter of fact, there is considerable repeated content among VM images. Moreover, full virtualiza-
+tion at the hardware level also has the disadvantages of slow performance and low density, and the
+need for para-virtualization to modify the guest OS. To reduce the performance overhead of
+hardware-level virtualization, even hardware modification is needed. OS-level virtualization provides
+a feasible solution for these hardware-level virtualization issues.
+Operating system virtualization inserts a virtualization layer inside an operating system to
+partition a machine’s physical resources. It enables multiple isolated VMs within a single operating
+system kernel. This kind of VM is often called a virtual execution environment (VE), Virtual
+Private System (VPS), or simply container. From the user’s point of view, VEs look like real ser-
+vers. This means a VE has its own set of processes, file system, user accounts, network interfaces
+with IP addresses, routing tables, firewall rules, and other personal settings. Although VEs can be
+customized for different people, they share the same operating system kernel. Therefore, OS-level
+virtualization is also called single-OS image virtualization. Figure 3.3 illustrates operating system
+virtualization from the point of view of a machine stack.
+3.1.3.2 Advantages of OS Extensions
+Compared to hardware-level virtualization, the benefits of OS extensions are twofold: (1) VMs at the
+operating system level have minimal startup/shutdown costs, low resource requirements, and high
+scalability; and (2) for an OS-level VM, it is possible for a VM and its host environment to synchro-
+nize state changes when necessary. These benefits can be achieved via two mechanisms of OS-level
+virtualization: (1) All OS-level VMs on the same physical machine share a single operating system
+kernel; and (2) the virtualization layer can be designed in a way that allows processes in VMs to
+access as many resources of the host machine as possible, but never to modify them. In cloud
+3.1 Implementation Levels of Virtualization
+135
+
+computing, the first and second benefits can be used to overcome the defects of slow initialization of
+VMs at the hardware level, and being unaware of the current application state, respectively.
+3.1.3.3 Disadvantages of OS Extensions
+The main disadvantage of OS extensions is that all the VMs at operating system level on a single
+container must have the same kind of guest operating system. That is, although different OS-level
+VMs may have different operating system distributions, they must pertain to the same operating
+system family. For example, a Windows distribution such as Windows XP cannot run on a
+Linux-based container. However, users of cloud computing have various preferences. Some prefer
+Windows and others prefer Linux or other operating systems. Therefore, there is a challenge for
+OS-level virtualization in such cases.
+Figure 3.3 illustrates the concept of OS-level virtualization. The virtualization layer is inserted
+inside the OS to partition the hardware resources for multiple VMs to run their applications in
+multiple virtual environments. To implement OS-level virtualization, isolated execution environ-
+ments (VMs) should be created based on a single OS kernel. Furthermore, the access requests from
+a VM need to be redirected to the VM’s local resource partition on the physical machine. For
+Physical server (Hardware node) #1
+Network
+Hardware
+Host operating system
+OpenVZ templates
+Virtual private server
+root
+user
+user
+Application
+software
+root
+user
+user
+Application
+software
+Virtual private server
+OpenVZ layer
+FIGURE 3.3
+The OpenVZ virtualization layer inside the host OS, which provides some OS images to create VMs quickly.
+(Courtesy of OpenVZ User’s Guide [65] )
+136
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+example, the chroot command in a UNIX system can create several virtual root directories within a
+host OS. These virtual root directories are the root directories of all VMs created.
+There are two ways to implement virtual root directories: duplicating common resources to each
+VM partition; or sharing most resources with the host environment and only creating private
+resource copies on the VM on demand. The first way incurs significant resource costs and overhead
+on a physical machine. This issue neutralizes the benefits of OS-level virtualization, compared with
+hardware-assisted virtualization. Therefore, OS-level virtualization is often a second choice.
+3.1.3.4 Virtualization on Linux or Windows Platforms
+By far, most reported OS-level virtualization systems are Linux-based. Virtualization support on the
+Windows-based platform is still in the research stage. The Linux kernel offers an abstraction layer
+to allow software processes to work with and operate on resources without knowing the hardware
+details. New hardware may need a new Linux kernel to support. Therefore, different Linux plat-
+forms use patched kernels to provide special support for extended functionality.
+However, most Linux platforms are not tied to a special kernel. In such a case, a host can run
+several VMs simultaneously on the same hardware. Table 3.3 summarizes several examples of OS-
+level virtualization tools that have been developed in recent years. Two OS tools (Linux vServer
+and OpenVZ) support Linux platforms to run other platform-based applications through virtualiza-
+tion. These two OS-level tools are illustrated in Example 3.1. The third tool, FVM, is an attempt
+specifically developed for virtualization on the Windows NT platform.
+Example 3.1 Virtualization Support for the Linux Platform
+OpenVZ is an OS-level tool designed to support Linux platforms to create virtual environments for running
+VMs under different guest OSes. OpenVZ is an open source container-based virtualization solution built on
+Linux. To support virtualization and isolation of various subsystems, limited resource management, and
+checkpointing, OpenVZ modifies the Linux kernel. The overall picture of the OpenVZ system is illustrated
+in Figure 3.3. Several VPSes can run simultaneously on a physical machine. These VPSes look like normal
+Table 3.3 Virtualization Support for Linux and Windows NT Platforms
+Virtualization Support and Source of
+Information
+Brief Introduction on Functionality and
+Application Platforms
+Linux vServer for Linux platforms (http://linux-
+vserver.org/)
+Extends Linux kernels to implement a security
+mechanism to help build VMs by setting resource
+limits and file attributes and changing the root
+environment for VM isolation
+OpenVZ for Linux platforms [65]; http://ftp.openvz
+.org/doc/OpenVZ-Users-Guide.pdf)
+Supports virtualization by creating virtual private
+servers (VPSes); the VPS has its own files, users,
+process tree, and virtual devices, which can be
+isolated from other VPSes, and checkpointing and
+live migration are supported
+FVM (Feather-Weight Virtual Machines) for
+virtualizing the Windows NT platforms [78])
+Uses system call interfaces to create VMs at the NY
+kernel space; multiple VMs are supported by
+virtualized namespace and copy-on-write
+3.1 Implementation Levels of Virtualization
+137
+
+Linux servers. Each VPS has its own files, users and groups, process tree, virtual network, virtual devices,
+and IPC through semaphores and messages.
+The resource management subsystem of OpenVZ consists of three components: two-level disk alloca-
+tion, a two-level CPU scheduler, and a resource controller. The amount of disk space a VM can use is set
+by the OpenVZ server administrator. This is the first level of disk allocation. Each VM acts as a standard
+Linux system. Hence, the VM administrator is responsible for allocating disk space for each user and
+group. This is the second-level disk quota. The first-level CPU scheduler of OpenVZ decides which VM to
+give the time slice to, taking into account the virtual CPU priority and limit settings.
+The second-level CPU scheduler is the same as that of Linux. OpenVZ has a set of about 20 parameters
+which are carefully chosen to cover all aspects of VM operation. Therefore, the resources that a VM can use
+are well controlled. OpenVZ also supports checkpointing and live migration. The complete state of a VM can
+quickly be saved to a disk file. This file can then be transferred to another physical machine and the VM can
+be restored there. It only takes a few seconds to complete the whole process. However, there is still a delay
+in processing because the established network connections are also migrated.
+3.1.4 Middleware Support for Virtualization
+Library-level virtualization is also known as user-level Application Binary Interface (ABI) or API
+emulation. This type of virtualization can create execution environments for running alien programs
+on a platform rather than creating a VM to run the entire operating system. API call interception
+and remapping are the key functions performed. This section provides an overview of several
+library-level virtualization systems: namely the Windows Application Binary Interface (WABI),
+lxrun, WINE, Visual MainWin, and vCUDA, which are summarized in Table 3.4.
+Table 3.4 Middleware and Library Support for Virtualization
+Middleware or Runtime Library and References or
+Web Link
+Brief Introduction and Application Platforms
+WABI (http://docs.sun.com/app/docs/doc/802-6306)
+Middleware that converts Windows system calls
+running on x86 PCs to Solaris system calls
+running on SPARC workstations
+Lxrun (Linux Run) (http://www.ugcs.caltech.edu/
+~steven/lxrun/)
+A system call emulator that enables Linux
+applications written for x86 hosts to run on UNIX
+systems such as the SCO OpenServer
+WINE (http://www.winehq.org/)
+A library support system for virtualizing x86
+processors to run Windows applications under
+Linux, FreeBSD, and Solaris
+Visual MainWin (http://www.mainsoft.com/)
+A compiler support system to develop Windows
+applications using Visual Studio to run on Solaris,
+Linux, and AIX hosts
+vCUDA (Example 3.2) (IEEE IPDPS 2009 [57])
+Virtualization support for using general-purpose
+GPUs to run data-intensive applications under a
+special guest OS
+138
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+The WABI offers middleware to convert Windows system calls to Solaris system calls. Lxrun is
+really a system call emulator that enables Linux applications written for x86 hosts to run on UNIX
+systems. Similarly, Wine offers library support for virtualizing x86 processors to run Windows appli-
+cations on UNIX hosts. Visual MainWin offers a compiler support system to develop Windows appli-
+cations using Visual Studio to run on some UNIX hosts. The vCUDA is explained in Example 3.2
+with a graphical illustration in Figure 3.4.
+Example 3.2 The vCUDA for Virtualization of General-Purpose GPUs
+CUDA is a programming model and library for general-purpose GPUs. It leverages the high performance of
+GPUs to run compute-intensive applications on host operating systems. However, it is difficult to run CUDA
+applications on hardware-level VMs directly. vCUDA virtualizes the CUDA library and can be installed on
+guest OSes. When CUDA applications run on a guest OS and issue a call to the CUDA API, vCUDA
+intercepts the call and redirects it to the CUDA API running on the host OS. Figure 3.4 shows the basic
+concept of the vCUDA architecture [57].
+The vCUDA employs a client-server model to implement CUDA virtualization. It consists of three user
+space components: the vCUDA library, a virtual GPU in the guest OS (which acts as a client), and the
+vCUDA stub in the host OS (which acts as a server). The vCUDA library resides in the guest OS as a
+substitute for the standard CUDA library. It is responsible for intercepting and redirecting API calls from
+the client to the stub. Besides these tasks, vCUDA also creates vGPUs and manages them.
+The functionality of a vGPU is threefold: It abstracts the GPU structure and gives applications a uni-
+form view of the underlying hardware; when a CUDA application in the guest OS allocates a device’s mem-
+ory the vGPU can return a local virtual address to the application and notify the remote stub to allocate the
+real device memory, and the vGPU is responsible for storing the CUDA API flow. The vCUDA stub receives
+Host OS
+Guest OS
+vCUDA stub
+CUDA application
+vCUDA library vGPU
+CUDA library
+Device driver
+VMM
+Device (GPU, Hard disk, Network card)
+.........
+FIGURE 3.4
+Basic concept of the vCUDA architecture.
+(Courtesy of Lin Shi, et al. © IEEE [57] )
+3.1 Implementation Levels of Virtualization
+139
+
+and interprets remote requests and creates a corresponding execution context for the API calls from the
+guest OS, then returns the results to the guest OS. The vCUDA stub also manages actual physical resource
+allocation.
+3.2 VIRTUALIZATION STRUCTURES/TOOLS AND MECHANISMS
+In general, there are three typical classes of VM architecture. Figure 3.1 showed the architectures of
+a machine before and after virtualization. Before virtualization, the operating system manages the
+hardware. After virtualization, a virtualization layer is inserted between the hardware and the operat-
+ing system. In such a case, the virtualization layer is responsible for converting portions of the real
+hardware into virtual hardware. Therefore, different operating systems such as Linux and Windows
+can run on the same physical machine, simultaneously. Depending on the position of the virtualiza-
+tion layer, there are several classes of VM architectures, namely the hypervisor architecture, para-
+virtualization, and host-based virtualization. The hypervisor is also known as the VMM (Virtual
+Machine Monitor). They both perform the same virtualization operations.
+3.2.1 Hypervisor and Xen Architecture
+The hypervisor supports hardware-level virtualization (see Figure 3.1(b)) on bare metal devices like
+CPU, memory, disk and network interfaces. The hypervisor software sits directly between the physi-
+cal hardware and its OS. This virtualization layer is referred to as either the VMM or the hypervisor.
+The hypervisor provides hypercalls for the guest OSes and applications. Depending on the functional-
+ity, a hypervisor can assume a micro-kernel architecture like the Microsoft Hyper-V. Or it can
+assume a monolithic hypervisor architecture like the VMware ESX for server virtualization.
+A micro-kernel hypervisor includes only the basic and unchanging functions (such as physical
+memory management and processor scheduling). The device drivers and other changeable components
+are outside the hypervisor. A monolithic hypervisor implements all the aforementioned functions,
+including those of the device drivers. Therefore, the size of the hypervisor code of a micro-kernel hyper-
+visor is smaller than that of a monolithic hypervisor. Essentially, a hypervisor must be able to convert
+physical devices into virtual resources dedicated for the deployed VM to use.
+3.2.1.1 The Xen Architecture
+Xen is an open source hypervisor program developed by Cambridge University. Xen is a micro-
+kernel hypervisor, which separates the policy from the mechanism. The Xen hypervisor implements
+all the mechanisms, leaving the policy to be handled by Domain 0, as shown in Figure 3.5. Xen
+does not include any device drivers natively [7]. It just provides a mechanism by which a guest OS
+can have direct access to the physical devices. As a result, the size of the Xen hypervisor is kept
+rather small. Xen provides a virtual environment located between the hardware and the OS.
+A number of vendors are in the process of developing commercial Xen hypervisors, among them
+are Citrix XenServer [62] and Oracle VM [42].
+The core components of a Xen system are the hypervisor, kernel, and applications. The organi-
+zation of the three components is important. Like other virtualization systems, many guest OSes
+can run on top of the hypervisor. However, not all guest OSes are created equal, and one in
+140
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+particular controls the others. The guest OS, which has control ability, is called Domain 0, and the
+others are called Domain U. Domain 0 is a privileged guest OS of Xen. It is first loaded when Xen
+boots without any file system drivers being available. Domain 0 is designed to access hardware
+directly and manage devices. Therefore, one of the responsibilities of Domain 0 is to allocate and
+map hardware resources for the guest domains (the Domain U domains).
+For example, Xen is based on Linux and its security level is C2. Its management VM is named
+Domain 0, which has the privilege to manage other VMs implemented on the same host. If Domain
+0 is compromised, the hacker can control the entire system. So, in the VM system, security policies
+are needed to improve the security of Domain 0. Domain 0, behaving as a VMM, allows users to
+create, copy, save, read, modify, share, migrate, and roll back VMs as easily as manipulating a file,
+which flexibly provides tremendous benefits for users. Unfortunately, it also brings a series of
+security problems during the software life cycle and data lifetime.
+Traditionally, a machine’s lifetime can be envisioned as a straight line where the current state of
+the machine is a point that progresses monotonically as the software executes. During this time, con-
+figuration changes are made, software is installed, and patches are applied. In such an environment,
+the VM state is akin to a tree: At any point, execution can go into N different branches where multiple
+instances of a VM can exist at any point in this tree at any given time. VMs are allowed to roll back
+to previous states in their execution (e.g., to fix configuration errors) or rerun from the same point
+many times (e.g., as a means of distributing dynamic content or circulating a “live” system image).
+3.2.2 Binary Translation with Full Virtualization
+Depending on implementation technologies, hardware virtualization can be classified into two cate-
+gories: full virtualization and host-based virtualization. Full virtualization does not need to modify
+the host OS. It relies on binary translation to trap and to virtualize the execution of certain
+sensitive, nonvirtualizable instructions. The guest OSes and their applications consist of noncritical
+and critical instructions. In a host-based system, both a host OS and a guest OS are used. A virtuali-
+zation software layer is built between the host OS and guest OS. These two classes of VM architec-
+ture are introduced next.
+Domain0
+XenoLinux
+XEN (Hypervisor)
+Hardware devices
+XenoWindows
+Control, I/O (Domain 0)
+Application
+Application
+Application
+Application
+Application
+Application
+Application
+Application
+Application
+Application
+Guest domain
+Guest domain
+FIGURE 3.5
+The Xen architecture’s special domain 0 for control and I/O, and several guest domains for user applications.
+(Courtesy of P. Barham, et al. [7] )
+3.2 Virtualization Structures/Tools and Mechanisms
+141
+
+3.2.2.1 Full Virtualization
+With full virtualization, noncritical instructions run on the hardware directly while critical
+instructions are discovered and replaced with traps into the VMM to be emulated by software. Both
+the hypervisor and VMM approaches are considered full virtualization. Why are only critical
+instructions trapped into the VMM? This is because binary translation can incur a large performance
+overhead. Noncritical instructions do not control hardware or threaten the security of the system, but
+critical instructions do. Therefore, running noncritical instructions on hardware not only can
+promote efficiency, but also can ensure system security.
+3.2.2.2 Binary Translation of Guest OS Requests Using a VMM
+This approach was implemented by VMware and many other software companies. As shown in
+Figure 3.6, VMware puts the VMM at Ring 0 and the guest OS at Ring 1. The VMM scans the
+instruction stream and identifies the privileged, control- and behavior-sensitive instructions. When
+these instructions are identified, they are trapped into the VMM, which emulates the behavior of
+these instructions. The method used in this emulation is called binary translation. Therefore, full vir-
+tualization combines binary translation and direct execution. The guest OS is completely decoupled
+from the underlying hardware. Consequently, the guest OS is unaware that it is being virtualized.
+The performance of full virtualization may not be ideal, because it involves binary translation
+which is rather time-consuming. In particular, the full virtualization of I/O-intensive applications is
+a really a big challenge. Binary translation employs a code cache to store translated hot instructions
+to improve performance, but it increases the cost of memory usage. At the time of this writing, the
+performance of full virtualization on the x86 architecture is typically 80 percent to 97 percent that
+of the host machine.
+3.2.2.3 Host-Based Virtualization
+An alternative VM architecture is to install a virtualization layer on top of the host OS. This host OS
+is still responsible for managing the hardware. The guest OSes are installed and run on top of the
+virtualization layer. Dedicated applications may run on the VMs. Certainly, some other applications
+can also run with the host OS directly. This host-
+based architecture has some distinct advantages,
+as enumerated next. First, the user can install this
+VM architecture without modifying the host OS.
+The virtualizing software can rely on the host OS
+to provide device drivers and other low-level ser-
+vices. This will simplify the VM design and ease
+its deployment.
+Second, the host-based approach appeals to
+many host machine configurations. Compared to
+the hypervisor/VMM architecture, the perfor-
+mance of the host-based architecture may also be
+low. When an application requests hardware
+access, it involves four layers of mapping which
+downgrades performance significantly. When the
+ISA of a guest OS is different from the ISA of
+Ring 3
+Ring 2
+Ring 1
+Binary
+translation
+of OS
+requests
+Direct
+execution
+of user
+requests
+Ring 0
+User apps
+Guest OS
+VMM
+Host computer
+system hardware
+FIGURE 3.6
+Indirect execution of complex instructions via binary
+translation of guest OS requests using the VMM plus
+direct execution of simple instructions on the same host.
+(Courtesy of VM Ware [71])
+142
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+the underlying hardware, binary translation must be adopted. Although the host-based architecture has
+flexibility, the performance is too low to be useful in practice.
+3.2.3 Para-Virtualization with Compiler Support
+Para-virtualization needs to modify the guest operating systems. A para-virtualized VM provides
+special APIs requiring substantial OS modifications in user applications. Performance degradation is
+a critical issue of a virtualized system. No one wants to use a VM if it is much slower than using a
+physical machine. The virtualization layer can be inserted at different positions in a machine soft-
+ware stack. However, para-virtualization attempts to reduce the virtualization overhead, and thus
+improve performance by modifying only the guest OS kernel.
+Figure 3.7 illustrates the concept of a para-virtualized VM architecture. The guest operating sys-
+tems are para-virtualized. They are assisted by an intelligent compiler to replace the nonvirtualizable
+OS instructions by hypercalls as illustrated in Figure 3.8. The traditional x86 processor offers four
+instruction execution rings: Rings 0, 1, 2, and 3. The lower the ring number, the higher the privi-
+lege of instruction being executed. The OS is responsible for managing the hardware and the privi-
+leged instructions to execute at Ring 0, while user-level applications run at Ring 3. The best
+example of para-virtualization is the KVM to be described below.
+3.2.3.1 Para-Virtualization Architecture
+When the x86 processor is virtualized, a virtualization layer is inserted between the hardware and
+the OS. According to the x86 ring definition, the virtualization layer should also be installed at
+Ring 0. Different instructions at Ring 0 may cause some problems. In Figure 3.8, we show that
+para-virtualization replaces nonvirtualizable instructions with hypercalls that communicate directly
+with the hypervisor or VMM. However, when the guest OS kernel is modified for virtualization, it
+can no longer run on the hardware directly.
+Application
+Application
+Para-virtualized
+guest operating
+system
+Hypervisor/ VMM
+Hardware
+Para-virtualized
+guest operating
+system
+FIGURE 3.7
+Para-virtualized VM architecture, which involves
+modifying the guest OS kernel to replace
+nonvirtualizable instructions with hypercalls for the
+hypervisor or the VMM to carry out the virtualization
+process (See Figure 3.8 for more details.)
+Ring 3
+Ring 2
+Ring 1
+‘Hypercalls’ to the
+virtualization
+layer replace
+nonvirtualizable
+OS instructions
+Direct
+execution
+of user
+requests
+Ring 0
+User apps
+Host computer
+system hardware
+Virtualization layer
+Para-virtualized
+guest OS
+FIGURE 3.8
+The use of a para-virtualized guest OS assisted by
+an intelligent compiler to replace nonvirtualizable OS
+instructions by hypercalls.
+(Courtesy of VMWare [71])
+3.2 Virtualization Structures/Tools and Mechanisms
+143
+
+Although para-virtualization reduces the overhead, it has incurred other problems. First, its
+compatibility and portability may be in doubt, because it must support the unmodified OS as
+well. Second, the cost of maintaining para-virtualized OSes is high, because they may require
+deep OS kernel modifications. Finally, the performance advantage of para-virtualization varies
+greatly due to workload variations. Compared with full virtualization, para-virtualization is
+relatively easy and more practical. The main problem in full virtualization is its low performance
+in binary translation. To speed up binary translation is difficult. Therefore, many virtualization
+products employ the para-virtualization architecture. The popular Xen, KVM, and VMware ESX
+are good examples.
+3.2.3.2 KVM (Kernel-Based VM)
+This is a Linux para-virtualization system—a part of the Linux version 2.6.20 kernel. Memory
+management and scheduling activities are carried out by the existing Linux kernel. The KVM does
+the rest, which makes it simpler than the hypervisor that controls the entire machine. KVM is a
+hardware-assisted para-virtualization tool, which improves performance and supports unmodified
+guest OSes such as Windows, Linux, Solaris, and other UNIX variants.
+3.2.3.3 Para-Virtualization with Compiler Support
+Unlike the full virtualization architecture which intercepts and emulates privileged and sensitive
+instructions at runtime, para-virtualization handles these instructions at compile time. The guest OS
+kernel is modified to replace the privileged and sensitive instructions with hypercalls to the hypervi-
+sor or VMM. Xen assumes such a para-virtualization architecture.
+The guest OS running in a guest domain may run at Ring 1 instead of at Ring 0. This implies
+that the guest OS may not be able to execute some privileged and sensitive instructions. The
+privileged instructions are implemented by hypercalls to the hypervisor. After replacing the instructions
+with hypercalls, the modified guest OS emulates the behavior of the original guest OS. On an UNIX
+system, a system call involves an interrupt or service routine. The hypercalls apply a dedicated service
+routine in Xen.
+Example 3.3 VMware ESX Server for Para-Virtualization
+VMware pioneered the software market for virtualization. The company has developed virtualization tools
+for desktop systems and servers as well as virtual infrastructure for large data centers. ESX is a VMM or
+a hypervisor for bare-metal x86 symmetric multiprocessing (SMP) servers. It accesses hardware
+resources such as I/O directly and has complete resource management control. An ESX-enabled server
+consists of four components: a virtualization layer, a resource manager, hardware interface components,
+and a service console, as shown in Figure 3.9. To improve performance, the ESX server employs
+a para-virtualization architecture in which the VM kernel interacts directly with the hardware without
+involving the host OS.
+The VMM layer virtualizes the physical hardware resources such as CPU, memory, network and disk
+controllers, and human interface devices. Every VM has its own set of virtual hardware resources. The
+resource manager allocates CPU, memory disk, and network bandwidth and maps them to the virtual
+hardware resource set of each VM created. Hardware interface components are the device drivers and the
+144
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+VMware ESX Server File System. The service console is responsible for booting the system, initiating the
+execution of the VMM and resource manager, and relinquishing control to those layers. It also facilitates
+the process for system administrators.
+3.3 VIRTUALIZATION OF CPU, MEMORY, AND I/O DEVICES
+To support virtualization, processors such as the x86 employ a special running mode and instructions,
+known as hardware-assisted virtualization. In this way, the VMM and guest OS run in different
+modes and all sensitive instructions of the guest OS and its applications are trapped in the VMM. To
+save processor states, mode switching is completed by hardware. For the x86 architecture, Intel and
+AMD have proprietary technologies for hardware-assisted virtualization.
+3.3.1 Hardware Support for Virtualization
+Modern operating systems and processors permit multiple processes to run simultaneously. If there
+is no protection mechanism in a processor, all instructions from different processes will access the
+hardware directly and cause a system crash. Therefore, all processors have at least two modes, user
+mode and supervisor mode, to ensure controlled access of critical hardware. Instructions running in
+supervisor mode are called privileged instructions. Other instructions are unprivileged instructions.
+In a virtualized environment, it is more difficult to make OSes and applications run correctly
+because there are more layers in the machine stack. Example 3.4 discusses Intel’s hardware support
+approach.
+Guest
+OS
+VMM
+VMkernel
+x86 SMP
+hardware
+Scheduler
+CPU
+Memory
+disk
+NIC
+Memory
+mgmt
+SCSI
+driver
+Ethernet
+driver
+VMM
+VMM
+VMM
+Console
+OS
+Guest
+OS
+Guest
+OS
+Guest
+OS
+FIGURE 3.9
+The VMware ESX server architecture using para-virtualization.
+(Courtesy of VMware [71] )
+3.3 Virtualization of CPU, Memory, and I/O Devices
+145
+
+At the time of this writing, many hardware virtualization products were available. The VMware
+Workstation is a VM software suite for x86 and x86-64 computers. This software suite allows users
+to set up multiple x86 and x86-64 virtual computers and to use one or more of these VMs simulta-
+neously with the host operating system. The VMware Workstation assumes the host-based virtuali-
+zation. Xen is a hypervisor for use in IA-32, x86-64, Itanium, and PowerPC 970 hosts. Actually,
+Xen modifies Linux as the lowest and most privileged layer, or a hypervisor.
+One or more guest OS can run on top of the hypervisor. KVM (Kernel-based Virtual Machine)
+is a Linux kernel virtualization infrastructure. KVM can support hardware-assisted virtualization and
+paravirtualization by using the Intel VT-x or AMD-v and VirtIO framework, respectively. The
+VirtIO framework includes a paravirtual Ethernet card, a disk I/O controller, a balloon device for
+adjusting guest memory usage, and a VGA graphics interface using VMware drivers.
+Example 3.4 Hardware Support for Virtualization in the Intel x86 Processor
+Since software-based virtualization techniques are complicated and incur performance overhead,
+Intel provides a hardware-assist technique to make virtualization easy and improve performance.
+Figure 3.10 provides an overview of Intel’s full virtualization techniques. For processor virtualization,
+Intel offers the VT-x or VT-i technique. VT-x adds a privileged mode (VMX Root Mode) and some
+instructions to processors. This enhancement traps all sensitive instructions in the VMM automatically.
+For memory virtualization, Intel offers the EPT, which translates the virtual address to the machine’s
+physical addresses to improve performance. For I/O virtualization, Intel implements VT-d and VT-c to
+support this.
+VM0
+Apps
+OS
+OS
+OS
+Apps
+Apps
+...
+Processor
+VT-x or VT-i
+VT-i
+VT-x
+EPT
+VT-d
+VT-c
+EPT
+DMA and interrupt remap
+Sharable
+Network
+Storage
+Memory
+I/O device
+OS
+Apps
+VM1
+VM2
+VMn
+FIGURE 3.10
+Intel hardware support for virtualization of processor, memory, and I/O devices.
+(Modified from [68], Courtesy of Lizhong Chen, USC)
+146
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+3.3.2 CPU Virtualization
+A VM is a duplicate of an existing computer system in which a majority of the VM instructions are
+executed on the host processor in native mode. Thus, unprivileged instructions of VMs run directly on the
+host machine for higher efficiency. Other critical instructions should be handled carefully for correctness
+and stability. The critical instructions are divided into three categories: privileged instructions, control-
+sensitive instructions, and behavior-sensitive instructions. Privileged instructions execute in a privileged
+mode and will be trapped if executed outside this mode. Control-sensitive instructions attempt to change
+the configuration of resources used. Behavior-sensitive instructions have different behaviors depending
+on the configuration of resources, including the load and store operations over the virtual memory.
+A CPU architecture is virtualizable if it supports the ability to run the VM’s privileged and
+unprivileged instructions in the CPU’s user mode while the VMM runs in supervisor mode. When
+the privileged instructions including control- and behavior-sensitive instructions of a VM are exe-
+cuted, they are trapped in the VMM. In this case, the VMM acts as a unified mediator for hardware
+access from different VMs to guarantee the correctness and stability of the whole system. However,
+not all CPU architectures are virtualizable. RISC CPU architectures can be naturally virtualized
+because all control- and behavior-sensitive instructions are privileged instructions. On the contrary,
+x86 CPU architectures are not primarily designed to support virtualization. This is because about 10
+sensitive instructions, such as SGDT and SMSW, are not privileged instructions. When these instruc-
+tions execute in virtualization, they cannot be trapped in the VMM.
+On a native UNIX-like system, a system call triggers the 80h interrupt and passes control to the
+OS kernel. The interrupt handler in the kernel is then invoked to process the system call. On a para-
+virtualization system such as Xen, a system call in the guest OS first triggers the 80h interrupt nor-
+mally. Almost at the same time, the 82h interrupt in the hypervisor is triggered. Incidentally,
+control is passed on to the hypervisor as well. When the hypervisor completes its task for the guest
+OS system call, it passes control back to the guest OS kernel. Certainly, the guest OS kernel may
+also invoke the hypercall while it’s running. Although paravirtualization of a CPU lets unmodified
+applications run in the VM, it causes a small performance penalty.
+3.3.2.1 Hardware-Assisted CPU Virtualization
+This technique attempts to simplify virtualization because full or paravirtualization is complicated.
+Intel and AMD add an additional mode called privilege mode level (some people call it Ring-1) to
+x86 processors. Therefore, operating systems can still run at Ring 0 and the hypervisor can run at
+Ring -1. All the privileged and sensitive instructions are trapped in the hypervisor automatically.
+This technique removes the difficulty of implementing binary translation of full virtualization. It
+also lets the operating system run in VMs without modification.
+Example 3.5 Intel Hardware-Assisted CPU Virtualization
+Although x86 processors are not virtualizable primarily, great effort is taken to virtualize them. They are used
+widely in comparing RISC processors that the bulk of x86-based legacy systems cannot discard easily. Virtuali-
+zation of x86 processors is detailed in the following sections. Intel’s VT-x technology is an example of
+hardware-assisted virtualization, as shown in Figure 3.11. Intel calls the privilege level of x86 processors the
+VMX Root Mode. In order to control the start and stop of a VM and allocate a memory page to maintain the
+3.3 Virtualization of CPU, Memory, and I/O Devices
+147
+
+CPU state for VMs, a set of additional instructions is added. At the time of this writing, Xen, VMware, and the
+Microsoft Virtual PC all implement their hypervisors by using the VT-x technology.
+Generally, hardware-assisted virtualization should have high efficiency. However, since the transition from
+the hypervisor to the guest OS incurs high overhead switches between processor modes, it sometimes
+cannot outperform binary translation. Hence, virtualization systems such as VMware now use a hybrid
+approach, in which a few tasks are offloaded to the hardware but the rest is still done in software. In addition,
+para-virtualization and hardware-assisted virtualization can be combined to improve the performance further.
+3.3.3 Memory Virtualization
+Virtual memory virtualization is similar to the virtual memory support provided by modern operat-
+ing systems. In a traditional execution environment, the operating system maintains mappings of
+virtual memory to machine memory using page tables, which is a one-stage mapping from virtual
+memory to machine memory. All modern x86 CPUs include a memory management unit (MMU)
+and a translation lookaside buffer (TLB) to optimize virtual memory performance. However, in a
+virtual execution environment, virtual memory virtualization involves sharing the physical system
+memory in RAM and dynamically allocating it to the physical memory of the VMs.
+That means a two-stage mapping process should be maintained by the guest OS and the VMM,
+respectively: virtual memory to physical memory and physical memory to machine memory.
+Furthermore, MMU virtualization should be supported, which is transparent to the guest OS.
+The guest OS continues to control the mapping of virtual addresses to the physical memory
+addresses of VMs. But the guest OS cannot directly access the actual machine memory. The VMM
+is responsible for mapping the guest physical memory to the actual machine memory. Figure 3.12
+shows the two-level memory mapping procedure.
+VT-x
+CPU0
+VM0
+Ring 3
+Ring 0
+VMX
+root
+mode
+Apps
+WinXP
+VM0
+Apps
+WinXP
+VMM
+VM
+entry
+VM control structure
+VM
+exit
+VMCS
+configuration
+Memory and I/O
+virtualization
+VT-x
+CPU0
+Processors with
+VT-x (or VT-i)
+FIGURE 3.11
+Intel hardware-assisted CPU virtualization.
+(Modified from [68], Courtesy of Lizhong Chen, USC)
+148
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+Since each page table of the guest OSes has a separate page table in the VMM corresponding to
+it, the VMM page table is called the shadow page table. Nested page tables add another layer of
+indirection to virtual memory. The MMU already handles virtual-to-physical translations as defined
+by the OS. Then the physical memory addresses are translated to machine addresses using another
+set of page tables defined by the hypervisor. Since modern operating systems maintain a set of
+page tables for every process, the shadow page tables will get flooded. Consequently, the perfor-
+mance overhead and cost of memory will be very high.
+VMware uses shadow page tables to perform virtual-memory-to-machine-memory address trans-
+lation. Processors use TLB hardware to map the virtual memory directly to the machine memory to
+avoid the two levels of translation on every access. When the guest OS changes the virtual memory
+to a physical memory mapping, the VMM updates the shadow page tables to enable a direct
+lookup. The AMD Barcelona processor has featured hardware-assisted memory virtualization since
+2007. It provides hardware assistance to the two-stage address translation in a virtual execution
+environment by using a technology called nested paging.
+Example 3.6 Extended Page Table by Intel for Memory Virtualization
+Since the efficiency of the software shadow page table technique was too low, Intel developed a hardware-
+based EPT technique to improve it, as illustrated in Figure 3.13. In addition, Intel offers a Virtual Processor
+ID (VPID) to improve use of the TLB. Therefore, the performance of memory virtualization is greatly
+improved. In Figure 3.13, the page tables of the guest OS and EPT are all four-level.
+When a virtual address needs to be translated, the CPU will first look for the L4 page table pointed to by
+Guest CR3. Since the address in Guest CR3 is a physical address in the guest OS, the CPU needs to convert
+the Guest CR3 GPA to the host physical address (HPA) using EPT. In this procedure, the CPU will check the
+EPT TLB to see if the translation is there. If there is no required translation in the EPT TLB, the CPU will look
+for it in the EPT. If the CPU cannot find the translation in the EPT, an EPT violation exception will be raised.
+When the GPA of the L4 page table is obtained, the CPU will calculate the GPA of the L3 page table
+by using the GVA and the content of the L4 page table. If the entry corresponding to the GVA in the L4
+VM1
+Process1
+Process2
+VM2
+Process1
+Process2
+Virtual VA
+memory
+Physical PA
+memory
+Machine MA
+memory
+FIGURE 3.12
+Two-level memory mapping procedure.
+(Courtesy of R. Rblig, et al. [68])
+3.3 Virtualization of CPU, Memory, and I/O Devices
+149
+
+page table is a page fault, the CPU will generate a page fault interrupt and will let the guest OS kernel
+handle the interrupt. When the PGA of the L3 page table is obtained, the CPU will look for the EPT to get
+the HPA of the L3 page table, as described earlier. To get the HPA corresponding to a GVA, the CPU
+needs to look for the EPT five times, and each time, the memory needs to be accessed four times. There-
+fore, there are 20 memory accesses in the worst case, which is still very slow. To overcome this short-
+coming, Intel increased the size of the EPT TLB to decrease the number of memory accesses.
+3.3.4 I/O Virtualization
+I/O virtualization involves managing the routing of I/O requests between virtual devices and
+the shared physical hardware. At the time of this writing, there are three ways to implement I/O vir-
+tualization: full device emulation, para-virtualization, and direct I/O. Full device emulation is the first
+approach for I/O virtualization. Generally, this approach emulates well-known, real-world devices.
+Process in guest OS
+GVA
+CR3
+GPA
+EPT MMU
+HPA
+GPA
+EPT
+pointer
+Hardware
+EPT TLB
+GVA: virtual memory
+address of a process in
+guest OS
+GPA: physical memory
+address in guest OS
+HPA: physical memory
+address of the host
+machine
+L4
+L3
+L1
+L2
+Guest OS
+kernel
+Virtual
+machine
+VMM
+FIGURE 3.13
+Memory virtualization using EPT by Intel (the EPT is also known as the shadow page table [68]).
+150
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+All the functions of a device or bus infrastructure, such as device enumeration, identification,
+interrupts, and DMA, are replicated in software. This software is located in the VMM and acts as a
+virtual device. The I/O access requests of the guest OS are trapped in the VMM which interacts with
+the I/O devices. The full device emulation approach is shown in Figure 3.14.
+A single hardware device can be shared by multiple VMs that run concurrently. However, software
+emulation runs much slower than the hardware it emulates [10,15]. The para-virtualization method of
+I/O virtualization is typically used in Xen. It is also known as the split driver model consisting of a
+frontend driver and a backend driver. The frontend driver is running in Domain U and the backend dri-
+ver is running in Domain 0. They interact with each other via a block of shared memory. The frontend
+driver manages the I/O requests of the guest OSes and the backend driver is responsible for managing
+the real I/O devices and multiplexing the I/O data of different VMs. Although para-I/O-virtualization
+achieves better device performance than full device emulation, it comes with a higher CPU overhead.
+Direct I/O virtualization lets the VM access devices directly. It can achieve close-to-native per-
+formance without high CPU costs. However, current direct I/O virtualization implementations focus
+on networking for mainframes. There are a lot of challenges for commodity hardware devices. For
+example, when a physical device is reclaimed (required by workload migration) for later reassign-
+ment, it may have been set to an arbitrary state (e.g., DMA to some arbitrary memory locations)
+that can function incorrectly or even crash the whole system. Since software-based I/O virtualization
+requires a very high overhead of device emulation, hardware-assisted I/O virtualization is critical.
+Intel VT-d supports the remapping of I/O DMA transfers and device-generated interrupts. The archi-
+tecture of VT-d provides the flexibility to support multiple usage models that may run unmodified,
+special-purpose, or “virtualization-aware” guest OSes.
+Another way to help I/O virtualization is via self-virtualized I/O (SV-IO) [47]. The key idea of
+SV-IO is to harness the rich resources of a multicore processor. All tasks associated with virtualizing an
+I/O device are encapsulated in SV-IO. It provides virtual devices and an associated access API to VMs
+and a management API to the VMM. SV-IO defines one virtual interface (VIF) for every kind of virtua-
+lized I/O device, such as virtual network interfaces, virtual block devices (disk), virtual camera devices,
+• Guest device driver
+Guest OS
+Device driver
+Device
+emulation
+I/O Stack
+Device driver
+• Virtual device
+• Real device
+   – may be different from virtual device
+Virtualization layer
+• Virtualization layer
+   – emulates the virtual device
+   – remaps guest and real I/O addresses
+   – multiplexes and drives the physical device
+   – I/O features. e.g., COW disks
+FIGURE 3.14
+Device emulation for I/O virtualization implemented inside the middle layer that maps real I/O devices into the
+virtual devices for the guest device driver to use.
+(Courtesy of V. Chadha, et al. [10] and Y. Dong, et al. [15])
+3.3 Virtualization of CPU, Memory, and I/O Devices
+151
+
+and others. The guest OS interacts with the VIFs via VIF device drivers. Each VIF consists of two mes-
+sage queues. One is for outgoing messages to the devices and the other is for incoming messages from
+the devices. In addition, each VIF has a unique ID for identifying it in SV-IO.
+Example 3.7 VMware Workstation for I/O Virtualization
+The VMware Workstation runs as an application. It leverages the I/O device support in guest OSes, host OSes,
+and VMM to implement I/O virtualization. The application portion (VMApp) uses a driver loaded into the host
+operating system (VMDriver) to establish the privileged VMM, which runs directly on the hardware. A given
+physical processor is executed in either the host world or the VMM world, with the VMDriver facilitating the
+transfer of control between the two worlds. The VMware Workstation employs full device emulation to
+implement I/O virtualization. Figure 3.15 shows the functional blocks used in sending and receiving packets
+via the emulated virtual NIC.
+Network packet send
+Network packet receive
+Host Ethernet driver
+VMApp
+VMNet driver
+memcpy to VM memory
+ask VMM to rasie IRQ
+return from select()
+raise IRQ
+VMM
+Guest OS
+VMM
+IN/OUT to I/O port
+Context switch
+Return from IOCTL
+VMApp
+Packet receive completion
+VMDriver
+Bridge code
+Device interrupt
+Ethernet H/W
+Guest OS
+OUT to I/O port
+Context switch
+Return to VMApp
+Syscall
+Bridge code
+OUT to I/O port
+VMM
+VMDriver
+VMApp
+VMNet driver
+Host Ethernet driver
+Ethernet H/W
+packet launch
+FIGURE 3.15
+Functional blocks involved in sending and receiving network packets.
+(Courtesy of VMWare [71])
+152
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+The virtual NIC models an AMD Lance Am79C970A controller. The device driver for a Lance controller
+in the guest OS initiates packet transmissions by reading and writing a sequence of virtual I/O ports; each
+read or write switches back to the VMApp to emulate the Lance port accesses. When the last OUT instruc-
+tion of the sequence is encountered, the Lance emulator calls a normal write() to the VMNet driver. The
+VMNet driver then passes the packet onto the network via a host NIC and then the VMApp switches back
+to the VMM. The switch raises a virtual interrupt to notify the guest device driver that the packet was sent.
+Packet receives occur in reverse.
+3.3.5 Virtualization in Multi-Core Processors
+Virtualizing a multi-core processor is relatively more complicated than virtualizing a uni-core processor.
+Though multicore processors are claimed to have higher performance by integrating multiple processor
+cores in a single chip, muti-core virtualiuzation has raised some new challenges to computer architects,
+compiler constructors, system designers, and application programmers. There are mainly two difficul-
+ties: Application programs must be parallelized to use all cores fully, and software must explicitly
+assign tasks to the cores, which is a very complex problem.
+Concerning the first challenge, new programming models, languages, and libraries are needed to
+make parallel programming easier. The second challenge has spawned research involving scheduling
+algorithms and resource management policies. Yet these efforts cannot balance well among perfor-
+mance, complexity, and other issues. What is worse, as technology scales, a new challenge called
+dynamic heterogeneity is emerging to mix the fat CPU core and thin GPU cores on the same chip,
+which further complicates the multi-core or many-core resource management. The dynamic hetero-
+geneity of hardware infrastructure mainly comes from less reliable transistors and increased complexity
+in using the transistors [33,66].
+3.3.5.1 Physical versus Virtual Processor Cores
+Wells, et al. [74] proposed a multicore virtualization method to allow hardware designers to get an
+abstraction of the low-level details of the processor cores. This technique alleviates the burden and
+inefficiency of managing hardware resources by software. It is located under the ISA and remains
+unmodified by the operating system or VMM (hypervisor). Figure 3.16 illustrates the technique of a
+software-visible VCPU moving from one core to another and temporarily suspending execution of a
+VCPU when there are no appropriate cores on which it can run.
+3.3.5.2 Virtual Hierarchy
+The emerging many-core chip multiprocessors (CMPs) provides a new computing landscape.
+Instead of supporting time-sharing jobs on one or a few cores, we can use the abundant cores in a
+space-sharing, where single-threaded or multithreaded jobs are simultaneously assigned to separate
+groups of cores for long time intervals. This idea was originally suggested by Marty and Hill [39].
+To optimize for space-shared workloads, they propose using virtual hierarchies to overlay a coher-
+ence and caching hierarchy onto a physical processor. Unlike a fixed physical hierarchy, a virtual
+hierarchy can adapt to fit how the work is space shared for improved performance and performance
+isolation.
+3.3 Virtualization of CPU, Memory, and I/O Devices
+153
+
+Today’s many-core CMPs use a physical hierarchy of two or more cache levels that stati-
+cally determine the cache allocation and mapping. A virtual hierarchy is a cache hierarchy
+that can adapt to fit the workload or mix of workloads [39]. The hierarchy’s first level locates
+data blocks close to the cores needing them for faster access, establishes a shared-cache domain,
+and establishes a point of coherence for faster communication. When a miss leaves a tile, it
+first attempts to locate the block (or sharers) within the first level. The first level can also pro-
+vide isolation between independent workloads. A miss at the L1 cache can invoke the L2
+access.
+The idea is illustrated in Figure 3.17(a). Space sharing is applied to assign three workloads to
+three clusters of virtual cores: namely VM0 and VM3 for database workload, VM1 and VM2 for
+web server workload, and VM4–VM7 for middleware workload. The basic assumption is that each
+workload runs in its own VM. However, space sharing applies equally within a single operating
+system. Statically distributing the directory among tiles can do much better, provided operating sys-
+tems or hypervisors carefully map virtual pages to physical frames. Marty and Hill suggested a
+two-level virtual coherence and caching hierarchy that harmonizes with the assignment of tiles to
+the virtual clusters of VMs.
+Figure 3.17(b) illustrates a logical view of such a virtual cluster hierarchy in two levels. Each
+VM operates in a isolated fashion at the first level. This will minimize both miss access time and
+performance interference with other workloads or VMs. Moreover, the shared resources of cache
+capacity, inter-connect links, and miss handling are mostly isolated between VMs. The second level
+maintains a globally shared memory. This facilitates dynamically repartitioning resources without
+costly cache flushes. Furthermore, maintaining globally shared memory minimizes changes to
+existing system software and allows virtualization features such as content-based page sharing.
+A virtual hierarchy adapts to space-shared workloads like multiprogramming and server consolida-
+tion. Figure 3.17 shows a case study focused on consolidated server workloads in a tiled architecture.
+This many-core mapping scheme can also optimize for space-shared multiprogrammed workloads in
+a single-OS environment.
+C0
+V0
+System
+software
+Chip
+SW Threads/Guest VMs
+Virtual
+procs.
+ISA
+Physical
+cores
+Paused
+V1
+V2
+V3
+C1
+C2
+FIGURE 3.16
+Multicore virtualization method that exposes four VCPUs to the software, when only three cores are actually
+present.
+(Courtesy of Wells, et al. [74] )
+154
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+3.4 VIRTUAL CLUSTERS AND RESOURCE MANAGEMENT
+A physical cluster is a collection of servers (physical machines) interconnected by a physical network
+such as a LAN. In Chapter 2, we studied various clustering techniques on physical machines. Here,
+we introduce virtual clusters and study its properties as well as explore their potential applications.
+In this section, we will study three critical design issues of virtual clusters: live migration of VMs,
+memory and file migrations, and dynamic deployment of virtual clusters.
+VM1: Web server
+VM2: Web server
+VM0: Database
+VM4: Middleware
+VM5: Middleware
+VM6: Middleware
+VM7: Middleware
+VM3: Database
+(a) Mapping of VMs into adjacent cores
+L2 cache
+Processor
+L1
+1&D
+(b) Multiple virtual clusters assigned to various workloads
+Level 1
+Level 2
+FIGURE 3.17
+CMP server consolidation by space-sharing of VMs into many cores forming multiple virtual clusters to
+execute various workloads.
+(Courtesy of Marty and Hill [39])
+3.4 Virtual Clusters and Resource Management
+155
+
+When a traditional VM is initialized, the administrator needs to manually write configuration
+information or specify the configuration sources. When more VMs join a network, an inefficient
+configuration always causes problems with overloading or underutilization. Amazon’s Elastic
+Compute Cloud (EC2) is a good example of a web service that provides elastic computing power in
+a cloud. EC2 permits customers to create VMs and to manage user accounts over the time of their
+use. Most virtualization platforms, including XenServer and VMware ESX Server, support a brid-
+ging mode which allows all domains to appear on the network as individual hosts. By using this
+mode, VMs can communicate with one another freely through the virtual network interface card
+and configure the network automatically.
+3.4.1 Physical versus Virtual Clusters
+Virtual clusters are built with VMs installed at distributed servers from one or more physical clus-
+ters. The VMs in a virtual cluster are interconnected logically by a virtual network across several
+physical networks. Figure 3.18 illustrates the concepts of virtual clusters and physical clusters. Each
+virtual cluster is formed with physical machines or a VM hosted by multiple physical clusters. The
+virtual cluster boundaries are shown as distinct boundaries.
+The provisioning of VMs to a virtual cluster is done dynamically to have the following interest-
+ing properties:
+•
+The virtual cluster nodes can be either physical or virtual machines. Multiple VMs running with
+different OSes can be deployed on the same physical node.
+•
+A VM runs with a guest OS, which is often different from the host OS, that manages the
+resources in the physical machine, where the VM is implemented.
+•
+The purpose of using VMs is to consolidate multiple functionalities on the same server. This
+will greatly enhance server utilization and application flexibility.
+Physical
+cluster 1
+Physical
+cluster 2
+Physical
+cluster 3
+Virtual
+machines
+Virtual
+Cluster 1
+Virtual
+cluster 2
+Virtual
+cluster 4
+Virtual
+cluster 3
+Virtual
+cluster 1
+FIGURE 3.18
+A cloud platform with four virtual clusters over three physical clusters shaded differently.
+(Courtesy of Fan Zhang, Tsinghua University )
+156
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+•
+VMs can be colonized (replicated) in multiple servers for the purpose of promoting distributed
+parallelism, fault tolerance, and disaster recovery.
+•
+The size (number of nodes) of a virtual cluster can grow or shrink dynamically, similar to the
+way an overlay network varies in size in a peer-to-peer (P2P) network.
+•
+The failure of any physical nodes may disable some VMs installed on the failing nodes. But the
+failure of VMs will not pull down the host system.
+Since system virtualization has been widely used, it is necessary to effectively manage VMs
+running on a mass of physical computing nodes (also called virtual clusters) and consequently build
+a high-performance virtualized computing environment. This involves virtual cluster deployment,
+monitoring and management over large-scale clusters, as well as resource scheduling, load
+balancing, server consolidation, fault tolerance, and other techniques. The different node colors in
+Figure 3.18 refer to different virtual clusters. In a virtual cluster system, it is quite important to
+store the large number of VM images efficiently.
+Figure 3.19 shows the concept of a virtual cluster based on application partitioning or customi-
+zation. The different colors in the figure represent the nodes in different virtual clusters. As a large
+number of VM images might be present, the most important thing is to determine how to store
+those images in the system efficiently. There are common installations for most users or applica-
+tions, such as operating systems or user-level programming libraries. These software packages can
+be preinstalled as templates (called template VMs). With these templates, users can build their own
+software stacks. New OS instances can be copied from the template VM. User-specific components
+such as programming libraries and applications can be installed to those instances.
+Three physical clusters are shown on the left side of Figure 3.18. Four virtual clusters are created
+on the right, over the physical clusters. The physical machines are also called host systems. In
+contrast, the VMs are guest systems. The host and guest systems may run with different operating
+System area network
+Virtual cluster
+nodes for
+application A 
+Virtual cluster
+nodes for
+application B
+Virtual cluster
+nodes for
+application C
+Virtual cluster
+nodes for
+application D
+VMM
+VMM
+VMM
+VMM
+VMM
+VM1
+VM2
+VM3
+VM1
+VM2
+VM3
+VM1
+VM2
+VM3
+VM4
+VM1
+VM2
+VM3
+VM4
+VM1
+VM2
+VM3
+VM4
+FIGURE 3.19
+The concept of a virtual cluster based on application partitioning.
+(Courtesy of Kang Chen, Tsinghua University 2008)
+3.4 Virtual Clusters and Resource Management
+157
+
+systems. Each VM can be installed on a remote server or replicated on multiple servers belonging to
+the same or different physical clusters. The boundary of a virtual cluster can change as VM nodes are
+added, removed, or migrated dynamically over time.
+3.4.1.1 Fast Deployment and Effective Scheduling
+The system should have the capability of fast deployment. Here, deployment means two things:
+to construct and distribute software stacks (OS, libraries, applications) to a physical node inside clus-
+ters as fast as possible, and to quickly switch runtime environments from one user’s virtual cluster to
+another user’s virtual cluster. If one user finishes using his system, the corresponding virtual cluster
+should shut down or suspend quickly to save the resources to run other VMs for other users.
+The concept of “green computing” has attracted much attention recently. However, previous
+approaches have focused on saving the energy cost of components in a single workstation without a
+global vision. Consequently, they do not necessarily reduce the power consumption of the whole clus-
+ter. Other cluster-wide energy-efficient techniques can only be applied to homogeneous workstations
+and specific applications. The live migration of VMs allows workloads of one node to transfer to
+another node. However, it does not guarantee that VMs can randomly migrate among themselves. In
+fact, the potential overhead caused by live migrations of VMs cannot be ignored.
+The overhead may have serious negative effects on cluster utilization, throughput, and QoS
+issues. Therefore, the challenge is to determine how to design migration strategies to implement
+green computing without influencing the performance of clusters. Another advantage of virtualiza-
+tion is load balancing of applications in a virtual cluster. Load balancing can be achieved using the
+load index and frequency of user logins. The automatic scale-up and scale-down mechanism of a
+virtual cluster can be implemented based on this model. Consequently, we can increase the resource
+utilization of nodes and shorten the response time of systems. Mapping VMs onto the most appro-
+priate physical node should promote performance. Dynamically adjusting loads among nodes by
+live migration of VMs is desired, when the loads on cluster nodes become quite unbalanced.
+3.4.1.2 High-Performance Virtual Storage
+The template VM can be distributed to several physical hosts in the cluster to customize the VMs. In
+addition, existing software packages reduce the time for customization as well as switching virtual
+environments. It is important to efficiently manage the disk spaces occupied by template software
+packages. Some storage architecture design can be applied to reduce duplicated blocks in a distributed
+file system of virtual clusters. Hash values are used to compare the contents of data blocks. Users
+have their own profiles which store the identification of the data blocks for corresponding VMs in a
+user-specific virtual cluster. New blocks are created when users modify the corresponding data.
+Newly created blocks are identified in the users’ profiles.
+Basically, there are four steps to deploy a group of VMs onto a target cluster: preparing the disk
+image, configuring the VMs, choosing the destination nodes, and executing the VM deployment command
+on every host. Many systems use templates to simplify the disk image preparation process. A template is
+a disk image that includes a preinstalled operating system with or without certain application software.
+Users choose a proper template according to their requirements and make a duplicate of it as their own
+disk image. Templates could implement the COW (Copy on Write) format. A new COW backup file is
+very small and easy to create and transfer. Therefore, it definitely reduces disk space consumption. In
+addition, VM deployment time is much shorter than that of copying the whole raw image file.
+158
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+Every VM is configured with a name, disk image, network setting, and allocated CPU and
+memory. One needs to record each VM configuration into a file. However, this method is inefficient
+when managing a large group of VMs. VMs with the same configurations could use preedited profiles
+to simplify the process. In this scenario, the system configures the VMs according to the chosen pro-
+file. Most configuration items use the same settings, while some of them, such as UUID, VM name,
+and IP address, are assigned with automatically calculated values. Normally, users do not care which
+host is running their VM. A strategy to choose the proper destination host for any VM is needed. The
+deployment principle is to fulfill the VM requirement and to balance workloads among the whole
+host network.
+3.4.2 Live VM Migration Steps and Performance Effects
+In a cluster built with mixed nodes of host and guest systems, the normal method of operation is to
+run everything on the physical machine. When a VM fails, its role could be replaced by another VM
+on a different node, as long as they both run with the same guest OS. In other words, a physical node
+can fail over to a VM on another host. This is different from physical-to-physical failover in a tradi-
+tional physical cluster. The advantage is enhanced failover flexibility. The potential drawback is that
+a VM must stop playing its role if its residing host node fails. However, this problem can be mitigated
+with VM life migration. Figure 3.20 shows the process of life migration of a VM from host A to host
+B. The migration copies the VM state file from the storage area to the host machine.
+There are four ways to manage a virtual cluster. First, you can use a guest-based manager, by which
+the cluster manager resides on a guest system. In this case, multiple VMs form a virtual cluster. For
+example, openMosix is an open source Linux cluster running different guest systems on top of the Xen
+hypervisor. Another example is Sun’s cluster Oasis, an experimental Solaris cluster of VMs supported
+by a VMware VMM. Second, you can build a cluster manager on the host systems. The host-based
+manager supervises the guest systems and can restart the guest system on another physical machine.
+A good example is the VMware HA system that can restart a guest system after failure.
+These two cluster management systems are either guest-only or host-only, but they do not mix. A
+third way to manage a virtual cluster is to use an independent cluster manager on both the host and
+guest systems. This will make infrastructure management more complex, however. Finally, you can
+use an integrated cluster on the guest and host systems. This means the manager must be designed to
+distinguish between virtualized resources and physical resources. Various cluster management
+schemes can be greatly enhanced when VM life migration is enabled with minimal overhead.
+VMs can be live-migrated from one physical machine to another; in case of failure, one VM can be
+replaced by another VM. Virtual clusters can be applied in computational grids, cloud platforms, and
+high-performance computing (HPC) systems. The major attraction of this scenario is that virtual cluster-
+ing provides dynamic resources that can be quickly put together upon user demand or after a node
+failure. In particular, virtual clustering plays a key role in cloud computing. When a VM runs a live ser-
+vice, it is necessary to make a trade-off to ensure that the migration occurs in a manner that minimizes
+all three metrics. The motivation is to design a live VM migration scheme with negligible downtime,
+the lowest network bandwidth consumption possible, and a reasonable total migration time.
+Furthermore, we should ensure that the migration will not disrupt other active services residing
+in the same host through resource contention (e.g., CPU, network bandwidth). A VM can be in one
+of the following four states. An inactive state is defined by the virtualization platform, under which
+3.4 Virtual Clusters and Resource Management
+159
+
+the VM is not enabled. An active state refers to a VM that has been instantiated at the virtualization
+platform to perform a real task. A paused state corresponds to a VM that has been instantiated but
+disabled to process a task or paused in a waiting state. A VM enters the suspended state if its
+machine file and virtual resources are stored back to the disk. As shown in Figure 3.20, live migra-
+tion of a VM consists of the following six steps:
+Steps 0 and 1: Start migration. This step makes preparations for the migration, including
+determining the migrating VM and the destination host. Although users could manually make a
+VM migrate to an appointed host, in most circumstances, the migration is automatically started
+by strategies such as load balancing and server consolidation.
+Steps 2: Transfer memory. Since the whole execution state of the VM is stored in memory,
+sending the VM’s memory to the destination node ensures continuity of the service provided by
+the VM. All of the memory data is transferred in the first round, and then the migration controller
+recopies the memory data which is changed in the last round. These steps keep iterating until the
+dirty portion of the memory is small enough to handle the final copy. Although precopying
+memory is performed iteratively, the execution of programs is not obviously interrupted.
+Stage 0: Pre-Migration
+  Active VM on Host A
+  Alternate physical host may be preselected for migration
+  Block devices mirrored and free resources maintained
+Stage 1: Reservation
+  Initialize a container on the target host
+Stage 2: Iterative pre-copy
+  Enable shadow paging
+  Copy dirty pages in successive rounds.
+Stage 3: Stop and copy
+  Suspend VM on host A
+  Generate ARP to redirect traffic to Host B
+  Synchronize all remaining VM state to Host B
+Stage 4: Commitment
+  VM state on Host A is released
+Stage 5: Activation
+  VM starts on Host B
+  Connects to local devices
+  Resumes normal operation
+VM running normally on
+Host A
+Downtime
+(VM out of service)
+Overhead due to copying
+VM running normally on
+Host B
+FIGURE 3.20
+Live migration process of a VM from one host to another.
+(Courtesy of C. Clark, et al. [14] )
+160
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+Step 3: Suspend the VM and copy the last portion of the data. The migrating VM’s
+execution is suspended when the last round’s memory data is transferred. Other nonmemory data
+such as CPU and network states should be sent as well. During this step, the VM is stopped and
+its applications will no longer run. This “service unavailable” time is called the “downtime” of
+migration, which should be as short as possible so that it can be negligible to users.
+Steps 4 and 5: Commit and activate the new host. After all the needed data is copied, on the
+destination host, the VM reloads the states and recovers the execution of programs in it, and the
+service provided by this VM continues. Then the network connection is redirected to the new
+VM and the dependency to the source host is cleared. The whole migration process finishes by
+removing the original VM from the source host.
+Figure 3.21 shows the effect on the data transmission rate (Mbit/second) of live migration of a
+VM from one host to another. Before copying the VM with 512 KB files for 100 clients, the data
+throughput was 870 MB/second. The first precopy takes 63 seconds, during which the rate is
+reduced to 765 MB/second. Then the data rate reduces to 694 MB/second in 9.8 seconds for more
+iterations of the copying process. The system experiences only 165 ms of downtime, before the
+VM is restored at the destination host. This experimental result shows a very small migration
+overhead in live transfer of a VM between host nodes. This is critical to achieve dynamic cluster
+reconfiguration and disaster recovery as needed in cloud computing. We will study these techniques
+in more detail in Chapter 4.
+With the emergence of widespread cluster computing more than a decade ago, many cluster con-
+figuration and management systems have been developed to achieve a range of goals. These goals
+naturally influence individual approaches to cluster management. VM technology has become a
+popular method for simplifying management and sharing of physical computing resources. Platforms
+Elapsed time (secs)
+0
+0
+200
+Throughput (Mbit/sec)
+400
+600
+800
+1000
+870 Mbit/sec
+765 Mbit/sec
+9.8 secs
+further iterations
+1st precopy, 62 secs
+694 Mbit/sec
+165 ms total down time
+Sample over 100ms
+Sample over 500ms
+Effect of migration on web server transmission rate
+512Kb files
+100 concurrent clients
+10
+20
+30
+40
+50
+60
+70
+90
+80
+130
+120
+110
+100
+FIGURE 3.21
+Effect on data transmission rate of a VM migrated from one failing web server to another.
+(Courtesy of C. Clark, et al. [14] )
+3.4 Virtual Clusters and Resource Management
+161
+
+such as VMware and Xen allow multiple VMs with different operating systems and configurations
+to coexist on the same physical host in mutual isolation. Clustering inexpensive computers is an
+effective way to obtain reliable, scalable computing power for network services and compute-
+intensive applications
+3.4.3 Migration of Memory, Files, and Network Resources
+Since clusters have a high initial cost of ownership, including space, power conditioning, and cool-
+ing equipment, leasing or sharing access to a common cluster is an attractive solution when
+demands vary over time. Shared clusters offer economies of scale and more effective utilization of
+resources by multiplexing. Early configuration and management systems focus on expressive and
+scalable mechanisms for defining clusters for specific types of service, and physically partition
+cluster nodes among those types. When one system migrates to another physical node, we should
+consider the following issues.
+3.4.3.1 Memory Migration
+This is one of the most important aspects of VM migration. Moving the memory instance of a VM
+from one physical host to another can be approached in any number of ways. But traditionally, the
+concepts behind the techniques tend to share common implementation paradigms. The techniques
+employed for this purpose depend upon the characteristics of application/workloads supported by
+the guest OS.
+Memory migration can be in a range of hundreds of megabytes to a few gigabytes in a typical
+system today, and it needs to be done in an efficient manner. The Internet Suspend-Resume (ISR)
+technique exploits temporal locality as memory states are likely to have considerable overlap in the
+suspended and the resumed instances of a VM. Temporal locality refers to the fact that the memory
+states differ only by the amount of work done since a VM was last suspended before being initiated
+for migration.
+To exploit temporal locality, each file in the file system is represented as a tree of small subfiles.
+A copy of this tree exists in both the suspended and resumed VM instances. The advantage of using
+a tree-based representation of files is that the caching ensures the transmission of only those files
+which have been changed. The ISR technique deals with situations where the migration of live
+machines is not a necessity. Predictably, the downtime (the period during which the service is
+unavailable due to there being no currently executing instance of a VM) is high, compared to some
+of the other techniques discussed later.
+3.4.3.2 File System Migration
+To support VM migration, a system must provide each VM with a consistent, location-independent
+view of the file system that is available on all hosts. A simple way to achieve this is to provide
+each VM with its own virtual disk which the file system is mapped to and transport the contents of
+this virtual disk along with the other states of the VM. However, due to the current trend of high-
+capacity disks, migration of the contents of an entire disk over a network is not a viable solution.
+Another way is to have a global file system across all machines where a VM could be located. This
+way removes the need to copy files from one machine to another because all files are network-
+accessible.
+162
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+A distributed file system is used in ISR serving as a transport mechanism for propagating a
+suspended VM state. The actual file systems themselves are not mapped onto the distributed file
+system. Instead, the VMM only accesses its local file system. The relevant VM files are explicitly
+copied into the local file system for a resume operation and taken out of the local file system for a
+suspend operation. This approach relieves developers from the complexities of implementing several
+different file system calls for different distributed file systems. It also essentially disassociates the
+VMM from any particular distributed file system semantics. However, this decoupling means that
+the VMM has to store the contents of each VM’s virtual disks in its local files, which have to be
+moved around with the other state information of that VM.
+In smart copying, the VMM exploits spatial locality. Typically, people often move between the
+same small number of locations, such as their home and office. In these conditions, it is possible to
+transmit only the difference between the two file systems at suspending and resuming locations. This
+technique significantly reduces the amount of actual physical data that has to be moved. In situations
+where there is no locality to exploit, a different approach is to synthesize much of the state at the resum-
+ing site. On many systems, user files only form a small fraction of the actual data on disk. Operating
+system and application software account for the majority of storage space. The proactive state transfer
+solution works in those cases where the resuming site can be predicted with reasonable confidence.
+3.4.3.3 Network Migration
+A migrating VM should maintain all open network connections without relying on forwarding
+mechanisms on the original host or on support from mobility or redirection mechanisms. To enable
+remote systems to locate and communicate with a VM, each VM must be assigned a virtual IP
+address known to other entities. This address can be distinct from the IP address of the host machine
+where the VM is currently located. Each VM can also have its own distinct virtual MAC address.
+The VMM maintains a mapping of the virtual IP and MAC addresses to their corresponding VMs. In
+general, a migrating VM includes all the protocol states and carries its IP address with it.
+If the source and destination machines of a VM migration are typically connected to a single
+switched LAN, an unsolicited ARP reply from the migrating host is provided advertising that the IP
+has moved to a new location. This solves the open network connection problem by reconfiguring
+all the peers to send future packets to a new location. Although a few packets that have already
+been transmitted might be lost, there are no other problems with this mechanism. Alternatively, on
+a switched network, the migrating OS can keep its original Ethernet MAC address and rely on the
+network switch to detect its move to a new port.
+Live migration means moving a VM from one physical node to another while keeping its OS
+environment and applications unbroken. This capability is being increasingly utilized in today’s enter-
+prise environments to provide efficient online system maintenance, reconfiguration, load balancing,
+and proactive fault tolerance. It provides desirable features to satisfy requirements for computing
+resources in modern computing systems, including server consolidation, performance isolation, and
+ease of management. As a result, many implementations are available which support the feature using
+disparate functionalities. Traditional migration suspends VMs before the transportation and then
+resumes them at the end of the process. By importing the precopy mechanism, a VM could be live-
+migrated without stopping the VM and keep the applications running during the migration.
+Live migration is a key feature of system virtualization technologies. Here, we focus on VM
+migration within a cluster environment where a network-accessible storage system, such as storage
+3.4 Virtual Clusters and Resource Management
+163
+
+area network (SAN) or network attached storage (NAS), is employed. Only memory and CPU status
+needs to be transferred from the source node to the target node. Live migration techniques mainly
+use the precopy approach, which first transfers all memory pages, and then only copies modified pages
+during the last round iteratively. The VM service downtime is expected to be minimal by using iterative
+copy operations. When applications’ writable working set becomes small, the VM is suspended and
+only the CPU state and dirty pages in the last round are sent out to the destination.
+In the precopy phase, although a VM service is still available, much performance degradation will
+occur because the migration daemon continually consumes network bandwidth to transfer dirty pages in
+each round. An adaptive rate limiting approach is employed to mitigate this issue, but total migration time
+is prolonged by nearly 10 times. Moreover, the maximum number of iterations must be set because not all
+applications’ dirty pages are ensured to converge to a small writable working set over multiple rounds.
+In fact, these issues with the precopy approach are caused by the large amount of transferred
+data during the whole migration process. A checkpointing/recovery and trace/replay approach (CR/
+TR-Motion) is proposed to provide fast VM migration. This approach transfers the execution trace
+file in iterations rather than dirty pages, which is logged by a trace daemon. Apparently, the total
+size of all log files is much less than that of dirty pages. So, total migration time and downtime of
+migration are drastically reduced. However, CR/TR-Motion is valid only when the log replay rate is
+larger than the log growth rate. The inequality between source and target nodes limits the applica-
+tion scope of live migration in clusters.
+Another strategy of postcopy is introduced for live migration of VMs. Here, all memory pages are
+transferred only once during the whole migration process and the baseline total migration time is
+reduced. But the downtime is much higher than that of precopy due to the latency of fetching pages
+from the source node before the VM can be resumed on the target. With the advent of multicore or
+many-core machines, abundant CPU resources are available. Even if several VMs reside on a same mul-
+ticore machine, CPU resources are still rich because physical CPUs are frequently amenable to multi-
+plexing. We can exploit these copious CPU resources to compress page frames and the amount of
+transferred data can be significantly reduced. Memory compression algorithms typically have little
+memory overhead. Decompression is simple and very fast and requires no memory for decompression.
+3.4.3.4 Live Migration of VM Using Xen
+In Section 3.2.1, we studied Xen as a VMM or hypervisor, which allows multiple commodity OSes to
+share x86 hardware in a safe and orderly fashion. The following example explains how to perform live
+migration of a VM between two Xen-enabled host machines. Domain 0 (or Dom0) performs tasks to
+create, terminate, or migrate to another host. Xen uses a send/recv model to transfer states across VMs.
+Example 3.8 Live Migration of VMs between Two Xen-Enabled Hosts
+Xen supports live migration. It is a useful feature and natural extension to virtualization platforms that
+allows for the transfer of a VM from one physical machine to another with little or no downtime of the
+services hosted by the VM. Live migration transfers the working state and memory of a VM across a net-
+work when it is running. Xen also supports VM migration by using a mechanism called Remote Direct
+Memory Access (RDMA).
+RDMA speeds up VM migration by avoiding TCP/IP stack processing overhead. RDMA implements a
+different transfer protocol whose origin and destination VM buffers must be registered before any transfer
+164
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+operations occur, reducing it to a “one-sided” interface. Data communication over RDMA does not need to
+involve the CPU, caches, or context switches. This allows migration to be carried out with minimal impact
+on guest operating systems and hosted applications. Figure 3.22 shows the a compression scheme for VM
+migration.
+This design requires that we make trade-offs between two factors. If an algorithm embodies expecta-
+tions about the kinds of regularities in the memory footprint, it must be very fast and effective. A single
+compression algorithm for all memory data is difficult to achieve the win-win status that we expect.
+Therefore, it is necessary to provide compression algorithms to pages with different kinds of regularities.
+The structure of this live migration system is presented in Dom0.
+Migration daemons running in the management VMs are responsible for performing migration. Shadow
+page tables in the VMM layer trace modifications to the memory page in migrated VMs during the precopy
+phase. Corresponding flags are set in a dirty bitmap. At the start of each precopy round, the bitmap is
+sent to the migration daemon. Then, the bitmap is cleared and the shadow page tables are destroyed and
+re-created in the next round. The system resides in Xen’s management VM. Memory pages denoted by
+bitmap are extracted and compressed before they are sent to the destination. The compressed data is
+then decompressed on the target.
+3.4.4 Dynamic Deployment of Virtual Clusters
+Table 3.5 summarizes four virtual cluster research projects. We briefly introduce them here just
+to identify their design objectives and reported results. The Cellular Disco at Stanford is a virtual
+cluster built in a shared-memory multiprocessor system. The INRIA virtual cluster was built to test
+parallel algorithm performance. The COD and VIOLIN clusters are studied in forthcoming examples.
+Source node
+Target node
+Migration
+daemon
+CBC
+compression
+Migration
+daemon
+CBC
+compression
+VM
+Dom0
+Shadow page table
+Dirty
+bitmap
+VMM
+Hardware
+VMM
+Hardware
+FIGURE 3.22
+Live migration of VM from the Dom0 domain to a Xen-enabled target host.
+3.4 Virtual Clusters and Resource Management
+165
+
+Example 3.9 The Cluster-on-Demand (COD) Project at Duke University
+Developed by researchers at Duke University, the COD (Cluster-on-Demand) project is a virtual cluster
+management system for dynamic allocation of servers from a computing pool to multiple virtual clusters
+[12]. The idea is illustrated by the prototype implementation of the COD shown in Figure 3.23. The COD
+Table 3.5 Experimental Results on Four Research Virtual Clusters
+Project Name
+Design Objectives
+Reported Results and
+References
+Cluster-on-Demand at Duke
+Univ.
+Dynamic resource allocation with a
+virtual cluster management system
+Sharing of VMs by multiple virtual
+clusters using Sun GridEngine [12]
+Cellular Disco at Stanford Univ.
+To deploy a virtual cluster on a
+shared-memory multiprocessor
+VMs deployed on multiple
+processors under a VMM called
+Cellular Disco [8]
+VIOLIN at Purdue Univ.
+Multiple VM clustering to prove the
+advantage of dynamic adaptation
+Reduce execution time of
+applications running VIOLIN with
+adaptation [25,55]
+GRAAL Project at INRIA in
+France
+Performance of parallel algorithms
+in Xen-enabled virtual clusters
+75% of max. performance
+achieved with 30% resource
+slacks over VM clusters
+Physical cluster
+COD servers backed by configuration database
+Resource
+policies
+Template
+definitions
+vCluster
+requests
+Energy-managed
+reserve pool
+Web service
+vCluster
+VCM
+VCM
+Network boot
+automatic configuration
+resource negotiation
+Database-driven
+network install
+controlled by
+trampoline
+Batch pool
+vCluster
+Dynamic
+virtual clusters
+Resource
+manager
+DHCP
+Confd
+NIS
+MyDNS
+MySQL
+Image upload
+Web interface
+ACPI
+Wake-on-LAN
+FIGURE 3.23
+COD partitioning a physical cluster into multiple virtual clusters.
+(Courtesy of Jeff Chase, et al., HPDC-2003 © IEEE [12] )
+166
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+partitions a physical cluster into multiple virtual clusters (vClusters). vCluster owners specify the operating
+systems and software for their clusters through an XML-RPC interface. The vClusters run a batch schedule
+from Sun’s GridEngine on a web server cluster. The COD system can respond to load changes in restruc-
+turing the virtual clusters dynamically.
+The Duke researchers used the Sun GridEngine scheduler to demonstrate that dynamic virtual clusters
+are an enabling abstraction for advanced resource management in computing utilities such as grids. The
+system supports dynamic, policy-based cluster sharing between local users and hosted grid services.
+Attractive features include resource reservation, adaptive provisioning, scavenging of idle resources, and
+dynamic instantiation of grid services. The COD servers are backed by a configuration database. This
+system provides resource policies and template definition in response to user requests.
+Figure 3.24 shows the variation in the number of nodes in each of three virtual clusters during
+eight days of a live deployment. Three application workloads requested by three user groups are labeled
+“Systems,” “Architecture,” and “BioGeometry” in the trace plot. The experiments were performed with
+multiple SGE batch pools on a test bed of 80 rack-mounted IBM xSeries-335 servers within the Duke clus-
+ter. This trace plot clearly shows the sharp variation in cluster size (number of nodes) over the eight days.
+Dynamic provisioning and deprovisioning of virtual clusters are needed in real-life cluster applications.
+Example 3.10 The VIOLIN Project at Purdue University
+The Purdue VIOLIN Project applies live VM migration to reconfigure a virtual cluster environment. Its
+purpose is to achieve better resource utilization in executing multiple cluster jobs on multiple cluster
+Day1
+80
+Systems
+Architecture
+Biogeometry
+70
+60
+50
+40
+Number of nodes
+30
+20
+10
+0
+Day2
+Day3
+Day 4
+Time
+Day 5
+Day 6
+Day 7
+Day 8
+FIGURE 3.24
+Cluster size variations in COD over eight days at Duke University.
+(Courtesy of Jeff Chase, et al., HPDC-2003 © IEEE [12] )
+3.4 Virtual Clusters and Resource Management
+167
+
+domains. The project leverages the maturity of VM migration and environment adaptation technology.
+The approach is to enable mutually isolated virtual environments for executing parallel applications on
+top of a shared physical infrastructure consisting of multiple domains. Figure 3.25 illustrates the idea
+with five concurrent virtual environments, labeled as VIOLIN 1–5, sharing two physical clusters.
+The squares of various shadings represent the VMs deployed in the physical server nodes. The
+major contribution by the Purdue group is to achieve autonomic adaptation of the virtual computation
+environments as active, integrated entities. A virtual execution environment is able to relocate itself
+across the infrastructure, and can scale its share of infrastructural resources. The adaptation is
+transparent to both users of virtual environments and administrations of infrastructures. The adaptation
+overhead is maintained at 20 sec out of 1,200 sec in solving a large NEMO3D problem of 1 million
+particles.
+The message being conveyed here is that the virtual environment adaptation can enhance resource
+utilization significantly at the expense of less than 1 percent of an increase in total execution time. The
+With adaptation
+Domain 1
+Time
+Domain 2
+Domain 1
+1. Initially VIOLIN
+ 
+1, 2, 3 are computing.
+2. After VIOLIN 2
+ 
+is finished,
+ 
+before adaptation
+4. After VIOLIN
+ 
+4, 5 are created
+5. After VIOLIN
+ 
+1, 3 are finished
+3. After adaptation
+Domain 2
+Without adaptation
+VIOLIN 1
+VIOLIN 2
+VIOLIN 3
+VIOLIN 4
+VIOLIN 5
+FIGURE 3.25
+VIOLIN adaptation scenario of five virtual environments sharing two hosted clusters. Note that there are
+more idle squares (blank nodes) before and after the adaptation.
+(Courtesy of P. Ruth, et al. [55])
+168
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+migration of VIOLIN environments does pay off. Of course, the gain in shared resource utilization will bene-
+fit many users, and the performance gain varies with different adaptation scenarios. We leave readers to
+trace the execution of another scenario in Problem 3.17 at the end of this chapter to tell the differences.
+Virtual networking is a fundamental component of the VIOLIN system.
+3.5 VIRTUALIZATION FOR DATA-CENTER AUTOMATION
+Data centers have grown rapidly in recent years, and all major IT companies are pouring their
+resources into building new data centers. In addition, Google, Yahoo!, Amazon, Microsoft, HP,
+Apple, and IBM are all in the game. All these companies have invested billions of dollars in data-
+center construction and automation. Data-center automation means that huge volumes of hardware,
+software, and database resources in these data centers can be allocated dynamically to millions of
+Internet users simultaneously, with guaranteed QoS and cost-effectiveness.
+This automation process is triggered by the growth of virtualization products and cloud com-
+puting services. From 2006 to 2011, according to an IDC 2007 report on the growth of virtuali-
+zation and its market distribution in major IT sectors. In 2006, virtualization has a market share
+of $1,044 million in business and enterprise opportunities. The majority was dominated by pro-
+duction consolidation and software development. Virtualization is moving towards enhancing
+mobility, reducing planned downtime (for maintenance), and increasing the number of virtual
+clients.
+The latest virtualization development highlights high availability (HA), backup services,
+workload balancing, and further increases in client bases. IDC projected that automation, service
+orientation, policy-based, and variable costs in the virtualization market. The total business
+opportunities may increase to $3.2 billion by 2011. The major market share moves to the areas
+of HA, utility computing, production consolidation, and client bases. In what follows, we will
+discuss server consolidation, virtual storage, OS support, and trust management in automated
+data-center designs.
+3.5.1 Server Consolidation in Data Centers
+In data centers, a large number of heterogeneous workloads can run on servers at various times. These
+heterogeneous workloads can be roughly divided into two categories: chatty workloads and noninter-
+active workloads. Chatty workloads may burst at some point and return to a silent state at some other
+point. A web video service is an example of this, whereby a lot of people use it at night and few peo-
+ple use it during the day. Noninteractive workloads do not require people’s efforts to make progress
+after they are submitted. High-performance computing is a typical example of this. At various stages,
+the requirements for resources of these workloads are dramatically different. However, to guarantee
+that a workload will always be able to cope with all demand levels, the workload is statically allo-
+cated enough resources so that peak demand is satisfied. Figure 3.29 illustrates server virtualization in
+a data center. In this case, the granularity of resource optimization is focused on the CPU, memory,
+and network interfaces.
+3.5 Virtualization for Data-Center Automation
+169
+
+Therefore, it is common that most servers in data centers are underutilized. A large amount of
+hardware, space, power, and management cost of these servers is wasted. Server consolidation is an
+approach to improve the low utility ratio of hardware resources by reducing the number of physical
+servers. Among several server consolidation techniques such as centralized and physical consolida-
+tion, virtualization-based server consolidation is the most powerful. Data centers need to optimize
+their resource management. Yet these techniques are performed with the granularity of a full server
+machine, which makes resource management far from well optimized. Server virtualization enables
+smaller resource allocation than a physical machine.
+In general, the use of VMs increases resource management complexity. This causes a challenge
+in terms of how to improve resource utilization as well as guarantee QoS in data centers. In detail,
+server virtualization has the following side effects:
+•
+Consolidation enhances hardware utilization. Many underutilized servers are consolidated into
+fewer servers to enhance resource utilization. Consolidation also facilitates backup services and
+disaster recovery.
+•
+This approach enables more agile provisioning and deployment of resources. In a virtual
+environment, the images of the guest OSes and their applications are readily cloned and reused.
+•
+The total cost of ownership is reduced. In this sense, server virtualization causes deferred
+purchases of new servers, a smaller data-center footprint, lower maintenance costs, and lower
+power, cooling, and cabling requirements.
+•
+This approach improves availability and business continuity. The crash of a guest OS has no
+effect on the host OS or any other guest OS. It becomes easier to transfer a VM from one
+server to another, because virtual servers are unaware of the underlying hardware.
+To automate data-center operations, one must consider resource scheduling, architectural support,
+power management, automatic or autonomic resource management, performance of analytical mod-
+els, and so on. In virtualized data centers, an efficient, on-demand, fine-grained scheduler is one of
+the key factors to improve resource utilization. Scheduling and reallocations can be done in a wide
+range of levels in a set of data centers. The levels match at least at the VM level, server level,
+and data-center level. Ideally, scheduling and resource reallocations should be done at all levels.
+However, due to the complexity of this, current techniques only focus on a single level or, at most,
+two levels.
+Dynamic CPU allocation is based on VM utilization and application-level QoS metrics. One
+method considers both CPU and memory flowing as well as automatically adjusting resource over-
+head based on varying workloads in hosted services. Another scheme uses a two-level resource
+management system to handle the complexity involved. A local controller at the VM level and a
+global controller at the server level are designed. They implement autonomic resource allocation via
+the interaction of the local and global controllers. Multicore and virtualization are two cutting tech-
+niques that can enhance each other.
+However, the use of CMP is far from well optimized. The memory system of CMP is a typical
+example. One can design a virtual hierarchy on a CMP in data centers. One can consider protocols
+that minimize the memory access time, inter-VM interferences, facilitating VM reassignment, and
+supporting inter-VM sharing. One can also consider a VM-aware power budgeting scheme using
+multiple managers integrated to achieve better power management. The power budgeting policies
+cannot ignore the heterogeneity problems. Consequently, one must address the trade-off of power
+saving and data-center performance.
+170
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+3.5.2 Virtual Storage Management
+The term “storage virtualization” was widely used before the renaissance of system virtualization. Yet
+the term has a different meaning in a system virtualization environment. Previously, storage virtualiza-
+tion was largely used to describe the aggregation and repartitioning of disks at very coarse time scales
+for use by physical machines. In system virtualization, virtual storage includes the storage managed by
+VMMs and guest OSes. Generally, the data stored in this environment can be classified into two cate-
+gories: VM images and application data. The VM images are special to the virtual environment, while
+application data includes all other data which is the same as the data in traditional OS environments.
+The most important aspects of system virtualization are encapsulation and isolation. Traditional
+operating systems and applications running on them can be encapsulated in VMs. Only one operating
+system runs in a virtualization while many applications run in the operating system. System virtuali-
+zation allows multiple VMs to run on a physical machine and the VMs are completely isolated. To
+achieve encapsulation and isolation, both the system software and the hardware platform, such as
+CPUs and chipsets, are rapidly updated. However, storage is lagging. The storage systems become
+the main bottleneck of VM deployment.
+In virtualization environments, a virtualization layer is inserted between the hardware and tradi-
+tional operating systems or a traditional operating system is modified to support virtualization. This
+procedure complicates storage operations. On the one hand, storage management of the guest OS per-
+forms as though it is operating in a real hard disk while the guest OSes cannot access the hard disk
+directly. On the other hand, many guest OSes contest the hard disk when many VMs are running on a
+single physical machine. Therefore, storage management of the underlying VMM is much more com-
+plex than that of guest OSes (traditional OSes).
+In addition, the storage primitives used by VMs are not nimble. Hence, operations such as remap-
+ping volumes across hosts and checkpointing disks are frequently clumsy and esoteric, and sometimes
+simply unavailable. In data centers, there are often thousands of VMs, which cause the VM images to
+become flooded. Many researchers tried to solve these problems in virtual storage management. The
+main purposes of their research are to make management easy while enhancing performance and redu-
+cing the amount of storage occupied by the VM images. Parallax is a distributed storage system custo-
+mized for virtualization environments. Content Addressable Storage (CAS) is a solution to reduce the
+total size of VM images, and therefore supports a large set of VM-based systems in data centers.
+Since traditional storage management techniques do not consider the features of storage in virtualization
+environments, Parallax designs a novel architecture in which storage features that have traditionally been
+implemented directly on high-end storage arrays and switchers are relocated into a federation of storage
+VMs. These storage VMs share the same physical hosts as the VMs that they serve. Figure 3.30 provides
+an overview of the Parallax system architecture. It supports all popular system virtualization techniques,
+such as paravirtualization and full virtualization. For each physical machine, Parallax customizes a special
+storage appliance VM. The storage appliance VM acts as a block virtualization layer between individual
+VMs and the physical storage device. It provides a virtual disk for each VM on the same physical machine.
+Example 3.11 Parallax Providing Virtual Disks to Client VMs from a Large Common
+Shared Physical Disk
+The architecture of Parallax is scalable and especially suitable for use in cluster-based environments.
+Figure 3.26 shows a high-level view of the structure of a Parallax-based cluster. A cluster-wide administrative
+domain manages all storage appliance VMs, which makes storage management easy. The storage appliance
+3.5 Virtualization for Data-Center Automation
+171
+
+VM also allows functionality that is currently implemented within data-center hardware to be pushed out and
+implemented on individual hosts. This mechanism enables advanced storage features such as snapshot
+facilities to be implemented in software and delivered above commodity network storage targets.
+Parallax itself runs as a user-level application in the storage appliance VM. It provides virtual disk images
+(VDIs) to VMs. A VDI is a single-writer virtual disk which may be accessed in a location-transparent manner
+from any of the physical hosts in the Parallax cluster. The VDIs are the core abstraction provided by Parallax.
+Parallax uses Xen’s block tap driver to handle block requests and it is implemented as a tapdisk library. This
+library acts as a single block virtualization service for all client VMs on the same physical host. In the Parallax
+system, it is the storage appliance VM that connects the physical hardware device for block and network
+access. As shown in Figure 3.30, physical device drivers are included in the storage appliance VM. This imple-
+mentation enables a storage administrator to live-upgrade the block device drivers in an active cluster.
+3.5.3 Cloud OS for Virtualized Data Centers
+Data centers must be virtualized to serve as cloud providers. Table 3.6 summarizes four virtual
+infrastructure (VI) managers and OSes. These VI managers and OSes are specially tailored for
+virtualizing data centers which often own a large number of servers in clusters. Nimbus, Eucalyptus,
+Storage
+appliance
+VM
+Physical hosts
+VM
+VMM (Xen)
+VMM (Xen)
+VMM (Xen)
+VM
+VM
+Storage
+appliance
+VM
+VM
+VM
+VM
+Storage
+appliance
+VM
+VM
+VM
+VM
+Storage administration domain
+Storage functionality such as snapshot
+facilities that are traditionally
+implemented within storage devices
+are pushed out into per-host storage
+appliance VMs, which interact with a
+simple shared block device and may
+also use local physical disks.
+Shared block device
+Any network block device
+may be used: FC, iSCSI,
+AoE, GNBD, NFS-based
+file, Petal, etc.
+FIGURE 3.26
+Parallax is a set of per-host storage appliances that share access to a common block device and presents
+virtual disks to client VMs.
+(Courtesy of D. Meyer, et al. [43] )
+172
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+and OpenNebula are all open source software available to the general public. Only vSphere 4 is a
+proprietary OS for cloud resource virtualization and management over data centers.
+These VI managers are used to create VMs and aggregate them into virtual clusters as elastic
+resources. Nimbus and Eucalyptus support essentially virtual networks. OpenNebula has additional
+features to provision dynamic resources and make advance reservations. All three public VI
+managers apply Xen and KVM for virtualization. vSphere 4 uses the hypervisors ESX and ESXi
+from VMware. Only vSphere 4 supports virtual storage in addition to virtual networking and data
+protection. We will study Eucalyptus and vSphere 4 in the next two examples.
+Example 3.12 Eucalyptus for Virtual Networking of Private Cloud
+Eucalyptus is an open source software system (Figure 3.27) intended mainly for supporting Infrastructure
+as a Service (IaaS) clouds. The system primarily supports virtual networking and the management of VMs;
+virtual storage is not supported. Its purpose is to build private clouds that can interact with end users
+through Ethernet or the Internet. The system also supports interaction with other private clouds or public
+clouds over the Internet. The system is short on security and other desired features for general-purpose
+grid or cloud applications.
+The designers of Eucalyptus [45] implemented each high-level system component as a stand-alone
+web service. Each web service exposes a well-defined language-agnostic API in the form of a WSDL
+document containing both operations that the service can perform and input/output data structures.
+Table 3.6 VI Managers and Operating Systems for Virtualizing Data Centers [9]
+Manager/
+OS,
+Platforms,
+License
+Resources Being
+Virtualized, Web
+Link
+Client
+API,
+Language
+Hypervisors
+Used
+Public
+Cloud
+Interface
+Special
+Features
+Nimbus
+Linux,
+Apache v2
+VM creation, virtual
+cluster, www
+.nimbusproject.org/
+EC2 WS,
+WSRF, CLI
+Xen, KVM
+EC2
+Virtual
+networks
+Eucalyptus
+Linux, BSD
+Virtual networking
+(Example 3.12 and
+[41]), www
+.eucalyptus.com/
+EC2 WS,
+CLI
+Xen, KVM
+EC2
+Virtual
+networks
+OpenNebula
+Linux,
+Apache v2
+Management of VM,
+host, virtual network,
+and scheduling tools,
+www.opennebula.org/
+XML-RPC,
+CLI, Java
+Xen, KVM
+EC2, Elastic
+Host
+Virtual
+networks,
+dynamic
+provisioning
+vSphere 4
+Linux,
+Windows,
+proprietary
+Virtualizing OS for
+data centers
+(Example 3.13), www
+.vmware.com/
+products/vsphere/ [66]
+CLI, GUI,
+Portal, WS
+VMware
+ESX, ESXi
+VMware
+vCloud
+partners
+Data
+protection,
+vStorage,
+VMFS, DRM,
+HA
+3.5 Virtualization for Data-Center Automation
+173
+
+Furthermore, the designers leverage existing web-service features such as WS-Security policies for
+secure communication between components. The three resource managers in Figure 3.27 are specified
+below:
+•
+Instance Manager controls the execution, inspection, and terminating of VM instances on the host
+where it runs.
+•
+Group Manager gathers information about and schedules VM execution on specific instance managers,
+as well as manages virtual instance network.
+•
+Cloud Manager is the entry-point into the cloud for users and administrators. It queries node managers
+for information about resources, makes scheduling decisions, and implements them by making
+requests to group managers.
+In terms of functionality, Eucalyptus works like AWS APIs. Therefore, it can interact with EC2. It does
+provide a storage API to emulate the Amazon S3 API for storing user data and VM images. It is installed
+on Linux-based platforms, is compatible with EC2 with SOAP and Query, and is S3-compatible with SOAP
+and REST. CLI and web portal services can be applied with Eucalyptus.
+Example 3.13 VMware vSphere 4 as a Commercial Cloud OS [66]
+The vSphere 4 offers a hardware and software ecosystem developed by VMware and released in April
+2009. vSphere extends earlier virtualization software products by VMware, namely the VMware Workstation,
+ESX for server virtualization, and Virtual Infrastructure for server clusters. Figure 3.28 shows vSphere’s
+CM
+GM
+Public
+network
+Private
+network
+Cluster A
+Cluster B
+GM
+Private
+network
+IM
+IM
+IM
+IM
+IM
+IM
+IM
+IM
+FIGURE 3.27
+Eucalyptus for building private clouds by establishing virtual networks over the VMs linking through
+Ethernet and the Internet.
+(Courtesy of D. Nurmi, et al. [45] )
+174
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+overall architecture. The system interacts with user applications via an interface layer, called vCenter.
+vSphere is primarily intended to offer virtualization support and resource management of data-center
+resources in building private clouds. VMware claims the system is the first cloud OS that supports
+availability, security, and scalability in providing cloud computing services.
+The vSphere 4 is built with two functional software suites: infrastructure services and application
+services. It also has three component packages intended mainly for virtualization purposes: vCompute is
+supported by ESX, ESXi, and DRS virtualization libraries from VMware; vStorage is supported by VMS and
+Future applications
+Security
+Scalability
+Availability
+Application
+services
+VMotion
+Storage vMotion
+High availability
+Fault tolerance
+Data recovery
+ESX
+ESXi
+DRS
+VMFS
+Thin provisioning
+Distributed Switch
+vNetwork
+vStorage
+vCompute
+Internal cloud
+External cloud
+vShield zones
+VMSafe
+DRS
+Hot add
+Infrastructure
+services
+Existing applications
+App
+App
+App
+App
+App
+App
+App
+App
+VMware vSphere 4
+VMware vCenter Suite
+FIGURE 3.28
+vSphere/4, a cloud operating system that manages compute, storage, and network resources over
+virtualized data centers.
+(Courtesy of VMware, April 2010 [72] )
+3.5 Virtualization for Data-Center Automation
+175
+
+thin provisioning libraries; and vNetwork offers distributed switching and networking functions. These
+packages interact with the hardware servers, disks, and networks in the data center. These infrastructure
+functions also communicate with other external clouds.
+The application services are also divided into three groups: availability, security, and scalability.
+Availability support includes VMotion, Storage VMotion, HA, Fault Tolerance, and Data Recovery from
+VMware. The security package supports vShield Zones and VMsafe. The scalability package was built with
+DRS and Hot Add. Interested readers should refer to the vSphere 4 web site for more details regarding
+these component software functions. To fully understand the use of vSphere 4, users must also learn how
+to use the vCenter interfaces in order to link with existing applications or to develop new applications.
+3.5.4 Trust Management in Virtualized Data Centers
+A VMM changes the computer architecture. It provides a layer of software between the operating
+systems and system hardware to create one or more VMs on a single physical platform. A VM
+entirely encapsulates the state of the guest operating system running inside it. Encapsulated machine
+state can be copied and shared over the network and removed like a normal file, which proposes a
+challenge to VM security. In general, a VMM can provide secure isolation and a VM accesses hard-
+ware resources through the control of the VMM, so the VMM is the base of the security of a virtual
+system. Normally, one VM is taken as a management VM to have some privileges such as creating,
+suspending, resuming, or deleting a VM.
+Once a hacker successfully enters the VMM or management VM, the whole system is in danger.
+A subtler problem arises in protocols that rely on the “freshness” of their random number source for
+generating session keys. Considering a VM, rolling back to a point after a random number has been
+chosen, but before it has been used, resumes execution; the random number, which must be “fresh”
+for security purposes, is reused. With a stream cipher, two different plaintexts could be encrypted
+under the same key stream, which could, in turn, expose both plaintexts if the plaintexts have suffi-
+cient redundancy. Noncryptographic protocols that rely on freshness are also at risk. For example,
+the reuse of TCP initial sequence numbers can raise TCP hijacking attacks.
+3.5.4.1 VM-Based Intrusion Detection
+Intrusions are unauthorized access to a certain computer from local or network users and intrusion
+detection is used to recognize the unauthorized access. An intrusion detection system (IDS) is built
+on operating systems, and is based on the characteristics of intrusion actions. A typical IDS can be
+classified as a host-based IDS (HIDS) or a network-based IDS (NIDS), depending on the data
+source. A HIDS can be implemented on the monitored system. When the monitored system is
+attacked by hackers, the HIDS also faces the risk of being attacked. A NIDS is based on the flow
+of network traffic which can’t detect fake actions.
+Virtualization-based intrusion detection can isolate guest VMs on the same hardware platform.
+Even some VMs can be invaded successfully; they never influence other VMs, which is similar to
+the way in which a NIDS operates. Furthermore, a VMM monitors and audits access requests for
+hardware and system software. This can avoid fake actions and possess the merit of a HIDS. There
+are two different methods for implementing a VM-based IDS: Either the IDS is an independent
+process in each VM or a high-privileged VM on the VMM; or the IDS is integrated into the VMM
+176
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers
+
+and has the same privilege to access the hardware as well as the VMM. Garfinkel and Rosenblum
+[17] have proposed an IDS to run on a VMM as a high-privileged VM. Figure 3.29 illustrates
+the concept.
+The VM-based IDS contains a policy engine and a policy module. The policy framework can
+monitor events in different guest VMs by operating system interface library and PTrace indicates
+trace to secure policy of monitored host. It’s difficult to predict and prevent all intrusions without
+delay. Therefore, an analysis of the intrusion action is extremely important after an intrusion occurs.
+At the time of this writing, most computer systems use logs to analyze attack actions, but it is hard to
+ensure the credibility and integrity of a log. The IDS log service is based on the operating system ker-
+nel. Thus, when an operating system is invaded by attackers, the log service should be unaffected.
+Besides IDS, honeypots and honeynets are also prevalent in intrusion detection. They attract and
+provide a fake system view to attackers in order to protect the real system. In addition, the attack
+action can be analyzed, and a secure IDS can be built. A honeypot is a purposely defective system
+that simulates an operating system to cheat and monitor the actions of an attacker. A honeypot can
+be divided into physical and virtual forms. A guest operating system and the applications running
+on it constitute a VM. The host operating system and VMM must be guaranteed to prevent attacks
+from the VM in a virtual honeypot.
+Example 3.14 EMC Establishment of Trusted Zones for Protection of Virtual Clusters
+Provided to Multiple Tenants
+EMC and VMware have joined forces in building security middleware for trust management in distribu-
+ted systems and private clouds. The concept of trusted zones was established as part of the virtual
+infrastructure. Figure 3.30 illustrates the concept of creating trusted zones for virtual clusters (multiple
+Monitored host
+APP
+APP
+Guest OS
+PTrace
+Virtual machine
+IDS
+Virtual machine monitor
+OS interface library
+Policy
+framework
+Policy engine
+Policy module
+FIGURE 3.29
+The architecture of livewire for intrusion detection using a dedicated VM.
+(Courtesy of Garfinkel and Rosenblum, 2002 [17] )
+3.5 Virtualization for Data-Center Automation
+177
+
+applications and OSes for each tenant) provisioned in separate virtual environments. The physical
+infrastructure is shown at the bottom, and marked as a cloud provider. The virtual clusters or infrastruc-
+tures are shown in the upper boxes for two tenants. The public cloud is associated with the global user
+communities at the top.
+The arrowed boxes on the left and the brief description between the arrows and the zoning boxes are
+security functions and actions taken at the four levels from the users to the providers. The small circles
+between the four boxes refer to interactions between users and providers and among the users
+themselves. The arrowed boxes on the right are those functions and actions applied between the tenant
+environments, the provider, and the global communities.
+Almost all available countermeasures, such as anti-virus, worm containment, intrusion detection,
+encryption and decryption mechanisms, are applied here to insulate the trusted zones and isolate the
+VMs for private tenants. The main innovation here is to establish the trust zones among the virtual clusters.
+Federate
+identities with
+public clouds
+Identity
+federation
+Virtual
+network
+security
+Access
+Mgmt
+Segregate and
+control user
+access
+Enable end to
+end view of
+security events
+and compliance
+across
+infrastructures
+Insulate
+information
+from cloud
+providers’
+employees
+Insulate
+information
+from other
+tenants
+Insulate
+infrastructure
+from malware,
+Trojans and
+cybercriminals
+Anti-malware
+Cybercrime
+intelligence
+Strong
+authentication
+Data loss
+prevention
+Encryption &
+key mgmt
+Tokenization
+Security
+info. &
+event
+mgmt
+Control and
+isolate VM in the
+virtual
+infrastructure
+Virtual infrastructure
+Virtual infrastructure
+Physical infrastructure
+Cloud provider
+Tenant
+#2
+Tenant
+#1
+APP
+APP
+OS
+OS
+APP
+APP
+OS
+OS
+FIGURE 3.30
+Techniques for establishing trusted zones for virtual cluster insulation and VM isolation.
+(Courtesy of L. Nick, EMC [40] )
+178
+CHAPTER 3 Virtual Machines and Virtualization of Clusters and Data Centers

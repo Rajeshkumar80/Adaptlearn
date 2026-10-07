@@ -1,0 +1,1483 @@
+1 
+ 
+JBOS 10.02.2023 / V5 
+ 
+VISVESVARAYA TECHNOLOGICAL UNIVERSITY, BELAGAVI 
+B.E. in Computer Science and Engineering 
+Scheme of Teaching and Examinations 2022 
+Outcome Based Education (OBE) and Choice Based Credit System (CBCS) 
+(Effective from the academic year 2023-24) 
+III SEMESTER 
+Sl. 
+No 
+ 
+Course  
+ 
+ 
+Course 
+Code 
+ 
+Course Title 
+Teaching Department 
+(TD) and Question 
+Paper Setting Board  
+(PSB) 
+Teaching Hours /Week 
+Examination 
+C
+r
+e
+d
+i
+t
+s 
+Theory 
+Lecture 
+Tut
+orial 
+Prac
+tical
+/ 
+Dra
+win
+g 
+SDA 
+Dur
+atio
+n in 
+hou
+rs 
+CIE  
+Mar
+ks 
+SEE 
+Mar
+ks 
+Total 
+Marks 
+L 
+T 
+P 
+S 
+ 
+1 
+PCC/BS
+C 
+BCS301 
+Mathematics for Computer Science  
+TD: Maths 
+PSB: Maths/CS 
+3 
+2 
+0 
+ 
+03 
+50 
+50 
+100 
+4 
+2 
+IPCC 
+BCS302 
+Digital Design & Computer 
+Organization  
+TD: CS 
+PSB : CS 
+3 
+0 
+2 
+ 
+03 
+50 
+50 
+100 
+4 
+3 
+IPCC 
+BCS303 
+Operating Systems  
+TD: CS 
+PSB : CS 
+3 
+0 
+2 
+ 
+03 
+50 
+50 
+100 
+4 
+4 
+PCC 
+ 
+BCS304 
+Data Structures and Applications 
+TD: CS 
+PSB : CS 
+3 
+0 
+0 
+ 
+03 
+50 
+50 
+100 
+3 
+5 
+PCCL 
+BCSL305 
+Data Structures Lab 
+TD: CS 
+PSB : CS 
+0 
+0 
+2 
+ 
+03 
+50 
+50 
+100 
+1 
+6 
+ESC 
+BCS306x 
+ESC/ETC/PLC 
+TD: CS 
+PSB : CS 
+2 
+0 
+2 
+ 
+03 
+50 
+50 
+100 
+3 
+7 
+UHV 
+BSCK307 
+Social Connect and Responsibility 
+Any Department 
+0 
+0 
+2 
+ 
+01 
+100 
+--- 
+100 
+1 
+8 
+AEC/ 
+SEC 
+BCS358x 
+Ability Enhancement Course/Skill Enhancement 
+Course - III 
+TD: Concerned 
+department 
+PSB:CS 
+If the course is a Theory 
+01 
+50 
+50 
+100 
+1 
+1 
+0 
+0 
+ 
+If a course is a laboratory 
+02 
+0 
+0 
+2 
+ 
+9 
+MC 
+BNSK359 
+National Service Scheme (NSS) 
+NSS coordinator 
+0 
+0 
+2 
+ 
+ 
+100 
+--- 
+100 
+0 
+BPEK359 
+Physical Education (PE) (Sports and 
+Athletics) 
+Physical Education 
+Director 
+BYOK359 
+Yoga 
+Yoga Teacher 
+Total 
+550 
+350 
+900 
+2
+1 
+2 
+ 
+JBOS 10.02.2023 / V5 
+PCC: Professional Core Course, PCCL: Professional Core Course laboratory, UHV: Universal Human Value Course, MC: Mandatory Course (Non-credit), AEC: Ability 
+Enhancement Course, SEC:  Skill Enhancement Course, L: Lecture, T: Tutorial, P: Practical S= SDA: Skill Development Activity, CIE: Continuous Internal Evaluation, SEE: 
+Semester End Evaluation.K :This  letter in the course code indicates common to all  the stream of engineering. ESC: Engineering Science Course, ETC: Emerging 
+Technology Course, PLC: Programming Language Course 
+.  
+Engineering Science Course (ESC/ETC/PLC) (Note- Student should opt for the course which should not be similar to the course opted in 1st Year) 
+BCS306A 
+Object Oriented Programming  with Java 
+ 
+ 
+BCS306B 
+Object Oriented Programming  with C++ 
+ 
+ 
+Ability Enhancement Course – III 
+BCSL358A 
+Data analytics with Excel 
+BCSL358C 
+Project Management  with Git 
+BCSL358B 
+R  Programming   
+BCSL358D 
+Data Visualization with Python 
+Professional Core Course (IPCC): Refers to Professional Core Course Theory Integrated with practicals of the same course. Credit for IPCC can be 04 and its Teaching–
+Learning hours (L : T : P) can be considered as  (3 : 0 : 2) or (2 : 2 : 2). The theory part of the IPCC shall be evaluated both by CIE and SEE. The practical part shall be 
+evaluated by only CIE (no SEE).  However, questions from the practical part of IPCC shall be included in the SEE question paper. For more details, the regulation governing 
+the Degree of Bachelor of Engineering /Technology (B.E./B.Tech.) 2022-23 may please be refered. 
+ 
+National Service Scheme /Physical Education/Yoga:  All students have to register for any one of the courses namely National Service Scheme (NSS), Physical Education 
+(PE)(Sports and Athletics), and  Yoga(YOG) with the concerned coordinator of the course during the first week of III semesters.  Activities shall be carried out between 
+III semester to the VI semester (for 4 semesters). Successful completion of the registered course and requisite CIE score is mandatory for the award of the degree. The 
+events shall be appropriately scheduled by the colleges and the same shall be reflected in the calendar prepared for the NSS, PE, and Yoga activities. These courses shall 
+not be considered for vertical progression as well as for the calculation of SGPA and CGPA, but completion of the course is mandatory for the award of degree. 
+ 
+ 
+ 
+3 
+ 
+JBOS 10.02.2023 / V5 
+ 
+VARAYA TECHNOLOGICAL UNIVERSITY, BELAGAVI 
+B.E. in Computer Science and Engineering 
+Scheme of Teaching and Examinations2022 
+Outcome Based Education (OBE) and Choice Based Credit System (CBCS) 
+(Effective from the academic year 2023-24) 
+IV SEMESTER 
+Sl. 
+No 
+ 
+Course and 
+Course Code 
+ 
+Course Title 
+Teaching 
+Department (TD) 
+and Question 
+Paper Setting 
+Board  (PSB) 
+Teaching Hours /Week 
+Examination 
+C
+r
+e
+d
+it
+s 
+The
+ory 
+Lect
+ure 
+T
+u
+t
+o
+ri
+a
+l 
+Prac
+tical
+/ 
+Dra
+win
+g 
+Self -
+Study 
+Dur
+atio
+n in 
+hou
+rs 
+CIE  
+Mar
+ks 
+SEE 
+Mark
+s 
+Total 
+Mar
+ks 
+L 
+T 
+P 
+S 
+1 
+PCC/BS
+C 
+BCS401 
+Analysis & Design of Algorithms  
+TD: CS 
+PSB : CS 
+3 
+0 
+0 
+ 
+03 
+50 
+50 
+100 
+3 
+2 
+IPCC 
+BCS402 
+Microcontrollers  
+TD: CS 
+PSB : CS 
+3 
+0 
+2 
+ 
+03 
+50 
+50 
+100 
+4 
+3 
+IPCC 
+BCS403 
+Database Management Systems 
+TD: CS 
+PSB : CS 
+3 
+0 
+2 
+ 
+03 
+50 
+50 
+100 
+4 
+4 
+PCCL 
+BCSL404 
+Analysis & Design of Algorithms Lab 
+TD: CS 
+PSB : CS 
+0 
+0 
+2 
+ 
+03 
+50 
+50 
+100 
+1 
+5 
+ESC 
+BCS405x 
+ESC/ETC/PLC  
+TD: CS/Maths 
+PSB : CS/Maths 
+2 
+2 
+0 
+ 
+03 
+50 
+50 
+100 
+3 
+6 
+AEC/ 
+SEC 
+BCS456x 
+Ability Enhancement Course/Skill 
+Enhancement Course- IV 
+TD: Concerned 
+department 
+PSB:CS 
+If the course is Theory 
+01 
+50 
+50 
+100 
+1 
+1 
+0 
+0 
+ 
+If the course is a lab 
+02 
+0 
+0 
+2 
+ 
+4 
+BSC 
+BBOC407 
+Biology for Computer Engineers  
+TD / PSB: BT, CHE,  
+2 
+0 
+0 
+ 
+03 
+50 
+50 
+100 
+2 
+7 
+UHV 
+BUHK408 
+Universal human values course 
+Any Department 
+1 
+0 
+0 
+ 
+01 
+50 
+50 
+100 
+1 
+9 
+MC 
+BNSK459 
+National Service Scheme (NSS) 
+NSS coordinator 
+0 
+0 
+2 
+ 
+ 
+100 
+--- 
+100 
+0 
+BPEK459 
+Physical Education (PE) (Sports and Athletics) 
+Physical Education 
+Director 
+ 
+ 
+BYOK459 
+Yoga 
+Yoga Teacher 
+ 
+ 
+Total 
+500 
+400 
+900 
+19 
+4 
+ 
+JBOS 10.02.2023 / V5 
+PCC: Professional Core Course, PCCL: Professional Core Course laboratory, UHV: Universal Human Value Course, MC: Mandatory Course (Non-credit), AEC: Ability 
+Enhancement Course, SEC:  Skill Enhancement Course, L: Lecture, T: Tutorial, P: Practical S= SDA: Skill Development Activity, CIE: Continuous Internal Evaluation, SEE: 
+Semester End Evaluation. K :This letter in the course code indicates common to all the stream of engineering. 
+ 
+Ability Enhancement Course / Skill Enhancement Course – IV 
+BCS456A 
+Green IT and Sustainability 
+BCS456C 
+UI/UX 
+BCS456B 
+Capacity Planning for IT 
+BCSL456D 
+Technical writing using LATEX 
+Engineering Science Course (ESC/ETC/PLC) 
+BCS405A 
+Discrete Mathematical Structures 
+BCS405C 
+Optimization Technique 
+BCS405B 
+Graph Theory 
+BCS405D 
+Linear Algebra 
+Professional Core Course (IPCC): Refers to Professional Core Course Theory Integrated with practical of the same course. Credit for IPCC can be 04 and its Teaching–
+Learning hours (L : T : P) can be considered as  (3 : 0 : 2) or (2 : 2 : 2). The theory part of the IPCC shall be evaluated both by CIE and SEE. The practical part shall be 
+evaluated by only CIE (no SEE).  However, questions from the practical part of IPCC shall be included in the SEE question paper. For more details, the regulation governing 
+the Degree of Bachelor of Engineering /Technology (B.E./B.Tech.) 2022-23 
+National Service Scheme /Physical Education/Yoga:  All students have to register for any one of the courses namely National Service Scheme (NSS), Physical Education 
+(PE)(Sports and Athletics), and  Yoga(YOG) with the concerned coordinator of the course during the first week of III semesters.  Activities shall be carried out between 
+III semester to the VI semester (for 4 semesters). Successful completion of the registered course and requisite CIE score is mandatory for the award of the degree. The 
+events shall be appropriately scheduled by the colleges and the same shall be reflected in the calendar prepared for the NSS, PE, and Yoga activities. These courses shall 
+not be considered for vertical progression as well as for the calculation of SGPA and CGPA, but completion of the courses is mandatory for the award of degree. 
+ 
+ 
+ 
+5 
+ 
+JBOS 10.02.2023 / V5 
+VISVESVARAYA TECHNOLOGICAL UNIVERSITY, BELAGAVI 
+B.E. in Computer Science and Engineering 
+B.E. in the title of the program 
+Scheme of Teaching and Examinations 2022 
+Outcome Based Education (OBE) and Choice Based Credit System (CBCS) 
+(Effective from the academic year 2023-24) 
+V SEMESTER 
+Sl. 
+No 
+ 
+Course and 
+Course Code 
+ 
+Course Title 
+Teaching 
+Department (TD) 
+and Question Paper 
+Setting Board  
+(PSB) 
+Teaching Hours /Week 
+Examination 
+C
+r
+e
+d
+it
+s 
+The
+ory 
+Lect
+ure 
+T
+u
+t
+o
+ri
+a
+l 
+Prac
+tical
+/ 
+Dra
+win
+g 
+SDA 
+Dur
+atio
+n in 
+hou
+rs 
+CIE  
+Mar
+ks 
+SEE 
+Mark
+s 
+Total 
+Mar
+ks 
+L 
+T 
+P 
+S 
+1 
+PCC 
+BCS501 
+Software Engineering & Project 
+Management 
+TD: CS 
+PSB : CS 
+3 
+0 
+0 
+ 
+03 
+50 
+50 
+100 
+3 
+2 
+IPCC 
+BCS502 
+Computer Networks  
+TD: CS 
+PSB : CS 
+3 
+0 
+2 
+ 
+03 
+50 
+50 
+100 
+4 
+3 
+PCC 
+BCS503 
+Theory of Computation 
+TD: CS 
+PSB : CS 
+3 
+2 
+0 
+ 
+03 
+50 
+50 
+100 
+4 
+4 
+PCCL 
+BCSL504 
+ Web Technology Lab 
+TD: CS 
+PSB : CS 
+0 
+0 
+2 
+ 
+03 
+50 
+50 
+100 
+1 
+5 
+PEC 
+BCS515x 
+Professional Elective Course 
+TD: CS 
+PSB : CS 
+3 
+0 
+0 
+ 
+03 
+50 
+50 
+100 
+3 
+6 
+PROJ 
+BCS586 
+Mini Project 
+TD: CS 
+PSB : CS 
+0 
+0 
+4 
+ 
+03 
+100 
+ 
+100 
+2 
+7 
+AEC 
+BRMK557 
+Research Methodology and IPR 
+TD: HSM 
+PSB : HSM 
+2 
+2 
+0 
+ 
+02 
+50 
+50 
+100 
+3 
+8 
+HSMS 
+BCS508 
+Environmental Studies and E-waste 
+Management 
+TD: HSM 
+PSB : HSM 
+2 
+0 
+0 
+ 
+01 
+50 
+50 
+100 
+2 
+9 
+MC 
+BNSK559 
+National Service Scheme (NSS) 
+NSS coordinator 
+0 
+0 
+2 
+ 
+ 
+100 
+ 
+100 
+0 
+BPEK559 
+Physical Education (PE) (Sports and Athletics) 
+Physical Education 
+Director 
+BYOK559 
+Yoga 
+Yoga Teacher 
+Total 
+500 
+300 
+800 
+22 
+Professional Elective Course 
+6 
+ 
+JBOS 10.02.2023 / V5 
+BCS515A 
+Computer Graphics 
+BCS515C 
+Unix System Programming 
+BCS515B 
+Artificial Intelligence 
+BCS515D 
+Distributed Systems 
+PCC: Professional Core Course, PCCL: Professional Core Course laboratory, UHV: Universal Human Value Course, MC: Mandatory Course (Non-credit), AEC: Ability 
+Enhancement Course, SEC:  Skill Enhancement Course, L: Lecture, T: Tutorial, P: Practical S= SDA: Skill Development Activity, CIE: Continuous Internal Evaluation, SCS: 
+Semester End Evaluation. K : The letter in the course code indicates common to all the streams of engineering.  PROJ: Project /Mini Project. PEC: Professional Elective 
+Course 
+Professional Core Course (IPCC): Refers to Professional Core Course Theory Integrated with practicals of the same course. Credit for IPCC can be 04 and its Teaching–
+Learning hours (L : T : P) can be considered as  (3 : 0 : 2) or (2 : 2 : 2). The theory part of the IPCC shall be evaluated both by CIE and SEE. The practical part shall be 
+evaluated by only CIE (no SEE).  However, questions from the practical part of IPCC shall be included in the SEE question paper. For more details, the regulation governing 
+the Degree of Bachelor of Engineering /Technology (B.E./B.Tech.) 2022-23 
+National Service Scheme /Physical Education/Yoga:  All students have to register for any one of the courses namely National Service Scheme (NSS), Physical Education 
+(PE)(Sports and Athletics), and  Yoga(YOG) with the concerned coordinator of the course during the first week of III semesters.  Activities shall be carried out between 
+III semester to the VI semester (for 4 semesters). Successful completion of the registered course and requisite CIE score is mandatory for the award of the degree. The 
+events shall be appropriately scheduled by the colleges and the same shall be reflected in the calendar prepared for the NSS, PE, and Yoga activities. These courses shall 
+not be considered for vertical progression as well as for the calculation of SGPA and CGPA, but completion of the course is mandatory for the award of degree. 
+Mini-project work: Mini Project is a laboratory-oriented/hands on  course that will provide a platform to students to enhance their practical knowledge and skills by 
+the development of small systems/applications etc.  Based on the ability/abilities of the student/s and recommendations of the mentor, a single discipline or a 
+multidisciplinary Mini- project can be assigned to an individual student or to a group having not more than 4 students.  
+CIE procedure for Mini-project:  
+(i)  Single discipline: The CIE marks shall be awarded by a committee consisting of the Head of the concerned Department and two faculty members of the Department, 
+one of them being the Guide. The CIE marks awarded for the Mini-project work shall be based on the evaluation of the project report, project presentation skill, and 
+question and answer session in the ratio of 50:25:25. The marks awarded for the project report shall be the same for all the batches mates.  
+(ii)  Interdisciplinary: Continuous Internal Evaluation shall be group-wise at the college level with the participation of all the guides of the project.  
+The CIE marks awarded for the Mini-project, shall be based on the evaluation of the project report, project presentation skill, and question and answer session in the 
+ratio 50:25:25. The marks awarded for the project report shall be the same for all the batch mates.   
+No SEE component for Mini-Project. 
+ 
+Professional Elective Courses (PEC): A professional elective (PEC) course is intended to enhance the depth and breadth of educational experience in the Engineering 
+and Technology curriculum. Multidisciplinary courses that are added supplement the latest trend and advanced technology in the selected stream of engineering.  Each 
+group will provide an option to select one course. The minimum number of students’ strengths for offering a professional elective is 10. However, this conditional shall 
+not be applicable to cases where the admission to the program is less than 10. 
+7 
+ 
+JBOS 10.02.2023 / V5 
+ 
+ 
+ 
+8 
+ 
+JBOS 10.02.2023 / V5 
+VISVESVARAYA TECHNOLOGICAL UNIVERSITY, BELAGAVI 
+ 
+B.E. in Computer Science and Engineering 
+ 
+Scheme of Teaching and Examinations2022 
+Outcome Based Education (OBE) and Choice Based Credit System (CBCS) 
+(Effective from the academic year 2023-24) 
+VI SEMESTER 
+Sl. 
+No 
+ 
+Course and 
+Course Code 
+ 
+Course Title 
+Teaching 
+Department (TD) 
+and Question 
+Paper Setting 
+Board  (PSB) 
+Teaching Hours /Week 
+Examination 
+C
+r
+e
+d
+it
+s 
+The
+ory 
+Lect
+ure 
+T
+u
+t
+o
+ri
+al 
+Prac
+tical
+/ 
+Dra
+win
+g 
+SDA 
+Dur
+atio
+n in 
+hou
+rs 
+CIE  
+Mar
+ks 
+SEE 
+Mark
+s 
+Total 
+Mark
+s 
+L 
+T 
+P 
+S 
+1 
+IPCC 
+BCS601 
+Cloud Computing (Open Stack /Google) 
+TD: CS 
+PSB : CS 
+3 
+0 
+2 
+ 
+03 
+50 
+50 
+100 
+4 
+2 
+PCC 
+BCS602 
+Machine Learning 
+TD: CS 
+PSB : CS 
+4 
+0 
+0 
+ 
+03 
+50 
+50 
+100 
+4 
+3 
+PEC 
+BXX613x 
+Professional Elective Course 
+TD: CS 
+PSB : CS 
+3 
+0 
+0 
+ 
+03 
+50 
+50 
+100 
+3 
+4 
+OEC 
+BXX654x 
+Open Elective Course 
+TD: CS 
+PSB : CS 
+3 
+0 
+0 
+ 
+03 
+50 
+50 
+100 
+3 
+5 
+PROJ 
+BCS685 
+Project Phase I 
+TD: CS 
+PSB : CS 
+0 
+0 
+4 
+ 
+03 
+100 
+-- 
+100 
+2 
+6 
+PCCL 
+BCSL606 
+Machine Learning lab 
+TD: CS 
+PSB : CS 
+0 
+0 
+2 
+ 
+03 
+50 
+50 
+100 
+1 
+7 
+AEC/SD
+C 
+BXX657x 
+Ability Enhancement Course/Skill Development 
+Course V 
+TD and PSB: 
+Concerned 
+department 
+If the course is offered as a Theory 
+01 
+50 
+50 
+100 
+1 
+1 
+0 
+0 
+ 
+If course is offered as a practical 
+0 
+0 
+2 
+ 
+8 
+MC 
+BNSK658 
+National Service Scheme (NSS) 
+NSS coordinator 
+0 
+0 
+2 
+ 
+ 
+100 
+--- 
+100 
+0 
+BPEK658 
+Physical Education (PE) (Sports and Athletics) 
+Physical Education 
+Director 
+ 
+ 
+BYOK658 
+Yoga 
+Yoga Teacher 
+ 
+ 
+9 
+MC 
+BIKS609 
+Indian Knowledge System 
+ 
+1 
+0 
+0 
+ 
+01 
+100 
+--- 
+100 
+0 
+Total 
+500 
+300 
+800 
+18 
+Professional Elective Course 
+BCS613A 
+Blockchain Technology  
+BCS613C 
+Compiler Design 
+9 
+ 
+JBOS 10.02.2023 / V5 
+BCS613B 
+Computer Vision 
+BCS613D 
+ Advanced Java 
+Open Elective Course 
+BCS654A 
+Introduction to Data Structures 
+BIS654C 
+Mobile Application Development 
+BCS654B 
+Fundamentals of Operating Systems 
+BAI654D 
+Introduction to Artificial Intelligence 
+ 
+Ability Enhancement Course / Skill Enhancement Course-V 
+BISL657A 
+Tosca – Automated Software testing 
+BAIL657C 
+Generative AI 
+BCSL657B 
+React 
+BCSL657D 
+Devops 
+PCC: Professional Core Course, PCCL: Professional Core Course laboratory, UHV: Universal Human Value Course, MC: Mandatory Course (Non-credit), AEC: Ability 
+Enhancement Course, SEC:  Skill Enhancement Course, L: Lecture, T: Tutorial, P: Practical S= SDA: Skill Development Activity, CIE: Continuous Internal Evaluation, SEE: 
+Semester End Evaluation. K : The letter in the course code indicates common to al  the stream of engineering.  PROJ: Project /Mini Project. PEC: Professional Elective 
+Course. PROJ: Project Phase -I, OEC: Open Elective Course 
+Professional Core Course (IPCC): Refers to Professional Core Course Theory Integrated with practicals of the same course. Credit for IPCC can be 04 and its Teaching–
+Learning hours (L : T : P) can be considered as  (3 : 0 : 2) or (2 : 2 : 2). The theory part of the IPCC shall be evaluated both by CIE and SEE. The practical part shall be 
+evaluated by only CIE (no SEE).  However, questions from the practical part of IPCC shall be included in the SEE question paper. For more details, the regulation governing 
+the Degree of Bachelor of Engineering /Technology (B.E./B.Tech.) 2022-23 
+National Service Scheme /Physical Education/Yoga:  All students have to register for any one of the courses namely National Service Scheme (NSS), Physical Education 
+(PE)(Sports and Athletics), and  Yoga(YOG) with the concerned coordinator of the course during the first week of III semesters.  Activities shall be carried out between 
+III semester to the VI semester (for 4 semesters). Successful completion of the registered course and requisite CIE score is mandatory for the award of the degree. The 
+events shall be appropriately scheduled by the colleges and the same shall be reflected in the calendar prepared for the NSS, PE, and Yoga activities. These courses shall 
+not be considered for vertical progression as well as for the calculation of SGPA and CGPA, but completion of the course is  mandatory for the award of degree. 
+Professional Elective Courses (PEC): A professional elective (PEC) course is intended to enhance the depth and breadth of educational experience in the Engineering 
+and Technology curriculum. Multidisciplinary courses that are added supplement the latest trend and advanced technology in the selected stream of engineering.  Each 
+group will provide an option to select one course. The minimum number of students’ strengths for offering professional electives is 10. However, this conditional shall 
+not be applicable to cases where the admission to the program is less than 10. 
+Open Elective Courses:  
+Students belonging to a particular stream of Engineering and Technology are not entitled to the open electives offered by their parent Department. However, they can 
+opt for an elective offered by other Departments, provided they satisfy the prerequisite condition if any. Registration to open electives shall be documented under the 
+guidance of the Program Coordinator/ Advisor/Mentor. The minimum numbers of students’ strength for offering Open Elective Course is 10. However, this condition 
+shall not be applicable to class where the admission to the program is less than 10. 
+Project Phase-I : Students have to discuss with the mentor /guide and with their helphe/she has to complete the literature survey and prepare the report and finally 
+define the problem statement for the project work.  
+10 
+ 
+JBOS 10.02.2023 / V5 
+ 
+ 
+ 
+11 
+ 
+JBOS 10.02.2023 / V5 
+VISVESVARAYA TECHNOLOGICAL UNIVERSITY, BELAGAVI 
+B.E. in Computer Science and Engineering 
+Scheme of Teaching and Examinations2022 
+Outcome Based Education (OBE) and Choice Based Credit System (CBCS) 
+(Effective from the academic year 2023-24) 
+VII SEMESTER (Swappable VII and VIII  SEMESTER) 
+Sl. 
+No 
+ 
+Course and 
+Course Code 
+ 
+Course Title 
+Teaching 
+Department (TD) 
+and Question 
+Paper Setting 
+Board  (PSB) 
+Teaching Hours /Week 
+Examination 
+C
+r
+e
+d
+it
+s 
+The
+ory 
+Lect
+ure 
+T
+u
+t
+o
+ri
+al 
+Prac
+tical
+/ 
+Dra
+win
+g 
+SDA 
+Dur
+atio
+n in 
+hou
+rs 
+CIE  
+Mar
+ks 
+SEE 
+Mark
+s 
+Total 
+Mark
+s 
+L 
+T 
+P 
+S 
+1 
+IPCC 
+BCS701 
+Internet of Things 
+TD: CS 
+PSB : CS 
+3 
+0 
+2 
+ 
+03 
+50 
+50 
+100 
+4 
+2 
+IPCC 
+BCS702 
+Parallel Computing 
+TD: CS 
+PSB : CS 
+3 
+0 
+2 
+ 
+03 
+50 
+50 
+100 
+4 
+3 
+PCC 
+BCS703 
+Cryptography & Network Security  
+TD: CS 
+PSB : CS 
+4 
+0 
+0 
+ 
+03 
+50 
+50 
+100 
+4 
+4 
+PEC 
+BCS714x 
+Professional Elective Course 
+TD: CS 
+PSB : CS 
+3 
+0 
+0 
+ 
+03 
+50 
+50 
+100 
+3 
+5 
+OEC 
+BCS755x 
+Open Elective Course  
+TD: CS 
+PSB : CS 
+3 
+0 
+0 
+ 
+01 
+50 
+50 
+100 
+3 
+6 
+PROJ 
+BCS786 
+Major Project Phase-II 
+TD: CS 
+PSB : CS 
+0 
+0 
+12 
+ 
+03 
+100 
+100 
+200 
+6 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+400 
+300 
+700 
+24 
+Professional Elective Course 
+BCS714A 
+Deep Learning 
+BAD714D 
+Social Network Analysis 
+BCS714B 
+Natural Language Processing 
+BCS714D 
+Big Data Analytics 
+Open Elective Course 
+BCS755A 
+Introduction to DBMS 
+BCS755C 
+Software Engineering 
+BCS755B 
+Introduction to Algorithms 
+BCS755D 
+ 
+PCC: Professional Core Course, PCCL: Professional Core Course laboratory, PEC: Professional Elective Course, OEC: Open Elective Course PR: Project Work, L: Lecture, T: 
+Tutorial, P: Practical S= SDA: Skill Development Activity, CIE: Continuous Internal Evaluation, SEE: Semester End Evaluation. TD- Teaching Department, PSB: Paper Setting 
+department, OEC: Open Elective Course, PEC: Professional Elective Course.  PROJ: Project work 
+Note: VII and VIII semesters of IV years of the program 
+12 
+ 
+JBOS 10.02.2023 / V5 
+(1) Institutions can swap the VII and VIII Semester Schemes of Teaching and Examinations to accommodate research internships/ industry internships after the VI 
+semester.  
+(2) Credits earned for the courses of VII and VIII Semester Scheme of Teaching and Examinations shall be counted against the corresponding semesters whether the VII 
+or VIII semesters is completed during the beginning of the IV year or the later part of IV years of the program. 
+Professional Elective Courses (PEC): A professional elective (PEC) course is intended to enhance the depth and breadth of educational experience in the Engineering 
+and Technology curriculum. Multidisciplinary courses that are added supplement the latest trend and advanced technology in the selected stream of engineering.  Each 
+group will provide an option to select one course. The minimum number of students’ strengths for offering professional electives is 10. However, this conditional shall 
+not be applicable to cases where the admission to the program is less than 10. 
+Open Elective Courses:  
+Students belonging to a particular stream of Engineering and Technology are not entitled to the open electives offered by their parent Department. However, they can 
+opt for an elective offered by other Departments, provided they satisfy the prerequisite condition if any. Registration to open electives shall be documented under the 
+guidance of the Program Coordinator/ Advisor/Mentor. The minimum numbers of students’ strength for offering Open Elective Course is 10. However, this condition 
+shall not be applicable to class where the admission to the program is less than 10. 
+ 
+PROJECT WORK (21CSP75):  The objective of the Project work is  
+(i)  To encourage independent learning and the innovative attitude of the students.  
+(ii) To develop interactive attitude, communication skills, organization, time management, and presentation skills.  
+(iii) To impart flexibility and adaptability.  
+(iv) To inspire team working.  
+(v) To expand intellectual capacity, credibility, judgment and intuition.  
+(vi) To adhere to punctuality, setting and meeting deadlines. 
+(vii) To install responsibilities to oneself and others.  
+(viii)To train students to present the topic of project work in a seminar without any fear, face the audience confidently, enhance communication skills, involve in 
+group discussion to present and exchange ideas.  
+CIE procedure for Project Work:   
+(1) Single discipline: The CIE marks shall be awarded by a committee consisting of the Head of the concerned Department and two senior faculty members of the 
+Department, one of whom shall be the Guide. 
+The CIE marks awarded for the project work, shall be based on the evaluation of the project work Report, project presentation skill, and question and answer session in 
+the ratio 50:25:25. The marks awarded for the project report shall be the same for all the batch mates.  
+13 
+ 
+JBOS 10.02.2023 / V5 
+(2) Interdisciplinary: Continuous Internal Evaluation shall be group-wise at the college level with the participation of all guides of the college. Participation of external 
+guide/s, if any, is desirable. The CIE marks awarded for the project work, shall be based on the evaluation of project work Report, project presentation skill, and question 
+and answer session in the ratio 50:25:25. The marks awarded for the project report shall be the same for all the batch mates. 
+SEE procedure for Project Work: SEE for project work will be conducted by the two examiners appointed by the University. The SEE marks awarded for the project work 
+shall be based on the evaluation of project work Report, project presentation skill, and question and answer session in the ratio 50:25:25. 
+ 
+VISVESVARAYA TECHNOLOGICAL UNIVERSITY, BELAGAVI 
+B.E. in Computer Science and Engineering 
+Scheme of Teaching and Examinations2022 
+Outcome Based Education (OBE) and Choice Based Credit System (CBCS) 
+(Effective from the academic year 2023-24) 
+VIII SEMESTER (Swappable VII and VIII SEMESTER) 
+Sl. 
+No 
+ 
+Course and 
+Course Code 
+ 
+Course Title 
+Teaching 
+Department (TD) 
+and Question 
+Paper Setting 
+Board (PSB) 
+Teaching Hours /Week 
+Examination 
+C
+r
+e
+d
+it
+s 
+The
+ory 
+Lect
+ure 
+T
+u
+t
+o
+ri
+al 
+Prac
+tical
+/ 
+Dra
+win
+g 
+SDA 
+Dur
+atio
+n in 
+hou
+rs 
+CIE  
+Mar
+ks 
+SEE 
+Mark
+s 
+Total 
+Mark
+s 
+L 
+T 
+P 
+S 
+1 
+PEC 
+BCS801x 
+Professional Elective (Online Courses) Only through 
+NPTEL 
+PSB : CS 
+3 
+0 
+0 
+ 
+03 
+50 
+50 
+100 
+3 
+2 
+OEC 
+BCS802x 
+Open Elective (Online Courses) Only through NPTEL 
+PSB : CS 
+3 
+0 
+0 
+ 
+01 
+50 
+50 
+100 
+3 
+3 
+INT 
+BCS803 
+Internship (Industry/Research) (14 - 20 weeks) 
+ 
+0 
+0 
+12 
+ 
+03 
+100 
+100 
+200 
+10 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+200 
+200 
+400 
+16 
+Professional Elective Course (Online courses) 
+BCS801A 
+BOS will publish courses based on the availability 
+BCS801C 
+ 
+BCS801B 
+ 
+BCS801D 
+ 
+Open Elective Courses (Online Courses) 
+BCS802A 
+BOS will publish courses based on the availability 
+BCS802C 
+ 
+BCS802B 
+ 
+BCS802D 
+ 
+L: Lecture, T: Tutorial, P: Practical S= SDA: Skill Development Activity, CIE: Continuous Internal Evaluation, SEE: Semester End Evaluation. TD- Teaching Department, PSB: 
+Paper Setting department, OEC: Open Elective Course, PEC: Professional Elective Course.  PROJ: Project work, INT: Industry Internship / Research Internship / Rural 
+Internship 
+Note: VII and VIII semesters of IV years of the program 
+Swapping Facility 
+14 
+ 
+JBOS 10.02.2023 / V5 
+● Institutions can swap VII and VIII Semester Scheme of Teaching and Examinations to accommodate research internships/ industry internships/Rural Internship 
+after the VI semester.  
+● Credits earned for the courses of VII and VIII Semester Scheme of Teaching and Examinations shall be counted against the corresponding semesters whether VII or 
+VIII semester is completed during the beginning of IV year or later part of IV year of the program. 
+● Note: For BCS801x and BCS802x courses BOS will announce the list of courses in 6th , 7th & 8th Sem . Students can register in any of the semesters to earn 
+the credits in 8th Sem. 
+ 
+Elucidation: 
+At the beginning of IV years of the program i.e., after VI semester, VII semester classwork and VIII semester Research Internship /Industrial Internship / Rural Internship 
+shall be permitted to be operated simultaneously by the University so that students have ample opportunity for an internship. In other words, a good percentage of the 
+class shall attend VII semester classwork and a similar percentage of others shall attend to Research Internship or Industrial Internship or Rural Internship.  
+Research/Industrial /Rural Internship shall be carried out at an Industry, NGO, MSME, Innovation center, Incubation center, Start-up, center of Excellence (CoE), Study 
+Centre established in the parent institute and /or at reputed research organizations/institutes.   
+The mandatory Research internship /Industry internship / Rural Internship  is for 14 to 20 weeks. The internship shall be considered as a head of passing and shall be 
+considered for the award of a degree. Those, who do not take up/complete the internship shall be declared to fail and shall have to complete it during the subsequent 
+University examination after satisfying the internship requirements. 
+Research internship: A research internship is intended to offer the flavor of current research going on in the research field. It helps students get familiarized with the 
+field and imparts the skill required for carrying out research.  
+Industry internship:  Is an extended period  of  work  experience  undertaken  by  students to  supplement  their  degree  for  professional development. It also helps 
+them learn to overcome unexpected obstacles and successfully navigate organizations, perspectives, and cultures. Dealing with contingencies helps students recognize, 
+appreciate, and adapt to organizational realities by tempering their knowledge with practical constraints.  
+Rural Internship:   Rural development internship is an initiative of Unnat Bharat Abhiyan Cell, RGIT in association with AICTE to involve students of all departments 
+studying in different academic years for exploring various opportunities in techno-social fields, to connect and work with Rural India for their upliftment. 
+The faculty coordinator or mentor has to monitor the student’s internship progress and interact with them to guide for the successful completion of the internship.  
+The students are permitted to carry out the internship anywhere in India or abroad.  University shall not bear any expenses incurred in respect of the internship. 
+ 
+With the consent of the internal guide and Principal of the Institution, students shall be allowed to carry out the internship at their hometown (within or outside the 
+state or abroad), provided favorable facilities are available for the internship and the student remains regularly in contact with the internal guide. University shall not 
+bear any cost involved in carrying out the internship by students. However, students can receive any financial assistance extended by the organization. 
+Professional Elective /Open Elective Course:These are ONLINE courses suggested by the respective Board of Studies. Details of these courses shall be made available for students on the VTU web portal.  
+ 
+15 
+ 
+JBOS 10.02.2023 / V5 
+ 
+ 
+ 
+Please note: If any clarifications / suggestions please email to    sbhvtuso@yahoo.com 

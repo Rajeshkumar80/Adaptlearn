@@ -1,0 +1,152 @@
+{
+  "subject_code": "BCS714D",
+  "subject_name": "Blockchain Technology",
+  "semester": 7,
+  "semester_label": "7TH SEM",
+  "modules": {
+    "1": {
+      "title": "Introduction to Blockchain",
+      "topics": [
+        "Quantitative data is provided in numerical form, like the weight,",
+        "Qualitative  data  is  descriptive,  but  non-numerical,  like  the  name,",
+        "Composition: The composition of data deals with the structure of data,",
+        "Condition: The condition of data deals with the state of data, that is,",
+        "Context: The context of data deals with \"Where has this data been",
+        "Accuracy",
+        "Validity",
+        "Reliability",
+        "Timeliness",
+        "Relevance"
+      ],
+      "sources": [
+        "BCS714D-module-1-pdf.txt"
+      ],
+      "content_chars": 72550
+    },
+    "2": {
+      "title": "Blockchain Architecture and Consensus",
+      "topics": [
+        "PARAMETERS",
+        "HADOOP",
+        "Massive data storage.",
+        "Faster data processing.",
+        "HDFS:",
+        "MapReduce:",
+        "HIVE",
+        "SQOOP",
+        "HBASE",
+        "FLUME"
+      ],
+      "sources": [
+        "BCS714D-module-2-pdf.txt"
+      ],
+      "content_chars": 60350
+    },
+    "3": {
+      "title": "Ethereum and Smart Contracts",
+      "topics": [
+        "What is MongoDB?",
+        "Cross-platform.",
+        "Open source.",
+        "Non-relational.",
+        "Distributed.",
+        "NoSQL.",
+        "Document-oriented data store.",
+        "WHY MongoDB?",
+        "Full index support",
+        "Rich query language"
+      ],
+      "sources": [
+        "BCS714D-module-3-pdf.txt"
+      ],
+      "content_chars": 54865
+    },
+    "4": {
+      "title": "Hyperledger and Enterprise Blockchain",
+      "topics": [
+        "What is HIVE?",
+        "Summarization",
+        "Querying",
+        "Analysis",
+        "HDFS for Storage.",
+        "MapReduce for execution.",
+        "Stores metadata/schemas in an RDBMS.",
+        "Hive is not RDBMS.",
+        "It is not designed to support OLTP (Online Transaction Processing).",
+        "It is not designed for real-time queries."
+      ],
+      "sources": [
+        "BCS714D-module-4-pdf.txt"
+      ],
+      "content_chars": 48999
+    },
+    "5": {
+      "title": "Blockchain Applications and Use Cases",
+      "topics": [
+        "SPARK",
+        "Introduction to Big Data Tool-Spark",
+        "Spark HDFS file system for data storage: Storae is at an HDFS or Hadoop",
+        "Spark standard API enables the creation of applications using Scala, Java,",
+        "Spark resource management can be a stand-alone server or it can be on a",
+        "Features of Spark",
+        "Spark provisions for creating applications that use the complex data. In-memory",
+        "Execution engine uses both in-memory and on-disk computing. Intermediate",
+        "Provides high performance when an application accesses memory cache from the",
+        "Contains API to define Resilient Distributed Datasets (RDDs). RDD is a"
+      ],
+      "sources": [
+        "BCS714D-module-5-pdf.txt"
+      ],
+      "content_chars": 36101
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\BCS714D-module-1-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\BCS714D-module-2-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\BCS714D-module-3-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\BCS714D-module-4-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\BCS714D-module-5-pdf.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\BCS714D-module-1-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\BCS714D-module-2-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\BCS714D-module-3-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\BCS714D-module-4-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\BCS714D-module-5-pdf.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\question papers\\BCS714D-dec-2025-jan-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\question papers\\BCS714D-dec-2025-jan-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\question papers\\BCS714D-module-1-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\question papers\\BCS714D-module-1-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\question papers\\BCS714D-module-2-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\question papers\\BCS714D-module-2-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\question papers\\BCS714D-module-3-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\question papers\\BCS714D-module-3-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\question papers\\BCS714D-module-4-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\question papers\\BCS714D-module-4-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\question papers\\BCS714D-module-5-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS714D\\question papers\\BCS714D-module-5-textbook.txt"
+    ],
+    "textbook_notes": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\7TH SEM\\BCS714D\\textbook_notes.md"
+    ],
+    "textbooks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_7\\BCS714D_Blockchain_Technology\\R1_Blockchain_Blueprint_for_a_New_Economy_Melanie_Swan.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_7\\BCS714D_Blockchain_Technology\\R1_Blockchain_Blueprint_for_a_New_Economy_Melanie_Swan.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_7\\BCS714D_Blockchain_Technology\\T1_Bitcoin_and_Cryptocurrency_Technologies_Princeton.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_7\\BCS714D_Blockchain_Technology\\T1_Bitcoin_and_Cryptocurrency_Technologies_Princeton.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_7\\BCS714D\\BCS714D_Blockchain_Technology.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to Blockchain",
+    "2": "Blockchain Architecture and Consensus",
+    "3": "Ethereum and Smart Contracts",
+    "4": "Hyperledger and Enterprise Blockchain",
+    "5": "Blockchain Applications and Use Cases"
+  }
+}

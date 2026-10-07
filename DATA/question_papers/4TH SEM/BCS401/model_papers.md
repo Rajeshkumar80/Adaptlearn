@@ -1,0 +1,218 @@
+# BCS401 — Model Question Papers
+**Subject:** Analysis and Design of Algorithms (ADA)
+**Generated:** 2026-10-02
+
+---
+
+## Model Set 1 Paper
+
+BCS401 
+
+Model Question Paper with effect from 2023-24 (CBCS Scheme) 
+ 
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fourth Semester B.E. Degree Examination 
+Analysis and Designs of Algorithms 
+ 
+TIME: 03 Hours    
+                                  
+ 
+Max.  Marks: 100 
+ 
+   Note:  01. Answer any FIVE full questions, choosing at least ONE question from each MODULE.  
+ 
+Module -1 
+BL  Marks 
+Q.01 
+a 
+Define algorithm. Explain asymptotic notations Big Oh, Big Omega and Big Theta 
+notations 
+L2 
+
+b 
+Explain the general plan for analyzing the efficiency of a recursive algorithm. Suggest 
+a recursive algorithm to find factorial of number. Derive its efficiency 
+L2 
+
+c 
+If t1(n) ∈ O(g1(n)) and t2(n) ∈ O(g2(n)), then show that t1(n) + t2(n) ∈ O(max{g1(n), 
+g2(n)}). 
+L2 
+
+OR 
+ 
+ 
+ 
+Q.02 
+a 
+With neat diagram explain different steps in designing and analyzing an algorithm 
+L2 
+
+b 
+Explain the general plan for analyzing the efficiency of a non-recursive algorithm. 
+Suggest a non-recursive algorithm to find maximum element in the list of n numbers. 
+Derive its efficiency 
+L2 
+
+c 
+With the algorithm derive the worst case efficiency for Bubble sort 
+L2 
+
+Module-2 
+ 
+ 
+ 
+Q. 03 
+a 
+Explain the concept of divide and conquer. Design an algorithm for merge sort and 
+derive its time complexity 
+L2 
+
+b 
+Design an insertion sort algorithm and obtain its time complexity. Apply insertion sort 
+on these elements. 25,75,40,10,20, 
+L3  
+
+OR 
+ 
+ 
+ 
+Q.04 
+a 
+Explain Strassen’s matrix multiplication and derive its time complexity 
+L2 
+
+b 
+Design an algorithm for quick sort algorithm. Apply quick sort on these elements. 
+25,75,40,10,20,05,15 
+L3 
+
+Module-3 
+ 
+ 
+ 
+Q. 05 
+a 
+Define AVL Trees. Explain its four rotation types 
+L2 
+
+b 
+Construct bottom up heap for the list 2,9,7,6,5,8. Obtain its time complexity 
+L3 
+
+OR 
+ 
+ 
+ 
+Q. 06 
+a 
+Define heap. Explain the properties of heap along with its representation. 
+L2 
+
+b 
+Design Horspools algorithm for string matching. Apply Horspools algorithm to find 
+the pattern BARBER in the text: JIM_SAW_ME_IN_A_BARBERSHOP 
+L3 
+
+Module-4 
+ 
+ 
+ 
+Q. 07 
+a 
+Construct minimum cost spanning tree using Kruskals algorithm for the following 
+graph. 
+L3 
+
+b 
+What are Huffman Trees? Construct the Huffman tree for the following data. 
+Character 
+A 
+B 
+C  
+D 
+E 
+- 
+Probability  
+0.5 
+0.35 
+0.5 
+0.1 
+0.4 
+0.2 
+Encode DAD-CBE using Huffman Encoding. 
+L3 
+
+BCS401 
+
+OR 
+ 
+ 
+ 
+Q. 08 
+a 
+Apply Dijkstra’s algorithm to find single source shortest path for the given graph by 
+considering S as the source vertex. 
+ 
+ 
+L3 
+
+b 
+Define transitive closure of a graph. Apply Warshalls algorithm to compute transitive 
+closure of a directed graph 
+ 
+ 
+L3 
+
+Module-5 
+ 
+ 
+ 
+Q. 09 
+a 
+Explain the following with examples 
+i) 
+P problem 
+ii) 
+NP Problem 
+iii) NP- Complete problem 
+iv) NP – Hard Problems 
+L2 
+
+b 
+What is backtracking? Apply backtracking to solve the below instance of sum of subset 
+problem S={5,10,12,13,15,18} d=30 
+L3 
+
+OR 
+ 
+ 
+ 
+Q. 10 
+a 
+Illustrate N queen’s problem using backtracking to solve 4-Queens problem 
+L2 
+
+b 
+Using Branch and Bound technique solve the below instance of knapsack problem. 
+Item 
+Weight 
+Value 
+
+Capacity 5 
+L3
+
+---

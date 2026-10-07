@@ -1,0 +1,459 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fourth Semester B.E./B.Tech. Degree Examination, Dec.2024/Jan.2025 
+Discrete Mathematical Structures    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                       2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Define a tautology. Prove that for any propositions p, q, r the compound 
+propositions {(p q)  (q  r)} (p r) is tautology. 
+06
+L2 CO1
+ 
+b.
+Establish the validity of the following argument using the rules of 
+inference: {p  (p  q)  (s  r)  (r  ~q)}  (s  t) 
+07
+L2 CO1
+ 
+c. For any two odd integers m and n, show that: 
+ (i) m + n is even       (ii) mn is odd 
+07
+L2 CO1
+                                                                           OR 
+Q.2 
+a. Show that the compound proposition [(p  q)  r]  [(p r)  (q  r)] 
+for primitive statements p, q, r is logically equivalent. 
+06
+L2 CO1
+ 
+b.
+Prove the following using law of logic: p  (q  r)  (p  q)  r 
+07
+L2 CO1
+ 
+c. Determine the truth value of each of the following quantified statements, 
+the universe being the set of all non-zero integers: 
+(i)    x, y, [xy = 1]              (ii) x, y, [xy = 1]       
+(iii)  x, y, [xy = 1]            (iv)  x, y, [(2x + y = 5)  (x – 3y = 8)]     
+(v)   x, y, [(3x  y = 17)  (2x + 4y = 3)] 
+07
+L3 CO1
+                                                                      Module – 2  
+Q.3 
+a. Prove that for each n  z+,  
+6
+)1
+n
+2
+)(
+1
+n
+(
+n
+n
+...
+3
+2
+1
+2
+2
+2
+2
+
+
+
+
+
+
+
+. 
+06
+L2 CO2
+ 
+b.
+Let a0 = 1, a1 = 2, a2 = 3 and 
+3
+n
+2
+n
+1
+n
+n
+a
+a
+a
+a
+
+
+
+
+
+
+ for n  3, prove that 
+
+
+
+
+z
+n
+  
+  
+3
+a
+n
+n
+. 
+07
+L2 CO2
+ 
+c. How many positive integers n can be we form using the digits 3, 4, 4, 5, 5, 
+6, 7 if we want n to exceed 5,000,000? 
+07
+L3 CO2
+                                                                           OR 
+Q.4 
+a. By mathematical induction prove that 
+ 
+6
+)
+7
+n
+2
+)(
+1
+n
+(
+n
+)
+2
+n
+(
+n
+....
+4.2
+3.1
+
+
+
+
+
+
+
+ 
+06
+L2 CO2
+ 
+b.
+Find the number of permutations of the letters of the word ENGINEERING 
+such that: 
+(i)    All the E’s are together                  (ii) Arrangement begin with N 
+(iii)  All the vowels are adjacent. 
+07
+L3 CO2
+ 
+c. Find the coefficient of 
+5
+2
+3
+2
+d
+c
+b
+a
+ in the expansion of (a + 2b – 3c + 2d + 5)16. 07
+L3 CO2
+                                                                      Module – 3  
+Q.5 
+a. State pigeon hole principle. Prove that if 30 dictionaries in a library contain 
+a total of 61,327 pages then atleast one of the dictionaries must have atleast 
+2045 pages. 
+06
+L3 CO3
+ 
+ 
+b.
+Let f : R  R be defined by 
+
+
+
+
+
+
+
+
+0
+x
+     
+if
+3x
+1
+0
+x
+     
+if
+5
+x
+3
+)
+x
+(
+f
+. Find f1(0), f1(1), 
+f1(1), f1(3), f1(6), f 1([6, 5]) and f 1([5, 5]) 
+07
+L2 CO3
+ 
+c. Draw the Hasse diagram representing the positive divisor of 36. 
+07
+L3 CO3
+ 
+1 of 2 
+ 
+USN 
+BCS405A 
+VTU-20-01-2025 08:39:56am
+20-01-2025 09:03:02am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+BCS405A
+                                                                           OR 
+Q.6 
+a. Let A = {1, 2, 3, 4} and B = {1, 2, 3, 4, 5, 6},  
+(i) 
+How many functions are there from A to B? 
+(ii) 
+How many of these are one to one? 
+(iii) 
+How many functions are there from B to A? 
+(iv) 
+How many of these are onto? 
+06
+L2 CO3
+ 
+b.
+Let f and g be functions from R to R defined by f(x) = ax + b and  
+g(x) = 1 – x + x2. If  
+3
+x
+9
+x
+9
+)
+x
+)(
+f
+g
+(
+2
+
+
+
+
+, determine a and b.  
+07
+L2 CO3
+ 
+c. Let A = {1, 2, 3, 4, 6} and R be a relation on A defined by aRb if and only 
+if “a is multiple of b”. Write down the relation R, relation matrix M(R) and 
+draw the digraph. List out in degree and out degree. 
+07
+L3 CO3
+                                                                      Module – 4  
+Q.7 
+a. In how many ways 5 number of a’s, 4 number of b’s and 3 number of c’s 
+can be arranged so that all the identical letters are not in a single block? 
+06
+L3 CO4
+ 
+b.
+Determine the number of positive integers n such that 1  n  100 and n is 
+not divisible by 2, 3, or 5. 
+07
+L3 CO4
+ 
+c. Solve the recurrence relation 
+0
+a
+2
+a
+3
+a
+n
+1
+n
+2
+n
+
+
+
+
+
+, a0 = 1, a1 = 6. 
+07
+L2 CO4
+                                                                           OR 
+Q.8 
+a. In how many ways can the 26 letters of the English alphabet be permuted 
+so that none of the patterns CAR, DOG, PUN or BYTE occurs? 
+06
+L3 CO4
+ 
+b.
+Five teachers T1, T2, T3, T4 are to be made class teachers for five classes, 
+C1, C2, C3, C4, C5, one teacher for each class. T1 and T2 do not wish to 
+become the class teachers for C1 or C2, T3 and T4 for C4 or C5, and T5 for C3 
+or C4 or C5. In how many ways can the teachers be assigned the work? 
+(Without displeasing any teacher) 
+07
+L3 CO4
+ 
+c. Solve the recurrence relation 
+n
+1
+n
+2
+n
+F
+F
+F
+
+
+
+
+ where n  0 and F0 = 0,  
+F1 = 1. 
+07
+L2 CO4
+                                                                      Module – 5  
+Q.9 
+a. If G be a set of all non zero real numbers and let 
+2
+ab
+b
+a
+
+
+ then show that 
+(G, ) is an abelian group. 
+06
+L2 CO5
+ 
+b.
+Define Klein group and if A = {e, a, b, c} then show that this is a Klein-4 
+group. 
+07
+L2 CO5
+ 
+c. State and prove Lagrange’s theorem. 
+07
+L2 CO5
+                                                                           OR 
+Q.10
+a. If H and K are subgroups of group G, prove that H  K is also a subgroup 
+of G. Is H  K a subgroup of G? 
+06
+L2 CO5
+ 
+b.
+Define cyclic group and show that (G, ) whose multiplication table is as 
+given below is cyclic. 
+
+a b
+c d
+e f 
+a a b
+c d
+e f 
+b
+b
+c d
+e f 
+a 
+c c d
+e f 
+a b
+d
+d
+e f 
+a b
+c 
+e e f 
+a b
+c d
+f 
+f 
+a b
+c d
+e 
+                
+07
+L2 CO5
+ 
+ 
+c. Let G = S4, for 
+
+
+
+
+
+
+
+
+1
+4
+3
+2
+4
+3
+2
+1
+, find the subgroup H = <  >. Determine 
+the left cosets of H in G. 
+ 
+ 
+07
+ 
+L3 
+ 
+CO5
+     
+2 of 2 
+VTU-20-01-2025 08:39:56am
+20-01-2025 09:03:02am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

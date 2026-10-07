@@ -1,0 +1,255 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fourth Semester B.E./B.Tech. Degree Examination, Dec.2025/Jan.2026 
+Database Management Systems     
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                     2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Define Database. Explain the characteristics of database. 
+ 
+06
+L2 CO1
+ 
+b.
+Discuss three schema architecture with a diagram and explain the 
+importance of mappings between the schema levels. 
+ 
+08
+L2 CO1
+ 
+c. Discuss the types of end users with suitable examples. 
+ 
+06
+L2 CO1
+                                                                           OR 
+Q.2 
+a. Illustrate the component modulus of DBMS and their interaction with a 
+neat diagram.  
+ 
+06
+L2 CO1
+ 
+b.
+List and explain different types of attributes with example. 
+ 
+04
+L2 CO1
+ 
+c. Draw an ER-diagram for keeping track of information about ‘Employee’ 
+database, taking into accounts at least five entities.   
+ 
+10
+L2 CO1
+                                                                      Module – 2  
+Q.3 
+a. Define the following terms:  
+i)  Primary key       ii) Super key      iii) Candidate key      iv) Foreign key  
+ 
+04
+L1 CO2
+ 
+b.
+Discuss the various constraints violations during insert, delete and update 
+operations with examples for each.   
+ 
+08
+L3 CO2
+ 
+c. Explain binary relational algebra operations with suitable examples. 
+ 
+08
+L2 CO2
+                                                                           OR 
+Q.4 
+a. Summarize the E-R to Relational Mapping algorithm with examples for 
+each step.   
+ 
+07
+L3 CO2
+ 
+b.
+Discuss the various types of JOIN operation with an examples. 
+ 
+05
+L2 CO2
+ 
+c. Consider the following system: 
+SAILORS(Sid, Sname, rating, age) 
+BOATS(Bid, Bname, Bcolor) 
+RESERVES(Sid, Bid, day)  
+ 
+Obtain the relational algebra queries for the following : 
+i) 
+Find the name of sailors who reserved green boat. 
+ii) Find the color of the boat reserve by “Naresh” 
+iii) Find the name of the sailor who has reserved boat no. 1. 
+iv) Find the Sid of sailors with age over 20 who have not reserved a boat. 
+ 
+08
+L3
+ 
+CO2
+ 
+                                                                            1 of 2                                                 
+USN 
+BCS403
+VTU-21-02-2026 08:33:22am
+21-02-2026 09:09:53am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS403
+                                                                      Module – 3  
+Q.5 
+a. Explain informal design guidelines for relational schema design. 
+ 
+04
+L2 CO3
+ 
+b.
+Define Normalization. Explain with examples 1NF, 2NF, 3NF.  
+ 
+08
+L3 CO3
+ 
+c. Discuss the types of update anomalies in SQL with an example. 
+ 
+08
+L3 CO3
+                                                                           OR 
+Q.6 
+a. Explain with suitable example how constraints are specified in SQL during 
+table creation. 
+ 
+10
+L3 CO3
+ 
+b.
+Consider the following schema: 
+Employee (SSN, F_name, M_name, L_name, Address, Salary, D_no) 
+Department (Dname, Dno, MgrSSN, Mgr_S_Date) 
+i) 
+Retrieve the name and address of all employees who work for the 
+‘Research’ Department. 
+ii) 
+Retrieve all employees whose address is in Houton, Texas. 
+iii) Retrieve all employees in department 5 whose salary is between 
+$30,000 and $40,000. 
+iv) Update all employees in the ‘Research’ department a raise in salary of 
+10%. 
+v) 
+Delete employee having SSN = 123456789; 
+ 
+10
+L3 CO3
+                                                                      Module – 4  
+Q.7 
+a. Discuss the importance of concurrency control and give an example for the 
+same. 
+06
+L2 CO4
+ 
+b.
+Explain the states in transaction processing with a neat diagram.  
+ 
+08
+L2 CO4
+ 
+c. Discuss the ACID properties of database transaction.  
+ 
+06
+L2 CO4
+                                                                           OR 
+Q.8 
+a. What is the difference between ‘where’ and ‘having’ clause? Give an 
+example. 
+04
+L2 CO4
+ 
+b.
+Write a note on the following with an example : 
+i)   Assertion              ii)  Triggers   
+ 
+06
+L2 CO4
+ 
+c. Create cursor for employee table and extract the values from the table. 
+Declare the variable open the cursor and extract the values from the cursor. 
+Close the cursor for the given relation Employee(E_id, E_Name, Age, 
+Salary). 
+10
+L3 CO4
+                                                                      Module – 5  
+Q.9 
+a. Discuss the two phase locking protocol used for concurrency control. 
+ 
+08
+L2 CO5
+ 
+b.
+Explain Multiversion concurrency control techniques in detail. 
+ 
+08
+L2 CO5
+ 
+c. Write a note on intension locking used to achieve granularity. 
+ 
+04
+L2 CO5
+                                                                           OR 
+Q.10
+a. Explain the characteristic of NOSQL systems. 
+ 
+08
+L2 CO5
+ 
+b.
+What are the basic operations of CRUD in MongoDB? 
+ 
+06
+L2 CO5
+ 
+c. Write a note on Neo4j Interfaces and Distributed System Characteristics.  
+ 
+06
+L2 CO5
+                                                                    * * * * * 
+                                                                 2 of 2 
+VTU-21-02-2026 08:33:22am
+21-02-2026 09:09:53am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

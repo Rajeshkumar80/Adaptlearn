@@ -1,0 +1,127 @@
+{
+  "subject_code": "BCS301",
+  "subject_name": "Mathematics for Computer Science",
+  "semester": 3,
+  "semester_label": "3RD SEM",
+  "modules": {
+    "1": {
+      "title": "Linear Algebra",
+      "topics": [
+        "Discrete probability distribution",
+        "The probability distribution of a finite random variable is given by",
+        "A random variable X has the following probability function:",
+        "A random variable x has the density function 𝑷(𝑿) = {𝒌𝒙𝟐,  𝒙= 𝟎, 𝟏, 𝟐, 𝟑",
+        "Four coins are tossed. Find the expectation of the number of heads.",
+        "Binomial distribution",
+        "Find mean and standard deviation of Binomial distribution.",
+        "Mean and standard deviation of a binomial distribution are 2 and 𝟐/√𝟑",
+        "In a large number of parts manufactured by a machine, the mean number of",
+        "Fit a binomial distribution to the following data:"
+      ],
+      "sources": [
+        "BCS301-module-1-pdf.txt"
+      ],
+      "content_chars": 43830
+    },
+    "2": {
+      "title": "Calculus",
+      "topics": [
+        "If 𝑛< 𝑚, then 3.24 implies that 𝑇is not surjective. As discussed above,"
+      ],
+      "sources": [
+        "R1_Linear_Algebra_Done_Right_Axler.txt"
+      ],
+      "content_chars": 119123
+    },
+    "3": {
+      "title": "Probability and Statistics",
+      "topics": [],
+      "sources": [
+        "R1_Linear_Algebra_Done_Right_Axler.txt"
+      ],
+      "content_chars": 119107
+    },
+    "4": {
+      "title": "Numerical Methods",
+      "topics": [
+        "Now the formula"
+      ],
+      "sources": [
+        "R1_Linear_Algebra_Done_Right_Axler.txt"
+      ],
+      "content_chars": 118917
+    },
+    "5": {
+      "title": "Graph Theory",
+      "topics": [],
+      "sources": [
+        "R1_Linear_Algebra_Done_Right_Axler.txt"
+      ],
+      "content_chars": 118978
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\BCS301-module-1-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\BCS301-module-2-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\BCS301-module-3-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\BCS301-module-4-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\BCS301-module-5-pdf.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\BCS301-module-1-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\BCS301-module-2-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\BCS301-module-3-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\BCS301-module-4-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\BCS301-module-5-pdf.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-dec-2023-jan-2024.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-dec-2023-jan-2024.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-dec-2024-jan-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-dec-2024-jan-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-dec-2025-jan-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-dec-2025-jan-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-june-july-2025-makeup.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-june-july-2025-makeup.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-june-july-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-june-july-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-model-set-1-paper.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-model-set-1-paper.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-module-1-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-module-2-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-module-3-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-module-4-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-module-5-written.pdf"
+    ],
+    "model_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\3RD SEM\\BCS301\\model_papers.md"
+    ],
+    "previous_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\3RD SEM\\BCS301\\previous_papers.md"
+    ],
+    "textbooks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS301_Maths_for_CSE\\R1_Linear_Algebra_Done_Right_Axler.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS301_Maths_for_CSE\\R1_Linear_Algebra_Done_Right_Axler.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS301_Maths_for_CSE\\R2_Practical_Statistics_for_Data_Scientists_Bruce.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS301_Maths_for_CSE\\R2_Practical_Statistics_for_Data_Scientists_Bruce.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_3\\BCS301\\BCS301_Mathematics_for_Computer_Science.md"
+    ],
+    "written_answers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-module-1-written.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-module-2-written.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-module-3-written.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-module-4-written.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS301\\question papers\\BCS301-module-5-written.txt"
+    ]
+  },
+  "module_titles": {
+    "1": "Linear Algebra",
+    "2": "Calculus",
+    "3": "Probability and Statistics",
+    "4": "Numerical Methods",
+    "5": "Graph Theory"
+  }
+}

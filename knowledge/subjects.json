@@ -1,0 +1,329 @@
+{
+  "schema_version": "1.0",
+  "description": "Canonical VTU CSE 2022 Scheme subject metadata. Single source of truth for all AdaptLearn components.",
+  "subjects": {
+    "BCS301": {
+      "name": "Mathematics for Computer Science",
+      "semester": 3,
+      "semester_label": "3RD SEM",
+      "modules": {
+        "1": "Linear Algebra",
+        "2": "Calculus",
+        "3": "Probability and Statistics",
+        "4": "Numerical Methods",
+        "5": "Graph Theory"
+      }
+    },
+    "BCS302": {
+      "name": "Digital Design and Computer Organization",
+      "semester": 3,
+      "semester_label": "3RD SEM",
+      "modules": {
+        "1": "Introduction to Digital Design — Boolean Algebra and K-Maps",
+        "2": "Combinational and Sequential Logic",
+        "3": "Basic Structure of Computers — Addressing Modes",
+        "4": "Input/Output and Memory Organization",
+        "5": "Basic Processing Unit and Pipelining"
+      }
+    },
+    "BCS303": {
+      "name": "Operating Systems",
+      "semester": 3,
+      "semester_label": "3RD SEM",
+      "modules": {
+        "1": "Introduction to Operating Systems",
+        "2": "Process Management and Scheduling",
+        "3": "Process Synchronization and Deadlocks",
+        "4": "Memory Management",
+        "5": "File Systems and I/O Systems"
+      }
+    },
+    "BCS304": {
+      "name": "Data Structures and Applications",
+      "semester": 3,
+      "semester_label": "3RD SEM",
+      "modules": {
+        "1": "Introduction to Data Structures — Arrays and Strings",
+        "2": "Stacks and Queues",
+        "3": "Linked Lists",
+        "4": "Trees",
+        "5": "Graphs and Hashing"
+      }
+    },
+    "BCS306A": {
+      "name": "Object Oriented Programming with Java",
+      "semester": 3,
+      "semester_label": "3RD SEM",
+      "modules": {
+        "1": "Introduction to Java — Classes and Objects",
+        "2": "Inheritance and Interfaces",
+        "3": "Exception Handling and Multithreading",
+        "4": "Packages and I/O Streams",
+        "5": "Collections and Generics"
+      }
+    },
+    "BBOC407": {
+      "name": "Biology for Engineers",
+      "semester": 4,
+      "semester_label": "4TH SEM",
+      "modules": {
+        "1": "Biomolecules and Cell Biology",
+        "2": "Genetics and Molecular Biology",
+        "3": "Bioprocess Technology",
+        "4": "Plant and Animal Biotechnology",
+        "5": "Environmental Biotechnology"
+      }
+    },
+    "BCS401": {
+      "name": "Analysis and Design of Algorithms",
+      "semester": 4,
+      "semester_label": "4TH SEM",
+      "modules": {
+        "1": "Introduction to Algorithms and Complexity",
+        "2": "Divide and Conquer",
+        "3": "Greedy Algorithms",
+        "4": "Dynamic Programming",
+        "5": "Backtracking and Branch-and-Bound"
+      }
+    },
+    "BCS402": {
+      "name": "Microcontrollers and Embedded Systems",
+      "semester": 4,
+      "semester_label": "4TH SEM",
+      "modules": {
+        "1": "8051 Microcontroller Architecture",
+        "2": "8051 Instruction Set and Programming",
+        "3": "Timers, Counters and Serial Communication",
+        "4": "Interrupts and Interfacing",
+        "5": "ARM Architecture and Embedded Systems"
+      }
+    },
+    "BCS403": {
+      "name": "Database Management Systems",
+      "semester": 4,
+      "semester_label": "4TH SEM",
+      "modules": {
+        "1": "Introduction to DBMS and ER Model",
+        "2": "Relational Model and SQL",
+        "3": "Normalization",
+        "4": "Transactions and Concurrency Control",
+        "5": "Indexing, Hashing and File Organization"
+      }
+    },
+    "BCS405A": {
+      "name": "Discrete Mathematical Structures",
+      "semester": 4,
+      "semester_label": "4TH SEM",
+      "modules": {
+        "1": "Mathematical Logic",
+        "2": "Set Theory and Relations",
+        "3": "Functions and Algebraic Structures",
+        "4": "Graph Theory",
+        "5": "Combinatorics and Recurrence"
+      }
+    },
+    "BUHK408": {
+      "name": "Universal Human Values",
+      "semester": 4,
+      "semester_label": "4TH SEM",
+      "modules": {
+        "1": "Course Introduction and Value Education",
+        "2": "Understanding Harmony",
+        "3": "Understanding Human Relationships",
+        "4": "Understanding Society and Nature",
+        "5": "Implications of Value-based Living"
+      }
+    },
+    "BCS501": {
+      "name": "Software Engineering and Project Management",
+      "semester": 5,
+      "semester_label": "5TH SEM",
+      "modules": {
+        "1": "Introduction to Software Engineering",
+        "2": "Requirements Engineering",
+        "3": "Software Design",
+        "4": "Software Testing",
+        "5": "Project Management"
+      }
+    },
+    "BCS502": {
+      "name": "Computer Networks",
+      "semester": 5,
+      "semester_label": "5TH SEM",
+      "modules": {
+        "1": "Introduction to Computer Networks — Physical Layer",
+        "2": "Data Link Layer",
+        "3": "Network Layer",
+        "4": "Transport Layer",
+        "5": "Application Layer"
+      }
+    },
+    "BCS503": {
+      "name": "Theory of Computation",
+      "semester": 5,
+      "semester_label": "5TH SEM",
+      "modules": {
+        "1": "Finite Automata and Regular Languages",
+        "2": "Regular Expressions and Non-Regular Languages",
+        "3": "Context-Free Grammars and Languages",
+        "4": "Pushdown Automata",
+        "5": "Turing Machines and Decidability"
+      }
+    },
+    "BCS515B": {
+      "name": "Cloud Computing and DevOps",
+      "semester": 5,
+      "semester_label": "5TH SEM",
+      "modules": {
+        "1": "Introduction to Cloud Computing",
+        "2": "Cloud Architecture and Virtualization",
+        "3": "Cloud Deployment Models",
+        "4": "DevOps Fundamentals",
+        "5": "Containerization and Orchestration"
+      }
+    },
+    "BESK508": {
+      "name": "Environmental Studies",
+      "semester": 5,
+      "semester_label": "5TH SEM",
+      "modules": {
+        "1": "Environmental Science Basics",
+        "2": "Natural Resources",
+        "3": "Ecosystems and Biodiversity",
+        "4": "Environmental Pollution",
+        "5": "Social Issues and Environment"
+      }
+    },
+    "BRMK557": {
+      "name": "Research Methodology and IPR",
+      "semester": 5,
+      "semester_label": "5TH SEM",
+      "modules": {
+        "1": "Introduction to Research Methodology",
+        "2": "Research Design",
+        "3": "Data Collection and Analysis",
+        "4": "Technical Writing",
+        "5": "Intellectual Property Rights"
+      }
+    },
+    "BCS601": {
+      "name": "Compiler Design",
+      "semester": 6,
+      "semester_label": "6TH SEM",
+      "modules": {
+        "1": "Introduction to Compilers — Lexical Analysis",
+        "2": "Syntax Analysis",
+        "3": "Syntax-Directed Translation",
+        "4": "Intermediate Code Generation",
+        "5": "Code Generation and Optimization"
+      }
+    },
+    "BCS602": {
+      "name": "Machine Learning",
+      "semester": 6,
+      "semester_label": "6TH SEM",
+      "modules": {
+        "1": "Introduction to Machine Learning",
+        "2": "Supervised Learning",
+        "3": "Unsupervised Learning",
+        "4": "Ensemble Methods and Model Evaluation",
+        "5": "Neural Networks and Deep Learning Basics"
+      }
+    },
+    "BCS613A": {
+      "name": "Mobile Application Development",
+      "semester": 6,
+      "semester_label": "6TH SEM",
+      "modules": {
+        "1": "Introduction to Mobile Computing",
+        "2": "Android Development Basics",
+        "3": "Activities, Intents and UI Design",
+        "4": "Data Storage and Networking",
+        "5": "Advanced Android Topics"
+      }
+    },
+    "BCS613C": {
+      "name": "Natural Language Processing",
+      "semester": 6,
+      "semester_label": "6TH SEM",
+      "modules": {
+        "1": "Introduction to NLP",
+        "2": "Text Processing and Morphology",
+        "3": "Syntax and Parsing",
+        "4": "Semantics and Discourse",
+        "5": "NLP Applications"
+      }
+    },
+    "BCV654C": {
+      "name": "Integrated Waste Management",
+      "semester": 6,
+      "semester_label": "6TH SEM",
+      "modules": {
+        "1": "Introduction to Waste Management",
+        "2": "Solid Waste Management",
+        "3": "Liquid Waste Management",
+        "4": "Hazardous Waste Management",
+        "5": "Smart City Waste Solutions"
+      }
+    },
+    "BCS701": {
+      "name": "Internet of Things",
+      "semester": 7,
+      "semester_label": "7TH SEM",
+      "modules": {
+        "1": "Introduction to IoT",
+        "2": "IoT Architecture and Protocols",
+        "3": "IoT Physical Devices and Endpoints",
+        "4": "IoT Platforms and Data Analytics",
+        "5": "IoT Security and Case Studies"
+      }
+    },
+    "BCS702": {
+      "name": "Deep Learning",
+      "semester": 7,
+      "semester_label": "7TH SEM",
+      "modules": {
+        "1": "Introduction to Deep Learning",
+        "2": "Convolutional Neural Networks",
+        "3": "Recurrent Neural Networks",
+        "4": "Generative Models",
+        "5": "Advanced Deep Learning Topics"
+      }
+    },
+    "BCS703": {
+      "name": "Information and Network Security",
+      "semester": 7,
+      "semester_label": "7TH SEM",
+      "modules": {
+        "1": "Introduction to Cryptography",
+        "2": "Symmetric Key Cryptography",
+        "3": "Asymmetric Key Cryptography",
+        "4": "Authentication and Digital Signatures",
+        "5": "Network Security"
+      }
+    },
+    "BCS714D": {
+      "name": "Blockchain Technology",
+      "semester": 7,
+      "semester_label": "7TH SEM",
+      "modules": {
+        "1": "Introduction to Blockchain",
+        "2": "Blockchain Architecture and Consensus",
+        "3": "Ethereum and Smart Contracts",
+        "4": "Hyperledger and Enterprise Blockchain",
+        "5": "Blockchain Applications and Use Cases"
+      }
+    }
+  },
+  "subject_routing_notes": {
+    "BCS302": "DDCO — NOT Data Structures. ragService.ts incorrectly maps 'data structure' keywords to BCS302. The correct mapping is BCS304.",
+    "BCS303": "Operating Systems — ragService.ts incorrectly maps OS keywords to BCS601. The correct mapping is BCS303.",
+    "BCS304": "Data Structures — ragService.ts correctly names it but assigns wrong subject code keywords to BCS302.",
+    "BCS601": "Compiler Design — ragService.ts incorrectly maps Cloud Computing and OS keywords to BCS601.",
+    "BCS703": "Information and Network Security — ML pipeline incorrectly names it 'Cloud Computing'. Course outcomes confirm it is INS/Cryptography.",
+    "BCS701": "Internet of Things — ML pipeline incorrectly names it 'Big Data Analytics'. Course outcomes confirm it is IoT.",
+    "BCS702": "Deep Learning — ML pipeline correctly names it.",
+    "BCS515B": "Cloud Computing and DevOps — ragService.ts maps Python keywords to BCS515B. ML pipeline names it correctly.",
+    "BCS613A": "Mobile Application Development — ML pipeline incorrectly names it 'Mobile Application Development' but course outcomes say 'Blockchain Technology' for BCS613A in some contexts. The VTU_CSE_Notes directory confirms the actual content."
+  }
+}

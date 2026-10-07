@@ -1,0 +1,382 @@
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fifth Semester B.E./B.Tech. Degree Examination, Dec.2024/Jan.2025 
+Theory of Computation    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                     2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a.
+Define the following with example : 
+i)    Language          ii)   String          iii)   Power of an alphabet. 
+ 
+3 
+L1
+CO1
+ 
+b.
+Define DFA. Draw a DFA to accepts. 
+i)     The set of all strings that contain a substring aba. 
+ii)    To accept the stings of a’s and b’s that contain not more than there b’s. 
+iii)   L = {w {a, b}* : No 2 consecutive characters are same in w}. 
+ 
+10
+L3 
+CO1
+ 
+c. Convert the following NFA to DFA. 
+ 
+ 
+ 
+0 
+1 
+→
+p
+{p, q}
+{p}
+ 
+q
+{r} 
+{r}
+ 
+r 
+{s} 
+ϕ 
+
+s 
+{s} 
+{s}
+ 
+7 
+L2 
+CO1
+                                                                           OR 
+Q.2 
+a.
+Define the following with example : 
+i)     Alphabet   
+ii)    Reversal of string 
+iii)   Concatenation of Languages. 
+3 
+L1
+CO1
+ 
+b.
+Design a DFA for the Language : 
+L = {w  {0, 1}* : w is a string divisible by 5}. 
+ 
+7 
+L3 
+CO1
+ 
+c. Define NFA. Obtain an  - NFA which accepts strings consisting of 0 or 
+more a’s , followed by 0 or more b’s followed by 0 or more C’s. Also 
+convert it to DFA. 
+  
+10
+L2 
+CO1
+                                                                     Module – 2 
+Q.3 
+a.
+Define Regular expression. Write the regular expression for the following 
+languages  : 
+i)    Strings of a’s and b’s starting with a and ending with b. 
+ii)   Set of strings that consists of alternating 0’s and 1’s. 
+iii)  L = {an bm , (n + m) is even}. 
+iv)  L = {w : / w / mod 3 = 0 , where w {a, b}*}. 
+ 
+ 
+ 
+10
+L2
+CO2
+ 
+1 of 3 
+ 
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+VTU-17-01-2025 01:11:52pm
+17-01-2025 01:32:06pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+ 
+BCS503
+ 
+ 
+ 
+b.
+Minimize the following finite automata using Table filling algorithm : 
+         
+δ
+a
+b
+→
+A
+B
+A
+ 
+B
+A
+C
+ 
+C
+D
+B
+*
+D
+D
+A
+E
+D
+F
+ 
+F 
+G
+E 
+G
+F
+G
+ 
+H
+G
+D
+       
+ 
+10
+L2
+CO2
+                                                                          OR
+Q.4 
+a.
+Construct  - NFA for the following Regular expression : 
+i)   (0 + 1) 0 1(1 + 0)        ii)    1(0 + 1)* 0          iii)   (0 + 1)* 0 1 1* 
+ 
+6 
+L1
+CO2
+ 
+b.
+Obtain the Regular expression that denotes the language accepted by  
+Fig. Q4(b). 
+                                
+ 
+Using Kleene’s theorem. 
+ 
+6 
+L3 
+CO2
+ 
+c. State the Pumping Lemma for the Regular Languages. And also prove that 
+the following languages are note regular. 
+i)    L = {0n 1m | n  m}           ii)    L = {0n 1m 2n | n, m ≥ 1}. 
+ 
+8 
+L1 
+CO2
+                                                                      Module – 3  
+Q.5 
+a.
+Design CFG for the following languages : 
+i) 
+L = {an bn+3 , n ≥ 0}        
+ii)     L = {ai bj ck ,  j = i + k  ,  i  ≥ 0 ,  k ≥ 0} 
+iii)    L = {w / /w/ mod 3 > 0 where w {a}*} 
+iv)    L = {am bn / m  n} 
+v)     Palinderomes over 0 and 1. 
+10
+L3
+CO3
+ 
+b.
+Consider the grammar G with productions. 
+S → A b B / A / B          ;       A → aA /       ;   B → a B / b B / . 
+Obtain LMD , RMD and parse tree for the string aaabab.  
+Is the given grammar ambiguous? 
+    
+10
+L2 
+CO3
+                                                                           OR 
+Q.6 
+a.
+Define the following with example  :  
+i)     Context free grammar           ii)   Left most Derivation 
+iii)  Parse tree                               iv)  Ambiguous grammar. 
+   
+4 
+L1
+CO3
+ 
+b.
+Design PDA for the language : 
+L = {ai bj ck / i + k = j , i ≥ 0 , k ≥ 0} and show the moves made by the PDA 
+for the string aabbbc. 
+10
+L3 
+CO3
+ 
+2 of 3 
+Fig. Q4(b) 
+VTU-17-01-2025 01:11:52pm
+17-01-2025 01:32:06pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+ 
+BCS503
+ 
+ 
+ 
+c. Convert the following CFG’s to PDA : 
+S → a A       ;    A → a ABC / bB / a   ;   B → b    ;   C → c. 
+ 6 
+L2 
+CO3
+                                                                      Module – 4  
+Q.7 
+a.
+Define CNF. Convert the following CFG to CNF 
+E → E + T / T 
+T → T * F / F 
+F → (E) / I 
+I → Ia / Ib / a / b. 
+10
+L2
+CO4
+ 
+b.
+Show that L = {0n 1n 2n / n ≥ 1} is no context free. 
+ 4 
+L2 
+CO4
+ 
+c. Prove that the family of context free languages is closed under union and 
+concatenation. 
+  
+ 6 
+L1 
+CO4
+                                                                          OR
+Q.8 
+a.
+Define Greibach Normal Form. Convert the following CFG to GNF. 
+S → AB        ;       A → aA/ bB / b       ;    B → b. 
+ 
+6 
+L2
+CO4
+ 
+b.
+Consider the following CFG : 
+S → ABC / BaB 
+A → aA / BaC / aaa 
+B → bBb / a / D 
+C → CA / AC 
+D →  
+i)    What are useless symbols? 
+ii)  Eliminate  - productions , Unit productions and useless symbols from  
+      the grammar. 
+10
+L3 
+CO4
+ 
+c. Prove that the following languages are not context free. 
+i)    L = {ai / i is prime}            ii)    L = {
+2
+n
+a
+/ n ≥ 1}. 
+ 
+4 
+L2 
+CO3
+                                                                     Module – 5 
+Q.9 
+a.
+Define a turing machine and explain with neat diagram, the working of a 
+basic turing machine. 
+ 
+6 
+L1
+CO4
+ 
+b.
+Design a Turing machine to accept the language, L = {an bn cn / n ≥ 1}. 
+Draw the transition diagram and show the moves for the string aabbcc. 
+ 
+14
+L4 
+CO4
+                                                                           OR 
+Q.10
+a.
+Design a Turing machine to accept palindrome over {a, b} and draw the 
+transition diagram. 
+ 
+12
+L4
+CO5
+ 
+b.
+Write a short notes on : 
+i)     Recursively Enumerable Language. 
+ii)    Multitape Turing Machine. 
+ 
+ 8 
+L1 
+CO5
+                                                                       
+* * * * * 
+ 
+3 of 3 
+VTU-17-01-2025 01:11:52pm
+17-01-2025 01:32:06pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

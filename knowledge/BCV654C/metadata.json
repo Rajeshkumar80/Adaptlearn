@@ -1,0 +1,143 @@
+{
+  "subject_code": "BCV654C",
+  "subject_name": "Integrated Waste Management",
+  "semester": 6,
+  "semester_label": "6TH SEM",
+  "modules": {
+    "1": {
+      "title": "Introduction to Waste Management",
+      "topics": [
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "WASTE GENERATION AND COMPOSITION",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "WASTE CHARACTERISTICS",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM"
+      ],
+      "sources": [
+        "BCV654C-module-1-pdf-1.txt"
+      ],
+      "content_chars": 47009
+    },
+    "2": {
+      "title": "Solid Waste Management",
+      "topics": [
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "COMPOSTING",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "ANAEROBIC DIGESTION"
+      ],
+      "sources": [
+        "BCV654C-module-2-pdf-1.txt"
+      ],
+      "content_chars": 43477
+    },
+    "3": {
+      "title": "Liquid Waste Management",
+      "topics": [
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "ENERGY RECOVERY FROM WASTE",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "BASIC TECHNIQUES OF ENERGY RECOVERY",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "TECHNOLOGICAL OPTIONS",
+        "Anaerobic Digestion (AD)",
+        "Landfill Gas Recovery",
+        "Incineration"
+      ],
+      "sources": [
+        "BCV654C-module-3-pdf-1.txt"
+      ],
+      "content_chars": 62103
+    },
+    "4": {
+      "title": "Hazardous Waste Management",
+      "topics": [
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "Cranes for Pre-sorting:"
+      ],
+      "sources": [
+        "BCV654C-module-4-pdf-1.txt"
+      ],
+      "content_chars": 46812
+    },
+    "5": {
+      "title": "Smart City Waste Solutions",
+      "topics": [
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM",
+        "INTEGRATED WASTE MANAGEMENT SYSTEM"
+      ],
+      "sources": [
+        "BCV654C-module-5-pdf-1.txt"
+      ],
+      "content_chars": 29123
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCV654C\\BCV654C-module-1-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCV654C\\BCV654C-module-2-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCV654C\\BCV654C-module-3-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCV654C\\BCV654C-module-4-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCV654C\\BCV654C-module-5-pdf-1.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCV654C\\BCV654C-module-1-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCV654C\\BCV654C-module-2-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCV654C\\BCV654C-module-3-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCV654C\\BCV654C-module-4-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCV654C\\BCV654C-module-5-pdf-1.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCV654C\\question papers\\BCV654C-dec-2025-jan-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCV654C\\question papers\\BCV654C-dec-2025-jan-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCV654C\\question papers\\BCV654C-june-july-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCV654C\\question papers\\BCV654C-june-july-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCV654C\\question papers\\BCV654C-model-set-1-paper-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCV654C\\question papers\\BCV654C-model-set-1-paper-1.txt"
+    ],
+    "model_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\6TH SEM\\BCV654C\\model_papers.md"
+    ],
+    "previous_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\6TH SEM\\BCV654C\\previous_papers.md"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_6\\BCV654C\\BCV654C_Integrated_Waste_Management_for_a_Smart_City.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to Waste Management",
+    "2": "Solid Waste Management",
+    "3": "Liquid Waste Management",
+    "4": "Hazardous Waste Management",
+    "5": "Smart City Waste Solutions"
+  }
+}

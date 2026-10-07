@@ -1,0 +1,370 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fourth Semester B.E./B.Tech. Degree Examination, Dec.2024/Jan.2025 
+Database Management System    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                       2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Define the following terms: 
+(i)   Database                        (ii) Schema                        (iii) Entity     
+(iv) DDL                               (v) Degree of a relationship 
+05
+L1 CO1
+ 
+b.
+Briefly explain characteristics of database approach. 
+05
+L2 CO1
+ 
+c. List and explain advantages of using DBMS approach. 
+ 
+10
+L2 CO1
+                                                                           OR 
+Q.2 
+a. Define the following terms: 
+(i)   Cardinality         (ii) Weak entity       (iii) Program data independence 
+(iv) DML                   (v) Value sets 
+05
+L1 CO1
+ 
+b.
+Describe three-schema architecture. Why do we need mappings between 
+schema levels? 
+05
+L2 CO1
+ 
+c. Explain different types of attributes in ER model with suitable example for 
+each. 
+ 
+10
+L2 CO1
+                                                                      Module – 2  
+Q.3 
+a. With suitable example, explain the entity integrity and referential integrity 
+constraints. Why each is considered important? 
+05
+L2 CO2
+ 
+b.
+Discuss equijoin and natural join with suitable example using relational 
+algebra notation. 
+05
+L2 CO2
+ 
+c. Given the relational tables: 
+Employee: 
+EID
+Name
+DepID
+Salary
+1 
+2 
+3 
+Alice 
+Bob 
+Eve 
+10 
+20 
+20 
+5000 
+6000 
+6500 
+           
+Department: 
+DeptID 
+DeptName 
+10 
+20 
+30 
+HR 
+IT 
+Sales 
+ 
+Project 
+PID
+Project Name 
+DeptID
+101 
+102 
+103 
+Project Alpha 
+Project Beta 
+Project Gamma
+10 
+20 
+30 
+Write relational algebra expression for the following: 
+(i) Find the names and salaries of all employees in the ‘IT’ department. 
+(ii) Find the ID’s and names of employees who are in the ‘IT’ department 
+and have a salary greater than 6000. 
+(iii) Find the ID’s and names of employees who are either in the ‘HR’ 
+department or have a salary greater than 6000. 
+(iv) Find the names of employees who are not in the ‘IT’ department 
+(v) Find the names of employees along with their department names. 
+ 
+10
+L3 CO2
+ 
+ 
+1 of 3 
+ 
+USN 
+BCS403 
+VTU-15-01-2025 08:40:34am
+15-01-2025 09:04:54am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+BCS403
+ 
+                                                                           OR 
+Q.4 
+a. Explain any two operations that change the state of relation in a database. 
+Provide suitable examples. 
+05
+L2 CO2
+ 
+b.
+Discuss the aggregation functions and grouping in relational algebra with 
+suitable examples. 
+05
+L2 CO2
+ 
+c. Given the relational tables: 
+Student: 
+Project: 
+SID
+Name
+PID
+Project Name
+a 
+b 
+c 
+Alice 
+Bob 
+Carol 
+p 
+q 
+r 
+Alpha 
+Beta 
+Gamma 
+    
+Language: 
+Enrollment:
+LID
+Language Name
+SID 
+PID 
+x 
+y 
+z 
+Python 
+Java 
+C++ 
+a 
+a 
+b 
+c 
+p 
+q 
+q 
+r 
+Write relational algebra expression for the following: 
+(i) Rename the student table to Learner and display it. 
+(ii) Find the students (learners) who are not enrolled in any project. 
+(iii) Find the students who are enrolled in all projects. 
+(iv) Find the students who are not enrolled in any project. 
+(v) Find the students who are enrolled in both the ‘Alpha’ and ‘Beta’ 
+projects. 
+ 
+10
+L3 CO2
+                                                                      Module – 3  
+Q.5 
+a. Explain Armstrong inference rules. 
+05
+L2 CO4
+ 
+b.
+What is the need for normalization? Explain 1NF, 2NF and 3NF with 
+examples. 
+05
+L2 CO4
+ 
+c. What is functional dependency? Write an algorithm to find minimal cover 
+for set of functional dependencies. Construct minimal cover M for set of 
+functional dependencies which are: E = {B  A, D  A, AB  D} 
+ 
+10
+L3 CO4
+                                                                           OR 
+Q.6 
+a. Explain the types of update anomalies in SQL with an example. 
+05
+L2 CO4
+ 
+b.
+Explain types of JBBC drivers. 
+05
+L2 CO5
+ 
+c. Consider the schema R = ABCD, subjected to FDs F = {A B, B C}, 
+and the non-binary partition D1 = {ACD, AB, BC}. State whether D1 is a 
+lossless decomposition? [give all steps in detail]. 
+ 
+10
+L3 CO4
+                                                                      Module – 4  
+Q.7 
+a. Define transaction. Discuss ACID properties. 
+05
+L2 CO5
+ 
+b.
+With a neat diagram, explain transition diagram of a transaction. 
+05
+L2 CO5
+ 
+c. Demonstrate working of assertion and triggers in SQL with example. 
+ 
+10
+L3 CO5
+                                                                           OR 
+Q.8 
+a. Explain cursor and its properties in embedded SQL with suitable example. 
+05
+L2 CO5
+ 
+b.
+Determine if the following schedule is serializable and explain your 
+reasoning: 
+i) T1 : R(X)W(X)   T2 : R(X)W(X)  T1 : COMMIT  T2 : COMMIT 
+ii) T1 : W(X)R(Y)  T2 : R(X)W(Y)   T1 : COMMIT  T2 : COMMIT 
+05
+L2 CO5
+ 
+2 of 3 
+VTU-15-01-2025 08:40:34am
+15-01-2025 09:04:54am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+BCS403
+ 
+ 
+c. Consider the tables below: 
+Sailors (sid : integer, sname : string, rating : integer, age : real) 
+Boats (bid : integer, bname : string, color : string); 
+Reserves (sid : integer, bid : integer, day : date) 
+Write SQL queries for the following: 
+(i) Write create table statement for reserves. 
+(ii) Find all information of sailors who have reserved boat number 101. 
+(iii) Find the names of sailors who have reserved at least one boat. 
+(iv) Find the names of sailors who have reserved a red boat. 
+(v) Find the average age of sailors for each rating level. 
+ 
+10
+L3 CO5
+                                                                      Module – 5  
+Q.9 
+a. Explain the CAP theorem. 
+05
+L2 CO6
+ 
+b.
+What is NOSQL graph database? Explain Neo4j. 
+05
+L2 CO6
+ 
+c. Why concurrency control and recovery are needed in DBMS? Demonstrate 
+with suitable examples types of problems that may occur when two simple 
+transactions run concurrently. 
+ 
+10
+L3 CO5
+                                                                           OR 
+Q.10
+a. Explain basic operations CRUD in MongoDB. 
+05
+L2 CO6
+ 
+b.
+Explain deadlock prevention protocols. 
+05
+L2 CO5
+ 
+c. Briefly discuss the two-phase looking techniques f0 concurrency control. 
+ 
+10
+L3 CO5
+                                                                           
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3 of 3 
+VTU-15-01-2025 08:40:34am
+15-01-2025 09:04:54am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

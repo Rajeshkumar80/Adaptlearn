@@ -1,0 +1,249 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fifth Semester B.E./B.Tech. Degree Examination, June/July 2025 
+Software Engineering and Project Management       
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+          Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                               2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+                               
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Define Software Engineering. Briefly explain the seven broad categories of 
+software application domains.    
+8 
+L2 
+CO1
+ 
+b.
+Define software process. Explain five generic process framework activities. 
+6 
+L2 
+CO1
+ 
+c. Explain any six principles that focus on software engineering practice as a 
+whole.  
+ 
+6 
+L2 
+CO1
+                                                                           OR 
+Q.2 
+a. Explain two common evolutionary process model with neat diagrams. 
+10
+L2 
+CO1
+ 
+b.
+Explain the different phases of the unified process model. 
+10
+L2 
+CO1
+                                                                       
+ 
+Module – 2 
+Q.3 
+a. Explain the seven distinct tasks of requirements engineering process.  
+10
+L2 
+CO2
+ 
+b.
+Develop a use case model for Safe Home system by considering home 
+owner as a primary actor. 
+ 
+10
+L3 
+CO2
+                                                                           OR 
+Q.4 
+a. Develop an activity diagram for eliciting requirements.  
+6 
+L3 
+CO2
+ 
+b.
+Explain the different requirement modeling approaches.  
+10
+L2 
+CO2
+ 
+c. How does analysis clauses manifest themselves as elements of the solution 
+spaces. Mention its different ways. 
+4 
+L2 
+CO2
+                                                                      
+ 
+Module – 3 
+Q.5 
+a. Explain the by activities of Xp process with a neat diagram.  
+10
+L2 
+CO3
+ 
+b.
+Explain the following agile process models.  
+i) 
+Adaptive Software Development (ASD) 
+ii) Scrum. 
+ 
+10
+L2 
+CO3
+                                                                           OR 
+Q.6 
+a. Explain any five principles  
+i) 
+That guide process 
+ii) That guide practice.  
+10
+L2 
+CO3
+ 
+b.
+Explain the ten different planning principles.  
+10
+L2 
+CO3
+                                                                       
+ 
+Module – 4 
+Q.7 
+a. Explain the sequence of software development activities recommended by 
+ISO12207 with a neat diagram.   
+10
+L2 
+CO4
+ 
+b.
+Make a list of different activities that management involves. Also explain 
+the principal project management processes along with a list of different 
+activities that management involves.  
+10
+L2 
+CO4
+1 of 2 
+USN 
+BCS501 
+VTU-08-10-2025 01:18:38pm
+08-10-2025 01:34:26pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+ 
+BCS501
+ 
+ 
+                                                                           OR 
+Q.8 
+a. Explain the traditional versus modern project management practices.  
+10
+L2 
+CO4
+ 
+b.
+Explain the different aspects of evaluation of individual projects.  
+10
+L2 
+CO4
+                                                                       
+ 
+Module – 5 
+Q.9 
+a. Explain the following software quality models.  
+i) Garvin’s quality dimensions 
+ii) McCall’s Model. 
+10
+L2 
+CO5
+ 
+b.
+Explain the place of software quality step wise frame work in project 
+planning.  
+ 
+10
+L2 
+CO5
+                                                                           OR 
+Q.10
+a. Write a short note on : 
+i) Software siting Approaches  
+ii) Problem based estimation. 
+10
+L2 
+CO5
+ 
+b.
+Write a short note on : 
+i) Dromey’s Model  
+ii) Boehm’s Model. 
+ 
+ 
+10
+L2 
+CO5
+* * * * * 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2 of 2 
+VTU-08-10-2025 01:18:38pm
+08-10-2025 01:34:26pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

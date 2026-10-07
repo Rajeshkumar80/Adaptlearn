@@ -1,0 +1,157 @@
+{
+  "subject_code": "BCS405A",
+  "subject_name": "Discrete Mathematical Structures",
+  "semester": 4,
+  "semester_label": "4TH SEM",
+  "modules": {
+    "1": {
+      "title": "Mathematical Logic",
+      "topics": [
+        "Davis Drive",
+        "Shenton Way #01-01",
+        "Dodds Street",
+        "Birchmount Road",
+        "EcyO'-",
+        "Madrid",
+        "CHAPTER",
+        "Exercises",
+        "Operations on Sets",
+        "Exercises"
+      ],
+      "sources": [
+        "T1_Discrete_Mathematics_for_Computer_Science.txt"
+      ],
+      "content_chars": 118321
+    },
+    "2": {
+      "title": "Set Theory and Relations",
+      "topics": [
+        "How many numbers between 1 and 1000 are not divisible by 3, 7, or 9?",
+        "How many integers between 500 and 10,000 are divisible by 5 or 7?",
+        "Determine how many numbers between 1 and 21,000,000,000, including 1 and",
+        "How many numbers between 1 and 21,000,000, including both 1 and 21,000,000, are",
+        "Sets, Proof Templates, and Induction",
+        "Sets, Proof Templates, and Induction",
+        "Since 0 E T by the base step, by the inductive step, 0 + 1 = 1 E T.",
+        "Apply the inductive step again: since 1 E T, 1 + 1 = 2 E T.",
+        "And again: since 2 c T, 2 + 1 = 3 E T.",
+        "Sets, Proof Templates, and Induction"
+      ],
+      "sources": [
+        "T1_Discrete_Mathematics_for_Computer_Science.txt"
+      ],
+      "content_chars": 119068
+    },
+    "3": {
+      "title": "Functions and Algebraic Structures",
+      "topics": [
+        "I(-0) =",
+        "This formula is of the form --,(0 V fl), where 0 = -(p A -q)",
+        "Now work \"inward.\" Again, by the law of double negation, --",
+        "Find the expression tree for the formula",
+        "Find the expression tree for the formula",
+        "Find the expression tree for the formula",
+        "Find the expression tree for the formula",
+        "Find the expression tree for the formula",
+        "Let 0 = \"The home team is ahead.\" Let 7' = \"The fans are happy.\" Let X = \"The",
+        "Construct the truth table for"
+      ],
+      "sources": [
+        "T1_Discrete_Mathematics_for_Computer_Science.txt"
+      ],
+      "content_chars": 118948
+    },
+    "4": {
+      "title": "Graph Theory",
+      "topics": [
+        "Let M = {1, 2 ...",
+        "Find the elements in each of the following relations defined on R:",
+        "List the 16 elements of the relation Between as defined in Example 4.",
+        "Let U = (0, 11.",
+        "Prove Theorem 2(c).",
+        "Let A = {1, 2, 3 ...",
+        "Let R, S, and T be binary relations on a set X.",
+        "Let X = {0, 1). Let B = 'P(X x X) be the set of all binary relations on X.",
+        "Let A = {a, b, c, d}. Define the relations R1 and R2 on A as",
+        "Find a set A with n elements and a relation R on A such that R 1 , R2 ."
+      ],
+      "sources": [
+        "T1_Discrete_Mathematics_for_Computer_Science.txt"
+      ],
+      "content_chars": 118173
+    },
+    "5": {
+      "title": "Combinatorics and Recurrence",
+      "topics": [
+        "Each input corresponds to some output.",
+        "Each input corresponds to only one output.",
+        "Functions",
+        "Functions",
+        "MRFQDSXKVOFZ",
+        "Which of the following are functions? If not, why not?",
+        "Let X={0,1 ...",
+        "What are the domain and range of the addition function on the real numbers? On",
+        "Which of the following represent a partial function? A (total) function?",
+        "Let X = {a, b}."
+      ],
+      "sources": [
+        "T1_Discrete_Mathematics_for_Computer_Science.txt"
+      ],
+      "content_chars": 118368
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\BCS405A-module-2-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\BCS405A-module-3-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\BCS405A-module-4-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\BCS405A-module-5-written.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\BCS405A-module-1-written.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\BCS405A-module-2-written.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\BCS405A-module-3-written.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\BCS405A-module-4-written.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\BCS405A-module-5-written.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\question papers\\BCS405A-dec-2024-jan-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\question papers\\BCS405A-dec-2024-jan-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\question papers\\BCS405A-dec-2025-jan-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\question papers\\BCS405A-dec-2025-jan-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\question papers\\BCS405A-june-july-2024.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\question papers\\BCS405A-june-july-2024.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\question papers\\BCS405A-june-july-2025-makeup.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\question papers\\BCS405A-june-july-2025-makeup.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\question papers\\BCS405A-june-july-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\question papers\\BCS405A-june-july-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\question papers\\BCS405A-model-set-1-and-2-paper.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\question papers\\BCS405A-model-set-1-and-2-paper.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\question papers\\BCS405A-module-1-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\question papers\\BCS405A-question-bank.pdf"
+    ],
+    "question_banks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS405A\\question papers\\BCS405A-question-bank.txt"
+    ],
+    "model_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\4TH SEM\\BCS405A\\model_papers.md"
+    ],
+    "previous_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\4TH SEM\\BCS405A\\previous_papers.md"
+    ],
+    "textbooks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_4\\BCS405A_Discrete_Maths\\T1_Discrete_Mathematics_for_Computer_Science.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_4\\BCS405A_Discrete_Maths\\T1_Discrete_Mathematics_for_Computer_Science.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_4\\BCS405A\\BCS405A_Discrete_Mathematical_Structures.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Mathematical Logic",
+    "2": "Set Theory and Relations",
+    "3": "Functions and Algebraic Structures",
+    "4": "Graph Theory",
+    "5": "Combinatorics and Recurrence"
+  }
+}

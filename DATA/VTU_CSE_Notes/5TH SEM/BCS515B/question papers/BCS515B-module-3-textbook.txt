@@ -1,0 +1,2313 @@
+92
+Chapter
+3.
+Solving Problems by Searching
+3.5
+INFORMED (HEURISTIC) SEARCH STRATEGIES
+This section shows how an informed search strategy—one that uses problem-speciﬁc knowl-
+INFORMED SEARCH
+edge beyond the deﬁnition of the problem itself—can ﬁnd solutions more efﬁciently than can
+an uninformed strategy.
+The general approach we consider is called best-ﬁrst search. Best-ﬁrst search is an
+BEST-FIRST SEARCH
+instance of the general TREE-SEARCH or GRAPH-SEARCH algorithm in which a node is
+selected for expansion based on an evaluation function, f(n). The evaluation function is
+EVALUATION
+FUNCTION
+construed as a cost estimate, so the node with the lowest evaluation is expanded ﬁrst. The
+implementation of best-ﬁrst graph search is identical to that for uniform-cost search (Fig-
+ure 3.14), except for the use of f instead of g to order the priority queue.
+The choice of f determines the search strategy. (For example, as Exercise 3.21 shows,
+best-ﬁrst tree search includes depth-ﬁrst search as a special case.) Most best-ﬁrst algorithms
+include as a component of f a heuristic function, denoted h(n):
+HEURISTIC
+FUNCTION
+h(n) = estimated cost of the cheapest path from the state at node n to a goal state.
+(Notice that h(n) takes a node as input, but, unlike g(n), it depends only on the state at that
+node.) For example, in Romania, one might estimate the cost of the cheapest path from Arad
+to Bucharest via the straight-line distance from Arad to Bucharest.
+Heuristic functions are the most common form in which additional knowledge of the
+problem is imparted to the search algorithm. We study heuristics in more depth in Section 3.6.
+For now, we consider them to be arbitrary, nonnegative, problem-speciﬁc functions, with one
+constraint: if n is a goal node, then h(n) = 0. The remainder of this section covers two ways
+to use heuristic information to guide search.
+3.5.1
+Greedy best-ﬁrst search
+Greedy best-ﬁrst search8 tries to expand the node that is closest to the goal, on the grounds
+GREEDY BEST-FIRST
+SEARCH
+that this is likely to lead to a solution quickly. Thus, it evaluates nodes by using just the
+heuristic function; that is, f(n) = h(n).
+Let us see how this works for route-ﬁnding problems in Romania; we use the straight-
+line distance heuristic, which we will call hSLD.
+If the goal is Bucharest, we need to
+STRAIGHT-LINE
+DISTANCE
+know the straight-line distances to Bucharest, which are shown in Figure 3.22. For exam-
+ple, hSLD(In(Arad)) = 366. Notice that the values of hSLD cannot be computed from the
+problem description itself. Moreover, it takes a certain amount of experience to know that
+hSLD is correlated with actual road distances and is, therefore, a useful heuristic.
+Figure 3.23 shows the progress of a greedy best-ﬁrst search using hSLD to ﬁnd a path
+from Arad to Bucharest. The ﬁrst node to be expanded from Arad will be Sibiu because it
+is closer to Bucharest than either Zerind or Timisoara. The next node to be expanded will
+be Fagaras because it is closest. Fagaras in turn generates Bucharest, which is the goal. For
+this particular problem, greedy best-ﬁrst search using hSLD ﬁnds a solution without ever
+8 Our ﬁrst edition called this greedy search; other authors have called it best-ﬁrst search. Our more general
+usage of the latter term follows Pearl (1984).
+MODULE 3
+
+Section 3.5.
+Informed (Heuristic) Search Strategies
+93
+Urziceni
+Neamt
+Oradea
+Zerind
+Timisoara
+Mehadia
+Sibiu
+Pitesti
+Rimnicu Vilcea
+Vaslui
+Bucharest
+Giurgiu
+Hirsova
+Eforie
+Arad
+Lugoj
+Drobeta
+Craiova
+Fagaras
+Iasi
+ 0
+160
+242
+161
+77
+151
+366
+244
+226
+176
+241
+253
+329
+80
+199
+380
+234
+374
+100
+193
+Figure 3.22
+Values of hSLD—straight-line distances to Bucharest.
+expanding a node that is not on the solution path; hence, its search cost is minimal. It is
+not optimal, however: the path via Sibiu and Fagaras to Bucharest is 32 kilometers longer
+than the path through Rimnicu Vilcea and Pitesti. This shows why the algorithm is called
+“greedy”—at each step it tries to get as close to the goal as it can.
+Greedy best-ﬁrst tree search is also incomplete even in a ﬁnite state space, much like
+depth-ﬁrst search. Consider the problem of getting from Iasi to Fagaras. The heuristic sug-
+gests that Neamt be expanded ﬁrst because it is closest to Fagaras, but it is a dead end. The
+solution is to go ﬁrst to Vaslui—a step that is actually farther from the goal according to
+the heuristic—and then to continue to Urziceni, Bucharest, and Fagaras. The algorithm will
+never ﬁnd this solution, however, because expanding Neamt puts Iasi back into the frontier,
+Iasi is closer to Fagaras than Vaslui is, and so Iasi will be expanded again, leading to an inﬁ-
+nite loop. (The graph search version is complete in ﬁnite spaces, but not in inﬁnite ones.) The
+worst-case time and space complexity for the tree version is O(bm), where m is the maximum
+depth of the search space. With a good heuristic function, however, the complexity can be
+reduced substantially. The amount of the reduction depends on the particular problem and on
+the quality of the heuristic.
+3.5.2
+A* search: Minimizing the total estimated solution cost
+The most widely known form of best-ﬁrst search is called A∗search (pronounced “A-star
+A∗SEARCH
+search”). It evaluates nodes by combining g(n), the cost to reach the node, and h(n), the cost
+to get from the node to the goal:
+f(n) = g(n) + h(n) .
+Since g(n) gives the path cost from the start node to node n, and h(n) is the estimated cost
+of the cheapest path from n to the goal, we have
+f(n) = estimated cost of the cheapest solution through n .
+Thus, if we are trying to ﬁnd the cheapest solution, a reasonable thing to try ﬁrst is the
+node with the lowest value of g(n) + h(n). It turns out that this strategy is more than just
+reasonable: provided that the heuristic function h(n) satisﬁes certain conditions, A∗search is
+both complete and optimal. The algorithm is identical to UNIFORM-COST-SEARCH except
+that A∗uses g + h instead of g.
+
+94
+Chapter
+3.
+Solving Problems by Searching
+Rimnicu Vilcea
+Zerind
+Arad
+Sibiu
+Arad
+Fagaras
+Oradea
+Timisoara
+Sibiu
+Bucharest
+329
+374
+366
+380
+193
+253
+0
+Rimnicu Vilcea
+Arad
+Sibiu
+Arad
+Fagaras
+Oradea
+Timisoara
+329
+Zerind
+374
+366
+176
+380
+193
+Zerind
+Arad
+Sibiu
+Timisoara
+253
+329
+374
+Arad
+366
+(a) The initial state
+(b) After expanding Arad
+(c) After expanding Sibiu
+(d) After expanding Fagaras
+Figure 3.23
+Stages in a greedy best-ﬁrst tree search for Bucharest with the straight-line
+distance heuristic hSLD. Nodes are labeled with their h-values.
+Conditions for optimality: Admissibility and consistency
+The ﬁrst condition we require for optimality is that h(n) be an admissible heuristic. An
+ADMISSIBLE
+HEURISTIC
+admissible heuristic is one that never overestimates the cost to reach the goal. Because g(n)
+is the actual cost to reach n along the current path, and f(n) = g(n) + h(n), we have as an
+immediate consequence that f(n) never overestimates the true cost of a solution along the
+current path through n.
+Admissible heuristics are by nature optimistic because they think the cost of solving
+the problem is less than it actually is. An obvious example of an admissible heuristic is the
+straight-line distance hSLD that we used in getting to Bucharest. Straight-line distance is
+admissible because the shortest path between any two points is a straight line, so the straight
+
+Section 3.5.
+Informed (Heuristic) Search Strategies
+95
+line cannot be an overestimate. In Figure 3.24, we show the progress of an A∗tree search for
+Bucharest. The values of g are computed from the step costs in Figure 3.2, and the values of
+hSLD are given in Figure 3.22. Notice in particular that Bucharest ﬁrst appears on the frontier
+at step (e), but it is not selected for expansion because its f-cost (450) is higher than that of
+Pitesti (417). Another way to say this is that there might be a solution through Pitesti whose
+cost is as low as 417, so the algorithm will not settle for a solution that costs 450.
+A second, slightly stronger condition called consistency (or sometimes monotonicity)
+CONSISTENCY
+MONOTONICITY
+is required only for applications of A∗to graph search.9 A heuristic h(n) is consistent if, for
+every node n and every successor n′ of n generated by any action a, the estimated cost of
+reaching the goal from n is no greater than the step cost of getting to n′ plus the estimated
+cost of reaching the goal from n′:
+h(n) ≤c(n, a, n′) + h(n′) .
+This is a form of the general triangle inequality, which stipulates that each side of a triangle
+TRIANGLE
+INEQUALITY
+cannot be longer than the sum of the other two sides. Here, the triangle is formed by n, n′,
+and the goal Gn closest to n. For an admissible heuristic, the inequality makes perfect sense:
+if there were a route from n to Gn via n′ that was cheaper than h(n), that would violate the
+property that h(n) is a lower bound on the cost to reach Gn.
+It is fairly easy to show (Exercise 3.29) that every consistent heuristic is also admissible.
+Consistency is therefore a stricter requirement than admissibility, but one has to work quite
+hard to concoct heuristics that are admissible but not consistent. All the admissible heuristics
+we discuss in this chapter are also consistent. Consider, for example, hSLD. We know that
+the general triangle inequality is satisﬁed when each side is measured by the straight-line
+distance and that the straight-line distance between n and n′ is no greater than c(n, a, n′).
+Hence, hSLD is a consistent heuristic.
+Optimality of A*
+As we mentioned earlier, A∗has the following properties: the tree-search version of A∗is
+optimal if h(n) is admissible, while the graph-search version is optimal if h(n) is consistent.
+We show the second of these two claims since it is more useful. The argument es-
+sentially mirrors the argument for the optimality of uniform-cost search, with g replaced by
+f—just as in the A∗algorithm itself.
+The ﬁrst step is to establish the following: if h(n) is consistent, then the values of
+f(n) along any path are nondecreasing. The proof follows directly from the deﬁnition of
+consistency. Suppose n′ is a successor of n; then g(n′) = g(n) + c(n, a, n′) for some action
+a, and we have
+f(n′) = g(n′) + h(n′) = g(n) + c(n, a, n′) + h(n′) ≥g(n) + h(n) = f(n) .
+The next step is to prove that whenever A∗selects a node n for expansion, the optimal path
+to that node has been found. Were this not the case, there would have to be another frontier
+node n′ on the optimal path from the start node to n, by the graph separation property of
+9 With an admissible but inconsistent heuristic, A∗requires some extra bookkeeping to ensure optimality.
+
+96
+Chapter
+3.
+Solving Problems by Searching
+(a) The initial state
+(b) After expanding Arad
+(c) After expanding Sibiu
+Arad
+Sibiu
+Timisoara
+447=118+329
+Zerind
+449=75+374
+393=140+253
+Arad
+366=0+366
+(d) After expanding Rimnicu Vilcea
+(e) After expanding Fagaras
+(f) After expanding Pitesti
+Zerind
+Arad
+Sibiu
+Arad
+Timisoara
+Rimnicu Vilcea
+Fagaras
+Oradea
+447=118+329
+449=75+374
+646=280+366
+413=220+193
+415=239+176 671=291+380
+Zerind
+Arad
+Sibiu
+Timisoara
+447=118+329
+449=75+374
+Rimnicu Vilcea
+Craiova
+Pitesti
+Sibiu
+526=366+160
+553=300+253
+417=317+100
+Zerind
+Arad
+Sibiu
+Arad
+Timisoara
+Sibiu
+Bucharest
+Fagaras
+Oradea
+Craiova
+Pitesti
+Sibiu
+447=118+329
+449=75+374
+646=280+366
+591=338+253
+450=450+0
+526=366+160
+553=300+253
+417=317+100
+671=291+380
+Zerind
+Arad
+Sibiu
+Arad
+Timisoara
+Sibiu
+Bucharest
+Oradea
+Craiova
+Pitesti
+Sibiu
+Bucharest
+Craiova
+Rimnicu Vilcea
+418=418+0
+447=118+329
+449=75+374
+646=280+366
+591=338+253
+450=450+0
+526=366+160
+553=300+253
+615=455+160 607=414+193
+671=291+380
+Rimnicu Vilcea
+Fagaras
+Rimnicu Vilcea
+Arad
+Fagaras
+Oradea
+646=280+366 415=239+176 671=291+380
+Figure 3.24
+Stages in an A∗search for Bucharest. Nodes are labeled with f = g + h. The
+h values are the straight-line distances to Bucharest taken from Figure 3.22.
+
+Section 3.5.
+Informed (Heuristic) Search Strategies
+97
+O
+Z
+A
+T
+L
+M
+D
+C
+R
+F
+P
+G
+B
+U
+H
+E
+V
+I
+N
+380
+400
+420
+S
+Figure 3.25
+Map of Romania showing contours at f = 380, f = 400, and f = 420, with
+Arad as the start state. Nodes inside a given contour have f-costs less than or equal to the
+contour value.
+Figure 3.9; because f is nondecreasing along any path, n′ would have lower f-cost than n
+and would have been selected ﬁrst.
+From the two preceding observations, it follows that the sequence of nodes expanded
+by A∗using GRAPH-SEARCH is in nondecreasing order of f(n). Hence, the ﬁrst goal node
+selected for expansion must be an optimal solution because f is the true cost for goal nodes
+(which have h = 0) and all later goal nodes will be at least as expensive.
+The fact that f-costs are nondecreasing along any path also means that we can draw
+contours in the state space, just like the contours in a topographic map. Figure 3.25 shows
+CONTOUR
+an example. Inside the contour labeled 400, all nodes have f(n) less than or equal to 400,
+and so on. Then, because A∗expands the frontier node of lowest f-cost, we can see that an
+A∗search fans out from the start node, adding nodes in concentric bands of increasing f-cost.
+With uniform-cost search (A∗search using h(n) = 0), the bands will be “circular”
+around the start state. With more accurate heuristics, the bands will stretch toward the goal
+state and become more narrowly focused around the optimal path. If C∗is the cost of the
+optimal solution path, then we can say the following:
+• A∗expands all nodes with f(n) < C∗.
+• A∗might then expand some of the nodes right on the “goal contour” (where f(n) = C∗)
+before selecting a goal node.
+Completeness requires that there be only ﬁnitely many nodes with cost less than or equal to
+C∗, a condition that is true if all step costs exceed some ﬁnite ϵ and if b is ﬁnite.
+Notice that A∗expands no nodes with f(n) > C∗—for example, Timisoara is not
+expanded in Figure 3.24 even though it is a child of the root. We say that the subtree below
+
+98
+Chapter
+3.
+Solving Problems by Searching
+Timisoara is pruned; because hSLD is admissible, the algorithm can safely ignore this subtree
+PRUNING
+while still guaranteeing optimality. The concept of pruning—eliminating possibilities from
+consideration without having to examine them—is important for many areas of AI.
+One ﬁnal observation is that among optimal algorithms of this type—algorithms that
+extend search paths from the root and use the same heuristic information—A∗is optimally
+efﬁcient for any given consistent heuristic. That is, no other optimal algorithm is guaran-
+OPTIMALLY
+EFFICIENT
+teed to expand fewer nodes than A∗(except possibly through tie-breaking among nodes with
+f(n) = C∗). This is because any algorithm that does not expand all nodes with f(n) < C∗
+runs the risk of missing the optimal solution.
+That A∗search is complete, optimal, and optimally efﬁcient among all such algorithms
+is rather satisfying. Unfortunately, it does not mean that A∗is the answer to all our searching
+needs. The catch is that, for most problems, the number of states within the goal contour
+search space is still exponential in the length of the solution. The details of the analysis are
+beyond the scope of this book, but the basic results are as follows. For problems with constant
+step costs, the growth in run time as a function of the optimal solution depth d is analyzed in
+terms of the the absolute error or the relative error of the heuristic. The absolute error is
+ABSOLUTE ERROR
+RELATIVE ERROR
+deﬁned as Δ ≡h∗−h, where h∗is the actual cost of getting from the root to the goal, and
+the relative error is deﬁned as ϵ ≡(h∗−h)/h∗.
+The complexity results depend very strongly on the assumptions made about the state
+space. The simplest model studied is a state space that has a single goal and is essentially a
+tree with reversible actions. (The 8-puzzle satisﬁes the ﬁrst and third of these assumptions.)
+In this case, the time complexity of A∗is exponential in the maximum absolute error, that is,
+O(bΔ). For constant step costs, we can write this as O(bϵd), where d is the solution depth.
+For almost all heuristics in practical use, the absolute error is at least proportional to the path
+cost h∗, so ϵ is constant or growing and the time complexity is exponential in d. We can
+also see the effect of a more accurate heuristic: O(bϵd) = O((bϵ)d), so the effective branching
+factor (deﬁned more formally in the next section) is bϵ.
+When the state space has many goal states—particularly near-optimal goal states—the
+search process can be led astray from the optimal path and there is an extra cost proportional
+to the number of goals whose cost is within a factor ϵ of the optimal cost. Finally, in the
+general case of a graph, the situation is even worse. There can be exponentially many states
+with f(n) < C∗even if the absolute error is bounded by a constant. For example, consider
+a version of the vacuum world where the agent can clean up any square for unit cost without
+even having to visit it: in that case, squares can be cleaned in any order. With N initially dirty
+squares, there are 2N states where some subset has been cleaned and all of them are on an
+optimal solution path—and hence satisfy f(n) < C∗—even if the heuristic has an error of 1.
+The complexity of A∗often makes it impractical to insist on ﬁnding an optimal solution.
+One can use variants of A∗that ﬁnd suboptimal solutions quickly, or one can sometimes
+design heuristics that are more accurate but not strictly admissible. In any case, the use of a
+good heuristic still provides enormous savings compared to the use of an uninformed search.
+In Section 3.6, we look at the question of designing good heuristics.
+Computation time is not, however, A∗’s main drawback. Because it keeps all generated
+nodes in memory (as do all GRAPH-SEARCH algorithms), A∗usually runs out of space long
+
+Section 3.5.
+Informed (Heuristic) Search Strategies
+99
+function RECURSIVE-BEST-FIRST-SEARCH(problem) returns a solution, or failure
+return RBFS(problem, MAKE-NODE(problem.INITIAL-STATE),∞)
+function RBFS(problem,node,f limit) returns a solution, or failure and a new f-cost limit
+if problem.GOAL-TEST(node.STATE) then return SOLUTION(node)
+successors ←[ ]
+for each action in problem.ACTIONS(node.STATE) do
+add CHILD-NODE(problem,node,action) into successors
+if successors is empty then return failure, ∞
+for each s in successors do /* update f with value from previous search, if any */
+s.f ←max(s.g + s.h, node.f ))
+loop do
+best ←the lowest f-value node in successors
+if best.f > f limit then return failure, best.f
+alternative ←the second-lowest f-value among successors
+result,best.f ←RBFS(problem,best,min(f limit, alternative))
+if result̸ = failure then return result
+Figure 3.26
+The algorithm for recursive best-ﬁrst search.
+before it runs out of time. For this reason, A∗is not practical for many large-scale prob-
+lems. There are, however, algorithms that overcome the space problem without sacriﬁcing
+optimality or completeness, at a small cost in execution time. We discuss these next.
+3.5.3
+Memory-bounded heuristic search
+The simplest way to reduce memory requirements for A∗is to adapt the idea of iterative
+deepening to the heuristic search context, resulting in the iterative-deepening A∗(IDA∗) al-
+ITERATIVE-
+DEEPENING
+A∗
+gorithm. The main difference between IDA∗and standard iterative deepening is that the cutoff
+used is the f-cost (g +h) rather than the depth; at each iteration, the cutoff value is the small-
+est f-cost of any node that exceeded the cutoff on the previous iteration. IDA∗is practical
+for many problems with unit step costs and avoids the substantial overhead associated with
+keeping a sorted queue of nodes. Unfortunately, it suffers from the same difﬁculties with real-
+valued costs as does the iterative version of uniform-cost search described in Exercise 3.17.
+This section brieﬂy examines two other memory-bounded algorithms, called RBFS and MA∗.
+Recursive best-ﬁrst search (RBFS) is a simple recursive algorithm that attempts to
+RECURSIVE
+BEST-FIRST SEARCH
+mimic the operation of standard best-ﬁrst search, but using only linear space. The algorithm
+is shown in Figure 3.26. Its structure is similar to that of a recursive depth-ﬁrst search, but
+rather than continuing indeﬁnitely down the current path, it uses the f limit variable to keep
+track of the f-value of the best alternative path available from any ancestor of the current
+node. If the current node exceeds this limit, the recursion unwinds back to the alternative
+path. As the recursion unwinds, RBFS replaces the f-value of each node along the path
+with a backed-up value—the best f-value of its children. In this way, RBFS remembers the
+BACKED-UP VALUE
+f-value of the best leaf in the forgotten subtree and can therefore decide whether it’s worth
+
+100
+Chapter
+3.
+Solving Problems by Searching
+Zerind
+Arad
+Sibiu
+Arad
+Fagaras
+Oradea
+Craiova
+Sibiu
+Bucharest
+Craiova
+Rimnicu Vilcea
+Zerind
+Arad
+Sibiu
+Arad
+Sibiu
+Bucharest
+Rimnicu Vilcea
+Oradea
+Zerind
+Arad
+Sibiu
+Arad
+Timisoara
+Timisoara
+Timisoara
+Fagaras
+Oradea
+Rimnicu Vilcea
+Craiova
+Pitesti
+Sibiu
+646
+415
+671
+526
+553
+646
+671
+450
+591
+646
+671
+526
+553
+418
+615
+607
+447
+449
+447
+447
+449
+449
+366
+393
+366
+393
+413
+413 417
+415
+366
+393
+415 450
+417
+Rimnicu Vilcea
+Fagaras
+447
+415
+447
+447
+417
+(a) After expanding Arad, Sibiu, 
+      and Rimnicu Vilcea
+(c) After switching back to Rimnicu Vilcea
+      and expanding Pitesti
+(b) After unwinding back to Sibiu 
+      and expanding Fagaras
+447
+447
+∞
+∞
+∞
+417
+417
+Pitesti
+Figure 3.27
+Stages in an RBFS search for the shortest route to Bucharest. The f-limit
+value for each recursive call is shown on top of each current node, and every node is labeled
+with its f-cost. (a) The path via Rimnicu Vilcea is followed until the current best leaf (Pitesti)
+has a value that is worse than the best alternative path (Fagaras). (b) The recursion unwinds
+and the best leaf value of the forgotten subtree (417) is backed up to Rimnicu Vilcea; then
+Fagaras is expanded, revealing a best leaf value of 450. (c) The recursion unwinds and the
+best leaf value of the forgotten subtree (450) is backed up to Fagaras; then Rimnicu Vilcea is
+expanded. This time, because the best alternative path (through Timisoara) costs at least 447,
+the expansion continues to Bucharest.
+reexpanding the subtree at some later time. Figure 3.27 shows how RBFS reaches Bucharest.
+RBFS is somewhat more efﬁcient than IDA∗, but still suffers from excessive node re-
+generation. In the example in Figure 3.27, RBFS follows the path via Rimnicu Vilcea, then
+
+Section 3.5.
+Informed (Heuristic) Search Strategies
+101
+“changes its mind” and tries Fagaras, and then changes its mind back again. These mind
+changes occur because every time the current best path is extended, its f-value is likely to
+increase—h is usually less optimistic for nodes closer to the goal. When this happens, the
+second-best path might become the best path, so the search has to backtrack to follow it.
+Each mind change corresponds to an iteration of IDA∗and could require many reexpansions
+of forgotten nodes to recreate the best path and extend it one more node.
+Like A∗tree search, RBFS is an optimal algorithm if the heuristic function h(n) is
+admissible. Its space complexity is linear in the depth of the deepest optimal solution, but
+its time complexity is rather difﬁcult to characterize: it depends both on the accuracy of the
+heuristic function and on how often the best path changes as nodes are expanded.
+IDA∗and RBFS suffer from using too little memory. Between iterations, IDA∗retains
+only a single number: the current f-cost limit. RBFS retains more information in memory,
+but it uses only linear space: even if more memory were available, RBFS has no way to make
+use of it. Because they forget most of what they have done, both algorithms may end up reex-
+panding the same states many times over. Furthermore, they suffer the potentially exponential
+increase in complexity associated with redundant paths in graphs (see Section 3.3).
+It seems sensible, therefore, to use all available memory. Two algorithms that do this
+are MA∗(memory-bounded A∗) and SMA∗(simpliﬁed MA∗). SMA∗is—well—simpler, so
+MA*
+SMA*
+we will describe it. SMA∗proceeds just like A∗, expanding the best leaf until memory is full.
+At this point, it cannot add a new node to the search tree without dropping an old one. SMA∗
+always drops the worst leaf node—the one with the highest f-value. Like RBFS, SMA∗
+then backs up the value of the forgotten node to its parent. In this way, the ancestor of a
+forgotten subtree knows the quality of the best path in that subtree. With this information,
+SMA∗regenerates the subtree only when all other paths have been shown to look worse than
+the path it has forgotten. Another way of saying this is that, if all the descendants of a node n
+are forgotten, then we will not know which way to go from n, but we will still have an idea
+of how worthwhile it is to go anywhere from n.
+The complete algorithm is too complicated to reproduce here,10 but there is one subtlety
+worth mentioning. We said that SMA∗expands the best leaf and deletes the worst leaf. What
+if all the leaf nodes have the same f-value? To avoid selecting the same node for deletion
+and expansion, SMA∗expands the newest best leaf and deletes the oldest worst leaf. These
+coincide when there is only one leaf, but in that case, the current search tree must be a single
+path from root to leaf that ﬁlls all of memory. If the leaf is not a goal node, then even if it is on
+an optimal solution path, that solution is not reachable with the available memory. Therefore,
+the node can be discarded exactly as if it had no successors.
+SMA∗is complete if there is any reachable solution—that is, if d, the depth of the
+shallowest goal node, is less than the memory size (expressed in nodes). It is optimal if any
+optimal solution is reachable; otherwise, it returns the best reachable solution. In practical
+terms, SMA∗is a fairly robust choice for ﬁnding optimal solutions, particularly when the state
+space is a graph, step costs are not uniform, and node generation is expensive compared to
+the overhead of maintaining the frontier and the explored set.
+10 A rough sketch appeared in the ﬁrst edition of this book.
+
+102
+Chapter
+3.
+Solving Problems by Searching
+On very hard problems, however, it will often be the case that SMA∗is forced to switch
+back and forth continually among many candidate solution paths, only a small subset of which
+can ﬁt in memory. (This resembles the problem of thrashing in disk paging systems.) Then
+THRASHING
+the extra time required for repeated regeneration of the same nodes means that problems
+that would be practically solvable by A∗, given unlimited memory, become intractable for
+SMA∗. That is to say, memory limitations can make a problem intractable from the point
+of view of computation time. Although no current theory explains the tradeoff between time
+and memory, it seems that this is an inescapable problem. The only way out is to drop the
+optimality requirement.
+3.5.4
+Learning to search better
+We have presented several ﬁxed strategies—breadth-ﬁrst, greedy best-ﬁrst, and so on—that
+have been designed by computer scientists. Could an agent learn how to search better? The
+answer is yes, and the method rests on an important concept called the metalevel state space.
+METALEVEL STATE
+SPACE
+Each state in a metalevel state space captures the internal (computational) state of a program
+that is searching in an object-level state space such as Romania. For example, the internal
+OBJECT-LEVEL STATE
+SPACE
+state of the A∗algorithm consists of the current search tree. Each action in the metalevel state
+space is a computation step that alters the internal state; for example, each computation step
+in A∗expands a leaf node and adds its successors to the tree. Thus, Figure 3.24, which shows
+a sequence of larger and larger search trees, can be seen as depicting a path in the metalevel
+state space where each state on the path is an object-level search tree.
+Now, the path in Figure 3.24 has ﬁve steps, including one step, the expansion of Fagaras,
+that is not especially helpful. For harder problems, there will be many such missteps, and a
+metalevel learning algorithm can learn from these experiences to avoid exploring unpromis-
+METALEVEL
+LEARNING
+ing subtrees. The techniques used for this kind of learning are described in Chapter 21. The
+goal of learning is to minimize the total cost of problem solving, trading off computational
+expense and path cost.
+3.6
+HEURISTIC FUNCTIONS
+In this section, we look at heuristics for the 8-puzzle, in order to shed light on the nature of
+heuristics in general.
+The 8-puzzle was one of the earliest heuristic search problems. As mentioned in Sec-
+tion 3.2, the object of the puzzle is to slide the tiles horizontally or vertically into the empty
+space until the conﬁguration matches the goal conﬁguration (Figure 3.28).
+The average solution cost for a randomly generated 8-puzzle instance is about 22 steps.
+The branching factor is about 3. (When the empty tile is in the middle, four moves are
+possible; when it is in a corner, two; and when it is along an edge, three.) This means
+that an exhaustive tree search to depth 22 would look at about 322 ≈3.1 × 1010 states.
+A graph search would cut this down by a factor of about 170,000 because only 9!/2 =
+181, 440 distinct states are reachable. (See Exercise 3.4.) This is a manageable number, but
+
+Section 3.6.
+Heuristic Functions
+103
+2
+Start State
+Goal State
+1
+3
+4
+6
+7
+5
+1
+2
+3
+4
+6
+7
+8
+5
+8
+Figure 3.28
+A typical instance of the 8-puzzle. The solution is 26 steps long.
+the corresponding number for the 15-puzzle is roughly 1013, so the next order of business is
+to ﬁnd a good heuristic function. If we want to ﬁnd the shortest solutions by using A∗, we
+need a heuristic function that never overestimates the number of steps to the goal. There is a
+long history of such heuristics for the 15-puzzle; here are two commonly used candidates:
+• h1 = the number of misplaced tiles. For Figure 3.28, all of the eight tiles are out of
+position, so the start state would have h1 = 8. h1 is an admissible heuristic because it
+is clear that any tile that is out of place must be moved at least once.
+• h2 = the sum of the distances of the tiles from their goal positions. Because tiles
+cannot move along diagonals, the distance we will count is the sum of the horizontal
+and vertical distances. This is sometimes called the city block distance or Manhattan
+distance. h2 is also admissible because all any move can do is move one tile one step
+MANHATTAN
+DISTANCE
+closer to the goal. Tiles 1 to 8 in the start state give a Manhattan distance of
+h2 = 3 + 1 + 2 + 2 + 2 + 3 + 3 + 2 = 18 .
+As expected, neither of these overestimates the true solution cost, which is 26.
+3.6.1
+The effect of heuristic accuracy on performance
+One way to characterize the quality of a heuristic is the effective branching factor b∗. If the
+EFFECTIVE
+BRANCHING FACTOR
+total number of nodes generated by A∗for a particular problem is N and the solution depth is
+d, then b∗is the branching factor that a uniform tree of depth d would have to have in order
+to contain N + 1 nodes. Thus,
+N + 1 = 1 + b∗+ (b∗)2 + · · · + (b∗)d .
+For example, if A∗ﬁnds a solution at depth 5 using 52 nodes, then the effective branching
+factor is 1.92. The effective branching factor can vary across problem instances, but usually
+it is fairly constant for sufﬁciently hard problems. (The existence of an effective branching
+factor follows from the result, mentioned earlier, that the number of nodes expanded by A∗
+grows exponentially with solution depth.) Therefore, experimental measurements of b∗on a
+small set of problems can provide a good guide to the heuristic’s overall usefulness. A well-
+designed heuristic would have a value of b∗close to 1, allowing fairly large problems to be
+solved at reasonable computational cost.
+
+104
+Chapter
+3.
+Solving Problems by Searching
+To test the heuristic functions h1 and h2, we generated 1200 random problems with
+solution lengths from 2 to 24 (100 for each even number) and solved them with iterative
+deepening search and with A∗tree search using both h1 and h2. Figure 3.29 gives the average
+number of nodes generated by each strategy and the effective branching factor. The results
+suggest that h2 is better than h1, and is far better than using iterative deepening search. Even
+for small problems with d = 12, A∗with h2 is 50,000 times more efﬁcient than uninformed
+iterative deepening search.
+Search Cost (nodes generated)
+Effective Branching Factor
+d
+IDS
+A∗(h1)
+A∗(h2)
+IDS
+A∗(h1)
+A∗(h2)
+2
+10
+6
+6
+2.45
+1.79
+1.79
+4
+112
+13
+12
+2.87
+1.48
+1.45
+6
+680
+20
+18
+2.73
+1.34
+1.30
+8
+6384
+39
+25
+2.80
+1.33
+1.24
+10
+47127
+93
+39
+2.79
+1.38
+1.22
+12
+3644035
+227
+73
+2.78
+1.42
+1.24
+14
+–
+539
+113
+–
+1.44
+1.23
+16
+–
+1301
+211
+–
+1.45
+1.25
+18
+–
+3056
+363
+–
+1.46
+1.26
+20
+–
+7276
+676
+–
+1.47
+1.27
+22
+–
+18094
+1219
+–
+1.48
+1.28
+24
+–
+39135
+1641
+–
+1.48
+1.26
+Figure 3.29
+Comparison of the search costs and effective branching factors for the
+ITERATIVE-DEEPENING-SEARCH and A∗algorithms with h1, h2. Data are averaged over
+100 instances of the 8-puzzle for each of various solution lengths d.
+One might ask whether h2 is always better than h1. The answer is “Essentially, yes.” It
+is easy to see from the deﬁnitions of the two heuristics that, for any node n, h2(n) ≥h1(n).
+We thus say that h2 dominates h1. Domination translates directly into efﬁciency: A∗using
+DOMINATION
+h2 will never expand more nodes than A∗using h1 (except possibly for some nodes with
+f(n) = C∗). The argument is simple. Recall the observation on page 97 that every node
+with f(n) < C∗will surely be expanded. This is the same as saying that every node with
+h(n) < C∗−g(n) will surely be expanded. But because h2 is at least as big as h1 for all
+nodes, every node that is surely expanded by A∗search with h2 will also surely be expanded
+with h1, and h1 might cause other nodes to be expanded as well. Hence, it is generally
+better to use a heuristic function with higher values, provided it is consistent and that the
+computation time for the heuristic is not too long.
+3.6.2
+Generating admissible heuristics from relaxed problems
+We have seen that both h1 (misplaced tiles) and h2 (Manhattan distance) are fairly good
+heuristics for the 8-puzzle and that h2 is better. How might one have come up with h2? Is it
+possible for a computer to invent such a heuristic mechanically?
+h1 and h2 are estimates of the remaining path length for the 8-puzzle, but they are also
+perfectly accurate path lengths for simpliﬁed versions of the puzzle. If the rules of the puzzle
+
+Section 3.6.
+Heuristic Functions
+105
+were changed so that a tile could move anywhere instead of just to the adjacent empty square,
+then h1 would give the exact number of steps in the shortest solution. Similarly, if a tile could
+move one square in any direction, even onto an occupied square, then h2 would give the exact
+number of steps in the shortest solution. A problem with fewer restrictions on the actions is
+called a relaxed problem. The state-space graph of the relaxed problem is a supergraph of
+RELAXED PROBLEM
+the original state space because the removal of restrictions creates added edges in the graph.
+Because the relaxed problem adds edges to the state space, any optimal solution in the
+original problem is, by deﬁnition, also a solution in the relaxed problem; but the relaxed
+problem may have better solutions if the added edges provide short cuts. Hence, the cost of
+an optimal solution to a relaxed problem is an admissible heuristic for the original problem.
+Furthermore, because the derived heuristic is an exact cost for the relaxed problem, it must
+obey the triangle inequality and is therefore consistent (see page 95).
+If a problem deﬁnition is written down in a formal language, it is possible to construct
+relaxed problems automatically.11 For example, if the 8-puzzle actions are described as
+A tile can move from square A to square B if
+A is horizontally or vertically adjacent to B and B is blank,
+we can generate three relaxed problems by removing one or both of the conditions:
+(a) A tile can move from square A to square B if A is adjacent to B.
+(b) A tile can move from square A to square B if B is blank.
+(c) A tile can move from square A to square B.
+From (a), we can derive h2 (Manhattan distance). The reasoning is that h2 would be the
+proper score if we moved each tile in turn to its destination. The heuristic derived from (b) is
+discussed in Exercise 3.31. From (c), we can derive h1 (misplaced tiles) because it would be
+the proper score if tiles could move to their intended destination in one step. Notice that it is
+crucial that the relaxed problems generated by this technique can be solved essentially without
+search, because the relaxed rules allow the problem to be decomposed into eight independent
+subproblems. If the relaxed problem is hard to solve, then the values of the corresponding
+heuristic will be expensive to obtain.12
+A program called ABSOLVER can generate heuristics automatically from problem def-
+initions, using the “relaxed problem” method and various other techniques (Prieditis, 1993).
+ABSOLVER generated a new heuristic for the 8-puzzle that was better than any preexisting
+heuristic and found the ﬁrst useful heuristic for the famous Rubik’s Cube puzzle.
+One problem with generating new heuristic functions is that one often fails to get a
+single “clearly best” heuristic. If a collection of admissible heuristics h1 . . . hm is available
+for a problem and none of them dominates any of the others, which should we choose? As it
+turns out, we need not make a choice. We can have the best of all worlds, by deﬁning
+h(n) = max{h1(n), . . . , hm(n)} .
+11 In Chapters 8 and 10, we describe formal languages suitable for this task; with formal descriptions that can be
+manipulated, the construction of relaxed problems can be automated. For now, we use English.
+12 Note that a perfect heuristic can be obtained simply by allowing h to run a full breadth-ﬁrst search “on the
+sly.” Thus, there is a tradeoff between accuracy and computation time for heuristic functions.
+
+106
+Chapter
+3.
+Solving Problems by Searching
+Start State
+Goal State
+1
+2
+3
+4
+6
+8
+5
+2
+1
+3
+6
+7
+8
+54
+Figure 3.30
+A subproblem of the 8-puzzle instance given in Figure 3.28. The task is to
+get tiles 1, 2, 3, and 4 into their correct positions, without worrying about what happens to
+the other tiles.
+This composite heuristic uses whichever function is most accurate on the node in question.
+Because the component heuristics are admissible, h is admissible; it is also easy to prove that
+h is consistent. Furthermore, h dominates all of its component heuristics.
+3.6.3
+Generating admissible heuristics from subproblems: Pattern databases
+Admissible heuristics can also be derived from the solution cost of a subproblem of a given
+SUBPROBLEM
+problem. For example, Figure 3.30 shows a subproblem of the 8-puzzle instance in Fig-
+ure 3.28. The subproblem involves getting tiles 1, 2, 3, 4 into their correct positions. Clearly,
+the cost of the optimal solution of this subproblem is a lower bound on the cost of the com-
+plete problem. It turns out to be more accurate than Manhattan distance in some cases.
+The idea behind pattern databases is to store these exact solution costs for every pos-
+PATTERN DATABASE
+sible subproblem instance—in our example, every possible conﬁguration of the four tiles
+and the blank. (The locations of the other four tiles are irrelevant for the purposes of solv-
+ing the subproblem, but moves of those tiles do count toward the cost.) Then we compute
+an admissible heuristic hDB for each complete state encountered during a search simply by
+looking up the corresponding subproblem conﬁguration in the database. The database itself is
+constructed by searching back13 from the goal and recording the cost of each new pattern en-
+countered; the expense of this search is amortized over many subsequent problem instances.
+The choice of 1-2-3-4 is fairly arbitrary; we could also construct databases for 5-6-7-8,
+for 2-4-6-8, and so on. Each database yields an admissible heuristic, and these heuristics can
+be combined, as explained earlier, by taking the maximum value. A combined heuristic of
+this kind is much more accurate than the Manhattan distance; the number of nodes generated
+when solving random 15-puzzles can be reduced by a factor of 1000.
+One might wonder whether the heuristics obtained from the 1-2-3-4 database and the
+5-6-7-8 could be added, since the two subproblems seem not to overlap. Would this still give
+an admissible heuristic? The answer is no, because the solutions of the 1-2-3-4 subproblem
+and the 5-6-7-8 subproblem for a given state will almost certainly share some moves—it is
+13 By working backward from the goal, the exact solution cost of every instance encountered is immediately
+available. This is an example of dynamic programming, which we discuss further in Chapter 17.
+
+Section 3.6.
+Heuristic Functions
+107
+unlikely that 1-2-3-4 can be moved into place without touching 5-6-7-8, and vice versa. But
+what if we don’t count those moves? That is, we record not the total cost of solving the 1-2-
+3-4 subproblem, but just the number of moves involving 1-2-3-4. Then it is easy to see that
+the sum of the two costs is still a lower bound on the cost of solving the entire problem. This
+is the idea behind disjoint pattern databases. With such databases, it is possible to solve
+DISJOINT PATTERN
+DATABASES
+random 15-puzzles in a few milliseconds—the number of nodes generated is reduced by a
+factor of 10,000 compared with the use of Manhattan distance. For 24-puzzles, a speedup of
+roughly a factor of a million can be obtained.
+Disjoint pattern databases work for sliding-tile puzzles because the problem can be
+divided up in such a way that each move affects only one subproblem—because only one tile
+is moved at a time. For a problem such as Rubik’s Cube, this kind of subdivision is difﬁcult
+because each move affects 8 or 9 of the 26 cubies. More general ways of deﬁning additive,
+admissible heuristics have been proposed that do apply to Rubik’s cube (Yang et al., 2008),
+but they have not yielded a heuristic better than the best nonadditive heuristic for the problem.
+3.6.4
+Learning heuristics from experience
+A heuristic function h(n) is supposed to estimate the cost of a solution beginning from the
+state at node n. How could an agent construct such a function? One solution was given in
+the preceding sections—namely, to devise relaxed problems for which an optimal solution
+can be found easily. Another solution is to learn from experience. “Experience” here means
+solving lots of 8-puzzles, for instance. Each optimal solution to an 8-puzzle problem provides
+examples from which h(n) can be learned. Each example consists of a state from the solu-
+tion path and the actual cost of the solution from that point. From these examples, a learning
+algorithm can be used to construct a function h(n) that can (with luck) predict solution costs
+for other states that arise during search. Techniques for doing just this using neural nets, de-
+cision trees, and other methods are demonstrated in Chapter 18. (The reinforcement learning
+methods described in Chapter 21 are also applicable.)
+Inductive learning methods work best when supplied with features of a state that are
+FEATURE
+relevant to predicting the state’s value, rather than with just the raw state description. For
+example, the feature “number of misplaced tiles” might be helpful in predicting the actual
+distance of a state from the goal. Let’s call this feature x1(n). We could take 100 randomly
+generated 8-puzzle conﬁgurations and gather statistics on their actual solution costs. We
+might ﬁnd that when x1(n) is 5, the average solution cost is around 14, and so on. Given
+these data, the value of x1 can be used to predict h(n). Of course, we can use several features.
+A second feature x2(n) might be “number of pairs of adjacent tiles that are not adjacent in the
+goal state.” How should x1(n) and x2(n) be combined to predict h(n)? A common approach
+is to use a linear combination:
+h(n) = c1x1(n) + c2x2(n) .
+The constants c1 and c2 are adjusted to give the best ﬁt to the actual data on solution costs.
+One expects both c1 and c2 to be positive because misplaced tiles and incorrect adjacent pairs
+make the problem harder to solve. Notice that this heuristic does satisfy the condition that
+h(n) = 0 for goal states, but it is not necessarily admissible or consistent.
+
+7
+LOGICAL AGENTS
+In which we design agents that can form representations of a complex world, use a
+process of inference to derive new representations about the world, and use these
+new representations to deduce what to do.
+Humans, it seems, know things; and what they know helps them do things.
+These are
+not empty statements. They make strong claims about how the intelligence of humans is
+achieved—not by purely reﬂex mechanisms but by processes of reasoning that operate on
+REASONING
+internal representations of knowledge. In AI, this approach to intelligence is embodied in
+REPRESENTATION
+knowledge-based agents.
+KNOWLEDGE-BASED
+AGENTS
+The problem-solving agents of Chapters 3 and 4 know things, but only in a very limited,
+inﬂexible sense. For example, the transition model for the 8-puzzle—knowledge of what the
+actions do—is hidden inside the domain-speciﬁc code of the RESULT function. It can be
+used to predict the outcome of actions but not to deduce that two tiles cannot occupy the
+same space or that states with odd parity cannot be reached from states with even parity. The
+atomic representations used by problem-solving agents are also very limiting. In a partially
+observable environment, an agent’s only choice for representing what it knows about the
+current state is to list all possible concrete states—a hopeless prospect in large environments.
+Chapter 6 introduced the idea of representing states as assignments of values to vari-
+ables; this is a step in the right direction, enabling some parts of the agent to work in a
+domain-independent way and allowing for more efﬁcient algorithms. In this chapter and
+those that follow, we take this step to its logical conclusion, so to speak—we develop logic
+LOGIC
+as a general class of representations to support knowledge-based agents. Such agents can
+combine and recombine information to suit myriad purposes. Often, this process can be quite
+far removed from the needs of the moment—as when a mathematician proves a theorem or
+an astronomer calculates the earth’s life expectancy. Knowledge-based agents can accept new
+tasks in the form of explicitly described goals; they can achieve competence quickly by being
+told or learning new knowledge about the environment; and they can adapt to changes in the
+environment by updating the relevant knowledge.
+We begin in Section 7.1 with the overall agent design. Section 7.2 introduces a sim-
+ple new environment, the wumpus world, and illustrates the operation of a knowledge-based
+agent without going into any technical detail. Then we explain the general principles of logic
+234
+
+Section 7.1.
+Knowledge-Based Agents
+235
+in Section 7.3 and the speciﬁcs of propositional logic in Section 7.4. While less expressive
+than ﬁrst-order logic (Chapter 8), propositional logic illustrates all the basic concepts of
+logic; it also comes with well-developed inference technologies, which we describe in sec-
+tions 7.5 and 7.6. Finally, Section 7.7 combines the concept of knowledge-based agents with
+the technology of propositional logic to build some simple agents for the wumpus world.
+7.1
+KNOWLEDGE-BASED AGENTS
+The central component of a knowledge-based agent is its knowledge base, or KB. A knowl-
+KNOWLEDGE BASE
+edge base is a set of sentences. (Here “sentence” is used as a technical term. It is related
+SENTENCE
+but not identical to the sentences of English and other natural languages.) Each sentence is
+expressed in a language called a knowledge representation language and represents some
+KNOWLEDGE
+REPRESENTATION
+LANGUAGE
+assertion about the world. Sometimes we dignify a sentence with the name axiom, when the
+AXIOM
+sentence is taken as given without being derived from other sentences.
+There must be a way to add new sentences to the knowledge base and a way to query
+what is known. The standard names for these operations are TELL and ASK, respectively.
+Both operations may involve inference—that is, deriving new sentences from old. Inference
+INFERENCE
+must obey the requirement that when one ASKs a question of the knowledge base, the answer
+should follow from what has been told (or TELLed) to the knowledge base previously. Later
+in this chapter, we will be more precise about the crucial word “follow.” For now, take it to
+mean that the inference process should not make things up as it goes along.
+Figure 7.1 shows the outline of a knowledge-based agent program. Like all our agents,
+it takes a percept as input and returns an action. The agent maintains a knowledge base, KB,
+which may initially contain some background knowledge.
+BACKGROUND
+KNOWLEDGE
+Each time the agent program is called, it does three things. First, it TELLs the knowl-
+edge base what it perceives. Second, it ASKs the knowledge base what action it should
+perform. In the process of answering this query, extensive reasoning may be done about
+the current state of the world, about the outcomes of possible action sequences, and so on.
+Third, the agent program TELLs the knowledge base which action was chosen, and the agent
+executes the action.
+The details of the representation language are hidden inside three functions that imple-
+ment the interface between the sensors and actuators on one side and the core representation
+and reasoning system on the other. MAKE-PERCEPT-SENTENCE constructs a sentence as-
+serting that the agent perceived the given percept at the given time. MAKE-ACTION-QUERY
+constructs a sentence that asks what action should be done at the current time. Finally,
+MAKE-ACTION-SENTENCE constructs a sentence asserting that the chosen action was ex-
+ecuted. The details of the inference mechanisms are hidden inside TELL and ASK. Later
+sections will reveal these details.
+The agent in Figure 7.1 appears quite similar to the agents with internal state described
+in Chapter 2. Because of the deﬁnitions of TELL and ASK, however, the knowledge-based
+agent is not an arbitrary program for calculating actions. It is amenable to a description at
+
+236
+Chapter
+7.
+Logical Agents
+function KB-AGENT(percept) returns an action
+persistent: KB, a knowledge base
+t, a counter, initially 0, indicating time
+TELL(KB, MAKE-PERCEPT-SENTENCE(percept,t))
+action ←ASK(KB, MAKE-ACTION-QUERY(t))
+TELL(KB, MAKE-ACTION-SENTENCE(action,t))
+t ←t + 1
+return action
+Figure 7.1
+A generic knowledge-based agent. Given a percept, the agent adds the percept
+to its knowledge base, asks the knowledge base for the best action, and tells the knowledge
+base that it has in fact taken that action.
+the knowledge level, where we need specify only what the agent knows and what its goals
+KNOWLEDGE LEVEL
+are, in order to ﬁx its behavior. For example, an automated taxi might have the goal of
+taking a passenger from San Francisco to Marin County and might know that the Golden
+Gate Bridge is the only link between the two locations. Then we can expect it to cross the
+Golden Gate Bridge because it knows that that will achieve its goal. Notice that this analysis
+is independent of how the taxi works at the implementation level. It doesn’t matter whether
+IMPLEMENTATION
+LEVEL
+its geographical knowledge is implemented as linked lists or pixel maps, or whether it reasons
+by manipulating strings of symbols stored in registers or by propagating noisy signals in a
+network of neurons.
+A knowledge-based agent can be built simply by TELLing it what it needs to know.
+Starting with an empty knowledge base, the agent designer can TELL sentences one by one
+until the agent knows how to operate in its environment. This is called the declarative ap-
+DECLARATIVE
+proach to system building. In contrast, the procedural approach encodes desired behaviors
+directly as program code. In the 1970s and 1980s, advocates of the two approaches engaged
+in heated debates. We now understand that a successful agent often combines both declarative
+and procedural elements in its design, and that declarative knowledge can often be compiled
+into more efﬁcient procedural code.
+We can also provide a knowledge-based agent with mechanisms that allow it to learn
+for itself. These mechanisms, which are discussed in Chapter 18, create general knowledge
+about the environment from a series of percepts. A learning agent can be fully autonomous.
+7.2
+THE WUMPUS WORLD
+In this section we describe an environment in which knowledge-based agents can show their
+worth. The wumpus world is a cave consisting of rooms connected by passageways. Lurking
+WUMPUS WORLD
+somewhere in the cave is the terrible wumpus, a beast that eats anyone who enters its room.
+The wumpus can be shot by an agent, but the agent has only one arrow. Some rooms contain
+
+Section 7.2.
+The Wumpus World
+237
+bottomless pits that will trap anyone who wanders into these rooms (except for the wumpus,
+which is too big to fall in). The only mitigating feature of this bleak environment is the
+possibility of ﬁnding a heap of gold. Although the wumpus world is rather tame by modern
+computer game standards, it illustrates some important points about intelligence.
+A sample wumpus world is shown in Figure 7.2. The precise deﬁnition of the task
+environment is given, as suggested in Section 2.3, by the PEAS description:
+• Performance measure: +1000 for climbing out of the cave with the gold, –1000 for
+falling into a pit or being eaten by the wumpus, –1 for each action taken and –10 for
+using up the arrow. The game ends either when the agent dies or when the agent climbs
+out of the cave.
+• Environment: A 4 × 4 grid of rooms. The agent always starts in the square labeled
+[1,1], facing to the right. The locations of the gold and the wumpus are chosen ran-
+domly, with a uniform distribution, from the squares other than the start square. In
+addition, each square other than the start can be a pit, with probability 0.2.
+• Actuators: The agent can move Forward, TurnLeft by 90◦, or TurnRight by 90◦. The
+agent dies a miserable death if it enters a square containing a pit or a live wumpus. (It
+is safe, albeit smelly, to enter a square with a dead wumpus.) If an agent tries to move
+forward and bumps into a wall, then the agent does not move. The action Grab can be
+used to pick up the gold if it is in the same square as the agent. The action Shoot can
+be used to ﬁre an arrow in a straight line in the direction the agent is facing. The arrow
+continues until it either hits (and hence kills) the wumpus or hits a wall. The agent has
+only one arrow, so only the ﬁrst Shoot action has any effect. Finally, the action Climb
+can be used to climb out of the cave, but only from square [1,1].
+• Sensors: The agent has ﬁve sensors, each of which gives a single bit of information:
+– In the square containing the wumpus and in the directly (not diagonally) adjacent
+squares, the agent will perceive a Stench.
+– In the squares directly adjacent to a pit, the agent will perceive a Breeze.
+– In the square where the gold is, the agent will perceive a Glitter.
+– When an agent walks into a wall, it will perceive a Bump.
+– When the wumpus is killed, it emits a woeful Scream that can be perceived any-
+where in the cave.
+The percepts will be given to the agent program in the form of a list of ﬁve symbols;
+for example, if there is a stench and a breeze, but no glitter, bump, or scream, the agent
+program will get [Stench, Breeze, None, None, None].
+We can characterize the wumpus environment along the various dimensions given in Chap-
+ter 2. Clearly, it is discrete, static, and single-agent. (The wumpus doesn’t move, fortunately.)
+It is sequential, because rewards may come only after many actions are taken. It is partially
+observable, because some aspects of the state are not directly perceivable: the agent’s lo-
+cation, the wumpus’s state of health, and the availability of an arrow. As for the locations
+of the pits and the wumpus: we could treat them as unobserved parts of the state that hap-
+pen to be immutable—in which case, the transition model for the environment is completely
+
+238
+Chapter
+7.
+Logical Agents
+PIT
+1
+2
+3
+4
+1
+2
+3
+4
+START
+Stench
+Stench
+B
+r
+ee
+z
+e
+Gold
+PIT
+PIT
+B
+r
+ee
+z
+e
+B
+r
+ee
+z
+e
+B
+r
+ee
+z
+e
+B
+r
+ee
+z
+e
+B
+r
+ee
+z
+e
+Stench
+Figure 7.2
+A typical wumpus world. The agent is in the bottom left corner, facing right.
+known; or we could say that the transition model itself is unknown because the agent doesn’t
+know which Forward actions are fatal—in which case, discovering the locations of pits and
+wumpus completes the agent’s knowledge of the transition model.
+For an agent in the environment, the main challenge is its initial ignorance of the con-
+ﬁguration of the environment; overcoming this ignorance seems to require logical reasoning.
+In most instances of the wumpus world, it is possible for the agent to retrieve the gold safely.
+Occasionally, the agent must choose between going home empty-handed and risking death to
+ﬁnd the gold. About 21% of the environments are utterly unfair, because the gold is in a pit
+or surrounded by pits.
+Let us watch a knowledge-based wumpus agent exploring the environment shown in
+Figure 7.2. We use an informal knowledge representation language consisting of writing
+down symbols in a grid (as in Figures 7.3 and 7.4).
+The agent’s initial knowledge base contains the rules of the environment, as described
+previously; in particular, it knows that it is in [1,1] and that [1,1] is a safe square; we denote
+that with an “A” and “OK,” respectively, in square [1,1].
+The ﬁrst percept is [None, None, None, None, None], from which the agent can con-
+clude that its neighboring squares, [1,2] and [2,1], are free of dangers—they are OK. Fig-
+ure 7.3(a) shows the agent’s state of knowledge at this point.
+A cautious agent will move only into a square that it knows to be OK. Let us suppose
+the agent decides to move forward to [2,1]. The agent perceives a breeze (denoted by “B”) in
+[2,1], so there must be a pit in a neighboring square. The pit cannot be in [1,1], by the rules of
+the game, so there must be a pit in [2,2] or [3,1] or both. The notation “P?” in Figure 7.3(b)
+indicates a possible pit in those squares. At this point, there is only one known square that is
+OK and that has not yet been visited. So the prudent agent will turn around, go back to [1,1],
+and then proceed to [1,2].
+The agent perceives a stench in [1,2], resulting in the state of knowledge shown in
+Figure 7.4(a). The stench in [1,2] means that there must be a wumpus nearby. But the
+
+Section 7.2.
+The Wumpus World
+239
+A
+B
+G
+P
+S
+W
+ = Agent
+ = Breeze
+ = Glitter, Gold
+ = Pit
+ = Stench
+ = Wumpus
+OK = Safe square
+V
+ = Visited
+A
+OK
+ 1,1
+ 2,1
+ 3,1
+ 4,1
+ 1,2
+ 2,2
+ 3,2
+ 4,2
+ 1,3
+ 2,3
+ 3,3
+ 4,3
+ 1,4
+ 2,4
+ 3,4
+ 4,4
+OK
+OK
+B
+P?
+P?
+A
+OK
+OK
+OK
+ 1,1
+ 2,1
+ 3,1
+ 4,1
+ 1,2
+ 2,2
+ 3,2
+ 4,2
+ 1,3
+ 2,3
+ 3,3
+ 4,3
+ 1,4
+ 2,4
+ 3,4
+ 4,4
+V
+(a)
+(b)
+Figure 7.3
+The ﬁrst step taken by the agent in the wumpus world. (a) The initial sit-
+uation, after percept [None, None, None, None, None]. (b) After one move, with percept
+[None, Breeze, None, None, None].
+B
+B
+P!
+A
+OK
+OK
+OK
+ 1,1
+ 2,1
+ 3,1
+ 4,1
+ 1,2
+ 2,2
+ 3,2
+ 4,2
+ 1,3
+ 2,3
+ 3,3
+ 4,3
+ 1,4
+ 2,4
+ 3,4
+ 4,4
+V
+OK
+W!
+V
+P!
+A
+OK
+OK
+OK
+ 1,1
+ 2,1
+ 3,1
+ 4,1
+ 1,2
+ 2,2
+ 3,2
+ 4,2
+ 1,3
+ 2,3
+ 3,3
+ 4,3
+ 1,4
+ 2,4
+ 3,4
+ 4,4
+V
+S
+OK
+W!
+V
+V
+V
+B
+S G
+P?
+P?
+(b)
+(a)
+S
+A
+B
+G
+P
+S
+W
+ = Agent
+ = Breeze
+ = Glitter, Gold
+ = Pit
+ = Stench
+ = Wumpus
+OK = Safe square
+V
+ = Visited
+Figure 7.4
+Two later stages in the progress of the agent.
+(a) After the third move,
+with percept [Stench, None, None, None, None]. (b) After the ﬁfth move, with percept
+[Stench, Breeze, Glitter, None, None].
+wumpus cannot be in [1,1], by the rules of the game, and it cannot be in [2,2] (or the agent
+would have detected a stench when it was in [2,1]). Therefore, the agent can infer that the
+wumpus is in [1,3]. The notation W! indicates this inference. Moreover, the lack of a breeze
+in [1,2] implies that there is no pit in [2,2]. Yet the agent has already inferred that there must
+be a pit in either [2,2] or [3,1], so this means it must be in [3,1]. This is a fairly difﬁcult
+inference, because it combines knowledge gained at different times in different places and
+relies on the lack of a percept to make one crucial step.
+
+240
+Chapter
+7.
+Logical Agents
+The agent has now proved to itself that there is neither a pit nor a wumpus in [2,2], so it
+is OK to move there. We do not show the agent’s state of knowledge at [2,2]; we just assume
+that the agent turns and moves to [2,3], giving us Figure 7.4(b). In [2,3], the agent detects a
+glitter, so it should grab the gold and then return home.
+Note that in each case for which the agent draws a conclusion from the available in-
+formation, that conclusion is guaranteed to be correct if the available information is correct.
+This is a fundamental property of logical reasoning. In the rest of this chapter, we describe
+how to build logical agents that can represent information and draw conclusions such as those
+described in the preceding paragraphs.
+7.3
+LOGIC
+This section summarizes the fundamental concepts of logical representation and reasoning.
+These beautiful ideas are independent of any of logic’s particular forms. We therefore post-
+pone the technical details of those forms until the next section, using instead the familiar
+example of ordinary arithmetic.
+In Section 7.1, we said that knowledge bases consist of sentences. These sentences
+are expressed according to the syntax of the representation language, which speciﬁes all the
+SYNTAX
+sentences that are well formed. The notion of syntax is clear enough in ordinary arithmetic:
+“x + y = 4” is a well-formed sentence, whereas “x4y+ =” is not.
+A logic must also deﬁne the semantics or meaning of sentences. The semantics deﬁnes
+SEMANTICS
+the truth of each sentence with respect to each possible world. For example, the semantics
+TRUTH
+POSSIBLE WORLD
+for arithmetic speciﬁes that the sentence “x + y = 4” is true in a world where x is 2 and y
+is 2, but false in a world where x is 1 and y is 1. In standard logics, every sentence must be
+either true or false in each possible world—there is no “in between.”1
+When we need to be precise, we use the term model in place of “possible world.”
+MODEL
+Whereas possible worlds might be thought of as (potentially) real environments that the agent
+might or might not be in, models are mathematical abstractions, each of which simply ﬁxes
+the truth or falsehood of every relevant sentence. Informally, we may think of a possible world
+as, for example, having x men and y women sitting at a table playing bridge, and the sentence
+x + y = 4 is true when there are four people in total. Formally, the possible models are just
+all possible assignments of real numbers to the variables x and y. Each such assignment ﬁxes
+the truth of any sentence of arithmetic whose variables are x and y. If a sentence α is true in
+model m, we say that m satisﬁes α or sometimes m is a model of α. We use the notation
+SATISFACTION
+M(α) to mean the set of all models of α.
+Now that we have a notion of truth, we are ready to talk about logical reasoning. This
+involves the relation of logical entailment between sentences—the idea that a sentence fol-
+ENTAILMENT
+lows logically from another sentence. In mathematical notation, we write
+α |= β
+1 Fuzzy logic, discussed in Chapter 14, allows for degrees of truth.
+
+Section 7.3.
+Logic
+241
+1
+2
+3
+1
+2
+PIT
+1
+2
+3
+1
+2
+PIT
+1
+2
+3
+1
+2
+PIT
+PIT
+PIT
+1
+2
+3
+1
+2
+PIT
+PIT
+1
+2
+3
+1
+2
+PIT
+1
+2
+3
+1
+2
+PIT
+PIT
+1
+2
+3
+1
+2
+PIT
+PIT
+1
+2
+3
+1
+2
+KB
+α1
+B
+r
+eez
+e
+B
+r
+eez
+e
+B
+r
+eez
+e
+B
+r
+eez
+e
+B
+r
+eez
+e
+B
+r
+eez
+e
+B
+r
+eez
+e
+B
+r
+eez
+e
+1
+2
+3
+1
+2
+PIT
+1
+2
+3
+1
+2
+PIT
+1
+2
+3
+1
+2
+PIT
+PIT
+PIT
+1
+2
+3
+1
+2
+PIT
+PIT
+1
+2
+3
+1
+2
+PIT
+1
+2
+3
+1
+2
+PIT
+PIT
+1
+2
+3
+1
+2
+PIT
+PIT
+1
+2
+3
+1
+2
+KB
+B
+r
+eez
+e
+α2
+B
+r
+eez
+e
+B
+r
+eez
+e
+B
+r
+eez
+e
+B
+r
+eez
+e
+B
+r
+eez
+e
+B
+r
+eez
+e
+B
+r
+eez
+e
+(a)
+(b)
+Figure 7.5
+Possible models for the presence of pits in squares [1,2], [2,2], and [3,1]. The
+KB corresponding to the observations of nothing in [1,1] and a breeze in [2,1] is shown by
+the solid line. (a) Dotted line shows models of α1 (no pit in [1,2]). (b) Dotted line shows
+models of α2 (no pit in [2,2]).
+to mean that the sentence α entails the sentence β. The formal deﬁnition of entailment is this:
+α |= β if and only if, in every model in which α is true, β is also true. Using the notation just
+introduced, we can write
+α |= β if and only if M(α) ⊆M(β) .
+(Note the direction of the ⊆here: if α |= β, then α is a stronger assertion than β: it rules out
+more possible worlds.) The relation of entailment is familiar from arithmetic; we are happy
+with the idea that the sentence x = 0 entails the sentence xy = 0. Obviously, in any model
+where x is zero, it is the case that xy is zero (regardless of the value of y).
+We can apply the same kind of analysis to the wumpus-world reasoning example given
+in the preceding section. Consider the situation in Figure 7.3(b): the agent has detected
+nothing in [1,1] and a breeze in [2,1]. These percepts, combined with the agent’s knowledge
+of the rules of the wumpus world, constitute the KB. The agent is interested (among other
+things) in whether the adjacent squares [1,2], [2,2], and [3,1] contain pits. Each of the three
+squares might or might not contain a pit, so (for the purposes of this example) there are 23 = 8
+possible models. These eight models are shown in Figure 7.5.2
+The KB can be thought of as a set of sentences or as a single sentence that asserts all
+the individual sentences. The KB is false in models that contradict what the agent knows—
+for example, the KB is false in any model in which [1,2] contains a pit, because there is
+no breeze in [1,1]. There are in fact just three models in which the KB is true, and these are
+2 Although the ﬁgure shows the models as partial wumpus worlds, they are really nothing more than assignments
+of true and false to the sentences “there is a pit in [1,2]” etc. Models, in the mathematical sense, do not need to
+have ’orrible ’airy wumpuses in them.
+
+242
+Chapter
+7.
+Logical Agents
+shown surrounded by a solid line in Figure 7.5. Now let us consider two possible conclusions:
+α1 = “There is no pit in [1,2].”
+α2 = “There is no pit in [2,2].”
+We have surrounded the models of α1 and α2 with dotted lines in Figures 7.5(a) and 7.5(b),
+respectively. By inspection, we see the following:
+in every model in which KB is true, α1 is also true.
+Hence, KB |= α1: there is no pit in [1,2]. We can also see that
+in some models in which KB is true, α2 is false.
+Hence, KB̸ |= α2: the agent cannot conclude that there is no pit in [2,2]. (Nor can it conclude
+that there is a pit in [2,2].)3
+The preceding example not only illustrates entailment but also shows how the deﬁnition
+of entailment can be applied to derive conclusions—that is, to carry out logical inference.
+LOGICAL INFERENCE
+The inference algorithm illustrated in Figure 7.5 is called model checking, because it enu-
+MODEL CHECKING
+merates all possible models to check that α is true in all models in which KB is true, that is,
+that M(KB) ⊆M(α).
+In understanding entailment and inference, it might help to think of the set of all conse-
+quences of KB as a haystack and of α as a needle. Entailment is like the needle being in the
+haystack; inference is like ﬁnding it. This distinction is embodied in some formal notation: if
+an inference algorithm i can derive α from KB, we write
+KB ⊢i α ,
+which is pronounced “α is derived from KB by i” or “i derives α from KB.”
+An inference algorithm that derives only entailed sentences is called sound or truth-
+SOUND
+preserving. Soundness is a highly desirable property. An unsound inference procedure es-
+TRUTH-PRESERVING
+sentially makes things up as it goes along—it announces the discovery of nonexistent needles.
+It is easy to see that model checking, when it is applicable,4 is a sound procedure.
+The property of completeness is also desirable: an inference algorithm is complete if
+COMPLETENESS
+it can derive any sentence that is entailed. For real haystacks, which are ﬁnite in extent,
+it seems obvious that a systematic examination can always decide whether the needle is in
+the haystack. For many knowledge bases, however, the haystack of consequences is inﬁnite,
+and completeness becomes an important issue.5 Fortunately, there are complete inference
+procedures for logics that are sufﬁciently expressive to handle many knowledge bases.
+We have described a reasoning process whose conclusions are guaranteed to be true
+in any world in which the premises are true; in particular, if KB is true in the real world,
+then any sentence α derived from KB by a sound inference procedure is also true in the real
+world. So, while an inference process operates on “syntax”—internal physical conﬁgurations
+such as bits in registers or patterns of electrical blips in brains—the process corresponds
+3 The agent can calculate the probability that there is a pit in [2,2]; Chapter 13 shows how.
+4 Model checking works if the space of models is ﬁnite—for example, in wumpus worlds of ﬁxed size. For
+arithmetic, on the other hand, the space of models is inﬁnite: even if we restrict ourselves to the integers, there
+are inﬁnitely many pairs of values for x and y in the sentence x + y = 4.
+5 Compare with the case of inﬁnite search spaces in Chapter 3, where depth-ﬁrst search is not complete.
+
+Section 7.4.
+Propositional Logic: A Very Simple Logic
+243
+Follows
+Sentences
+Sentence
+Entails
+Semantics
+Semantics
+Representation
+World
+Aspects of the
+    real world
+Aspect of the
+   real world
+Figure 7.6
+Sentences are physical conﬁgurations of the agent, and reasoning is a process
+of constructing new physical conﬁgurations from old ones. Logical reasoning should en-
+sure that the new conﬁgurations represent aspects of the world that actually follow from the
+aspects that the old conﬁgurations represent.
+to the real-world relationship whereby some aspect of the real world is the case6 by virtue
+of other aspects of the real world being the case. This correspondence between world and
+representation is illustrated in Figure 7.6.
+The ﬁnal issue to consider is grounding—the connection between logical reasoning
+GROUNDING
+processes and the real environment in which the agent exists. In particular, how do we know
+that KB is true in the real world? (After all, KB is just “syntax” inside the agent’s head.)
+This is a philosophical question about which many, many books have been written. (See
+Chapter 26.) A simple answer is that the agent’s sensors create the connection. For example,
+our wumpus-world agent has a smell sensor. The agent program creates a suitable sentence
+whenever there is a smell. Then, whenever that sentence is in the knowledge base, it is
+true in the real world. Thus, the meaning and truth of percept sentences are deﬁned by the
+processes of sensing and sentence construction that produce them. What about the rest of the
+agent’s knowledge, such as its belief that wumpuses cause smells in adjacent squares? This
+is not a direct representation of a single percept, but a general rule—derived, perhaps, from
+perceptual experience but not identical to a statement of that experience. General rules like
+this are produced by a sentence construction process called learning, which is the subject
+of Part V. Learning is fallible. It could be the case that wumpuses cause smells except on
+February 29 in leap years, which is when they take their baths. Thus, KB may not be true in
+the real world, but with good learning procedures, there is reason for optimism.
+7.4
+PROPOSITIONAL LOGIC: A VERY SIMPLE LOGIC
+We now present a simple but powerful logic called propositional logic. We cover the syntax
+PROPOSITIONAL
+LOGIC
+of propositional logic and its semantics—the way in which the truth of sentences is deter-
+mined. Then we look at entailment—the relation between a sentence and another sentence
+that follows from it—and see how this leads to a simple algorithm for logical inference. Ev-
+erything takes place, of course, in the wumpus world.
+6 As Wittgenstein (1922) put it in his famous Tractatus: “The world is everything that is the case.”
+
+244
+Chapter
+7.
+Logical Agents
+7.4.1
+Syntax
+The syntax of propositional logic deﬁnes the allowable sentences. The atomic sentences
+ATOMIC SENTENCES
+consist of a single proposition symbol. Each such symbol stands for a proposition that can
+PROPOSITION
+SYMBOL
+be true or false. We use symbols that start with an uppercase letter and may contain other
+letters or subscripts, for example: P, Q, R, W1,3 and North. The names are arbitrary but
+are often chosen to have some mnemonic value—we use W1,3 to stand for the proposition
+that the wumpus is in [1,3]. (Remember that symbols such as W1,3 are atomic, i.e., W, 1,
+and 3 are not meaningful parts of the symbol.) There are two proposition symbols with ﬁxed
+meanings: True is the always-true proposition and False is the always-false proposition.
+Complex sentences are constructed from simpler sentences, using parentheses and logical
+COMPLEX
+SENTENCES
+connectives. There are ﬁve connectives in common use:
+LOGICAL
+CONNECTIVES
+¬ (not). A sentence such as ¬W1,3 is called the negation of W1,3. A literal is either an
+NEGATION
+LITERAL
+atomic sentence (a positive literal) or a negated atomic sentence (a negative literal).
+∧(and). A sentence whose main connective is ∧, such as W1,3 ∧P3,1, is called a con-
+junction; its parts are the conjuncts. (The ∧looks like an “A” for “And.”)
+CONJUNCTION
+∨(or). A sentence using ∨, such as (W1,3∧P3,1)∨W2,2, is a disjunction of the disjuncts
+DISJUNCTION
+(W1,3 ∧P3,1) and W2,2. (Historically, the ∨comes from the Latin “vel,” which means
+“or.” For most people, it is easier to remember ∨as an upside-down ∧.)
+⇒(implies). A sentence such as (W1,3 ∧P3,1) ⇒¬W2,2 is called an implication (or con-
+IMPLICATION
+ditional). Its premise or antecedent is (W1,3 ∧P3,1), and its conclusion or consequent
+PREMISE
+CONCLUSION
+is ¬W2,2. Implications are also known as rules or if–then statements. The implication
+RULES
+symbol is sometimes written in other books as ⊃or →.
+⇔(if and only if). The sentence W1,3 ⇔¬W2,2 is a biconditional. Some other books
+BICONDITIONAL
+write this as ≡.
+Sentence
+→
+AtomicSentence | ComplexSentence
+AtomicSentence
+→
+True | False | P | Q | R | . . .
+ComplexSentence
+→
+( Sentence ) | [ Sentence ]
+|
+¬ Sentence
+|
+Sentence ∧Sentence
+|
+Sentence ∨Sentence
+|
+Sentence
+⇒Sentence
+|
+Sentence
+⇔
+Sentence
+OPERATOR PRECEDENCE
+:
+¬, ∧, ∨, ⇒, ⇔
+Figure 7.7
+A BNF (Backus–Naur Form) grammar of sentences in propositional logic,
+along with operator precedences, from highest to lowest.
+
+Section 7.4.
+Propositional Logic: A Very Simple Logic
+245
+Figure 7.7 gives a formal grammar of propositional logic; see page 1060 if you are not
+familiar with the BNF notation. The BNF grammar by itself is ambiguous; a sentence with
+several operators can be parsed by the grammar in multiple ways. To eliminate the ambiguity
+we deﬁne a precedence for each operator. The “not” operator (¬) has the highest precedence,
+which means that in the sentence ¬A ∧B the ¬ binds most tightly, giving us the equivalent
+of (¬A)∧B rather than ¬(A∧B). (The notation for ordinary arithmetic is the same: −2+4
+is 2, not –6.) When in doubt, use parentheses to make sure of the right interpretation. Square
+brackets mean the same thing as parentheses; the choice of square brackets or parentheses is
+solely to make it easier for a human to read a sentence.
+7.4.2
+Semantics
+Having speciﬁed the syntax of propositional logic, we now specify its semantics. The se-
+mantics deﬁnes the rules for determining the truth of a sentence with respect to a particular
+model. In propositional logic, a model simply ﬁxes the truth value—true or false—for ev-
+TRUTH VALUE
+ery proposition symbol. For example, if the sentences in the knowledge base make use of the
+proposition symbols P1,2, P2,2, and P3,1, then one possible model is
+m1 = {P1,2 = false, P2,2 = false, P3,1 = true} .
+With three proposition symbols, there are 23 = 8 possible models—exactly those depicted
+in Figure 7.5. Notice, however, that the models are purely mathematical objects with no
+necessary connection to wumpus worlds. P1,2 is just a symbol; it might mean “there is a pit
+in [1,2]” or “I’m in Paris today and tomorrow.”
+The semantics for propositional logic must specify how to compute the truth value of
+any sentence, given a model. This is done recursively. All sentences are constructed from
+atomic sentences and the ﬁve connectives; therefore, we need to specify how to compute the
+truth of atomic sentences and how to compute the truth of sentences formed with each of the
+ﬁve connectives. Atomic sentences are easy:
+• True is true in every model and False is false in every model.
+• The truth value of every other proposition symbol must be speciﬁed directly in the
+model. For example, in the model m1 given earlier, P1,2 is false.
+For complex sentences, we have ﬁve rules, which hold for any subsentences P and Q in any
+model m (here “iff” means “if and only if”):
+• ¬P is true iff P is false in m.
+• P ∧Q is true iff both P and Q are true in m.
+• P ∨Q is true iff either P or Q is true in m.
+• P ⇒Q is true unless P is true and Q is false in m.
+• P ⇔Q is true iff P and Q are both true or both false in m.
+The rules can also be expressed with truth tables that specify the truth value of a complex
+TRUTH TABLE
+sentence for each possible assignment of truth values to its components. Truth tables for the
+ﬁve connectives are given in Figure 7.8. From these tables, the truth value of any sentence s
+can be computed with respect to any model m by a simple recursive evaluation. For example,
+
+246
+Chapter
+7.
+Logical Agents
+P
+Q
+¬P
+P ∧Q
+P ∨Q
+P ⇒Q
+P ⇔Q
+false
+false
+true
+false
+false
+true
+true
+false
+true
+true
+false
+true
+true
+false
+true
+false
+false
+false
+true
+false
+false
+true
+true
+false
+true
+true
+true
+true
+Figure 7.8
+Truth tables for the ﬁve logical connectives. To use the table to compute, for
+example, the value of P ∨Q when P is true and Q is false, ﬁrst look on the left for the row
+where P is true and Q is false (the third row). Then look in that row under the P ∨Q column
+to see the result: true.
+the sentence ¬P1,2 ∧(P2,2 ∨P3,1), evaluated in m1, gives true ∧(false ∨true) = true ∧
+true = true. Exercise 7.3 asks you to write the algorithm PL-TRUE?(s, m), which computes
+the truth value of a propositional logic sentence s in a model m.
+The truth tables for “and,” “or,” and “not” are in close accord with our intuitions about
+the English words. The main point of possible confusion is that P ∨Q is true when P is true
+or Q is true or both. A different connective, called “exclusive or” (“xor” for short), yields
+false when both disjuncts are true.7 There is no consensus on the symbol for exclusive or;
+some choices are ˙∨or̸ = or ⊕.
+The truth table for ⇒may not quite ﬁt one’s intuitive understanding of “P implies Q”
+or “if P then Q.” For one thing, propositional logic does not require any relation of causation
+or relevance between P and Q. The sentence “5 is odd implies Tokyo is the capital of Japan”
+is a true sentence of propositional logic (under the normal interpretation), even though it is
+a decidedly odd sentence of English. Another point of confusion is that any implication is
+true whenever its antecedent is false. For example, “5 is even implies Sam is smart” is true,
+regardless of whether Sam is smart. This seems bizarre, but it makes sense if you think of
+“P ⇒Q” as saying, “If P is true, then I am claiming that Q is true. Otherwise I am making
+no claim.” The only way for this sentence to be false is if P is true but Q is false.
+The biconditional, P ⇔Q, is true whenever both P ⇒Q and Q ⇒P are true. In
+English, this is often written as “P if and only if Q.” Many of the rules of the wumpus world
+are best written using ⇔. For example, a square is breezy if a neighboring square has a pit,
+and a square is breezy only if a neighboring square has a pit. So we need a biconditional,
+B1,1 ⇔(P1,2 ∨P2,1) ,
+where B1,1 means that there is a breeze in [1,1].
+7.4.3
+A simple knowledge base
+Now that we have deﬁned the semantics for propositional logic, we can construct a knowledge
+base for the wumpus world. We focus ﬁrst on the immutable aspects of the wumpus world,
+leaving the mutable aspects for a later section. For now, we need the following symbols for
+each [x, y] location:
+7 Latin has a separate word, aut, for exclusive or.
+
+Section 7.4.
+Propositional Logic: A Very Simple Logic
+247
+Px,y is true if there is a pit in [x, y].
+Wx,y is true if there is a wumpus in [x, y], dead or alive.
+Bx,y is true if the agent perceives a breeze in [x, y].
+Sx,y is true if the agent perceives a stench in [x, y].
+The sentences we write will sufﬁce to derive ¬P1,2 (there is no pit in [1,2]), as was done
+informally in Section 7.3. We label each sentence Ri so that we can refer to them:
+• There is no pit in [1,1]:
+R1 :
+¬P1,1 .
+• A square is breezy if and only if there is a pit in a neighboring square. This has to be
+stated for each square; for now, we include just the relevant squares:
+R2 :
+B1,1
+⇔
+(P1,2 ∨P2,1) .
+R3 :
+B2,1
+⇔
+(P1,1 ∨P2,2 ∨P3,1) .
+• The preceding sentences are true in all wumpus worlds. Now we include the breeze
+percepts for the ﬁrst two squares visited in the speciﬁc world the agent is in, leading up
+to the situation in Figure 7.3(b).
+R4 :
+¬B1,1 .
+R5 :
+B2,1 .
+7.4.4
+A simple inference procedure
+Our goal now is to decide whether KB |= α for some sentence α. For example, is ¬P1,2
+entailed by our KB? Our ﬁrst algorithm for inference is a model-checking approach that is a
+direct implementation of the deﬁnition of entailment: enumerate the models, and check that
+α is true in every model in which KB is true. Models are assignments of true or false to
+every proposition symbol. Returning to our wumpus-world example, the relevant proposi-
+tion symbols are B1,1, B2,1, P1,1, P1,2, P2,1, P2,2, and P3,1. With seven symbols, there are
+27 = 128 possible models; in three of these, KB is true (Figure 7.9). In those three models,
+¬P1,2 is true, hence there is no pit in [1,2]. On the other hand, P2,2 is true in two of the three
+models and false in one, so we cannot yet tell whether there is a pit in [2,2].
+Figure 7.9 reproduces in a more precise form the reasoning illustrated in Figure 7.5. A
+general algorithm for deciding entailment in propositional logic is shown in Figure 7.10. Like
+the BACKTRACKING-SEARCH algorithm on page 215, TT-ENTAILS? performs a recursive
+enumeration of a ﬁnite space of assignments to symbols. The algorithm is sound because it
+implements directly the deﬁnition of entailment, and complete because it works for any KB
+and α and always terminates—there are only ﬁnitely many models to examine.
+Of course, “ﬁnitely many” is not always the same as “few.” If KB and α contain n
+symbols in all, then there are 2n models. Thus, the time complexity of the algorithm is
+O(2n). (The space complexity is only O(n) because the enumeration is depth-ﬁrst.) Later in
+this chapter we show algorithms that are much more efﬁcient in many cases. Unfortunately,
+propositional entailment is co-NP-complete (i.e., probably no easier than NP-complete—see
+Appendix A), so every known inference algorithm for propositional logic has a worst-case
+complexity that is exponential in the size of the input.
+
+248
+Chapter
+7.
+Logical Agents
+B1,1
+B2,1
+P1,1
+P1,2
+P2,1
+P2,2
+P3,1
+R1
+R2
+R3
+R4
+R5
+KB
+false
+false
+false
+false
+false
+false
+false
+true
+true
+true
+true
+false
+false
+false
+false
+false
+false
+false
+false
+true
+true
+true
+false
+true
+false
+false
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+false
+true
+false
+false
+false
+false
+false
+true
+true
+false
+true
+true
+false
+false
+true
+false
+false
+false
+false
+true
+true
+true
+true
+true
+true
+true
+false
+true
+false
+false
+false
+true
+false
+true
+true
+true
+true
+true
+true
+false
+true
+false
+false
+false
+true
+true
+true
+true
+true
+true
+true
+true
+false
+true
+false
+false
+true
+false
+false
+true
+false
+false
+true
+true
+false
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+true
+true
+true
+true
+true
+true
+true
+false
+true
+true
+false
+true
+false
+Figure 7.9
+A truth table constructed for the knowledge base given in the text. KB is true
+if R1 through R5 are true, which occurs in just 3 of the 128 rows (the ones underlined in the
+right-hand column). In all 3 rows, P1,2 is false, so there is no pit in [1,2]. On the other hand,
+there might (or might not) be a pit in [2,2].
+function TT-ENTAILS?(KB,α) returns true or false
+inputs: KB, the knowledge base, a sentence in propositional logic
+α, the query, a sentence in propositional logic
+symbols ←a list of the proposition symbols in KB and α
+return TT-CHECK-ALL(KB,α,symbols,{ })
+function TT-CHECK-ALL(KB,α,symbols,model) returns true or false
+if EMPTY?(symbols) then
+if PL-TRUE?(KB,model) then return PL-TRUE?(α,model)
+else return true // when KB is false, always return true
+else do
+P ←FIRST(symbols)
+rest ←REST(symbols)
+return (TT-CHECK-ALL(KB,α,rest,model ∪{P = true})
+and
+TT-CHECK-ALL(KB,α,rest,model ∪{P = false }))
+Figure 7.10
+A truth-table enumeration algorithm for deciding propositional entailment.
+(TT stands for truth table.) PL-TRUE? returns true if a sentence holds within a model. The
+variable model represents a partial model—an assignment to some of the symbols. The key-
+word “and” is used here as a logical operation on its two arguments, returning true or false.
+
+Section 7.5.
+Propositional Theorem Proving
+249
+(α ∧β) ≡(β ∧α)
+commutativity of ∧
+(α ∨β) ≡(β ∨α)
+commutativity of ∨
+((α ∧β) ∧γ) ≡(α ∧(β ∧γ))
+associativity of ∧
+((α ∨β) ∨γ) ≡(α ∨(β ∨γ))
+associativity of ∨
+¬(¬α) ≡α
+double-negation elimination
+(α ⇒β) ≡(¬β ⇒¬α)
+contraposition
+(α ⇒β) ≡(¬α ∨β)
+implication elimination
+(α ⇔β) ≡((α ⇒β) ∧(β ⇒α))
+biconditional elimination
+¬(α ∧β) ≡(¬α ∨¬β)
+De Morgan
+¬(α ∨β) ≡(¬α ∧¬β)
+De Morgan
+(α ∧(β ∨γ)) ≡((α ∧β) ∨(α ∧γ))
+distributivity of ∧over ∨
+(α ∨(β ∧γ)) ≡((α ∨β) ∧(α ∨γ))
+distributivity of ∨over ∧
+Figure 7.11
+Standard logical equivalences. The symbols α, β, and γ stand for arbitrary
+sentences of propositional logic.
+7.5
+PROPOSITIONAL THEOREM PROVING
+So far, we have shown how to determine entailment by model checking: enumerating models
+and showing that the sentence must hold in all models. In this section, we show how entail-
+ment can be done by theorem proving—applying rules of inference directly to the sentences
+THEOREM PROVING
+in our knowledge base to construct a proof of the desired sentence without consulting models.
+If the number of models is large but the length of the proof is short, then theorem proving can
+be more efﬁcient than model checking.
+Before we plunge into the details of theorem-proving algorithms, we will need some
+additional concepts related to entailment. The ﬁrst concept is logical equivalence: two sen-
+LOGICAL
+EQUIVALENCE
+tences α and β are logically equivalent if they are true in the same set of models. We write
+this as α ≡β. For example, we can easily show (using truth tables) that P ∧Q and Q ∧P
+are logically equivalent; other equivalences are shown in Figure 7.11. These equivalences
+play much the same role in logic as arithmetic identities do in ordinary mathematics. An
+alternative deﬁnition of equivalence is as follows: any two sentences α and β are equivalent
+only if each of them entails the other:
+α ≡β
+if and only if
+α |= β and β |= α .
+The second concept we will need is validity. A sentence is valid if it is true in all models. For
+VALIDITY
+example, the sentence P ∨¬P is valid. Valid sentences are also known as tautologies—they
+TAUTOLOGY
+are necessarily true. Because the sentence True is true in all models, every valid sentence
+is logically equivalent to True. What good are valid sentences? From our deﬁnition of
+entailment, we can derive the deduction theorem, which was known to the ancient Greeks:
+DEDUCTION
+THEOREM
+For any sentences α and β, α |= β if and only if the sentence (α ⇒β) is valid.
+(Exercise 7.5 asks for a proof.) Hence, we can decide if α |= β by checking that (α ⇒β) is
+true in every model—which is essentially what the inference algorithm in Figure 7.10 does—

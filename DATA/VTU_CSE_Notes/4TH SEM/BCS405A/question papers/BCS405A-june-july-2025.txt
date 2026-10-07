@@ -1,0 +1,465 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fourth Semester B.E./B.Tech. Degree Examination, June/July 2025 
+Discrete Mathematical Structures    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                     2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Define Tautology, show that 
+
+r
+)}
+r
+q
+(
+)r
+p
+{(
+)
+q
+p
+(
+
+
+
+
+
+
+ 
+ 
+6 
+L1
+CO1
+ 
+b.
+Prove the following using the laws of logic :  
+ [{(p  q)  r} →  q]   [[(p  q)  r] .  q]  q  r. 
+ 
+7 
+L2
+CO1
+ 
+c. Give  i)  a direct proof   ii)  an Indirect proof for the following statement “If 
+n is an odd integer then n + 9 is an even integer”. 
+ 
+7 
+L2
+CO1
+                                                                           OR 
+Q.2 
+a. Define  i)  an open statement   ii)   quantifiers. 
+ 
+6 
+L2
+CO1
+ 
+b.
+Test the validity of the following arguments. 
+  
+i) 
+      
+r
+)r
+q
+(
+p
+q
+p
+
+
+
+
+ 
+ 
+ii) 
+     
+r
+~
+r
+~
+q
+~
+q
+~ 
+P
+P
+
+
+
+ 
+ 
+ 
+ 
+7 
+L2
+CO1
+ 
+c. For the following statements the universe comprises all non – zero integers. 
+Determine the truth value of each statement. 
+i)     x, y  [xy = 1]              ii)   x, y [xy = 1] 
+iii)   x, y [xy = 1]             iv)   x, y [(2x + y = 5)  (x – 3y = 8)] 
+v)    x, y  [(3x  y = 17)  (2x + 4y = 3)]. 
+ 
+7 
+L2
+CO1
+                                                                      Module – 2  
+Q.3 
+a. Define the well ordering principle. By Mathematical induction, prove that 
+1 + 2 + 3 + ….. + n = 2
+1 n(n + 1) , n ∈ z+. 
+ 
+6 
+L2
+CO2
+ 
+ 
+b.
+Prove that Fn = 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+n
+n
+2
+5
+1
+2
+5
+1
+5
+1
+. For F0 , F1, F2 , …. are the 
+Fibonacci numbers. 
+  
+7 
+L2
+CO2
+ 
+c. Find the number of permutations of the letters of the word 
+‘MASSASAUGA’. In how many of these all four A’s  are together? How 
+many of them begin with S’s? 
+ 
+7 
+L3
+CO2
+                                                                           OR 
+ 
+1 of 3 
+ 
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS405A 
+VTU-15-07-2025 01:23:45pm
+15-07-2025 01:31:50pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS405A
+ 
+ 
+Q.4 
+a. Prove that 4n < n2 – 7 for all positive integers n  6. 
+ 
+6 
+L2
+CO3
+ 
+b.
+Find the co-efficients of x9 y3 in the expansion of (2x – 3y)12. 
+ 
+7 
+L3
+CO3
+ 
+c. Let a0 = 1 , a1 = 2 , a3 = 3 and an = an-1 + an-3 for n  3, prove that an ≤ 3n for 
+all +ve integers n. 
+ 
+7 
+L2
+CO3
+                                                                      Module – 3  
+Q.5 
+a. State Pigeon hole principle. Prove that if 30 dictionaries in a library 
+contains a total of 61,327 pages then atleast one of dictionaries must have 
+atleast 2045 pages. 
+ 
+6 
+L2
+CO3
+ 
+b.
+Define power set. For any sets A, B, C ≤ U, prove that  
+A × (B  C) = (A× B)  (A × C). 
+ 
+7 
+L2
+CO3
+ 
+c. Let f and g be functions from R to R defined by f(x) = ax + b and  
+g(x) = 1 – x + x2 if (gof) (x) = 9 x2 – 9x + 3, determine a & b. 
+ 
+7 
+L3
+CO3
+                                                                           OR 
+Q.6 
+a. Let f : R → R be defined by     
+ 
+
+
+
+
+
+
+
+
+0
+x
+if
+,x
+3
+1
+0
+x
+if
+,5
+x
+3
+)
+x
+(
+f
+          Find f-1 (-5, 5) and f-1(- 6, 5). 
+ 
+6 
+L2
+CO3
+ 
+b.
+Let N be the set of Natural numbers. Let a relation R be defined by  
+R = {(a, b) / a ∈ N , b ∈ N , a – b is divisible by 5}. Prove that R is an 
+equivalence relation. 
+  
+7 
+L2
+CO3
+ 
+c. For A = { a, b, c, d, e}, the Hasse diagram for the poset(A, R) is as shown  
+below  : 
+i) Determine the relation matrix for R 
+ii) Construct the diagraph for R. 
+ 
+ 
+7 
+L3
+CO3
+                                                                      Module – 4  
+Q.7 
+a. Determine the number of integers between 1 and 250 that are divisible by 3 
+and not divisible by 5 and 7. 
+ 
+6 
+L3
+CO4
+ 
+b.
+Solve the recurrence relation Fn+2 = Fn+1 + Fn, where n  0 and F0 = 0, 
+F1 = 1. 
+ 
+7 
+L2
+CO4
+ 
+c. Define Derangement. Find the number of derangement of 1, 2, 3, and 4. 
+ 
+7 
+L3
+CO4
+                                                                           OR 
+ 
+ 
+2 of 3 
+VTU-15-07-2025 01:23:45pm
+15-07-2025 01:31:50pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+ 
+BCS405A
+ 
+ 
+Q.8 
+a. Find the Rook polynomial for the chess board contain 4 squares as shown 
+in the Fig.Q8(a). 
+1 
+2 
+3 
+4 
+Fig.Q8(a) 
+6 
+L3
+CO4
+ 
+b.
+Solve the recurrence relation an = 5an-1 + 6an-2, n  2, a0 = 1, a1 = 3. 
+ 
+7 
+L2
+CO4
+ 
+c. Find the distinct numbers which are multiples of at least one of 15, 40 and 
+35 not exceeding 1000. 
+ 
+7 
+L3
+CO4
+                                                                      Module – 5  
+Q.9 
+a. Define group and subgroup with example each. 
+ 
+6 
+L1
+CO5
+ 
+b.
+State and prove Lagrange’s theorem. 
+ 
+7 
+L2
+CO5
+ 
+c. Define Klein 4 group. Verify A = {e, a, b, c} is a Klein 4 group. 
+ 
+7 
+L2
+CO5
+                                                                           OR 
+Q.10
+a. Prove that the intersection of two subgroup of a group is a subgroup of the 
+group. 
+ 
+6 
+L2
+CO5
+ 
+b.
+Prove that the cube roots of unity form a group under the multiplication. 
+ 
+7 
+L2
+CO5
+ 
+ 
+c. Let G = S4, the symmetric group of order 4, for  = 
+
+
+
+
+
+
+1
+4
+3
+2
+4
+3
+2
+1
+, find 
+the subgroup H = < a >, determine the number of left cosets of H in G. 
+ 
+7 
+L3
+CO5
+                                                                       
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+* * * * * 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3 of 3 
+VTU-15-07-2025 01:23:45pm
+15-07-2025 01:31:50pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

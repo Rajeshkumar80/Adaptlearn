@@ -1,0 +1,236 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fourth Semester B.E./B.Tech. Degree Examination, Dec.2025/Jan.2026 
+Microcontrollers     
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                      2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Mention the difference between :  
+i) Microprocessor and Microcontroller 
+ii) CISC and RISC architectures 
+ 
+8 
+L2 CO1
+ 
+b.
+With a neat diagram, explain ARM core dataflow model. 
+ 
+6 
+L2 CO1
+ 
+c. With a neat diagram, explain embedded system hardware. 
+ 
+6 
+L2 CO1
+                                                                           OR 
+Q.2 
+a. Explain the various modes of operation of ARM processor and banked 
+registers. 
+ 
+8 
+L2 CO1
+ 
+b.
+What is a pipeline? With neat diagram explain the various blocks in a  
+3-stage pipeline of ARM processor organization. 
+ 
+6 
+L2 CO1
+ 
+c. Discuss the various fields in CPSR with neat sketch. 
+ 
+6 
+L2 CO1
+                                                                      Module – 2  
+Q.3 
+a. With example illustrate how following instructions work. 
+i) MLA      ii) MUL       iii) SMLAL      iv) UMULL. 
+ 
+8 
+L3 CO2
+ 
+b.
+Explain Single register load store addressing mode syntax, table index 
+mode with an example. 
+ 
+8 
+L2 CO2
+ 
+c. Explain Barrel shifter operation in ARM processor with neat diagram.  
+If r5 = 5, r7 = 8 using the following instructions, write values of r5,  r7 after 
+execution of MOV r7, r5, LSL # 2. 
+  
+4 
+ 
+L2 CO2
+                                                                           OR 
+Q.4 
+a. Along with suitable examples describe various logical and comparison 
+instructions.  
+ 
+8 
+L2 CO2
+ 
+b.
+Discuss the Branch instructions and SWAP instructions with example. 
+ 
+8 
+L2 CO2
+ 
+c. Explain briefly co-processor instructions of ARM processor. 
+ 
+4 
+L2 CO2
+                                                                      Module – 3  
+Q.5 
+a. Explain basic C-Data types with example codes. 
+ 
+10
+L2 CO3
+ 
+b.
+Discuss how Registers are allocated to optimize the program. 
+ 
+10
+L2 CO3
+1 of 2 
+USN 
+BCS402 
+VTU-09-02-2026 01:18:08pm
+09-02-2026 01:32:42pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS402
+                                                                           OR 
+Q.6 
+a. Explain C looping structures with example codes. 
+ 
+10
+L2 CO3
+ 
+b.
+Explain function calls and pointer Aliasing with example codes. 
+ 
+10
+L2 CO3
+                                                                      Module – 4  
+Q.7 
+a. With a neat sketch, explain exceptions and associated modes. 
+ 
+10
+L2 CO4
+ 
+b.
+With the help of vector table, explain processor modes. Also mention the 
+exception priority levels. 
+ 
+10
+L2 CO4
+                                                                           OR 
+Q.8 
+a. Explain interrupt latency, IRQ and FIQ exceptions in detail with neat 
+sketches. 
+ 
+10
+L2 CO4
+ 
+b.
+Explain Firmware and bootloader, with sand stone example, explain detail 
+directory layout. 
+ 
+10
+L2 CO4
+                                                                      Module – 5  
+Q.9 
+a. With neat diagram, explain the relationship of cache between processor 
+core and main memory. 
+ 
+8 
+L2 CO5
+ 
+b.
+With neat sketch, explain set associatively. 
+  
+8 
+L2 CO5
+ 
+c. Explain logical and physical cache with neat diagram. 
+ 
+4 
+L2 CO5
+                                                                           OR 
+Q.10
+a. Briefly, explain cache policies. 
+ 
+8 
+L2 CO5
+ 
+b.
+Explain direct mapped cache and thrashing. 
+ 
+8 
+L2 CO5
+ 
+c. Write short note on co-processor 15. 
+4 
+L2 CO5
+ 
+                                                                      * * * * * 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2 of 2 
+VTU-09-02-2026 01:18:08pm
+09-02-2026 01:32:42pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

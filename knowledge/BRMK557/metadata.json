@@ -1,0 +1,147 @@
+{
+  "subject_code": "BRMK557",
+  "subject_name": "Research Methodology and IPR",
+  "semester": 5,
+  "semester_label": "5TH SEM",
+  "modules": {
+    "1": {
+      "title": "Introduction to Research Methodology",
+      "topics": [
+        "MEANING OF RESEARCH",
+        "OBJECTIVES OF ENGINEERING RESEARCH",
+        "MOTIVATION IN ENGINEERING RESEARCH",
+        "TYPES OF ENGINEERING RESEARCH",
+        "ENGINEERING RESEARCH PROCESS",
+        "FINDING AND SOLVING A WORTHWHILE PROBLEM",
+        "ETHICS IN ENGINEERING RESEARCH",
+        "ETHICS IN ENGINEERING RESEARCH PRACTICE",
+        "TYPES OF RESEARCH MISCONDUCT",
+        "ETHICAL ISSUES RELATED TO AUTHORSHIP"
+      ],
+      "sources": [
+        "BRMK557-module-1-pdf.txt"
+      ],
+      "content_chars": 33007
+    },
+    "2": {
+      "title": "Research Design",
+      "topics": [
+        "ATTRIBUTIONS AND CITATIONS",
+        "LITERATURE REVIEW AND TECHNICAL READING",
+        "NEW AND EXISTING KNOWLEDGE",
+        "ANALYSIS AND SYNTHESIS OF PRIOR ART",
+        "BIBLIOGRAPHIC DATABASES",
+        "INTRODUCTION TO TECHNICAL READING",
+        "CONCEPTUALIZING RESEARCH",
+        "CRITICAL AND CREATIVE READING",
+        "TAKING NOTES WHILE READING",
+        "READING MATHEMATICS AND ALGORITHMS"
+      ],
+      "sources": [
+        "BRMK557-module-2-pdf.txt"
+      ],
+      "content_chars": 45108
+    },
+    "3": {
+      "title": "Data Collection and Analysis",
+      "topics": [
+        "PROCESS OF PATENTING",
+        "INTRODUCTION TO INTELLECTUAL PROPERTY",
+        "ROLE OF IP IN THE ECONOMIC AND CULTURAL DEVELOPMENT OF THE",
+        "SOCIETY",
+        "IP GOVERNANCE",
+        "IP AS A GLOBAL INDICATOR OF INNOVATION",
+        "ORIGIN OF IP",
+        "HISTORY OF IP IN INDIA",
+        "MAJOR AMENDMENTS IN IP LAWS AND ACTS IN INDIA",
+        "PATENTS"
+      ],
+      "sources": [
+        "BRMK557-module-3-pdf.txt"
+      ],
+      "content_chars": 60395
+    },
+    "4": {
+      "title": "Technical Writing",
+      "topics": [
+        "TRADEMARKS",
+        "COPYRIGHTS AND RELATED RIGHTS",
+        "CLASSES OF COPYRIGHTS",
+        "CRITERIA FOR COPYRIGHT",
+        "OWNERSHIP OF COPYRIGHT",
+        "COPYRIGHTS OF THE AUTHOR",
+        "COPYRIGHT INFRINGEMENTS",
+        "COPYRIGHT INFRINGEMENT IS A CRIMINAL OFFENCE",
+        "COPYRIGHT INFRINGEMENT IS A COGNIZABLE OFFENCE",
+        "FAIR USE DOCTRINE"
+      ],
+      "sources": [
+        "BRMK557-module-4-pdf.txt"
+      ],
+      "content_chars": 39428
+    },
+    "5": {
+      "title": "Intellectual Property Rights",
+      "topics": [
+        "AND CASE STUDIES ON PATENTS",
+        "INDUSTRIAL DESIGNS",
+        "ELIGIBILITY CRITERIA",
+        "ACTS AND LAWS TO GOVERN INDUSTRIAL DESIGNS",
+        "DESIGN RIGHTS",
+        "ENFORCEMENT OF DESIGN RIGHTS",
+        "PROTECTION TERM",
+        "PROCEDURE FOR REGISTRATION OF INDUSTRIAL DESIGNS",
+        "DURATION OF THE REGISTRATION OF A DESIGN",
+        "IMPORTANCE OF DESIGN REGISTRATION"
+      ],
+      "sources": [
+        "BRMK557-module-5-pdf.txt"
+      ],
+      "content_chars": 26380
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\BRMK557-module-1-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\BRMK557-module-2-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\BRMK557-module-3-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\BRMK557-module-4-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\BRMK557-module-5-pdf.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\BRMK557-module-1-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\BRMK557-module-2-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\BRMK557-module-3-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\BRMK557-module-4-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\BRMK557-module-5-pdf.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\question papers\\BRMK557-dec-2024-jan-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\question papers\\BRMK557-dec-2024-jan-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\question papers\\BRMK557-dec-2025-jan-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\question papers\\BRMK557-dec-2025-jan-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\question papers\\BRMK557-june-july-2025-makeup.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\question papers\\BRMK557-june-july-2025-makeup.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\question papers\\BRMK557-june-july-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\question papers\\BRMK557-june-july-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\question papers\\BRMK557-model-set-1-and-2-paper.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BRMK557\\question papers\\BRMK557-model-set-1-and-2-paper.txt"
+    ],
+    "model_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BRMK557\\model_papers.md"
+    ],
+    "previous_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BRMK557\\previous_papers.md"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_5\\BRMK557\\BRMK557_Research_Methodology_and_Intellectual_Property_Rights.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to Research Methodology",
+    "2": "Research Design",
+    "3": "Data Collection and Analysis",
+    "4": "Technical Writing",
+    "5": "Intellectual Property Rights"
+  }
+}

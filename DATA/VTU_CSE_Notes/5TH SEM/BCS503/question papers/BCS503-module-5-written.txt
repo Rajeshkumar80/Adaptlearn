@@ -1,0 +1,960 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+MODULE 5 
+ 
+Introduction to Turing Machines: Table of Contents 
+• Problems That Computers Cannot Solve: 
+o The Halting Problem 
+o The Post Correspondence Problem (PCP) 
+• The Turing Machine: 
+o Components: Tape, Head, States, Transition Function 
+• Programming Techniques for Turing Machines: 
+o Designing the Transition Function 
+o Manipulating the Tape and Head 
+o State Transitions 
+• Extensions to the Basic Turing Machine: 
+o Multi-Tape Turing Machines 
+• Undecidability: A Language That Is Not Recursively Enumerable: 
+o Recursive and Recursively Enumerable Languages 
+o Languages Beyond Turing Machine Capabilities 
+ 
+Introduction to Quantum Computers and Turing Machines 
+Turing machines are theoretical models of computation that provide a fundamental 
+framework for understanding what problems computers can and cannot solve. They 
+consist of a tape, a head, a set of states, and a transition function. Despite their simplicity, 
+they are powerful enough to simulate any algorithm that can be performed by a modern 
+computer. The study of Turing machines led to the discovery of undecidable problems, 
+like the Halting Problem, which demonstrates the inherent limits of computation. 
+Quantum computers, on the other hand, are a new type of computing device that 
+harnesses the principles of quantum mechanics to perform computations. Unlike classical 
+computers, which store information as bits (0 or 1), quantum computers use qubits, 
+which can exist in a superposition of states, representing both 0 and 1 simultaneously. 
+This allows them to perform certain computations exponentially faster than classical 
+computers. 
+Quantum computers can solve problems more efficiently, but they cannot 
+solve problems that are undecidable for Turing machines. 
+Problems That Computers Cannot Solve: 
+Despite the incredible advancements in computing, there exist certain problems that 
+computers fundamentally cannot solve. These problems are termed undecidable 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+problems, signifying the absence of any algorithm capable of providing a correct 
+solution for all possible inputs. 
+• One of the most renowned undecidable problems is the Halting Problem. This 
+problem poses the question of whether a given computer program, when executed, 
+will eventually halt (terminate) or continue running indefinitely. A proof by 
+contradiction establishes the undecidability of the Halting Problem. This proof 
+demonstrates that no Turing Machine, a theoretical model encompassing all 
+possible computations, can solve the Halting Problem for every program and 
+input combination. 
+• Another prominent example of an undecidable problem is the Post Correspondence 
+Problem (PCP). PCP involves two sequences of strings, and the task is to determine 
+if a specific sequence of indices exists, such that concatenating the corresponding 
+strings from both sequences results in identical strings. The undecidability of PCP is 
+established through a reduction from the Halting Problem. This reduction implies 
+that if PCP were solvable, it could be leveraged to solve the Halting Problem, creating 
+a logical contradiction, as the Halting Problem is already proven to be undecidable. 
+The existence of undecidable problems underscores the inherent limitations of 
+computation, demonstrating that certain problems remain beyond the reach of any 
+algorithm or computer, regardless of advancements in technology. 
+ 
+The Halting Problem  
+The Halting Problem is a fundamental problem in computer science that explores the 
+limits of what computers can decide. It asks whether, given a computer program and an 
+input, it is possible to determine in advance whether the program will eventually halt 
+(stop running) or run forever on that input. 
+The Halting Problem is undecidable, meaning no algorithm exists that can solve 
+it for all possible programs and inputs. This undecidability is proven using a proof by 
+contradiction: 
+1. Assume a Halting Machine (HM) exists that can determine whether any 
+program P halts on input I. HM(P, I) would output YES if P halts on I and NO if it runs 
+forever. 
+ 
+2. Construct an Inverted Halting Machine (IM) that takes a program P as input. IM 
+behaves as follows: 
+• If HM(P, P) returns YES (meaning P halts on input P), then IM loops forever. 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+• If HM(P, P) returns NO (meaning P runs forever on input P), then IM halts. 
+ 
+3. Consider what happens when IM is given itself as input (IM(IM)). 
+• If IM(IM) halts, then according to IM's definition, HM(IM, IM) must have returned 
+NO (meaning IM runs forever on input IM). This is a contradiction. 
+• If IM(IM) runs forever, then HM(IM, IM) must have returned YES (meaning IM 
+halts on input IM). This is also a contradiction. 
+ 
+This contradiction arises because we assumed the existence of a Halting Machine (HM). 
+Therefore, such a machine cannot exist, and the Halting Problem is undecidable. 
+The implications of the Halting Problem's undecidability are significant. It means 
+that no universal algorithm can be created to determine whether any given 
+program will halt or run forever. This has profound implications for software 
+verification and automated program analysis. 
+The Halting Problem also serves as a cornerstone for proving the undecidability of other 
+problems. For example, the undecidability of the Post Correspondence Problem is proven 
+by showing that if we could solve PCP, we could also solve the Halting Problem. 
+The Halting Problem is an example of a recursively enumerable language that 
+is not recursive. A recursively enumerable language is one for which there exists a 
+Turing Machine that can list out all the strings in the language. However, it may not be 
+possible to determine whether a given string is not in the language. In the case of the 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+Halting Problem, we can list out all the programs that halt on given inputs, but we cannot 
+always definitively determine if a program will run forever. 
+ 
+Post Correspondence Problem (PCP) 
+The Post Correspondence Problem (PCP) is a decision problem in theoretical computer 
+science. It is undecidable, meaning there is no general algorithm that can solve the 
+problem for all possible inputs. 
+Problem Definition: 
+The PCP involves two sequences of strings, denoted as 𝐴 and 𝐵: 
+• 
+𝐴 = (𝐴₁, 𝐴₂, . . . , 𝐴ₙ) 
+• 
+𝐵 = (𝐵₁, 𝐵₂, . . . , 𝐵ₙ) 
+The goal is to determine if there exists a sequence of indices (𝑖₁, 𝑖₂, . . . , 𝑖ₘ) such that the 
+concatenation of the corresponding strings from both sequences results in identical 
+strings: 
+• 
+𝐴[𝑖₁] + 𝐴[𝑖₂] + . . . + 𝐴[𝑖ₘ] = 𝐵[𝑖₁] + 𝐵[𝑖₂] + . . . + 𝐵[𝑖ₘ] 
+Example: 
+Consider the following sequences: 
+• 
+𝐴 = (𝑎𝑏, 𝑏𝑐) 
+• 
+𝐵 = (𝑎, 𝑏) 
+We need to find a sequence of indices such that: 
+• 
+𝐴 + 𝐴 = ′𝑎𝑏′ + ′𝑏𝑐′ = ′𝑎𝑏𝑏𝑐′ 
+• 
+𝐵 + 𝐵 = ′𝑎′ + ′𝑏′ = ′𝑎𝑏′ 
+In this case, no solution exists because the concatenation of strings from 𝐴 (′𝑎𝑏𝑏𝑐′) does 
+not match the concatenation from 𝐵 (′𝑎𝑏′). 
+Undecidability of PCP: 
+The undecidability of PCP can be proven through a reduction from the Halting Problem. 
+This means that if we could solve PCP, we could also solve the Halting Problem, which is 
+known to be undecidable. 
+• 
+The Halting Problem asks whether a given Turing machine halts on a given input. 
+• 
+If we could solve PCP, we could construct an instance of PCP that encodes the 
+behaviour of a Turing machine on a specific input. 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+• 
+A solution to this PCP instance would correspond to the Turing machine halting 
+on that input. 
+Since the Halting Problem is undecidable, solving PCP would imply solving an 
+undecidable problem, which is impossible. Therefore, PCP is also undecidable. 
+Applications and Importance: 
+Despite its undecidability, PCP has significant theoretical implications: 
+• 
+Undecidability Proofs: PCP is often used as a tool to prove the undecidability of 
+other problems. 
+• 
+Understanding Limits of Computation: PCP helps us understand the boundaries 
+of what can be computed and the complexity of certain problems. 
+PCP is a classic example of an undecidable problem in the theory of computation, 
+highlighting the inherent limitations of algorithms and the existence of problems that 
+cannot be solved by any computer program. 
+ 
+ 
+ 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+Turing Machine 
+A Turing machine is a theoretical model of computation that serves as a foundation for 
+understanding the capabilities and limitations of computers. It was introduced by Alan 
+Turing in 1936 and consists of the following components: 
+• 
+Tape: An infinite strip of cells, each capable of holding a symbol from a finite 
+alphabet. 
+• 
+Head: A read/write head that can move left or right along the tape, reading and 
+writing symbols. 
+• 
+State: A finite set of states that the machine can be in, representing its current 
+computational stage. 
+• 
+Transition Function: A set of rules that dictate how the machine behaves based 
+on its current state and the symbol read by the head. 
+The transition function defines the actions of the Turing machine. It specifies, for each 
+combination of current state and symbol read, the following: 
+• 
+The new symbol to be written on the tape. 
+• 
+The direction the head should move (left or right). 
+• 
+The new state the machine should enter. 
+ 
+ 
+ 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+The formal notation we shall use for a Turing machine (TM) is similar to that used for 
+finite automata or PDA's. We describe a TM by the 7-tuple  
+𝛭 = (𝑄, Σ, 𝛤, 𝛿, 𝑞0, 𝛣, 𝐹) 
+whose components have the following meanings: 
+𝑄: The finite set of states of the finite control. 
+𝛴: The finite set of input symbols. 
+𝐹: The complete set of tape symbols; 𝛴 is always a subset of 𝐹. 
+𝛿: The transition function. The arguments of 𝛿(𝑞, 𝑋) are a state 𝑞 and a tape 
+symbol 𝑋. The value of 𝛿(𝑞, 𝑋), if it is defined, is a triple (𝑝, 𝑌, 𝐷), where: 
+1. 𝑝 is the next state, in 𝑄. 
+2. 𝑌 is the symbol, in 𝛤, written in the cell being scanned, replacing whatever 
+symbol was there. 
+3. 𝐷 is a direction, either 𝐿 or 𝑅, standing for "left" or "right," respectively, 
+and telling us the direction in which the head moves. 
+𝑞0: The start state, a member of 𝑄, in which the finite control is found initially. 
+𝐵: The blank symbol. This symbol is in 𝛤 but not in Σ; i.e., it is not an input symbol. 
+The blank appears initially in all but the finite number of initial cells that hold 
+input symbols. 
+𝐹: The set of final or accepting states, a subset of 𝑄. 
+Techniques for construction of Turing machine: 
+1. Turing Machine with Stationary Head 
+• Description: 
+In this type of Turing machine, the head does not move after a transition. Instead, 
+the tape symbol is updated, and the machine transitions to a new state. 
+• Technique: 
+o Typically achieved by designing a special state transition that keeps the 
+head stationary, often interpreted as a "read-and-write-only" step. 
+o Instead of moving left or right, the head remains on the current tape cell 
+while performing state transitions. 
+• Applications: 
+o Useful in tasks where frequent overwriting of the same cell is needed 
+before moving to the next one. 
+2. Storage in the State 
+• Description: 
+A Turing machine's state can be designed to encode additional information about 
+the computation, effectively allowing the state to act as temporary storage. 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+• Technique: 
+o Augment the state set to include compound states that encode specific 
+information. 
+o For example, instead of having a simple state q1, you might use q1X to 
+encode that the machine is in state q1 and has seen a specific symbol X. 
+• Applications: 
+o Simplifies tape usage for some computations by encoding more 
+information in the states. 
+o Commonly used in TMs for pattern matching or for storing small amounts 
+of context. 
+3. Multiple Track Turing Machine 
+• Description: 
+A multi-track TM uses a single tape divided into multiple parallel tracks. Each 
+track can hold a separate sequence of symbols, but the head reads/writes on all 
+tracks simultaneously. 
+• Technique: 
+o Define the tape alphabet as a Cartesian product of symbols from individual 
+track alphabets. 
+o Transitions operate on tuples representing the current symbols on each 
+track. 
+• Advantages: 
+o Efficient for simulating multiple tapes or keeping auxiliary information 
+(e.g., counters, markers) in parallel. 
+• Applications: 
+o Useful for managing multiple data streams or when auxiliary calculations 
+need to be performed alongside the primary computation. 
+4. Subroutines 
+• Description: 
+Subroutines allow modular design by breaking down the overall task into smaller, 
+reusable parts. Each subroutine is essentially a small TM designed to perform a 
+specific task. 
+• Technique: 
+o Define separate state sets for each subroutine, ensuring no overlap 
+between states of different subroutines. 
+o Use "call" and "return" states to transition between subroutines. 
+o Subroutines can handle tasks like shifting, copying, or checking for specific 
+patterns. 
+• Applications: 
+o Simplifies complex machine designs by promoting reusability. 
+o Common in TMs that implement complex algorithms or simulate higher-
+level computations. 
+ 
+ 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+Working Principle: 
+A Turing machine starts in an initial state with an input string written on its tape. It then 
+repeatedly applies the transition function, reading symbols, writing symbols, moving the 
+head, and transitioning between states. This process continues until the machine reaches 
+a halting state, signifying the end of computation. 
+Applications of Turing Machines: 
+Turing machines (TMs) are a foundational concept in computer science and have 
+applications in various domains, even though they are primarily theoretical. Their 
+significance lies in their ability to model computation and provide insights into the limits 
+and capabilities of algorithms. 
+1. Formalizing Computability 
+• 
+Defining Computable Functions: Turing machines formalize the concept of 
+algorithms and computation by defining what functions can be computed 
+using finite steps. 
+• 
+Church-Turing Thesis: The Turing machine is used to state that any function 
+computable by an algorithm can also be computed by a Turing machine, 
+making it a universal model of computation. 
+2. Algorithm Analysis 
+• 
+Complexity Theory: Turing machines help define complexity classes like P, 
+NP, EXPSPACE, and others, forming the basis of computational complexity. 
+• 
+Efficiency and Optimization: They are used to study the time and space 
+required for computations, offering theoretical insights into algorithm 
+performance. 
+3. Language Recognition and Automata Theory 
+• 
+Context-Free and Regular Languages: TMs extend the capabilities of simpler 
+automata like finite automata and pushdown automata, enabling the 
+recognition of more complex languages. 
+• 
+Decidability of Problems: They are used to determine whether a language is 
+decidable (can be recognized and verified by a machine) or undecidable. 
+4. Proofs of Decidability and Undecidability 
+• 
+Undecidable Problems: TMs are used to prove that certain problems (e.g., the 
+Halting 
+Problem) 
+cannot 
+be 
+solved 
+algorithmically. 
+Example: Determining whether a Turing machine halts for a given input. 
+• 
+Reduction Techniques: Problems are reduced to Turing machine 
+computations to prove their decidability or undecidability. 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+5. Simulation of Real-World Computation 
+• 
+Simulating Modern Computers: A Turing machine can simulate the 
+operations of any modern computer (given sufficient time and tape space), 
+showing the equivalence of computational power. 
+• 
+Emulation of Algorithms: Algorithms in programming languages can be 
+converted into Turing machine representations for theoretical analysis. 
+6. Artificial Intelligence and Machine Learning 
+• 
+Theoretical Foundations: Turing machines provide a baseline for designing 
+learning algorithms and reasoning about their computational limits. 
+• 
+Universal Turing Machine (UTM): The concept of the UTM, which can 
+simulate any other TM, is akin to modern AI systems being capable of general-
+purpose problem-solving. 
+7. Cryptography 
+• 
+Complexity-Based Security: Many cryptographic protocols rely on problems 
+that are computationally hard for TMs (e.g., factoring large numbers). 
+• 
+Proofs of Security: TMs are used to prove the infeasibility of breaking certain 
+cryptographic systems under reasonable assumptions. 
+8. Compiler Design 
+• 
+Parsing and Language Translation: TMs are used to model parsers that 
+analyze and translate programming languages, forming a basis for 
+understanding compiler construction. 
+• 
+Semantic Analysis: Some compiler-related problems (e.g., type checking) are 
+modelled using variants of TMs. 
+9. Cognitive Science and Philosophy 
+• 
+Nature of Thought and Computation: Turing machines are used in 
+discussions about whether the human brain functions like a computational 
+machine. 
+• 
+Turing Test and AI: The idea of machine intelligence and the limits of 
+computational reasoning draw heavily on the concept of TMs. 
+10. Real-World Applications 
+While Turing machines are not directly used in practical systems, their theoretical 
+insights influence the design and analysis of: 
+• 
+Operating Systems: Scheduling and resource management algorithms are 
+analyzed using TM concepts. 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+• 
+Database Systems: Query processing and optimization are based on 
+decidable languages modelled by TMs. 
+• 
+Search Engines: Indexing and pattern-matching tasks can be studied through 
+language recognition and TM simulations. 
+Variants of Turing Machines and Applications 
+1. Multi-Tape Turing Machines: Used for analyzing algorithms that require 
+multiple streams of data processing. 
+2. Non-Deterministic Turing Machines (NDTMs): Central to complexity 
+theory, especially in defining NP problems. 
+3. Universal Turing Machines (UTMs): Theoretical basis for the concept of 
+modern general-purpose computers. 
+Limitations of Turing Machines: 
+While Turing machines are powerful theoretical tools, they have limitations that 
+distinguish them from practical computers: 
+• 
+Infinite Tape: Turing machines assume an infinite tape, which is unrealistic in 
+physical computers. 
+• 
+Discrete Time Steps: Turing machines operate in discrete time steps, whereas 
+physical computers operate continuously. 
+• 
+Simple Operations: Turing machines only perform basic operations like reading, 
+writing, and moving the head. Modern computers have much richer instruction 
+sets. 
+Despite these limitations, Turing machines remain a crucial concept in computer science, 
+providing a framework for understanding the fundamental principles of computation and 
+the limits of what computers can achieve. 
+ 
+ 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+Language accepted by Turing machine 
+The Turing machine accepts all the language even though they are recursively 
+enumerable. Recursive means repeating the same set of rules for any number of times 
+and enumerable means a list of elements. The TM also accepts the computable functions, 
+such as addition, multiplication, subtraction, division, power function, and many more. 
+Example: 
+Construct a Turing machine which accepts the language of aba over ∑ = {𝑎, 𝑏}. 
+Solution: 
+We will assume that on input tape the string '𝑎𝑏𝑎' is placed like this: 
+ 
+The tape head will read out the sequence up to the ∆ characters (where ∆ 𝑖𝑠 𝑏𝑙𝑎𝑛𝑘 𝑠𝑡𝑎𝑡𝑒. 
+If the tape head is readout '𝑎𝑏𝑎' string then TM will halt after reading ∆. 
+Now, we will see how this Turing machine will work for 𝑎𝑏𝑎. Initially, state is q0 and head 
+points to a as: 
+ 
+The move will be 𝛿(𝑞0, 𝑎) = 𝛿(𝑞1, 𝐴, 𝑅) which means it will go to state 𝑞1, replaced a by 
+𝐴 and head will move to right as: 
+ 
+The move will be 𝛿(𝑞1, 𝑏) = 𝛿(𝑞2, 𝐵, 𝑅) which means it will go to state 𝑞2, replaced 𝑏 by 
+𝐵 and head will move to right as: 
+ 
+ 
+The move will be 𝛿(𝑞2, 𝑎) = 𝛿(𝑞3, 𝐴, 𝑅) which means it will go to state q3, replaced a by 
+𝐴 and head will move to right as: 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+ 
+ 
+The move 𝛿(𝑞3, ∆) = (𝑞4, ∆, 𝑆) which means it will go to state q4 which is the HALT state 
+and HALT state is always an accept state for any TM. 
+The same TM can be represented by Transition Table: 
+States 
+𝒂 
+𝒃 
+∆ 
+q0 
+(𝑞1, 𝐴, 𝑅) 
+– 
+– 
+q1 
+– 
+(𝑞2, 𝐵, 𝑅) 
+– 
+q2 
+(𝑞3, 𝐴, 𝑅) 
+– 
+– 
+q3 
+– 
+– 
+(𝑞4, ∆, 𝑆) 
+q4 
+– 
+– 
+– 
+ 
+The same TM can be represented by Transition Diagram: 
+ 
+ 
+ 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+Programming Techniques for Turing Machines 
+While Turing machines are primarily theoretical constructs, understanding how to 
+"program" them provides valuable insights into the fundamentals of computation. 
+Programming a Turing machine involves designing its transition function to solve a 
+specific problem.  
+Designing the Transition Function 
+The transition function is at the heart of a Turing Machine. It dictates how the machine 
+behaves based on its current state and the symbol it reads from the tape. It can be thought 
+of as a set of rules of the form: 
+(Current State, Read Symbol) → (New State, Write Symbol, Head Movement). 
+• 
+Current State and Read Symbol: These represent the input to the transition 
+function. The machine examines its current state and the symbol under its head 
+on the tape. 
+• 
+New State, Write Symbol, Head Movement: This is the output of the transition 
+function. It specifies how the machine should change its state, what symbol to 
+write on the tape, and whether to move the head left or right (or stay in the same 
+position). 
+To design a transition function for a specific task, you need to carefully consider how each 
+combination of state and read symbol should be handled to ultimately achieve the desired 
+computation. 
+Manipulating the Tape and Head 
+The tape is the Turing Machine's working memory, and the head is its tool for interacting 
+with that memory. 
+Here are some common techniques for manipulating the tape and head: 
+• 
+Marking Cells: You can use special symbols from your alphabet to mark specific 
+cells on the tape. This helps the machine remember locations it needs to revisit, 
+store intermediate results, or mark the beginning and end of data sections. 
+• 
+Shifting Data: Implementing algorithms often requires moving data around on 
+the tape. You might need to shift an entire block of symbols to the left or right to 
+make space for new data or to align data for comparison. 
+• 
+Simulating Multiple Tapes: While a basic Turing Machine has one tape, you can 
+simulate multiple tapes using a single tape. You can partition the tape into sections 
+and use special symbols to delimit these sections, effectively treating each section 
+as a separate tape. 
+ 
+ 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+State Transitions 
+The finite set of states in a Turing machine represents its memory and control flow 
+mechanisms. 
+• 
+States as Memory: Each state can represent a piece of information or a stage in 
+the computation. The transition from one state to another is triggered by the read 
+symbol and encodes logic. 
+• 
+States for Control Flow: States can be used to control the sequence of actions 
+performed by the machine. You can design states to represent different phases of 
+an algorithm (initialization, processing, output, etc.) and use transitions to move 
+between these phases based on the symbols read and the intended logic of the 
+algorithm. 
+Example: Adding Two Unary Numbers 
+Imagine you want to design a Turing machine to add two unary numbers. The numbers 
+are represented as strings of 1s separated by a 0. For instance, 11011 represents 2 + 2. 
+1. States: You might have states like "Start," "Find First Number," "Find Second 
+Number," "Add," and "Halt." 
+2. Tape Manipulation: You'd need to move the head to locate the two numbers, 
+replace the separating 0 with a 1, and possibly clean up extra symbols. 
+3. Transitions: Transitions would dictate how the machine changes states based on 
+the symbol read. For example, if in the "Find First Number" state and the head 
+reads a 1, it would stay in the same state and move right. If it reads a 0, it would 
+transition to the "Find Second Number" state. 
+ 
+Multi-Tape Turing Machines 
+A multi-tape Turing machine is a variant of the basic Turing machine that 
+possesses multiple tapes, each equipped with its own independent read/write head. 
+This enhancement significantly expands the machine's capabilities while maintaining its 
+theoretical equivalence to the single-tape model. 
+ 
+Head 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+Key features and advantages: 
+• 
+Structure: Instead of a single tape, a multi-tape Turing machine has k tapes, where 
+k is a positive integer. Each tape is infinite in length, just like in the single-tape 
+model. The machine has a separate head for each tape, allowing it to read and 
+write on multiple tapes simultaneously. 
+• 
+Transition Function: The transition function is modified to accommodate the 
+multiple tapes. It now takes as input the current state and the symbols read by all 
+the heads. The output of the function specifies: 
+o The new state 
+o The symbols to be written on each tape 
+o The movement direction of each head (left, right, or stationary). 
+• 
+Enhanced Efficiency: Multi-tape Turing machines can perform certain tasks 
+much more efficiently than their single-tape counterparts. For example, copying a 
+string of symbols can be done in linear time on a multi-tape machine, while it 
+requires quadratic time on a single-tape machine. 
+• 
+Simulating Multiple Data Structures: The multiple tapes can be used to 
+represent different data structures or hold different parts of a computation. For 
+instance, one tape could store the input data, another could hold intermediate 
+results, and another could be used for output. 
+• 
+Equivalence to Single-Tape Machines: Despite their increased power, multi-
+tape Turing machines are computationally equivalent to single-tape Turing 
+machines. Any computation that can be performed on a multi-tape machine can 
+also be performed on a single-tape machine, though it might require more steps 
+and a more complex program. This equivalence reinforces the fundamental nature 
+of the Turing machine model, showing that adding more tapes doesn't change the 
+class of problems that can be solved. 
+Example: Palindrome Recognition 
+Consider the task of determining whether a given string is a palindrome (reads the same 
+backward as forward). A two-tape Turing machine can solve this efficiently: 
+1. Initialization: The input string is written on the first tape. 
+2. Copying: Using both heads, the machine copies the input string from the first tape 
+to the second tape in reverse order. 
+3. Comparison: The heads are moved to the beginning of each tape. The machine 
+compares the symbols under each head, moving both heads to the right 
+simultaneously. If all symbols match until the end of the tapes is reached, the 
+string is a palindrome. 
+ 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+Non-Deterministic Turing Machine (NDTM) 
+A Non-Deterministic Turing Machine (NDTM) is a theoretical model of computation 
+that extends the concept of a Deterministic Turing Machine (DTM) by allowing 
+multiple possible actions at each step. Unlike DTMs, where the behavior is entirely 
+predictable based on the current state and input, NDTMs can "choose" between different 
+transitions. 
+Definition: An NDTM is formally described as a 7-tuple: 
+𝑀= (𝑄, 𝛴, 𝛤, 𝛿, 𝑞0, 𝑞𝑎𝑐𝑐𝑒𝑝𝑡, 𝑞𝑟𝑒𝑗𝑒𝑐𝑡) 
+Where: 
+• 
+Q: Finite set of states. 
+• 
+Σ: Input alphabet (does not include the blank symbol). 
+• 
+Γ: Tape alphabet (𝛴⊆𝛤 and includes a blank symbol). 
+• 
+δ: Transition function, which for an NDTM is a relation:  
+𝛿: 𝑄× 𝛤→𝑃(𝑄× 𝛤× {𝐿, 𝑅, 𝑆}) 
+This means that for a given state and tape symbol, there may be multiple possible 
+next states, tape symbols, and head movements. 
+• 
+𝑞0: Start state. 
+• 
+𝑞𝑎𝑐𝑐𝑒𝑝𝑡: Accept state. 
+• 
+𝑞𝑟𝑒𝑗𝑒𝑐𝑡: Reject state (𝑞𝑟𝑒𝑗𝑒𝑐𝑡≠𝑞𝑎𝑐𝑐𝑒𝑝𝑡). 
+Key Features 
+1. Non-Determinism: 
+• At any step, the machine can choose among several possible transitions. It can 
+"guess" the correct sequence of choices to solve a problem. 
+• This is often visualized as a tree of computations where each branch represents a 
+possible sequence of transitions. 
+2. Acceptance Condition: 
+• An input is accepted if at least one computation branch leads to the accept state 
+(𝑞𝑎𝑐𝑐𝑒𝑝𝑡). 
+• If all branches lead to the reject state (𝑞𝑟𝑒𝑗𝑒𝑐𝑡), the input is rejected. 
+3. Parallelism (Theoretical): 
+• Conceptually, the NDTM can explore all computation branches simultaneously. 
+This does not correspond to any physical machine but is useful for theoretical 
+analysis. 
+ 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+Comparison with Deterministic Turing Machine (DTM) 
+Feature 
+Deterministic TM 
+Non-Deterministic TM 
+Transition 
+Function 
+Single next state for each 
+input 
+Multiple possible next states 
+Nature of 
+Execution 
+Sequential and predictable 
+Parallel exploration of branches 
+Power of 
+Computation 
+Equivalent (both are 
+Turing complete) 
+Equivalent (NDTMs do not solve problems 
+that DTMs cannot) 
+Time Complexity Solves problems in O(f(n)) 
+time 
+Can "guess" solutions in O(1) time on some 
+branches, leading to NP problems 
+ 
+Undecidability: A Language That Is Not Recursively 
+Enumerable: 
+Undecidability refers to the inherent impossibility of solving certain problems 
+algorithmically for all possible inputs. In the context of Turing machines and formal 
+languages, a problem is undecidable if there is no Turing machine that can always halt 
+and correctly determine whether a given input belongs to a specific language. 
+Decidable Problems: 
+A problem is decidable if an algorithm exists that can always solve it correctly in a 
+finite amount of time. This means a corresponding Turing Machine can be constructed 
+that will halt on every input with a definite "yes" or "no" answer. These problems are 
+also referred to as Turing Decidable problems. 
+• 
+Recursive languages fall under the category of decidable problems. A Turing 
+machine for a recursive language will always halt, accepting strings belonging to 
+the language and rejecting those that do not. This characteristic equates 
+recursive languages with decidable languages. 
+Semi-Decidable Problems: 
+Semi-decidable problems are characterized by a Turing machine that halts and accepts 
+strings belonging to the corresponding language. However, for strings not in the 
+language, the Turing machine might halt and reject or enter an infinite loop. This 
+ambiguity in halting behavior distinguishes semi-decidable problems from decidable 
+ones. 
+• 
+Semi-decidable problems are also known as Turing Recognizable problems 
+because the Turing machine can recognize and accept strings within the 
+language, but it might not definitively reject all strings outside the language. 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+• 
+Recursively Enumerable languages are synonymous with semi-decidable 
+problems. They share the same halting behavior: the Turing machine might not 
+halt for all inputs. 
+Undecidable Problems: 
+Undecidable problems are those for which no algorithm can be constructed that can 
+answer the problem correctly in finite time. These problems may be partially decidable, 
+but they will never be decidable. There will always be a condition that will lead the 
+Turing Machine into an infinite loop without providing an answer. 
+• 
+A prominent example of an undecidable problem is the Halting Problem. The 
+Halting Problem seeks to determine whether a given program, represented by a 
+Turing machine, will eventually halt or run forever for a given input. While it's 
+possible to create a Turing machine that halts for some program-input 
+combinations, there is no universal Turing machine that can solve the Halting 
+Problem for all possible programs and inputs. 
+Recursive Language (Decidable Language) 
+TM will always halt 
+Recursive Enumerable Language (Partially 
+Decidable Language)  
+TM will halt sometimes and may not 
+halt sometimes 
+Undecidable 
+NO TM for that language 
+ 
+Relationship and Examples: 
+• 
+Every decidable problem is inherently semi-decidable, but the converse is not 
+necessarily true. In essence, all recursive languages are recursively enumerable, 
+but not all recursively enumerable languages are recursive. 
+• 
+The Halting Problem exemplifies a problem that is semi-decidable but not 
+decidable. While a Turing machine can be designed to halt and accept Turing 
+Machine and input combinations that do halt, it cannot definitively decide for all 
+combinations whether they will halt or run infinitely. This inherent 
+undecidability of the Halting Problem is a fundamental concept in computer 
+science. 
+Recursive and Recursively Enumerable Languages 
+To understand undecidable languages, it's crucial to distinguish between recursive and 
+recursively enumerable languages: 
+• 
+Recursive Languages: A language is recursive if there exists a Turing machine 
+that: 
+o Halts and accepts any string that belongs to the language. 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+o Halts and rejects any string that does not belong to the language. These 
+languages are also called decidable languages. The Turing machine acts 
+as a decider, always providing a definitive answer (accept or reject) for 
+any given input. 
+• 
+Recursively Enumerable (RE) Languages: A language is recursively 
+enumerable if there exists a Turing machine that: 
+o Halts and accepts any string that belongs to the language. 
+o May halt and reject or run forever for strings not in the language. 
+o These languages are also known as partially decidable or Turing 
+recognizable languages. The Turing machine can recognize strings 
+belonging to the language, but it might not halt for strings not in the 
+language. 
+A Language That Is Not Recursively Enumerable 
+If a language is not recursively enumerable, it means there's no Turing machine 
+that can even list out all the strings in the language, let alone decide membership 
+for all inputs. This signifies a higher level of undecidability compared to RE languages, 
+where at least enumeration is possible. 
+Key Points to Remember 
+• 
+Every recursive language is recursively enumerable, but not vice versa. 
+• 
+The Halting Problem is a classic example of a language that is recursively 
+enumerable but not recursive. It's possible to list out (enumerate) Turing 
+machine and input pairs that halt, but it's impossible to design a Turing machine 
+that always halts and correctly decides whether any given Turing machine will 
+halt on a specific input. 
+The concept of undecidability is fundamental in computer science, as it sets limits on 
+what can be computed algorithmically. Understanding the distinction between 
+recursive, recursively enumerable, and non-RE languages helps us grasp the 
+complexities and boundaries of computation. 
+ 
+Languages Beyond Turing Machine Capabilities 
+Turing Machines, as powerful as they are, have limitations. They cannot solve 
+undecidable problems or recognize languages that are not recursively 
+enumerable. 
+• 
+Undecidable problems are those for which no algorithm can guarantee a 
+solution for every input in a finite time. The Halting Problem, which tries to 
+
+THEORY OF COMPUTATION 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS503 
+predict whether any program will halt or run forever, is a classic example of an 
+undecidable problem. 
+• 
+Recursively Enumerable languages, on the other hand, can be recognized by a 
+Turing Machine. This means the machine can accept strings that belong to the 
+language. However, for strings that don't belong, the machine might either halt 
+and reject them or run forever. The inability to guarantee a halting decision for 
+all inputs is the defining characteristic of recursively enumerable languages. 
+Languages beyond Turing Machine capabilities would be those that are not 
+recursively enumerable. This means there is no Turing Machine that can be 
+constructed to recognize strings belonging to these languages. These languages are 
+inherently more complex and lie outside the realm of problems solvable by 
+computational models like Turing Machines. 
+It's important to remember: 
+• 
+While Turing Machines are powerful models of computation, they have 
+limitations. 
+• 
+The existence of undecidable problems and non-recursively enumerable 
+languages highlights the boundaries of what can be computed. 
+Therefore, understanding these limitations provides a deeper understanding of the 
+theory of computation and the inherent complexities within the field of computer 
+science. 
+ 
+ 

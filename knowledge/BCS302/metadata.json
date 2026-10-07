@@ -1,0 +1,177 @@
+{
+  "subject_code": "BCS302",
+  "subject_name": "Digital Design and Computer Organization",
+  "semester": 3,
+  "semester_label": "3RD SEM",
+  "modules": {
+    "1": {
+      "title": "Introduction to Digital Design — Boolean Algebra and K-Maps",
+      "topics": [
+        "Digital Systems and Binary Numbers",
+        "BI NA RY L O G IC",
+        "NOT: This operation is represented by a prime (sometimes by an overbar). For",
+        "Digital Systems and Binary Numbers",
+        "PR O BL E MS",
+        "F  ABC",
+        "G  A  B  C  D",
+        "Digital Systems and Binary Numbers",
+        "Perform the following division in binary: 111011 ÷ 101.",
+        "Do the following conversion problems:"
+      ],
+      "sources": [
+        "BCS302-module-1-textbook.txt"
+      ],
+      "content_chars": 111787
+    },
+    "2": {
+      "title": "Combinational and Sequential Logic",
+      "topics": [
+        "INT R OD U C T IO N",
+        "CO MB IN AT IO N A L C IR C U I TS",
+        "Combinational Logic",
+        "A NA LY S IS P R O C E D U R E",
+        "DE S IG N P R O C E D U R E",
+        "From the specifications of the circuit, determine the required number of inputs",
+        "Combinational Logic",
+        "Draw the logic diagram and verify the correctness of the design (manually or by",
+        "Combinational Logic",
+        "BINA RY A D D E R – S U B T R A CT O R"
+      ],
+      "sources": [
+        "BCS302-module-2-textbook.txt"
+      ],
+      "content_chars": 135464
+    },
+    "5": {
+      "title": "Basic Processing Unit and Pipelining",
+      "topics": [
+        "SOME FUNDAMENTAL CONCEPTS",
+        "Fetch contents of memory-location pointed to by PC. Content of this location is",
+        "Increment PC by 4.",
+        "Carry out the actions specified by instruction (in the IR).",
+        "SINGLE BUS ORGANIZATION",
+        "REGISTER TRANSFERS",
+        "PERFORMING AN ARITHMETIC OR LOGIC OPERATION",
+        "FETCHING A WORD FROM MEMORY",
+        "EXECUTION OF A COMPLETE INSTRUCTION",
+        "Instruction Pipeline"
+      ],
+      "sources": [
+        "BCS302-module-5-pdf.txt"
+      ],
+      "content_chars": 21095
+    },
+    "3": {
+      "title": "Basic Structure of Computers — Addressing Modes",
+      "topics": [
+        "Computer Components and Functions",
+        "Bus Interconnection Structures",
+        "Instruction Cycles and Processing",
+        "Addressing Modes",
+        "Immediate Addressing",
+        "Direct and Indirect Addressing",
+        "Register and Register Indirect Addressing",
+        "Displacement Addressing",
+        "Stack Addressing",
+        "Instruction Formats"
+      ],
+      "sources": [
+        "R1_Computer_Organization_and_Architecture_Stallings.txt"
+      ],
+      "content_chars": 176257
+    },
+    "4": {
+      "title": "Input/Output and Memory Organization",
+      "topics": [
+        "Cache Memory Principles",
+        "Cache Mapping Functions (Direct, Associative, Set-Associative)",
+        "Internal Memory and Semiconductor RAM",
+        "Input/Output Modules",
+        "Programmed I/O",
+        "Interrupt-Driven I/O",
+        "Direct Memory Access (DMA)"
+      ],
+      "sources": [
+        "R1_Computer_Organization_and_Architecture_Stallings.txt"
+      ],
+      "content_chars": 239766
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\BCS302-module-1-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\BCS302-module-2-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\BCS302-module-3-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\BCS302-module-4-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\BCS302-module-5-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\BCS302-module-5-textbook.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\BCS302-module-1-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\BCS302-module-2-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\BCS302-module-3-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\BCS302-module-4-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\BCS302-module-5-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\BCS302-module-5-textbook.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-dec-2023-jan-2024.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-dec-2023-jan-2024.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-dec-2024-jan-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-dec-2024-jan-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-dec-2025-jan-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-dec-2025-jan-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-june-july-2025-makeup.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-june-july-2025-makeup.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-june-july-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-june-july-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-model-set-1-paper.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-model-set-1-paper.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-module-1-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-module-2-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-module-3-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-module-4-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-module-5-written.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-question-bank-with-solution.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-question-bank.pdf"
+    ],
+    "question_bank_solutions": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-question-bank-with-solution.txt"
+    ],
+    "question_banks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-question-bank.txt"
+    ],
+    "important_questions": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\3RD SEM\\BCS302\\important_questions.md"
+    ],
+    "model_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\3RD SEM\\BCS302\\model_papers.md"
+    ],
+    "previous_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\3RD SEM\\BCS302\\previous_papers.md"
+    ],
+    "textbooks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS302_DDCO\\R1_Computer_Organization_and_Architecture_Stallings.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS302_DDCO\\R1_Computer_Organization_and_Architecture_Stallings.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS302_DDCO\\T1_Digital_Logic_and_Computer_Design_Mano.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS302_DDCO\\T1_Digital_Logic_and_Computer_Design_Mano.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_3\\BCS302\\BCS302_Digital_Design_and_Computer_Organization.md"
+    ],
+    "written_answers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-module-1-written.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-module-2-written.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-module-3-written.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-module-4-written.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS302\\question papers\\BCS302-module-5-written.txt"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to Digital Design — Boolean Algebra and K-Maps",
+    "2": "Combinational and Sequential Logic",
+    "3": "Basic Structure of Computers — Addressing Modes",
+    "4": "Input/Output and Memory Organization",
+    "5": "Basic Processing Unit and Pipelining"
+  }
+}

@@ -1,0 +1,237 @@
+BANGALORE INSTITUTE OF TECHNOLOGY 
+K R ROAD, V V PURAM, BANGALORE-04 
+DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING 
+Module wise Question Bank  
+ 
+SUB (CODE): DDCO(BCS302)                                                                                                              Batch: 2022      
+Academic year : 2023-24 (ODD Sem)                                                                                                    Sem: 3 
+ 
+MODULE 1 
+1. Describe positive logic and negative logic. List the equivalences in positive and negative 
+logic. 
+2. Realize the XOR gate using (i) NAND gate (ii) NOR gate. 
+3. Define canonical Minterm form and canonical Maxterm form. 
+4. Express the function F=x+yz as the sum of its minterms and product of  maxterms 
+5. Convert the following 4-variable POS  to SOP form. 
+      (i) ΠM(1,3,4,7)  (ii) ΠM(0,1,2,4,10,13,15) 
+      
+6. Find the minimal SOP and minimal POS of the following Boolean function using K-Map. 
+       
+( , , , )
+(6,7,9,10,13)
+(1,4,5,11)
+f a b c d
+m
+d
+=
++
+
+  
+7. With an example explain duality?  
+8. List all Postulates and Theorems available in Boolean algebra?  
+9. State and Prove Absorption Theorem.  
+10. Find the complement and simplify  the Boolean function and also write logic circuit 
+             F = A ′ B ′C ′ + A ′ B  C .  
+11. Draw a two-level logic diagram to implement the Boolean function  
+             F = BC ′ + A B + A C D .  
+12. Demonstrating the non-associativity of the below operator: 
+             ( x ↓y ) ↓ z ≠ x ↓ ( y ↓ z )  (3M) 
+13. Define negative logic and Write the equivalent negative logic for positive NAND gate.   
+14. Implement the Boolean function F = yz + z ′ y ′ + x ′ z With NAND and inverter gates. 
+15. Simplify the following using K-Map  technique and find the Essential Prime Implicants. 
+     
+( )
+( , , , )
+(7,9,12,13,14,15)
+(4,11) 
+( )
+( , , , )
+(0,1,2,6,7,9,10,12)
+(3,5). Verify the result using K-map.
+(
+) ( , ,
+,
+)
+(0,1,2,3,10,11,12,13,14,15)
+( ) (
+,
+, ,
+)
+(1,3,6,7,8,9,10,12
+i P
+f w x y z
+m
+d
+ii Y
+f a b c d
+d
+iii f A B C D
+m
+iv f W X Y Z
+m
+=
+=
++
+=
+=
++
+=
+=
+
+
+
+
+,13,14)
+
+ 
+16. Simplify the following expressions using Karnaugh map. Implement the simplified 
+circuit  using the gates as indicated: 
+     ( ) ( , , , )
+(1,5,7,9,10,13,15)
+(8,11,14) using NAND gates.
+(ii) ( , , ,
+)
+(0,1,2,4,5,6,8,9,12,13,14) using NOR gates.
+i f w x y z
+m
+d
+f A B C D
+M
+=
++
+= 
+
+ 
+         Question Bank
+Digital Design and Computer Organization BCS302
+  Module Wise Questions
+website:vtucode.in
+
+ 
+MODULE 2  
+ 
+1. What is a multiplexer? Design a 4 to 1 multiplexer using logic gates. Write the truth table 
+     and explain its working principle. 
+2. Construct 4:1 multiplexer using only 2:1 multiplexer and also write Verilog program. 
+3. Construct 8:1 multiplexer using only 2:1 multiplexer. 
+4. Design  32 to 1 multiplexer using 16 to 1 multiplexer and one 2 to 1 multiplexer. 
+5. Mention the differences between decoder and demultiplexer. 
+6. (a) Realize Y
+A B
+B C
+ABC
+
+
+=
++
++
+ using an 8 to 1 Multiplexer. 
+     (b) Can it be realized with a 4 to 1 multiplxer? 
+7. Design a priority encoder for a system with a 3 inputs, the middle bit with highest priority 
+encoding to 10, the MSB with the next priority encoding to 11, while the LSB with least 
+priority encoding to 01. 
+8. Give state transition diagram of SR, D, JK and T flip flops. 
+9. Obtain the characteristic equation of  SR, JK, D and T flip flops. 
+      10. Explain the operation of edge triggered ‘SR’ flip flop with the help of a logic diagram     
+            and truth table. Also draw the relevant waveforms. 
+     11. Explain the working of Master Slave J K flip flops with logic diagram. 
+     12. Derive the Excitation table for equation for D, T,SR, and JK Flip flops. 
+     13 .with a example explain the syntax of conditional signal assignment statement in VHDL      
+       and Verilog.     
+      14. Differentiate between Latch and flip flop. 
+      15. write Verilog program for demjultiplexer. 
+      16.Explain the structure of VHDL and verilog program. Write Verilog  code for 4 bit parallel   
+          adder using full adder as component. 
+MODULE 3 
+1. With a neat diagram explain the different processor registers. 
+ 
+2. What are the factors that affect the performance?Explain any 4. 
+ 
+3. What is performance measurement? Explain the overall SPEC rating for a computer in a 
+program suite. 
+ 
+4. Write the difference b/w RISC and CISC processors. 
+ 
+5. A program contains 1000 instructions. Out of that 25% instructions requires 4 clock cycles, 
+40% instructions requires 5 clock cycles and remaining requires 3 clock cycles for execution. 
+Find the total time required to execute the program running in a 1GHz machine. 
+ 
+6. Write a note on byte addressability,big-endian and little-endian assignment. 
+ 
+
+7. Explain the basic operational concepts b/w the processor and the memory. 
+ 
+8. Derive the basic performance equation? Discuss the measures to improve the performance. 
+ 
+9. Explain processor clock and clock rate. 
+ 
+10. What is an addressing mode? Explain any four addressing modes. 
+ 
+11. Write ALP program to copy ‘N’ numbers from array ‘A’ to array ‘B’ using indirect 
+addresses.(AssumeAandBarethestartingmemorylocationofaarray). 
+ 
+12. With a neat block diagram, describe the I/O operation. 
+ 
+13. Explain functional units of computer. 
+ 
+14. Discuss connection between processor and memory . 
+ 
+15.Mention four types of operations to be performed by instructions in a computer. Explain with 
+basic types of instructions formats to carry out C<-[A]+[B]. 
+ 
+16.How input and output operation performed by Processor? 
+ 
+MODULE 4 
+ 
+1. Define bus arbitration.Explain in detail both approach of bus arbitration. 
+2. What is an interrupt? With example illustrate the concept of interrupts 
+ 
+3. Explain in detail the situation where a number of devices capable of initiating interrupts are 
+connected to the processor? How to resolve the problems? 
+4. 
+Explain the following terms a) interrupt service routine b) interrupt latency c) interrupt 
+disabling. 
+5. Draw the arrangement of a single bus structure and brief about memory mapped I/O. 
+6. Explain interrupt enabling,interrupt disabling,edge triggering with respect to interrupts 
+7. Draw the arrangement for bus arbitrations using a daisychain and explain in brief. 
+8. With neat sketches explain various methods for handling multiple interrupt requests. 
+9. Define memory mapped I/0 and I/0 mapped I/0 with examples 
+ 
+10. Explain how interrupt request from several I/0 devices can be communicated toaprocessor 
+through a single INTR line. 
+ 
+
+11. What are the different methods of DMA. Explain in brief. 
+13. Show with diagram the memory hierarchy with respect to speed , size and cost 
+14.What is DMA? Explain the hardware registers that are required in a DMA controller chip.
+Explain the use of DMA controller in a computer system with a neat diagram 
+15.Explain with a block diagram a general 8 bit parallel interface. 
+ 
+16. Explain different mapping functions used in cache memory. 
+ 
+MODULE 5 
+ 
+1. Discuss Connection of the memory to the processor with diagram, 
+2.Explain with need diagram a single-bus structure. 
+3. Discuss synchronous Bus operation with neat diagram. 
+4. Discuss asynchronous Bus operation with neat diagram. 
+5.Explain multiplebus organization and its advantages. 
+6.Explain the role of cache memory in pipelining. 
+7.Explain pipelining performance. 
+8.Explain the processing and control capabilities of Microwave oven and Digital 
+camera. 
+ 
+ 
+            9.Explain the structure of General Purpose Multiprocessors. 
+10.Describe the classifications of Parallel Structures. 
+11.Describe the three bus organization of the datapath and describe in detail. 
+12.Write control sequence for the instruction Add R1, R2, R3. 
+13.Explain a complete processor with a neat diagram 
+            14.Write and explain the control sequences for the execution of the following  
+                instruction: Add(R3),R1. 
+15. Explain Field coded micro Instructions with a neat diagram. 
+ 
+16. Discuss with neat diagram I/O interface for an input device. 
+ 
+ 
+Course Coordinator: Dr. Maya B S 

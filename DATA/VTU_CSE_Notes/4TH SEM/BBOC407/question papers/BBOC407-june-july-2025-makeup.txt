@@ -1,0 +1,162 @@
+ 
+     
+ 
+                   
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fourth Semester B.E/B.Tech. Degree Examination, June/July 2025  
+Biology for Engineers(CSE)   
+ 
+Time: 3 hrs.                                                                                                    Max. Marks:100 
+     
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                   2. M : Marks , L: Bloom’s level , C: Course outcomes. 
+    
+ 
+Module – 1 
+M
+L
+C
+1
+a.
+With a neat labelled diagram explain the structure of functions and an animal 
+cell.  
+10
+L1 CO2
+b.
+List the differences between Prokaryotic and Eukaryotic cells. 
+10
+L1 CO2
+                                                                       OR
+2
+a.
+What are stem cells?  Explain the applications of stem cells in treating real 
+time health issues.  
+10
+L1 CO2
+b.
+Discuss the properties and functions of Enzymes. 
+10
+L1 CO2
+                                                                  Module – 2 
+3
+a.
+Explain the properties of cellulose?  What are the steps to the design 
+cellulosed based water filter.  
+10
+L2 CO1
+b.
+Explain the working of Glucose oxidase (GOx) in biosensors. 
+10
+L2 CO1
+                                                                      OR 
+4
+a.
+What are the Bioplastics?  Compare the properties of PHA and PLA. 
+10
+L1
+CO1
+b. 
+With a neat diagram, explain the steps in preparation of COVID vaccine. 
+10
+L1 CO1
+                                                                Module – 3 
+5
+a.
+What are the applications of EEG. 
+10
+L1
+CO1
+b.
+What are the Engineering solutions for Parkinson’s disease?
+10
+L1 CO1
+                                                                        OR
+6
+a. 
+Explain the gas exchange mechanism in lungs. 
+10
+L1 CO1
+b.
+Explain the architecture of rod and cone cells. 
+10
+L1
+CO1
+                                                                 Module – 4
+7
+a.
+What is echolocation?  Explain SONAR.
+10
+L1 CO2
+b.
+Write a note on importance of GPS Technology in aircrafts. 
+10
+L1
+CO2
+                                                                       OR
+8
+a.
+List the applications of Bionic Leaf Technology. 
+10
+L1
+CO2
+b.
+Discuss the design structure of bullet train inspired from kingfisher’s beak. 
+10 
+L1
+CO2
+                                                                Module – 5 
+9
+a.
+Write short notes on :
+i) Electronic nose                              ii) Self healing Bio concrete 
+10
+L1 CO2
+b.
+Explain the different types Bioremediation techniques. 
+10
+L1
+CO2
+                                                                      OR
+10
+a.
+Explain the use of artificial intelligence in diagnosis of diseases. 
+10
+L2
+CO1
+b.
+Discuss the bio – engineering solutions for muscular dystrophy. 
+10
+L2
+CO1
+                                                                       * * * * * 
+                                                                          
+USN 
+BBOC407
+VTU-29-10-2025 08:44:15am
+29-10-2025 09:01:52am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

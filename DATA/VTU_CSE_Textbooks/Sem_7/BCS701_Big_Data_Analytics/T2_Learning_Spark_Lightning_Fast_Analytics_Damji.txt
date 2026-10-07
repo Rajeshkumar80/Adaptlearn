@@ -1,0 +1,131 @@
+Skip to main content
+Login
+[image]
+
+One database
+for AI,
+apps and agents
+Lakebase is serverless Postgres for applications that scale
+Explore the product
+See demo
+THE DATABRICKS DATA + AI PLATFORM
+Build and run apps, agents
+
+and AI on your data
+PlatformDatabaseAIBusiness intelligenceGovernanceData
+warehousingData engineering
+The Databricks Data + AI Platform
+Unify your data, analytics and AI. Use it to power agents,
+apps and natural language insights.
+Explore the platform
+[image]
+Modern applications need a lakebase
+A lakebase delivers the unified transactional layer that ties
+together your data, AI and governance, making it easy to
+build, deploy and manage production applications on a
+single platform.
+Explore Lakebase
+[image]
+Build AI agents that work in the real world
+The best AI isn’t just smart — it works for your business.
+Build high-quality, production-ready AI agents grounded in
+your data.
+Explore Agent Bricks
+[image]
+Intelligent analytics for all
+The next generation of analytics is here. From natural
+language dashboard creation to deep conversational
+analytics with Genie, this is BI built on AI from the start.
+Now, everyone can explore data and uncover insights.
+Explore AI/BI
+[image]
+Govern data and AI on one platform
+Maintain compliance across data, models, dashboards and
+agents. Get deeper insight into your data all in one unified,
+open governance layer.
+Explore Unity Catalog
+[image]
+The best warehouse is still a lakehouse
+Eliminate legacy warehouse costs and lower TCO with an
+open, intelligent data warehouse.
+Explore Lakehouse
+[image]
+Build better data pipelines faster
+Build reliable ETL pipelines for batch and streaming with
+Lakeflow. Ingest, transform and orchestrate your data at
+scale with a unified solution.
+Explore Lakeflow
+
+FEATURED PRODUCTS
+Lakebase
+The first serverless Postgres database integrated with the lakehouse,
+built for the AI era.
+
+Genie
+Your data-aware AI partner for faster work and deeper insights.
+Unity Gateway
+Govern enterprise AI with unified access, cost control, observability and
+guardrails.
+
+Lakehouse
+Serverless data warehousing on open lake data, with governance and AI
+built-in.
+PROVEN IMPACT
+How innovators win with data and AI
+See more customer stories
+AWARDS AND RECOGNITION
+Recognized for innovation in data and AI
+
+0%
+Over 60% of the Fortune 500 uses Databricks
+0K+
+Over 20,000 customers across the globe
+0x
+5x Leader in Gartner® Magic Quadrant™ Reports
+See more awards
+[image]
+[image]
+2026 Gartner® Magic Quadrant™ AI Platforms for
+DSML
+Read more
+[image]
+[image]
+Databricks has been recognized by G2 as a Top
+50 Best Software company across key categories
+in 2026
+Read more
+
+In the spotlight
+Start your data + AI journey
+Browse demosTry it free
+Expand All
+Get to know Databricks
+What is Databricks?
+How to try Databricks?
+What is a lakebase?
+What is a data warehouse?
+What is Databricks Genie?
+What is Unity Gateway?
+
+What is a data lakehouse?
+Why Databricks
+Product
+Solutions
+Resources
+About
+Databricks Inc.
+160 Spear Street, 15th Floor
+San Francisco, CA 94105
+1-866-330-0121
+
+See Careers
+at Databricks
+© Databricks 2026. All rights reserved. Apache, Apache Spark, Spark,
+the Spark Logo, Apache Iceberg, Iceberg, and the Apache Iceberg logo
+are trademarks of the Apache Software Foundation.
+Privacy Notice
+|Terms of Use
+|Modern Slavery Statement
+|California Privacy
+|Your Privacy Choices
+[image]

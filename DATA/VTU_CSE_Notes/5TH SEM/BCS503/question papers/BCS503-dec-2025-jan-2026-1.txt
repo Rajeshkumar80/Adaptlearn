@@ -1,0 +1,281 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fifth Semester B.E./B.Tech. Degree Examination, Dec.2025/Jan.2026 
+Theory of Computation    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                       2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Define the following with example. 
+i) Alphabet            ii) String                        iii) Power of an Alphabet 
+iv) Language         v) Problem 
+05
+L2
+CO1
+ 
+b.
+Design DFA for the following languages. 
+i) DFA to accept string of 0’s, 1’s and 2’s beginning with a ‘0’ followed by 
+odd number of 1’s and ending with a ‘2’. 
+ii) L = { W {0,1}* : w does not have 001 as a substring} 
+08
+L3
+CO1
+ 
+c. Convert the following NFA to DFA.  
+ 
+07
+L3
+CO1
+                                                                           OR 
+Q.2 
+a. Design an NFA to recognize the following set of strings 0101, 101 and 011. 
+05
+L2
+CO1
+ 
+b.
+Design an DFA to accept binary numbers divisible by 5.   
+08
+L3
+CO1
+ 
+c. Obtain DFA for the following  – NFA 
+ 
+
+a 
+b 
+c 
+p
+
+{p}
+{q}
+{r} 
+q 
+{p}
+{q}
+{r} 
+ 
+*r 
+{q}
+{r} 
+
+{p}
+  
+07
+L3
+CO1
+                                                                      Module – 2  
+Q.3 
+a. Write the Regular Expression for the following languages.  
+i) 
+L = {an bm | n > = 4, m < = 3} 
+ii) 
+RE to accept words with two or more letters but beginning and 
+ending with the same letter where  = {a, b} 
+06
+L3
+CO2
+ 
+b.
+Obtain  – NFA for given Regular Expression ( a + b)* aa (a + b)*
+06
+L3
+CO2
+ 
+c. Find the minimized DFA of the following 
+ 
+a 
+b 
+A
+B
+F 
+B 
+G
+C
+*C 
+A
+C
+D 
+C
+G
+E 
+H
+F 
+F 
+C
+G
+G 
+G
+E 
+H 
+G
+C
+ 
+08
+L3
+CO2
+1 of 2 
+ 
+USN 
+BCS503 
+VTU-29-12-2025 01:19:20pm
+29-12-2025 01:32:26pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+     BCS503 
+                                                                           OR 
+Q.4 
+a. State and prove pumping theorem for regular languages.  Show that the 
+language   L = {an bn
+ | n  o } is not regular. 
+06
+L3
+CO2
+ 
+b.
+Convert the following FA to RE using state elimination method.  
+  
+ 
+06
+L3
+CO2
+ 
+c. Prove that the Regular Languages are closed under : 
+i)  Union                                  ii) Complementation 
+iii) Intersection                       iv) Difference 
+08
+L3
+CO2
+                                                                      Module – 3  
+Q.5 
+a. Design CFG for the following Languages.  
+i) L = { wwR where W { a, b}* } 
+ii) L = { 0m 1m 2n | m  1 and n  0} 
+iii) L = { an bn+3 | n  0 } 
+10
+L3
+CO3
+ 
+b.
+Consider the grammar G with productions  S aSbS | bSaS |  
+Obtain LMD, RMD and parse tree for the string aababb.  Is the grammar 
+ambiguous.  
+10
+L3
+CO3
+                                                                           OR 
+Q.6 
+a. Obtain PDA to accept the language  
+L = { wCwR | W (a + b )* } and show the moves made by the PDA for the 
+string  aabCbaa.   
+10
+L3
+CO3
+ 
+b.
+Convert the following CFG to PDA  
+S  aABC 
+A aB|a 
+B  bA|b 
+C  a 
+10
+L3
+CO3
+                                                                      Module – 4  
+Q.7 
+a. Define CNF.  Convert the following CFG to CNF  
+E  E + T/T   T  T * F/F   F (E) / I        I Ia / Ib |a | b 
+10
+L3
+CO4
+ 
+b.
+State and prove pumping lemma  for context  Free Grammars.  Show that  
+L = { 0n 1n 2n | n  1 } is not content  free. 
+10
+L3
+CO4
+                                                                           OR 
+Q.8 
+a. Define CNF convert the following CFG to CNF   
+S  AB       A  aA | bB | b     B  b    
+10
+L3
+CO4
+ 
+b.
+Prove that the content free languages are closed under  
+i) Union                                        ii) Concatenation  
+iii) Homomorphism 
+10
+L3
+CO4
+                                                                      Module – 5  
+Q.9 
+a. Define a Turing Machine.  Explain the working of a basic Turing machine 
+with neat diagram.  
+08
+L2
+CO5
+ 
+b.
+Design a Turing Machine to accept the language  L = { an bn cn | n  1 }.   
+Draw the transition diagram and show the moves made by TM for the string : 
+aabbcc. 
+12
+L3
+CO5
+                                                                           OR 
+Q.10
+a. What are the programming Techniques for Turing Machine.  Explain.  
+10
+L2
+CO5
+ 
+b.
+Write short notes on : 
+i) Multi Tape  Turing Machine 
+ii) Non Deterministic Turing Machine 
+10
+L2
+CO5
+                                                                        2 of 2   
+VTU-29-12-2025 01:19:20pm
+29-12-2025 01:32:26pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

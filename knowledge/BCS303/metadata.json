@@ -1,0 +1,166 @@
+{
+  "subject_code": "BCS303",
+  "subject_name": "Operating Systems",
+  "semester": 3,
+  "semester_label": "3RD SEM",
+  "modules": {
+    "1": {
+      "title": "Introduction to Operating Systems",
+      "topics": [
+        "INTRODUCTION TO OPERATING SYSTEM",
+        "Asymmetric multiprocessing",
+        "Symmetric multiprocessing",
+        "Asymmetric clustering – one system is in hot-standby mode while the others are",
+        "Symmetric clustering – two or more systems are running applications, and are",
+        "User mode",
+        "Kernel mode (supervisor mode, system mode, or privileged mode).",
+        "OPERATING SYSTEM SERVICES",
+        "Deepak D, Asst. Prof., Dept. of CS&E, Canara Engineering College, Mangaluru",
+        "Deepak D, Asst. Prof., Dept. of CS&E, Canara Engineering College, Mangaluru"
+      ],
+      "sources": [
+        "BCS303-module-1-pdf.txt"
+      ],
+      "content_chars": 65939
+    },
+    "2": {
+      "title": "Process Management and Scheduling",
+      "topics": [
+        "OPERATING SYSTEMS",
+        "PROCESS MANAGEMENT",
+        "New - The process is in the stage of being created.",
+        "Running – Instructions are being executed.",
+        "Terminated - The process has completed its execution.",
+        "PROCESS MANAGEMENT",
+        "Shared Memory systems",
+        "Message passing systems.",
+        "Naming",
+        "Synchronization"
+      ],
+      "sources": [
+        "BCS303-module-2-pdf.txt"
+      ],
+      "content_chars": 47341
+    },
+    "3": {
+      "title": "Process Synchronization and Deadlocks",
+      "topics": [
+        "OPERATING SYSTEMS",
+        "PROCESS SYNCHRONIZATION",
+        "Mutual exclusion ispreserved",
+        "Progress requirement is satisfied",
+        "Bounded-waiting requirement is met",
+        "To prove Mutual exclusion",
+        "To prove Progress and Bounded-waiting",
+        "SYNCHRONIZATIONHARDWARE",
+        "Deepak D, Asst. Prof., Dept. of CS&E, Canara Engineering College, Mangaluru",
+        "To prove the mutual exclusionrequirement"
+      ],
+      "sources": [
+        "BCS303-module-3-pdf.txt"
+      ],
+      "content_chars": 58167
+    },
+    "4": {
+      "title": "Memory Management",
+      "topics": [
+        "OPERATING SYSTEMS",
+        "MEMORY MANAGEMENT",
+        "Initially, all routines are kept on disk in a relocatable-load format.",
+        "Firstly, the main-program is loaded into memory and is executed.",
+        "Finally, control is passed to the newly loaded-routine.",
+        "An unused routine is never loaded.",
+        "Does not require special support from the OS.",
+        "Context-switch time is fairly high.",
+        "If we want to swap a process, we must be sure that it is completely idle.",
+        "KB/40000 KB per second = 1/4 second"
+      ],
+      "sources": [
+        "BCS303-module-4-pdf.txt"
+      ],
+      "content_chars": 49053
+    },
+    "5": {
+      "title": "File Systems and I/O Systems",
+      "topics": [
+        "OPERATING SYSTEMS",
+        "Deepak D, Asst. Prof., Dept. of CS&E, Canara Engineering College, Mangaluru",
+        "FILE CONCEPT",
+        "Deepak D, Asst. Prof., Dept. of CS&E, Canara Engineering College, Mangaluru",
+        "Creating a file:Two steps are necessary to create a file,",
+        "Deepak D, Asst. Prof., Dept. of CS&E, Canara Engineering College, Mangaluru",
+        "A per-process table",
+        "A system-wide table",
+        "Access rights: Each process opens a file in an access mode. This information is",
+        "Deepak D, Asst. Prof., Dept. of CS&E, Canara Engineering College, Mangaluru"
+      ],
+      "sources": [
+        "BCS303-module-5-pdf.txt"
+      ],
+      "content_chars": 92546
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\BCS303-module-1-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\BCS303-module-2-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\BCS303-module-3-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\BCS303-module-4-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\BCS303-module-5-pdf.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\BCS303-module-1-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\BCS303-module-2-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\BCS303-module-3-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\BCS303-module-4-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\BCS303-module-5-pdf.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303 model set 1 paper.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303 model set 1 paper.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-dec-2023-jan-2024.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-dec-2023-jan-2024.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-dec-2024-jan-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-dec-2024-jan-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-dec-2025-jan-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-dec-2025-jan-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-june-july-2025-makeup.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-june-july-2025-makeup.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-june-july-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-june-july-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-module-1 textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-module-1 textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-module-2-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-module-2-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-module-3-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-module-3-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-module-4-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-module-4-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-module-5-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS303\\question papers\\BCS303-module-5-textbook.txt"
+    ],
+    "model_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\3RD SEM\\BCS303\\model_papers.md"
+    ],
+    "previous_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\3RD SEM\\BCS303\\previous_papers.md"
+    ],
+    "textbook_notes": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\3RD SEM\\BCS303\\textbook_notes.md"
+    ],
+    "textbooks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS303_Operating_Systems\\T1_Operating_System_Concepts_Silberschatz.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS303_Operating_Systems\\T1_Operating_System_Concepts_Silberschatz.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_3\\BCS303\\BCS303_Operating_Systems.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to Operating Systems",
+    "2": "Process Management and Scheduling",
+    "3": "Process Synchronization and Deadlocks",
+    "4": "Memory Management",
+    "5": "File Systems and I/O Systems"
+  }
+}

@@ -1,0 +1,211 @@
+BCS402 
+Page 01 of 02 
+ 
+Model Question Paper-1/2 with effect from 2023-24  
+ 
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fourth Semester B.E. Degree Examination 
+Subject Title: Microcontrollers 
+ 
+TIME: 03 Hours    
+                                    
+ 
+Max.  Marks: 100 
+   Note:  01. Answer any FIVE full questions, choosing at least ONE question from each MODULE.  
+ 
+Module -1 
+*Bloom’s 
+Taxonomy 
+Level 
+Marks 
+Q.01 
+a 
+ 
+Mention the difference between 1. Microctroller and Microprocessor 
+                                                    2. RISC and CISC 
+ 
+L2 
+10 
+Marks 
+ 
+b 
+ 
+Explain the architecture of an ARM embedded device with the help of neat 
+diagram. 
+L2 
+10 
+Marks 
+OR 
+ 
+ 
+Q.02 
+a 
+ 
+Explain in detail about Current Program Status Register (CPSR). 
+L2 
+10 
+Marks 
+ 
+b 
+With a neat diagram, explain embedded system Hardware. 
+ 
+L2 
+10 
+Marks 
+Module-2 
+ 
+ 
+Q. 03 
+a 
+ 
+Explain different arithmetic instructions in ARM processor with an example. 
+L2 
+10 
+Marks 
+ 
+b 
+ 
+Explain single register load store addressing mode syntax, table, index mode with 
+an example. 
+L2 
+10 
+Marks 
+OR 
+ 
+ 
+Q.04 
+a 
+ 
+Explain barrel shifter instructions in ARM with suitable examples. 
+L2 
+10 
+Marks 
+ 
+b 
+ 
+Explain different Logical instructions in ARM processor with an example. 
+L2 
+10 
+Marks 
+Module-3 
+ 
+ 
+Q. 05 
+a 
+Explain code optimization, profiling and cycle counting. 
+L3 
+10 
+Marks 
+ 
+b 
+Write a C program that prints the square of the integers between 0 to 9 using 
+functions and explain how to convert this C function to an assembly function 
+with command. 
+L3 
+10 
+Marks 
+OR 
+ 
+ 
+Q. 06 
+a 
+Discuss how registers are allocated to optimize the program. 
+L3 
+10 
+Marks 
+ 
+b 
+Develop an ALP to find the sum of first 10 integer numbers. 
+ 
+L3 
+10 
+Marks 
+Module-4 
+ 
+ 
+Q. 07 
+a 
+With a neat diagram explain ARM processor exceptions and modes. 
+ 
+L2 
+10 
+Marks 
+ 
+b 
+Explain assigning interrupts and interrupt latency. 
+ 
+L2 
+10 
+Marks 
+OR 
+ 
+ 
+Q. 08 
+a 
+Briefly explain what happens when an IRQ and FIQ exception is raised with an 
+ARM processor. 
+ 
+L2 
+10 
+Marks 
+
+BCS402 
+Page 02 of 02 
+ 
+ 
+b 
+Explain firmware execution flow and explain Red Hat RedBoot. 
+ 
+L2 
+10 
+Marks 
+Module-5 
+ 
+ 
+Q. 09 
+a 
+Explain the basic architecture of cache memory. 
+ 
+L2 
+10 
+Marks 
+ 
+b 
+Explain how main memory maps to a cache memory. 
+ 
+L2 
+10 
+Marks 
+OR 
+ 
+ 
+Q. 10 
+a 
+With a neat block diagram explain associative cache. 
+ 
+L2 
+10 
+Marks 
+ 
+b 
+ 
+Briefly explain cache line replacement policies. 
+L2 
+10 
+Marks 
+*Bloom’s Taxonomy Level: Indicate as L1, L2, L3, L4, etc. It is also desirable to indicate the COs and POs to be 
+attained by every bit of questions.  

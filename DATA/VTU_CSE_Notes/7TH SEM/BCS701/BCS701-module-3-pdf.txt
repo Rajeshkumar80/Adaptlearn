@@ -1,0 +1,1460 @@
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 1 
+ 
+ 
+ 
+MODULE 3 
+IoT Platforms Design Methodology: Introduction, IoT Design Methodology, Case Study on IoT 
+System for Weather Monitoring, loT Systems - Logical Design using Python: Introduction, Installing 
+Python, Python Data Types and Data structures, Control flow, Functions, Modules, Packages, File 
+Handling, Operations, Classes, Python Packages of Interest for IoT. 
+ 
+IoT Platforms Design Methodology 
+ 
+3.1 Introduction 
+IoT systems are made up of many components and levels, which makes designing them complex. 
+Designers often choose specific products or services, which can lead to vendor lock-in. This makes 
+it difficult to update or change parts of the system later.To solve this problem, the chapter 
+introduces a general design method that does not depend on any specific product, service, or 
+programming language. This method helps reduce design time, maintenance, and improves system 
+flexibility and compatibility. It is based on the IoT-A reference model but can be used for various 
+industry needs. 
+ 
+3.2 IoT Design Methodology 
+Figure 5.1 shows the steps involved in the IoT system design methodology. Each of these steps 
+is explained in the sections that follow. To explain these steps, we use the example of a smart 
+IoT-based home automation system. 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 2 
+ 
+ 
+ 
+3.2.1 Step 1: Purpose & Requirements Specification 
+The first step in IoT system design methodology is to define the purpose and requirements of the 
+system. In this step, the system purpose, behavior and requirements (such as data collection 
+requirements, data analysis requirements, system management requirements, data privacy and 
+security  requirements,  user  interface  requirements,  ...)  are  captured. 
+Applying this to our example of a smart home automation system, the purpose and requirements 
+for the system may be described as follows: 
+ 
+Purpose: A home automation system that allows controlling of the lights in a home remotely using 
+a web application. 
+Behaviour: The home automation system should have auto and manual modes. In auto mode, the 
+system measures the light level in the room and switches on the light when it gets dark. In manual 
+mode, the system provides the option of manually and remotely switching on/off the light. 
+System Management Requirement: The system should provide remote monitoring and control 
+functions. 
+Data Analysis Requirement: The system should perform local analysis of the data. 
+Application Deployment Requirement: The application should be deployed locally on the 
+device, but should be accessible remotely. 
+Security Requirement: The system should have basic user authentication capability. 
+ 
+3.2.2 Step 2: Process Specification 
+The second step in the IoT design methodology is to define the process specification. In this step, 
+the use cases of the IoT system are formally described based on and derived from the purpose and 
+requirement specifications. Figure 5.2 shows the process diagram for the home automation 
+system. The process diagram shows the two modes of the system – auto and manual. In a process 
+diagram, the circle denotes the start of a process, diamond denotes a decision box and rectangle 
+denotes a state or attribute. When the auto mode is chosen, the system monitors the light level. If 
+the light level is low, the system changes the state of the light to “on”. Whereas, if the light level 
+is high, the system changes the state of the light to “off”. When the manual mode is chosen, the 
+system checks the light state set by the user. If the light state set by the user is “on”, the system 
+changes the state of light to “on”. Whereas, if the light state set by the user is “off”, the system 
+changes the state of light to “off”. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 3 
+ 
+ 
+ 
+ 
+ 
+3.2.3 Step 3: Domain Model Specification 
+The third step in the IoT design methodology is to define the Domain Model. The domain model 
+describes the main concepts, entities and objects in the domain of IoT system to be designed. 
+Domain model defines the attributes of the objects and relationships between objects. Domain 
+model provides an abstract representation of the concepts, objects and entities in the IoT domain, 
+independent of any specific technology or platform. With the domain model, the IoT system 
+designers can get an understanding of the IoT domain for which the system is to be designed. 
+Figure 5.3 shows the domain model for the home automation system example. The entities, objects 
+and concepts defined in the domain model include: 
+• 
+Physical Entity: 
+Physical Entity is a discrete and identifiable entity in the physical environment (e.g., a room, 
+a light, an appliance, a car, etc.). The IoT system provides information about the Physical 
+Entity (using sensors) or performs actuation upon the Physical Entity (e.g., switching on a 
+light). In the home automation example, there are two Physical Entities involved – one is the 
+room in the home (of which the lighting conditions are to be monitored) and the other is the 
+light appliance to be controlled. 
+• 
+Virtual Entity: 
+Virtual Entity is a representation of the Physical Entity in the digital world. For each Physical 
+Entity, there is a Virtual Entity in the domain model. In the home automation example, there 
+is one Virtual Entity for the room to be monitored, another for the appliance to be controlled. 
+• 
+Device: 
+Device provides a medium for interactions between Physical Entities and Virtual Entities. 
+Devices are either attached to Physical Entities or placed near Physical Entities. Devices are 
+used to gather information about Physical Entities (e.g., from sensors), perform actuation upon 
+Physical Entities (e.g., using actuators) or used to process information (e.g., using tags). In the 
+home automation example, the device is a single-board mini computer which has light sensor 
+and actuator (relay switch) attached to it. 
+• 
+Resource: 
+Resources are software components which can be either "on-device" or "network-resources". 
+On-device resources are hosted on the device and include software components that either 
+provide information or enable actuation upon the Physical Entity to which the device is 
+attached. Network resources include software components that are available in network (such 
+as a database). In the home automation example, the on-device resource is the operating system 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 4 
+ 
+ 
+ 
+that runs on the single-board minicomputer. 
+• 
+Service: 
+Services provide an interface for interacting with the Physical Entity. Services access the 
+resources hosted on the device or the network resources to obtain information about the 
+Physical Entity or perform actuation upon the Physical Entity. 
+ 
+In the home automation example, there are three services: 
+(1) a service that sets mode to auto or manual, or retrieves the current mode;(2) a service that 
+sets the light appliance state to on/off, or retrieves the current light state; (3) a controller 
+service that runs as a native service on the device. 
+ 
+• 
+When in auto mode, the controller service monitors the light level and switches the light 
+on/off and updates the status in the status database. 
+When in manual mode, the controller service retrieves the current state from the database and 
+switches the light on/off. 
+• 
+The process of deriving the services from the process specification and information model is 
+described in the later sections. 
+ 
+Figure 5.3: Domain model of the home automation IoT system 
+ 
+3.2.4 Step 4: Information Model Specification 
+The fourth step in the IoT design methodology is to define the Information Model. Information 
+Model defines the structure of all the information in the IoT system, for example, attributes of 
+Virtual Entities, relations, etc. Information model does not describe the specifics of how the 
+information is represented or stored. To define the information model, we first list the Virtual 
+Entities defined in the Domain Model. Information model adds more details to the Virtual 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 5 
+ 
+ 
+ 
+Entities by defining their attributes and relations. In the home automation example, there are 
+two Virtual Entities – a Virtual Entity for the light appliance (with attribute – light state) and a 
+Virtual Entity for the room (with attribute – light level). Figure 5.4 shows the Information 
+Model for the home automation system example. 
+ 
+ 
+ 
+ 
+3.2.5 Step 5: Service Specifications 
+The fifth step in the IoT design methodology is to define the service specifications. Service 
+specifications define the services in the IoT system, service types, service inputs/output, 
+service endpoints, service schedules, service preconditions and service effects. 
+You learned about the Process Specification and Information Model in the previous sections. 
+Figure 5.5 shows an example of deriving the services from the process specification and 
+information model for the home automation IoT system. From the process specification and 
+information model, we identify the states and attributes. For each state and attribute, we 
+define a service. These services either change the state or attribute values or retrieve the 
+current values. For example, the Mode service sets mode to auto or manual or retrieves the 
+current mode. The State service sets the light appliance state to on/off or retrieves the current 
+light state. The Controller service monitors the light level in auto mode and switches the light 
+on/off and updates the status in the status database. In manual mode, the controller service, 
+retrieves the current state from the database and switches the light on/off. 
+ 
+Figures 5.6, 5.7 and 5.8 show specifications of the controller, mode and state services of the 
+home automation system. The Mode service is a RESTful web service that sets mode to auto 
+or manual (PUT request), or retrieves the current mode (GET request). The mode is updated 
+to/retrieved from the database. The State service is a RESTful web service that sets the light 
+appliance state to on/off (PUT request), or retrieves the current light state (GET request). The 
+state is updated to/retrieved from the status database. The Controller service runs as a native 
+service on the device. When in auto mode, the controller service monitors the light level and 
+switches the light on/off and updates the status in the status database. When in manual mode, 
+the controller service retrieves the current state from the database and switches the light 
+on/off. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 6 
+ 
+ 
+ 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 7 
+ 
+ 
+ 
+3.2.6 Step 6: IoT Level Specification 
+The sixth step in the IoT design methodology is to define the IoT level for the system. In 
+Chapter-1, we defined five IoT deployment levels. Figure 5.9 shows the deployment level of the 
+home automation IoT system, which is level-1. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3.2.7 Step 7: Functional View Specification 
+The seventh step in the IoT design methodology is to define the Functional View. The Functional 
+View (FV) defines the functions of the IoT systems grouped into various Functional Groups 
+(FGs). Each Functional Group either provides functionalities for interacting with instances of 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 8 
+ 
+ 
+ 
+concepts defined in the Domain Model or provides information related to these concepts. 
+The Functional Groups (FG) included in a Functional View include: 
+• 
+Device: The device FG contains devices for monitoring and control. In the home automation 
+example, the device FG includes a single board mini-computer, a light. 
+ 
+Communication: The communication FG handles the communication for the IoT system. The 
+communication FG includes the communication protocols that form the backbone of IoT 
+systems and enable network connectivity. You learned about various link, network, transport 
+and application layer protocols in Chapter-1. The communication FG also includes the 
+communication APIs (such as REST and WebSocket) that are used by the services and 
+applications to exchange data over the network. In the home automation example the 
+communication protocols include – 802.11 (link layer), IPv4/IPv6 (network layer), TCP 
+(transport layer), and HTTP (application layer). The communication API used in the home 
+automation examples is a REST-based API. 
+Services: The service FG includes various services involved in the IoT system such as services 
+for device monitoring, device control services, data publishing services and services for device 
+discovery.in home automation example, there are two REST service (mode and state service) 
+and one native service (controller service). 
+Management: The management FG includes all functionalities that are needed to configure 
+and manage the IoT system. 
+Security: The security FG includes security mechanisms for the IoT system such as 
+authentication, authorization, data security, etc. 
+Application: The application FG includes applications that provide an interface to the users 
+to control and monitor various aspects of the IoT system. Applications also allow users to 
+view the system status and the processed data. 
+ 
+Figure 5.10 shows an example of mapping deployment level to functional groups for home 
+automation IoT system device maps to the Device FG (sensors, actuators devices, computing 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 9 
+ 
+ 
+ 
+devices) and the Management FG (device management). Resources map to the Device FG (on- 
+device resource) and Communication FG (communication APIs and protocols). Controller service 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 10 
+ 
+ 
+ 
+maps to the Services FG (native service). Web Services map to Services FG. Database maps to the 
+Management FG (database management) and Security FG (database security). Application maps 
+to the Application FG (web application, application and database servers), Management FG (app 
+management) and Security FG (app security). 
+ 
+ 
+3.2.8 Step 8: Operational View Specification 
+The eighth step in the IoT design methodology is to define the Operational View 
+Specifications. 
+In this step, various options pertaining to the IoT system deployment and operation are 
+defined, such as service hosting options, storage options, device options, application hosting 
+options, etc. 
+Figure 5.11 shows an example of mapping functional groups to operational view 
+specifications for home automation IoT system. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 11 
+ 
+ 
+ 
+ 
+Operational View specifications for the home automation example are as follows: 
+Devices: Computing device (Raspberry Pi), light dependent resistor (sensor), relay switch 
+(actuator). 
+Communication APIs: REST APIs 
+Communication Protocols: 
+o Link Layer – 802.11 
+o Network Layer – IPv4/IPv6 
+o Transport – TCP 
+o Application – HTTP 
+Services: 
+1. Controller Service – Hosted on device, implemented in Python and run as a native 
+service. 
+2. Mode service – REST-ful web service, hosted on device, implemented in Python. 
+3. State service – REST-ful web service, hosted on device, implemented with Django- 
+REST Framework. 
+Application: 
+• 
+Web Application – Django Web Application, 
+• 
+Application Server – Django App Server, 
+• 
+Database Server – MySQL 
+Security: 
+• 
+Authentication: Web App, Database 
+• 
+Authorization: Web App, Database 
+Management: 
+• 
+Application Management – Django App Management 
+• 
+Database Management – MySQL DB Management 
+• 
+Device Management – Raspberry Pi device Management 
+ 
+ 
+3.2.9 Step 9: Device & Component Integration 
+The ninth step in the IoT design methodology is the integration of the devices and 
+components. Figure 5.12 shows a schematic diagram of the home automation IoT 
+system. The devices and components used in this example are Raspberry Pi 
+minicomputer, LDR sensor and relay switch actuator. A detailed description of 
+Raspberry Pi board and how to interface sensors and actuators with the board is provided 
+in later chapters. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 12 
+ 
+ 
+ 
+ 
+ 
+ 
+3.2.10 Step 10: Application Development 
+The final step in the IoT design methodology is to develop the IoT application. Figure 
+5.13 shows a screenshot of the home automation web application. The application has 
+controls for the mode (auto on or auto off) and the light (on or off). In the auto mode, the 
+IoT system controls the light appliance automatically based on the lighting conditions in 
+the room. When auto mode is enabled the light control in the application is disabled and 
+it reflects the current state of the light. When the auto mode is disabled, the light control 
+is enabled and it is used for manually controlling the light. 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 13 
+ 
+ 
+ 
+3.3 Case Study on IoT System for Weather Monitoring 
+In this section we present a case study on design of an IoT system for weather 
+monitoring using the IoT design methodology. The purpose of the weather monitoring system 
+is to collect data on environmental conditions such as temperature, pressure, humidity and 
+light.in an area using multiple end nodes. The end nodes send the data to the cloud where the 
+data is aggregated and analysed. 
+Figure 5.14 shows the process specification for the weather monitoring system. The 
+process specification shows that the sensors are read after fixed intervals and the sensor 
+measurements are stored. 
+ 
+ 
+Figure 5.15 shows the domain model for the weather monitoring system. In this 
+domain model the physical entity is the environment which is being monitored. There 
+is a virtual entity for the environment. Devices include temperature sensor, pressure 
+sensor, humidity sensor, light sensor and single-board minicomputer. Resources are 
+software components which can be either on-device or network-resources. Services 
+include the controller service that monitors the temperature, pressure, humidity and 
+light and sends the readings to the cloud. 
+Figure 5.16 shows the information model for the weather monitoring system. In this 
+example, there is one virtual entity for the environment being sensed. The virtual entity 
+has attributes – temperature, pressure, humidity and light. 
+Figure 5.17 shows an example of deriving the services from the process specification 
+and information model for the weather monitoring system. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 14 
+ 
+ 
+ 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 15 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 5.18 shows the specification of the controller service for the weather monitoring 
+system. The controller service runs as a native service on the device and monitors 
+temperature, pressure, humidity and light once every 15 seconds. The controller service 
+calls the REST service to store these measurements in the cloud. In Chapter-8 we 
+describe a Platform-as-a-Service called Xively that can be used for creating solutions 
+for Internet of Things. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 16 
+ 
+ 
+ 
+ 
+ 
+Figure 5.19 shows the deployment design for the system. The system consists of 
+multiple nodes placed in different locations for monitoring temperature, humidity and 
+pressure in an area. The end nodes are equipped with various sensors (such as 
+temperature, pressure, humidity and light). The end nodes send the data to the cloud 
+and the data is stored in a cloud database. The analysis of data is done in the cloud to 
+aggregate the data and make predictions. A cloud-based application is used for 
+visualizing the data. The centralized controller can send control commands to the end 
+nodes, for example, to configure the monitoring interval on the end nodes. 
+ 
+Figure 5.20 shows an example of mapping deployment level to functional groups for 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 17 
+ 
+ 
+ 
+the weather monitoring system. 
+ 
+ 
+Figure 5.21 shows an example of mapping functional groups to operational view 
+specifications for the weather monitoring system. 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 18 
+ 
+ 
+ 
+ 
+Figure 5.22 shows a schematic diagram of the weather monitoring system. The devices and 
+components used in this example are Raspberry Pi minicomputer, temperature sensor, 
+humidity sensor, pressure sensor and LDR sensor. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 19 
+ 
+ 
+ 
+loT Systems - Logical Design using Python 
+3.4 : Introduction 
+Python is a general-purpose high-level programming language. Python 2.0 was released in 
+the year 2000 and Python 3.0 was released in the year 2008. The 3.0 version is not backward 
+compatible with earlier releases. The most recent release of Python is version 3.3. Currently, 
+there is limited library support for the 3.x versions with operating systems such as Linux and 
+Mac still using Python 2.x as default language. The exercises and examples in this book have 
+been developed with Python version 2.7. 
+ 
+The main characteristics of Python are: 
+ 
+Multi-paradigm programming language 
+Python supports more than one programming paradigm including object-oriented 
+programming and structured programming. 
+ 
+Interpreted Language 
+Python is an interpreted language and does not require an explicit compilation step. The 
+Python interpreter executes the program source code directly, statement by statement, as a 
+processor or scripting engine does. 
+ 
+Interactive Language 
+Python provides an interactive mode in which the user can submit commands at the Python 
+prompt and interact with the interpreter directly. 
+ 
+The key benefits of Python are: 
+ 
+Easy-to-learn, read and maintain 
+Python is a minimalistic language with relatively few keywords, uses English keywords and 
+has fewer syntactical constructions as compared to other languages. Reading Python 
+programs is easy with pseudo-code like constructs. Python is easy to learn yet an extremely 
+powerful language for a wide range of applications. Due to its simplicity, programs written 
+in Python are generally easy to maintain. 
+ 
+Object and Procedure Oriented 
+Python supports both procedure-oriented programming and object-oriented programming. 
+Procedure oriented paradigm allows programs to be written around procedures or functions 
+that allow reuse of code. Procedure oriented paradigm allows programs to be written around 
+objects that include both data and functionality. 
+ 
+Extendable 
+Python is an extendable language and allows integration of low-level modules written in 
+languages such as C/C++. This is useful when you want to speed up a critical portion of a 
+program. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 20 
+ 
+ 
+ 
+ 
+Scalable 
+Due to the minimalistic nature of Python, it provides a manageable structure for large 
+programs. 
+Portable 
+Since Python is an interpreted language, programmers do not have to worry about 
+compilation, linking and loading of programs. Python programs can be directly executed from 
+source code and copied from one machine to another without worrying about portability. The 
+Python interpreter converts the source code to an intermediate form called byte codes and 
+then translates this into the native language of your specific system and then runs it. 
+ 
+Broad Library Support 
+Python has a broad library support and works on various platforms such as Windows, Linux, 
+Mac, etc. There are a large number of Python packages available for various applications 
+such as machine learning, image processing, network programming, cryptography, etc. 
+ 
+3.5 Installing Python 
+Python is a highly portable language that works on various platforms such as Windows, 
+Linux, Mac, etc. This section describes the Python installation steps for Windows and Linux: 
+ 
+Windows 
+Python binaries for Windows can be downloaded from http://www.python.org/getit. 
+For the examples and exercises in this book, you would require Python 2.7 which can be 
+directly downloaded from: 
+http://www.python.org/ftp/python/2.7.5/python-2.7.5.msi 
+ 
+Once the Python binary is installed you can run the Python shell at the command prompt using: 
+ 
+> python 
+Linux 
+Box 6.1 provides the commands for installing Python on Ubuntu. 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 21 
+ 
+ 
+ 
+3.6 Python Data Types & Data Structures 
+3.6.1 Numbers 
+Number data type is used to store numeric values. Numbers are immutable data types, 
+therefore changing the value of a number data type results in a newly allocated object. Box 
+6.2 shows some examples of working with numbers. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 22 
+ 
+ 
+ 
+ 
+ 
+3.5.2 Strings 
+A string is simply a list of characters in order. There are no limits to the number of characters 
+you can have in a string. A string which has zero characters is called an empty string. Box 
+6.3 shows some examples of working with strings. 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 23 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3.5.3 Lists 
+A list is a compound data type used to group together other values. 
+• 
+List items need not all be of the same type. 
+• 
+A list contains items separated by commas and enclosed within square brackets []. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 24 
+ 
+ 
+ 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 25 
+ 
+ 
+ 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 26 
+ 
+ 
+ 
+3.5.4 Tuples 
+A tuple is a sequence data type that is similar to the list. A tuple consists of a number of values 
+separated by commas and enclosed within parentheses. Unlike lists, the elements of tuples 
+cannot be changed, so tuples can be thought of as read-only lists. Box 6.5 shows examples of 
+working with tuples. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 27 
+ 
+ 
+ 
+3.5.5 Dictionaries 
+A dictionary is a mapping data type or a kind of hash table that maps keys to values. Keys 
+in a dictionary can be of any data type, though numbers and strings are commonly used for 
+keys. Values in a dictionary can be any data type or object. 
+Box 6.6 shows examples on working with dictionaries. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 28 
+ 
+ 
+ 
+Nested Dictionaries 
+ 
+Checking for Key Existence 
+ 
+3.5.6 Type Conversions 
+Box 6.7 shows examples of type conversions. 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 29 
+ 
+ 
+ 
+ 
+ 
+3.6 Control Flow 
+3.6.1 if Statement 
+ 
+The if statement in Python is similar to the if statement in other languages. 
+Box 6.8 shows examples. 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 30 
+ 
+ 
+ 
+ 
+ 
+3.6.2 for 
+The for statement in Python iterates over items of any sequence (list, string, etc.) in the order 
+in which they appear in the sequence. This behaviour differs from the for statement in 
+languages such as C, where initialization, incrementing, and stopping criteria are provided. 
+Box 6.9: for statement examples 
+ 
+Looping over characters in a string: 
+ 
+Looping over items in a list: 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 31 
+ 
+ 
+ 
+3.6.3 while 
+The while statement in Python executes the statements within the while loop as long as the 
+condition is true. 
+Box 6.10 shows a while statement example. 
+ 
+3.6.4 range 
+The  range  statement  in  Python  generates  a  list  of  numbers  in  arithmetic  progression. 
+Examples are shown in Box 6.11. 
+ 
+3.6.5 break/continue 
+The break and continue statements in Python are similar to statements in C. 
+• 
+break exits the for/while loop. 
+• 
+continue skips the rest of the code inside the loop for the current iteration and jumps to 
+the next iteration. 
+Box 6.12 shows examples. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 32 
+ 
+ 
+ 
+ 
+ 
+Continue statement example 
+ 
+Output 
+ 
+3.6.6 pass 
+ 
+The pass statement in Python is a null operation. 
+It is used when a statement is syntactically required but no command/code should run. 
+Box 6.13 shows an example. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 33 
+ 
+ 
+ 
+ 
+ 
+Output 
+ 
+ 
+3.7 Functions 
+A function is a block of code that: 
+• 
+Takes information in (parameters), 
+• 
+Performs some computation, 
+• 
+Returns new information. 
+ 
+A function in Python begins with the def keyword, followed by: 
+• 
+Function name, 
+• 
+Parameters (inside parentheses), 
+• 
+A colon: to start the code block, 
+• 
+An optional string or docstring. 
+Box 6.14: Example of a function in Python 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 34 
+ 
+ 
+ 
+Default Arguments 
+Functions in Python can have default parameter values. If such a function is called with 
+missing parameters, the default values are used. 
+Box 6.15: Example of function with default arguments 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Passing by Reference in Functions 
+ 
+In Python, all parameters are passed by reference. This means: 
+• 
+If you modify a mutable object (like a list) inside a function, 
+• 
+The change is reflected in the caller's scope. 
+ 
+Box 6.16: Example of Passing by Reference 
+ 
+Note: The function displayFruits modifies the original fruits list by adding 'mango', and this change 
+persists after the function call—demonstrating Python’s pass-by-reference behavior for 
+mutable data types like lists. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 35 
+ 
+ 
+ 
+ 
+ 
+ 
+Functions can also be called using keyword arguments that identify the arguments by the 
+parameter name when the function is called. 
+ 
+Box 6.17 shows examples of keyword arguments. 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 36 
+ 
+ 
+ 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 37 
+ 
+ 
+ 
+Python functions can have variable length arguments. These variable length arguments 
+are passed as a tuple to the function with an argument prefixed with asterix (*) as shown in 
+Box 6.18: Example of variable length arguments 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3.8 Modules 
+ 
+Python allows organizing of the program code into different modules which improves the 
+code readability and management. A module is a Python file that defines some functionality 
+in the form of functions or classes. Modules can be imported using the import keyword. 
+Modules to be imported must be present in the search path. Box 6.19 shows the example of a 
+student module that contains two functions and Box 6.20 shows an example of importing the 
+student module and using it. 
+ 
+Box 6.19: Module student 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 38 
+ 
+ 
+ 
+ 
+ 
+ 
+Box 6.20: Using module student python CopyEdit 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 39 
+ 
+ 
+ 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 40 
+ 
+ 
+ 
+The import keyword followed by the module name imports all the functions in the 
+module. If you want to use only a specific function it is recommended to import only that 
+function using the keyword from as shown in the example in Box 6.21. 
+Box 6.21: Importing a specific function from a module 
+ 
+Python comes with a number of standard modules such as system related modules 
+(sys), OS related module (os), mathematical modules (math, fractions, etc.), Internet related 
+modules (email, json. etc), etc. The complete list of standard modules is available in the 
+Python documentation [87]. Box 6.22 shows an example of listing all names defined in a 
+module using the built-in dir function. 
+ 
+Box 6.22: Listing all names defined in a module 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 41 
+ 
+ 
+ 
+3.9 Packages 
+Python package is hierarchical file structure that consists of modules and subpackages. 
+Packages allow better organization of modules related to a single application environment. 
+For example, Box 6.23 shows the listing of the skimage package that provides image 
+processing algorithms. The package is organized into a root directory (skimage) with sub- 
+directories (color, draw, etc) which are sub-packages within the skimage package. Each 
+directory contains a special file named  init .py which tells Python to treat directories as 
+packages. This file can either be an empty file or contain some initialization code for the 
+package. 
+ 
+Box 6.23: skimage package listing 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 42 
+ 
+ 
+ 
+3.10 File Handling 
+Python allows reading and writing to files using the file object. The open(filename, mode) 
+function is used to get a file object. The mode can be read (r), write (w), append (a), read and 
+write (r+ or w+), read-binary (rb), write-binary (wb), etc. Box 6.24 shows an example of 
+reading an entire file with read function. After the file contents have been read the close 
+function is called which closes the file object. 
+ 
+Box 6.24: Example of reading an entire file 
+ 
+ 
+Box 6.25: Example of reading line by line 
+ 
+ 
+Box 6.26: Example of reading lines in a loop 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 43 
+ 
+ 
+ 
+ 
+ 
+Box 6.27: Example of reading a certain number of bytes 
+ 
+ 
+Box 6.28: Example of getting the current position of read 
+ 
+ 
+Box 6.29: Example of seeking to a certain position python CopyEdit 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 44 
+ 
+ 
+ 
+Box 6.30: Example of writing to a file 
+ 
+3.11 Date/Time Operations 
+ 
+Python provides several functions for date and time access and conversions. The datetime 
+module allows manipulating date and time in several ways. Box 6.31 shows examples of 
+manipulating with date. 
+ 
+Box 6.31: Examples of manipulating with date 
+ 
+The time module in Python provides various time-related functions. Box 6.32 shows 
+examples of manipulating with time. 
+ 
+Box 6.32: Examples of manipulating with time 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 45 
+ 
+ 
+ 
+ 
+ 
+3.12 Classes 
+Python is an Object-Oriented Programming (OOP) language. Python provides all the 
+standard features of Object-Oriented Programming such as: 
+ 
+1. Classes 
+2. Class variables 
+3. Class methods 
+4. Inheritance 
+5. Function overloading 
+6. Operator overloading 
+ 
+Let us briefly look at these OOP concepts: 
+Class 
+A class is simply a representation of a type of object and user-defined prototype for 
+an object composed of three things: 
+➢ A name 
+➢ Attributes 
+➢ Operations/methods 
+Instance/Object 
+An object is an instance of the data structure defined by a class. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 46 
+ 
+ 
+ 
+Inheritance 
+Inheritance is the process of forming a new class from an existing class or base class. 
+Function Overloading 
+Function overloading is a form of polymorphism that allows a function to have different 
+meanings, depending on its context. 
+Operator Overloading 
+Operator overloading is a form of polymorphism that allows assignment of more than one 
+function to a particular operator. 
+Function Overriding 
+Function overriding allows a child class to provide a specific implementation of a function 
+already provided by the base class.The child class implementation of the overridden function 
+has the same name, parameters, and return type as the function in the base class. 
+example (Box 6.33) which shows: studentCount as a class variable shared across all instances 
+name, id, and grades as instance variables unique to each object The use of  init () as the 
+constructor method in Python. 
+The class constructor initialize a new instance when it is created. The function_del_() is the 
+class destructor. 
+ 
+Example 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 47 
+ 
+ 
+ 
+ 
+ 
+Box 6.34: Examples of class inheritance, in the example 
+Shape is the base class. 
+Circle is the derived (child) class, inheriting from Shape. 
+super().  init  () is used to call the base class constructor. 
+_label is a hidden attribute due to the double underscore (  ), which triggers name 
+mangling. 
+• 
+Internally,   label in Circle becomes _Circle  label. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 48 
+ 
+ 
+ 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 49 
+ 
+ 
+ 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 50 
+ 
+ 
+ 
+3.13 Python Packages of Interest for IoT 
+3.13.1 JSON 
+JavaScript Object Notation (JSON) is an easy to read and write data-interchange 
+format. JSON is used as an alternative to XML and is easy for machines to parse and 
+generate. JSON is built on two structures – a collection of name-value pairs (e.g. a 
+Python dictionary) and ordered lists of values (e.g., a Python list). 
+JSON format is often used for serializing and transmitting structured 
+data over a network connection, for example, transmitting data between a server and 
+web application. Box 6.35 shows an example of a Twitter tweet object encoded as 
+JSON. 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 51 
+ 
+ 
+ 
+ 
+ 
+Exchange of information encoded as JSON involves encoding and decoding steps. The 
+Python JSON package provides functions for encoding and decoding JSON. Box 6.36 shows 
+an example of JSON encoding and decoding. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 52 
+ 
+ 
+ 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 53 
+ 
+ 
+ 
+3.13.2 XML 
+XML (Extensible Markup Language) is a data format for structured document interchange. 
+Box 6.37 shows an example of an XML file. In this section you will learn how to parse, read 
+and write XML with Python. The Python minidom library provides a minimal implementation 
+of the Document Object Model interface and has an API similar to that in other languages. 
+Box 6.38 shows a Python program for parsing an XML file. Box 6.39 shows a Python 
+program for creating an XML file. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 54 
+ 
+ 
+ 
+Box 6.38: Parsing an XML file in Python 
+ 
+ 
+ 
+ 
+Box 6.39: Creating an XML File with Python 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 55 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3.13.3 HTTPLib & URLLib 
+HTTPLib2 and URLLib2 are Python libraries used in network/internet programming. 
+HTTPLib2 is an HTTP client library and URLLib2 is a library for fetching URLs. 
+Box 6.40 shows an example of an HTTP GET request using the HTTPLib. The variable 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 56 
+ 
+ 
+ 
+resp contains the response headers and content contains the content retrieved from the URL. 
+ 
+Box 6.41 shows an HTTP request example using URLLib2. A request object is created by 
+calling urllib2.Request with the URL to fetch as input parameter. Then urllib2.urlopen is 
+called with the request object which returns the response object for the requested URL. The 
+response object is read by calling read function. 
+ 
+Box 6.42 shows an example of an HTTP POST request. The data in the POST body is 
+encoded using the urlencode function from urllib. 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 57 
+ 
+ 
+ 
+ 
+ 
+Box 6.43 shows an example of sending data to a URL using URLLib2 (e.g., an HTML 
+form submission). This example is similar to the HTTP POST example in Box 6.42 and uses 
+the URLLib2 request object instead of HTTPLib2. 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 58 
+ 
+ 
+ 
+3.13.4 SMTPLib 
+Simple Mail Transfer Protocol (SMTP) is a protocol which handles sending email and routing 
+e-mail between mail servers. The Python smtplib module provides an SMTP client session 
+object that can be used to send email. 
+Box 6.44 shows a Python example of sending email from a Gmail account. The string 
+message contains the email message to be sent. To send email from a Gmail account the 
+Gmail SMTP server is specified in the server string. 
+To send an email, first a connection is established with the SMTP server by calling smtplib. 
+SMTP with the SMTP server name and port. The user name and password provided are then 
+used to login into the server. The email is then sent by calling server. send mail function with 
+the from address, to address list and message as input parameters. 
+ 
+
+Internet of Things [BCS701] 
+MODULE 3 
+ 
+ 
+Page 59 
+ 
+ 
+ 
+Module 3 Question Bank 
+ 
+1. What is the difference between a physical and virtual entity? 
+2. What is an IoT device? 
+3. What is the purpose of information model? 
+4. What are the various service types? 
+5. What is the need for a controller service? 
+6. What is the difference between procedure-oriented programming and object-oriented 
+programming? 
+7. What is an interpreted language? 
+8. Describe a use case of Python dictionary? 
+9. What is a keyword argument in Python? 
+10. What are variable length arguments? 
+11. What is the difference between a Python module and a package? 
+12. How is function overriding implemented in Python? 

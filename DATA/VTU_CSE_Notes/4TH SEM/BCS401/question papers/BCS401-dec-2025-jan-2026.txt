@@ -1,0 +1,278 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fourth Semester B.E./B.Tech. Degree Examination, Dec.2025/Jan.2026 
+Analysis and Design of Algorithms     
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                      2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Define algorithm with the help of flow chart, explain the various stages of 
+algorithm’s design and analysis process.   
+ 
+10
+L2 CO1
+ 
+b.
+Compare the order of 1/2 .n (n-1) and n2. 
+ 
+4 
+L3 CO1
+ 
+c. List and explain asymptotic notations used to compare the orders of growth 
+of an algorithm, with an example each.  
+ 
+6 
+L3 CO1
+                                                                           OR 
+Q.2 
+a. Give the general plan for analyzing the time efficiency of recursive 
+algorithm show that efficiency of tower of Hanoi is exponential.  
+ 
+10
+L2 CO1
+ 
+b.
+Prove that if t1(n)  0(g1(n)) and t2(n)  0(g2(n)), then t1(n) + t2(n)  
+0{max g1(n), g2(n)}. 
+ 
+4 
+L3 CO1
+ 
+c. Solve the following recurrence x(n) = x(n – 1) + 5 for n > 1, x(1) = 0 
+ 
+6 
+L3 CO1
+                                                                      Module – 2  
+Q.3 
+a. Define Divide and Conquer. Design an algorithm for merge sort and sort 
+the list “EXAMPLE” in alphabetical order using merge sort.  
+ 
+10
+L3 CO2
+ 
+b.
+Design an algorithm for quick sort. Sort the list 65, 70, 75, 80, 85, 60, 55, 
+50, 45. Also derive the worst case complexity of quick sort.  
+ 
+10
+L3 CO2
+                                                                           OR 
+Q.4 
+a. Define decrease and conquer technique. What are the three major variations 
+of decrease and conquer technique? Obtain the topological ordering for the 
+following graph. Using source removal method.  
+ 
+Fig.Q.4(a) 
+ 
+10
+L3 CO2
+ 
+1 of 3 
+USN 
+BCS401 
+VTU-05-02-2026 01:38:11pm
+05-02-2026 01:42:23pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS401
+ 
+ 
+b.
+Design an algorithm to sort N number of elements using insertion sort. 
+Illustrate the tracing of insertion sort algorithm for the following set of 
+numbers 25, 10, 72, 18, 40, 11, 64, 58, 32, 9. 
+ 
+ 
+10
+L3 CO2
+                                                                      Module – 3  
+Q.5 
+a. What is heap? Design an algorithm to construct a heap for the elements of 
+the given array by bottom up approach. Show heap construction of the 
+given list 2, 9, 7, 6, 5, 8 by successive insertion using bottom up procedure.  
+ 
+10
+L2 CO3
+ 
+b.
+What is AVL tree? Explain the four types of rotations used to construct the 
+AVL tree. Construct AVL tree for the set 5, 6, 8, 3, 2, 4, 7 by successive 
+insertion.  
+ 
+ 
+10
+L3 CO3
+                                                                           OR 
+Q.6 
+a. Apply Horse Pool’s algorithm to search for the pattern DEMOCRATIC 
+from the text INDIA_IS_A_DEMOCRATIC_COUNTRY. Explain its 
+working along with a neat shift table and algorithm to find the pattern 
+string.  
+ 
+10
+L3 CO3
+ 
+b.
+Design an algorithm for comparision counting sort. Apply the same to sort 
+the list 62, 31, 84, 96, 19, 47. 
+ 
+ 
+10
+L3 CO3
+                                                                      Module – 4  
+Q.7 
+a. Apply Kruskal’s algorithm to find minimum cost spanning tree to the graph 
+shown below source = a ; 
+ 
+ 
+ 
+Fig.Q.7(a) 
+ 
+10
+L3 CO4
+ 
+b.
+Explain the Warshall’s algorithm to find the transitive closure of a directed 
+graph. Apply it to the following graph.  
+ 
+ 
+ 
+Fig.Q.7(b) 
+ 
+10
+L3 CO4
+ 
+2 of 3 
+VTU-05-02-2026 01:38:11pm
+05-02-2026 01:42:23pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS401
+ 
+                                                                           OR 
+Q.8 
+a. Construct a minimum cost spanning tree using prims algorithm for the 
+following graph source = ‘a’. 
+ 
+ 
+ 
+Fig.Q.8(a) 
+ 
+10
+L3 CO4
+ 
+b.
+What is Huffman Tree? Explain the algorithm to construct the Huffman 
+tree. Construct the Huffman tree for the following data: 
+ 
+Character 
+A 
+B 
+C 
+D 
+- 
+Probability
+0.35
+0.1
+0.2
+0.2
+0.15
+ 
+ 
+ 
+10
+L3 CO4
+                                                                      Module – 5  
+Q.9 
+a. Using Branch and Bound technique solve the below instance of knapsack 
+problem. 
+Item
+Weight
+Value
+1 
+2 
+12 
+2 
+1 
+10 
+3 
+3 
+20 
+4 
+2 
+5 
+ 
+ 
+10
+L3 CO6
+ 
+b.
+Define Backtracking. Apply backtracking to solve the instance of the sum 
+of subset problem s = {3, 5, 6, 7} and d = 15. 
+ 
+ 
+10
+L3 CO6
+                                                                           OR 
+Q.10
+a. Explain the concept of P, NP, NP – complete and NP-Hard problem.  
+ 
+10
+L2 CO5
+ 
+b.
+What are Decision Trees? Explain with example, how decision trees are 
+used in sorting algorithms.  
+ 
+10
+L2 CO6
+* * * * * 
+ 
+ 
+ 
+ 
+ 
+3 of 3 
+Capacity = 5
+VTU-05-02-2026 01:38:11pm
+05-02-2026 01:42:23pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

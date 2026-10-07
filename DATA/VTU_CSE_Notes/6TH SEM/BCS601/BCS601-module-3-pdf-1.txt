@@ -1,0 +1,1379 @@
+BCS601 Cloud Computing 
+Module-3 
+ 
+Module-3 
+Cloud Platform Architecture over Virtualized Datacenters: Cloud Computing andService Models, 
+Data Center Design and Interconnection Networks, ArchitecturalDesign of Compute and Storage 
+Clouds, Public Cloud Platforms: GAE, AWS andAzure, Inter-Cloud Resource Management. 
+Textbook 1: Chapter 4: 4.1 to 4.5 
+ 
+4.1 Cloud Computing and Service Models 
+4.1.1 Public, Private, and Hybrid Clouds 
+• 
+Public Cloud: 
+o Hosted and maintained by third-party cloud service providers. 
+o Resources such as computing power, storage, and networking are shared 
+among multiple customers. 
+o Offers cost-effectiveness, scalability, and flexibility. 
+o Examples: Amazon Web Services (AWS), Microsoft Azure, Google Cloud 
+Platform (GCP). 
+o Disadvantages: Limited control over infrastructure, potential security concerns 
+due to shared environments. 
+• 
+Private Cloud: 
+o Dedicated cloud infrastructure for a single organization, either hosted on- 
+premises or by a third-party provider. 
+o Provides enhanced security, compliance, and performance optimization. 
+o Ideal for industries with strict regulatory requirements such as healthcare and 
+finance. 
+o Higher operational costs due to maintenance and hardware requirements. 
+o Examples: VMware vSphere, OpenStack-based private clouds. 
+• 
+Hybrid Cloud: 
+o A combination of public and private cloud infrastructures to optimize 
+performance and cost-efficiency. 
+o Workloads can be dynamically shifted between private and public clouds 
+based on business needs. 
+o Benefits include greater flexibility, scalability, and disaster recovery options. 
+o Example: AWS Outposts, Microsoft Azure Stack. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+o 
+pg. 1 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+4.1.1.5 Data-Center Networking Structure 
+o Cloud computing enables dynamic resource allocation through virtual clusters, with 
+gateway nodes serving as access points and security controls. Unlike traditional grids, 
+which rely on static resource allocation, cloud platforms handle fluctuating workloads 
+dynamically. Private clouds, when well-designed, can efficiently meet these demands. 
+o Data centers and supercomputers share some similarities but differ significantly in 
+scale, architecture, and networking. Data centers rely on large clusters of servers with 
+integrated storage and cache, whereas supercomputers use separate data farms. 
+Networking also differs: supercomputers utilize high-bandwidth, custom networks, 
+while data centers rely on IP-based networks, such as 10 Gbps Ethernet. 
+o Private cloud examples include NASA’s cloud for climate modeling and CERN’s 
+cloud for distributing research resources globally. These clouds require varying levels 
+of performance, security, and data protection, governed by Service Level Agreements 
+(SLAs). Cloud computing builds upon grid computing but focuses more on scalable, 
+abstracted services rather than just storage and computing resources. 
+ 
+ 
+ 
+ 
+Cloud Development Trends 
+Private clouds are expected to grow faster than public clouds due to their enhanced security 
+and trust within organizations. As they mature, they may transition into public or hybrid 
+clouds, blurring the distinction between cloud types. Hybrid clouds are likely to dominate the 
+future. 
+Cloud services are categorized into different types of nodes: service-access nodes handle user 
+interactions, runtime supporting service nodes assist cloud operations, and independent 
+service nodes provide specialized services. Cloud computing optimizes performance by 
+minimizing data movement, reducing Internet traffic, and addressing petascale I/O 
+challenges. However, cloud performance, security, and QoS still require further validation 
+through real-world applications. 
+ 
+4.1.2 Cloud Ecosystem and Enabling Technologies 
+pg. 2 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+Cloud computing aims to shift processing, storage, and software delivery from desktops to 
+data centers, ensuring scalability, efficiency, and economic viability through a pay-as-you-go 
+model. Key design objectives include: 
+1. Shifting Computing to Data Centers – Moving resources from local machines to 
+centralized cloud infrastructure. 
+2. Service Provisioning & Economics – Efficient resource utilization with SLAs and 
+cost-effective pricing models. 
+3. Scalability – Cloud platforms must support increasing user demands seamlessly. 
+4. Data Privacy Protection – Ensuring trust in cloud providers to handle sensitive data 
+securely. 
+5. High-Quality Services – Standardizing QoS for interoperability across cloud 
+providers. 
+6. New Standards & Interfaces – Addressing data lock-in issues with universal APIs and 
+flexible access protocols. 
+Cloud computing reduces costs by eliminating capital expenses for hardware acquisition and 
+shifting to a pay-per-use model. Traditional IT systems incur both fixed and increasing 
+operational costs as users grow, whereas cloud computing minimizes upfront investment, 
+making it attractive for startups and enterprises. 
+ 
+• 
+Cloud Ecosystem Components: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+• 
+pg. 3 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+o Cloud Providers: AWS, Google Cloud, Microsoft Azure, IBM Cloud, Oracle 
+Cloud. 
+o Cloud Consumers: Businesses, developers, end-users leveraging cloud 
+services. 
+o Cloud Brokers: Intermediaries that manage service usage and performance. 
+o Security and Compliance Solutions: Identity management, encryption, and 
+regulatory compliance tools. 
+• 
+Key Enabling Technologies: 
+o Virtualization: Allows multiple virtual machines (VMs) to run on a single 
+physical server, improving efficiency and flexibility. 
+o Containerization: Docker and Kubernetes enable efficient application 
+deployment across cloud environments. 
+o Microservices Architecture: Supports modular application development, 
+enhancing scalability and manageability. 
+o Artificial Intelligence (AI) & Machine Learning (ML): Enables cloud- 
+based predictive analytics, automation, and intelligent decision-making. 
+o Blockchain Technology: Used for secure transactions, data integrity, and 
+decentralized cloud services. 
+4.1.3 Infrastructure-as-a-Service (IaaS) 
+ 
+ 
+ 
+• 
+Definition: 
+o Provides essential computing resources (compute, storage, networking) as 
+virtualized services over the internet. 
+• 
+Key Characteristics: 
+pg. 4 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+o Pay-as-you-go pricing model. 
+o Highly scalable infrastructure. 
+o Automated resource provisioning. 
+• 
+Examples: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+• 
+o AWS EC2: Provides virtual machines with flexible configurations. 
+o 
+ 
+o Google Compute Engine (GCE): Scalable VM instances for cloud workloads. 
+o Microsoft Azure Virtual Machines: Supports both Windows and Linux 
+environments. 
+• 
+Advantages: 
+o Eliminates the need for physical hardware investment. 
+o Provides high availability and disaster recovery solutions. 
+o Offers global reach and reduced latency through distributed data centers. 
+• 
+Challenges: 
+o Requires advanced cloud expertise for configuration and management. 
+o Potential security risks if not properly configured. 
+4.1.4 Platform-as-a-Service (PaaS) and Software-as-a-Service (SaaS) 
+• 
+Platform-as-a-Service (PaaS): 
+pg. 5 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+o Provides a cloud-based environment for application development and 
+deployment. 
+o Includes integrated tools such as databases, runtime environments, and 
+development frameworks. 
+o Examples: 
+ 
+o 
+▪ 
+Google App Engine: Scalable application hosting. 
+▪ 
+AWS Elastic Beanstalk: Automated deployment and scaling of web 
+applications. 
+▪ 
+Microsoft Azure App Services: PaaS offering for .NET, Java, Python, 
+and more. 
+▪ 
+ 
+o Benefits: 
+▪ 
+Reduces the complexity of software development. 
+▪ 
+Allows developers to focus on writing code instead of managing 
+infrastructure. 
+▪ 
+Scalable and flexible resource allocation. 
+o Challenges: 
+pg. 6 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+▪ 
+Limited control over the underlying infrastructure. 
+▪ 
+Vendor lock-in concerns. 
+• 
+Software-as-a-Service (SaaS): 
+o Delivers software applications over the internet without requiring installation 
+on local machines. 
+o Users access software via web browsers on a subscription basis. 
+o Examples: 
+▪ 
+Google Workspace (Docs, Sheets, Gmail): Cloud-based productivity 
+tools. 
+▪ 
+Microsoft 365: Office applications and collaboration tools. 
+▪ 
+Salesforce: Customer relationship management (CRM) software. 
+o Benefits: 
+▪ 
+Easy access from anywhere with an internet connection. 
+▪ 
+Automatic updates and maintenance handled by the provider. 
+▪ 
+Lower upfront costs compared to traditional software licensing. 
+o Challenges: 
+▪ 
+Data security and privacy concerns. 
+▪ 
+Dependence on internet connectivity. 
+▪ 
+Limited customization compared to on-premises solutions. 
+Mashup of Cloud Services 
+At the time of this writing, public clouds are in use by a growing number of users. Due to 
+the lack of trust in leaking sensitive data in the business world, more and more 
+enterprises, organizations, and communities are developing private clouds that demand 
+deep customization. An enterprise cloud is used by multiple users within an organization. 
+Each user may build some strategic applications on the cloud, and demands customized 
+partitioning of the data, logic, and database in the metadata representation. More private 
+clouds may appear in the future. 
+Based on a 2010 Google search survey, interest in grid computing is declining rapidly. 
+Cloud 
+mashups have resulted from the need to use multiple clouds simultaneously or in 
+sequence. For example, an industrial supply chain may involve the use of different cloud 
+resources or services at different stages of the chain. Some public repository provides 
+thousands of service APIs and mashups for web commerce services. Popular APIs are 
+provided by Google Maps, Twitter, YouTube, Amazon eCommerce, Salesforce.com, etc 
+ 
+4.2 Data-Center Design and Interconnection Networks 
+4.2.1 Warehouse-Scale Data-Center Design 
+• 
+Definition: Large-scale data centers that host thousands of servers to support cloud 
+operations. 
+• 
+Key Design Factors: 
+o Redundancy: Ensures fault tolerance and high availability. 
+o Scalability: Allows the data center to expand resources efficiently. 
+o Energy efficiency: Uses cooling techniques such as liquid cooling and free air 
+cooling. 
+pg. 7 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+o 
+o Security measures: Includes biometric access control, surveillance, and fire 
+suppression systems. 
+• 
+Example: Google’s warehouse-scale computing infrastructure, which features 
+custom-built hardware and software optimization. 
+• 
+Data centers use raised floors to manage power cables and distribute cool air 
+efficiently. The cooling system relies on Computer Room Air Conditioning 
+(CRAC) units, which pressurize the raised floor plenum with cold air. Perforated tiles 
+release this air in front of server racks, which are arranged in alternating cold and hot 
+aisles to prevent heat mixing. Hot air from servers is recirculated back to the CRAC 
+units, cooled, and reintroduced into the system. 
+• 
+Modern data centers enhance cooling with water-based free cooling and cooling 
+towers, which pre-cool condenser water before it reaches the chiller, improving 
+efficiency and reducing energy consumption. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+• 
+4.2.2 Data-Center Interconnection Networks 
+• 
+Purpose: Facilitates communication between servers, storage, and network devices. 
+• 
+Common Network Topologies: 
+o Fat-tree architecture: Provides high bandwidth and low latency, used in 
+cloud data centers. 
+pg. 8 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+o Clos network: Ensures efficient routing and redundancy. 
+o Software-Defined 
+Networking 
+(SDN): 
+Enables 
+dynamic 
+network 
+configuration and automation. 
+• 
+Load Balancing: Distributes network traffic evenly to prevent bottlenecks. 
+• 
+Fault Tolerance: Ensures network resilience through redundant connections. 
+• 
+ 
+4.2.3 Modular Data Centers in Shipping Containers 
+• 
+Definition: Prefabricated data centers housed in shipping containers. 
+• 
+Advantages: 
+o Portability: Can be transported to different locations as needed. 
+o Scalability: Easy to add more modules for additional capacity. 
+o Energy Efficiency: Designed with advanced cooling systems to reduce power 
+consumption. 
+• 
+Use Cases: Disaster recovery, military applications, rapid deployment in remote 
+areas. 
+• 
+Example: Microsoft’s Azure Modular Data Centers, which support cloud workloads 
+in various locations. 
+4.2.4 Interconnection of Modular Data Centers 
+• 
+Techniques Used: 
+o Fiber-optic networking: Ensures high-speed data transfer between modules. 
+o SDN integration: Manages dynamic network reconfigurations. 
+o Data replication strategies: Ensures data consistency across distributed 
+centers. 
+• 
+Challenges: 
+o Latency issues: Distance between modular centers can impact performance. 
+o Security risks: Data transmission over long distances requires encryption 
+pg. 9 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+ 
+o 
+o . 
+4.2.5 Data-Center Management Issues 
+Here are basic requirements for managing the resources of a data center. These suggestions 
+haveresulted from the design and operational experiences of many data centers in the IT and 
+serviceindustries. 
+• 
+Making common users happy The data center should be designed to provide quality 
+service tothe majority of users for at least 30 years. 
+• 
+Controlled information flow Information flow should be streamlined. Sustained 
+services and high availability (HA) are the primary goals. 
+• 
+Multiuser manageability The system must be managed to support all functions of a 
+data center, including traffic flow, database updating, and server maintenance. 
+• 
+Scalability to prepare for database growth The system should allow growth as 
+workload increases. The storage, processing, I/O, power, and cooling subsystems 
+should be scalable. 
+• 
+Reliability in virtualized infrastructure Failover, fault tolerance, and VM live 
+migration should be integrated to enable recovery of critical applications from failures 
+or disasters. 
+• 
+Low cost to both users and providers The cost to users and providers of the cloud 
+system built over the data centers should be reduced, including all operational costs. 
+• 
+Security enforcement and data protection Data privacy and security defense 
+mechanisms must be deployed to protect the data center against network attacks and 
+system interrupts and to maintain data integrity from user abuses or network attacks. 
+• 
+Green information technology Saving power consumption and upgrading energy 
+efficiency are in high demand when designing and operating current and future data 
+centers. 
+• 
+Key Challenges: 
+o Resource allocation: Ensuring optimal usage of compute, storage, and 
+network resources. 
+pg. 10 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+o Security and compliance: Adhering to industry standards such as GDPR and 
+HIPAA. 
+o Energy efficiency: Implementing cooling solutions and renewable energy 
+sources. 
+o Infrastructure monitoring: Using AI-powered analytics to predict failures 
+and optimize performance. 
+o Automation: Implementing orchestration tools like Kubernetes for workload 
+management. 
+4.3 Architectural Design of Compute and Storage Clouds 
+Cloud Platform Design Goals: Cloud computing platforms are designed with four key 
+goals: scalability, virtualization, efficiency, and reliability. They support Web 2.0 applications 
+by managing user requests, allocating resources, and provisioning services across both 
+physical and virtual machines. Security in shared environments remains a critical challenge. 
+To establish a large-scale HPC infrastructure, cloud platforms integrate hardware and 
+software for seamless operation. Scalability is achieved through cluster architecture, allowing 
+for easy expansion of processing power, storage, and bandwidth. Reliability is enhanced by 
+storing data in multiple geographically distributed locations, ensuring accessibility even in 
+case of failures. Cloud architectures can scale efficiently by adding more servers and 
+expanding network connectivity as needed. 
+Enabling Technologies for Clouds 
+Cloud computing is driven by advancements in broadband and wireless networking, declining 
+storage costs, and improvements in Internet computing software. These technologies enable 
+on-demand capacity scaling, cost reduction, and service experimentation for users, while 
+providers benefit from higher system utilization through multiplexing, virtualization, and 
+dynamic resource provisioning. 
+Clouds rely on continuous progress in hardware, software, and networking, which 
+collectively enhance performance, efficiency, and scalability. These advancements ensure that 
+cloud platforms can dynamically allocate resources while maintaining cost-effectiveness and 
+flexibility. Cloud computing has become a reality due to advancements in hardware, 
+virtualization, and service-oriented architecture (SOA). Multicore CPUs, memory chips, 
+and disk arrays enable faster data centers with vast storage capacity. Virtualization 
+supports rapid cloud deployment and disaster recovery, while SOA enhances cloud service 
+integration. 
+Progress in SaaS, Web 2.0 standards, and Internet performance has driven cloud 
+adoption, allowing for large-scale, multi-tenant services over massive datasets. Distributed 
+storage systems form the backbone of modern data centers, while improvements in license 
+management and automatic billing further streamline cloud operations. 
+pg. 11 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+ 
+ 
+4.3.1 A Generic Cloud Architecture Design 
+• 
+Three-layer architecture: 
+1. Compute layer: Manages virtual machines (VMs), containers, and serverless 
+functions. 
+2. Storage layer: Includes block storage, object storage, and file storage 
+solutions. 
+3. Networking layer: Handles firewalls, load balancers, and Software-Defined 
+Networking (SDN). 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+4. 
+• 
+Key Characteristics: 
+o On-demand resource allocation. 
+o Elastic scalability to meet workload demands. 
+o Centralized management and orchestration. 
+o Automated provisioning using APIs and infrastructure as code (IaC). 
+4.3.2 Layered Cloud Architectural Development 
+pg. 12 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+ 
+• 
+Service-oriented 
+architecture (SOA): Enhances modular development and 
+interoperability. 
+• 
+Multi-tenancy: Supports multiple users in a shared environment while ensuring 
+security. 
+• 
+Quality of Service (QoS) considerations: 
+o Latency: Minimizing delays in service response. 
+o Bandwidth: Ensuring efficient data transmission. 
+o Performance optimization: Using caching, load balancing, and autoscaling. 
+Market-Oriented Cloud Architecture 
+Cloud providers must ensure QoS (Quality of Service) to meet consumer demands, as 
+defined in SLAs (Service Level Agreements). Traditional system-centric resource 
+management is insufficient; instead, market-oriented resource management is used to 
+balance supply and demand of cloud resources. 
+The architecture includes: 
+• 
+Users/Brokers: Submit service requests from anywhere. 
+• 
+SLA Resource Allocator: Interfaces between cloud providers and users. 
+• 
+Service Request Examiner: Interprets requests and prioritizes allocations. 
+• 
+Accounting Mechanism: Tracks resource usage for billing and optimization. 
+• 
+VM Monitor: Monitors VM availability and entitlements. 
+• 
+Dispatcher: Assigns accepted service requests to VMs. 
+• 
+Service Request Monitor: Tracks request execution progress. 
+Clouds dynamically allocate multiple VMs on a single physical machine, allowing resource 
+partitioning and supporting different OS environments. The Pricing Mechanism 
+determines costs based on factors like time of submission (peak/off-peak), fixed vs. 
+dynamic rates, and resource availability. 
+pg. 13 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+ 
+Quality of Service Factors 
+A cloud data center consists of multiple computing servers that allocate resources based on 
+service demands. QoS (Quality of Service) parameters such as time, cost, reliability, and 
+security are essential for commercial cloud offerings. Since business operations are dynamic, 
+QoS requirements must adapt over time. 
+Key Components of Market-Oriented Cloud Architecture: 
+1. SLA Resource Allocator: Manages agreements between users and cloud providers. 
+2. Virtual & Physical Machines: Resources are allocated dynamically. 
+3. Pricing & Accounting: Tracks resource usage and charges users accordingly. 
+4. Dispatcher & Monitors: Assigns tasks to virtual machines (VMs) and tracks 
+execution. 
+5. Service Request Examiner & Admission Control: Ensures efficient resource allocation 
+without overloading. 
+Key Features: 
+• 
+Customer-Driven Service Management: Adapts resources based on user requirements. 
+• 
+Computational Risk Management: Identifies and mitigates risks in cloud operations. 
+• 
+Autonomic 
+Resource 
+Management: 
+Self-managing 
+models 
+adjust 
+resource 
+distribution dynamically. 
+• 
+Dynamic SLA Negotiation: Supports real-time adjustments based on changing 
+demands. 
+By leveraging VM technology, this architecture optimizes resource allocation, ensuring 
+efficient, cost-effective, and reliable cloud services while adapting to real-time fluctuations in 
+demand. 
+ 
+4.3.3 Virtualization Support and Disaster Recovery 
+System virtualization software plays a crucial role in cloud computing by simulating 
+hardware execution and enabling the operation of multiple virtual environments on shared 
+physical infrastructure. 
+Key Functions of Virtualization Software in Cloud Computing: 
+pg. 14 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+1. Hardware Virtualization: Allows unmodified operating systems to run on virtualized 
+hardware, enabling legacy software support. 
+2. Flexible Development & Deployment: 
+o Developers can use any OS or programming environment without 
+infrastructure limitations. 
+o The same environment is used for both development and deployment, 
+reducing runtime errors. 
+3. Multi-Tenant Isolation: 
+o Virtual Machines (VMs) securely separate users while maximizing resource 
+utilization. 
+o Unlike traditional cluster resource sharing, virtualization ensures better 
+security and customization. 
+4. Hosting Third-Party Applications: Cloud platforms use VMs to host external 
+applications, offering users complete control over their software stack. 
+5. Scalability & Customization: Users can configure VMs to suit their needs without 
+interfering with other cloud tenants. 
+By leveraging virtualization, cloud computing platforms provide enhanced flexibility, 
+security, and resource efficiency, making it easier to deploy, manage, and scale applications 
+across diverse environments. 
+Virtualization Support in Public Clouds 
+Virtualization plays a significant role in cloud computing by abstracting physical resources, 
+enhancing flexibility, and improving disaster recovery. 
+Comparison of Virtualization Support in Public Clouds 
+ 
+Cloud Provider 
+Virtualization Support 
+Key Feature 
+AWS (Amazon Web 
+Services) 
+Extreme 
+flexibility 
+using 
+VMs 
+Users can run custom applications 
+Microsoft Azure 
+Programming-level 
+virtualization (.NET) 
+Supports application development 
+Google App Engine 
+(GAE) 
+Application-level 
+virtualization 
+Users can only build apps within 
+Google’s service framework 
+Each cloud provider supports different virtualization mechanisms based on their architecture 
+and service models. 
+ 
+Storage Virtualization for Green Data Centers 
+• 
+Energy Consumption Concern: IT power consumption in the U.S. has doubled, 
+accounting for 3% of total energy use. 
+• 
+Corporate Response: Fortune 500 companies are adopting energy-efficient strategies. 
+• 
+Impact of Virtualization: 
+o Reduces power usage by consolidating multiple workloads on fewer physical 
+servers. 
+o Lowers operational costs and improves energy efficiency. 
+o Supports Green Computing initiatives. 
+ 
+ 
+ 
+pg. 15 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+Virtualization for IaaS (Infrastructure as a Service) 
+Cloud computing leverages VM technology for customizable environments, offering: 
+1. Workload Consolidation: Optimizes underutilized servers, reducing operational costs. 
+2. Legacy Application Support: Runs older software without compatibility issues. 
+3. Security Enhancements: Sandboxing prevents malware and application failures from 
+affecting the entire system. 
+4. Performance Isolation: Enables cloud providers to ensure better QoS (Quality of 
+Service) for users. 
+ 
+VM Cloning for Disaster Recovery 
+• 
+Traditional Recovery: Slow and expensive, requiring reinstallation of hardware, OS, 
+and software. 
+• 
+VM-Based Recovery: Faster (40% of traditional recovery time), using snapshots for 
+live migration. 
+• 
+Disaster Recovery (DR) Strategies: 
+1. Data replication: Synchronous and asynchronous replication techniques. 
+2. Snapshot backups: Creating periodic copies of virtual machines and storage 
+volumes. 
+3. Failover mechanisms: Redundant systems automatically take over in case of 
+failure. 
+4. Geographic redundancy: Storing backup data across multiple cloud regions. 
+ 
+4.3.4 Architectural Design Challenges 
+• 
+Security risks: Ensuring proper authentication, encryption, and compliance 
+measures. 
+• 
+Scalability: Handling increased demand while maintaining performance. 
+• 
+Interoperability: Integrating different cloud service providers and platforms. 
+• 
+Data sovereignty and regulatory compliance: Ensuring adherence to GDPR, 
+HIPAA, and other regulations. 
+Challenges in Cloud Computing and Virtualization 
+Cloud computing has revolutionized IT infrastructure, but it presents multiple challenges 
+related to availability, security, performance, and standardization. 
+Challenge 1: Service Availability and Data Lock-in 
+• 
+Single Point of Failure: Cloud services managed by a single provider can be 
+vulnerable to failures. 
+• 
+Multi-Cloud Solutions: Using multiple cloud providers enhances high availability 
+(HA). 
+• 
+DDoS Attacks: Can disrupt SaaS providers, requiring rapid scale-ups for defense. 
+• 
+Data Lock-in: 
+o APIs remain proprietary, restricting data and application portability. 
+o Standardizing APIs would enable multi-cloud deployment and “surge 
+computing” (using public clouds for extra workloads). 
+ 
+Challenge 2: Data Privacy and Security Concerns 
+pg. 16 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+• 
+Public Cloud Exposure: Cloud platforms are open to security threats. 
+• 
+Encryption & Firewalls: Data encryption, VLANs, and network middleboxes can 
+mitigate risks. 
+• 
+Security Threats: 
+o Traditional: DoS attacks, malware, rootkits, spyware. 
+o Cloud-Specific: Hypervisor malware, guest hopping, VM hijacking, man-in- 
+the-middle attacks on VM migration. 
+• 
+Data Sovereignty Laws: Many nations require customer data storage within 
+national boundaries. 
+ 
+Challenge 3: Unpredictable Performance and Bottlenecks 
+• 
+I/O Bottlenecks: 
+o VMs efficiently share CPU and memory, but I/O performance suffers. 
+o Example: Amazon EC2 
+▪ 
+STREAM benchmark: 1,355 MB/sec bandwidth needed. 
+▪ 
+Disk writes: 55 MB/sec, showing I/O limitations. 
+• 
+Data Placement Complexity: 
+o Data-intensive applications require optimized data transfer strategies. 
+o Amazon CloudFront minimizes data transport costs. 
+• 
+Solutions: 
+o Improve I/O virtualization architectures. 
+o Remove bottleneck links and weak servers. 
+ 
+Challenge 4: Distributed Storage and Software Bugs 
+• 
+Scalable Storage Needs: 
+o Cloud databases must scale on-demand while ensuring high availability 
+(HA). 
+o Distributed SANs improve storage resilience. 
+• 
+Debugging Challenges: 
+o Large-scale cloud bugs cannot be easily reproduced. 
+o VM-based debugging can help capture cloud runtime issues. 
+o Simulated debugging (if well-designed) offers another solution. 
+ 
+Challenge 5: Cloud Scalability, Interoperability, and Standardization 
+• 
+Diverse Pricing Models: 
+o GAE (Google App Engine) charges per cycle used. 
+o AWS charges hourly for VM instances, even if idle. 
+• 
+Standardization Efforts: 
+o Open Virtualization Format (OVF): 
+▪ 
+Portable VM packaging across platforms. 
+▪ 
+Allows cross-hypervisor VM migration (e.g., Intel ↔ AMD). 
+o Challenges: 
+▪ 
+Need hypervisor-agnostic VMs. 
+▪ 
+Support for legacy hardware in cloud load balancing. 
+pg. 17 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+Challenge 6: Software Licensing and Reputation Sharing 
+• 
+Licensing Challenges: 
+o Open-source software dominates due to flexible licensing. 
+o Commercial software vendors must adapt pay-as-you-go or bulk-use models. 
+• 
+Reputation Management: 
+o Cloud-wide blacklisting (e.g., spam-prevention services blacklisting EC2 
+IPs). 
+o Potential reputation-guarding services to prevent cloud-wide bans. 
+• 
+Legal Liability: 
+o Cloud providers and customers debate who holds legal liability for failures or 
+security breaches. 
+o SLAs (Service Level Agreements) must clearly define liability. 
+ 
+4.4 Public Cloud Platforms: GAE, AWS, and Azure 
+4.4.1 Public Clouds and Service Offerings 
+ 
+ 
+ 
+ 
+• 
+Major Public Cloud Providers: 
+o Amazon Web Services (AWS): Leading IaaS and PaaS provider with services 
+like EC2, S3, Lambda. 
+o Google Cloud Platform (GCP): AI-driven cloud infrastructure with services 
+like GKE, Cloud Run, and BigQuery. 
+o Microsoft Azure: Strong hybrid cloud capabilities with services like Azure 
+Virtual Machines, Azure Kubernetes Service, and Azure AI. 
+• 
+Common Service Offerings: 
+o Compute power (VMs, serverless functions, containers). 
+o Storage solutions (object, block, file storage). 
+o AI/ML services, big data analytics, and security tools. 
+o Managed databases (SQL, NoSQL, cloud-native DBs). 
+pg. 18 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+o 
+4.4.2 Google App Engine (GAE) 
+• 
+PaaS solution that allows developers to build and deploy web applications without 
+managing the infrastructure. 
+• 
+Key Features: 
+o Automatic scaling of applications based on demand. 
+o Supports multiple programming languages (Python, Java, Go, Node.js, PHP, 
+etc.). 
+o Integrated development tools and monitoring. 
+o Pay-as-you-go pricing model. 
+Google App Engine (GAE) Architecture 
+Google App Engine (GAE) is a Platform-as-a-Service (PaaS) that allows developers to 
+build and deploy applications on Google’s cloud infrastructure. It eliminates the need for 
+server maintenance and provides scalable cloud services. 
+Key Building Blocks of Google Cloud Infrastructure 
+1. Google File System (GFS): Manages large-scale data storage. 
+2. MapReduce: Supports distributed computing for application development. 
+3. BigTable: Provides structured and semi-structured data storage. 
+4. Chubby: A distributed lock service for synchronization. 
+These components form the foundation of Google’s cloud services, enabling seamless data 
+storage, processing, and application management. 
+GAE Features and Architecture 
+• 
+GAE runs user programs on Google’s infrastructure, offering scalability and 
+maintenance-free operation for developers. 
+• 
+The frontend serves as an application framework, similar to ASP, J2EE, and JSP, 
+supporting Python and Java for application development. 
+pg. 19 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+• 
+The GAE infrastructure supports multiple clusters of servers running GFS, 
+MapReduce, BigTable, and Chubby to provide efficient resource management. 
+• 
+Web-based interactions allow both users and third-party developers to access 
+Google applications seamlessly. 
+This architecture ensures that applications hosted on GAE can handle large-scale data and 
+traffic efficiently while leveraging Google’s high-performance cloud infrastructure. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+o 
+Summary of GAE Components and Services 
+Google App Engine (GAE) is an application development platform rather than an 
+infrastructure platform, providing tools and services for building and deploying cloud 
+applications. 
+Major Components of GAE 
+1. Datastore: 
+o Provides object-oriented, distributed, structured data storage based on 
+BigTable. 
+o Ensures secure data management operations. 
+2. Application Runtime Environment: 
+o Supports scalable web programming and execution. 
+o Compatible with Python and Java for development. 
+3. Software Development Kit (SDK): 
+o Facilitates local application development and testing. 
+o Allows developers to upload application code seamlessly. 
+4. Administration Console: 
+o Simplifies the management of application development cycles. 
+o Focuses on software management rather than physical infrastructure. 
+5. GAE Web Service Infrastructure: 
+o Provides special interfaces for efficient storage and network resource 
+management. 
+GAE Services and Usage 
+• 
+Free Access for Gmail Users: 
+o Users can register using a Gmail account and utilize free services within a 
+quota. 
+pg. 20 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+o Exceeding the quota requires a paid plan. 
+• 
+Programming Language Support: 
+o GAE supports 
+Python, Ruby, and Java, but does not provide 
+Infrastructure-as-a-Service (IaaS). 
+o Unlike AWS (which offers IaaS and PaaS), GAE is strictly a PaaS model 
+for deploying user-built applications. 
+• 
+Comparison with Other Cloud Platforms: 
+o GAE: Focuses on application hosting and development. 
+o AWS: Provides both IaaS (infrastructure) and PaaS (platform) services. 
+o Azure: Supports a similar model to GAE but focuses on .NET applications. 
+GAE simplifies cloud application deployment by abstracting infrastructure complexities, 
+making it an ideal choice for developers focused on web and cloud-based applications. 
+4.4.3 Amazon Web Services (AWS) 
+AWS Components and Services 
+Amazon Web Services (AWS) is a leading provider of public cloud services using the 
+Infrastructure-as-a-Service (IaaS) model. AWS enables flexible and secure computing 
+resource sharing through Virtual Machines (VMs). 
+Key AWS Components: 
+1. EC2 (Elastic Compute Cloud): 
+o Provides virtualized computing platforms for running cloud applications. 
+2. S3 (Simple Storage Service): 
+o Offers object-oriented storage for data management. 
+3. EBS (Elastic Block Service): 
+o Supports block storage for traditional applications. 
+4. SQS (Simple Queue Service): 
+o Ensures reliable message processing between processes. 
+o Messages persist even if the receiver process is inactive. 
+5. ELB (Elastic Load Balancing): 
+o Distributes incoming traffic across multiple EC2 instances. 
+o Prevents overloading and manages fault tolerance. 
+6. CloudWatch: 
+o Monitors AWS resources (e.g., CPU, disk I/O, network traffic). 
+o Supports autoscaling and load balancing via ELB. 
+7. RDS (Relational Database Service): 
+o Provides a fully managed relational database service. 
+8. Elastic MapReduce (EMR): 
+o Equivalent to Hadoop on EC2 for big data processing. 
+9. AWS Import/Export: 
+o Allows physical data transfer via shipping disks for high-bandwidth data 
+migration. 
+10. CloudFront: 
+o Implements content distribution for faster web application delivery. 
+11. FPS (Flexible Payment Service): 
+o Enables developers to charge AWS users for paid services. 
+pg. 21 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+12. FWS (Fulfillment Web Service): 
+o Provides order fulfillment services through Amazon’s logistics. 
+13. MPI Clusters & Cluster Compute Instances (July 2010): 
+o AWS introduced hardware-assisted virtualization for high-performance 
+computing (HPC). 
+o Uses EBS-based booting instead of para-virtualization. 
+AWS provides a flexible cloud computing environment, making it ideal for small and 
+medium businesses looking to scale their operations while serving large numbers of users 
+efficiently. 
+ 
+ 
+• 
+Market leader in cloud services, providing comprehensive solutions for enterprises. 
+• 
+Advantages: 
+o Global infrastructure with multiple availability zones. 
+o Broad range of services catering to various industry needs. 
+o Strong security and compliance measures. 
+4.4.4 Microsoft Azure 
+ 
+Microsoft Azure Cloud Platform 
+pg. 22 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+Launch 
+Year: 
+2008 
+Objective: To address cloud computing challenges using Microsoft data centers. 
+Architecture: Built on Windows OS and Microsoft virtualization technology. 
+Key Components of Azure: 
+1. Windows Azure: 
+o Provides a cloud platform based on Windows OS. 
+o Manages VMs, storage, and network resources in data centers. 
+2. Core Azure Services: 
+o Live Service: Supports Microsoft Live applications and multi-machine data 
+access. 
+o .NET Service: Enables local application development and cloud execution. 
+o SQL Azure: Provides cloud-based relational database services with SQL 
+Server. 
+o SharePoint Service: Helps in scalable business application development. 
+o Dynamic CRM Service: Supports business management applications (finance, 
+marketing, sales). 
+3. Integration with Microsoft Products: 
+o Azure services work seamlessly with Windows Live, Office Live, Exchange 
+Online, SharePoint Online, and Dynamic CRM Online. 
+4. Communication Protocols: 
+o Uses SOAP and REST for web-based communication and third-party cloud 
+integration. 
+5. Azure Development Kit (SDK): 
+o Allows developers to run a local version of Azure, develop applications, and 
+debug them on Windows hosts. 
+Key Differentiators of Azure: 
+• 
+Seamless integration with Microsoft products. 
+• 
+Strong support for enterprise applications (SharePoint, CRM, SQL). 
+• 
+Developer-friendly SDK for local development and testing. 
+• 
+Hybrid cloud capabilities with third-party cloud integration. 
+Microsoft Azure offers a powerful and scalable cloud solution, making it a preferred choice 
+for enterprises that rely on Microsoft technologies. 
+INTER-CLOUD RESOURCE MANAGEMENT 
+Extended Cloud Computing Services : Cloud computing is structured into different service 
+layers, each catering to distinct functionalities and user needs. These services range from 
+hardware and networking to software applications and runtime support. 
+pg. 23 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+ 
+Six Layers of Cloud Services 
+1. Hardware as a Service (HaaS) 
+o Provides physical infrastructure (servers, storage, networking). 
+o Examples: VMware, Intel, IBM, XenEnterprise. 
+2. Network as a Service (NaaS) 
+o Manages network connectivity and virtual LANs. 
+o Examples: AT&T, Qwest, AboveNet. 
+3. Location as a Service (LaaS) 
+o Offers data center collocation services (housing, power, security). 
+o Sometimes referred to as Security as a Service (SaaS). 
+o Examples: Savvis, Internap, Digital Realty Trust. 
+4. Infrastructure as a Service (IaaS) 
+o Provides compute, storage, and networking resources on demand. 
+o Examples: Amazon AWS, Microsoft Azure, Rackspace Cloud, IBM 
+Ensembles. 
+5. Platform as a Service (PaaS) 
+o Offers development environments, frameworks, and APIs. 
+o Examples: Google App Engine, Force.com, Microsoft Azure, IBM BlueCloud. 
+6. Software as a Service (SaaS) 
+o Delivers fully managed applications over the internet. 
+o Examples: Salesforce, Webex, Concur, RightNOW, Teleo, Netsuite. 
+Roles of Cloud Service Players 
+ 
+Cloud Players 
+IaaS Role 
+PaaS Role 
+SaaS Role 
+IT Administrators/ Cloud 
+Providers 
+Monitor SLAs Monitor SLAs & enable 
+platforms 
+Monitor 
+SLAs 
+& 
+deploy software 
+Software 
+Developers/ 
+Vendors 
+Deploy 
+& 
+store data 
+Enable 
+platforms 
+via 
+APIs 
+Develop 
+& 
+deploy 
+software 
+End Users/ Business Users Deploy 
+& 
+store data 
+Develop & test web 
+applications 
+Use business software 
+Trends in Cloud Services 
+ 
+ 
+ 
+pg. 24 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+• 
+SaaS Expansion: Initially led by CRM applications, now extends to HR, finance, and 
+distributed collaboration. 
+• 
+PaaS Adoption: Increasing with platforms like Google App Engine, Salesforce, 
+Facebook, Microsoft Azure. 
+• 
+IaaS Growth: Driven by AWS, Azure, and Rackspace, providing scalable compute and 
+storage. 
+• 
+Vertical Cloud Services: Multiple integrated services working together in a cloud 
+mashup. 
+Cloud Software Stack 
+Cloud platforms are designed with high throughput, fault tolerance, and high availability 
+(HA). The software stack consists of: 
+1. Virtualization Layer – Flexible infrastructure using VMs. 
+2. Storage Layer – Manages large-scale data storage. 
+3. Database Layer – Supports structured and unstructured data. 
+4. Compute Layer – Executes cloud applications. 
+5. Application Layer – Provides user-facing software services. 
+Runtime Support & Cloud Scheduling 
+• 
+Cluster Monitoring: Tracks the status of cloud resources. 
+• 
+Job Management System: Schedules tasks efficiently across cloud nodes. 
+• 
+MapReduce Scheduling: Specialized for big data processing in distributed cloud 
+environments. 
+Advantages of SaaS Model 
+o No upfront costs for hardware and software. 
+o Lower operational costs for providers compared to traditional hosting. 
+o Cloud storage options (vendor-specific or public cloud). 
+o Scalability and flexibility for businesses and developers. 
+Summary of Resource Provisioning and Platform Deployment in Cloud Computing 
+The emergence of cloud computing has led to significant changes in software and hardware 
+architecture, emphasizing processor cores, VM instances, and parallelism at the cluster node 
+level. Effective resource provisioning and platform deployment are essential for optimizing 
+cloud infrastructure performance. 
+1. Provisioning of Compute Resources (VMs) 
+Cloud providers allocate resources through Service Level Agreements (SLAs), ensuring 
+CPU, memory, and bandwidth availability for a preset period. Balancing underprovisioning 
+(risking SLA violations) and overprovisioning (causing resource waste) is a key challenge. 
+Efficient provisioning involves VM installation, live migration, and failure recovery. 
+Examples include Amazon EC2, IBM’s Blue Cloud, and Microsoft Azure, all of which rely 
+on virtualization technologies. 
+2. Resource Provisioning Methods 
+Three primary resource provisioning methods exist: 
+• 
+Demand-Driven Provisioning: Adjusts resources based on utilization thresholds 
+(e.g., Amazon EC2 auto-scaling). It is simple but ineffective for abrupt workload 
+changes. 
+pg. 25 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+• 
+Event-Driven Provisioning: Allocates resources based on predicted workload spikes 
+during specific events (e.g., seasonal sales). This method minimizes Quality of 
+Service (QoS) loss if predictions are accurate. 
+• 
+Popularity-Driven Provisioning: Allocates resources based on Internet search 
+trends. It anticipates traffic surges but may waste resources if popularity forecasts are 
+incorrect. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+• 
+pg. 26 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+ 
+ 
+ 
+3. Dynamic Resource Deployment 
+Dynamic provisioning allows cloud systems to scale across multiple resource sites. The 
+InterGrid infrastructure, developed by Melbourne University, enables cross-grid resource 
+allocation via InterGrid Gateways (IGGs), allowing interaction between local clusters and 
+external cloud providers. 
+pg. 27 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+ 
+ 
+ 
+4. Provisioning of Storage Resources 
+Cloud storage is built on physical or virtual servers and is essential for scalable applications 
+like email systems and web search engines. Future storage solutions will likely integrate 
+solid-state drives (SSDs) for higher performance. Common cloud storage systems include: 
+• 
+Google File System (GFS) – High bandwidth for continuous access. 
+• 
+Hadoop Distributed File System (HDFS) – Open-source alternative to GFS. 
+• 
+Amazon S3 & EBS – Remote data storage and virtual disk services. 
+Cloud databases (e.g., Google BigTable, Amazon SimpleDB, Microsoft Azure SQL 
+Service) enable structured and semi-structured data management, allowing developers to 
+build applications efficiently. 
+Conclusion 
+Efficient cloud resource provisioning is critical for balancing performance, cost, and 
+scalability. By leveraging various provisioning strategies and storage solutions, cloud 
+platforms optimize their computing environments while maintaining service quality and 
+efficiency. 
+ 
+Virtual Machine Creation and Management 
+This section discusses key aspects of cloud infrastructure management, including resource 
+management for independent services, execution of third-party applications, and various 
+components involved in virtual machine (VM) management. 
+pg. 28 
+ 
+vtucircle.com
+
+BCS601 Cloud Computing 
+Module-3 
+ 
+ 
+ 
+1. Independent Service Management: Cloud infrastructures provide APIs for running 
+independent services. Amazon's Simple Queue Service (SQS) facilitates reliable 
+communication between service providers. This enables multiple cloud applications to 
+run simultaneously. 
+2. Running 
+Third-Party 
+Applications: 
+Cloud 
+platforms 
+support 
+third-party 
+applications through web services, allowing developers to build applications with 
+APIs instead of traditional runtime libraries. Examples include Google App Engine 
+(GAE), Microsoft Azure, and IBM’s WebSphere. 
+3. Virtual Machine Manager (VMM): The VMM links gateways to resources, 
+managing VMs using virtualization technologies. It supports multiple environments, 
+including OpenNebula, Amazon EC2, and Grid’5000. The manager enables remote 
+VM deployment using hypervisors like Xen. 
+4. Virtual Machine Templates: VM templates define configuration parameters such as 
+processor allocation, memory, disk image, OS kernel, and pricing. Administrators 
+maintain a repository of templates to ensure consistency across the infrastructure. 
+5. Distributed VM Management: The InterGrid platform uses distributed VM 
+management, allowing gateways to request, allocate, and redirect VM resources 
+across multiple sites. A peering policy ensures workload balancing across cloud sites. 
+6. InterCloud Resource Exchange: To meet global demand, cloud providers establish 
+data centers in different geographical locations. The Melbourne group’s InterCloud 
+architecture enables seamless integration of multiple cloud providers for dynamic 
+resource allocation and load balancing. 
+7. Cloud Exchange (CEx): The CEx acts as a marketplace for cloud resources, allowing 
+providers and consumers to negotiate service agreements based on economic models 
+such as auctions and commodity markets. It ensures QoS-driven service delivery and 
+secure financial transactions through SLA-based contracts. 
+This emphasizes the need for efficient VM management, workload balancing, and inter-cloud 
+resource sharing to optimize cloud computing performance and scalability. 
+pg. 29 
+ 
+vtucircle.com

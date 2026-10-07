@@ -1,0 +1,152 @@
+{
+  "subject_code": "BCS702",
+  "subject_name": "Deep Learning",
+  "semester": 7,
+  "semester_label": "7TH SEM",
+  "modules": {
+    "1": {
+      "title": "Introduction to Deep Learning",
+      "topics": [
+        "Parallel Hardware",
+        "Classifications of Parallel Computers",
+        "SIMD Systems",
+        "MIMD Systems",
+        "Asynchronous Execution:",
+        "No Global Clock or Lockstep Execution:",
+        "Independent Control Units:",
+        "Scalability:",
+        "Shared-Memory MIMD Systems:",
+        "Distributed-Memory MIMD Systems:"
+      ],
+      "sources": [
+        "BCS702-module-1-pdf-1.txt"
+      ],
+      "content_chars": 45531
+    },
+    "2": {
+      "title": "Convolutional Neural Networks",
+      "topics": [
+        "GPU Programming",
+        "GPU Programming",
+        "Programming Hybrid Systems",
+        "Input and Output",
+        "MIMD systems",
+        "GPUs and I/O",
+        "Performance",
+        "Speedup and Efficiency in MIMD Systems",
+        "Amdahl’s Law",
+        "Scalability in MIMD Systems"
+      ],
+      "sources": [
+        "BCS702-module-2-pdf-1.txt"
+      ],
+      "content_chars": 18493
+    },
+    "3": {
+      "title": "Recurrent Neural Networks",
+      "topics": [
+        "Getting Started",
+        "Compilation and Execution",
+        "MPI Programs",
+        "MPI_Init and MPI_Finalize",
+        "Communicators, MPI_Comm_size, and MPI_Comm_rank",
+        "SPMD Programs",
+        "Communication",
+        "MPI_Send",
+        "Message Matching",
+        "The status_p Argument"
+      ],
+      "sources": [
+        "BCS702-module-3-pdf.txt"
+      ],
+      "content_chars": 52517
+    },
+    "4": {
+      "title": "Generative Models",
+      "topics": [
+        "Getting started",
+        "Compiling and running OpenMP programs",
+        "The program",
+        "Error checking",
+        "The Trapezoidal Rule",
+        "A First OpenMP Version",
+        "Identified",
+        "No communication among jobs in the first collection (1a), but each job in (1a)",
+        "Assumption: Number of trapezoids (n) is much larger than the number of cores.",
+        "Its rank and the total number of threads,"
+      ],
+      "sources": [
+        "BCS702-module-4-pdf.txt"
+      ],
+      "content_chars": 51754
+    },
+    "5": {
+      "title": "Advanced Deep Learning Topics",
+      "topics": [
+        "GPUs and GPGPU",
+        "GPUs architectures",
+        "Heterogeneous computing",
+        "CUDA hello",
+        "The source code",
+        "Compiling and running the program",
+        "Threads, Blocks, and Grids in CUDA",
+        "NVIDIA Compute Capabilities and Device Architectures",
+        "Vector addition",
+        "The Kernel – Vector Addition in CUDA"
+      ],
+      "sources": [
+        "BCS702-module-5-pdf.txt"
+      ],
+      "content_chars": 53033
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\BCS702-module-1-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\BCS702-module-2-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\BCS702-module-3-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\BCS702-module-4-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\BCS702-module-5-pdf.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\BCS702-module-1-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\BCS702-module-2-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\BCS702-module-3-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\BCS702-module-4-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\BCS702-module-5-pdf.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\question papers\\BCS702-dec-2025-jan-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\question papers\\BCS702-dec-2025-jan-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\question papers\\BCS702-module-1-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\question papers\\BCS702-module-1-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\question papers\\BCS702-module-2-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\question papers\\BCS702-module-2-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\question papers\\BCS702-module-3-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\question papers\\BCS702-module-3-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\question papers\\BCS702-module-4-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\question papers\\BCS702-module-4-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\question papers\\BCS702-module-5-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS702\\question papers\\BCS702-module-5-textbook.txt"
+    ],
+    "textbook_notes": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\7TH SEM\\BCS702\\textbook_notes.md"
+    ],
+    "textbooks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_7\\BCS702_Deep_Learning\\T1_Deep_Learning_with_Python_Francois_Chollet.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_7\\BCS702_Deep_Learning\\T1_Deep_Learning_with_Python_Francois_Chollet.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_7\\BCS702_Deep_Learning\\T2_Dive_into_Deep_Learning_D2L_Zhang.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_7\\BCS702_Deep_Learning\\T2_Dive_into_Deep_Learning_D2L_Zhang.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_7\\BCS702\\BCS702_Deep_Learning.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to Deep Learning",
+    "2": "Convolutional Neural Networks",
+    "3": "Recurrent Neural Networks",
+    "4": "Generative Models",
+    "5": "Advanced Deep Learning Topics"
+  }
+}

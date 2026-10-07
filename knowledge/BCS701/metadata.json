@@ -1,0 +1,152 @@
+{
+  "subject_code": "BCS701",
+  "subject_name": "Internet of Things",
+  "semester": 7,
+  "semester_label": "7TH SEM",
+  "modules": {
+    "1": {
+      "title": "Introduction to IoT",
+      "topics": [
+        "Introduction",
+        "Physical Design of IoT",
+        "Things of IoT",
+        "IoT Protocol",
+        "Ethernet:",
+        "GHz band. 802.11ac operates in the 5G hertz band.",
+        "WiMAX:",
+        "LR-WPAN:",
+        "Logical design of IoT",
+        "IoT functional block"
+      ],
+      "sources": [
+        "BCS701-module-1-pdf.txt"
+      ],
+      "content_chars": 40223
+    },
+    "2": {
+      "title": "IoT Architecture and Protocols",
+      "topics": [
+        "M2M area network (local machines)",
+        "Communication network (connects different areas)",
+        "Application (where data is used)",
+        "Differences between IoT and M2M",
+        "Communication Protocols",
+        "Machines in M2M vs Things in IoT",
+        "Hardware vs Software Emphasis",
+        "Data Collection & Analysis",
+        "Applications",
+        "SDN and NFV for IoT"
+      ],
+      "sources": [
+        "BCS701-module-2-pdf.txt"
+      ],
+      "content_chars": 28189
+    },
+    "3": {
+      "title": "IoT Physical Devices and Endpoints",
+      "topics": [
+        "Introduction",
+        "IoT Design Methodology",
+        "Step 1: Purpose & Requirements Specification",
+        "Step 2: Process Specification",
+        "Step 3: Domain Model Specification",
+        "Step 4: Information Model Specification",
+        "Step 5: Service Specifications",
+        "Step 6: IoT Level Specification",
+        "Step 7: Functional View Specification",
+        "Step 8: Operational View Specification"
+      ],
+      "sources": [
+        "BCS701-module-3-pdf.txt"
+      ],
+      "content_chars": 39271
+    },
+    "4": {
+      "title": "IoT Platforms and Data Analytics",
+      "topics": [
+        "What is an IoT Device?",
+        "Basic Building Blocks of an IoT Device",
+        "Exemplary Device: Raspberry Pi",
+        "About the Board",
+        "Linux on Raspberry Pi",
+        "Rasberry Pi Interfaces",
+        "Serial",
+        "Programming Raspberry Pi with Python",
+        "Controlling LED with Rasberry Pi",
+        "Interfacing an LED and Switch with Raspberry Pi"
+      ],
+      "sources": [
+        "BCS701-module-4-pdf.txt"
+      ],
+      "content_chars": 30153
+    },
+    "5": {
+      "title": "IoT Security and Case Studies",
+      "topics": [
+        "Introduction",
+        "Apache Hadoop",
+        "MapReduce Programming Model",
+        "Hadoop MapReduce Job Execution",
+        "MapReduce Job Execution Workflow Figure 5.6 shows the MapReduce job execution",
+        "Navigate to the Hadoop directory: $cd hadoop-1.0.4",
+        "Format the NameNode: $bin/hadoop namenode -format",
+        "Start HDFS daemons: $bin/start-dfs.sh",
+        "Start MapReduce daemons: $bin/start-mapred.sh",
+        "Check the status of daemons: $jps"
+      ],
+      "sources": [
+        "BCS701-module-5-pdf.txt"
+      ],
+      "content_chars": 34078
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\BCS701-module-1-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\BCS701-module-2-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\BCS701-module-3-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\BCS701-module-4-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\BCS701-module-5-pdf.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\BCS701-module-1-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\BCS701-module-2-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\BCS701-module-3-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\BCS701-module-4-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\BCS701-module-5-pdf.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\question papers\\BCS701-dec-2025-jan-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\question papers\\BCS701-dec-2025-jan-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\question papers\\BCS701-module-1-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\question papers\\BCS701-module-1-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\question papers\\BCS701-module-2-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\question papers\\BCS701-module-2-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\question papers\\BCS701-module-3-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\question papers\\BCS701-module-3-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\question papers\\BCS701-module-4-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\question papers\\BCS701-module-4-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\question papers\\BCS701-module-5-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\7TH SEM\\BCS701\\question papers\\BCS701-module-5-textbook.txt"
+    ],
+    "textbook_notes": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\7TH SEM\\BCS701\\textbook_notes.md"
+    ],
+    "textbooks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_7\\BCS701_Big_Data_Analytics\\T1_Mining_of_Massive_Datasets_MMDS_Ullman.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_7\\BCS701_Big_Data_Analytics\\T1_Mining_of_Massive_Datasets_MMDS_Ullman.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_7\\BCS701_Big_Data_Analytics\\T2_Learning_Spark_Lightning_Fast_Analytics_Damji.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_7\\BCS701_Big_Data_Analytics\\T2_Learning_Spark_Lightning_Fast_Analytics_Damji.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_7\\BCS701\\BCS701_Internet_of_Things.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to IoT",
+    "2": "IoT Architecture and Protocols",
+    "3": "IoT Physical Devices and Endpoints",
+    "4": "IoT Platforms and Data Analytics",
+    "5": "IoT Security and Case Studies"
+  }
+}

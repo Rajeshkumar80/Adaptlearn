@@ -1,0 +1,552 @@
+# BCS405A — Model Question Papers
+**Subject:** Discrete Mathematical Structures
+**Generated:** 2026-10-02
+
+---
+
+## Model Set 1 And 2 Paper
+
+Model Question Paper Set - 1 with effect from 2022(CBCS Scheme) 
+USN        
+ 
+          Fourth Semester B.E Degree Examination 
+DISCRETE MATHEMATICAL STRUCTURES (BCS405A) 
+TIME: 03Hours                                                                                                                     Max.Marks:100 
+Note:  
+1. Answer any FIVE full questions, choosing at least ONE question from each MODULE 
+2. M: Marks, L: RBT levels, C: Course outcomes. 
+ 
+Module – 1 
+M 
+L 
+C 
+Q.1 
+a Show 
+that 
+the 
+compound 
+proposition 
+
+
+
+
+
+
+
+
+
+
+
+
+p
+q
+q
+r
+r
+p
+p
+q
+q
+r
+r
+p
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+for 
+primitive statements p, q, r is logically equivalence. 
+
+L2 
+CO1 
+b Establish the validity of the following argument using the Rules of 
+Inference: {𝑝∧(𝑝→𝑞) ∧(𝑠∨𝑟) ∧(𝑟→∼𝑞)} ⟶(𝑠∨𝑡).   
+
+L2 
+CO1 
+c For the universe of all integers, let p(x), q(x), r(x), s(x) and t(x) denote the 
+following open statements: p(x): x>0, q(x): x is even, r(x): x is a perfect 
+square, s(x): x is divisible by 3, t(x): x is divisible by 7. Write the following 
+statements in symbolic form: i) At least one integer is even. ii) There exists a 
+positive integer that is even. iii) If x is even, then x is not divisible by 3. iv) No 
+even integer is divisible by 7. v) There exists even integer divisible by 3. 
+
+L1 
+CO1 
+OR 
+Q.2 
+a Define a tautology. Prove that, for any propositions p, q, r the compound 
+propositions, {(𝑝→𝑞)∧(𝑞→𝑟)}→{(𝑝→𝑟)} is tautology. 
+
+L2 
+CO1 
+b Prove the following using laws of logic:  𝑝→(𝑞→𝑟)⇔(𝑝∧𝑞)→𝑟. 
+
+L2 
+CO1 
+c Give i) direct proof ii) indirect proof iii) proof by contradiction for the 
+following statement: “if n is an odd integer then n+9 is an even integer”.  
+
+L3 
+CO1 
+Module – 2 
+Q.3 
+a Prove 
+that 
+12 + 32 + 52 + ⋯. +(2𝑛−1)2 =
+𝑛(2𝑛+1)(2𝑛−1)
+
+by 
+Mathematical Induction.  
+
+L2 
+CO2 
+b 
+Let 𝑎0 = 1, 𝑎1 = 2, 𝑎2 = 3 and 𝑎𝑛= 𝑎𝑛−1 + 𝑎𝑛−2 + 𝑎𝑛−3 for 𝑛≥3. Prove that 
+𝑎𝑛≤3𝑛 ∀ 𝑛∈𝑧+. 
+
+L2 
+CO2 
+c 
+Find the number of ways of arrangement of the letters of the word 
+‘TALLAHASSEE’ which have no adjacent A’s. 
+
+L2 
+CO2 
+OR 
+Q.4 
+a Determine the coefficient of 𝑥𝑦𝑧2 in the expansion of (2𝑥−𝑦−𝑧)4. 
+
+L2 
+CO2 
+b 
+In how many ways one can distribute 8 identical marbles in 4 distinct 
+containers so that i) no container is empty ii) the fourth container has an odd 
+number of marbles in it. 
+
+L2 
+CO2 
+c 
+How many positive integers n can we form using the digits 3,4,4,5,5,6,7 if we 
+want n to exceed 5,000,000? 
+
+L2 
+CO2 
+Module – 3 
+Q.5 
+a Let f: R → R be defined by, 𝑓(𝑥) = {3𝑥 − 5 𝑖𝑓 𝑥 > 0
+1 − 3𝑥 𝑖𝑓 𝑥 ≤ 0   . Find 
+𝑓−1(0), 𝑓−1(1), 𝑓−1(−1), 𝑓−1(3), 𝑓−1(6),  𝑓−1([−6, 5]) and 𝑓−1([−5, 5]) 
+
+L2 
+CO3 
+ 
+ 
+ 
+ 
+
+b 
+State Pigeon hole principle. Prove that in any set of 29 persons; at least 5 
+persons have been born on the same day of the week. 
+
+L2 
+CO3 
+c 
+Let A={1,2,3,4,6} and ‘R’ be a relation on ‘A’ defined by aRb if and only if “a 
+is multiple of b” represent the relation ‘R’ as a matrix, draw the diagraph and 
+relation R. 
+
+L2 
+CO3 
+OR 
+Q.6 
+ 
+ 
+ 
+ 
+a 
+If 𝑓:𝐴→𝐵, 𝑔:𝐵→𝐶, ℎ:𝐶→𝐷 are three functions, then Prove that 
+h∘(g∘f)=(h∘g)∘f.  
+
+L2 
+CO3 
+b 
+Show that if n+1 numbers are chosen from 1 to 2n then at least one pair 
+add to 2n+1.  
+
+L2 
+CO3 
+c Draw the Hasse diagram representing the positive divisors of 72. 
+
+L2 
+CO3 
+Module – 4 
+Q.7 
+a 
+In how many ways the 26 letters of English alphabet are permuted so 
+that none of the pattern’s CAR, DOG, PUN or BYTE occurs? 
+
+L2 
+CO4 
+b 
+Define Derangement. In how many ways can each of 10 people select a 
+left glove and a right glove out of a total of 10 pairs of gloves so that no 
+person selects a matching pair of gloves? 
+
+L2 
+CO4 
+c 
+Solve the recurrence relation: 𝐶𝑛= 3𝐶𝑛−1 −2𝐶𝑛−2, 𝑓𝑜𝑟 𝑛≥
+2, given 𝐶1 = 5, 𝐶2 = 3. 
+
+L3 
+CO4 
+OR 
+Q.8 
+a 
+In how many ways one can arrange the letters of the word 
+CORRESPONDENTS so that there are i) exactly 2 pairs of 
+consecutive identical letters? ii) at least 3 pairs of consecutive identical 
+letters? iii) no pair of consecutive identical letters? 
+
+L2 
+CO4 
+b Find the rook polynomial for the chess board as shown in the figure   
+
+L2 
+CO4 
+c Solve the recurrence relation 𝑎𝑛+2 −3𝑎𝑛+1 + 2𝑎𝑛= 0, 𝑎0 = 1, 𝑎1 = 6. 
+
+L3 
+CO4 
+Module – 5 
+Q.9 
+a If 𝐻, 𝐾 are subgroups of a group 𝐺, prove that 𝐻∩𝐾 is also a subgroup 
+of 𝐺. Is 𝐻∪𝐾 a subgroup of 𝐺. 
+
+L2 
+CO5 
+b Define Klein 4 group. Verify 𝐴= {1, 3, 5, 7} is a klein 4 group. 
+
+L2 
+CO5 
+c State and prove Lagrange’s Theorem. 
+
+L2 
+CO5 
+OR 
+Q.10 a 
+Show that i) the identity of 𝐺 is unique. 
+     ii) the inverse of each element of 𝐺 is Unique. 
+
+L3 
+CO5 
+b 
+Show that (𝐴,   ∙) is an abelian group where 𝐴= {𝑎 ∈𝑄|𝑎≠−1} and 
+for any 𝑎, 𝑏 ∈𝐴, 𝑎 . 𝑏= 𝑎+ 𝑏+ 𝑎𝑏. 
+
+L3 
+CO5 
+c Let 𝐺= 𝑆4, 
+for 𝛼= (1
+
+4  4
+1), 
+find 
+the 
+subgroup 
+𝐻=
+ 〈𝛼〉. Determine the left cosets of 𝐻 in 𝐺. 
+
+L3 
+CO5 
+ 
+
+Model Question Paper Set - 2 with effect from 2022(CBCS Scheme) 
+USN        
+ 
+          Fourth Semester B.E Degree Examination 
+DISCRETE MATHEMATICAL STRUCTURES (BCS405A) 
+TIME:03Hours                                                                                                                     Max.Marks:100 
+Note:  
+1. Answer any FIVE full questions, choosing at least ONE question from each MODULE 
+2. M: Marks, L: RBT levels, C: Course outcomes. 
+ 
+Module - 1 
+M 
+L 
+C 
+Q.1 
+a Define tautology. Show that [(𝑝˅𝑞)˄(𝑝→𝑟)˄(𝑞→𝑟)] →𝑟 is a 
+tautology by constructing the truth table. 
+
+L1 
+CO1 
+b Prove the following using the laws of logic 
+[¬𝑝˄(¬𝑞˄𝑟)]˅[(𝑞˄𝑟)˅(𝑝˄𝑟)] ⇔𝑟. 
+
+L2 
+CO1 
+c For any two odd integers m and n, show that  (i) m+n is even (ii) mn is 
+odd. 
+
+L2 
+CO1 
+OR 
+Q.2 
+a Define i) an open statement ii) Quantifiers 
+
+L2 
+CO1 
+b Write the following argument in symbolic form and then establish the 
+validity 
+    If A gets the Supervisor’s position and works hard, then he will get a 
+raise. If he gets a raise, then he will buy a car.   He has not purchased a 
+car. Therefore he did not get the Supervisor’s position or he did not 
+work hard. 
+
+L1 
+CO1 
+c For the following statements, the universe comprises all non-zero 
+integers. 
+    Determine the truth value of each statement. 
+a) ∋𝑥∋𝑦 [𝑥𝑦= 1]      b) ∋𝑥∀𝑦 [𝑥𝑦= 1]    c) ∀𝑥∋𝑦 [𝑥𝑦= 1] 
+d) ∋𝑥∋𝑦[(2𝑥+ 𝑦= 5)˄(𝑥−3𝑦= −8)]  e) ∋𝑥∋𝑦[(3𝑥−𝑦=
+7)˄(2𝑥+ 4𝑦= 3)] 
+
+L2 
+CO1 
+Module – 2 
+Q.3 
+a 
+Define the well ordering principle. By Mathematical Induction, Prove that  
+(𝒏!) ≥ 𝟐𝒏−𝟏 for all integers 𝒏 ≥ 𝟏. 
+
+L2 
+CO2 
+b 
+Prove that every positive integer n≥24 can be written as a sum of 5’s 
+and/or 7’s. 
+
+L3 
+CO2 
+c 
+How many positive integers  𝑛 , can we form using the digits 3,4,4,5,5,6,7, if 
+we want 𝑛 to exceed 5,000,000. 
+
+L1 
+CO2 
+OR 
+Q.4 
+a By Mathematical Induction Prove that 
+1.3 + 2.4 + ⋯…… . . +𝑛(𝑛+ 2) =
+𝑛(𝑛+1)(2𝑛+7)
+
+. 
+
+L1 
+CO2 
+b 
+Find the number of permutations of the letters of the word MASSASAUGA. In 
+how many of these all four 𝐴’𝑠 are together? How many of them begin with 𝑆? 
+
+L2 
+CO2 
+c 
+i) 
+Obtain the Coefficient of 𝑎5𝑏2 in the expansion of  (2a-3b)7 
+ii) 
+Using the Binomial theorem  find the coefficient of 𝑥5𝑦2 in 
+
+L1 
+CO2 
+ 
+ 
+ 
+ 
+
+the expansion of (𝑥+ 𝑦)7. 
+Module – 3 
+Q.5 
+a  State Pigeon –hole principle. Prove that if any number from1 to 8 are 
+chosen then two of them will have their sum as 9. 
+
+L1 
+CO3  
+b Let 𝑓: 𝑅→𝑅 be defined by ,𝑓(𝑥) = {3𝑥−5 ,   𝑖𝑓 𝑥> 0
+1 −3𝑥 ,   𝑖𝑓𝑥≤0} 
+𝑓𝑖𝑛𝑑, 𝑓−1([−6,5]) 𝑎𝑛𝑑 𝑓−1([−5,5]). 
+
+L1 
+CO3 
+c 
+Let 𝐴= 𝐵= 𝐶= 𝑅, and 𝑓: 𝐴→𝐵 and 𝑔: 𝐵→𝐶 be defined by  
+𝑓(𝑎) = 2𝑎+ 1,
+𝑔(𝑏) = 1
+3 𝑏, ∀𝑎∈𝐴, ∀𝑏∈𝐵. 
+Compute 𝑔𝑜𝑓 and show that 𝑔𝑜𝑓is invertible. What is  (𝑔 𝑜 𝑓)−1? 
+
+L2 
+CO3 
+OR 
+Q.6 
+ 
+ 
+ 
+ 
+a 
+Let f and g be functions from R to R defined by 𝑓(𝑥) = 𝑎𝑥+ 𝑏 and  
+𝑔(𝑥) = 1 −𝑥+ 𝑥2, If (𝑔 𝑜 𝑓)(𝑥) = 9𝑥2 −9𝑥+ 3 determine 𝑎 and 𝑏. 
+
+L3 
+CO3 
+b Draw the Hasse (POSET) diagram which represents positive divisors of  36. 
+
+L2 
+CO3 
+c Let 𝐴 = {1,2,3,4,6} and 𝑅 be a relation on 𝐴 defined by 𝑎𝑅𝑏 if and 
+only if “𝑎 is a multiple of  𝑏”. Write down the relation 𝑅, relation matrix 
+𝑀(𝑅) 
+And draw its diagraph. List out its in degree and out degree. 
+
+L2 
+CO3 
+Module – 4 
+Q.7 
+a Determine the number of positive integers n such that 1 ≤𝑛≤100 and 
+n is not divisible by 2, 3, or 5 
+
+L2 
+CO4 
+b In how many ways can the 26 letters of the English alphabet be 
+permuted so that none of the patterns CAR, DOG, PUN or BYTE 
+occurs? 
+
+L2 
+CO4 
+c  Solve the recurrence relation 𝑎𝑛= 𝑛𝑎𝑛−1 where n ≥1and 𝑎0 = 1. 
+
+L2 
+CO4 
+OR 
+Q.8 
+a In how many ways 5 number of a’s, 4 number of b’s and 3 number of 
+c’s can be arranged so that all the identical   
+letters are not in a single block? 
+
+L3 
+CO4 
+b Five teachers 𝑇1, 𝑇2, 𝑇3, 𝑇4, 𝑇5 are to be made class teachers for five 
+classes, 𝐶1, 𝐶2, 𝐶3, 𝐶4, 𝐶5, one teacher for each class. 𝑇1and 𝑇2 do not 
+wish to become the class  teachers for  𝐶1or 𝐶2, 𝑇3 and 𝑇4 for 𝐶4 or 𝐶5 , 
+and 𝑇5for 𝐶3 or 𝐶4 or 𝐶5 .In how many ways can the teachers be 
+assigned the work (without displeasing any teacher 
+
+L2 
+CO4 
+c Solve the recurrence relation 𝐹𝑛+2 = 𝐹𝑛+1 + 𝐹𝑛where n ≥0 and 𝐹0 = 0, 𝐹1 =
+1. 
+
+L2 
+CO4 
+Module – 5 
+Q.9 
+a Define group. Show that fourth roots of unity is an abelian group. 
+
+L2 
+CO5 
+b 
+If G be a set of all non-zero real numbers and let a* b  = ab/2 then show that 
+(G,*) is an abelian group. 
+
+L2 
+CO5 
+c Define Klein 4-group. And if A = { e,a,b,c} then show that this is a Klein -4 
+group  
+
+L1 
+CO5 
+OR 
+Q.10 a  Define Cyclic group and show that (G,8) whose multiplication table is as 
+given below is  
+     Cyclic 
+
+L2 
+CO5 
+
+   
+* 
+a 
+b 
+c 
+d 
+e 
+f 
+a 
+a 
+b 
+c 
+d 
+e 
+f 
+b 
+b 
+c 
+d 
+e 
+f 
+a 
+c 
+c 
+d 
+e 
+f 
+a 
+b 
+d 
+d 
+e 
+f 
+a 
+b 
+c 
+e 
+e 
+f 
+a 
+b 
+c 
+d 
+f 
+f 
+a 
+b 
+c 
+d 
+e 
+ 
+b State and prove Lagrange’s theorem  
+
+L1 
+CO5 
+c If G be a group with subgroup H and K. If |𝐺| = 660 and |𝐾| = 66 and K C H 
+C G and find the possible value for |𝐻| 
+
+L2 
+CO5
+
+---

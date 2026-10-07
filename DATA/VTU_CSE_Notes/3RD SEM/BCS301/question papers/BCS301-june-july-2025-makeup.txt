@@ -1,0 +1,670 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E./B.Tech. Degree Examination, June/July 2025 
+Mathematics for Computer Science    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                      2. M : Marks , L: Bloom’s level , C: Course outcomes. 
+                      3. Statistical Tables and Mathematics formula Handbooks are allowed.     
+ 
+ 
+                  Module – 1 
+M
+L 
+C 
+1 
+a. 
+Derive Mean and Variance of Poisson Distribution.  
+ 
+6 
+L2 
+CO2 
+ 
+ 
+b. 
+The probability that a pen manufactured by a factory be defective is 10
+1 , if 12 
+such pens are manufactured. What is the probability that : 
+i) 
+Exactly two are defective 
+ii) 
+Atleast two are defective 
+iii) 
+None of them are defective 
+ 
+7 
+L3 
+CO2 
+ 
+c. The marks of 1000 students in an examination follows a normal distribution 
+with mean 70 and standard deviation 5. Find the number of students whose 
+marks will be: 
+i) 
+Less than 65 
+ii) 
+More than 75 
+iii) Between 65 and 75 
+[Given (1) = 0.3413] 
+7 
+L3 
+CO2
+                                                                          OR
+Q.2 
+a.
+The p.d.f of a variate X is given by the following table: 
+ 
+x 
+0 
+1 
+2 
+3 
+4 
+5 
+6 
+p(x) 
+k 
+3k 
+5k 
+7k 
+9k 
+11k 
+13k 
+ 
+For what value of K, this represents a valid probability distribution? 
+Also find  p(x  5) and p(3 < x  6).  
+ 
+6 
+L2
+CO1
+ 
+b.
+The number of accidents in a year to taxi drivers in a city follows a poission 
+distribution with mean 3. Out of 1000 taxi drivers find approximately the 
+number of the drivers with  
+i) 
+No accident in a year 
+ii) 
+More than 3 accidents in a year.  
+ 
+7 
+L3 
+CO2
+ 
+c. If x is a normal variate with mean 30 and standard deviation 5 find the 
+probability that  
+i) 
+26  x  40  
+ii) 
+x  45 
+ 
+7 
+L2 
+CO2
+ 
+1 of 4 
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS/BAD/BAI/BDS301 
+VTU-08-10-2025 08:40:40am
+08-10-2025 09:13:58am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+ 
+BCS/BAD/BAI/BDS301
+                                                                      Module – 2  
+Q.3 
+a.
+The joint distribution of two random variables X and Y is as follows: 
+  Y
+X  
+-4 
+2 
+7 
+1
+1/8
+1/4
+1/8
+5 
+1/4
+1/8
+1/8
+ 
+Compute the following : E(X), E(Y), E(XY), COV(X,Y). 
+ 
+6 
+L2
+CO3
+ 
+b.
+Prove that the Markov Chain whose t.p.m is  
+
+
+
+
+
+
+
+
+
+
+
+0
+2
+/
+1
+2
+/
+1
+2
+/
+1
+0
+2
+/
+1
+3
+/
+1
+3
+/
+2
+0
+P
+ 
+Is irreducible. Find the corresponding stationary probability vector.  
+7 
+L2 
+CO4
+ 
+c. Three boys A, B, C are throwing ball to each other. A always throws the 
+ball to B and B always throws the ball to C. C is just as likely to throw the 
+ball to B as to A. If C was the first person to throw the ball find the 
+probabilities that after three throws, B has the ball. 
+ 
+7 
+L3 
+CO4
+                                                                          OR
+Q.4 
+a.
+Define: 
+i) 
+Probability Vector 
+ii) 
+Stochastic Matrix 
+iii) Regular Stochastic Matrix.  
+ 
+6 
+L1
+CO4
+ 
+b.
+The joint probability distribution of two discrete random variables X and Y 
+is given by f(x, y) = K(2x + y). Where x and y are integers such that  
+0  x  2,   0  y  3.  
+i) 
+Find the value of K 
+ii) 
+P(X = 1, Y = 2) 
+iii) P(X = 2, Y = 1) 
+iv) P(X  1, Y  2) 
+ 
+7 
+L2
+CO3
+ 
+c. The t.p.m of a Markov Chain is given by  
+
+
+
+
+
+
+
+
+
+
+
+4
+/
+1
+2
+/
+1
+4
+/
+1
+0
+0
+1
+2
+/
+1
+0
+2
+/
+1
+P
+ 
+and the initial probability distribution is P(0) = (1/2, 1/2, 0). Find 
+)
+2
+(
+1P
+ 
+7 
+L2 
+CO4
+                                                                      Module – 3  
+Q.5 
+a.
+Define the following: 
+i) 
+Standard Error 
+ii) 
+Null Hypothesis 
+iii) 
+Critical values of Z-test.  
+6 
+L1
+CO4
+ 
+b.
+A ‘die’ is thrown 9000 times and a throw of 3 or 4 was observed 3240 
+times. Show that the die cannot be regarded as an unbiased one.  
+ 
+7 
+L3 
+CO4
+2 of 4
+VTU-08-10-2025 08:40:40am
+08-10-2025 09:13:58am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS/BAD/BAI/BDS301
+ 
+ 
+c. In an elementary school examination the mean grade of 32 boys was 72 
+with a standard deviation of 8, while the mean grade of 36 girls was 75 with 
+a standard deviation of 6. Test the hypothesis that the performance of girls 
+are better than boys.  
+7 
+L3 
+CO4
+                                                                           OR 
+Q.6 
+a.
+Define : 
+i) 
+Type 1 error 
+ii) 
+Type 2 error 
+iii) Significance level  
+ 
+6 
+L1
+CO5
+ 
+b.
+One type of aircraft is found to develop engine trouble in 5 flights out of a 
+total of 100 and another type in 7 flights out of total of 200 flights. Is there 
+a significant difference in the two types of aircrafts so far as engine defects 
+are concerned? 
+7 
+L3 
+CO4
+ 
+c. A sample of 900 days was taken in a coastal town and it was found that on 
+100 days the weather was very hot. Obtain the probable limits of the 
+percentage of very hot weather.  
+7 
+L3 
+CO5
+                                                                      Module – 4  
+Q.7 
+a.
+A random sample of size 64 is taken from an infinite population having 
+mean 112 and variance 144. Using central limit theorem, find the 
+probability of getting the sample mean 
+X greater than 114.5  
+( (1.66) = 0.4515). 
+ 
+6 
+L2
+CO5
+ 
+b.
+Fit a poisson distribution for the following data and test the goodness of fit 
+given that 
+)
+f.d
+3
+for
+815
+.7
+(
+2
+05
+.0
+
+
+ 
+x 
+0 
+1 
+2 
+3 
+4 
+f 
+122 
+60 
+15 
+2 
+1 
+ 
+ 
+7 
+L2 
+CO4
+ 
+c. Ten individuals are choosen at random from a population and their heights 
+in inches are found to be 63, 63, 66, 67, 68, 69, 70, 70, 71, 71. Test the 
+hypothesis that the mean height of the universe is 66 inches: 
+(t0.05 = 2.262 for 9 d.f) 
+ 
+7 
+L3 
+CO4
+                                                                          OR
+Q.8 
+a.
+Suppose that 10, 12, 16, 19 is a sample taken from a normal population 
+with variance 6.25. Find at 95% confidence interval for the population 
+mean.  (z = 1.96 at 95%) 
+6 
+L2
+CO5
+ 
+b.
+Two horses A and B were tested according to the time (in seconds) to run a 
+particular race with the following results: 
+Horse A :
+28
+30
+32
+33
+33
+29
+34
+Horse B :
+29
+30
+30
+24
+27
+29
+ 
+Test 
+whether 
+you 
+can 
+discriminate 
+between 
+the 
+two 
+horses 
+(t0.05 = 2.2 for 11 df) 
+7 
+L3 
+CO4
+ 
+3 of 4 
+VTU-08-10-2025 08:40:40am
+08-10-2025 09:13:58am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+BCS/BAD/BAI/BDS301
+ 
+c. Two random samples drawn from two normal populations are: 
+Sample – I
+20
+16
+26
+27
+22
+23
+18
+24
+19
+25
+-
+-
+Sample – II
+27
+33
+42
+35
+32
+34
+38
+28
+41
+43
+30
+37
+Obtain the estimates of the variance of the population and test 5% level of 
+significance whether the two populations have the same variance  
+[F11, 9 = 3.10] 
+ 
+7 
+L2 
+CO4
+                                                                      Module – 5  
+Q.9 
+a.
+Three types of fertilizers are used on three groups of plants for 6 weeks. We 
+want to check if there is a difference in the mean growth of each group. 
+Using the data given below apply a one-way ANOVA test at 0.05 
+significance level.  
+Fertilizer 1
+6 
+8 
+4 
+5 
+3
+4 
+Fertilizer 2
+8 
+12
+9 
+11
+6
+8 
+Fertilizer 3
+13
+9
+11
+8
+7
+12
+(Given F(2, 15) = 3.68) 
+ 
+10
+L3
+CO6
+ 
+b.
+The following data show the number of worms quarantined from the areas 
+of four graphs of muskrats in a carbon tetrachloride anthelmintic study. 
+Conduct a two-way ANOVA study.  
+I
+II
+III
+IV
+33
+41
+12
+38
+32
+38
+35
+43
+26
+40
+46
+25
+14
+23
+22
+13
+30
+21
+11
+26
+(F(4, 12) = 3.26, F(3, 12) = 3.49) 
+ 
+10
+L3 
+CO6
+                                                                           OR 
+Q.10
+a.
+A trial was run to check the efforts of different diets. Positive numbers 
+indicate weight loss and negative number indicate weight gain. Check if 
+there is an average difference in the weight of people following different 
+diets using an ANOVA table: 
+Low fat
+Low calorie
+Low protein
+Low carbohydrate
+8
+2
+3
+2
+9 
+4 
+5 
+2 
+6
+3
+4
+-1
+7 
+5 
+2 
+0 
+3 
+1 
+3 
+3 
+(F(3, 16) = 3.24 at 5%) 
+10
+L3
+CO6
+ 
+b.
+Present your conclusions after doing analysis of variance to the following 
+results of the latin-square design experiment conducted in respect of five 
+fertilizers which were used on plots of different fertility: 
+A 
+16
+B 
+10
+C 
+11
+D 
+9 
+E 
+9 
+E 
+10
+C 
+9 
+A 
+14
+B 
+12
+D 
+11
+B 
+15
+D 
+8 
+E 
+8 
+C 
+10
+A 
+18
+D 
+12
+E 
+6 
+B 
+13
+A 
+13
+C 
+12
+C 
+13
+A 
+11
+D 
+10
+E 
+7 
+B 
+14
+ (F(4, 12) = 3.26) 
+ 
+10
+L3 
+CO6
+* * * 4 of 4* * * 
+VTU-08-10-2025 08:40:40am
+08-10-2025 09:13:58am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

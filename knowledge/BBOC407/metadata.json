@@ -1,0 +1,124 @@
+{
+  "subject_code": "BBOC407",
+  "subject_name": "Biology for Engineers",
+  "semester": 4,
+  "semester_label": "4TH SEM",
+  "modules": {
+    "1": {
+      "title": "Biomolecules and Cell Biology",
+      "topics": [
+        "CELL BASIC UNIT OF LIFE",
+        "A cell which is having no nucleus, instead some bacteria have a region within",
+        "They are single celled microorganisms. ex: archaea, bacteria & cyanobacteria.",
+        "Prokaryotic generally reproduce by binary fission, a form of asexual",
+        "The cell size ranges from 0.1- 0.5µm in diameter.",
+        "Eukaryotic cells are characterized by a true nucleus.",
+        "This broad category involves plants, fungi, protozoans & animals.",
+        "The plasma membrane is responsible for monitoring the transport of nutrients &",
+        "It Is also responsible for cell to cell communication.",
+        "They reproduce sexually as well as asexually."
+      ],
+      "sources": [
+        "BBOC407-Module-1-pdf.txt"
+      ],
+      "content_chars": 54066
+    },
+    "2": {
+      "title": "Genetics and Molecular Biology",
+      "topics": [
+        "BIOMOLECULES AND THEIR APPLICATIONS"
+      ],
+      "sources": [
+        "BBOC407-Module-2-pdf.txt"
+      ],
+      "content_chars": 69280
+    },
+    "3": {
+      "title": "Bioprocess Technology",
+      "topics": [
+        "BIOENGINEERING DESIGN",
+        "BRAIN AS CPU SYSTEM",
+        "BASICS FOR",
+        "COMPARISON",
+        "COMPUTER",
+        "HUMAN ORGAN SYSTEMS AND BIO DESIGNS",
+        "ENGINEERING SOLUTIONS FOR PARKINSONS DISEASE",
+        "CATARACT",
+        "URINE FORMATION",
+        "QUESTION BANK"
+      ],
+      "sources": [
+        "BBOC407-Module-3-pdf.txt"
+      ],
+      "content_chars": 53431
+    },
+    "4": {
+      "title": "Plant and Animal Biotechnology",
+      "topics": [
+        "ULTRASONOGRAPHY",
+        "PLANT BURRS AND VELCRO",
+        "QUESTION BANK",
+        "Define echolocation.",
+        "What is ultrasonography.",
+        "What are sonars?",
+        "What is photosynthesis?",
+        "Define bionic leaf.",
+        "Explain the working principle of ultrasonography and discuss its",
+        "Compare and contrast biological echolocation and technological"
+      ],
+      "sources": [
+        "BBOC407-Module-4-pdf.txt"
+      ],
+      "content_chars": 59674
+    },
+    "5": {
+      "title": "Environmental Biotechnology",
+      "topics": [
+        "TRENDS IN BIOENGINEERING"
+      ],
+      "sources": [
+        "BBOC407-Module-5-pdf.txt"
+      ],
+      "content_chars": 82319
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\BBOC407-Module-1-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\BBOC407-Module-2-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\BBOC407-Module-3-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\BBOC407-Module-4-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\BBOC407-Module-5-pdf.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\BBOC407-Module-1-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\BBOC407-Module-2-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\BBOC407-Module-3-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\BBOC407-Module-4-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\BBOC407-Module-5-pdf.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\question papers\\BBOC407-dec-2024-jan-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\question papers\\BBOC407-dec-2024-jan-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\question papers\\BBOC407-june-july-2024.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\question papers\\BBOC407-june-july-2024.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\question papers\\BBOC407-june-july-2025-makeup.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\question papers\\BBOC407-june-july-2025-makeup.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\question papers\\BBOC407-june-july-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BBOC407\\question papers\\BBOC407-june-july-2025.txt"
+    ],
+    "previous_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\4TH SEM\\BBOC407\\previous_papers.md"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_4\\BBOC407\\BBOC407_Biology_for_Engineers.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Biomolecules and Cell Biology",
+    "2": "Genetics and Molecular Biology",
+    "3": "Bioprocess Technology",
+    "4": "Plant and Animal Biotechnology",
+    "5": "Environmental Biotechnology"
+  }
+}

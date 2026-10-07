@@ -1,0 +1,161 @@
+{
+  "subject_code": "BCS515B",
+  "subject_name": "Cloud Computing and DevOps",
+  "semester": 5,
+  "semester_label": "5TH SEM",
+  "modules": {
+    "1": {
+      "title": "Introduction to Cloud Computing",
+      "topics": [
+        "WHAT IS AI?",
+        "Acting humanly: The Turing Test approach",
+        "Thinking humanly: The cognitive modeling approach",
+        "Thinking rationally: The “laws of thought” approach",
+        "Acting rationally: The rational agent approach",
+        "Acting humanly: The Turing Test approach",
+        "Thinking humanly: The cognitive modeling approach",
+        "Thinking rationally: The “laws of thought” approach",
+        "Acting rationally: The rational agent approach",
+        "THE STATE OF THE ART"
+      ],
+      "sources": [
+        "BCS515B-module-1-pdf.txt"
+      ],
+      "content_chars": 43076
+    },
+    "2": {
+      "title": "Cloud Architecture and Virtualization",
+      "topics": [
+        "PROBLEM-SOLVING AGENTS",
+        "Well-defined problems and solutions",
+        "EXAMPLE PROBLEMS (Toy problems)",
+        "Vacuum world",
+        "Toy problem devised by Donald Knuth",
+        "SEARCHING FOR SOLUTIONS",
+        "Infrastructure for search algorithms",
+        "Measuring problem-solving performance",
+        "UNINFORMED SEARCH STRATEGIES",
+        "Breadth-first search:"
+      ],
+      "sources": [
+        "BCS515B-module-2-pdf.txt"
+      ],
+      "content_chars": 30289
+    },
+    "3": {
+      "title": "Cloud Deployment Models",
+      "topics": [
+        "INFORMED SEARCH STRATEGIES",
+        "Greedy best-first search",
+        "A* search: Minimizing the total estimated solution cost",
+        "Memory-bounded Heuristic Search",
+        "Heuristic Functions",
+        "KNOWLEDGE-BASED AGENTS",
+        "THE WUMPUS WORLD",
+        "LOGIC",
+        "PROPOSITIONAL LOGIC: A VERY SIMPLE LOGIC",
+        "Syntax"
+      ],
+      "sources": [
+        "BCS515B-module-3-pdf.txt"
+      ],
+      "content_chars": 17655
+    },
+    "4": {
+      "title": "DevOps Fundamentals",
+      "topics": [
+        "REPRESENTATION REVISITED",
+        "The language of thought:",
+        "Combining the best of formal and natural languages",
+        "SYNTAX AND SEMANTICS OF FIRST-ORDER LOGIC",
+        "Models for first-order logic:",
+        "Symbols and interpretations",
+        "Term:",
+        "Atomic sentences",
+        "Complex sentences",
+        "Equality"
+      ],
+      "sources": [
+        "BCS515B-module-4-pdf.txt"
+      ],
+      "content_chars": 40266
+    },
+    "5": {
+      "title": "Containerization and Orchestration",
+      "topics": [
+        "Backward Chaining",
+        "RESOLUTION",
+        "CLASSICAL PLANNING",
+        "ALGORITHMS FOR PLANNING AS STATE-SPACE SEARCH",
+        "Planning Graphs:"
+      ],
+      "sources": [
+        "BCS515B-module-5-pdf.txt"
+      ],
+      "content_chars": 31132
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\BCS515B-module-1-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\BCS515B-module-2-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\BCS515B-module-3-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\BCS515B-module-4-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\BCS515B-module-5-pdf.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\BCS515B-module-1-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\BCS515B-module-2-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\BCS515B-module-3-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\BCS515B-module-4-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\BCS515B-module-5-pdf.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-dec-2024-jan-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-dec-2024-jan-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-important-question-answers-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-important-question-answers-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-june-july-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-june-july-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-model-set-1-paper.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-model-set-1-paper.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-module-1-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-module-1-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-module-2-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-module-2-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-module-3-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-module-3-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-module-4-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-module-4-textbook.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-module-5-textbook.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BCS515B\\question papers\\BCS515B-module-5-textbook.txt"
+    ],
+    "model_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BCS515B\\model_papers.md"
+    ],
+    "previous_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BCS515B\\previous_papers.md"
+    ],
+    "textbook_notes": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BCS515B\\textbook_notes.md"
+    ],
+    "textbooks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_5\\BCS515B_Cloud_and_DevOps\\R1_Docker_Up_and_Running_Matthias_Kane.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_5\\BCS515B_Cloud_and_DevOps\\R1_Docker_Up_and_Running_Matthias_Kane.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_5\\BCS515B_Cloud_and_DevOps\\R2_Kubernetes_in_Action_Marko_Luksa.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_5\\BCS515B_Cloud_and_DevOps\\R2_Kubernetes_in_Action_Marko_Luksa.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_5\\BCS515B_Cloud_and_DevOps\\T1_Building_Microservices_Sam_Newman.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_5\\BCS515B_Cloud_and_DevOps\\T1_Building_Microservices_Sam_Newman.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_5\\BCS515B\\BCS515B_Cloud_Computing_and_DevOps.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to Cloud Computing",
+    "2": "Cloud Architecture and Virtualization",
+    "3": "Cloud Deployment Models",
+    "4": "DevOps Fundamentals",
+    "5": "Containerization and Orchestration"
+  }
+}

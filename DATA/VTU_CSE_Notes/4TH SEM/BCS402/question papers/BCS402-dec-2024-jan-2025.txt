@@ -1,0 +1,247 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fourth Semester B.E./B.Tech. Degree Examination, Dec.2024/Jan.2025 
+Microcontroller    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                      2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Explain the purpose of various fields of current program status register with 
+a neat diagram.  
+05
+L2 CO1
+ 
+b.
+Explain the ARM design philosophy. 
+06
+L2 CO1
+ 
+c. Explain the core extensions of ARM processor with neat block diagram. 
+09
+L2 CO1
+                                                                           OR 
+Q.2 
+a. Explain Embedded systems hardware with a neat block diagram. 
+06
+L2 CO1
+ 
+b.
+What is pipelines in ARM? Illustrate with an example the pipeline stage of 
+ARM 9 and ARM 10.  
+09
+L2 CO1
+ 
+c. Describe the RISC design philosophy with 4 design rules. 
+05
+L2 CO1
+                                                                      Module – 2  
+Q.3 
+a. Explain the following with examples : 
+(i)  RSC             (ii)  MLA           (iii)  STRH         (iv) SWP 
+10
+L2 CO2
+ 
+b.
+Explain the different data processing instruction in ARM. 
+10
+L2 CO2
+                                                                           OR 
+Q.4 
+a. Explain Barrel shifter instruction in ARM with suitable examples.  
+10
+L2 CO2
+ 
+b.
+Explain the different branch instruction of ARM processor. 
+05
+L2 CO2
+ 
+c. Explain co-processor instruction of ARM processor. 
+05
+L2 CO2
+                                                                      Module – 3  
+Q.5 
+a. Explain the different basic data types in C. Provide examples of how each 
+data type can be used in a C program. 
+08
+L2 CO3
+ 
+b.
+Discuss the concept of register allocation in compiler optimization. 
+Illustrate its significance with an example.  
+07
+L2 CO3
+ 
+c. Describe the process of a function call in C. 
+05
+L2 CO3
+                                                                           OR 
+Q.6 
+a. Discuss the common portability issues faced when writing C programs. 
+How can these issues be mitigated.     
+07
+L2 CO3
+ 
+b.
+Explain the concept of pointer aliasing with example. 
+07
+L2 CO3
+ 
+c. How are function calls handled efficiently in calling function in C? 
+06
+L2 CO3
+                                                                      Module – 4  
+Q.7 
+a. What are interrupts? Discuss interrupt vector table with diagram for ARM 
+processor. 
+06
+L2 CO4
+ 
+b.
+Describe the sequence of operations that occurs when an ARM processor 
+handles an IRQ exceptions. 
+06
+L2 CO4
+ 
+c. Discuss the priority system for exception in ARM processor. 
+08
+L2 CO4
+                                                                           OR 
+Q.8 
+a. Explain the role of the link register in ARM exception handling. 
+08
+L2 CO4
+ 
+b.
+Explain the design and implementation of an interrupt stack in a ARM-
+based system. Explain the steps involved. 
+08
+L2 CO4
+ 
+c. What are the key differences between a boot loader and firmware? 
+04
+L2 CO4
+ 
+ 
+                                                                          1 of 2                                                  
+USN 
+BCS402 
+VTU-09-01-2025 09:06:31am
+09-01-2025 09:13:17am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS402
+ 
+                                                                      Module – 5  
+Q.9 
+a. Explain the basic operation of a cache controller.  
+06
+L2 CO5
+ 
+b.
+With a neat diagram, explain the basic architecture of a cache memory. 
+10
+L2 CO5
+ 
+c. Mention any 4 relationship between cache and main memory. 
+ 
+04
+L2 CO5
+                                                                           OR 
+Q.10
+a. Write a note on cache write policy both write back or write through.  
+10
+L2 CO5
+ 
+b.
+Describe the allocation policy on a cache miss. 
+04
+L2 CO5
+ 
+c. Write a note on following : 
+(i)   Write buffers  
+(ii)  Cache efficiency  
+06
+L2 CO5
+ 
+                                                                * * * * * 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+                                                                  2 of 2 
+VTU-09-01-2025 09:06:31am
+09-01-2025 09:13:17am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

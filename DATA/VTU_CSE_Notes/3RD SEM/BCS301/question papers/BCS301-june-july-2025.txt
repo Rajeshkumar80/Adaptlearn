@@ -1,0 +1,629 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E./B.Tech. Degree Examination, June/July 2025 
+Mathematics for Computer Science  
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                      2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a.  The probability density function of a variate X is given by the following 
+table : 
+X 
+0 
+1 
+2 
+3 
+4 
+5 
+6 
+P(X)
+K
+3K
+5K
+7K
+9K
+11K
+13K
+(i) 
+For what value of K, does this represent a valid probability 
+distribution? 
+(ii) 
+Find P(X<4) 
+(iii) 
+Find P(3<X6) 
+06
+L2 CO1
+ 
+b.
+ 2% fuses manufactured by a firm are found to be defective. Find the 
+probability that the box containing 200 fuses contains. 
+(i) 
+No defective fuses 
+(ii) 
+3 or more defective fuses. 
+(iii) 
+Atleast one defective fuse. 
+07
+L2 CO2
+ 
+c.  The length in time (minutes) that a certain lady speaks on a telephone is a 
+random variable with probability density function. 
+elsewhere
+0
+for x
+     
+0
+Ae
+)
+x
+(
+f
+5
+x
+
+
+
+
+
+
+ 
+Find the value of the constant A. What is the probability that she will speak 
+over the phone for, 
+(i) 
+More than 10 minutes 
+(ii) 
+Less than 5 minutes 
+(iii) 
+Between 5 and 10 minutes 
+ 
+07
+L3 CO2
+                                                                           OR 
+ 
+Q.2 
+ 
+a.  Find the constant K such that the function 
+otherwise
+3 
+ x 
+ 0
+for 
+  
+0
+Kx
+)
+x
+(
+f
+2
+
+
+
+
+
+
+ is a 
+probability density function. Also compute 
+),
+2
+x
+1(
+P
+
+
+P(x
+1
+). 
+ 
+06
+L2 CO1
+ 
+b.
+ Obtain the mean and variance of Binomial distribution. 
+ 
+07
+L2 CO2
+ 
+c. The marks of 1000 students in an examination follows a normal distribution 
+with mean 70 and standard deviation 5. Find the number of students whose 
+marks will be, (i) Less than 65   (ii)  More than 75   (iii)  between 65 and 
+75, Given A(1) = 0.3413, where A(Z) is the area under standard normal 
+curve from 0 to Z. 
+ 
+07
+L3 CO2
+                                                                      Module – 2  
+Q.3 
+a. Define (i)   Probability vector                   (ii) Regular stochastic matrix 
+           (iii) Absorbing state of Markov chain. 
+06
+L1 CO3
+ 
+b.
+A students study habits are as follows : If he studies one night, he is 70% 
+sure not to study the next night. On the other hand if he does not study one 
+night, he is 60% sure not to study the next night. In the long run how often 
+does he study? 
+07
+L3 CO3
+1 of 4 
+USN 
+BCS301/BAD301/BAI301/BDS301
+VTU-16-06-2025 01:28:58pm
+16-06-2025 01:35:19pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+BCS301/BAD301/BAI301/BDS301 
+ 
+ 
+c. The joint probability distribution for two random variables X and Y is 
+given below : 
+    Y 
+X 
+-2 
+-1 
+4 
+5 
+1 
+0.1
+0.2
+0 
+0.3
+2 
+0.2
+0.1
+0.1
+0 
+Determine : 
+(i) 
+The marginal distribution of X and Y. 
+(ii) 
+E[X], E[Y], E[XY] 
+(iii) 
+COV(X, Y) 
+ 
+07
+L2 CO2
+                                                                           OR 
+Q.4 
+a.  Find the fixed probability vector of the regular stochastic matrix 
+
+
+
+
+
+
+
+
+
+
+
+
+
+0
+2
+1
+2
+1
+1
+0
+0
+0
+1
+0
+P
+. 
+ 
+06
+L2 CO3
+ 
+b.
+ A habitual gambler is a member of two clubs A and B. He visits either of 
+the clubs every day for playing cards. He never visits club A on two 
+consecutive days. But if he visits club B on a particular day then the next 
+day he is as likely to visit club B or club A. If the person had visited club B 
+on Monday, find the probability that he visits club A on Thursday. 
+ 
+07
+L3 CO3
+ 
+c.  The joint probability distribution of two discrete random variable X and Y 
+is given by, f(x, y) = K(2x+y) where x, y are integers such that 
+2
+x
+0
+
+
+, 
+2
+y
+0
+
+
+. Find  
+(i)    K                          (ii)  Marginal probability distribution of X and Y 
+(iii)  
+)
+2
+Y
+,1
+X
+(
+P
+
+
+ 
+ 
+07
+L2 CO2
+                                                                      Module – 3  
+Q.5 
+a. Define :   (i)   Null hypothesis                  (ii)  Significance level 
+               (iii)  Type I and Type II errors 
+06
+L1 CO4
+ 
+b.
+A die was thrown 1200 times and the number 6 was obtained 236 times. 
+Can the die be considered fair at 1% level of significance?  
+07
+L3 CO4
+ 
+c. One type of aircraft is found to develop engine trouble in 5 flights out of a 
+total of 100 and another type in 7 flights out of a total of 200 flights. Is 
+there a significance difference in the two types of aircrafts so far as engine 
+defects are concerned? 
+ 
+07
+L3 CO4
+                                                                           OR 
+Q.6 
+a. Explain (i)   Sampling distribution     (ii) Statistical hypothesis 
+             (iii) Testing of hypothesis 
+ 
+06
+L1 CO4
+ 
+b.
+A coin is tossed 1000 times and head turns up 540 times. Decide on the 
+hypothesis that the coin is unbiased at 1% level of significance.  
+ 
+07
+L3 CO4
+ 
+c. In an exit poll enquiry it was revealed that 600 voters in one locality and 
+400 voters from another locality favoured 55% and 48% respectively a 
+particular party to come to power. Test the hypothesis that there is a 
+difference in the locality in respect of the opinion at 5% level of 
+significance. 
+ 
+07
+L3 CO4
+2 of 4 
+ 
+ 
+VTU-16-06-2025 01:28:58pm
+16-06-2025 01:35:19pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS301/BAD301/BAI301/BDS301 
+ 
+                                                                      Module – 4  
+Q.7 
+a. (i)   State central limit theorem. 
+(ii)  What is 95% and 99% confidence limits for unknown mean μ of a  
+       random sample of size n? 
+ 
+06
+L1 CO5
+ 
+b.
+Certain tubes manufactured by a company have mean life of 800 hours and 
+standard deviation of 60 hours. Using central limit theorem, find the 
+probability that a random sample of 16 tubes taken from the group will 
+have mean life time. 
+(i) 
+Between 790 hours and 810 hours. 
+(ii) 
+Less than 785 hours 
+(iii) 
+More than 820 hours 
+Given A(0.67) = 0.2486, A(1) = 0.3413, A(1.33) = 0.4082  
+ 
+07
+L2 CO4
+ 
+c. Two Samples of sizes 9 and 8 give the sum of squares of deviations from 
+their respective means equal to 160 inches2 and 91 inches2 respectively. 
+Can these be regarded as drawn from the same normal population? Use 5% 
+points of significance for F. 
+ 
+07
+L2 CO4
+                                                                           OR 
+Q.8 
+a. A random sample of 400 items choosen from an infinite population is found 
+to have a mean of 82 and a standard deviation of 18. Find the 95% 
+confidence limits for the mean of the population from which the sample is 
+drawn.  
+ 
+06
+L1 CO5
+ 
+b.
+A mechanist is making engine parts with axle diameter of 0.7 inch. A 
+random sample of 10 parts shows mean diameter 0.742 inch with standard 
+deviation of 0.04 inch. On the basis of this sample, would you say that the 
+work is interior, given 
+262
+.2
+t
+05
+.0
+
+ for degrees of freedom = 9. 
+ 
+07
+L2 CO4
+ 
+c. A set of five similar coins is tossed 320 times and result is, 
+Number of heads
+0
+1 
+2 
+3 
+4 
+5 
+Frequency 
+6
+27
+72
+112
+71
+32
+Test the hypothesis that the data follows Binomial distribution,  
+(Given : 
+07
+.
+11
+2
+05
+.0
+
+
+ for d.f = 5) 
+ 
+07
+L3 CO4
+                                                                      Module – 5  
+Q.9 
+a. Set up ANOVA table for the following information relating to three drugs 
+testing to judge the effectiveness in reducing blood pressure for three 
+different groups of people. 
+Group of people
+Drug 
+X 
+Y 
+Z 
+A 
+14
+15
+10
+9 
+11
+11
+B 
+12
+11
+7 
+8 
+10
+11
+C 
+ 
+10
+11
+11
+11
+8 
+7 
+Do the drugs act differently? 
+Are the different groups of people affected differently? Is the interaction 
+term significant? 
+Answer the above questions taking a significant level of 5%. Given  
+F(2, 9) = 4.26, F(4, 9) = 3.63   
+10
+L3 CO6
+3 of 4 
+ 
+VTU-16-06-2025 01:28:58pm
+16-06-2025 01:35:19pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+BCS301/BAD301/BAI301/BDS301 
+ 
+ 
+b.
+Present your conclusions after doing analysis of variance to the following 
+results of the Latin square design experiment conducted in respect of fiver 
+fertilizers which were used on plots of different fertility. Given   
+A 
+16
+B 
+10
+C 
+11
+D 
+9 
+E 
+9 
+E 
+10
+C 
+9 
+A 
+14
+B 
+12
+D 
+11
+B 
+15
+D 
+8 
+E 
+8 
+C 
+10
+A 
+18
+D 
+12
+E 
+6 
+B 
+13
+A 
+13
+C 
+12
+C 
+13
+A 
+11
+D 
+10
+E 
+7 
+B 
+14
+ 
+ 
+10
+L3 CO6
+                                                                           OR 
+Q.10
+a. It is desired to compare three hospitals with regards to the number of deaths 
+per month. A sample of death records were selected from the records of 
+each hospital and the number of deaths was as given below. From these 
+data, use ANOVA and suggest a difference in the number of deaths per 
+month among the three hospitals. Given at 5% level, F2,12 = 3.89. 
+Hospitals 
+A
+B
+C
+3 
+6 
+7 
+4 
+3 
+3 
+3 
+3 
+4 
+5 
+4 
+6 
+0 
+4 
+5 
+ 
+ 
+10
+L3 CO6
+ 
+b.
+Analyze and interpret the following statistics concerning output of wheat 
+per field obtained as a result of experiment conducted to test four varieties 
+of wheat viz. A, B, C and D under a Latin square design.  
+C 
+25
+B 
+23
+A 
+20
+D 
+20
+A 
+19
+D 
+19
+C 
+21
+B 
+18
+B 
+19
+A 
+14
+D 
+17
+C 
+20
+D 
+17
+C 
+20
+B 
+21
+A 
+15
+ 
+10
+L3 CO6
+ 
+                                                                 * * * * * 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+4 of 4 
+VTU-16-06-2025 01:28:58pm
+16-06-2025 01:35:19pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

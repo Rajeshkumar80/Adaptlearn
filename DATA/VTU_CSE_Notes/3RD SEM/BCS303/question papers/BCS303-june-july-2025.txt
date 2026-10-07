@@ -1,0 +1,271 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E./B.Tech. Degree Examination, June/July 2025 
+Operating Systems    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                       2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Define operating system.  Briefly explain what operating system do.  
+06
+L1 CO1
+ 
+b.
+What is caching? List and explain performance of various levels of storage. 
+08
+L1 CO1
+ 
+c. What are the different special purpose system ? List them and explain each 
+in brief.  
+06
+L1 CO1
+                                                                           OR 
+Q.2 
+a. Explain different operating system services which are helpful to the user.  
+06
+L2 CO1
+ 
+b.
+Define system calls. Explain with example how system calls are used.  
+08
+L1 CO1
+ 
+c. Discuss in detail about Operating System structure.  
+06
+L2 CO1
+                                                                      Module – 2  
+Q.3 
+a. Define process.  Explain with a neat diagram of process state.  
+08
+L1 CO2
+ 
+b.
+Describe the difference among short term, medium term and long term 
+scheduling.  
+06
+L3 CO2
+ 
+c. Differentiate the advantages and disadvantages of synchronous and  
+asynchronous communication  
+06
+L3 CO2
+                                                                           OR 
+Q.4 
+a. Consider the following set of process, with the length of the CPU burst 
+given in milliseconds:  
+Process
+Burst Time 
+Priority 
+P1 
+10 
+3 
+P2 
+1 
+1 
+P3 
+2 
+3 
+P4 
+1 
+4 
+P5 
+5 
+2 
+i) Draw the Gantt Charts for: FCFS, SJF, non preemptive priority 
+scheduling algorithms and RR ( quantum = 1)  
+ii) Calculate turnaround time and waiting time of each of process for the 
+scheduling algorithms in part a.   
+ 
+08
+L3 CO2
+ 
+b.
+Explain with example of single threaded and multi threaded process. 
+06
+L2 CO2
+ 
+c. Explain with a neat diagrams of multithreading models.  
+06
+L2 CO2
+                                                                      Module – 3  
+Q.5 
+a. Define semaphores.  Explain mutual exclusion implementation with 
+semaphores. 
+10
+L1 CO3
+ 
+b.
+What is a deadlock? Explain the situation of the dining philosophers 
+problem.  
+10
+L1 CO3
+                                                                              1 of 2                                                  
+                                                                                                                                   
+ 
+ 
+ 
+ 
+USN 
+BCS303 
+VTU-26-06-2025 01:25:12pm
+26-06-2025 01:34:32pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+                                                                                                                              BCS303 
+                                                                           OR 
+Q.6 
+a. Explain necessary conditions of deadlock and what are methods used for 
+handling deadlocks.  
+10
+L2 CO3
+ 
+b.
+Consider the following snapshot of a system:  
+ 
+Allocation 
+A   B   C  D 
+Max 
+A    B    C    D 
+Available  
+A    B    C    D 
+P0 
+0   0     1   2 
+0     0     1    2 
+1     5     2     0 
+P1 
+1   0    0   0 
+1    7      5    0  
+ 
+P2 
+1   3    5   4 
+2    3      5    6 
+ 
+P3 
+0   6    3   2 
+0    6      5    2 
+ 
+P4 
+0   0    1   4 
+0    6      5    6  
+ 
+ Answer the following questions using Bankers algorithm  : 
+i) What is the content of the matrix Need ?  
+ii) Is the system in safe state? 
+iii) If a request from process P1 arrives for ( 0,4,2,0) can the request be 
+granted immediately?  
+ 
+10
+L3 CO3
+                                                                      Module – 4  
+Q.7 
+a. Discuss the following : First fit,  Best fit and worst fit.  
+06
+L1 CO4
+ 
+b.
+Explain with a neat diagram paging for a  32 – bytes memory with 4 – byte 
+pages.  
+08
+L2 CO4
+ 
+c. Explain with a neat diagram segmentation Hardware.  
+06
+L2 CO4
+                                                                           OR 
+Q.8 
+a. Explain Demand paging with a neat diagram.  
+06
+L2 CO4
+ 
+b.
+How many page faults occur for the following reference string with three 
+page frames.  Using FIFO, optional and LRU algorithms.   
+(7  0  1  2  0  3  0  4  2  3  0  3  2  1  2  0  1  7  0  1 ) 
+08
+L2 CO4
+ 
+c. Explain Thrashing with a neat diagram.  
+06
+L1 CO4
+                                                                      Module – 5  
+Q.9 
+a. Explain different allocation methods of file systems.  
+08
+L2 CO5
+ 
+b.
+With a neat diagram Explain File system mounting? 
+06
+L1 CO5
+ 
+c. Define the file attributes, List different file operations and explain each in 
+brief.  
+06
+L1 CO5
+                                                                           OR 
+Q.10
+a. Suppose that a disk drives has 5000 cylinders, numbered 0 to 4999.  The 
+drive is currently serving a request at cylinder  No. 43 and the previous 
+request was at cylinder 125.  The queue of pending requests in FIFO order 
+is :   86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130.  
+Starting from the current Lead position, what is the total distance 
+( in cylinders)that the disk arm moves to satisfy  all the pending requests for 
+each of the following disk – scheduling algorithms?  
+a) FCFS  
+b) SSTF 
+c) SCAN 
+d) C - SCAN 
+08
+L3 CO5
+ 
+b.
+List and explain different goals and protection of an operating system.  
+06
+L2 CO6
+ 
+c. Discuss different file access methods  
+06
+L2 CO5
+                                                                             
+ 
+ 
+ 
+ 
+ 2 of 2 
+VTU-26-06-2025 01:25:12pm
+26-06-2025 01:34:32pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

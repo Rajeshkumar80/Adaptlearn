@@ -1,0 +1,2104 @@
+Section 9.4.
+Backward Chaining
+337
+The fact Magic(West) is also added to the KB. In this way, even if the knowledge base
+contains facts about millions of Americans, only Colonel West will be considered during the
+forward inference process. The complete process for deﬁning magic sets and rewriting the
+knowledge base is too complex to go into here, but the basic idea is to perform a sort of
+“generic” backward inference from the goal in order to work out which variable bindings
+need to be constrained. The magic sets approach can therefore be thought of as a kind of
+hybrid between forward inference and backward preprocessing.
+9.4
+BACKWARD CHAINING
+The second major family of logical inference algorithms uses the backward chaining ap-
+proach introduced in Section 7.5 for deﬁnite clauses. These algorithms work backward from
+the goal, chaining through rules to ﬁnd known facts that support the proof. We describe
+the basic algorithm, and then we describe how it is used in logic programming, which is the
+most widely used form of automated reasoning. We also see that backward chaining has some
+disadvantages compared with forward chaining, and we look at ways to overcome them. Fi-
+nally, we look at the close connection between logic programming and constraint satisfaction
+problems.
+9.4.1
+A backward-chaining algorithm
+Figure 9.6 shows a backward-chaining algorithm for deﬁnite clauses. FOL-BC-ASK(KB,
+goal) will be proved if the knowledge base contains a clause of the form lhs ⇒goal, where
+lhs (left-hand side) is a list of conjuncts. An atomic fact like American(West) is considered
+as a clause whose lhs is the empty list. Now a query that contains variables might be proved
+in multiple ways. For example, the query Person(x) could be proved with the substitution
+{x/John} as well as with {x/Richard}. So we implement FOL-BC-ASK as a generator—
+GENERATOR
+a function that returns multiple times, each time giving one possible result.
+Backward chaining is a kind of AND/OR search—the OR part because the goal query
+can be proved by any rule in the knowledge base, and the AND part because all the conjuncts
+in the lhs of a clause must be proved. FOL-BC-OR works by fetching all clauses that might
+unify with the goal, standardizing the variables in the clause to be brand-new variables, and
+then, if the rhs of the clause does indeed unify with the goal, proving every conjunct in the
+lhs, using FOL-BC-AND. That function in turn works by proving each of the conjuncts in
+turn, keeping track of the accumulated substitution as we go. Figure 9.7 is the proof tree for
+deriving Criminal(West) from sentences (9.3) through (9.10).
+Backward chaining, as we have written it, is clearly a depth-ﬁrst search algorithm.
+This means that its space requirements are linear in the size of the proof (neglecting, for
+now, the space required to accumulate the solutions). It also means that backward chaining
+(unlike forward chaining) suffers from problems with repeated states and incompleteness. We
+will discuss these problems and some potential solutions, but ﬁrst we show how backward
+chaining is used in logic programming systems.
+MODULE 5
+
+338
+Chapter
+9.
+Inference in First-Order Logic
+function FOL-BC-ASK(KB,query) returns a generator of substitutions
+return FOL-BC-OR(KB,query,{ })
+generator FOL-BC-OR(KB,goal,θ) yields a substitution
+for each rule (lhs ⇒rhs) in FETCH-RULES-FOR-GOAL(KB, goal) do
+(lhs, rhs) ←STANDARDIZE-VARIABLES((lhs, rhs))
+for each θ′ in FOL-BC-AND(KB,lhs, UNIFY(rhs, goal, θ)) do
+yield θ′
+generator FOL-BC-AND(KB,goals,θ) yields a substitution
+if θ = failure then return
+else if LENGTH(goals) = 0 then yield θ
+else do
+ﬁrst,rest ←FIRST(goals), REST(goals)
+for each θ′ in FOL-BC-OR(KB, SUBST(θ, ﬁrst), θ) do
+for each θ′′ in FOL-BC-AND(KB,rest,θ′) do
+yield θ′′
+Figure 9.6
+A simple backward-chaining algorithm for ﬁrst-order knowledge bases.
+Hostile(Nono)
+Enemy(Nono,America)
+Owns(Nono,M1)
+Missile(M1)
+Criminal(West)
+Missile(y)
+Weapon(y)
+Sells(West,M1,z)
+American(West)
+{y/M1}
+{ }
+{ }
+{ }
+ {z/Nono}
+{ }
+Figure 9.7
+Proof tree constructed by backward chaining to prove that West is a criminal.
+The tree should be read depth ﬁrst, left to right. To prove Criminal(West), we have to prove
+the four conjuncts below it. Some of these are in the knowledge base, and others require
+further backward chaining. Bindings for each successful uniﬁcation are shown next to the
+corresponding subgoal. Note that once one subgoal in a conjunction succeeds, its substitution
+is applied to subsequent subgoals. Thus, by the time FOL-BC-ASK gets to the last conjunct,
+originally Hostile(z), z is already bound to Nono.
+
+Section 9.4.
+Backward Chaining
+339
+9.4.2
+Logic programming
+Logic programming is a technology that comes fairly close to embodying the declarative
+ideal described in Chapter 7: that systems should be constructed by expressing knowledge in
+a formal language and that problems should be solved by running inference processes on that
+knowledge. The ideal is summed up in Robert Kowalski’s equation,
+Algorithm = Logic + Control .
+Prolog is the most widely used logic programming language. It is used primarily as a rapid-
+PROLOG
+prototyping language and for symbol-manipulation tasks such as writing compilers (Van Roy,
+1990) and parsing natural language (Pereira and Warren, 1980). Many expert systems have
+been written in Prolog for legal, medical, ﬁnancial, and other domains.
+Prolog programs are sets of deﬁnite clauses written in a notation somewhat different
+from standard ﬁrst-order logic. Prolog uses uppercase letters for variables and lowercase for
+constants—the opposite of our convention for logic. Commas separate conjuncts in a clause,
+and the clause is written “backwards” from what we are used to; instead of A ∧B ⇒C in
+Prolog we have C :- A, B. Here is a typical example:
+criminal(X) :- american(X), weapon(Y), sells(X,Y,Z), hostile(Z).
+The notation [E|L] denotes a list whose ﬁrst element is E and whose rest is L. Here is a
+Prolog program for append(X,Y,Z), which succeeds if list Z is the result of appending
+lists X and Y:
+append([],Y,Y).
+append([A|X],Y,[A|Z]) :- append(X,Y,Z).
+In English, we can read these clauses as (1) appending an empty list with a list Y produces
+the same list Y and (2) [A|Z] is the result of appending [A|X] onto Y, provided that Z is
+the result of appending X onto Y. In most high-level languages we can write a similar recur-
+sive function that describes how to append two lists. The Prolog deﬁnition is actually much
+more powerful, however, because it describes a relation that holds among three arguments,
+rather than a function computed from two arguments. For example, we can ask the query
+append(X,Y,[1,2]): what two lists can be appended to give [1,2]? We get back the
+solutions
+X=[]
+Y=[1,2];
+X=[1]
+Y=[2];
+X=[1,2] Y=[]
+The execution of Prolog programs is done through depth-ﬁrst backward chaining, where
+clauses are tried in the order in which they are written in the knowledge base. Some aspects
+of Prolog fall outside standard logical inference:
+• Prolog uses the database semantics of Section 8.2.8 rather than ﬁrst-order semantics,
+and this is apparent in its treatment of equality and negation (see Section 9.4.5).
+• There is a set of built-in functions for arithmetic. Literals using these function symbols
+are “proved” by executing code rather than doing further inference. For example, the
+
+340
+Chapter
+9.
+Inference in First-Order Logic
+goal “X is 4+3” succeeds with X bound to 7. On the other hand, the goal “5 is X+Y”
+fails, because the built-in functions do not do arbitrary equation solving.5
+• There are built-in predicates that have side effects when executed. These include input–
+output predicates and the assert/retract predicates for modifying the knowledge
+base. Such predicates have no counterpart in logic and can produce confusing results—
+for example, if facts are asserted in a branch of the proof tree that eventually fails.
+• The occur check is omitted from Prolog’s uniﬁcation algorithm. This means that some
+unsound inferences can be made; these are almost never a problem in practice.
+• Prolog uses depth-ﬁrst backward-chaining search with no checks for inﬁnite recursion.
+This makes it very fast when given the right set of axioms, but incomplete when given
+the wrong ones.
+Prolog’s design represents a compromise between declarativeness and execution efﬁciency—
+inasmuch as efﬁciency was understood at the time Prolog was designed.
+9.4.3
+Efﬁcient implementation of logic programs
+The execution of a Prolog program can happen in two modes: interpreted and compiled.
+Interpretation essentially amounts to running the FOL-BC-ASK algorithm from Figure 9.6,
+with the program as the knowledge base. We say “essentially” because Prolog interpreters
+contain a variety of improvements designed to maximize speed. Here we consider only two.
+First, our implementation had to explicitly manage the iteration over possible results
+generated by each of the subfunctions.
+Prolog interpreters have a global data structure,
+a stack of choice points, to keep track of the multiple possibilities that we considered in
+CHOICE POINT
+FOL-BC-OR. This global stack is more efﬁcient, and it makes debugging easier, because
+the debugger can move up and down the stack.
+Second, our simple implementation of FOL-BC-ASK spends a good deal of time gener-
+ating substitutions. Instead of explicitly constructing substitutions, Prolog has logic variables
+that remember their current binding. At any point in time, every variable in the program ei-
+ther is unbound or is bound to some value. Together, these variables and values implicitly
+deﬁne the substitution for the current branch of the proof. Extending the path can only add
+new variable bindings, because an attempt to add a different binding for an already bound
+variable results in a failure of uniﬁcation. When a path in the search fails, Prolog will back
+up to a previous choice point, and then it might have to unbind some variables. This is done
+by keeping track of all the variables that have been bound in a stack called the trail. As each
+TRAIL
+new variable is bound by UNIFY-VAR, the variable is pushed onto the trail. When a goal fails
+and it is time to back up to a previous choice point, each of the variables is unbound as it is
+removed from the trail.
+Even the most efﬁcient Prolog interpreters require several thousand machine instruc-
+tions per inference step because of the cost of index lookup, uniﬁcation, and building the
+recursive call stack. In effect, the interpreter always behaves as if it has never seen the pro-
+gram before; for example, it has to ﬁnd clauses that match the goal. A compiled Prolog
+5 Note that if the Peano axioms are provided, such goals can be solved by inference within a Prolog program.
+
+Section 9.4.
+Backward Chaining
+341
+procedure APPEND(ax,y,az,continuation)
+trail ←GLOBAL-TRAIL-POINTER()
+if ax = [ ] and UNIFY(y,az) then CALL(continuation)
+RESET-TRAIL(trail)
+a, x, z ←NEW-VARIABLE(), NEW-VARIABLE(), NEW-VARIABLE()
+if UNIFY(ax,[a | x]) and UNIFY(az,[a | z]) then APPEND(x,y,z,continuation)
+Figure 9.8
+Pseudocode representing the result of compiling the Append predicate. The
+function NEW-VARIABLE returns a new variable, distinct from all other variables used so far.
+The procedure CALL(continuation) continues execution with the speciﬁed continuation.
+program, on the other hand, is an inference procedure for a speciﬁc set of clauses, so it knows
+what clauses match the goal. Prolog basically generates a miniature theorem prover for each
+different predicate, thereby eliminating much of the overhead of interpretation. It is also pos-
+sible to open-code the uniﬁcation routine for each different call, thereby avoiding explicit
+OPEN-CODE
+analysis of term structure. (For details of open-coded uniﬁcation, see Warren et al. (1977).)
+The instruction sets of today’s computers give a poor match with Prolog’s semantics,
+so most Prolog compilers compile into an intermediate language rather than directly into ma-
+chine language. The most popular intermediate language is the Warren Abstract Machine,
+or WAM, named after David H. D. Warren, one of the implementers of the ﬁrst Prolog com-
+piler. The WAM is an abstract instruction set that is suitable for Prolog and can be either
+interpreted or translated into machine language. Other compilers translate Prolog into a high-
+level language such as Lisp or C and then use that language’s compiler to translate to machine
+language. For example, the deﬁnition of the Append predicate can be compiled into the code
+shown in Figure 9.8. Several points are worth mentioning:
+• Rather than having to search the knowledge base for Append clauses, the clauses be-
+come a procedure and the inferences are carried out simply by calling the procedure.
+• As described earlier, the current variable bindings are kept on a trail. The ﬁrst step of the
+procedure saves the current state of the trail, so that it can be restored by RESET-TRAIL
+if the ﬁrst clause fails. This will undo any bindings generated by the ﬁrst call to UNIFY.
+• The trickiest part is the use of continuations to implement choice points. You can think
+CONTINUATION
+of a continuation as packaging up a procedure and a list of arguments that together
+deﬁne what should be done next whenever the current goal succeeds. It would not
+do just to return from a procedure like APPEND when the goal succeeds, because it
+could succeed in several ways, and each of them has to be explored. The continuation
+argument solves this problem because it can be called each time the goal succeeds. In
+the APPEND code, if the ﬁrst argument is empty and the second argument uniﬁes with
+the third, then the APPEND predicate has succeeded. We then CALL the continuation,
+with the appropriate bindings on the trail, to do whatever should be done next. For
+example, if the call to APPEND were at the top level, the continuation would print the
+bindings of the variables.
+
+342
+Chapter
+9.
+Inference in First-Order Logic
+Before Warren’s work on the compilation of inference in Prolog, logic programming was
+too slow for general use. Compilers by Warren and others allowed Prolog code to achieve
+speeds that are competitive with C on a variety of standard benchmarks (Van Roy, 1990).
+Of course, the fact that one can write a planner or natural language parser in a few dozen
+lines of Prolog makes it somewhat more desirable than C for prototyping most small-scale AI
+research projects.
+Parallelization can also provide substantial speedup. There are two principal sources of
+parallelism. The ﬁrst, called OR-parallelism, comes from the possibility of a goal unifying
+OR-PARALLELISM
+with many different clauses in the knowledge base. Each gives rise to an independent branch
+in the search space that can lead to a potential solution, and all such branches can be solved
+in parallel. The second, called AND-parallelism, comes from the possibility of solving
+AND-PARALLELISM
+each conjunct in the body of an implication in parallel. AND-parallelism is more difﬁcult to
+achieve, because solutions for the whole conjunction require consistent bindings for all the
+variables. Each conjunctive branch must communicate with the other branches to ensure a
+global solution.
+9.4.4
+Redundant inference and inﬁnite loops
+We now turn to the Achilles heel of Prolog: the mismatch between depth-ﬁrst search and
+search trees that include repeated states and inﬁnite paths. Consider the following logic pro-
+gram that decides if a path exists between two points on a directed graph:
+path(X,Z) :- link(X,Z).
+path(X,Z) :- path(X,Y), link(Y,Z).
+A simple three-node graph, described by the facts link(a,b) and link(b,c), is shown
+in Figure 9.9(a). With this program, the query path(a,c) generates the proof tree shown
+in Figure 9.10(a). On the other hand, if we put the two clauses in the order
+path(X,Z) :- path(X,Y), link(Y,Z).
+path(X,Z) :- link(X,Z).
+then Prolog follows the inﬁnite path shown in Figure 9.10(b). Prolog is therefore incomplete
+as a theorem prover for deﬁnite clauses—even for Datalog programs, as this example shows—
+because, for some knowledge bases, it fails to prove sentences that are entailed. Notice that
+forward chaining does not suffer from this problem: once path(a,b), path(b,c), and
+path(a,c) are inferred, forward chaining halts.
+Depth-ﬁrst backward chaining also has problems with redundant computations. For
+example, when ﬁnding a path from A1 to J4 in Figure 9.9(b), Prolog performs 877 inferences,
+most of which involve ﬁnding all possible paths to nodes from which the goal is unreachable.
+This is similar to the repeated-state problem discussed in Chapter 3. The total amount of
+inference can be exponential in the number of ground facts that are generated. If we apply
+forward chaining instead, at most n2 path(X,Y) facts can be generated linking n nodes.
+For the problem in Figure 9.9(b), only 62 inferences are needed.
+Forward chaining on graph search problems is an example of dynamic programming,
+DYNAMIC
+PROGRAMMING
+in which the solutions to subproblems are constructed incrementally from those of smaller
+
+Section 9.4.
+Backward Chaining
+343
+(a)
+(b)
+A
+B
+C
+A1
+J4
+Figure 9.9
+(a) Finding a path from A to C can lead Prolog into an inﬁnite loop. (b) A
+graph in which each node is connected to two random successors in the next layer. Finding a
+path from A1 to J4 requires 877 inferences.
+path(a,c)
+fail
+{
+}
+/
+Y b
+{ }
+link(a,c)
+path(a,Y)
+link(a,Y)
+link(b,c)
+path(a,c)
+path(a,Y)
+link(Y,c)
+path(a,Y’)
+link(Y’,Y)
+(a)
+(b)
+Figure 9.10
+(a) Proof that a path exists from A to C. (b) Inﬁnite proof tree generated
+when the clauses are in the “wrong” order.
+subproblems and are cached to avoid recomputation. We can obtain a similar effect in a
+backward chaining system using memoization—that is, caching solutions to subgoals as
+they are found and then reusing those solutions when the subgoal recurs, rather than repeat-
+ing the previous computation. This is the approach taken by tabled logic programming sys-
+TABLED LOGIC
+PROGRAMMING
+tems, which use efﬁcient storage and retrieval mechanisms to perform memoization. Tabled
+logic programming combines the goal-directedness of backward chaining with the dynamic-
+programming efﬁciency of forward chaining. It is also complete for Datalog knowledge
+bases, which means that the programmer need worry less about inﬁnite loops. (It is still pos-
+sible to get an inﬁnite loop with predicates like father(X,Y) that refer to a potentially
+unbounded number of objects.)
+9.4.5
+Database semantics of Prolog
+Prolog uses database semantics, as discussed in Section 8.2.8. The unique names assumption
+says that every Prolog constant and every ground term refers to a distinct object, and the
+closed world assumption says that the only sentences that are true are those that are entailed
+
+344
+Chapter
+9.
+Inference in First-Order Logic
+by the knowledge base. There is no way to assert that a sentence is false in Prolog. This makes
+Prolog less expressive than ﬁrst-order logic, but it is part of what makes Prolog more efﬁcient
+and more concise. Consider the following Prolog assertions about some course offerings:
+Course(CS, 101), Course(CS, 102), Course(CS, 106), Course(EE, 101). (9.11)
+Under the unique names assumption, CS and EE are different (as are 101, 102, and 106),
+so this means that there are four distinct courses. Under the closed-world assumption there
+are no other courses, so there are exactly four courses. But if these were assertions in FOL
+rather than in Prolog, then all we could say is that there are somewhere between one and
+inﬁnity courses. That’s because the assertions (in FOL) do not deny the possibility that other
+unmentioned courses are also offered, nor do they say that the courses mentioned are different
+from each other. If we wanted to translate Equation (9.11) into FOL, we would get this:
+Course(d, n)
+⇔
+(d = CS ∧n = 101) ∨(d = CS ∧n = 102)
+∨(d = CS ∧n = 106) ∨(d = EE ∧n = 101) .
+(9.12)
+This is called the completion of Equation (9.11). It expresses in FOL the idea that there are
+COMPLETION
+at most four courses. To express in FOL the idea that there are at least four courses, we need
+to write the completion of the equality predicate:
+x = y
+⇔
+(x = CS ∧y = CS) ∨(x = EE ∧y = EE) ∨(x = 101 ∧y = 101)
+∨(x = 102 ∧y = 102) ∨(x = 106 ∧y = 106) .
+The completion is useful for understanding database semantics, but for practical purposes, if
+your problem can be described with database semantics, it is more efﬁcient to reason with
+Prolog or some other database semantics system, rather than translating into FOL and rea-
+soning with a full FOL theorem prover.
+9.4.6
+Constraint logic programming
+In our discussion of forward chaining (Section 9.3), we showed how constraint satisfaction
+problems (CSPs) can be encoded as deﬁnite clauses. Standard Prolog solves such problems
+in exactly the same way as the backtracking algorithm given in Figure 6.5.
+Because backtracking enumerates the domains of the variables, it works only for ﬁnite-
+domain CSPs. In Prolog terms, there must be a ﬁnite number of solutions for any goal
+with unbound variables. (For example, the goal diff(Q,SA), which says that Queensland
+and South Australia must be different colors, has six solutions if three colors are allowed.)
+Inﬁnite-domain CSPs—for example, with integer or real-valued variables—require quite dif-
+ferent algorithms, such as bounds propagation or linear programming.
+Consider the following example. We deﬁne triangle(X,Y,Z) as a predicate that
+holds if the three arguments are numbers that satisfy the triangle inequality:
+triangle(X,Y,Z) :-
+X>0, Y>0, Z>0, X+Y>=Z, Y+Z>=X, X+Z>=Y.
+If we ask Prolog the query triangle(3,4,5), it succeeds. On the other hand, if we
+ask triangle(3,4,Z), no solution will be found, because the subgoal Z>=0 cannot be
+handled by Prolog; we can’t compare an unbound value to 0.
+
+Section 9.5.
+Resolution
+345
+Constraint logic programming (CLP) allows variables to be constrained rather than
+CONSTRAINT LOGIC
+PROGRAMMING
+bound. A CLP solution is the most speciﬁc set of constraints on the query variables that can
+be derived from the knowledge base. For example, the solution to the triangle(3,4,Z)
+query is the constraint 7 >= Z >= 1. Standard logic programs are just a special case of
+CLP in which the solution constraints must be equality constraints—that is, bindings.
+CLP systems incorporate various constraint-solving algorithms for the constraints al-
+lowed in the language. For example, a system that allows linear inequalities on real-valued
+variables might include a linear programming algorithm for solving those constraints. CLP
+systems also adopt a much more ﬂexible approach to solving standard logic programming
+queries. For example, instead of depth-ﬁrst, left-to-right backtracking, they might use any of
+the more efﬁcient algorithms discussed in Chapter 6, including heuristic conjunct ordering,
+backjumping, cutset conditioning, and so on. CLP systems therefore combine elements of
+constraint satisfaction algorithms, logic programming, and deductive databases.
+Several systems that allow the programmer more control over the search order for in-
+ference have been deﬁned. The MRS language (Genesereth and Smith, 1981; Russell, 1985)
+allows the programmer to write metarules to determine which conjuncts are tried ﬁrst. The
+METARULE
+user could write a rule saying that the goal with the fewest variables should be tried ﬁrst or
+could write domain-speciﬁc rules for particular predicates.
+9.5
+RESOLUTION
+The last of our three families of logical systems is based on resolution. We saw on page 250
+that propositional resolution using refutation is a complete inference procedure for proposi-
+tional logic. In this section, we describe how to extend resolution to ﬁrst-order logic.
+9.5.1
+Conjunctive normal form for ﬁrst-order logic
+As in the propositional case, ﬁrst-order resolution requires that sentences be in conjunctive
+normal form (CNF)—that is, a conjunction of clauses, where each clause is a disjunction of
+literals.6 Literals can contain variables, which are assumed to be universally quantiﬁed. For
+example, the sentence
+∀x American(x) ∧Weapon(y) ∧Sells(x, y, z) ∧Hostile(z) ⇒Criminal(x)
+becomes, in CNF,
+¬American(x) ∨¬Weapon(y) ∨¬Sells(x, y, z) ∨¬Hostile(z) ∨Criminal(x) .
+Every sentence of ﬁrst-order logic can be converted into an inferentially equivalent CNF
+sentence. In particular, the CNF sentence will be unsatisﬁable just when the original sentence
+is unsatisﬁable, so we have a basis for doing proofs by contradiction on the CNF sentences.
+6 A clause can also be represented as an implication with a conjunction of atoms in the premise and a disjunction
+of atoms in the conclusion (Exercise 7.13). This is called implicative normal form or Kowalski form (especially
+when written with a right-to-left implication symbol (Kowalski, 1979)) and is often much easier to read.
+
+346
+Chapter
+9.
+Inference in First-Order Logic
+The procedure for conversion to CNF is similar to the propositional case, which we saw
+on page 253. The principal difference arises from the need to eliminate existential quantiﬁers.
+We illustrate the procedure by translating the sentence “Everyone who loves all animals is
+loved by someone,” or
+∀x [∀y Animal(y) ⇒Loves(x, y)] ⇒[∃y Loves(y, x)] .
+The steps are as follows:
+• Eliminate implications:
+∀x [¬∀y ¬Animal(y) ∨Loves(x, y)] ∨[∃y Loves(y, x)] .
+• Move ¬ inwards: In addition to the usual rules for negated connectives, we need rules
+for negated quantiﬁers. Thus, we have
+¬∀x p
+becomes
+∃x ¬p
+¬∃x p
+becomes
+∀x ¬p .
+Our sentence goes through the following transformations:
+∀x [∃y ¬(¬Animal(y) ∨Loves(x, y))] ∨[∃y Loves(y, x)] .
+∀x [∃y ¬¬Animal(y) ∧¬Loves(x, y)] ∨[∃y Loves(y, x)] .
+∀x [∃y Animal(y) ∧¬Loves(x, y)] ∨[∃y Loves(y, x)] .
+Notice how a universal quantiﬁer (∀y) in the premise of the implication has become
+an existential quantiﬁer. The sentence now reads “Either there is some animal that x
+doesn’t love, or (if this is not the case) someone loves x.” Clearly, the meaning of the
+original sentence has been preserved.
+• Standardize variables: For sentences like (∃x P(x))∨(∃x Q(x)) which use the same
+variable name twice, change the name of one of the variables. This avoids confusion
+later when we drop the quantiﬁers. Thus, we have
+∀x [∃y Animal(y) ∧¬Loves(x, y)] ∨[∃z Loves(z, x)] .
+• Skolemize: Skolemization is the process of removing existential quantiﬁers by elimi-
+SKOLEMIZATION
+nation. In the simple case, it is just like the Existential Instantiation rule of Section 9.1:
+translate ∃x P(x) into P(A), where A is a new constant. However, we can’t apply Ex-
+istential Instantiation to our sentence above because it doesn’t match the pattern ∃v α;
+only parts of the sentence match the pattern. If we blindly apply the rule to the two
+matching parts we get
+∀x [Animal(A) ∧¬Loves(x, A)] ∨Loves(B, x) ,
+which has the wrong meaning entirely: it says that everyone either fails to love a par-
+ticular animal A or is loved by some particular entity B. In fact, our original sentence
+allows each person to fail to love a different animal or to be loved by a different person.
+Thus, we want the Skolem entities to depend on x and z:
+∀x [Animal(F(x)) ∧¬Loves(x, F(x))] ∨Loves(G(z), x) .
+Here F and G are Skolem functions. The general rule is that the arguments of the
+SKOLEM FUNCTION
+Skolem function are all the universally quantiﬁed variables in whose scope the exis-
+tential quantiﬁer appears. As with Existential Instantiation, the Skolemized sentence is
+satisﬁable exactly when the original sentence is satisﬁable.
+
+Section 9.5.
+Resolution
+347
+• Drop universal quantiﬁers: At this point, all remaining variables must be universally
+quantiﬁed. Moreover, the sentence is equivalent to one in which all the universal quan-
+tiﬁers have been moved to the left. We can therefore drop the universal quantiﬁers:
+[Animal(F(x)) ∧¬Loves(x, F(x))] ∨Loves(G(z), x) .
+• Distribute ∨over ∧:
+[Animal(F(x)) ∨Loves(G(z), x)] ∧[¬Loves(x, F(x)) ∨Loves(G(z), x)] .
+This step may also require ﬂattening out nested conjunctions and disjunctions.
+The sentence is now in CNF and consists of two clauses. It is quite unreadable. (It may
+help to explain that the Skolem function F(x) refers to the animal potentially unloved by x,
+whereas G(z) refers to someone who might love x.) Fortunately, humans seldom need look
+at CNF sentences—the translation process is easily automated.
+9.5.2
+The resolution inference rule
+The resolution rule for ﬁrst-order clauses is simply a lifted version of the propositional reso-
+lution rule given on page 253. Two clauses, which are assumed to be standardized apart so
+that they share no variables, can be resolved if they contain complementary literals. Propo-
+sitional literals are complementary if one is the negation of the other; ﬁrst-order literals are
+complementary if one uniﬁes with the negation of the other. Thus, we have
+ℓ1 ∨· · · ∨ℓk,
+m1 ∨· · · ∨mn
+SUBST(θ, ℓ1 ∨· · · ∨ℓi−1 ∨ℓi+1 ∨· · · ∨ℓk ∨m1 ∨· · · ∨mj−1 ∨mj+1 ∨· · · ∨mn)
+where UNIFY(ℓi, ¬mj) = θ. For example, we can resolve the two clauses
+[Animal(F(x)) ∨Loves(G(x), x)]
+and
+[¬Loves(u, v) ∨¬Kills(u, v)]
+by eliminating the complementary literals Loves(G(x), x) and ¬Loves(u, v), with uniﬁer
+θ = {u/G(x), v/x}, to produce the resolvent clause
+[Animal(F(x)) ∨¬Kills(G(x), x)] .
+This rule is called the binary resolution rule because it resolves exactly two literals. The
+BINARY RESOLUTION
+binary resolution rule by itself does not yield a complete inference procedure. The full reso-
+lution rule resolves subsets of literals in each clause that are uniﬁable. An alternative approach
+is to extend factoring—the removal of redundant literals—to the ﬁrst-order case. Proposi-
+tional factoring reduces two literals to one if they are identical; ﬁrst-order factoring reduces
+two literals to one if they are uniﬁable. The uniﬁer must be applied to the entire clause. The
+combination of binary resolution and factoring is complete.
+9.5.3
+Example proofs
+Resolution proves that KB |= α by proving KB ∧¬α unsatisﬁable, that is, by deriving the
+empty clause. The algorithmic approach is identical to the propositional case, described in
+
+348
+Chapter
+9.
+Inference in First-Order Logic
+¬American(x)    ¬Weapon(y)    ¬Sells(x,y,z)   ¬Hostile(z)   Criminal(x)
+¬Criminal(West)
+¬Enemy(Nono,America)
+Enemy(Nono,America)
+¬Missile(x)   Weapon(x)
+¬Weapon(y)   ¬Sells(West,y,z)   ¬Hostile(z)
+Missile(M1)
+¬Missile(y)   ¬Sells(West,y,z)   ¬Hostile(z)
+¬Missile(x)   ¬Owns(Nono,x)    Sells(West,x,Nono)
+¬Sells(West,M1,z)   ¬Hostile(z)
+¬American(West)   ¬Weapon(y)   ¬Sells(West,y,z)   ¬Hostile(z)
+American(West)
+¬Missile(M1)   ¬Owns(Nono,M1)   ¬Hostile(Nono)
+Missile(M1)
+¬Owns(Nono,M1)   ¬Hostile(Nono)
+Owns(Nono,M1)
+¬Enemy(x,America)   Hostile(x)
+¬Hostile(Nono)
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+Figure 9.11
+A resolution proof that West is a criminal. At each step, the literals that unify
+are in bold.
+Figure 7.12, so we need not repeat it here. Instead, we give two example proofs. The ﬁrst is
+the crime example from Section 9.3. The sentences in CNF are
+¬American(x) ∨¬Weapon(y) ∨¬Sells(x, y, z) ∨¬Hostile(z) ∨Criminal(x)
+¬Missile(x) ∨¬Owns(Nono, x) ∨Sells(West, x, Nono)
+¬Enemy(x, America) ∨Hostile(x)
+¬Missile(x) ∨Weapon(x)
+Owns(Nono, M1)
+Missile(M1)
+American(West)
+Enemy(Nono, America) .
+We also include the negated goal ¬Criminal(West). The resolution proof is shown in Fig-
+ure 9.11. Notice the structure: single “spine” beginning with the goal clause, resolving against
+clauses from the knowledge base until the empty clause is generated. This is characteristic
+of resolution on Horn clause knowledge bases. In fact, the clauses along the main spine
+correspond exactly to the consecutive values of the goals variable in the backward-chaining
+algorithm of Figure 9.6. This is because we always choose to resolve with a clause whose
+positive literal uniﬁed with the leftmost literal of the “current” clause on the spine; this is
+exactly what happens in backward chaining. Thus, backward chaining is just a special case
+of resolution with a particular control strategy to decide which resolution to perform next.
+Our second example makes use of Skolemization and involves clauses that are not def-
+inite clauses. This results in a somewhat more complex proof structure. In English, the
+problem is as follows:
+Everyone who loves all animals is loved by someone.
+Anyone who kills an animal is loved by no one.
+Jack loves all animals.
+Either Jack or Curiosity killed the cat, who is named Tuna.
+Did Curiosity kill the cat?
+
+Section 9.5.
+Resolution
+349
+First, we express the original sentences, some background knowledge, and the negated goal
+G in ﬁrst-order logic:
+A.
+∀x [∀y Animal(y) ⇒Loves(x, y)] ⇒[∃y Loves(y, x)]
+B.
+∀x [∃z Animal(z) ∧Kills(x, z)] ⇒[∀y ¬Loves(y, x)]
+C.
+∀x Animal(x) ⇒Loves(Jack, x)
+D.
+Kills(Jack, Tuna) ∨Kills(Curiosity, Tuna)
+E.
+Cat(Tuna)
+F.
+∀x Cat(x) ⇒Animal(x)
+¬G.
+¬Kills(Curiosity, Tuna)
+Now we apply the conversion procedure to convert each sentence to CNF:
+A1.
+Animal(F(x)) ∨Loves(G(x), x)
+A2.
+¬Loves(x, F(x)) ∨Loves(G(x), x)
+B.
+¬Loves(y, x) ∨¬Animal(z) ∨¬Kills(x, z)
+C.
+¬Animal(x) ∨Loves(Jack, x)
+D.
+Kills(Jack, Tuna) ∨Kills(Curiosity, Tuna)
+E.
+Cat(Tuna)
+F.
+¬Cat(x) ∨Animal(x)
+¬G.
+¬Kills(Curiosity, Tuna)
+The resolution proof that Curiosity killed the cat is given in Figure 9.12. In English, the proof
+could be paraphrased as follows:
+Suppose Curiosity did not kill Tuna. We know that either Jack or Curiosity did; thus
+Jack must have. Now, Tuna is a cat and cats are animals, so Tuna is an animal. Because
+anyone who kills an animal is loved by no one, we know that no one loves Jack. On the
+other hand, Jack loves all animals, so someone loves him; so we have a contradiction.
+Therefore, Curiosity killed the cat.
+¬Loves(y, Jack)
+Loves(G(Jack), Jack)
+¬Kills(Curiosity, Tuna)
+Kills(Jack, Tuna)   Kills(Curiosity, Tuna)
+¬Cat(x)   Animal(x)
+Cat(Tuna)
+¬Animal(F(Jack))   Loves(G(Jack), Jack)
+Animal(F(x))   Loves(G(x), x) 
+¬Loves(y, x)   ¬Kills(x, Tuna)
+Kills(Jack, Tuna)
+¬Loves(y, x)   ¬Animal(z)   ¬Kills(x, z)
+Animal(Tuna)
+¬Loves(x,F(x))   Loves(G(x), x)
+¬Animal(x)   Loves(Jack, x)
+^
+^
+^
+^
+^
+^
+^
+^
+^
+Figure 9.12
+A resolution proof that Curiosity killed the cat. Notice the use of factoring
+in the derivation of the clause Loves(G(Jack), Jack). Notice also in the upper right, the
+uniﬁcation of Loves(x, F(x)) and Loves(Jack, x) can only succeed after the variables have
+been standardized apart.
+
+350
+Chapter
+9.
+Inference in First-Order Logic
+The proof answers the question “Did Curiosity kill the cat?” but often we want to pose more
+general questions, such as “Who killed the cat?” Resolution can do this, but it takes a little
+more work to obtain the answer. The goal is ∃w Kills(w, Tuna), which, when negated,
+becomes ¬Kills(w, Tuna) in CNF. Repeating the proof in Figure 9.12 with the new negated
+goal, we obtain a similar proof tree, but with the substitution {w/Curiosity} in one of the
+steps. So, in this case, ﬁnding out who killed the cat is just a matter of keeping track of the
+bindings for the query variables in the proof.
+Unfortunately, resolution can produce nonconstructive proofs for existential goals.
+NONCONSTRUCTIVE
+PROOF
+For example, ¬Kills(w, Tuna) resolves with Kills(Jack, Tuna) ∨Kills(Curiosity, Tuna)
+to give Kills(Jack, Tuna), which resolves again with ¬Kills(w, Tuna) to yield the empty
+clause. Notice that w has two different bindings in this proof; resolution is telling us that,
+yes, someone killed Tuna—either Jack or Curiosity. This is no great surprise! One so-
+lution is to restrict the allowed resolution steps so that the query variables can be bound
+only once in a given proof; then we need to be able to backtrack over the possible bind-
+ings. Another solution is to add a special answer literal to the negated goal, which be-
+ANSWER LITERAL
+comes ¬Kills(w, Tuna) ∨Answer(w). Now, the resolution process generates an answer
+whenever a clause is generated containing just a single answer literal. For the proof in Fig-
+ure 9.12, this is Answer(Curiosity). The nonconstructive proof would generate the clause
+Answer(Curiosity) ∨Answer(Jack), which does not constitute an answer.
+9.5.4
+Completeness of resolution
+This section gives a completeness proof of resolution. It can be safely skipped by those who
+are willing to take it on faith.
+We show that resolution is refutation-complete, which means that if a set of sentences
+REFUTATION
+COMPLETENESS
+is unsatisﬁable, then resolution will always be able to derive a contradiction. Resolution
+cannot be used to generate all logical consequences of a set of sentences, but it can be used
+to establish that a given sentence is entailed by the set of sentences. Hence, it can be used to
+ﬁnd all answers to a given question, Q(x), by proving that KB ∧¬Q(x) is unsatisﬁable.
+We take it as given that any sentence in ﬁrst-order logic (without equality) can be rewrit-
+ten as a set of clauses in CNF. This can be proved by induction on the form of the sentence,
+using atomic sentences as the base case (Davis and Putnam, 1960). Our goal therefore is to
+prove the following: if S is an unsatisﬁable set of clauses, then the application of a ﬁnite
+number of resolution steps to S will yield a contradiction.
+Our proof sketch follows Robinson’s original proof with some simpliﬁcations from
+Genesereth and Nilsson (1987). The basic structure of the proof (Figure 9.13) is as follows:
+1. First, we observe that if S is unsatisﬁable, then there exists a particular set of ground
+instances of the clauses of S such that this set is also unsatisﬁable (Herbrand’s theorem).
+2. We then appeal to the ground resolution theorem given in Chapter 7, which states that
+propositional resolution is complete for ground sentences.
+3. We then use a lifting lemma to show that, for any propositional resolution proof using
+the set of ground sentences, there is a corresponding ﬁrst-order resolution proof using
+the ﬁrst-order sentences from which the ground sentences were obtained.
+
+Section 9.5.
+Resolution
+351
+Resolution can find a contradiction in S'
+There is a resolution proof for the contradiction in S'
+Herbrand’s theorem
+Some set S' of ground instances is unsatisfiable
+Any set of sentences S is representable in clausal form
+Assume S is unsatisfiable, and in clausal form
+Lifting lemma
+Ground resolution
+theorem
+Figure 9.13
+Structure of a completeness proof for resolution.
+To carry out the ﬁrst step, we need three new concepts:
+• Herbrand universe: If S is a set of clauses, then HS, the Herbrand universe of S, is
+HERBRAND
+UNIVERSE
+the set of all ground terms constructable from the following:
+a. The function symbols in S, if any.
+b. The constant symbols in S, if any; if none, then the constant symbol A.
+For example, if S contains just the clause ¬P(x, F(x, A))∨¬Q(x, A)∨R(x, B), then
+HS is the following inﬁnite set of ground terms:
+{A, B, F(A, A), F(A, B), F(B, A), F(B, B), F(A, F(A, A)), . . .} .
+• Saturation: If S is a set of clauses and P is a set of ground terms, then P(S), the
+SATURATION
+saturation of S with respect to P, is the set of all ground clauses obtained by applying
+all possible consistent substitutions of ground terms in P with variables in S.
+• Herbrand base: The saturation of a set S of clauses with respect to its Herbrand uni-
+HERBRAND BASE
+verse is called the Herbrand base of S, written as HS(S). For example, if S contains
+solely the clause just given, then HS(S) is the inﬁnite set of clauses
+{¬P(A, F(A, A)) ∨¬Q(A, A) ∨R(A, B),
+¬P(B, F(B, A)) ∨¬Q(B, A) ∨R(B, B),
+¬P(F(A, A), F(F(A, A), A)) ∨¬Q(F(A, A), A) ∨R(F(A, A), B),
+¬P(F(A, B), F(F(A, B), A)) ∨¬Q(F(A, B), A) ∨R(F(A, B), B), . . . }
+These deﬁnitions allow us to state a form of Herbrand’s theorem (Herbrand, 1930):
+HERBRAND’S
+THEOREM
+If a set S of clauses is unsatisﬁable, then there exists a ﬁnite subset of HS(S) that
+is also unsatisﬁable.
+Let S′ be this ﬁnite subset of ground sentences. Now, we can appeal to the ground resolution
+theorem (page 255) to show that the resolution closure RC(S′) contains the empty clause.
+That is, running propositional resolution to completion on S′ will derive a contradiction.
+Now that we have established that there is always a resolution proof involving some
+ﬁnite subset of the Herbrand base of S, the next step is to show that there is a resolution
+
+352
+Chapter
+9.
+Inference in First-Order Logic
+G ¨ODEL’S INCOMPLETENESS THEOREM
+By slightly extending the language of ﬁrst-order logic to allow for the mathemat-
+ical induction schema in arithmetic, Kurt G¨odel was able to show, in his incom-
+pleteness theorem, that there are true arithmetic sentences that cannot be proved.
+The proof of the incompleteness theorem is somewhat beyond the scope of
+this book, occupying, as it does, at least 30 pages, but we can give a hint here. We
+begin with the logical theory of numbers. In this theory, there is a single constant,
+0, and a single function, S (the successor function). In the intended model, S(0)
+denotes 1, S(S(0)) denotes 2, and so on; the language therefore has names for all
+the natural numbers. The vocabulary also includes the function symbols +, ×, and
+Expt (exponentiation) and the usual set of logical connectives and quantiﬁers. The
+ﬁrst step is to notice that the set of sentences that we can write in this language can
+be enumerated. (Imagine deﬁning an alphabetical order on the symbols and then
+arranging, in alphabetical order, each of the sets of sentences of length 1, 2, and
+so on.) We can then number each sentence α with a unique natural number #α
+(the G¨odel number). This is crucial: number theory contains a name for each of
+its own sentences. Similarly, we can number each possible proof P with a G¨odel
+number G(P), because a proof is simply a ﬁnite sequence of sentences.
+Now suppose we have a recursively enumerable set A of sentences that are
+true statements about the natural numbers. Recalling that A can be named by a
+given set of integers, we can imagine writing in our language a sentence α(j, A) of
+the following sort:
+∀i i is not the G¨odel number of a proof of the sentence whose G¨odel
+number is j, where the proof uses only premises in A.
+Then let σ be the sentence α(#σ, A), that is, a sentence that states its own unprov-
+ability from A. (That this sentence always exists is true but not entirely obvious.)
+Now we make the following ingenious argument: Suppose that σ is provable
+from A; then σ is false (because σ says it cannot be proved). But then we have a
+false sentence that is provable from A, so A cannot consist of only true sentences—
+a violation of our premise. Therefore, σ is not provable from A. But this is exactly
+what σ itself claims; hence σ is a true sentence.
+So, we have shown (barring 29 1
+2 pages) that for any set of true sentences of
+number theory, and in particular any set of basic axioms, there are other true sen-
+tences that cannot be proved from those axioms. This establishes, among other
+things, that we can never prove all the theorems of mathematics within any given
+system of axioms. Clearly, this was an important discovery for mathematics. Its
+signiﬁcance for AI has been widely debated, beginning with speculations by G¨odel
+himself. We take up the debate in Chapter 26.
+
+Section 9.5.
+Resolution
+353
+proof using the clauses of S itself, which are not necessarily ground clauses. We start by
+considering a single application of the resolution rule. Robinson stated this lemma:
+Let C1 and C2 be two clauses with no shared variables, and let C′
+1 and C′
+2 be
+ground instances of C1 and C2. If C′ is a resolvent of C′
+1 and C′
+2, then there exists
+a clause C such that (1) C is a resolvent of C1 and C2 and (2) C′ is a ground
+instance of C.
+This is called a lifting lemma, because it lifts a proof step from ground clauses up to general
+LIFTING LEMMA
+ﬁrst-order clauses. In order to prove his basic lifting lemma, Robinson had to invent uniﬁ-
+cation and derive all of the properties of most general uniﬁers. Rather than repeat the proof
+here, we simply illustrate the lemma:
+C1 = ¬P(x, F(x, A)) ∨¬Q(x, A) ∨R(x, B)
+C2 = ¬N(G(y), z) ∨P(H(y), z)
+C′
+1 = ¬P(H(B), F(H(B), A)) ∨¬Q(H(B), A) ∨R(H(B), B)
+C′
+2 = ¬N(G(B), F(H(B), A)) ∨P(H(B), F(H(B), A))
+C′ = ¬N(G(B), F(H(B), A)) ∨¬Q(H(B), A) ∨R(H(B), B)
+C = ¬N(G(y), F(H(y), A)) ∨¬Q(H(y), A) ∨R(H(y), B) .
+We see that indeed C′ is a ground instance of C. In general, for C′
+1 and C′
+2 to have any
+resolvents, they must be constructed by ﬁrst applying to C1 and C2 the most general uniﬁer
+of a pair of complementary literals in C1 and C2. From the lifting lemma, it is easy to derive
+a similar statement about any sequence of applications of the resolution rule:
+For any clause C′ in the resolution closure of S′ there is a clause C in the resolu-
+tion closure of S such that C′ is a ground instance of C and the derivation of C is
+the same length as the derivation of C′.
+From this fact, it follows that if the empty clause appears in the resolution closure of S′, it
+must also appear in the resolution closure of S. This is because the empty clause cannot be a
+ground instance of any other clause. To recap: we have shown that if S is unsatisﬁable, then
+there is a ﬁnite derivation of the empty clause using the resolution rule.
+The lifting of theorem proving from ground clauses to ﬁrst-order clauses provides a vast
+increase in power. This increase comes from the fact that the ﬁrst-order proof need instantiate
+variables only as far as necessary for the proof, whereas the ground-clause methods were
+required to examine a huge number of arbitrary instantiations.
+9.5.5
+Equality
+None of the inference methods described so far in this chapter handle an assertion of the form
+x = y. Three distinct approaches can be taken. The ﬁrst approach is to axiomatize equality—
+to write down sentences about the equality relation in the knowledge base. We need to say that
+equality is reﬂexive, symmetric, and transitive, and we also have to say that we can substitute
+equals for equals in any predicate or function. So we need three basic axioms, and then one
+
+354
+Chapter
+9.
+Inference in First-Order Logic
+for each predicate and function:
+∀x x = x
+∀x, y x = y ⇒y = x
+∀x, y, z x = y ∧y = z ⇒x = z
+∀x, y x = y ⇒(P1(x) ⇔P1(y))
+∀x, y x = y ⇒(P2(x) ⇔P2(y))
+...
+∀w, x, y, z w = y ∧x = z ⇒(F1(w, x) = F1(y, z))
+∀w, x, y, z w = y ∧x = z ⇒(F2(w, x) = F2(y, z))
+...
+Given these sentences, a standard inference procedure such as resolution can perform tasks
+requiring equality reasoning, such as solving mathematical equations. However, these axioms
+will generate a lot of conclusions, most of them not helpful to a proof. So there has been a
+search for more efﬁcient ways of handling equality. One alternative is to add inference rules
+rather than axioms. The simplest rule, demodulation, takes a unit clause x = y and some
+clause α that contains the term x, and yields a new clause formed by substituting y for x
+within α. It works if the term within α uniﬁes with x; it need not be exactly equal to x.
+Note that demodulation is directional; given x = y, the x always gets replaced with y, never
+vice versa. That means that demodulation can be used for simplifying expressions using
+demodulators such as x + 0 = x or x1 = x. As another example, given
+Father(Father(x)) = PaternalGrandfather (x)
+Birthdate(Father(Father(Bella)), 1926)
+we can conclude by demodulation
+Birthdate(PaternalGrandfather (Bella), 1926) .
+More formally, we have
+• Demodulation: For any terms x, y, and z, where z appears somewhere in literal mi
+DEMODULATION
+and where UNIFY(x, z) = θ,
+x = y,
+m1 ∨· · · ∨mn
+SUB(SUBST(θ, x), SUBST(θ, y), m1 ∨· · · ∨mn) .
+where SUBST is the usual substitution of a binding list, and SUB(x, y, m) means to
+replace x with y everywhere that x occurs within m.
+The rule can also be extended to handle non-unit clauses in which an equality literal appears:
+• Paramodulation: For any terms x, y, and z, where z appears somewhere in literal mi,
+PARAMODULATION
+and where UNIFY(x, z) = θ,
+ℓ1 ∨· · · ∨ℓk ∨x = y,
+m1 ∨· · · ∨mn
+SUB(SUBST(θ, x), SUBST(θ, y), SUBST(θ, ℓ1 ∨· · · ∨ℓk ∨m1 ∨· · · ∨mn) .
+For example, from
+P(F(x, B), x) ∨Q(x)
+and
+F(A, y) = y ∨R(y)
+
+Section 9.5.
+Resolution
+355
+we have θ = UNIFY(F(A, y), F(x, B)) = {x/A, y/B}, and we can conclude by paramodu-
+lation the sentence
+P(B, A) ∨Q(A) ∨R(B) .
+Paramodulation yields a complete inference procedure for ﬁrst-order logic with equality.
+A third approach handles equality reasoning entirely within an extended uniﬁcation
+algorithm. That is, terms are uniﬁable if they are provably equal under some substitution,
+where “provably” allows for equality reasoning. For example, the terms 1 + 2 and 2 + 1
+normally are not uniﬁable, but a uniﬁcation algorithm that knows that x + y = y + x could
+unify them with the empty substitution. Equational uniﬁcation of this kind can be done with
+EQUATIONAL
+UNIFICATION
+efﬁcient algorithms designed for the particular axioms used (commutativity, associativity, and
+so on) rather than through explicit inference with those axioms. Theorem provers using this
+technique are closely related to the CLP systems described in Section 9.4.
+9.5.6
+Resolution strategies
+We know that repeated applications of the resolution inference rule will eventually ﬁnd a
+proof if one exists. In this subsection, we examine strategies that help ﬁnd proofs efﬁciently.
+Unit preference: This strategy prefers to do resolutions where one of the sentences is a single
+UNIT PREFERENCE
+literal (also known as a unit clause). The idea behind the strategy is that we are trying to
+produce an empty clause, so it might be a good idea to prefer inferences that produce shorter
+clauses. Resolving a unit sentence (such as P) with any other sentence (such as ¬P ∨¬Q∨R)
+always yields a clause (in this case, ¬Q ∨R) that is shorter than the other clause. When
+the unit preference strategy was ﬁrst tried for propositional inference in 1964, it led to a
+dramatic speedup, making it feasible to prove theorems that could not be handled without the
+preference. Unit resolution is a restricted form of resolution in which every resolution step
+must involve a unit clause. Unit resolution is incomplete in general, but complete for Horn
+clauses. Unit resolution proofs on Horn clauses resemble forward chaining.
+The OTTER theorem prover (Organized Techniques for Theorem-proving and Effective
+Research, McCune, 1992), uses a form of best-ﬁrst search. Its heuristic function measures
+the “weight” of each clause, where lighter clauses are preferred. The exact choice of heuristic
+is up to the user, but generally, the weight of a clause should be correlated with its size or
+difﬁculty. Unit clauses are treated as light; the search can thus be seen as a generalization of
+the unit preference strategy.
+Set of support: Preferences that try certain resolutions ﬁrst are helpful, but in general it is
+SET OF SUPPORT
+more effective to try to eliminate some potential resolutions altogether. For example, we can
+insist that every resolution step involve at least one element of a special set of clauses—the
+set of support. The resolvent is then added into the set of support. If the set of support is
+small relative to the whole knowledge base, the search space will be reduced dramatically.
+We have to be careful with this approach because a bad choice for the set of support
+will make the algorithm incomplete. However, if we choose the set of support S so that the
+remainder of the sentences are jointly satisﬁable, then set-of-support resolution is complete.
+For example, one can use the negated query as the set of support, on the assumption that the
+
+356
+Chapter
+9.
+Inference in First-Order Logic
+original knowledge base is consistent. (After all, if it is not consistent, then the fact that the
+query follows from it is vacuous.) The set-of-support strategy has the additional advantage of
+generating goal-directed proof trees that are often easy for humans to understand.
+Input resolution: In this strategy, every resolution combines one of the input sentences (from
+INPUT RESOLUTION
+the KB or the query) with some other sentence. The proof in Figure 9.11 on page 348 uses
+only input resolutions and has the characteristic shape of a single “spine” with single sen-
+tences combining onto the spine. Clearly, the space of proof trees of this shape is smaller
+than the space of all proof graphs. In Horn knowledge bases, Modus Ponens is a kind of
+input resolution strategy, because it combines an implication from the original KB with some
+other sentences. Thus, it is no surprise that input resolution is complete for knowledge bases
+that are in Horn form, but incomplete in the general case. The linear resolution strategy is a
+LINEAR RESOLUTION
+slight generalization that allows P and Q to be resolved together either if P is in the original
+KB or if P is an ancestor of Q in the proof tree. Linear resolution is complete.
+Subsumption: The subsumption method eliminates all sentences that are subsumed by (that
+SUBSUMPTION
+is, more speciﬁc than) an existing sentence in the KB. For example, if P(x) is in the KB, then
+there is no sense in adding P(A) and even less sense in adding P(A) ∨Q(B). Subsumption
+helps keep the KB small and thus helps keep the search space small.
+Practical uses of resolution theorem provers
+Theorem provers can be applied to the problems involved in the synthesis and veriﬁcation
+SYNTHESIS
+VERIFICATION
+of both hardware and software. Thus, theorem-proving research is carried out in the ﬁelds of
+hardware design, programming languages, and software engineering—not just in AI.
+In the case of hardware, the axioms describe the interactions between signals and cir-
+cuit elements. (See Section 8.4.2 on page 309 for an example.) Logical reasoners designed
+specially for veriﬁcation have been able to verify entire CPUs, including their timing prop-
+erties (Srivas and Bickford, 1990). The AURA theorem prover has been applied to design
+circuits that are more compact than any previous design (Wojciechowski and Wojcik, 1983).
+In the case of software, reasoning about programs is quite similar to reasoning about
+actions, as in Chapter 7: axioms describe the preconditions and effects of each statement.
+The formal synthesis of algorithms was one of the ﬁrst uses of theorem provers, as outlined
+by Cordell Green (1969a), who built on earlier ideas by Herbert Simon (1963). The idea
+is to constructively prove a theorem to the effect that “there exists a program p satisfying a
+certain speciﬁcation.” Although fully automated deductive synthesis, as it is called, has not
+DEDUCTIVE
+SYNTHESIS
+yet become feasible for general-purpose programming, hand-guided deductive synthesis has
+been successful in designing several novel and sophisticated algorithms. Synthesis of special-
+purpose programs, such as scientiﬁc computing code, is also an active area of research.
+Similar techniques are now being applied to software veriﬁcation by systems such as the
+SPIN model checker (Holzmann, 1997). For example, the Remote Agent spacecraft control
+program was veriﬁed before and after ﬂight (Havelund et al., 2000). The RSA public key
+encryption algorithm and the Boyer–Moore string-matching algorithm have been veriﬁed this
+way (Boyer and Moore, 1984).
+
+10
+CLASSICAL PLANNING
+In which we see how an agent can take advantage of the structure of a problem to
+construct complex plans of action.
+We have deﬁned AI as the study of rational action, which means that planning—devising a
+plan of action to achieve one’s goals—is a critical part of AI. We have seen two examples
+of planning agents so far: the search-based problem-solving agent of Chapter 3 and the hy-
+brid logical agent of Chapter 7. In this chapter we introduce a representation for planning
+problems that scales up to problems that could not be handled by those earlier approaches.
+Section 10.1 develops an expressive yet carefully constrained language for representing
+planning problems. Section 10.2 shows how forward and backward search algorithms can
+take advantage of this representation, primarily through accurate heuristics that can be derived
+automatically from the structure of the representation. (This is analogous to the way in which
+effective domain-independent heuristics were constructed for constraint satisfaction problems
+in Chapter 6.) Section 10.3 shows how a data structure called the planning graph can make the
+search for a plan more efﬁcient. We then describe a few of the other approaches to planning,
+and conclude by comparing the various approaches.
+This chapter covers fully observable, deterministic, static environments with single
+agents. Chapters 11 and 17 cover partially observable, stochastic, dynamic environments
+with multiple agents.
+10.1
+DEFINITION OF CLASSICAL PLANNING
+The problem-solving agent of Chapter 3 can ﬁnd sequences of actions that result in a goal
+state. But it deals with atomic representations of states and thus needs good domain-speciﬁc
+heuristics to perform well. The hybrid propositional logical agent of Chapter 7 can ﬁnd plans
+without domain-speciﬁc heuristics because it uses domain-independent heuristics based on
+the logical structure of the problem. But it relies on ground (variable-free) propositional
+inference, which means that it may be swamped when there are many actions and states. For
+example, in the wumpus world, the simple action of moving a step forward had to be repeated
+for all four agent orientations, T time steps, and n2 current locations.
+366
+
+Section 10.1.
+Deﬁnition of Classical Planning
+367
+In response to this, planning researchers have settled on a factored representation—
+one in which a state of the world is represented by a collection of variables. We use a language
+called PDDL, the Planning Domain Deﬁnition Language, that allows us to express all 4Tn2
+PDDL
+actions with one action schema. There have been several versions of PDDL; we select a
+simple version and alter its syntax to be consistent with the rest of the book.1 We now show
+how PDDL describes the four things we need to deﬁne a search problem: the initial state, the
+actions that are available in a state, the result of applying an action, and the goal test.
+Each state is represented as a conjunction of ﬂuents that are ground, functionless atoms.
+For example, Poor ∧Unknown might represent the state of a hapless agent, and a state
+in a package delivery problem might be At(Truck 1, Melbourne) ∧At(Truck 2, Sydney).
+Database semantics is used: the closed-world assumption means that any ﬂuents that are not
+mentioned are false, and the unique names assumption means that Truck 1 and Truck 2 are
+distinct. The following ﬂuents are not allowed in a state: At(x, y) (because it is non-ground),
+¬Poor (because it is a negation), and At(Father(Fred), Sydney) (because it uses a function
+symbol). The representation of states is carefully designed so that a state can be treated
+either as a conjunction of ﬂuents, which can be manipulated by logical inference, or as a set
+of ﬂuents, which can be manipulated with set operations. The set semantics is sometimes
+SET SEMANTICS
+easier to deal with.
+Actions are described by a set of action schemas that implicitly deﬁne the ACTIONS(s)
+and RESULT(s, a) functions needed to do a problem-solving search. We saw in Chapter 7 that
+any system for action description needs to solve the frame problem—to say what changes and
+what stays the same as the result of the action. Classical planning concentrates on problems
+where most actions leave most things unchanged. Think of a world consisting of a bunch of
+objects on a ﬂat surface. The action of nudging an object causes that object to change its lo-
+cation by a vector Δ. A concise description of the action should mention only Δ; it shouldn’t
+have to mention all the objects that stay in place. PDDL does that by specifying the result of
+an action in terms of what changes; everything that stays the same is left unmentioned.
+A set of ground (variable-free) actions can be represented by a single action schema.
+ACTION SCHEMA
+The schema is a lifted representation—it lifts the level of reasoning from propositional logic
+to a restricted subset of ﬁrst-order logic. For example, here is an action schema for ﬂying a
+plane from one location to another:
+Action(Fly(p, from, to),
+PRECOND:At(p, from) ∧Plane(p) ∧Airport(from) ∧Airport(to)
+EFFECT:¬At(p, from) ∧At(p, to))
+The schema consists of the action name, a list of all the variables used in the schema, a
+precondition and an effect. Although we haven’t said yet how the action schema converts
+PRECONDITION
+EFFECT
+into logical sentences, think of the variables as being universally quantiﬁed. We are free to
+choose whatever values we want to instantiate the variables. For example, here is one ground
+1 PDDL was derived from the original STRIPS planning language(Fikes and Nilsson, 1971). which is slightly
+more restricted than PDDL: STRIPS preconditions and goals cannot contain negative literals.
+
+368
+Chapter
+10.
+Classical Planning
+action that results from substituting values for all the variables:
+Action(Fly(P1, SFO, JFK),
+PRECOND:At(P1, SFO) ∧Plane(P1) ∧Airport(SFO) ∧Airport(JFK)
+EFFECT:¬At(P1, SFO) ∧At(P1, JFK))
+The precondition and effect of an action are each conjunctions of literals (positive or negated
+atomic sentences). The precondition deﬁnes the states in which the action can be executed,
+and the effect deﬁnes the result of executing the action. An action a can be executed in state
+s if s entails the precondition of a. Entailment can also be expressed with the set semantics:
+s |= q iff every positive literal in q is in s and every negated literal in q is not. In formal
+notation we say
+(a ∈ACTIONS(s)) ⇔s |= PRECOND(a) ,
+where any variables in a are universally quantiﬁed. For example,
+∀p, from, to (Fly(p, from, to) ∈ACTIONS(s)) ⇔
+s |= (At(p, from) ∧Plane(p) ∧Airport(from) ∧Airport(to))
+We say that action a is applicable in state s if the preconditions are satisﬁed by s. When
+APPLICABLE
+an action schema a contains variables, it may have multiple applicable instantiations. For
+example, with the initial state deﬁned in Figure 10.1, the Fly action can be instantiated as
+Fly(P1, SFO, JFK) or as Fly(P2, JFK , SFO), both of which are applicable in the initial
+state. If an action a has v variables, then, in a domain with k unique names of objects, it takes
+O(vk) time in the worst case to ﬁnd the applicable ground actions.
+Sometimes we want to propositionalize a PDDL problem—replace each action schema
+PROPOSITIONALIZE
+with a set of ground actions and then use a propositional solver such as SATPLAN to ﬁnd a
+solution. However, this is impractical when v and k are large.
+The result of executing action a in state s is deﬁned as a state s′ which is represented
+by the set of ﬂuents formed by starting with s, removing the ﬂuents that appear as negative
+literals in the action’s effects (what we call the delete list or DEL(a)), and adding the ﬂuents
+DELETE LIST
+that are positive literals in the action’s effects (what we call the add list or ADD(a)):
+ADD LIST
+RESULT(s, a) = (s −DEL(a)) ∪ADD(a) .
+(10.1)
+For example, with the action Fly(P1, SFO, JFK), we would remove At(P1, SFO) and add
+At(P1, JFK). It is a requirement of action schemas that any variable in the effect must also
+appear in the precondition. That way, when the precondition is matched against the state s,
+all the variables will be bound, and RESULT(s, a) will therefore have only ground atoms. In
+other words, ground states are closed under the RESULT operation.
+Also note that the ﬂuents do not explicitly refer to time, as they did in Chapter 7. There
+we needed superscripts for time, and successor-state axioms of the form
+F t+1 ⇔ActionCausesF t ∨(F t ∧¬ActionCausesNotF t) .
+In PDDL the times and states are implicit in the action schemas: the precondition always
+refers to time t and the effect to time t + 1.
+A set of action schemas serves as a deﬁnition of a planning domain. A speciﬁc problem
+within the domain is deﬁned with the addition of an initial state and a goal. The initial
+
+Section 10.1.
+Deﬁnition of Classical Planning
+369
+Init(At(C1, SFO) ∧At(C2, JFK) ∧At(P1, SFO) ∧At(P2, JFK)
+∧Cargo(C1) ∧Cargo(C2) ∧Plane(P1) ∧Plane(P2)
+∧Airport(JFK) ∧Airport(SFO))
+Goal(At(C1, JFK) ∧At(C2, SFO))
+Action(Load(c, p, a),
+PRECOND: At(c, a) ∧At(p, a) ∧Cargo(c) ∧Plane(p) ∧Airport(a)
+EFFECT: ¬ At(c, a) ∧In(c, p))
+Action(Unload(c, p, a),
+PRECOND: In(c, p) ∧At(p, a) ∧Cargo(c) ∧Plane(p) ∧Airport(a)
+EFFECT: At(c, a) ∧¬ In(c, p))
+Action(Fly(p, from, to),
+PRECOND: At(p, from) ∧Plane(p) ∧Airport(from) ∧Airport(to)
+EFFECT: ¬ At(p, from) ∧At(p, to))
+Figure 10.1
+A PDDL description of an air cargo transportation planning problem.
+state is a conjunction of ground atoms. (As with all states, the closed-world assumption is
+INITIAL STATE
+used, which means that any atoms that are not mentioned are false.) The goal is just like a
+GOAL
+precondition: a conjunction of literals (positive or negative) that may contain variables, such
+as At(p, SFO) ∧Plane(p). Any variables are treated as existentially quantiﬁed, so this goal
+is to have any plane at SFO. The problem is solved when we can ﬁnd a sequence of actions
+that end in a state s that entails the goal. For example, the state Rich ∧Famous ∧Miserable
+entails the goal Rich ∧Famous, and the state Plane(Plane1) ∧At(Plane1, SFO) entails
+the goal At(p, SFO) ∧Plane(p).
+Now we have deﬁned planning as a search problem: we have an initial state, an ACTIONS
+function, a RESULT function, and a goal test. We’ll look at some example problems before
+investigating efﬁcient search algorithms.
+10.1.1
+Example: Air cargo transport
+Figure 10.1 shows an air cargo transport problem involving loading and unloading cargo and
+ﬂying it from place to place. The problem can be deﬁned with three actions: Load, Unload,
+and Fly. The actions affect two predicates: In(c, p) means that cargo c is inside plane p, and
+At(x, a) means that object x (either plane or cargo) is at airport a. Note that some care must
+be taken to make sure the At predicates are maintained properly. When a plane ﬂies from
+one airport to another, all the cargo inside the plane goes with it. In ﬁrst-order logic it would
+be easy to quantify over all objects that are inside the plane. But basic PDDL does not have
+a universal quantiﬁer, so we need a different solution. The approach we use is to say that a
+piece of cargo ceases to be At anywhere when it is In a plane; the cargo only becomes At the
+new airport when it is unloaded. So At really means “available for use at a given location.”
+The following plan is a solution to the problem:
+[Load(C1, P1, SFO), Fly(P1, SFO, JFK ), Unload(C1, P1, JFK),
+Load(C2, P2, JFK ), Fly(P2, JFK , SFO), Unload(C2, P2, SFO)] .
+
+370
+Chapter
+10.
+Classical Planning
+Finally, there is the problem of spurious actions such as Fly(P1, JFK, JFK ), which should
+be a no-op, but which has contradictory effects (according to the deﬁnition, the effect would
+include At(P1, JFK) ∧¬At(P1, JFK)). It is common to ignore such problems, because
+they seldom cause incorrect plans to be produced. The correct approach is to add inequality
+preconditions saying that the from and to airports must be different; see another example of
+this in Figure 10.3.
+10.1.2
+Example: The spare tire problem
+Consider the problem of changing a ﬂat tire (Figure 10.2). The goal is to have a good spare
+tire properly mounted onto the car’s axle, where the initial state has a ﬂat tire on the axle and
+a good spare tire in the trunk. To keep it simple, our version of the problem is an abstract
+one, with no sticky lug nuts or other complications. There are just four actions: removing the
+spare from the trunk, removing the ﬂat tire from the axle, putting the spare on the axle, and
+leaving the car unattended overnight. We assume that the car is parked in a particularly bad
+neighborhood, so that the effect of leaving it overnight is that the tires disappear. A solution
+to the problem is [Remove(Flat, Axle), Remove(Spare, Trunk), PutOn(Spare, Axle)].
+Init(Tire(Flat) ∧Tire(Spare) ∧At(Flat, Axle) ∧At(Spare, Trunk))
+Goal(At(Spare, Axle))
+Action(Remove(obj , loc),
+PRECOND: At(obj , loc)
+EFFECT: ¬ At(obj , loc) ∧At(obj , Ground))
+Action(PutOn(t, Axle),
+PRECOND: Tire(t) ∧At(t, Ground) ∧¬ At(Flat, Axle)
+EFFECT: ¬ At(t, Ground) ∧At(t, Axle))
+Action(LeaveOvernight,
+PRECOND:
+EFFECT: ¬ At(Spare, Ground) ∧¬ At(Spare, Axle) ∧¬ At(Spare, Trunk)
+∧¬ At(Flat, Ground) ∧¬ At(Flat, Axle) ∧¬ At(Flat, Trunk))
+Figure 10.2
+The simple spare tire problem.
+10.1.3
+Example: The blocks world
+One of the most famous planning domains is known as the blocks world. This domain
+BLOCKS WORLD
+consists of a set of cube-shaped blocks sitting on a table.2 The blocks can be stacked, but
+only one block can ﬁt directly on top of another. A robot arm can pick up a block and move
+it to another position, either on the table or on top of another block. The arm can pick up
+only one block at a time, so it cannot pick up a block that has another one on it. The goal will
+always be to build one or more stacks of blocks, speciﬁed in terms of what blocks are on top
+2 The blocks world used in planning research is much simpler than SHRDLU’s version, shown on page 20.
+
+Section 10.1.
+Deﬁnition of Classical Planning
+371
+Init(On(A, Table) ∧On(B, Table) ∧On(C, A)
+∧Block(A) ∧Block(B) ∧Block(C) ∧Clear(B) ∧Clear(C))
+Goal(On(A, B) ∧On(B, C))
+Action(Move(b, x, y),
+PRECOND: On(b, x) ∧Clear(b) ∧Clear(y) ∧Block(b) ∧Block(y) ∧
+(b̸=x) ∧(b̸=y) ∧(x̸=y),
+EFFECT: On(b, y) ∧Clear(x) ∧¬On(b, x) ∧¬Clear(y))
+Action(MoveToTable(b, x),
+PRECOND: On(b, x) ∧Clear(b) ∧Block(b) ∧(b̸=x),
+EFFECT: On(b, Table) ∧Clear(x) ∧¬On(b, x))
+Figure 10.3
+A planning problem in the blocks world: building a three-block tower. One
+solution is the sequence [MoveToTable(C, A), Move(B, Table, C), Move(A, Table, B)].
+Start State
+Goal State
+B
+A
+C
+A
+B
+C
+Figure 10.4
+Diagram of the blocks-world problem in Figure 10.3.
+of what other blocks. For example, a goal might be to get block A on B and block B on C
+(see Figure 10.4).
+We use On(b, x) to indicate that block b is on x, where x is either another block or the
+table. The action for moving block b from the top of x to the top of y will be Move(b, x, y).
+Now, one of the preconditions on moving b is that no other block be on it. In ﬁrst-order logic,
+this would be ¬∃x On(x, b) or, alternatively, ∀x ¬On(x, b). Basic PDDL does not allow
+quantiﬁers, so instead we introduce a predicate Clear(x) that is true when nothing is on x.
+(The complete problem description is in Figure 10.3.)
+The action Move moves a block b from x to y if both b and y are clear. After the move
+is made, b is still clear but y is not. A ﬁrst attempt at the Move schema is
+Action(Move(b, x, y),
+PRECOND:On(b, x) ∧Clear(b) ∧Clear(y),
+EFFECT:On(b, y) ∧Clear(x) ∧¬On(b, x) ∧¬Clear(y)) .
+Unfortunately, this does not maintain Clear properly when x or y is the table. When x is the
+Table, this action has the effect Clear(Table), but the table should not become clear; and
+when y = Table, it has the precondition Clear(Table), but the table does not have to be clear
+
+372
+Chapter
+10.
+Classical Planning
+for us to move a block onto it. To ﬁx this, we do two things. First, we introduce another
+action to move a block b from x to the table:
+Action(MoveToTable(b, x),
+PRECOND:On(b, x) ∧Clear(b),
+EFFECT:On(b, Table) ∧Clear(x) ∧¬On(b, x)) .
+Second, we take the interpretation of Clear(x) to be “there is a clear space on x to hold a
+block.” Under this interpretation, Clear(Table) will always be true. The only problem is that
+nothing prevents the planner from using Move(b, x, Table) instead of MoveToTable(b, x).
+We could live with this problem—it will lead to a larger-than-necessary search space, but will
+not lead to incorrect answers—or we could introduce the predicate Block and add Block(b)∧
+Block(y) to the precondition of Move.
+10.1.4
+The complexity of classical planning
+In this subsection we consider the theoretical complexity of planning and distinguish two
+decision problems. PlanSAT is the question of whether there exists any plan that solves a
+PLANSAT
+planning problem. Bounded PlanSAT asks whether there is a solution of length k or less;
+BOUNDED PLANSAT
+this can be used to ﬁnd an optimal plan.
+The ﬁrst result is that both decision problems are decidable for classical planning. The
+proof follows from the fact that the number of states is ﬁnite. But if we add function symbols
+to the language, then the number of states becomes inﬁnite, and PlanSAT becomes only
+semidecidable: an algorithm exists that will terminate with the correct answer for any solvable
+problem, but may not terminate on unsolvable problems. The Bounded PlanSAT problem
+remains decidable even in the presence of function symbols. For proofs of the assertions in
+this section, see Ghallab et al. (2004).
+Both PlanSAT and Bounded PlanSAT are in the complexity class PSPACE, a class that
+is larger (and hence more difﬁcult) than NP and refers to problems that can be solved by a
+deterministic Turing machine with a polynomial amount of space. Even if we make some
+rather severe restrictions, the problems remain quite difﬁcult. For example, if we disallow
+negative effects, both problems are still NP-hard. However, if we also disallow negative
+preconditions, PlanSAT reduces to the class P.
+These worst-case results may seem discouraging. We can take solace in the fact that
+agents are usually not asked to ﬁnd plans for arbitrary worst-case problem instances, but
+rather are asked for plans in speciﬁc domains (such as blocks-world problems with n blocks),
+which can be much easier than the theoretical worst case. For many domains (including the
+blocks world and the air cargo world), Bounded PlanSAT is NP-complete while PlanSAT is
+in P; in other words, optimal planning is usually hard, but sub-optimal planning is sometimes
+easy. To do well on easier-than-worst-case problems, we will need good search heuristics.
+That’s the true advantage of the classical planning formalism: it has facilitated the develop-
+ment of very accurate domain-independent heuristics, whereas systems based on successor-
+state axioms in ﬁrst-order logic have had less success in coming up with good heuristics.
+
+Section 10.2.
+Algorithms for Planning as State-Space Search
+373
+10.2
+ALGORITHMS FOR PLANNING AS STATE-SPACE SEARCH
+Now we turn our attention to planning algorithms. We saw how the description of a planning
+problem deﬁnes a search problem: we can search from the initial state through the space
+of states, looking for a goal. One of the nice advantages of the declarative representation of
+action schemas is that we can also search backward from the goal, looking for the initial state.
+Figure 10.5 compares forward and backward searches.
+10.2.1
+Forward (progression) state-space search
+Now that we have shown how a planning problem maps into a search problem, we can solve
+planning problems with any of the heuristic search algorithms from Chapter 3 or a local
+search algorithm from Chapter 4 (provided we keep track of the actions used to reach the
+goal). From the earliest days of planning research (around 1961) until around 1998 it was
+assumed that forward state-space search was too inefﬁcient to be practical. It is not hard to
+come up with reasons why.
+First, forward search is prone to exploring irrelevant actions. Consider the noble task
+of buying a copy of AI: A Modern Approach from an online bookseller. Suppose there is an
+(a)
+(b)
+At(P1, A)
+Fly(P1, A, B)
+Fly(P2, A, B)
+Fly(P1, A, B)
+Fly(P2, A, B)
+At(P2, A)
+At(P1, B)
+At(P2, A)
+At(P1, A)
+At(P2, B)
+At(P1, B)
+At(P2, B)
+At(P1, B)
+At(P2, A)
+At(P1, A)
+At(P2, B)
+Figure 10.5
+Two approaches to searching for a plan. (a) Forward (progression) search
+through the space of states, starting in the initial state and using the problem’s actions to
+search forward for a member of the set of goal states. (b) Backward (regression) search
+through sets of relevant states, starting at the set of states representing the goal and using the
+inverse of the actions to search backward for the initial state.
+
+374
+Chapter
+10.
+Classical Planning
+action schema Buy(isbn) with effect Own(isbn). ISBNs are 10 digits, so this action schema
+represents 10 billion ground actions. An uninformed forward-search algorithm would have
+to start enumerating these 10 billion actions to ﬁnd one that leads to the goal.
+Second, planning problems often have large state spaces. Consider an air cargo problem
+with 10 airports, where each airport has 5 planes and 20 pieces of cargo. The goal is to move
+all the cargo at airport A to airport B. There is a simple solution to the problem: load the 20
+pieces of cargo into one of the planes at A, ﬂy the plane to B, and unload the cargo. Finding
+the solution can be difﬁcult because the average branching factor is huge: each of the 50
+planes can ﬂy to 9 other airports, and each of the 200 packages can be either unloaded (if
+it is loaded) or loaded into any plane at its airport (if it is unloaded). So in any state there
+is a minimum of 450 actions (when all the packages are at airports with no planes) and a
+maximum of 10,450 (when all packages and planes are at the same airport). On average, let’s
+say there are about 2000 possible actions per state, so the search graph up to the depth of the
+obvious solution has about 200041 nodes.
+Clearly, even this relatively small problem instance is hopeless without an accurate
+heuristic. Although many real-world applications of planning have relied on domain-speciﬁc
+heuristics, it turns out (as we see in Section 10.2.3) that strong domain-independent heuristics
+can be derived automatically; that is what makes forward search feasible.
+10.2.2
+Backward (regression) relevant-states search
+In regression search we start at the goal and apply the actions backward until we ﬁnd a
+sequence of steps that reaches the initial state. It is called relevant-states search because we
+RELEVANT-STATES
+only consider actions that are relevant to the goal (or current state). As in belief-state search
+(Section 4.4), there is a set of relevant states to consider at each step, not just a single state.
+We start with the goal, which is a conjunction of literals forming a description of a set of
+states—for example, the goal ¬Poor ∧Famous describes those states in which Poor is false,
+Famous is true, and any other ﬂuent can have any value. If there are n ground ﬂuents in a
+domain, then there are 2n ground states (each ﬂuent can be true or false), but 3n descriptions
+of sets of goal states (each ﬂuent can be positive, negative, or not mentioned).
+In general, backward search works only when we know how to regress from a state
+description to the predecessor state description. For example, it is hard to search backwards
+for a solution to the n-queens problem because there is no easy way to describe the states that
+are one move away from the goal. Happily, the PDDL representation was designed to make
+it easy to regress actions—if a domain can be expressed in PDDL, then we can do regression
+search on it. Given a ground goal description g and a ground action a, the regression from g
+over a gives us a state description g′ deﬁned by
+g′ = (g −ADD(a)) ∪Precond(a) .
+That is, the effects that were added by the action need not have been true before, and also
+the preconditions must have held before, or else the action could not have been executed.
+Note that DEL(a) does not appear in the formula; that’s because while we know the ﬂuents
+in DEL(a) are no longer true after the action, we don’t know whether or not they were true
+before, so there’s nothing to be said about them.
+
+Section 10.2.
+Algorithms for Planning as State-Space Search
+375
+To get the full advantage of backward search, we need to deal with partially uninstanti-
+ated actions and states, not just ground ones. For example, suppose the goal is to deliver a spe-
+ciﬁc piece of cargo to SFO: At(C2, SFO). That suggests the action Unload(C2, p′, SFO):
+Action(Unload(C2, p′, SFO),
+PRECOND:In(C2, p′) ∧At(p′, SFO) ∧Cargo(C2) ∧Plane(p′) ∧Airport(SFO)
+EFFECT:At(C2, SFO) ∧¬In(C2, p′) .
+(Note that we have standardized variable names (changing p to p′ in this case) so that there
+will be no confusion between variable names if we happen to use the same action schema
+twice in a plan. The same approach was used in Chapter 9 for ﬁrst-order logical inference.)
+This represents unloading the package from an unspeciﬁed plane at SFO; any plane will do,
+but we need not say which one now. We can take advantage of the power of ﬁrst-order
+representations: a single description summarizes the possibility of using any of the planes by
+implicitly quantifying over p′. The regressed state description is
+g′ = In(C2, p′) ∧At(p′, SFO) ∧Cargo(C2) ∧Plane(p′) ∧Airport(SFO) .
+The ﬁnal issue is deciding which actions are candidates to regress over. In the forward direc-
+tion we chose actions that were applicable—those actions that could be the next step in the
+plan. In backward search we want actions that are relevant—those actions that could be the
+RELEVANCE
+last step in a plan leading up to the current goal state.
+For an action to be relevant to a goal it obviously must contribute to the goal: at least
+one of the action’s effects (either positive or negative) must unify with an element of the goal.
+What is less obvious is that the action must not have any effect (positive or negative) that
+negates an element of the goal. Now, if the goal is A ∧B ∧C and an action has the effect
+A∧B∧¬C then there is a colloquial sense in which that action is very relevant to the goal—it
+gets us two-thirds of the way there. But it is not relevant in the technical sense deﬁned here,
+because this action could not be the ﬁnal step of a solution—we would always need at least
+one more step to achieve C.
+Given the goal At(C2, SFO), several instantiations of Unload are relevant: we could
+chose any speciﬁc plane to unload from, or we could leave the plane unspeciﬁed by using
+the action Unload(C2, p′, SFO). We can reduce the branching factor without ruling out any
+solutions by always using the action formed by substituting the most general uniﬁer into the
+(standardized) action schema.
+As another example, consider the goal Own(0136042597), given an initial state with
+10 billion ISBNs, and the single action schema
+A = Action(Buy(i), PRECOND:ISBN (i), EFFECT:Own(i)) .
+As we mentioned before, forward search without a heuristic would have to start enumer-
+ating the 10 billion ground Buy actions. But with backward search, we would unify the
+goal Own(0136042597) with the (standardized) effect Own(i′), yielding the substitution
+θ = {i′/0136042597}. Then we would regress over the action Subst(θ, A′) to yield the
+predecessor state description ISBN (0136042597). This is part of, and thus entailed by, the
+initial state, so we are done.
+
+376
+Chapter
+10.
+Classical Planning
+We can make this more formal. Assume a goal description g which contains a goal
+literal gi and an action schema A that is standardized to produce A′. If A′ has an effect literal
+e′
+j where Unify(gi, e′
+j) = θ and where we deﬁne a′ = SUBST(θ, A′) and if there is no effect
+in a′ that is the negation of a literal in g, then a′ is a relevant action towards g.
+Backward search keeps the branching factor lower than forward search, for most prob-
+lem domains. However, the fact that backward search uses state sets rather than individual
+states makes it harder to come up with good heuristics. That is the main reason why the
+majority of current systems favor forward search.
+10.2.3
+Heuristics for planning
+Neither forward nor backward search is efﬁcient without a good heuristic function. Recall
+from Chapter 3 that a heuristic function h(s) estimates the distance from a state s to the
+goal and that if we can derive an admissible heuristic for this distance—one that does not
+overestimate—then we can use A∗search to ﬁnd optimal solutions. An admissible heuristic
+can be derived by deﬁning a relaxed problem that is easier to solve. The exact cost of a
+solution to this easier problem then becomes the heuristic for the original problem.
+By deﬁnition, there is no way to analyze an atomic state, and thus it it requires some
+ingenuity by a human analyst to deﬁne good domain-speciﬁc heuristics for search problems
+with atomic states. Planning uses a factored representation for states and action schemas.
+That makes it possible to deﬁne good domain-independent heuristics and for programs to
+automatically apply a good domain-independent heuristic for a given problem.
+Think of a search problem as a graph where the nodes are states and the edges are
+actions. The problem is to ﬁnd a path connecting the initial state to a goal state. There are
+two ways we can relax this problem to make it easier: by adding more edges to the graph,
+making it strictly easier to ﬁnd a path, or by grouping multiple nodes together, forming an
+abstraction of the state space that has fewer states, and thus is easier to search.
+We look ﬁrst at heuristics that add edges to the graph. For example, the ignore pre-
+conditions heuristic drops all preconditions from actions. Every action becomes applicable
+IGNORE
+PRECONDITIONS
+HEURISTIC
+in every state, and any single goal ﬂuent can be achieved in one step (if there is an applica-
+ble action—if not, the problem is impossible). This almost implies that the number of steps
+required to solve the relaxed problem is the number of unsatisﬁed goals—almost but not
+quite, because (1) some action may achieve multiple goals and (2) some actions may undo
+the effects of others. For many problems an accurate heuristic is obtained by considering (1)
+and ignoring (2). First, we relax the actions by removing all preconditions and all effects
+except those that are literals in the goal. Then, we count the minimum number of actions
+required such that the union of those actions’ effects satisﬁes the goal. This is an instance
+of the set-cover problem. There is one minor irritation: the set-cover problem is NP-hard.
+SET-COVER
+PROBLEM
+Fortunately a simple greedy algorithm is guaranteed to return a set covering whose size is
+within a factor of log n of the true minimum covering, where n is the number of literals in
+the goal. Unfortunately, the greedy algorithm loses the guarantee of admissibility.
+It is also possible to ignore only selected preconditions of actions. Consider the sliding-
+block puzzle (8-puzzle or 15-puzzle) from Section 3.2. We could encode this as a planning
+
+Section 10.2.
+Algorithms for Planning as State-Space Search
+377
+problem involving tiles with a single schema Slide:
+Action(Slide(t, s1, s2),
+PRECOND:On(t, s1) ∧Tile(t) ∧Blank(s2) ∧Adjacent(s1, s2)
+EFFECT:On(t, s2) ∧Blank(s1) ∧¬On(t, s1) ∧¬Blank(s2))
+As we saw in Section 3.6, if we remove the preconditions Blank(s2) ∧Adjacent(s1, s2)
+then any tile can move in one action to any space and we get the number-of-misplaced-tiles
+heuristic. If we remove Blank(s2) then we get the Manhattan-distance heuristic. It is easy to
+see how these heuristics could be derived automatically from the action schema description.
+The ease of manipulating the schemas is the great advantage of the factored representation of
+planning problems, as compared with the atomic representation of search problems.
+Another possibility is the ignore delete lists heuristic. Assume for a moment that all
+IGNORE DELETE
+LISTS
+goals and preconditions contain only positive literals3 We want to create a relaxed version of
+the original problem that will be easier to solve, and where the length of the solution will serve
+as a good heuristic. We can do that by removing the delete lists from all actions (i.e., removing
+all negative literals from effects). That makes it possible to make monotonic progress towards
+the goal—no action will ever undo progress made by another action. It turns out it is still NP-
+hard to ﬁnd the optimal solution to this relaxed problem, but an approximate solution can be
+found in polynomial time by hill-climbing. Figure 10.6 diagrams part of the state space for
+two planning problems using the ignore-delete-lists heuristic. The dots represent states and
+the edges actions, and the height of each dot above the bottom plane represents the heuristic
+value. States on the bottom plane are solutions. In both these problems, there is a wide path
+to the goal. There are no dead ends, so no need for backtracking; a simple hillclimbing search
+will easily ﬁnd a solution to these problems (although it may not be an optimal solution).
+The relaxed problems leave us with a simpliﬁed—but still expensive—planning prob-
+lem just to calculate the value of the heuristic function. Many planning problems have 10100
+states or more, and relaxing the actions does nothing to reduce the number of states. There-
+fore, we now look at relaxations that decrease the number of states by forming a state ab-
+straction—a many-to-one mapping from states in the ground representation of the problem
+STATE ABSTRACTION
+to the abstract representation.
+The easiest form of state abstraction is to ignore some ﬂuents. For example, consider
+an air cargo problem with 10 airports, 50 planes, and 200 pieces of cargo. Each plane can
+be at one of 10 airports and each package can be either in one of the planes or unloaded at
+one of the airports. So there are 5010 × 20050+10 ≈10155 states. Now consider a particular
+problem in that domain in which it happens that all the packages are at just 5 of the airports,
+and all packages at a given airport have the same destination. Then a useful abstraction of the
+problem is to drop all the At ﬂuents except for the ones involving one plane and one package
+at each of the 5 airports. Now there are only 510 × 55+10 ≈1017 states. A solution in this
+abstract state space will be shorter than a solution in the original space (and thus will be an
+admissible heuristic), and the abstract solution is easy to extend to a solution to the original
+problem (by adding additional Load and Unload actions).
+3 Many problems are written with this convention. For problems that aren’t, replace every negative literal ¬P
+in a goal or precondition with a new positive literal, P ′.
+
+378
+Chapter
+10.
+Classical Planning
+Figure 10.6
+Two state spaces from planning problems with the ignore-delete-lists heuris-
+tic. The height above the bottom plane is the heuristic score of a state; states on the bottom
+plane are goals. There are no local minima, so search for the goal is straightforward. From
+Hoffmann (2005).
+A key idea in deﬁning heuristics is decomposition: dividing a problem into parts, solv-
+DECOMPOSITION
+ing each part independently, and then combining the parts. The subgoal independence as-
+SUBGOAL
+INDEPENDENCE
+sumption is that the cost of solving a conjunction of subgoals is approximated by the sum
+of the costs of solving each subgoal independently. The subgoal independence assumption
+can be optimistic or pessimistic. It is optimistic when there are negative interactions between
+the subplans for each subgoal—for example, when an action in one subplan deletes a goal
+achieved by another subplan. It is pessimistic, and therefore inadmissible, when subplans
+contain redundant actions—for instance, two actions that could be replaced by a single action
+in the merged plan.
+Suppose the goal is a set of ﬂuents G, which we divide into disjoint subsets G1, . . . , Gn.
+We then ﬁnd plans P1, . . . , Pn that solve the respective subgoals. What is an estimate of the
+cost of the plan for achieving all of G? We can think of each Cost(Pi) as a heuristic estimate,
+and we know that if we combine estimates by taking their maximum value, we always get an
+admissible heuristic. So maxi COST(Pi) is admissible, and sometimes it is exactly correct:
+it could be that P1 serendipitously achieves all the Gi. But in most cases, in practice the
+estimate is too low. Could we sum the costs instead? For many problems that is a reasonable
+estimate, but it is not admissible. The best case is when we can determine that Gi and Gj are
+independent. If the effects of Pi leave all the preconditions and goals of Pj unchanged, then
+the estimate COST(Pi) + COST(Pj) is admissible, and more accurate than the max estimate.
+We show in Section 10.3.1 that planning graphs can help provide better heuristic estimates.
+It is clear that there is great potential for cutting down the search space by forming ab-
+stractions. The trick is choosing the right abstractions and using them in a way that makes
+the total cost—deﬁning an abstraction, doing an abstract search, and mapping the abstraction
+back to the original problem—less than the cost of solving the original problem. The tech-
+
+Section 10.3.
+Planning Graphs
+379
+niques of pattern databases from Section 3.6.3 can be useful, because the cost of creating
+the pattern database can be amortized over multiple problem instances.
+An example of a system that makes use of effective heuristics is FF, or FASTFORWARD
+(Hoffmann, 2005), a forward state-space searcher that uses the ignore-delete-lists heuristic,
+estimating the heuristic with the help of a planning graph (see Section 10.3). FF then uses
+hill-climbing search (modiﬁed to keep track of the plan) with the heuristic to ﬁnd a solution.
+When it hits a plateau or local maximum—when no action leads to a state with better heuristic
+score—then FF uses iterative deepening search until it ﬁnds a state that is better, or it gives
+up and restarts hill-climbing.
+10.3
+PLANNING GRAPHS
+All of the heuristics we have suggested can suffer from inaccuracies. This section shows
+how a special data structure called a planning graph can be used to give better heuristic
+PLANNING GRAPH
+estimates. These heuristics can be applied to any of the search techniques we have seen so
+far. Alternatively, we can search for a solution over the space formed by the planning graph,
+using an algorithm called GRAPHPLAN.
+A planning problem asks if we can reach a goal state from the initial state. Suppose we
+are given a tree of all possible actions from the initial state to successor states, and their suc-
+cessors, and so on. If we indexed this tree appropriately, we could answer the planning ques-
+tion “can we reach state G from state S0” immediately, just by looking it up. Of course, the
+tree is of exponential size, so this approach is impractical. A planning graph is polynomial-
+size approximation to this tree that can be constructed quickly. The planning graph can’t
+answer deﬁnitively whether G is reachable from S0, but it can estimate how many steps it
+takes to reach G. The estimate is always correct when it reports the goal is not reachable, and
+it never overestimates the number of steps, so it is an admissible heuristic.
+A planning graph is a directed graph organized into levels: ﬁrst a level S0 for the initial
+LEVEL
+state, consisting of nodes representing each ﬂuent that holds in S0; then a level A0 consisting
+of nodes for each ground action that might be applicable in S0; then alternating levels Si
+followed by Ai; until we reach a termination condition (to be discussed later).
+Roughly speaking, Si contains all the literals that could hold at time i, depending on
+the actions executed at preceding time steps. If it is possible that either P or ¬P could hold,
+then both will be represented in Si. Also roughly speaking, Ai contains all the actions that
+could have their preconditions satisﬁed at time i. We say “roughly speaking” because the
+planning graph records only a restricted subset of the possible negative interactions among
+actions; therefore, a literal might show up at level Sj when actually it could not be true until
+a later level, if at all. (A literal will never show up too late.) Despite the possible error, the
+level j at which a literal ﬁrst appears is a good estimate of how difﬁcult it is to achieve the
+literal from the initial state.
+Planning graphs work only for propositional planning problems—ones with no vari-
+ables. As we mentioned on page 368, it is straightforward to propositionalize a set of ac-
+
+380
+Chapter
+10.
+Classical Planning
+Init(Have(Cake))
+Goal(Have(Cake) ∧Eaten(Cake))
+Action(Eat(Cake)
+PRECOND: Have(Cake)
+EFFECT: ¬ Have(Cake) ∧Eaten(Cake))
+Action(Bake(Cake)
+PRECOND: ¬ Have(Cake)
+EFFECT: Have(Cake))
+Figure 10.7
+The “have cake and eat cake too” problem.
+Bake(Cake)
+Eat(Cake)
+Have(Cake)
+S0
+A0
+S1
+A1
+S2
+Have(Cake)
+Have(Cake)
+Have(Cake)
+Have(Cake)
+Eaten(Cake)
+Eaten(Cake)
+Eaten(Cake)
+Eaten(Cake)
+Eaten(Cake)
+Eat(Cake)
+¬
+¬
+¬
+¬
+¬
+Figure 10.8
+The planning graph for the “have cake and eat cake too” problem up to level
+S2. Rectangles indicate actions (small squares indicate persistence actions), and straight
+lines indicate preconditions and effects. Mutex links are shown as curved gray lines. Not all
+mutex links are shown, because the graph would be too cluttered. In general, if two literals
+are mutex at Si, then the persistence actions for those literals will be mutex at Ai and we
+need not draw that mutex link.
+tion schemas. Despite the resulting increase in the size of the problem description, planning
+graphs have proved to be effective tools for solving hard planning problems.
+Figure 10.7 shows a simple planning problem, and Figure 10.8 shows its planning
+graph. Each action at level Ai is connected to its preconditions at Si and its effects at Si+1.
+So a literal appears because an action caused it, but we also want to say that a literal can
+persist if no action negates it. This is represented by a persistence action (sometimes called
+PERSISTENCE
+ACTION
+a no-op). For every literal C, we add to the problem a persistence action with precondition C
+and effect C. Level A0 in Figure 10.8 shows one “real” action, Eat(Cake), along with two
+persistence actions drawn as small square boxes.
+Level A0 contains all the actions that could occur in state S0, but just as important it
+records conﬂicts between actions that would prevent them from occurring together. The gray
+lines in Figure 10.8 indicate mutual exclusion (or mutex) links. For example, Eat(Cake) is
+MUTUAL EXCLUSION
+MUTEX
+mutually exclusive with the persistence of either Have(Cake) or ¬Eaten(Cake). We shall
+see shortly how mutex links are computed.
+Level S1 contains all the literals that could result from picking any subset of the actions
+in A0, as well as mutex links (gray lines) indicating literals that could not appear together,
+regardless of the choice of actions. For example, Have(Cake) and Eaten(Cake) are mutex:
+
+Section 10.3.
+Planning Graphs
+381
+depending on the choice of actions in A0, either, but not both, could be the result. In other
+words, S1 represents a belief state: a set of possible states. The members of this set are all
+subsets of the literals such that there is no mutex link between any members of the subset.
+We continue in this way, alternating between state level Si and action level Ai until we
+reach a point where two consecutive levels are identical. At this point, we say that the graph
+has leveled off. The graph in Figure 10.8 levels off at S2.
+LEVELED OFF
+What we end up with is a structure where every Ai level contains all the actions that are
+applicable in Si, along with constraints saying that two actions cannot both be executed at the
+same level. Every Si level contains all the literals that could result from any possible choice
+of actions in Ai−1, along with constraints saying which pairs of literals are not possible.
+It is important to note that the process of constructing the planning graph does not require
+choosing among actions, which would entail combinatorial search. Instead, it just records the
+impossibility of certain choices using mutex links.
+We now deﬁne mutex links for both actions and literals. A mutex relation holds between
+two actions at a given level if any of the following three conditions holds:
+• Inconsistent effects: one action negates an effect of the other. For example, Eat(Cake)
+and the persistence of Have(Cake) have inconsistent effects because they disagree on
+the effect Have(Cake).
+• Interference: one of the effects of one action is the negation of a precondition of the
+other. For example Eat(Cake) interferes with the persistence of Have(Cake) by negat-
+ing its precondition.
+• Competing needs: one of the preconditions of one action is mutually exclusive with a
+precondition of the other. For example, Bake(Cake) and Eat(Cake) are mutex because
+they compete on the value of the Have(Cake) precondition.
+A mutex relation holds between two literals at the same level if one is the negation of the other
+or if each possible pair of actions that could achieve the two literals is mutually exclusive.
+This condition is called inconsistent support. For example, Have(Cake) and Eaten(Cake)
+are mutex in S1 because the only way of achieving Have(Cake), the persistence action, is
+mutex with the only way of achieving Eaten(Cake), namely Eat(Cake). In S2 the two
+literals are not mutex, because there are new ways of achieving them, such as Bake(Cake)
+and the persistence of Eaten(Cake), that are not mutex.
+A planning graph is polynomial in the size of the planning problem. For a planning
+problem with l literals and a actions, each Si has no more than l nodes and l2 mutex links,
+and each Ai has no more than a + l nodes (including the no-ops), (a + l)2 mutex links, and
+2(al + l) precondition and effect links. Thus, an entire graph with n levels has a size of
+O(n(a + l)2). The time to build the graph has the same complexity.
+10.3.1
+Planning graphs for heuristic estimation
+A planning graph, once constructed, is a rich source of information about the problem. First,
+if any goal literal fails to appear in the ﬁnal level of the graph, then the problem is unsolvable.
+Second, we can estimate the cost of achieving any goal literal gi from state s as the level at
+which gi ﬁrst appears in the planning graph constructed from initial state s. We call this the
+
+382
+Chapter
+10.
+Classical Planning
+level cost of gi. In Figure 10.8, Have(Cake) has level cost 0 and Eaten(Cake) has level cost
+LEVEL COST
+1. It is easy to show (Exercise 10.10) that these estimates are admissible for the individual
+goals. The estimate might not always be accurate, however, because planning graphs allow
+several actions at each level, whereas the heuristic counts just the level and not the number
+of actions. For this reason, it is common to use a serial planning graph for computing
+SERIAL PLANNING
+GRAPH
+heuristics. A serial graph insists that only one action can actually occur at any given time
+step; this is done by adding mutex links between every pair of nonpersistence actions. Level
+costs extracted from serial graphs are often quite reasonable estimates of actual costs.
+To estimate the cost of a conjunction of goals, there are three simple approaches. The
+max-level heuristic simply takes the maximum level cost of any of the goals; this is admissi-
+MAX-LEVEL
+ble, but not necessarily accurate.
+The level sum heuristic, following the subgoal independence assumption, returns the
+LEVEL SUM
+sum of the level costs of the goals; this can be inadmissible but works well in practice
+for problems that are largely decomposable. It is much more accurate than the number-
+of-unsatisﬁed-goals heuristic from Section 10.2. For our problem, the level-sum heuristic
+estimate for the conjunctive goal Have(Cake) ∧Eaten(Cake) will be 0 + 1 = 1, whereas
+the correct answer is 2, achieved by the plan [Eat(Cake), Bake(Cake)]. That doesn’t seem
+so bad. A more serious error is that if Bake(Cake) were not in the set of actions, then the
+estimate would still be 1, when in fact the conjunctive goal would be impossible.
+Finally, the set-level heuristic ﬁnds the level at which all the literals in the conjunctive
+SET-LEVEL
+goal appear in the planning graph without any pair of them being mutually exclusive. This
+heuristic gives the correct values of 2 for our original problem and inﬁnity for the problem
+without Bake(Cake). It is admissible, it dominates the max-level heuristic, and it works
+extremely well on tasks in which there is a good deal of interaction among subplans. It is not
+perfect, of course; for example, it ignores interactions among three or more literals.
+As a tool for generating accurate heuristics, we can view the planning graph as a relaxed
+problem that is efﬁciently solvable. To understand the nature of the relaxed problem, we
+need to understand exactly what it means for a literal g to appear at level Si in the planning
+graph. Ideally, we would like it to be a guarantee that there exists a plan with i action levels
+that achieves g, and also that if g does not appear, there is no such plan. Unfortunately,
+making that guarantee is as difﬁcult as solving the original planning problem. So the planning
+graph makes the second half of the guarantee (if g does not appear, there is no plan), but
+if g does appear, then all the planning graph promises is that there is a plan that possibly
+achieves g and has no “obvious” ﬂaws. An obvious ﬂaw is deﬁned as a ﬂaw that can be
+detected by considering two actions or two literals at a time—in other words, by looking at
+the mutex relations. There could be more subtle ﬂaws involving three, four, or more actions,
+but experience has shown that it is not worth the computational effort to keep track of these
+possible ﬂaws. This is similar to a lesson learned from constraint satisfaction problems—that
+it is often worthwhile to compute 2-consistency before searching for a solution, but less often
+worthwhile to compute 3-consistency or higher. (See page 211.)
+One example of an unsolvable problem that cannot be recognized as such by a planning
+graph is the blocks-world problem where the goal is to get block A on B, B on C, and C on
+A. This is an impossible goal; a tower with the bottom on top of the top. But a planning graph
+
+Section 10.3.
+Planning Graphs
+383
+cannot detect the impossibility, because any two of the three subgoals are achievable. There
+are no mutexes between any pair of literals, only between the three as a whole. To detect that
+this problem is impossible, we would have to search over the planning graph.
+10.3.2
+The GRAPHPLAN algorithm
+This subsection shows how to extract a plan directly from the planning graph, rather than just
+using the graph to provide a heuristic. The GRAPHPLAN algorithm (Figure 10.9) repeatedly
+adds a level to a planning graph with EXPAND-GRAPH. Once all the goals show up as non-
+mutex in the graph, GRAPHPLAN calls EXTRACT-SOLUTION to search for a plan that solves
+the problem. If that fails, it expands another level and tries again, terminating with failure
+when there is no reason to go on.
+function GRAPHPLAN(problem) returns solution or failure
+graph ←INITIAL-PLANNING-GRAPH(problem)
+goals ←CONJUNCTS(problem.GOAL)
+nogoods ←an empty hash table
+for tl = 0 to ∞do
+if goals all non-mutex in St of graph then
+solution ←EXTRACT-SOLUTION(graph, goals, NUMLEVELS(graph), nogoods)
+if solution̸ = failure then return solution
+if graph and nogoods have both leveled off then return failure
+graph ←EXPAND-GRAPH(graph, problem)
+Figure 10.9
+The GRAPHPLAN algorithm. GRAPHPLAN calls EXPAND-GRAPH to add a
+level until either a solution is found by EXTRACT-SOLUTION, or no solution is possible.
+Let us now trace the operation of GRAPHPLAN on the spare tire problem from page 370.
+The graph is shown in Figure 10.10. The ﬁrst line of GRAPHPLAN initializes the planning
+graph to a one-level (S0) graph representing the initial state. The positive ﬂuents from the
+problem description’s initial state are shown, as are the relevant negative ﬂuents. Not shown
+are the unchanging positive literals (such as Tire(Spare)) and the irrelevant negative literals.
+The goal At(Spare, Axle) is not present in S0, so we need not call EXTRACT-SOLUTION—
+we are certain that there is no solution yet. Instead, EXPAND-GRAPH adds into A0 the three
+actions whose preconditions exist at level S0 (i.e., all the actions except PutOn(Spare, Axle)),
+along with persistence actions for all the literals in S0. The effects of the actions are added at
+level S1. EXPAND-GRAPH then looks for mutex relations and adds them to the graph.
+At(Spare, Axle) is still not present in S1, so again we do not call EXTRACT-SOLUTION.
+We call EXPAND-GRAPH again, adding A1 and S1 and giving us the planning graph shown
+in Figure 10.10. Now that we have the full complement of actions, it is worthwhile to look at
+some of the examples of mutex relations and their causes:
+• Inconsistent effects: Remove(Spare, Trunk) is mutex with LeaveOvernight because
+one has the effect At(Spare, Ground) and the other has its negation.
+
+384
+Chapter
+10.
+Classical Planning
+S0
+A1
+S2
+At(Spare,Trunk)
+At(Spare,Trunk)
+At(Flat,Axle)
+At(Flat,Axle)
+At(Spare,Axle)
+At(Flat,Ground)
+At(Flat,Ground)
+At(Spare,Ground)
+At(Spare,Ground)
+At(Spare,Trunk)
+At(Spare,Trunk)
+At(Flat,Axle)
+At(Flat,Axle)
+At(Spare,Axle)
+At(Flat,Ground)
+At(Flat,Ground)
+At(Spare,Ground)
+At(Spare,Ground)
+At(Spare,Axle)
+At(Spare,Trunk)
+At(Flat,Axle)
+At(Spare,Axle)
+At(Flat,Ground)
+At(Spare,Ground)
+PutOn(Spare,Axle)
+LeaveOvernight
+Remove(Flat,Axle)
+Remove(Spare,Trunk)
+Remove(Spare,Trunk)
+Remove(Flat,Axle)
+LeaveOvernight
+¬
+¬
+¬
+¬
+¬
+¬
+¬
+¬
+¬
+¬
+¬
+¬
+¬
+A0
+S1
+Figure 10.10
+The planning graph for the spare tire problem after expansion to level S2.
+Mutex links are shown as gray lines. Not all links are shown, because the graph would be too
+cluttered if we showed them all. The solution is indicated by bold lines and outlines.
+• Interference: Remove(Flat, Axle) is mutex with LeaveOvernight because one has the
+precondition At(Flat, Axle) and the other has its negation as an effect.
+• Competing needs: PutOn(Spare, Axle) is mutex with Remove(Flat, Axle) because
+one has At(Flat, Axle) as a precondition and the other has its negation.
+• Inconsistent support: At(Spare, Axle) is mutex with At(Flat, Axle) in S2 because the
+only way of achieving At(Spare, Axle) is by PutOn(Spare, Axle), and that is mutex
+with the persistence action that is the only way of achieving At(Flat, Axle). Thus, the
+mutex relations detect the immediate conﬂict that arises from trying to put two objects
+in the same place at the same time.
+This time, when we go back to the start of the loop, all the literals from the goal are present
+in S2, and none of them is mutex with any other. That means that a solution might exist,
+and EXTRACT-SOLUTION will try to ﬁnd it. We can formulate EXTRACT-SOLUTION as a
+Boolean constraint satisfaction problem (CSP) where the variables are the actions at each
+level, the values for each variable are in or out of the plan, and the constraints are the mutexes
+and the need to satisfy each goal and precondition.
+Alternatively, we can deﬁne EXTRACT-SOLUTION as a backward search problem, where
+each state in the search contains a pointer to a level in the planning graph and a set of unsat-
+isﬁed goals. We deﬁne this search problem as follows:
+• The initial state is the last level of the planning graph, Sn, along with the set of goals
+from the planning problem.
+• The actions available in a state at level Si are to select any conﬂict-free subset of the
+actions in Ai−1 whose effects cover the goals in the state. The resulting state has level
+Si−1 and has as its set of goals the preconditions for the selected set of actions. By
+“conﬂict free,” we mean a set of actions such that no two of them are mutex and no two
+of their preconditions are mutex.
+
+Section 10.3.
+Planning Graphs
+385
+• The goal is to reach a state at level S0 such that all the goals are satisﬁed.
+• The cost of each action is 1.
+For this particular problem, we start at S2 with the goal At(Spare, Axle). The only choice we
+have for achieving the goal set is PutOn(Spare, Axle). That brings us to a search state at S1
+with goals At(Spare, Ground) and ¬At(Flat, Axle). The former can be achieved only by
+Remove(Spare, Trunk), and the latter by either Remove(Flat, Axle) or LeaveOvernight.
+But LeaveOvernight is mutex with Remove(Spare, Trunk), so the only solution is to choose
+Remove(Spare, Trunk) and Remove(Flat, Axle). That brings us to a search state at S0 with
+the goals At(Spare, Trunk) and At(Flat, Axle). Both of these are present in the state, so
+we have a solution: the actions Remove(Spare, Trunk) and Remove(Flat, Axle) in level
+A0, followed by PutOn(Spare, Axle) in A1.
+In the case where EXTRACT-SOLUTION fails to ﬁnd a solution for a set of goals at
+a given level, we record the (level, goals) pair as a no-good, just as we did in constraint
+learning for CSPs (page 220). Whenever EXTRACT-SOLUTION is called again with the same
+level and goals, we can ﬁnd the recorded no-good and immediately return failure rather than
+searching again. We see shortly that no-goods are also used in the termination test.
+We know that planning is PSPACE-complete and that constructing the planning graph
+takes polynomial time, so it must be the case that solution extraction is intractable in the worst
+case. Therefore, we will need some heuristic guidance for choosing among actions during the
+backward search. One approach that works well in practice is a greedy algorithm based on
+the level cost of the literals. For any set of goals, we proceed in the following order:
+1. Pick ﬁrst the literal with the highest level cost.
+2. To achieve that literal, prefer actions with easier preconditions. That is, choose an action
+such that the sum (or maximum) of the level costs of its preconditions is smallest.
+10.3.3
+Termination of GRAPHPLAN
+So far, we have skated over the question of termination. Here we show that GRAPHPLAN will
+in fact terminate and return failure when there is no solution.
+The ﬁrst thing to understand is why we can’t stop expanding the graph as soon as it has
+leveled off. Consider an air cargo domain with one plane and n pieces of cargo at airport
+A, all of which have airport B as their destination. In this version of the problem, only one
+piece of cargo can ﬁt in the plane at a time. The graph will level off at level 4, reﬂecting the
+fact that for any single piece of cargo, we can load it, ﬂy it, and unload it at the destination in
+three steps. But that does not mean that a solution can be extracted from the graph at level 4;
+in fact a solution will require 4n −1 steps: for each piece of cargo we load, ﬂy, and unload,
+and for all but the last piece we need to ﬂy back to airport A to get the next piece.
+How long do we have to keep expanding after the graph has leveled off? If the function
+EXTRACT-SOLUTION fails to ﬁnd a solution, then there must have been at least one set of
+goals that were not achievable and were marked as a no-good. So if it is possible that there
+might be fewer no-goods in the next level, then we should continue. As soon as the graph
+itself and the no-goods have both leveled off, with no solution found, we can terminate with
+failure because there is no possibility of a subsequent change that could add a solution.
+
+386
+Chapter
+10.
+Classical Planning
+Now all we have to do is prove that the graph and the no-goods will always level off. The
+key to this proof is that certain properties of planning graphs are monotonically increasing or
+decreasing. “X increases monotonically” means that the set of Xs at level i + 1 is a superset
+(not necessarily proper) of the set at level i. The properties are as follows:
+• Literals increase monotonically: Once a literal appears at a given level, it will appear
+at all subsequent levels. This is because of the persistence actions; once a literal shows
+up, persistence actions cause it to stay forever.
+• Actions increase monotonically: Once an action appears at a given level, it will appear
+at all subsequent levels. This is a consequence of the monotonic increase of literals; if
+the preconditions of an action appear at one level, they will appear at subsequent levels,
+and thus so will the action.
+• Mutexes decrease monotonically: If two actions are mutex at a given level Ai, then they
+will also be mutex for all previous levels at which they both appear. The same holds for
+mutexes between literals. It might not always appear that way in the ﬁgures, because
+the ﬁgures have a simpliﬁcation: they display neither literals that cannot hold at level
+Si nor actions that cannot be executed at level Ai. We can see that “mutexes decrease
+monotonically” is true if you consider that these invisible literals and actions are mutex
+with everything.
+The proof can be handled by cases: if actions A and B are mutex at level Ai, it
+must be because of one of the three types of mutex. The ﬁrst two, inconsistent effects
+and interference, are properties of the actions themselves, so if the actions are mutex
+at Ai, they will be mutex at every level. The third case, competing needs, depends on
+conditions at level Si: that level must contain a precondition of A that is mutex with
+a precondition of B. Now, these two preconditions can be mutex if they are negations
+of each other (in which case they would be mutex in every level) or if all actions for
+achieving one are mutex with all actions for achieving the other. But we already know
+that the available actions are increasing monotonically, so, by induction, the mutexes
+must be decreasing.
+• No-goods decrease monotonically: If a set of goals is not achievable at a given level,
+then they are not achievable in any previous level. The proof is by contradiction: if they
+were achievable at some previous level, then we could just add persistence actions to
+make them achievable at a subsequent level.
+Because the actions and literals increase monotonically and because there are only a ﬁnite
+number of actions and literals, there must come a level that has the same number of actions
+and literals as the previous level. Because mutexes and no-goods decrease, and because there
+can never be fewer than zero mutexes or no-goods, there must come a level that has the
+same number of mutexes and no-goods as the previous level. Once a graph has reached this
+state, then if one of the goals is missing or is mutex with another goal, then we can stop the
+GRAPHPLAN algorithm and return failure. That concludes a sketch of the proof; for more
+details see Ghallab et al. (2004).
+
+Section 10.4.
+Other Classical Planning Approaches
+387
+Year
+Track
+Winning Systems (approaches)
+2008
+Optimal
+GAMER (model checking, bidirectional search)
+2008
+Satisﬁcing
+LAMA (fast downward search with FF heuristic)
+2006
+Optimal
+SATPLAN, MAXPLAN (Boolean satisﬁability)
+2006
+Satisﬁcing
+SGPLAN (forward search; partitions into independent subproblems)
+2004
+Optimal
+SATPLAN (Boolean satisﬁability)
+2004
+Satisﬁcing
+FAST DIAGONALLY DOWNWARD (forward search with causal graph)
+2002
+Automated
+LPG (local search, planning graphs converted to CSPs)
+2002
+Hand-coded
+TLPLAN (temporal action logic with control rules for forward search)
+2000
+Automated
+FF (forward search)
+2000
+Hand-coded
+TALPLANNER (temporal action logic with control rules for forward search)
+1998
+Automated
+IPP (planning graphs); HSP (forward search)
+Figure 10.11
+Some of the top-performing systems in the International Planning Compe-
+tition. Each year there are various tracks: “Optimal” means the planners must produce the
+shortest possible plan, while “Satisﬁcing” means nonoptimal solutions are accepted. “Hand-
+coded” means domain-speciﬁc heuristics are allowed; “Automated” means they are not.
+10.4
+OTHER CLASSICAL PLANNING APPROACHES
+Currently the most popular and effective approaches to fully automated planning are:
+• Translating to a Boolean satisﬁability (SAT) problem
+• Forward state-space search with carefully crafted heuristics (Section 10.2)
+• Search using a planning graph (Section 10.3)
+These three approaches are not the only ones tried in the 40-year history of automated plan-
+ning. Figure 10.11 shows some of the top systems in the International Planning Competitions,
+which have been held every even year since 1998. In this section we ﬁrst describe the transla-
+tion to a satisﬁability problem and then describe three other inﬂuential approaches: planning
+as ﬁrst-order logical deduction; as constraint satisfaction; and as plan reﬁnement.
+10.4.1
+Classical planning as Boolean satisﬁability
+In Section 7.7.4 we saw how SATPLAN solves planning problems that are expressed in propo-
+sitional logic. Here we show how to translate a PDDL description into a form that can be
+processed by SATPLAN. The translation is a series of straightforward steps:
+• Propositionalize the actions: replace each action schema with a set of ground actions
+formed by substituting constants for each of the variables. These ground actions are not
+part of the translation, but will be used in subsequent steps.
+• Deﬁne the initial state: assert F 0 for every ﬂuent F in the problem’s initial state, and
+¬F for every ﬂuent not mentioned in the initial state.
+• Propositionalize the goal: for every variable in the goal, replace the literals that contain
+the variable with a disjunction over constants. For example, the goal of having block A

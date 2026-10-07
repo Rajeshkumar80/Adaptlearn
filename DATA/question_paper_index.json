@@ -1,0 +1,531 @@
+{
+  "BCS301": {
+    "sem": "3RD SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\3RD SEM\\BCS301",
+    "model": {
+      "count": 1,
+      "files": [
+        "BCS301-model-set-1-paper.txt"
+      ]
+    },
+    "pyq": {
+      "count": 4,
+      "files": [
+        "BCS301-dec-2023-jan-2024.txt",
+        "BCS301-dec-2025-jan-2026.txt",
+        "BCS301-june-july-2025-makeup.txt",
+        "BCS301-june-july-2025.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS302": {
+    "sem": "3RD SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\3RD SEM\\BCS302",
+    "model": {
+      "count": 1,
+      "files": [
+        "BCS302-model-set-1-paper.txt"
+      ]
+    },
+    "pyq": {
+      "count": 5,
+      "files": [
+        "BCS302-dec-2023-jan-2024.txt",
+        "BCS302-dec-2024-jan-2025.txt",
+        "BCS302-dec-2025-jan-2026.txt",
+        "BCS302-june-july-2025-makeup.txt",
+        "BCS302-june-july-2025.txt"
+      ]
+    },
+    "important": {
+      "count": 2,
+      "files": [
+        "BCS302-question-bank-with-solution.txt",
+        "BCS302-question-bank.txt"
+      ]
+    }
+  },
+  "BCS303": {
+    "sem": "3RD SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\3RD SEM\\BCS303",
+    "model": {
+      "count": 1,
+      "files": [
+        "BCS303 model set 1 paper.txt"
+      ]
+    },
+    "pyq": {
+      "count": 5,
+      "files": [
+        "BCS303-dec-2023-jan-2024.txt",
+        "BCS303-dec-2024-jan-2025.txt",
+        "BCS303-dec-2025-jan-2026.txt",
+        "BCS303-june-july-2025-makeup.txt",
+        "BCS303-june-july-2025.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS304": {
+    "sem": "3RD SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\3RD SEM\\BCS304",
+    "model": {
+      "count": 1,
+      "files": [
+        "BCS304-model-set-1-paper.txt"
+      ]
+    },
+    "pyq": {
+      "count": 5,
+      "files": [
+        "BCS304-dec-2023-jan-2024.txt",
+        "BCS304-dec-2024-jan-2025.txt",
+        "BCS304-dec-2025-jan-2026.txt",
+        "BCS304-june-july-2025-makeup.txt",
+        "BCS304-june-july-2025.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS306A": {
+    "sem": "3RD SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\3RD SEM\\BCS306A",
+    "model": {
+      "count": 0,
+      "files": []
+    },
+    "pyq": {
+      "count": 5,
+      "files": [
+        "BCS306A-dec-2023-jan-2024.txt",
+        "BCS306A-dec-2024-jan-2025.txt",
+        "BCS306A-dec-2025-jan-2026.txt",
+        "BCS306A-june-july-2025-makeup.txt",
+        "BCS306A-june-july-2025.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BBOC407": {
+    "sem": "4TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\4TH SEM\\BBOC407",
+    "model": {
+      "count": 0,
+      "files": []
+    },
+    "pyq": {
+      "count": 3,
+      "files": [
+        "BBOC407-dec-2024-jan-2025.txt",
+        "BBOC407-june-july-2025-makeup.txt",
+        "BBOC407-june-july-2025.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS401": {
+    "sem": "4TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\4TH SEM\\BCS401",
+    "model": {
+      "count": 1,
+      "files": [
+        "BCS401-model-set-1-paper.txt"
+      ]
+    },
+    "pyq": {
+      "count": 3,
+      "files": [
+        "BCS401-dec-2024-jan-2025.txt",
+        "BCS401-dec-2025-jan-2026.txt",
+        "BCS401-june-july-2025.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS402": {
+    "sem": "4TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\4TH SEM\\BCS402",
+    "model": {
+      "count": 1,
+      "files": [
+        "BCS402-model-set-1-paper.txt"
+      ]
+    },
+    "pyq": {
+      "count": 4,
+      "files": [
+        "BCS402-dec-2024-jan-2025.txt",
+        "BCS402-dec-2025-jan-2026.txt",
+        "BCS402-june-july-2025-makeup.txt",
+        "BCS402-june-july-2025.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS403": {
+    "sem": "4TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\4TH SEM\\BCS403",
+    "model": {
+      "count": 1,
+      "files": [
+        "BCS403-model-set-1-and-2-paper.txt"
+      ]
+    },
+    "pyq": {
+      "count": 3,
+      "files": [
+        "BCS403-dec-2024-jan-2025.txt",
+        "BCS403-dec-2025-jan-2026.txt",
+        "BCS403-june-july-2025.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS405A": {
+    "sem": "4TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\4TH SEM\\BCS405A",
+    "model": {
+      "count": 1,
+      "files": [
+        "BCS405A-model-set-1-and-2-paper.txt"
+      ]
+    },
+    "pyq": {
+      "count": 4,
+      "files": [
+        "BCS405A-dec-2024-jan-2025.txt",
+        "BCS405A-dec-2025-jan-2026.txt",
+        "BCS405A-june-july-2025-makeup.txt",
+        "BCS405A-june-july-2025.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BUHK408": {
+    "sem": "4TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\4TH SEM\\BUHK408",
+    "model": {
+      "count": 1,
+      "files": [
+        "BUHK408-model-set-1-paper.txt"
+      ]
+    },
+    "pyq": {
+      "count": 1,
+      "files": [
+        "BUHK408-june-july-2025-makeup.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS501": {
+    "sem": "5TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BCS501",
+    "model": {
+      "count": 1,
+      "files": [
+        "BCS501-model-set-1-paper-1.txt"
+      ]
+    },
+    "pyq": {
+      "count": 4,
+      "files": [
+        "BCS501-dec-2024-jan-2025-1.txt",
+        "BCS501-dec-2025-jan-2026-1.txt",
+        "BCS501-june-july-2025-1.txt",
+        "BCS501-june-july-2025-makeup-1.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS502": {
+    "sem": "5TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BCS502",
+    "model": {
+      "count": 1,
+      "files": [
+        "BCS501-model-set-1-paper-1.txt"
+      ]
+    },
+    "pyq": {
+      "count": 3,
+      "files": [
+        "BCS502-dec-2024-jan-2025.txt",
+        "BCS502-dec-2025-jan-2026.txt",
+        "BCS502-june-july-2025.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS503": {
+    "sem": "5TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BCS503",
+    "model": {
+      "count": 1,
+      "files": [
+        "BCS503-model-set-1-paper.txt"
+      ]
+    },
+    "pyq": {
+      "count": 4,
+      "files": [
+        "BCS503-dec-2024-jan-2025-1.txt",
+        "BCS503-dec-2024-jan-2025-solution.txt",
+        "BCS503-dec-2025-jan-2026-1.txt",
+        "BCS503-june-july-2025-1.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS515B": {
+    "sem": "5TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BCS515B",
+    "model": {
+      "count": 1,
+      "files": [
+        "BCS515B-model-set-1-paper.txt"
+      ]
+    },
+    "pyq": {
+      "count": 1,
+      "files": [
+        "BCS515B-june-july-2025.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BESK508": {
+    "sem": "5TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BESK508",
+    "model": {
+      "count": 0,
+      "files": []
+    },
+    "pyq": {
+      "count": 0,
+      "files": []
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BRMK557": {
+    "sem": "5TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\5TH SEM\\BRMK557",
+    "model": {
+      "count": 1,
+      "files": [
+        "BRMK557-model-set-1-and-2-paper.txt"
+      ]
+    },
+    "pyq": {
+      "count": 4,
+      "files": [
+        "BRMK557-dec-2024-jan-2025.txt",
+        "BRMK557-dec-2025-jan-2026.txt",
+        "BRMK557-june-july-2025-makeup.txt",
+        "BRMK557-june-july-2025.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS601": {
+    "sem": "6TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\6TH SEM\\BCS601",
+    "model": {
+      "count": 1,
+      "files": [
+        "BCS601-model-set-1-paper-solution.txt"
+      ]
+    },
+    "pyq": {
+      "count": 0,
+      "files": []
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS602": {
+    "sem": "6TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\6TH SEM\\BCS602",
+    "model": {
+      "count": 0,
+      "files": []
+    },
+    "pyq": {
+      "count": 1,
+      "files": [
+        "BCS602-june-july-2025-solution.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS613A": {
+    "sem": "6TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\6TH SEM\\BCS613A",
+    "model": {
+      "count": 0,
+      "files": []
+    },
+    "pyq": {
+      "count": 0,
+      "files": []
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS613C": {
+    "sem": "6TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\6TH SEM\\BCS613C",
+    "model": {
+      "count": 0,
+      "files": []
+    },
+    "pyq": {
+      "count": 0,
+      "files": []
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCV654C": {
+    "sem": "6TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\6TH SEM\\BCV654C",
+    "model": {
+      "count": 1,
+      "files": [
+        "BCV654C-model-set-1-paper-1.txt"
+      ]
+    },
+    "pyq": {
+      "count": 1,
+      "files": [
+        "BCV654C-dec-2025-jan-2026.txt"
+      ]
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS701": {
+    "sem": "7TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\7TH SEM\\BCS701",
+    "model": {
+      "count": 0,
+      "files": []
+    },
+    "pyq": {
+      "count": 0,
+      "files": []
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS702": {
+    "sem": "7TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\7TH SEM\\BCS702",
+    "model": {
+      "count": 0,
+      "files": []
+    },
+    "pyq": {
+      "count": 0,
+      "files": []
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS703": {
+    "sem": "7TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\7TH SEM\\BCS703",
+    "model": {
+      "count": 0,
+      "files": []
+    },
+    "pyq": {
+      "count": 0,
+      "files": []
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "BCS714D": {
+    "sem": "7TH SEM",
+    "output": "D:\\Adaptlearn\\DATA\\question_papers\\7TH SEM\\BCS714D",
+    "model": {
+      "count": 0,
+      "files": []
+    },
+    "pyq": {
+      "count": 0,
+      "files": []
+    },
+    "important": {
+      "count": 0,
+      "files": []
+    }
+  }
+}

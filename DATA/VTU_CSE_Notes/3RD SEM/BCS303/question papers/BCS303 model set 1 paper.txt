@@ -1,0 +1,347 @@
+BCS303 
+Page 01 of 02 
+ 
+Model Question Paper-I with effect from 2023-24 (CBCS Scheme) 
+ 
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E. Degree Examination 
+Operating Systems 
+ 
+TIME: 03 Hours    
+ 
+ 
+Max.  Marks: 100 
+   Note:  01. Answer any FIVE full questions, choosing at least ONE question from each MODULE.  
+ 
+ 
+Module -1 
+*Bloom’s 
+Taxonomy 
+Level 
+Marks 
+Q.01 
+a 
+Distinguish between the following terms. 
+(i)  Multiprogramming and Multitasking 
+(ii) Multiprocessor System and Clustered System 
+L2 
+6 
+b 
+Define operating Systems. Explain the dual-mode operating system with a neat 
+diagram. 
+L2 
+7 
+c 
+With a neat diagram, explain the concept of the virtual machine.  
+L2 
+7 
+OR 
+ 
+ 
+Q.02 
+a 
+Explain the layered approach of operating system structure with a supporting 
+diagram. 
+L2 
+6 
+b 
+What are system calls? Briefly point out its types with illustrations. 
+L2 
+6 
+c 
+Explain the services of the operating system that are helpful for the user and the 
+system. 
+L2 
+8 
+Module-2 
+ 
+ 
+Q. 03 
+a 
+With a neat diagram, explain the states of a process with a transition diagram and 
+process control block. 
+L2 
+6 
+b 
+What is inter-process communication? Discuss message passing and the shared 
+memory concept of IPC. 
+L2 
+6 
+c 
+Calculate average waiting and turnaround times by drawing the Gantt 
+chart using FCFS and RR (q=2ms). 
+Processes Arrival Time 
+Burst Time 
+P1 
+0 
+9 
+P2 
+1 
+4 
+P3 
+2 
+9 
+P4 
+3 
+5 
+L3 
+8 
+OR 
+ 
+ 
+Q.04 
+a 
+Discuss in detail the multithreading model, its advantages and 
+disadvantages with suitable illustration. 
+L2 
+7 
+ 
+b 
+Explain five different scheduling criteria used in the computing scheduling 
+mechanism. 
+L2 
+5 
+ 
+c 
+Calculate the average waiting time and the average turnaround time by 
+drawing the Gantt chart using SRTF and the Priority scheduling algorithm.   
+Processes 
+Arrival Time 
+Burst Time 
+Priority 
+P1 
+0 
+8 
+3 
+P2 
+1 
+4 
+2 
+P3 
+2 
+9 
+1 
+P4 
+3 
+5 
+4 
+ 
+L3 
+8 
+ 
+ 
+ 
+ 
+
+BCS303 
+Page 02 of 02 
+ 
+Module-3 
+ 
+ 
+Q. 05 
+a 
+Define deadlock. What are the necessary conditions for deadlock to occur? 
+L2 
+5 
+b 
+Illustrate Peterson’s solution for the critical section problem. 
+L2 
+6 
+c 
+Consider the following snapshot of the system: 
+ 
+ 
+Allocation 
+Max 
+Available 
+ 
+A 
+B 
+C 
+D 
+A 
+B 
+C 
+D 
+A 
+B 
+C 
+D 
+P0 
+0 
+0 
+1 
+2 
+0 
+0 
+1 
+2 
+1 
+5 
+2 
+0 
+P1 
+1 
+0 
+0 
+0 
+1 
+7 
+5 
+0 
+ 
+ 
+ 
+ 
+P2 
+1 
+3 
+5 
+4 
+2 
+3 
+5 
+6 
+ 
+ 
+ 
+ 
+P3 
+0 
+6 
+3 
+2 
+0 
+6 
+5 
+2 
+ 
+ 
+ 
+ 
+P4 
+0 
+0 
+1 
+4 
+0 
+6 
+5 
+6 
+ 
+ 
+ 
+ 
+Answer the following questions using Banker’s algorithm: 
+a. What is the content of the need matrix? 
+b. Is the system in a safe state? If yes, mention the safe sequence. 
+If a request from process P1 arrives for (0,4,2,0) can the request be granted 
+immediately? 
+L3 
+9 
+OR 
+ 
+ 
+Q. 06 
+a 
+Explain different methods to recover from deadlocks. 
+L2 
+6 
+b 
+What is a resource allocation graph? Consider an example to explain how it is 
+very useful in describing a deadly embrace. 
+L2 
+6 
+c 
+What is a semaphore? State a Dining Philosopher problem gives a solution using 
+semaphore. 
+L2 
+8 
+Module-4 
+ 
+ 
+Q. 07 
+a 
+What is TLB? Explain TLB in detail with a paging system with a neat diagram. 
+L2 
+6 
+b 
+With the help of a neat diagram, explain the various steps of address binding. 
+L2 
+6 
+c 
+Consider the page reference string: 1,0,7,1,0,2,1,2,3,0,3,2,4,0,3,6,2,1 for a 
+memory with three frames. Determine the number of page faults using the FIFO, 
+Optimal, and LRU replacement algorithms. Which algorithm is most efficient? 
+L3 
+8 
+OR 
+ 
+ 
+Q. 08 
+a 
+What is demand paging? Explain the steps in handling page faults using the 
+appropriate diagram. 
+L2 
+6 
+b 
+What is segmentation? Explain the basic method of segmentation with an 
+example. 
+L2 
+6 
+c 
+Discuss the structure of the page table with a suitable diagram. 
+L2 
+8 
+Module-5 
+ 
+ 
+Q. 09 
+a 
+What is a file? What are its attributes? Explain file operations. 
+L2 
+6 
+b 
+Explain in detail about various file operations in a file system. 
+L2 
+6 
+c 
+Discuss various directory structures with neat diagrams. 
+L2 
+8 
+OR 
+ 
+ 
+Q. 10 
+a 
+Explain contiguous and linked disk space allocation methods. 
+L2 
+6 
+b 
+Explain the access matrix method of system protection with the domain as objects 
+and its implementation. 
+L2 
+6 
+c 
+Given the following sequences 95,180,34,119,11,123,62,64 with the track 50 and 
+ending track 199. What is the total disk travelled by the disk arm using FCFS, 
+SSTF, LOOK and CLOOK algorithm 
+L3 
+8 
+*Bloom’s Taxonomy Level: Indicate as L1, L2, L3, L4, etc. It is also desirable to indicate the COs and POs to be 
+attained by every bit of question.  

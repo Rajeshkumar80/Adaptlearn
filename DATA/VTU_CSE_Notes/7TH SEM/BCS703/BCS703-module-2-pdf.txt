@@ -1,0 +1,453 @@
+ 
+• 
+• Three tests to be used in evaluating a random number generator: 
+Pseudorandom number Generators
+LinearCongruential Generators
+MODULE 2
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Blum Blum Shub Generator 
+• Then the BBS generator produces a sequence of bits Bi according 
+to the following algorithm: 
+
+ 
+ 
+
+ 
+Public key cryptography 
+Principles of Public-Key Cryptosystems 
+• Developed to address two key issues: 
+1. Key distribution – how to have secure communications 
+in general without having to trust a KDC with your key. 
+2. Digital signatures – how to verify a message comes 
+intact from the claimed sender. 
+
+ 
+Public-Key Cryptosystems 
+▪ Asymmetric algorithms rely on one key for encryption and a different but 
+related key for decryption. These algorithms have the following important 
+characteristic. 
+• It is computationally infeasible to determine the decryption key given 
+only knowledge of the cryptographic algorithm and the encryption key. 
+• In addition, some algorithms, such as RSA, also exhibit the following 
+characteristic. 
+- Either of the two related keys can be used for encryption, with the 
+other used for decryption. 
+
+ 
+Public-Key Cryptography 
+
+ 
+
+ 
+▪ A public-key encryption scheme has ingredients: 
+1. Plaintext: This is the readable message or data that is fed into the algorithm as input. 
+2. Encryption algorithm: The encryption algorithm performs various transformations on 
+the plaintext. 
+3.  Public and private keys: This is a pair of keys that have been selected so that if one is 
+used for encryption, the other is used for decryption. The exact transformations 
+performed by the algorithm depend on the public or private key that is provided as 
+input. 
+4. Ciphertext: This is the scrambled message produced as output. It depends on the 
+plaintext and the key. For a given message, two different keys will produce two 
+different ciphertexts. 
+5. Decryption algorithm: This algorithm accepts the ciphertext and the matching key and 
+produces the original plaintext. 
+
+ 
+▪ The essential steps are the following. 
+1. Generates a pair of keys to be used for the encryption and decryption 
+of messages. 
+2. Places one of the two keys in a public register or other accessible file. 
+This is the public key. The companion key is kept private, each user 
+maintains a collection of public keys obtained from others. 
+3. If Bob wishes to send a confidential message to Alice, Bob encrypts 
+the message using Alice’s public key. 
+4. When Alice receives the message, she decrypts it using her private 
+key. No other recipient can decrypt the message because only Alice 
+knows Alice’s private key. 
+
+Comparison 
+
+ 
+Public-Key Cryptosystem: 
+Confidentiality 
+
+ 
+Public-Key Cryptosystem: 
+Authentication 
+
+ 
+Public-Key Cryptosystem: 
+Authentication and Secrecy 
+
+ 
+Applications of public-key cryptosystems 
+➢ Encryption/decryption: The sender encrypts a message with 
+the recipient’s public key, and the recipient decrypts the 
+message with the recipient’s private key. 
+➢ Digital signature: The sender “signs” a message with its private 
+key. Signing is achieved by a cryptographic algorithm applied to 
+the message or to a small block of data that is a function of the 
+message. 
+➢ Key exchange: Two sides cooperate to exchange a session key, 
+which is a secret key for symmetric encryption generated for 
+use for a particular transaction (or session) and valid for a short 
+period of time. Several different approaches are possible, 
+involving the private key(s) of one or both parties. 
+
+ 
+Requirements for Public-Key Cryptography 
+1. It is computationally easy for a party B to generate a pair (public key Pub , private key 
+PRb). 
+2.  It is computationally easy for a sender A, knowing the public key and the message to be 
+encrypted, M, to generate the corresponding ciphertext: 
+C = E(PUb, M) 
+3. It is computationally easy for the receiver B to decrypt the resulting ciphertext using the 
+private key to recover the original message: 
+M = D(PRb,C) = D[PRb, E(PUb,M)] 
+4. It is computationally infeasible for an adversary, knowing the public key, PUb, to 
+determine the private key, PRb. 
+
+ 
+5. It is computationally infeasible for an adversary, knowing the public key, PUb, and a 
+ciphertext, C, to recover the original message, M. 
+6. The two keys can be applied in either order: 
+M = D[PUb, E(PRb, M)] = D[PRb, E(PUb, M)] 
+▪ need a trap-door one-way function 
+▪ one-way function has 
+Y = f(X) easy 
+X = f–1(Y) infeasible 
+▪ A trap-door one-way function has 
+Y = fk(X) easy, if k and X are known 
+X = fk
+–1(Y) easy, if k and Y are known 
+X = fk
+–1(Y) infeasible,, if Y known but k not known 
+▪ A practical public-key scheme depends on a suitable trap-door one-way 
+function 
+
+ 
+Public-Key Cryptanalysis 
+▪ Vulnerable to a brute-force attack (with small key size), Key size is 
+larger enough to avoid brute-force attack. 
+▪ Public key method depend on the use of mathematic equation or 
+some function. 
+▪ Public-key encryption is currently confined to key management and 
+signature applications. 
+
+ 
+The RSA Algorithm 
+▪ Best known & widely used public-key scheme 
+▪ Invented by Rivest, Shamir and Adleman in year 1977 and hence name RSA algorithm. 
+▪ Plaintext and ciphertext are integers between 0 and n - 1 for some n. 
+▪ RSA makes use of an expression with exponentials. Plaintext is encrypted in blocks, with 
+each block having a binary value less than some number n. 
+- block size must be less than or equal to log2(n) + 1 
+▪ For some plaintext block M and ciphertext block C. 
+C = Me mod n 
+M = Cd mod n = (Me)d mod n = Med mod n 
+
+ 
+ 
+▪ Both sender and receiver must know the value of n. 
+▪ The sender knows the value of e, and only the receiver knows the value of d. 
+▪ This is a public-key encryption algorithm with a public key of PU = {e, n} and a private 
+key of PR = {d, n}. 
+public key PU = {e, n} and private key PR = {d, n} 
+▪ Ingredients of RSA: 
+
+ 
+The RSA Algorithm 
+
+ 
+Example: 
+1. Select two prime numbers, p = 17 and q = 11. 
+2. Calculate n = pq = 17 * 11 = 187. 
+3. Calculate f(n) = (p - 1)(q - 1) = 16 * 10 = 160. 
+4. Select e such that, GCD(160,e) = 1. we choose e = 7. 
+5. Determine d such that de = 1 (mod 160) and d < 160. The correct 
+value is d = 23, because 23 * 7 = 161 
+161 = 1 (mod 160) 
+6. Publish public key: PU = {e, n} = {7,187} 
+7. Keep private key secret: PR = {d , n} = {23,187} 
+
+ 
+▪ Given message M = 88 
+• 
+Encryption: 
+C = 887 mod 187 = 11 
+• Decryption: 
+M = 1123 mod 187 = 88 
+
+Fig: RSA Processing of Multiple Blocks
+
+Computational Aspects 
+1. Encryption/decryption 
+MODULAR ARITHMETIC : 
+[(a mod n) * (b mod n)] mod n = (a * b) mod n 
+- reduces intermediate results modulo n. 
+Efficient Operation Using The Public Key : To speed up the operation of the RSA 
+algorithm using the public key, a specific choice of e is usually made, So the number of 
+multiplications required to perform exponentiation is minimized. 
+Efficient Operation Using The Private Key : there is a way to speed up Decryption 
+computation using the CRT. 
+2. Key generation 
+Before the application of the public-key cryptosystem, each participant must generate 
+a pair of keys. This involves the following tasks. 
+■ Determining two prime numbers, p and q. 
+■ Selecting either or calculating the others.
+
+ 
+The Security of RSA 
+▪ Five possible approaches for attacking the RSA algorithm are: 
+1. Brute force: This involves trying all possible private keys. 
+2. Mathematical attacks: There are several approaches, all equivalent in effort to 
+factoring the product of two primes. 
+3. Timing attacks: These depend on the running time of the decryption 
+algorithm. 
+4. Hardware fault-based attack: This involves inducing hardware faults in the 
+processor that is generating digital signatures. 
+5. Chosen ciphertext attacks: This type of attack exploits properties of the RSA 
+algorithm. 
+
+ 
+The Factoring Problem 
+▪ We can identify three approaches to attacking RSA mathematically. 
+1. Factor n into its two prime factors. This enables calculation of Φ(n) = (p - 1) * 
+(q - 1), which in turn enables determination of d ≡ K e-1 (mod Φ(n)). 
+2. Determine Φ(n) directly, without first determining p and q. Again, this enables 
+determination of 
+d ≡ K e-1 (mod Φ(n)). 
+3. Determine d directly, without first determining Φ(n). 
+▪ currently assume 1024–2048-bit RSA is secure 
+- ensure p, q of similar size and matching other constraints 
+
+ 
+Timing Attacks 
+▪ developed by Paul Kocher in mid-1990’s 
+▪ 
+exploit timing variations in operations 
+– eg. multiplying by small vs.. large number 
+– or varying which instructions executed 
+▪ 
+infer operand size based on time taken 
+▪ For RSA, exploits time taken for exponentiation 
+▪ 
+countermeasures 
+– use constant exponentiation time 
+– add random delays 
+– blind values used in calculations 
+
+ 
+Chosen Ciphertext Attacks 
+▪ RSA is vulnerable to a Chosen Ciphertext Attack (CCA) 
+▪ based on C(P1 x P2) = C(P1) x C(P2) 
+▪ attacker chooses ciphertexts and gets decrypted plaintext 
+back 
+▪ choose ciphertext to exploit properties of RSA to provide 
+info to help cryptanalysis 
+▪ can counter with random pad off plaintext 
+▪ or use Optimal Asymmetric Encryption Padding (OASP) 
+
+Encryption Using Optimal Asymmetric 
+Encryption Padding (OAEP) 
+• To counter such attacks, 
+RSA  Security  Inc., 
+a 
+leading RSA vendor and 
+former holder of the RSA 
+patent, recommends 
+modifying the plaintext 
+using a procedure known 
+as optimal asymmetric 
+encryption   
+  padding 
+(OAEP). 
+
+ 
+Problems on RSA: 
+1. Perform encryption and decryption using the RSA algorithm for the following: 
+i. 
+p = 3; q = 11, e = 7; M = 5 
+ii. p = 5; q = 11, e = 3; M = 9 
+iii. p = 7; q = 11, e = 17; M = 8 
+iv. p = 11; q = 13, e = 11; M = 7 
+v. p = 17; q = 31, e = 7; M = 2 
+2. In a public-key system using RSA, you intercept the ciphertext C = 10 sent to a 
+user whose public key is e = 5, n = 35. What is the plaintext M? 
+
+ 
+Diffie-Hellman key exchange 
+▪ First public-key type scheme proposed by Diffie & Hellman in 1976 for key 
+distribution only. 
+▪ Purpose of the algorithm is to enable two users to exchange a secret key 
+securely that then can be used for subsequent encryption of messages. 
+▪ The algorithm itself is limited to the exchange of the keys. 
+
+The Algorithm 
+▪ There are two publicly known numbers: a prime number q and an integer α that is a primitive root 
+of q. 
+▪ Suppose the users A and B wish to create a shared key. 
+
+ 
+Example: 
+▪ 
+Let’s take q = 353 and α= 3 (a primitive root of 353). 
+▪ 
+A and B select private keys XA = 97 and XB = 233, respectively. 
+▪ 
+Each computes its public key: 
+A computes YA = 397 mod 353 = 40. 
+B computes YB = 3233 mod 353 = 248. 
+▪ 
+After they exchange public keys, each can compute the common secret key: 
+A computes K = (YB)XA mod 353 = 24897 mod 353 = 160. 
+B computes K = (YA)XB mod 353 = 40233 mod 353 = 160. 
+▪ 
+An attacker would have available the following information but not Private Keys: 
+q = 353; α = 3; YA = 40; YB = 248. 
+
+ 
+Man-in-the-Middle Attack 
+▪ 
+Suppose Alice and Bob wish to exchange keys, and Darth is the adversary. 
+▪ 
+The attack proceeds as follows 
+1. Darth prepares for the attack by generating two random private keys XD1 and XD2 and then 
+computing the corresponding public keys YD1 and YD2. 
+2. Alice transmits YA to Bob. 
+3. Darth intercepts YA and transmits YD1 to Bob. Darth also calculates K2 = (YA)X D2 mod q. 
+4. Bob receives YD1 and calculates K1 = (YD1)XB mod q. 
+5. Bob transmits YB to Alice. 
+6. Darth intercepts YB and transmits YD2 to Alice. Darth calculates K1 = (YB)XD1 mod q. 
+7. Alice receives YD2 and calculates K2 = (YD2)XA mod q. 
+
+ 
+▪ 
+At this point, Bob and Alice think that they share a secret key, but instead Bob and Darth share 
+secret key K1 and Alice and Darth share secret key K2. 
+▪ 
+All future communication between Bob and Alice is compromised in the following way. 
+1. Alice sends an encrypted message M: E(K2, M). 
+2. Darth intercepts the encrypted message and decrypts it to recover M. 
+3. Darth sends Bob E(K1, M) or E(K1, M′), where M′ is any message. 
+▪ 
+In the first case, Darth simply wants to eavesdrop on the communication without altering it. 
+▪ 
+In the second case, Darth wants to modify the message going to Bob. 
+
+
+Problems on Diffie-Hellman algorithm 
+1. Users A and B use the Diffie-Hellman key exchange technique with a common prime q = 71 and a 
+primitive root α = 7. 
+a. If user A has private key XA = 5, what is A’s public key YA? 
+b. If user B has private key XB = 12, what is B’s public key YB? 
+c. What is the shared secret key? 
+2. Consider a Diffie-Hellman scheme with a common prime q = 11 and a primitive root α = 2. 
+a. If user A has public key YA = 9, what is A’s private key XA? 
+b. If user B has public key YB = 3, what is the secret key K shared with A? 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Elliptic Curve Cryptography 
+• Key exchange using elliptic curves 
+• 
+It is a Public Key Cryptosystem 
+• 
+It provides Equal security with smaller key size compared to Non ECC Algorithms 
+• 
+It makes use of Elliptic curves 
+• 
+Elliptic curves are defined by some mathematical functions. 𝑦2 = 𝑥3 + ax + b 
+
+ 
+Analog of Diffie-Hellman key Exchange 
+• Key exchange using elliptic curves can be done in the 
+following manner. 
+• First pick a large integer q, which is either a prime number q 
+or an integer of the form 2𝑚, and elliptic curve parameters a 
+and b. This defines the elliptic group of points 𝑬𝒒(a, b). Next, 
+pick a base point G = (𝒙𝟏, 𝒚𝟏) on an elliptic curve. The order n 
+of a point G on an elliptic curve is the large positive integer n 
+and these parameters of the cryptosystem known to all 
+participants. 
+
+ 
+ 
+
+ 
+ECC Diffie–Hellman Key Exchange 
+
+ 
+Elliptic Curve Encryption/Decryption 
+• Let the message be m. 
+• First Encode this message as an (x, y) point 𝑷𝒎 on elliptic curve. 
+• To encrypt and send a message Pm to B, A chooses a random 
+positive integer k and produces the ciphertext 𝑪𝒎 consisting of 
+the pair of points: 
+• This point will be sent to the receiver. 
+• To decrypt the ciphertext, B multiplies the first point in the 
+cypertext pair by B’s private key and subtracts the result from 
+the second point: 
+
+ 
+Security of Elliptic Curve Cryptography 
+• The security of ECC depends on how difficult it is to determine k. 
+• This is referred to as the elliptic curve logarithm problem. The 
+fastest known technique for taking the elliptic curve logarithm is 
+known as the Pollard rho method. 
+▪ Considerably smaller key size can be used for ECC compared to 
+RSA. 
+▪ There is a computational advantage of using ECC with a shorter 
+key length than a comparably secure RSA. 
+
+ 
+Comparable Key Sizes in Terms of Computational 
+Effort for Cryptanalysis 

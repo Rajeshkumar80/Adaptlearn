@@ -1,0 +1,3260 @@
+| This Chapter covers 
+Basic building blocks of an IoT Device 
+Exemplary Device: Raspberry Pi 
+Raspberry Pi interfaces 
+Programming Raspberry Pi with Python 
+MODULE 4
+
+154 
+loT Physical Devices & Endpoints 
+UOT Rg as St ee 
+een, pelea ee ee 
+7.1. 
+What is an loT Device 
+As described earlier, a "Thing" in Internet of Things (IoT) can be any object that has a 
+unique identifier and which can send/receive data (including user data) over a network (e.g., 
+smart phone, smart TV, computer, refrigerator, car, etc. ). loT devices are connected to the 
+Internet and send information about themselves or about their surroundings (e.g. information 
+sensed by the connected sensors) over a network (to other devices or servers/storage) or allow 
+actuation upon the physical entities/environment around them remotely. Some examples of 
+IoT devices are listed below: 
+| 
+e A home automation device that allows remotely monitoring the status of appliances 
+and controlling the appliances. 
+e An industrial machine which sends information abouts its operation and health 
+monitoring data to a server. 
+e Acar which sends information about its location to a cloud-based service. 
+e A wireless-enabled wearable device that measures data about a person such as the 
+number of steps walked and sends the data to a cloud-based service. 
+7.1.1 
+Basic building blocks of an loT Device 
+An IoT device can consist of a number of modules based on functional attributes, such as: 
+e Sensing: Sensors can be either on-board the IoT device or attached to the device. loT 
+device can collect various types of information from the on-board or attached sensors 
+such as temperature, humidity, light intensity, etc. The sensed information can be 
+communicated either to other devices or cloud-based servers/storage. 
+e Actuation: loT devices can have various types of actuators attached that allow taking 
+actions upon the physical entities in the vicinity of the device. For example, a relay 
+switch connected to an IoT device can turn an appliance on/off based on the commands 
+sent to the device. 
+e Communication: Communication modules are responsible for sending collected data 
+to other devices or cloud-based servers/storage and receiving data from other devices 
+and commands from remote applications. 
+e Analysis & Processing: Analysis and processing modules are responsible for making 
+sense of the collected data. 
+The representative IoT device used for the examples in this book is the widely used 
+single-board mini computer called Raspberry Pi (explained in later sections). The use 
+of Raspberry Pi is intentional since these devices are widely accessible, inexpensive, and 
+available from multiple vendors. Furthermore, extensive information is available on their 
+programming and use both on the Internet and in other textbooks. The principles we teach in 
+this book are just as applicable to other (including proprietary) IoT endpoints, in addition to 
+Raspberry Pi. Before we look at the specifics of Raspberry Pi, let us first look at the building 
+blocks of a generic single-board computer (SBC) based IoT device. 
+Figure 7.1 shows a generic block diagram of a single-board computer (SBC) based 
+IoT device that includes CPU, GPU, RAM, storage and various types of interfaces and 
+peripherals. 
+Bahga & Madisetti, © 2014 
+
+7.2 Exemplary Device: Raspberry Pi 
+155 
+Connectivity 
+Processor 
+Graphics 
+Audio/Video ae 
+_ 
+USB Host 
+CPU 
+HDMI 
+i 
+RCA video 
+REE 
+). 
+Spidered 
+ES 
+DANS 
+ESSERE 
+1 
+Rp) scene 
+Memot 
+aces 
+NAND/NOR 
+DDR1/DDR2/DDR3 
+Figure 7.1: Block diagram of an IoT Device 
+7.2 
+Exemplary Device: Raspberry Pi 
+Raspberry Pi [104] is a low-cost mini-computer with the physical size of a credit card. 
+Raspberry Pi runs various flavors of Linux and can perform almost all tasks that a normal 
+desktop computer can do. In addition to this, Raspberry Pi also allows interfacing sensors 
+and actuators through the general purpose I/O pins. Since Raspberry Pi runs Linux operating 
+system, it supports Python "out of the box". 
+7.3 
+About the Board 
+Figure 7.2 shows the Raspberry Pi board with the various components/peripherals labeled. 
+e Processor & RAM: Raspberry Pi is based on an ARM processor. The latest version of 
+Raspberry Pi (Model B, Revision 2) comes with 700 MHz Low Power ARM1176JZ-F 
+processor and 512 MB SDRAM. 
+e USB Ports : Raspberry Pi comes with two USB 2.0 ports. The USB ports on Raspberry 
+Pi can provide a current upto 100mA. For connecting devices that draw current more 
+than 100mA, an external USB powered hub is required. 
+e Ethernet Ports : Raspberry Pi comes with a standard RJ45 Ethernet port. You can 
+connect an Ethernet cable or a USB Wifi adapter to provide Internet connectivity. 
+e HDMI Output : The HDMI port on Raspberry Pi provides both video and audio 
+output. You can connect the Raspberry Pi to a monitor using an HDMI cable. For 
+monitors that have a DVI port but no HDMI port, you can use an HDMI to DVI 
+adapter/cable. 
+e Composite Video Output : Raspberry Pi comes with a composite video output with 
+an RCA jack that supports both PAL and NTSC video output. The RCA jack can be 
+Internet of Things - 
+A Hands-On Approach 
+
+156 
+7.4 
+loT Physical Devices & Endpoints 
+used to connect old televisions that have an RCA input only. 
+Audio Output : Raspberry Pi has a 3.5mm audio output jack. This audio jack is used 
+for providing audio output to old televisions along with the RCA jack for video. The 
+audio quality from this jack is inferior to the HDMI output. 
+GPIO Pins : Raspberry Pi comes with a number of general purpose input/ouput pins. 
+Figure 7.3 shows the Raspberry Pi GPIO headers. There are four types of pins on 
+Raspberry Pi - true GPIO pins, I2C interface pins, SPI interface pins and serial Rx and 
+TX pins. 
+Display Serial Interface (DSI) : The DSI interface can be used to connect an LCD 
+panel to Raspberry Pi. 
+Camera Serial Interface (CSI) : The CSI interface can be used to connect a camera 
+module to Raspberry Pi. 
+Status LEDs : Raspberry Pi has five status LEDs. Table 7.1 lists Raspberry Pi status 
+LEDs and their functions. 
+SD Card Slot : Raspberry Pi does not have a built in operating system and storage. 
+You can plug-in an SD card loaded with a Linux image to the SD card slot. Appendix-A 
+provides instructions on setting up New Out-of-the-Box Software (NOOBS) on 
+Raspberry Pi. You will require atleast an 8GB SD card for setting up NOOBS. 
+Power Input : Raspberry Pi has a micro-USB connector for power input. 
+| Status LED 
+| 
+Function 
+ACT 
+SD card access 
+PWR 
+3.3V Power is present 
+FDX 
+Full duplex LAN connected 
+LNK 
+Link/Network activity 
+100 
+100 Mbit LAN connected 
+Table 7.1: Raspberry Pi Status LEDs 
+Linux on Raspberry Pi 
+Raspberry Pi supports various flavors of Linux including: 
+Raspbian Raspbian Linux is a Debian Wheezy port optimized for Raspberry Pi. This 
+is the recommended Linux for Raspberry Pi. Appendix-1 provides instructions on 
+setting up Raspbian on Raspberry Pi. 
+Arch : Arch is an Arch Linux port for AMD devices. 
+Pidora : Pidora Linux is a Fedora Linux optimized for Raspberry Pi. 
+RaspBMC : RaspBMC is an XBMC media-center distribution for Raspberry Pi. 
+OpenELEC : OpenELEC is a fast and user-friendly XBMC media-center distribution. 
+RISC OS : RISC OS is a very fast and compact operating system. 
+Figure 7.4 shows the Raspbian Linux desktop on Raspberry Pi. Figure 7.5 shows 
+the default file explorer on Raspbian. Figure 7.6 shows the default console on Raspbian. 
+Figure 7.7 shows the default browser on Raspbian. To configure Raspberry Pi, the raspi-config 
+tool is used which can be launched from command line as ($raspi-config) as shown in 
+Bahga & Madisetti, © 2014 
+
+7.4 Linux on Raspberry Pi 
+157 
+RCA Video 
+| 
+Audio Jack 
+| 
+Status LEDs 
+GPIO Headers 
+DS| Connector 
+Display 
+SD Card 
+Slot 
+Micro USB 
+Power 
+CS! Connector 
+Camera 
+ed 
+Ethernet 
+Figure 7.2: Raspberry Pi board 
+3V3 
+GPIO 2 (I2C SDA) 
+GPIO 3 (I2C SDL) 
+GPIO4 
+GROUND 
+GPIO.17 
+GPIO 27 
+GPIO 22 
+3V3 
+GPIO 10 ( SPIO MOSI) 
+GPIO 9 ( SPIO MISO) 
+GPIO 11 (SPIO SCLK) 
+GROUND O000O0000000
+© 
+© 
+Le] 
+© 
+© 
+© 
+© 
+© 
+© 
+5V 
+5V 
+GROUND 
+GPIO 14 (UART TxD) 
+GPIO 15 (UART RxD) 
+GPIO 18 
+GROUND 
+GPIO 23 
+GPIO 24 
+Ground 
+GPIO 25 
+GPIO 8 (SPIO CEO N) 
+GPIO 7 (SPIO CE1 N) 
+Figure 7.3: Raspberry Pi GPIO headers 
+Figure 7.8. Using the configuration tool you can expand root partition to fill SD card, set 
+keyboard layout, change password, set locale and timezone, change memory split, enable 
+or disable SSH server and change boot behavior. It is recommended to expand the root 
+file-system so that you can use the entire space on the SD card. 
+Internet of Things - 
+A Hands-On Approach 
+
+158 
+loT Physical Devices & Endpoints 
+ebtuey 
+Paforenn 
+ih 
+oatgy 
+Litfenreivisd 
+8 
+ocr” 
+tardeoet 
+a 
+(OLE 
+Oh Heavuces 
+Figure 7.4: Rasbian Linux desktop 
+Though Raspberry Pi comes with an HDMI output, it is more convenient to access 
+the device with a VNC connection or SSH. This does away with the need for a separate 
+display for Raspberry Pi and you can use Raspberry Pi from your desktop or laptop 
+computer. Appendix-A provides instructions on setting up VNC server on Raspberry Pi and 
+the instructions to connect to Raspberry Pi with SSH. Table 7.2 lists the frequently used 
+commands on Raspberry Pi. 
+Bahga & Madisetti, © 2014 
+
+7.4 Linux on Raspberry Pi 
+159 
+ocr® 
+OCK Pasources 
+fa Ea Bis tide 
+~$ eat Jetc/*release* 
+HOME_URL="http://www.raspbian.org/" 
+SUPPORT_URL="http://www. raspbian.org/RaspbianForums" 
+IBUG_REPORT_URL="http://www. raspbian.org/RaspbianBugs" 
+PRETTY _NAME="Debian #OSNAME# 
+7 (wheezy}"™ 
+HOME_URL="ht tp: //wwa.debian,org/* 
+SUPPORT_URL="http://wew.debian.org/support/" 
+ete 
+SR 
+ee 
+pigraaphs 
+~ 
+§ 
+Figure 7.6: Console on Raspberry Pi 
+Internet of Things - 
+A Hands-On Approach 
+
+160 
+loT Physical Devices & Endpoints 
+a @ 
+IDLE 3 
+Python Gaernes 
+==" 
+Dawnloads| RaspberryPl 
+Debiari 
+Aaference 
+() 
+WiFi Carifig| 
+Downloads 
+=e 
+New Out Of Box Software 
+nyt iy 
+(Recommended) 
+We recommend that first-time Pi users start by downloading and installing 
+our New Out of Box Software (NOOBS) onto a 3G6 or larger) SO card. On 
+ocr” 
+first boot, this presents you with a choice of operating systems to install, 
+Och Reseure 
+including Raspbian, Pidora and two flavours of XBMC, Once you have 
+installed an operating system, you can return to the NOOBS interface by 
+> 
+holding down shift during boot; this allows you to switch to a different 
+, 
+operating system, or overwrite a corrupted card with a fresh install of the 
+e 
+current one. 
+tiddari 
+By default, NOOBS will output over HDMI at your display’s preferred 
+ge 
+resolution. even # no HDMI display is connected, if you do not see any 
+iB 
+output on your HDMI display or are using the composite output, press 1, 
+ve 
+2 36 
+‘or don your keyboard to select HOM! preferred mode. HOM safe 
+ae 
+SES 
+Sisal 
+st aE 
+aD 
+ee 
+eee 
+Figure 7.7: Browser on Raspberry Pi 
+Figure 7.8: Raspberry Pi configuration tool 
+URI RaRaERRRENEE eee 
+Ere 
+re 
+Bahga & Madisetti, © 2014 
+
+7.4 Linux on Raspberry Pi 
+161 
+Function 
+cd 
+cat 
+ls 
+locate 
+Isusb 
+reboot 
+shutdown 
+grep 
+df 
+ifconfig 
+netstat 
+tar 
+Change directory 
+Show file contents 
+List files and folders 
+Search for a file 
+List USB devices 
+Print name of present working 
+directory 
+Make directory 
+Move (rename) file 
+Remove file 
+Reboot device 
+Shutdown device 
+Print lines matching a pattern 
+Report file system disk space 
+usage 
+Configure a network interface 
+Print 
+network 
+connections, 
+routing tables, interface statistics 
+Extract/create archive 
+Non-interactive 
+network 
+downloader 
+Example 
+cd /home/pi 
+cat file.txt 
+Is /home/pi 
+locate file.txt 
+Isusb 
+pwd 
+mkdir /home/pi/new 
+mv sourceFile.txt destinationFile.txt 
+rm file.txt 
+sudo reboot 
+sudo shutdown -h now 
+grep -r “pi” /home/ 
+df -Th 
+ifconfig 
+netstat -Intp 
+tar -xzf foo.tar.gz 
+weet http://example.com/file.tar.gz 
+Table 7.2: Raspberry Pi frequently used commands 
+Internet of Things - 
+A Hands-On Approach 
+
+162 
+loT Physical Devices & Endpoints 
+i 
+a 
+ie 
+7.5 
+Raspberry Pi Interfaces 
+Raspberry Pi has serial, SPI and I2C interfaces for data transfer as shown in Figure 7.3. 
+7.5.1 
+Serial 
+The serial interface on Raspberry Pi has receive (Rx) and transmit (Tx) pins for communication 
+with serial peripherals. 
+7.5.2 
+SPI 
+Serial Peripheral Interface (SPI) is a synchronous serial data protocol used for communicating 
+with one or more peripheral devices. In an SPI connection, there is one master device and 
+one or more peripheral devices. There are five pins on Raspberry Pi for SPI interface: 
+e MISO (Master In Slave Out) : Master line for sending data to the peripherals. 
+e MOSI (Master Out Slave In) : Slave line for sending data to the master. 
+e SCK (Serial Clock) : Clock generated by master to synchronize data transmission 
+e CEO (Chip Enable 0) : To enable or disable devices. 
+e CEO (Chip Enable 1) : To enable or disable devices. 
+7.5.3 
+12C 
+The I2C interface pins on Raspberry Pi allow you to connect hardware modules. I2C interface 
+allows synchronous data transfer with just two pins - SDA (data line) and SCL (clock line). 
+7.6 
+Programming Raspberry Pi with Python 
+In this section you will learn how to get started with developing Python programs on 
+Raspberry Pi. Raspberry Pi runs Linux and supports Python out of the box. Therefore, you 
+can run any Python program that runs on a normal computer. However, it is the general 
+purpose input/output capability provided by the GPIO pins on Raspberry Pi that makes it 
+useful device for Internet of Things. You can interface a wide variety of sensor and actuators 
+with Raspberry Pi using the GPIO pins and the SPI, I2C and serial interfaces. Input from the 
+sensors connected to Raspberry Pi can be processed and various actions can be taken, for 
+instance, sending data to a server, sending an email, triggering a relay switch. 
+7.6.1 
+Controlling LED with Raspberry Pi 
+Let us start with a basic example of controlling an LED from Raspberry Pi. Figure 7.9 shows 
+the schematic diagram of connecting an LED to Raspberry Pi. Box 7.1 shows how to turn 
+the LED on/off from command line. In this example the LED is connected to GPIO pin 18. 
+You can connect the LED to any other GPIO pin as well. 
+Box 7.2 shows a Python program for blinking an LED connected to Raspberry Pi every 
+second. The program uses the RPi. GPIO module to control the GPIO on Raspberry Pi. In 
+this program we set pin 18 direction to output and then write True/False alternatively after a 
+delay of one second. 
+Bahga & Madisetti, © 2014 
+
+7.6 Programming Raspberry Pi with Python 
+» Box 7.1: Switching LED on/off from Raspberry Pi console 
+_DSI: (DISPLAY) 
+a 
+& 
+SETLETTLES 2424 
+ize 
+7au 
+iss 
+7" 
+ELEREENESE 
+5 
+& 
+(¥NANVD) 
+ISD 
+THERNET. 
+“~“@eeeeona 
+eo 
+oe 
+eeseeaeaeeeeo@ 
+“@e@eeaeeeoaeeoesseeoeoeeaeee
+@ 
+2@eeee 
+e@eees 
+e@esee 
+eeeeoe 
+©2880 
+82 
+88 
+OHOHHHHOHA8HO8e 
+©0202 
+00060 
+®@Seeseeeeoeooeseoeoeoeae
+@e2ee2028008 
+163 
+Figure 7.9: Controlling LED with Raspberry Pi 
+Secho 18 > /sys/class/gpio/export 
+$cd /sys/class/gpio/gpiols 
+#Set pin 18 direction to out 
+Secho out > direction 
+#Turn LED on 
+Secho 
+1 > value 
+#Turn LED off 
+Secho 0 
+= Box 7.2: Python program for blinking LED 
+> value 
+import RPi.GPIO 
+as GPIO 
+import time 
+GPIO.setmode (GPIO.BCM) 
+GPIO.setup(18, 
+GPIO.OUT) 
+while True: 
+GPIO. 
+time. 
+GPIO. 
+time. 
+output (18, 
+True) 
+sleep (1) 
+output (18, 
+False) 
+sleep (1) 
+Internet of Things - 
+A Hands-On Approach 
+
+164 
+loT Physical Devices & Endpoints 
+7.6.2 
+Interfacing an LED and Switch with Raspberry Pi 
+Now let us look at a more detailed example involving an LED and a switch that is used to 
+control the LED. 
+Figure 7.10 shows the schematic diagram of connecting an LED and switch to Raspberry 
+Pi. Box 7.3 shows a Python program for controlling an LED with a switch. In this example 
+the LED is connected to GPIO pin 18 and switch is connected to pin 25. In the infinite while 
+loop the value of pin 25 is checked and the state of LED is toggled if the switch is pressed. 
+This example shows how to get input from GPIO pins and process the input and take some 
+action. The action in this example is toggling the state of an LED. Let us look at another 
+example, in which the action is an email alert. Box 7.4 shows a Python program for sending 
+an email on switch press. Note that the structure of this program is similar to the program in 
+Box 7.3. This program uses the Python SMTP library for sending an email when the switch 
+connected to Raspberry Pi is pressed. 
+» Box 7.3: Python program for controlling an LED with a switch 
+from time import sleep 
+iMpOrt RPa.GPIO 
+as 
+-GPIO 
+GPIO.setmode (GPIO.BCM) 
+#Switch Pin 
+GPIO.setup(25, 
+GPIO.IN) 
+#LED Pin 
+GPLO.setup 
+(18, GPIO.OUT) 
+state=false 
+def toggleLED (pin): 
+state =-not 
+state 
+GPIO.output (pin, 
+state) 
+while True: 
+Ey: 
+IE 
+(GPIO. 
+nput.(25) 
+==" True) 3 
+toggleLED (pin) 
+sleep (.01) 
+except KeyboardInterrupt: 
+exit 
+() 
+2 Box 7.4: Python program for sending an email on switch press 
+import smtplib 
+from time import sleep 
+import RPi.GPIO 
+as GPIO 
+from sys import exit 
+Bahga & Madisetti, © 2014 
+
+7.6 Programming Raspberry Pi with Python 
+DSI (DISPLAY) 
+a 
+b 
+| 
+‘ERTSISTAELETIAY 
+EMVESEDISISE: 
+tee 
+RES 
+UPI IST 
+ETHERNET 
+pa 
+eeeeeooneooeooes 
+@eeeoeeoee0 
+0 
+@eeees 
+e@eeee 
+e@eeoee 
+@eeee 
+@eeee 
+e@eeee 
+@©eoee 
+165 
+Figure 7.10: Interfacing LED and switch with Raspberry Pi 
+from_email 
+= '’<my-email>’ 
+receipients_list = [’<receipient-email>’ ] 
+eci List 
+=i 
+[ 4} 
+subject 
+= ’Hello’ 
+message 
+= ’Switch pressed on Raspberry Pi’ 
+username 
+= ’<Gmail-username>’ 
+password 
+= ’<password>’ 
+server 
+= 'smtp.gmail.com:587’ 
+GPIO.setmode (GPIO.BCM) 
+GPLO. setup (25, 
+GPLO. IN) 
+def sendemail (from_addr, 
+to_addr_list, 
+cc_addr_list, 
+subject, 
+message, 
+login, 
+password, 
+smtpserver) : 
+header 
+= ’From: 
+%s \n’ % from_addr 
+header t=“To:= 
+%s \n" 
+%-',". 
+join (tdzaddr: 
+list) 
+header ¢=.’.Ce: 5 %s.\n’ 
+4 ";£ j0in(edcaddr 
+1ist) 
+header += ’Subject: 
+%s \n \n’ % subject 
+message 
+= header 
++ message 
+server 
+= smtplib.SMTP (smtpserver) 
+server.starttls 
+() 
+server.login 
+(login, password) 
+problems 
+= server.sendmail(from_addr, 
+to_addr_list, 
+server.quit 
+() 
+message) 
+Internet of Things - 
+A Hands-On Approach 
+
+166 
+loT Physical Devices & Endpoints 
+BT 
+ee 
+ee 
+ee 
+while True: 
+eyes 
+if 
+(GPIO.input(25) 
+== 
+True): 
+sendemail(from_email, 
+receipients_list, 
+ec_ list, 
+subject, 
+message, 
+username, 
+password, 
+server) 
+sleep (.01) 
+except KeyboardiInterrupt: 
+exit 
+() 
+7.6.3 
+Interfacing a Light Sensor (LDR) with Raspberry Pi 
+So far you have learned how to interface LED and switch with Raspberry Pi. Now let us 
+look at an example of interfacing a Light Dependent Resistor (LDR) with Raspberry Pi and 
+turning an LED on/off based on the light-level sensed. 
+Figure 7.11 shows the schematic diagram of connecting an LDR to Raspberry Pi. Connect 
+one side of LDR to 3.3V and other side to a 1 {uF capacitor and also to a GPIO pin (pin 18 in 
+this example). An LED is connected to pin 18 which is controlled based on the light-level 
+sensed. 
+Box 7.5 shows the Python program for the LDR example. The readLDR() function 
+returns a count which is proportional to the light level. In this function the LDR pin is set 
+to output and low and then to input. At this point the capacitor starts charging through the 
+resistor (and a counter is started) until the input pin reads high (this happens when capacitor 
+voltage becomes greater than 1.4V). The counter is stopped when the input reads high. The 
+final count is proportional to the light level as greater the amount of light, smaller is the LDR 
+resistance and greater is the time taken to charge the capacitor. 
+» Box 7.5: Python program for switching LED/Light based on reading LDR reading 
+import RP1i.GPIO 
+as GPIO 
+import time 
+GPIO.setmode (GPIO.BCM) 
+ldr_threshold 
+= 
+1000 
+LDR_PIN 
+= 
+18 
+LIGHT_PIN 
+= 
+25 
+def readLDR(PIN): 
+reading=0 
+GPIO.setup (LIGHT_PIN, 
+GPIO.OUT) 
+GPIO.output (PIN, 
+False) 
+time.sleep (0.1) 
+GPIO.setup (PIN, 
+GPIO.IN) 
+while (GPIO.input 
+(PIN) ==False): 
+reading=reading+l 
+return reading 
+def switchOnLight 
+(PIN) : 
+GPIO.setup (PIN, 
+GP1IO: OUT) 
+Bahga & Madisetti, © 2014 
+
+7.7 Other loT Devices 
+167 
+GPIO.output (PIN, 
+True) 
+def switchOffLight (PIN): 
+GPIO.setup(PIN, 
+GPIO.OUT) 
+GPIO.output (PIN, 
+False) 
+while True: 
+ldr_reading 
+= readLDR(LDR_PIN) 
+if ldr_reading 
+< ldr_threshold: 
+switchOnLight (LIGHT_PIN) 
+else: 
+switchOffLight (LIGHT_PIN) 
+time.sleep 
+(1) 
+ptt poe 
+JBMOg” 
+(PST IMDESPLAY) 
+eau) 
+5 
+@ARREELEIIRE 
+RAS 
+ee 
+ee 
+ee 
+ee 
+ee 
+ae | 
+) 
+eo @ 
+pee 
+@¢ 
+SSERAPES EELS: 
+B_ 
+‘ 
+at 
+tVMAWVDE TS9: 
+Figure 7.11: Interfacing LDR with Raspberry Pi 
+7.7 
+Other loT Devices 
+Let us look at single-board mini-computers which are alternatives to Raspberry Pi. Table 7.3 
+provides a comparison of some single-board mini-computers that can be used for IoT. 
+7.7.1 
+pcDuino 
+peDuino [105] is an Arduino-pin compatible single board mini-computer that comes with a 1 
+GHz ARM Cortex-A8 processor. pcDuino is a high performance and cost effective device 
+that runs PC like OS such as Ubuntu and Android ICS. Like, Raspberry Pi, it has an HDMI 
+video/audio interface. pcDuino supports various programming languages including C, C++ 
+(with GNU tool chain), Java (with standard Android SDK) and Python. 
+Internet of Things - 
+A Hands-On Approach 
+
+218 
+Case Studies Illustrating loT Design 
+ea 
+eg 
+i 
+AI Te 
+ec 
+9.1. 
+Introduction 
+In Chapter-2 you learned about the applications of Internet of Things for homes, cities, 
+environment, energy systems, retail, logistics, industry, agriculture and health. This chapter 
+provides concrete implementations of several of these applications helping you understand 
+how sophisticated applications are designed and deployed. The case studies are based on the 
+IoT design methodology described in Chapter-5. The IoT device used for the case studies 
+is the Raspberry Pi mini-computer. The case studies are implemented in Python and use 
+the Django framework. You learned about basics of Python and Django in Chapters 6 and 
+8, respectively. However, principles you have learned are not limited to these particular 
+languages or platforms. 
+9.2 
+Home Automation 
+9.2.1 
+Smart Lighting 
+A design of a smart home automation system was described in Chapter-5 using the IoT 
+design methodology. A concrete 
+implementation of the system based on Django framework is described in this section. The 
+purpose of the home automation system is to control the lights in a typical home remotely 
+using a web application. 
+The system includes auto and manual modes. In auto mode, the system measures the 
+light in a room and switches on the light when it gets dark. In manual mode, the system 
+provides the option of manually and remotely switching on/off the light. 
+Figure 9.1 shows the deployment design of the home automation system. As explained 
+in Chapter-5, the system has two REST services (mode and state) and a controller native 
+service. Figures 9.2 and 9.3 show specifications of the mode and state REST services of the 
+home automation system. The Mode service is a RESTful web service that sets mode to auto 
+or manual (PUT request), or retrieves the current mode (GET request) 
+. The mode is updated 
+to/retrieved from the database. The State service is a RESTful web service that sets the light 
+appliance state to on/off (PUT request), or retrieves the current light state (GET request). 
+The state is updated to/retrieved from the status database. 
+« Box 9.1: Django model for mode and state REST services - models.py 
+from django.db import models 
+class Mode (models.Model): 
+name 
+= models.CharField(max_length=50) 
+class 
+State (models.Model): 
+name 
+= models.CharField(max_length=50) 
+To start with the implementation of the system, we first map services to Django models. 
+Box 9.1 shows the model fields for the REST services (state - on/off and mode - auto/manual). 
+= Box 9.2: Serializers for mode and state REST services - serializers.py 
+a 
+Se 
+Bahga & Madisetti, © 2014 
+
+9.2 Home Automation 
+219 
+REST 
+Communication 
+: 
+Services eS 
+Database 
+a 
+Resource 
+&) 
+"Device 
+| 
+| 
+| 
+| 
+; 
+| 
+| 
+| 
+| 
+=o 
+! 
+| 
+| 
+| 
+| 
+| 
+| 
+7 
+| 
+Monitoring Node 
+performs analysis, stores data 
+Figure 9.1: Deployment design of the home automation IoT system 
+has Output 
+Current Mode: 
+Auto/Manual 
+Service 
+Name: Mode 
+Type: REST 
+{ 
+has Service Endpoint 
+has Input 
+Endpoint 
+Endpoint: /home/mode/ 
+Protocol: HTTP 
+Figure 9.2: Service specification for home automation IoT system - mode service 
+Set Mode: 
+Auto/Manual 
+Internet of Things - 
+A Hands-On Approach 
+
+220 
+Case Studies Illustrating loT Design 
+ee 
+ee 
+ISAC 
+ES 
+eS 
+| Output 
+1 
+h 
+(6) 
+| 
+| 
+Stele: Ore 
+has Output 
+eee 
+ea 
+Service 
+Name: State 
+Type: REST 
+has Service Endpoint 
+has Input 
+7 
+ee 
+eee 
+Endpoint 
+| 
+Input 
+eet 
+ile ee ee Wee 
+acme 
+eh 
+ee 
+ee 
+Endpoint: /home/state/ | 
+State: On/Off 
+Protocol: HTTP 
+ates 
+Figure 9.3: Service specification for home automation IoT system - state service 
+from myapp.models 
+import Mode, 
+State 
+from rest_framework 
+import serializers 
+class ModeSerializer(serializers.HyperlinkedModelSerializer): 
+class Meta: 
+model 
+= Mode 
+fields 
+= 
+(’url’, 
+‘name’ ) 
+class StateSerializer (serializers.HyperlinkedModelSerializer) : 
+class Meta: 
+model 
+= State 
+fields 
+= 
+(’url’, 
+'name’) 
+After implementing the Django model, we implement the model serializers. Serializers 
+allow complex data (such as model instances) to be converted to native Python datatypes 
+that can then be easily rendered into JSON, XML or other content types. Box 9.2 shows the 
+serializers for mode and state REST services. 
+After implementing the serializers, we write ViewSets for the Django models. ViewSets 
+combine the logic for a set of related views in a single class. Box 9.3 shows the Django 
+views for REST services and home automation application. The ViewSets for the models 
+(ModeViewSet and State ViewSet) are included in the views file. The application view (home) 
+is described later in this section. 
+» Box 9.3: Django views for REST services and home automation application - 
+views.py 
+from myapp.models 
+import Mode, 
+State 
+from rest_framework 
+import viewsets 
+from django.shortcuts 
+import render_to_response 
+from django.template import RequestContext 
+Bahga & Madisetti, © 2014 
+
+9.2 Home Automation 
+221 
+a 
+ee 
+eS 
+8 
+ee 
+from myapp.serializers 
+import ModeSerializer, 
+StateSerializer 
+import requests 
+import 
+json 
+class ModeViewSet (viewsets.ModelViewSet) : 
+queryset 
+= Mode.objects.all() 
+serializer class 
+= ModeSerializer 
+class StateViewSet (viewsets.ModelViewSet) : 
+queryset 
+= State.objects.all() 
+serializer_class 
+= StateSerializer 
+def home (request): 
+outs" 
+currentmode=’ 
+auto’ 
+currentstate=’ 
+off’ 
+if ’on’ 
+in request.POST;: 
+values 
+= 
+"name":>- 
+"on" 
+r=requests.put (’http://127.0.0.1:8000/state/1/’, 
+data=values, 
+auth=(’myuser’, 
+'password’) ) 
+result=r.text 
+output 
+= 
+json.loads (result) 
+out=output 
+[’ name’ ] 
+Li Voth’ 
+“tn. request .ROST:: 
+values 
+= 
+"name": 
+"off" 
+r=requests.put (‘http://127.0.0.1:8000/state/1/’, 
+data=values, 
+auth=(’myuser’, 
+'password’ 
+) ) 
+result=r.text 
+output 
+= 
+json.loads (result) 
+out=output [’name’ ] 
+Lia? auto’ 
+in, request..POST ; 
+values 
+= 
+"name": 
+"auto" 
+r=requests.put (’http://127.0.0.1:8000/mode/1/’, 
+data=values, 
+auth=(’myuser’, 
+‘password’ 
+) ) 
+result=r.text 
+output 
+= json.loads (result) 
+out=output 
+[7 name’ ] 
+if ‘manual’ 
+in request.POST: 
+values 
+= 
+"name": 
+"manual" 
+r=requests.put 
+(7 http://127.0.0.1:8000/mode/1/’, 
+data=values, 
+auth=(’myuser’, 
+'password’) ) 
+result=r.text 
+output 
+= 
+json.loads (result) 
+out=output 
+[’ name’ ] 
+r=requests.get (’http://127.0.0.1:8000/mode/1/", 
+auth=(’myuser’, 
+‘’password’ 
+) ) 
+result=r.text 
+output 
+= 
+json.loads (result) 
+currentmode=output 
+[’ name’ ] 
+r=requests.get 
+(http: //127.0.0.1:8000/state/1/’, 
+auth=(’myuser’, 
+'password’ 
+)) 
+result=r.text 
+Internet of Things - 
+A Hands-On Approach 
+
+222 
+Case Studies Illustrating loT Design 
+Ce 
+ee 
+output 
+= 
+json.loads (result) 
+currentstate=output 
+[’name’ ] 
+return render _to_response(’lights.html’,’r’:out, 
+'currentmode’ :currentmode, 
+’currentstate’ :currentstate, 
+context_instance=RequestContext 
+(request) ) 
+Box 9.4 shows the URL patterns for the REST services and home automation application. 
+Since ViewSets are used instead of views for the REST services, we can automatically 
+generate the URL configuration by simply registering the viewsets with a router class. 
+Routers automatically determine how the URLs for an application should be mapped to the 
+logic that deals with handling incoming requests. 
+« Box 9.4: Django URL patterns for REST services and home automation 
+application - urls.py 
+from django.conf.urls 
+import patterns, 
+include, 
+url 
+from django.contrib import admin 
+from rest_framework 
+import routers 
+from myapp import views 
+admin.autodiscover 
+() 
+router 
+= routers.DefaultRouter 
+() 
+router.register(r’mode’, 
+views.ModeViewSet ) 
+router.register(r’state’, 
+views.StateViewSet) 
+urlpatterns 
+= patterns 
+(", 
+Senet Ganon 
+include (router.urls)), 
+url (r'“api—auth/", 
+include (’rest_framework.urls’, 
+namespace=’ rest_framework’)), 
+url(r'admin/’, 
+include (admin.site.urls)), 
+url(r’*home/'’, 
+‘myapp.views.home’), 
+Box 9.5 shows the code for the Django template for the home automation application. 
+= Box 9.5: Django template for home automation application - index.html 
+<!DOCTYPE html> 
+<html> 
+<head> 
+</head> 
+<body> 
+<p> {ix} }<p> 
+<h3>State</h3> 
+<form action="" method="post">{% csrf_token 
+$} 
+<input type="submit" name="0n" value="on" 
+/> 
+<input type="submit" name="off" value="off" 
+/> 
+</form> 
+—pice 
+a 
+eg 
+Bahga & Madisetti, © 2014 
+
+9.2 Home Automation 
+223 
+a 
+cence ae 
+eee 
+Ee, ee 
+<h3>Mode</h3> 
+<form action=""method="post">{% 
+csrf_token 
+%} 
+<input type="submit" 
+name="auto" 
+value="auto" 
+/> 
+<input type="submit" name="manual" 
+value="manual" 
+/> 
+</form> 
+</body> 
+</html> 
+Figure 9.4 shows a screenshot of the home automation web application. 
+Figure 9.4: Home automation web application screenshot 
+Figure 9.5 shows a schematic diagram of the home automation loT system. The devices 
+and components used in this example are Raspberry Pi mini computer, LDR sensor and relay 
+switch actuator. 
+Figure 9.6 shows the specification of the controller native service that runs on Raspberry 
+Pi. When in auto mode, the controller service monitors the light level and switches the light 
+on/off and updates the status in the status database. When in manual mode, the controller 
+service, retrieves the current state from the database and switches the light on/off. 
+A Python 
+implementation of the controller service is shown in Box 9.6. 
+= Box 9.6: Python code for controller native service - controller.py 
+import 
+time 
+import datetime 
+import sqlite3 
+import 
+spidev 
+import RPi.GPIO 
+as GPIO 
+#Initialize SQLite 
+con 
+= sqlite3.connect (’database.sqlite’ ) 
+cur 
+= con.cursor 
+() 
+#LDR channel 
+on MCP3008 
+LIGHT_CHANNEL 
+= 
+0 
+#GPIO Setup 
+GPIO.setmode (GPIO.BCM) 
+Internet of Things - 
+A Hands-On Approach 
+
+224 
+Figure 
+Case Studies Illustrating loT Design 
+oe 
+oe 
+ee 
+ae * 
+ee 
+jee 
+ee 
+ee 
+ee 
+ee 
+° 
+ee 
+ee 
+jee 
+e 
+Pst 
+ae 
+asta ce 2 3 
+ea 
+& 
+So) 
+ONE ART 
+ETAERNET 
+e@oeeoe 
+0282080 
+828 
+ecees 
+ese 
+9.5: Schematic diagram of the home automation IoT system showing the device, 
+sensor and actuator integrated 
+fr Z 
+ee 
+Schedule 
+| 
+ere 
+SS FASS ARE 
+2 US 
+Interval: 
+Every 5 sec 
+Mode: Mees 
+State: 
+: On/Off 
+isola 
+ES aaa 
+has Schedule 
+has Input 
+Service 
+Name: Controller 
+Type: Native 
+has Output 
+poo 
+nee 
+State: On/Off 
+L 
+Figure 9.6: Controller service of the home automation IoT system 
+Bahga & Madisetti, © 2014 
+
+9.2 Home Automation 
+225 
+LIGHT_PIN 
+= 
+25 
+# Open SPI bus 
+spi = spidev.SpiDev 
+() 
+spil.open (0,0) 
+#Light Level Threshold 
+threshold=200 
+#Function 
+to read LDR connected to MCP3008 
+def readLDR(): 
+light_level 
+= ReadChannel 
+(LIGHT CHANNEL) 
+lux 
+= ConvertLux(light_level, 
+2) 
+return 
+lux 
+#Function to convert 
+LDR reading to Lux 
+def ConvertLux(data,places) : 
+R=10 #10k-ohm resistor connected to LDR 
+VOLtSe 
+= 
+(data 
+*«~3'.3)-/5 
+10238 
+volts 
+= round(volts,places) 
+lux=500« (3.3-volts) / (R*xvolts) 
+PeEuEn 
+six 
+# Function to read SPI data from MCP3008 chip 
+def ReadChannel (channel): 
+adc 
+= spi.xfer2([1, (8t+channel) <<4,0]) 
+data 
+= 
+((ade [1] 
+&3)-<< 
+8) 
++ ade[2} 
+return data 
+#Get current 
+state 
+from DB 
+def getCurrentMode(): 
+cur.execute(’SELECT 
+* FROM myapp_mode’ ) 
+data 
+= cur.fetchone() 
+He 
+Oe atle Or) 
+return data[l] 
+#Get current 
+state from DB 
+def getCurrentState(): 
+cur.execute(’SELECT 
+* FROM myapp_state’ ) 
+data 
+= cur.fetchone 
+() 
+#{(1, 
+ul on) 
+return data[1] 
+#Store current 
+state 
+in DB 
+def setCurrentState(val): 
+query=’ UPDATE myapp_state 
+set name=""’+valt’"’ 
+cur.execute (query) 
+def switchOnLight 
+(PIN) : 
+GPIO.setup (PIN, 
+GPIO.OUT) 
+GPIO.output (PIN, 
+True) 
+def switchOffLight (PIN): 
+GPIO.setup (PIN, 
+GPIO.OUT) 
+GPIO.output (PIN, 
+False) 
+Internet of Things - 
+A Hands-On Approach 
+
+226 
+Case Studies Illustrating loT Design 
+4 2 
+ne pI 
+TT PTI 
+a 
+Sy 
+Sake an 
+def runManualMode(): 
+#Get current 
+state from DB 
+current State=getCurrentState 
+() 
+if currentState==’on’: 
+switchOnLight (LIGHT_PIN) 
+elif currentState==’ 
+off’: 
+switchOffLight (LIGHT_PIN) 
+def runAutoMode(): 
+#Read LDR 
+light level=readLDR () 
+if lightlevel 
+< ldr_threshold: 
+switchOnLight (LIGHT_PIN) 
+else: 
+switchOffLight (LIGHT_PIN) 
+print “Manual” 
++” — 
+“+getCurrentState() 
+#Controller main function 
+def runController(): 
+currentMode=get CurrentMode () 
+if currentMode==' auto’: 
+runAutoMode 
+() 
+elif currentMode==’manual’: 
+runManualMode 
+() 
+return true 
+while True: 
+runController 
+() 
+time.sleep 
+(5) 
+9.2.2 
+Home Intrusion Detection 
+You got an overview of horne intrusion detection systems in Chapter-2. A concrete 
+implementation of a home intrusion detection system is described in this section. The purpose 
+of the home intrusion detection system is to detect intrusions using sensors (such as PIR 
+sensors and door sensors) and raise alerts, if necessary. 
+Figure 9.7 shows the process diagram for the home intrusion detection system. Each 
+room in the home has a PIR motion sensor and each door has a door sensor. These sensors 
+can detect motion or opening of doors. Each sensor is read at regular intervals and the motion 
+detection or door opening events are stored and alerts are sent. 
+Figure 9.8 shows the domain model for the home intrusion detection system. The domain 
+model includes physical entities for room and door and the corresponding virtual entities. 
+The device in this example is a single-board mini computer which has PIR and door sensors 
+attached to it. The domain model also includes the services involved in the system. 
+Figure 9.9 shows the information model for the home intrusion detection system. The 
+information model defines the attributes of room and door virtual entities and their possible 
+values. The room virtual entity has an attribute ’motion’ and the door virtual entity has an 
+attribute ’state’. 
+The next step is to define the service specifications for the system. The services are 
+Bahga & Madisetti, © 2014 
+
+9.2 Home Automation 
+227 
+Read Door 
+Read Motion 
+}§=<——_——_____—___ 
+Sensor 
+Sensor 
+Door opened 
+‘ 
+: Door closed 
+Motion detected 
+) 
+INaltatfon 
+| 
+v 
+Store event & 
+Store event & 
+“send alert 
+send olert 
+es Wait 
+Ls 
+Woit << 
+Figure 9.7: Process specification of the home intrusion detection IoT system 
+ie 
+| 
+= 
+oe 
+Noe 
+interacts with 
+{ 
+os 
+| 
+{ 
+1 
+|. Active Digital 
+| 
+Human User 
+i 
+Artefact 
+nner 
+feegege ne aera 
+| 
+be 
+Ape 
+| 
+| 
+t 
+J 
+ee 
+b 
+Virtual Entity 
+relates to 
+Physical Entity 
+~< 
+invokes/subscribes 
+ith | 
+é. 
+1. 
+monitors 
+Mee | 
+Room 
+<— 
+) 
+e 
+| 
+| 
+associated ) 
+WIth | 
+= — 
+Virtual Entity 
+relates to 
+| 
+Physical Entity 
+> 
+- 
+ee 
+au Ee 
+Door 
+A 
+= 
+monitors 
+t 
+| 
+Resource 
+associated with 
+i 
+< 
+hosts 
+Device 
+A 
+| Mini-computer 
+| 
+Network 
+| 
+ti-Devies 
+attached to 
+4h 
+attached to 
+Resource 
+Resource 
+| 
+{ 
+i 
+Sensor 
+| 
+| 
+Sensor 
+PIR Sensor 
+: 
+| 
+Door Sensor 
+Figure 9.8: Domain model of the home intrusion detection IoT system 
+derived from the process specification and the information model. The system has three 
+services - (1) a RESTful web service that retrieves the current state of a door from the 
+database or sets the current state of a door to open/closed, (2) A RESTful web service that 
+retrieves the current motion in a room or sets the motion of a room to yes/no, (3) a native 
+controller service that runs on the device and reads the PIR and door sensors and calls the 
+REST services for updating the state of rooms and doors in the database. Figures 9.10, 
+Figures 9.11 and 9.12 show specifications of the web services and the controller service. 
+Internet of Things - 
+A Hands-On Approach 
+
+228 
+Case Studies Illustrating loT Design 
+in room 
+~ Virtual Entity: 
+___ Room 
+ye 
+EntityType ; Room 
+ID: Room 
+Attribute: 
+Motion 
+~ 
+Virtual En 
+Entity 
+Door: =: 
+EntityType : 
+be Door 
+1D; Doork 
+re 
+Roomi _ 
+: 
+I 
+State 
+AttributeName : doorState 
+AttributeType : state 
+AttributeName : roomMotion 
+AttributeType ; motion 
+has motion or 
+ees has motion 
+ee 
+~~__ 
+is instate 
+wee 
+aN 
+Bia 
+Motion: Yes 
+Motion: No 
+State: Open 
+State: Closed 
+Figure 9.9: Information model of the home intrusion detection IoT system 
+2 3R5 | 
+ee 
+“st 
+Open/Closed 7 
+has Input 
+Service 
+Name; Door 
+Type: REST 
+has Service Endpoint 
+has Output 
+ay 
+Ee 
+Endpoint 
+| 
+Output 
+foot 
+Sic 
+Sus 
+ea 
+ee 
+Endpoint: /home/door/ 
+ee Open/Closed : 
+Protocol; HTTP 
+Figure 9.10: Service specification for the home intrusion detection IoT system - door service 
+Figure 9.13 shows the deployment design for the home intrusion detection system. Recall 
+that this is a level-2 IoT system. 
+The functional view and the operational view specifications for home intrusion detection 
+system are shown in Figure 9.14. Various options pertaining to the system deployment and 
+operation and their mapping to the corresponding functional groups is shown in Figure 9.14. 
+The system uses Django framework for web application and REST service. The Django 
+web application is backed by a MySQL database. The IoT device used for this example is 
+Raspberry Pi along with the PIR and door sensors. Figure 9.15 shows a schematic diagram 
+of the home intrusion detection system and Figure 9.16 shows how the sensors are deployed 
+in a parking. 
+Let us now look at the implementation of the web application and services for the system. 
+Box 9.7 shows the model fields for the room and door REST service. After implementing 
+the Django model, we implement the model serializers that allows model instances to be 
+converted to native Python datatypes. Box 9.8 shows the serializers for room and door REST 
+Bahga & Madisetti, © 2014 
+
+9.2 Home Automation 
+229 
+Input 
+Motion: Yes/No 
+has Input 
+Service 
+Name: Room 
+| 
+Type: REST 
+has Service Endpoint 
+has Output 
+Endpoint 
+Motion: Yes/No 
+Endpoint: /home/room/ 
+Protocol: HTTP 
+Figure 9.11: Service specification for the home intrusion detection IoT system - room service 
+Service 
+Name: Controller 
+Type: Native 
+has Schedule 
+S75 
+State: Open/Closed 
+has Output 
+ue 
+Schedule 
+Motion: Yes/No 
+ae eee 
+Figure 9.12: Controller service of the home intrusion detection IoT system 
+services. 
+= Box 9.7: Django model for room and door REST services - models.py 
+from django.db import models 
+class Room(models.Model): 
+name 
+= models.CharField(max_length=50) 
+state 
+= models.CharField(max_length=50) 
+timestamp 
+= models.CharField(max_length=50) 
+pin = models.CharField(max_length=5) 
+class 
+Door (models.Model): 
+name 
+= models.CharField(max_length=50) 
+state 
+= models.CharField(max_length=50) 
+etn 
+Internet of Things - 
+A Hands-On Approach 
+
+230 
+Case Studies Illustrating loT Design 
+ica 
+] 
+Cloud 
+REST 
+Communication 
+REST 
+REST 
+- 
+Services” 
+| 
+| 
+Resource 
+| 
+eee 
+; 
+| 
+— 
+| 
+Device 
+: 
+| 
+= eee. 
+Monitoring Node 
+performs analysis 
+Cloud Storage 
+Figure 9.13: Deployment design for the home intrusion detection IoT system 
+timestamp 
+= models.CharField(max_length=50) 
+pin = models.CharField(max_length=5) 
+» Box 9.8: Serializers for room and door REST services - serializers.py 
+from myapp.models 
+import Room, 
+Door 
+from rest_framework import serializers 
+class RoomSerializer(serializers.HyperlinkedModelSerializer): 
+class Meta: 
+model 
+= Room 
+fields 
+= 
+("url®, 
+mame’, 
+‘state’, 
+“timestamp”, 
+“pin’) 
+class DoorSerializer(serializers.HyperlinkedModelSerializer): 
+class Meta: 
+model 
+= Door 
+frelds, 
+=. 
+(“Url 
+name! > state": 
+{Gee Steere ty. oe 1.6) 
+Box 9.9 shows the Django views for REST services and home intrusion detection 
+application. The ViewSets for the models (RoomViewSet and RoomViewSet) are included in 
+the views file. The home view renders the content for the home intrusion detection application 
+home page that displays the status of each room. Notice that a request is sent to the state 
+REST service to obtain the state of a room. 
+Bahga & Madisetti, © 2014 
+
+231 
+4 
+Wo}sks 
+UONIE}Ep 
+UOISHAUT 
+SWOY 
+JOJ 
+SuOMRdYIONds 
+MotA 
+[euONLiedo 
+2 
+[eUOMOUN, 
+:p]'6 
+BINSIy 
+dLLH :uoneaiddy 
+Bea 
+: 
+nS 
+ee 
+eo 
+Ses 
+dol odsues, 
+(Geeta 
+SA 
+Meee: 
+a snap Buandwo 
+| 
+peas: 
+iets 
+ates 
+an 
+peeithar: 
+MIMI 
+siosuas 
+100q ‘Yjg -Aosuas | 
+QAdI/pAdj :42Ae7 YIONQON aa 
+ERAS, 
+5 
+: 
+Sete 
+SE 
+A ete 
+a 
+ae 
+A 
+ine 
+Id Auagqdsey 
+:e21naq Sugndwo 
+T'Z08 
+suedeq 
+yur] 
+~j 
+ 3$j090304g 
+uoBesunWWOD 
+z 
+rit 
+M 
+Se 
+STINE, 
+Al 
+SidV 
+SAY 
+‘Sidv 
+UONejJunUIWUCD 
+= 
+oe 
+s]es03043 
+uorenurumiod 
+stay 
+vonestunuwios 
+be 
+SB 
+ie 
+quawaseuey 
+SOd1A4aS 
+SAQEN 
+BUR 
+Nc 
+4 
+uonesyddy 
+—TOSAWW 
+slanas 
+aseqerea 
+<«_ 
+-_Janias 
+daly 
+o8uefg 
+uensas 
+woneayddy 
+day 
+gonn 
+Buea 
+dy 
+gem 
+: 
+soins 
+ayontuon 
+apidag 
+annen 
+\ 
+_ 
+ Jansas 
+uogesiddy 
+Internet of Things - 
+A Hands-On Approach 
+9.2 Home Automation 
+
+232 
+Case Studies Illustrating loT Design 
+4 
+eeeee 
+ee 
+eeeee 
+eeeeoe 
+e@ee 
+ec2eee 
+e28 
+eee 
+“Bes 
+eeeeeoaoeee 
+ee 
+eeseen 
+e@eeese 
+eeeee 
+e@eeaee 
+2 
+pst @IsAlaYy 
+a 
+Be 
+SR 
+a RR LRRM 
+ATURE. 
+@e2oeee 
+880208 
+828008 
+@Ceeeeeeeeeeeeveeoeesceneqnenaeee 
+SHHSSOCSHOSHHEESHHSHLAHCECHAEGHHE 
+LOEB 
+e eeceveeeeoeeeceeneseeceeoeeaeeeeoe 
+e@eeeeenweeaceeneoeeae
+see 
+eoeneoenen 
+eee 
+eeee 
+SHSSHSSSHASSSHAHOHHHSESHEHOHEHHESE
+S9OCSSSOSSHSSESCHSHSHROSSHEEOHOHRSOSCOSSHRO” 
+@eeeeoeoeeeeoe 
+Seeese 
+eee 
+seeeeeeeeen 
+SPOSHSHSSHSSEHSHSSCHEHSSHSSFOSSCHEHSHSHABHBEO
+e@eee 
+@0280080@ 
+eee 
+FSSSSOHLHSSHOHSTHSCHSCSOOSHEHOCABSEHSOEHE 
+e e e 
+7 @8eeee 
+eeece 
+eee0 
+oe; 
+eo 
+ee 
+ee 
+ee} 
+oo, 
+eo} 
+ee; 
+eo} 
+oo) i 
+eo] 
+ee} 
+oa 
+eo! 
+ool: 
+e@50nee 
+eo0ne 
+POHCSCHOHEHSCHSCFECEOSLOHBECLHRHOOROE: 
+“@PBCCOHCHOHCCHOHOSOHFOOCH 
+ELE 
+ROSE: 
+SOCHHOHHOHAOCHEESEHHLEOCHLELEERE 
+Figure 9.15: Schematic diagram of the home intrusion detection IoT system prototype, 
+showing the device and ultrasonic sensor 
+= Box 9.9: Django views for REST services and home intrusion 
+detection application - views.py 
+from myapp.models 
+import Room, 
+Door 
+from rest_framework import viewsets 
+from django.shortcuts 
+import render_to_response 
+from django.template import RequestContext 
+from myapp.serializers 
+import RoomSerializer, 
+DoorSerializer 
+import requests 
+import 
+json 
+class RoomViewSet (viewsets.ModelViewSet) : 
+queryset 
+= Room.objects.all() 
+serializer_class 
+= RoomSerializer 
+class DoorViewSet (viewsets.ModelViewSet) : 
+queryset 
+= Door.objects.all() 
+serializer_class 
+= DoorSerializer 
+Bahga & Madisetti, © 2014 
+
+9.2 Home Automation 
+233 
+PIR sensors 
+fixed 
+on the 
+roof 
+a 
+~ 
+lees 
+eee 
+| ae 
+Door 
+sensors 
+a 
+Figure 9.16: Deployment of sensors for home intrusion detection system 
+def home (request): 
+r=requests.get (’http://127.0.0.1:8000/room/’, 
+‘password’ 
+)) 
+result=r.text 
+output 
+= 
+json.loads (result) 
+roomCount 
+= output 
+[’ count’ ] 
+r=requests.get (’http://127.0.0.1:8000/door/’, 
+‘password’ 
+)) 
+result=r.text 
+output 
+= json.loads (result) 
+doorCount 
+= output 
+[’ count’ ] 
+roomsDict={ } 
+for iin range 
+(0, roomcount): 
+auth=(’username’, 
+auth=(’username’, 
+r=requests.get (’http://127.0.0.1:8000/room/’+str(it+1)+’/’, 
+auth=(’username’, 
+’password’) ) 
+result=r.text 
+output 
+= 
+json.loads (result) 
+roomName=output 
+[’ name’ ] 
+roomState=output 
+[’ state’ ] 
+roomTimestamp=output 
+[’ timestamp’ } 
+roomsDict [roomName] 
+= 
+[roomState, 
+roomTimestamp] 
+doorsDict={} 
+for 
+i in range 
+(0, doorCount) : 
+fP-requeses. ger (/ nttp: 7/127 0 0st 
+e000/door/’ Hstr Gl) ee, 
+auth=(’username’, 
+‘’password’ 
+) ) 
+result=r.text 
+output 
+= 
+json.loads (result) 
+doorName=output 
+[’ name’ ] 
+doorState=output 
+[’ state’ ] 
+Internet of Things - 
+A Hands-On Approach 
+
+234 
+Case Studies Illustrating loT Design 
+doorTimestamp=output 
+[’ timestamp’ ] 
+doorsDict [doorName] 
+= 
+[doorState, 
+doorTimestamp] 
+return render _to_response(’index.html’, 
+{’roomsDict’:roomsDict, 
+"doorsDict’ :doorsDict}, 
+context.__instance=RequestContext 
+(request) ) 
+Box 9.10 shows the URL patterns for the REST services and home intrusion detection 
+application. 
+Since ViewSets are used instead of views for the REST services, we can 
+automatically generate the URL configuration by simply registering the viewsets with a 
+router class. 
+» Box 9.10: Django URL patterns for REST services and home intrusion 
+detection application - urls.py 
+from django.cont.uris 
+import patterns, 
+include, 
+url 
+from django.contrib import admin 
+from rest_framework 
+import routers 
+from myapp import views 
+admin.autodiscover 
+() 
+router 
+= routers.DefaultRouter 
+() 
+router.register(r’room’, 
+views.RoomViewSet) 
+router.register(r’ 
+door’, views.DoorViewSet) 
+urlpatterns 
+= patterns(”, 
+uUpleea A”, 
+include (router suri s)) ; 
+url(r’Aapi-auth/’, 
+include(’rest_framework-.urls’, 
+namespace=’ 
+rest _framework’)), 
+url (r’ A\admin/’,. 
+include (admin.site.urls)), 
+url(r’Ahome/', 
+‘myapp.views.home’), 
+Box 9.11 shows the code for the Django template for the home intrusion detection 
+application. This template is rendered by the home view. Figure 9.17 shows a screenshot of 
+the home intrusion detection web application. 
+» Box 9.11: Django template for home intrusion detection 
+application - index.html 
+<html> 
+<head> 
+<meta charset="utf-8"> 
+<meta http-equiv="X-UA-Compatible" 
+content="IE=edge, chrome=1"> 
+<title>Home 
+Intrusion Detection App</title> 
+<link rel="stylesheet" href="/static/css/style.css"> 
+</head> 
+<body> 
+<div class="app-container"> 
+ee 
+ee eS 
+Re 
+Bahga & Madisetti, © 2014 
+
+9.2 Home Automation 
+235 
+<header class="app-header clearfix"> 
+<hl class="app-logo 
+js-app-title icon-home">Dashboard</hl> 
+<div class="app-state"><span class="app-loading-loader"> 
+</span></div> 
+<center> 
+<h4>Home 
+#: 
+123</h4> 
+</center> 
+</header> 
+<div role="main" class="app-content clearfix"> 
+<div class="app-loading"><span class="app-—loading-loader"> 
+</span></div> 
+<div class="app-content-inner"> 
+<form class="dashboard-control 
+js-form clearfix"> 
+<fieldset> 
+<div class="field clearfix"> 
+<center><h4>Rooms</h4></center> 
+<table width 
+= 
+"90%" border="1"> 
+{% for key,val 
+in roomsDict.items 
+%} 
+Sie ge4 
+<td width="50%">{ 
+{key} } 
+<br> 
+<center> 
+{% 1£ val.0 
+== 
+'no’ 
+3} 
+<img. src="/static/img/g.png"> 
+{% else 
+%} 
+5 
+<img srce="/static/img/r.png"> 
+{S endif 
+%} 
+<br> 
+<p>Last Updated: 
+{{val.1}}</p> 
+</center> 
+Se Solos 
+</tr> 
+{% endfor 
+3%} 
+</table> 
+</div></div> 
+</fieldset> 
+</form></div> 
+<br> 
+<div role="main" 
+class="app-content clearfix"> 
+<div class="app-loading"><span class="app-loading-loader"> 
+</span></div> 
+<div class="app-content-inner"> 
+<form class="dashboard-control 
+js-form clearfix"> 
+<fieldset> 
+<div class="field cléeartix"> 
+<center><h4>Doors</h4></center> 
+<table width 
+= 
+"90%" border="i"> 
+{% for key,val 
+in doorsDict.items 
+%} 
+<g> 
+<td width="50%">{ 
+{key} } 
+a 
+Internet of Things - 
+A Hands-On Approach 
+
+236 
+Case Studies Illustrating loT Design 
+<br> 
+<center> 
+{S if val.0 
+== 
+’closed’) 
+s} 
+<img srco="/static/img/g.png”> 
+{% else 
+%} 
+<img src="/static/img/r.png"> 
+{% endif 
+%} 
+SEP 
+<p>Last Updated: 
+{{val.1}}</p> 
+</center> 
+</td> 
+Roe > 
+{% endfor 
+%} 
+</table> 
+</div> 
+</div> 
+</fieldset> 
+</form> 
+cdi 
+</div> 
+<script src="https://ajax.googleapis.com/ajax/libs/ 
+jquery/1.8.2/jquery.min.js"></script> 
+<script sre="/static/ 
+s/script. js"> </script> 
+</body> </html> 
+A Python implementation of the controller service native service that runs on Raspberry 
+Pi, is shown in Box 9.12. The runController function is called every second and the readings 
+of the PIR and door sensors are obtained. The current states of the room and door are then 
+updated by sending a PUT request to the corresponding REST services. 
+» Box 9.12: Python code for controller native service - intrusion detection - 
+controller.py 
+import RPi.GPIO 
+as GPIO 
+import time 
+import 
+sys 
+GPIO.setmode (GPIO.BCM) 
+global PIR SENSOR 
+PEN 
+global DOOR_SENSOR_PIN 
+def readingPIRSensor(): 
+aie GPIO.input (PIR_SENSOR_PIN): 
+return 
+1 
+else: 
+return 
+0 
+def readingDoorSensor(): 
+if GPIO.input (DOOR_SENSOR PIN): 
+Bahga & Madisetti, © 2014 
+
+9.3 Cities 
+237 
+return. 
+i 
+else: 
+return 
+0 
+def runController(): 
+pirState 
+= readingPIRSensor 
+() 
+if pinState 
+== 
+1: 
+setPIRState(’yes’ ) 
+else: 
+setPIRState(’no’ ) 
+doorState 
+= readingDoorSensor() 
+if doorState 
+== 
+-1: 
+setDoorState(’ 
+open’ ) 
+else: 
+setDoorState (’closed’ ) 
+def setPIRState (val): 
+values 
+= 
+{"state"; 
+val, 
+"timestamp": 
+str(time.time() 
+) } 
+r=requests.put (‘http://127.0.0.1:8000/room/1/', 
+data=values, 
+auth=(’username’, 
+‘’password’ 
+) ) 
+def setDoorState(val): 
+values 
+= 
+{"state":; 
+val, 
+"timestamp": 
+str(time.time()) } 
+r=requests.put (’http://127.0.0.1:8000/door/1/’, 
+data=values, 
+auth=(’username’, 
+‘password’ 
+)) 
+def setupController(): 
+r=requests.get ('http://127.0.0.1:8000/config/1/’, 
+data=values, 
+auth=(’username’, 
+‘password’ 
+) ) 
+configStr=r.text 
+config 
+= 
+json.loads (configStr) 
+global PIR_SENSOR_PIN 
+= config[’ rooml’ ] 
+global DOOR_SENSOR_PIN 
+= config[’doorl’ ] 
+GPIO.setup (PIR_SENSOR_PIN, GPIO.IN) 
+GPIO.setup (DOOR_SENSOR_PIN, GPIO.IN, 
+pull_up_down=GPIO.PUD_UP) 
+setupController 
+() 
+while 
+True: 
+runController 
+() 
+time.sleep 
+(1) 
+9.3 
+Cities 
+9.3.1 
+Smart Parking 
+You got an overview of smart parking systems in Chapter-2. A concrete implementation of a 
+smart parking IoT system is described in this section. 
+The purpose of a smart parking system is to detect the number of empty parking slots 
+and send the information over the Internet to smart parking application backends. These 
+applications can be accessed by drivers from smartphones, tablets or from in-car navigation 
+systems. In smart parking, sensors are used for each parking slot, to detect whether the slot 
+is empty or occupied. This information is aggregated by a local controller and then sent over 
+Internet of Things - 
+A Hands-On Approach 
+
+238 
+Case Studies Illustrating loT Design 
+aa 
+TET TD I 
+AL er shears 
+ace 
+Home Intrusion 
+Detection Dashboard 
+Home #: 123 
+Last Updated: 4/30/14 15:30:30 
+te: 
+Figure 9.17: Home intrusion detection web application screenshot 
+the Internet to a server. 
+Figure 9.18 shows the process diagram for the smart parking system. Each parking slot 
+has an ultrasonic sensor fixed above, which can detect the presence of a vehicle in the slot. 
+Each sensor is read at regular intervals and the state of the parking slot (empty or occupied) 
+is updated in a database. 
+Figure 9.19 shows the domain model for the smart parking system. The domain model 
+includes a physical entity for the parking slot and the corresponding virtual entity. The device 
+in this example is a single-board mini computer which has ultrasonic sensor attached to it. 
+The domain model also includes the services involved in the system. 
+Figure 9.20 shows the information model for the smart parking system. The information 
+model defines the attribute (state) of the parking slot virtual entity with two possible values 
+(empty or occupied). 
+The next step is to define the service specifications for the system. The services are 
+derived from the process specification and the information model. The smart parking system 
+has two services - (1) a service that monitors the parking slots (using ultrasonic sensors) and 
+updates the status in a database on the cloud (REST web service), (2) a service that retrieves 
+the current state of the parking slots (controller native service). Figures 9.21 and 9.22 show 
+specifications of the controller and state services of the smart parking system. 
+The functional view and the operational view specifications for smart parking system are 
+similar to the specifications for the home intrusion detection system shown in Figure 9.14. 
+The system uses Django framework for web application and REST service - both of which 
+you learned about from earlier chapters of this book. The Django web application is supported 
+Bahga & Madisetti, © 2014 
+
+9.3 Cities 
+239 
+) Sees 
+a oes 
+Read Sensor 
+Slot empty 
+Slot occupied 
+V 
+_ Store empty 
+Store occupied 
+| 
+| 
+| 
+| 
+S 
+| 
+Database 
+kee 
+Figure 9.18: Process specification for the smart parking IoT system 
+by a MySQL database. The IoT device used for this example is Raspberry Pi along with 
+the ultrasonic sensors. Figure 9.23 shows how the sensors are deployed in a parking and 
+Figure 9.24 shows a schematic diagram of the smart parking system. 
+Let us now look at the implementation of the web application and services for the 
+smart parking system. Box 9.13 shows the model fields for the state REST service. After 
+implementing the Django model, we implement the model serializer which allows model 
+instances to be converted to native Python datatypes. Box 9.14 shows the serializer for state 
+REST service. 
+» Box 9.13: Django model for REST service - models.py 
+from django.db import models 
+class 
+State (models.Model): 
+name 
+= models.CharField(max_length=50) 
+= Box 9.14: Serializer for REST service - serializers.py 
+from myapp.models 
+import State 
+from rest_framework 
+import serializers 
+Internet of Things - 
+A Hands-On Approach 
+
+240 
+Case Studies Illustrating loT Design 
+oe 
+es ee 
+ee 
+User 
+Active Digital 
+~ 
+Human User 
+Artefact 
+ee 
+Ce 
+| 
+| 
+- 
+eee 
+| 
+: 
+; 
+invokes/subscribes |[ 
+~~ ~~—S 
+7) 
+Virtual Entity 
+relates to 
+Physical Entity 
+5 
+monitors 
+| 
+associated | 
+with 
+Parking slot 
+Parking slot 
+Service 
+exposes 
+Resource 
+| 
+associated with 
+hosts 
+Device 
+A 
+Mini-computer 
+Network 
+On-Device 
+| 
+Resource 
+Resource 
+attached to 
+| 
+Sensor 
+Ultrasonic 
+Sensor 
+Figure 9.19: Domain model of the smart parking loT system 
+class StateSerializer (serializers.HyperlinkedModelSerializer) : 
+class Meta: 
+model 
+= State 
+fields 
+= 
+(’url’, 
+‘name’ ) 
+Box 9.15 shows the Django views for REST services and smart parking application. The 
+ViewSets for the model (State ViewSet) are included in the views file. The home view renders 
+the content for the smart parking application home page that displays the status of the parking 
+slots. Notice that a request is sent to the state REST service to obtain the state of a parking 
+slot. The code shown in this example is for a trivial case of a one-slot parking. 
+» Box 9.15: Django views for REST service and smart parking application - views.py 
+from myapp.models 
+import State 
+from rest_framework 
+import viewsets 
+from django.shortcuts 
+import render_to_response 
+from django.template 
+import RequestContext 
+from myapp.serializers 
+import StateSerializer 
+import requests 
+import 
+json 
+Bahga & Madisetti, © 2014 
+
+9.3 Cities 
+241 
+Virtual Entity: 
+Parking slot 
+EntityType : ParkingSlot 
+ID : Slot# 
+Parking-Lot ID : P1 
+Attribute: 
+State 
+AttributeName : slotState 
+AttributeType : state 
+is in state 
+isin state 
+State:Empty 
+State: Occupied 
+— 
+Figure 9.20: Information model of the smart parking IoT system 
+Service 
+Name: Controller 
+Type: Native 
+has Output 
+has Schedule 
+Schedule 
+Interval: 
+Every 5 sec 
+State: Empty/Occupied 
+Figure 9.21: Controller service of the smart parking IoT system 
+class StateViewSet (viewsets.ModelViewSet) : 
+queryset 
+= State.objects.all() 
+serializer class 
+= StateSerializer 
+def home (request): 
+currentstate=' 
+off’ 
+r=requests.get (/http://127.0.0.1:8000/state/1/’, 
+auth=(’username’, 
+‘password’ 
+) ) 
+result=r.text 
+output 
+= 
+json.loads (result) 
+currentstate=output 
+[’ name’ ] 
+ee 
+Internet of Things - 
+A Hands-On Approach 
+
+242 
+Case Studies Illustrating loT Design 
+SSIS 
+Input 
+State: Empty/Occupied 
+has Input 
+Service 
+| 
+Name: State 
+| 
+Type: REST 
+i 
+has Service Endpoint 
+has Output 
+PEL Lone eno) 
+Die aeh 
+Se 
+a 
+=| 
+Endpoint 
+: 
+Output 
+| 
+Ree 
+ae cas 
+s 
+: 
+Endpoint: /home/state/ 
+State: Empty/Occupied 
+| 
+es / MITRE 
+Figure 9.22: Service specification for the smart parking IoT system - state service 
+if currentstate==’ empty’: 
+occupiedCount=0 
+empt yCount=1 
+else: 
+occupiedCount=1 
+empt yCount=0 
+return render 
+to response 
+( index.html”, 
+{ currentstate’ :currentstate, 
+~occupledCount’: 
+occupiedCount, 
+‘’emptyCount’: 
+emptyCount}, 
+context_instance=RequestContext 
+(request) ) 
+Box 9.16 shows the URL patterns for the REST service and smart parking application. 
+Since ViewSets are used instead of views for the REST service, we can automatically generate 
+the URL configuration by simply registering the viewsets with a router class. 
+» Box 9.16: Django URL patterns for REST service and smart parking application 
+- urls.py 
+from django.conf.urls 
+import patterns, 
+include, 
+url 
+from django.contrib import admin 
+from rest_framework import routers 
+from myapp import views 
+admin.autodiscover 
+() 
+router 
+= 
+routers. DefaultRouter () 
+router.register(r’ state’, 
+views. StateViewSet) 
+urlpatterns 
+= patterns 
+(”, 
+uri(r’ A", 
+include (router-urls)), 
+Bahga & Madisetti, © 2014 
+
+9.3 Cities 
+243 
+_ Ultrasonic sensor 
+fixed on the roof 
+a Controller Device 
+Figure 9.23: Deployment of sensors for smart parking system 
+url (r’Aapi-auth/’, 
+include(’ rest_framework.urls’, 
+namespace=’ rest_framework’)), 
+url(r’Aadmin/’, 
+include(admin.site.urls)), 
+url(r’Ahome/', 
+‘’myapp.views.home’), 
+Box 9.17 shows the code for the Django template for the smart parking application. This 
+template is rendered by the home view. 
+» Box 9.17: Django template for smart parking application - index.html 
+<html> 
+<head> 
+<meta charset="utf-8"> 
+<meta http-equiv="X-UA-Compatible" 
+content="IE=edge, chrome=1"> 
+<title>Smart Parking App</title> 
+<link rel="stylesheet" href="/static/css/style.css"> 
+Internet of Things - 
+A Hands-On Approach 
+
+244 
+Case Studies Illustrating loT Design 
+a 
+ex 
+ee 
+ecoee 
+Grelhereer 
+es 
+a 
+ee 
+eoeee 
+S 
+: 
+TLE 
+ee 
+eooee 
+ETHERNET 
+ee 
+eeoee 
+eo 
+eeoee 
+@eeeee 
+ee 
+eoeee 
+eeeee 
+ee 
+eeoee 
+eooee 
+ee 
+eeoee 
+eeeee 
+ee 
+eeoee 
+eeeee 
+eo 
+eeoee 
+eoeee 
+eooee 
+@oeose 
+eo 
+eeeee 
+eoece 
+ee 
+eeeoe 
+eooeee 
+ee 
+eeeoe 
+eecoes 
+ee 
+@eeeeoe 
+@eeoaoed 
+oe 
+eccoe 
+e@eoeee 
+_ 
+@@eece 
+eoece 
+eo, 
+eee 
+@eecoeee 
+ee) 
+e3ee¢8 
+@eeoece 
+ee; 
+eee008 
+@eeece 
+ee 
+eooee 
+@eeoece 
+ee 
+eeoee 
+eeoee 
+- 
+@@0e08@ 
+eeoee 
+Figure 9.24: Schematic diagram of the smart parking IoT system prototype, showing the 
+device and ultrasonic sensor 
+</head> 
+<body> 
+<div class="app-container"> 
+<header class="app-header clearfix"> 
+<hl class="app-logo 
+js-app-title icon-home">Smart Parking 
+Dashboard</h1> 
+<div class="app-state"><span 
+class="app-loading-loader"></span></div> 
+=center> 
+<h4>Parking Lot 
+#: 
+123</h4> 
+<h4>Empty: 
+{f{emptyCount}} 
+Occupied: 
+{{occupiedCount}}</h4> 
+</center> 
+</header> 
+<div role="main" 
+class="app-content clearfix"> 
+Bahga & Madisetti, © 2014 
+~@eee 
+ae 
+eeoee 
+eaoeee 
+eoooe 
+eoooe 
+ee 
+eeoeee 
+@eeee 
+ee 
+eeooee 
+ecoee 
+ee 
+eeeee 
+@eeoe 
+eo 
+eoeee 
+eecooe 
+eo 
+@eoee 
+eeoeee 
+_ 
+@e0e0e8 
+eceove 
+oe 
+eeoee 
+@eeeed 
+eo; 
+e@eeced 
+@eeee 
+ee 
+eoeoe 
+e@eooe 
+ee) 
+ee0e880@ 
+e@eeee 
+ee 
+eeeoee 
+eeoeee 
+i 
+eeoeee 
+@eeee 
+eo! 
+eoecee 
+@eeee 
+, 
+- 
+e 
+eeoeee 
+@eeeee 
+y 
+eoece 
+e 
+{PSE-WISELAY) | 
+iby 
+ool 
+ee008 
+_ 
+F 
+eooee 
+RRESTRIRS TREES 
+isin 
+ee 
+@eeeee 
+: 
+ee; 
+ee008 
+i 
+ee; 
+eeoe08 
+a 
+eeooo5e 
+i 
+ee 
+eeec 
+| 3 
+K 
+u——2 © @ © 
+& 
+'82 
+eecec 
+: 
+oe Jee 
+eome 
+5 
+ee 
+e 
+ee 
+de 
+eoee 
+ee 
+eooee 
+ee 
+eooee 
+ee 
+eoeees 
+ee 
+eeecoe 
+ee 
+eeeee 
+(EPESROTCEELE: 
+eeoee 
+eeeee 
+eeeee 
+e@e2ee00@ 
+2@00808 
+
+9.3 Cities 
+245 
+i 
+<div class="app-loading"><span class="app-loading-loader"></span></div> 
+<div class="app-content-inner"> 
+<form class="dashboard-control 
+4js-form clearfix"> 
+<fieldset> 
+<div class="field clearfix"> 
+<table width 
+= 
+"90%" border="1"> 
+<tr> 
+<td width="100$">1 
+<br> 
+<center> 
+{% if currentstate 
+== 
+'empty’ 
+%} 
+<img src="/static/img/empty.png"> 
+{$ else 
+$} 
+<img src="/static/img/occupied.png"> 
+{% endif 
+%} 
+</center> 
+= Peds 
+<tc 
+</table> 
+</div> 
+</div> 
+</fieldset> 
+</form> 
+</div></div></div> 
+<script src="https://ajax.googleapis.com/ajax/libs/ 
+jJquery/1.8.2/jquery.min.js"></script> 
+MSCriIpe SrC="/ Stata c/a s/ script. js" ></script> 
+</body></html> 
+Figure 9.25 shows a screenshot of the smart parking web application. 
+A Python implementation of the controller service native service that runs on Raspberry 
+Pi, is shown in Box 9.18. The runController function is called every second and the reading 
+of the ultrasonic sensor is obtained. If the distance returned by the sensor is less than a 
+threshold, the slot is considered to be occupied. The current state of the slot is then updated 
+by sending a PUT request to the state REST service. 
+s Box 9.18: Python code for controller native service - smart parking - controller.py 
+IimpoOne. 
+Rea. GELO 
+as. 
+CP I1O 
+import time 
+import 
+sys 
+GPIO.setmode (GPIO.BCM) 
+SENSOR_PIN 
+= 
+27 
+TRIGGER_PIN=17 
+threshold 
+= 
+10000 
+def readUltrasonicSensor(): 
+GPIO.setup (TRIGGER_PIN, GPIO.OUT) 
+GPIO.setup (SENSOR_PIN, GPIO.IN) 
+Internet of Things - 
+A Hands-On Approach 
+
+246 
+Case Studies Illustrating loT Design 
+Smart Parking 
+Dashboard 
+Parking Lot #: 123 
+Empty: 3 Occupied: 3 
+BE 
+Figure 9.25: Samrt Parking web application screenshot 
+GPIO.output (TRIGGER_PIN, 
+GPIO.LOW) 
+time.sleep (0.3) 
+GPIO.output (TRIGGER_PIN, 
+True) 
+time.sleep (0.00001) 
+GPIO.output (TRIGGER_PIN, 
+False) 
+while GPIO.input (SENSOR_PIN) 
+== 
+0: 
+signaloff 
+= time.time() 
+while GPIO.input (SENSOR_PIN) 
+== 
+1: 
+Signalon 
+= time.time() 
+timepassed 
+= signalon 
+- signaloff 
+distance 
+= timepassed 
+« 17000 
+if distance 
+< threshold: 
+return 
+1 
+else: 
+return 
+0 
+def runController(): 
+pinState 
+= readUltrasonicSensor 
+() 
+if pinState == 
+1: 
+setCurrentState(’ occupied’ ) 
+else: 
+setCurrentState (’empty’ ) 
+def setCurrentState(val): 
+values 
+= 
+{"name": 
+val} 
+r=requests.put (‘http://127.0.0.1:8000/state/1/’, 
+Bahga & Madisetti, © 2014 
+
+9.4 Environment 
+247 
+data=values, 
+auth=(’username’, 
+‘password’ ) ) 
+while True: 
+runController 
+() 
+time.sleep 
+(1) 
+9.4 
+Environment 
+9.4.1 
+Weather Monitoring System 
+REST-based Implementation 
+A design of a weather monitoring IoT system was described in Chapter-5 using the IoT 
+design methodology. A concrete implementation of the system based on Django framework 
+is described in this section. The purpose of the weather monitoring system is to collect 
+data on environmental conditions such as temperature, pressure, humidity and light in an 
+area using multiple end nodes. The end nodes send the data to the cloud where the data is 
+aggregated and analyzed. 
+Figure 9.26 shows the deployment design for the system. The system consists of multiple 
+nodes placed in different locations for monitoring temperature, humidity and pressure in 
+an area. The end nodes are equipped with various sensors (such as temperature, pressure, 
+humidity and light). The end nodes send the data to the cloud and the data is stored in a cloud 
+database. The analysis of data is done in the cloud to aggregate the data and make predictions. 
+A cloud-based application is used for visualizing the data. The centralized controller can 
+send control commands to the end nodes, for example, to configure the monitoring interval 
+on the end nodes. 
+Figure 9.27 shows a schematic diagram of the weather monitoring system. The devices 
+and components used in this example are Raspberry Pi mini computer, temperature and 
+humidity sensor (DHT22), pressure and temperature sensor (BMP085) and LDR sensor. An 
+analog-to-digital (A/D) converter (MCP3008) is used for converting the analog input from 
+LDR to digital. 
+Figure 9.28 shows the specification of the controller service for the weather monitoring 
+system. The controller service runs as a native service on the device and monitors temperature, 
+pressure, humidity and light every 10 seconds. The controller service calls the REST service 
+to store these measurements in the cloud. This example uses the Xively Platform-as-a-Service 
+for storing data. In the setupController function, new Xively datastreams are created for 
+temperature, pressure, humidity and light data. The runController function is called every 
+10 seconds and the sensor readings are obtained. 
+s Box 9.19: Python code for controller native service - controller.py 
+import time 
+import datetime 
+import 
+sys 
+import 
+json 
+| import requests 
+import xively 
+a 
+Internet of Things - 
+A Hands-On Approach 
+
+9.5 Agriculture 
+275 
+ce 
+a 
+eg 
+"humidity"+str(id), 
+tags="humidity") 
+return datastream 
+#Controller setup function 
+def setupController(); 
+global temp_datastream 
+global humidity_datastream 
+feed 
+= api.feeds.get 
+(FEED- ID) 
+feed.tags="Weather" 
+feed.update() 
+for 
+i in range(1,numRouters+l): 
+temp_datastream[i] 
+= get_tempdatastream(feed, 
+i) 
+temp_datastream[i].max_value 
+= None 
+temp_datastream[i].min_value 
+= None 
+humidity _datastream[i] 
+= get_humiditydatastream 
+(feed, i) 
+humidity _datastream[i].max_value 
+= None 
+humidity _datastream[i].min_value 
+= None 
+setupController() 
+while True: 
+runController 
+() 
+time.sleep 
+(10) 
+9.5 
+Agriculture 
+9.5.1 
+Smart Irrigation 
+Smart irrigation systems use IoT devices and soil moisture sensors to determine the amount 
+of moisture in the soil and release the flow of water through the irrigation pipes only when 
+the moisture levels go below a predefined threshold. Data on the moisture levels is also 
+collected in the cloud where it is analyzed to plan watering schedules. 
+An implementation of a smart irrigation system is described in this section. 
+The 
+deployment design for the system is similar to the deployment shown in Figure 9.26. The 
+system consists of multiple nodes placed in different locations for monitoring soil moisture 
+in a field. The end nodes send the data to the cloud and the data is stored in a cloud 
+database. A cloud-based application is used for visualizing the data. Figure 9.36 shows a 
+schematic diagram of smart irrigation system end-node. The end node includes a Raspberry 
+Pi mini-computer and soil moisture sensor. A solenoid valve is used to control the flow of 
+water through the irrigation pipe. When the moisture level goes below a threshold, the valve 
+is opened to release water. Box 9.30 shows the Python code for the controller native service 
+for the smart irrigation system. 
+= Box 9.30: Python code for controller native service - 
+smart irrigation system 
+Internet of Things - 
+A Hands-On Approach 
+
+276 
+Case Studies Illustrating loT Design 
+eree 
+eereoe 
+eeee 
+eoses 
+eeeeeesoessooece 
+eeeerecenceoces 
+@eeeeeecesesae 
+eeeeceeeessoses 
+ePeoeeseeseeeooees 
+AS COESPUAYD, 
+a 
+a 
+REREAISTA TEATS 
+ep 
+cesadaduceaas 
+agueCudaccoe 
+Teewanes tens 
+S 
+3 
+«Re 
+CUDDY S59 
+THERNEL 
+C2e 
+ee 
+eles 
+SCOSFe 
+CHOF2e 
+2986S 
+C8088 
+C8088 
+20008 
+ese0e8 
+SOO 
+89080 
+SECs 
+SOeFe 
+Sees 
+FOSSe 
+V28eee 
+Seses 
+Seses 
+jee 
+eeeee 
+eee20e 
+eeee8 
+0 
+e 2 
+ee0ees 
+seeee 
+80090 
+© 
+Figure 9.36: Schematic diagram of a smart irrigation system end-node showing the device 
+and sensor 
+import time 
+import datetime 
+import sys 
+import 
+json 
+import requests 
+import xively 
+import subprocess 
+import spidev 
+global mositure_datastream 
+#LDR channel 
+on MCP3008 
+mositure_channel 
+= 
+0 
+GPIO.setmode (GPIO.BCM) 
+TRIGGER_PIN=18 
+threshold 
+= 
+10 
+# Open SPI bus 
+spi = spidev.SpiDev() 
+spi.open (0,0) 
+#Initialize Xively Feed 
+FEED_ID 
+"enter 
+feed id" 
+API_KEY 
+"enter key" 
+Bahga & Madisetti, © 2014 
+
+9.5 Agriculture 
+eva 
+a 
+ea ae EE 
+ae ae ee ae ea 
+ee 
+api 
+= xively.XivelyAPIClient 
+(API KEY) 
+# Function to read SPI data from MCP3008 chip 
+def ReadChannel (channel): 
+adc 
+= spi.xfer2([1, (8+channel) «4, 0]) 
+data 
+= 
+((adc[1]&3).« 
+8) 
++ adc[2] 
+return data 
+#Function 
+to read sensor connected to MCP3008 
+def readMositure(): 
+level 
+= ReadChannel (mositure_ channel) 
+return level 
+#Controller main function 
+def runController(): 
+global mositure_datastream 
+level=readMositure 
+() 
+#Check moisture level 
+if 
+(level<threshold) : 
+GPIO.output (TRIGGER_PIN, 
+True) 
+else: 
+GPIO.output (TRIGGER_PIN, 
+False) 
+mositure_datastream.current_value 
+= 
+level 
+mositure _datastream.at 
+= datetime.datetime.utcnow 
+() 
+print "Updating Xively feed with mositure: 
+%s" 
+% mositure 
+Env 
+mositure_datastream.update 
+() 
+SxcCepEe wequests HTIPEReror 
+as 
+es 
+print MOTT Parror( {0}: 
+{1}".format (e.errno, 
+e.strerror) 
+#Function 
+to get existing 
+or create new Xively data stream 
+def get_mosituredatastream 
+(feed) : 
+Le pEhy es 
+: 
+datastream 
+= feed.datastreams.get ("mositure") 
+return datastream 
+except: 
+datastream 
+= feed.datastreams.create("mositure", 
+tags="mositure") 
+return datastream 
+#Controller setup function 
+def setupController(): 
+global mositure_datastream 
+feed 
+= api.feeds.get (FEED_ID) 
+feed. location. lat="30.733315" 
+feed. location.lon="76.779418" 
+Internet of Things - 
+A Hands-On Approach 
+
+278 
+Case Studies Illustrating loT Design 
+feed.tags="Soil Moisture" 
+feed.update 
+() 
+mositure _datastream 
+= get_mosituredatastream 
+(feed) 
+mositure_datastream.max_value 
+= None 
+mositure_datastream.min_value 
+= None 
+setupController 
+() 
+while True: 
+runController() 
+time.sleep 
+(10) 
+9.6 
+Productivity Applications 
+9.6.1 
+loT Printer 
+This case study is about an IoT printer that prints a daily briefing every morning. The daily 
+briefing comprises of the current weather information, weather predictions for the day and 
+the user’s schedule for the day (obtained from the user’s Google Calendar account). 
+Printer 
+Internet 
+Connection 
+Figure 9.37: Connecting a printer to Raspberry Pi 
+Box 9.31 shows the code for the service that runs on the mini-computer which is 
+connected to the printer. 
+» Box 9.31: Python code for loT printer 
+import gflags 
+import httplib2 
+import datetime 
+en 
+a 
+Bahga & Madisetti, © 2014 

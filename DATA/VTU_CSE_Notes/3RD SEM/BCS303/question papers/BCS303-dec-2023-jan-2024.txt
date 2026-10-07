@@ -1,0 +1,364 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E./B.Tech. Degree Examination, Dec.2023/Jan.2024 
+Operating Systems     
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                      2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a.
+Define Operating System. Explain dual mode of OS with a neat diagram. 
+ 
+5 
+L1, 
+L2 
+CO1
+ 
+b.
+Distinguish between the following terms: 
+i) 
+Multiprogramming and Multitasking 
+ii) 
+Multiprocessor system and clustered system.  
+ 
+10
+L2 
+CO1
+ 
+c. With a neat diagram, explain the concept the concept of VM-WARE 
+architecture.  
+ 
+5 
+L1, 
+L2 
+CO1
+                                                                           OR 
+Q.2 
+a.
+Explain the operating system services with respect to programs and users.  
+ 
+5 
+L2 
+CO1
+ 
+b.
+List and explain the different computing environments.  
+ 
+5 
+L1, 
+L2
+CO1
+ 
+c. What are system calls? List and explain the different types of system calls. 
+10
+L1, 
+L2
+CO1
+                                                                      Module – 2  
+Q.3 
+a.
+Define process. Explain different states of a process with state diagram.  
+ 
+8 
+L1, 
+L2 
+CO1
+ 
+b.
+What is IPC? Explain direct and indirect communication with respect to 
+message passing.  
+ 
+8 
+L1, 
+L2 
+CO2
+ 
+c. Explain context-switching.  
+4 
+L2 
+CO2
+                                                                           OR 
+Q.4 
+a.
+What is multi-threaded process? Explain the four benefits of multithreaded 
+programming. 
+ 
+6 
+L2 
+CO2
+ 
+b.
+Calculate the average waiting time and average turn around time by 
+drawing the Gantt-chart using FCFS, SJF-non preemptive, SRTF, 
+RR(q = 2ms) and porosity algorithms.  
+Process
+Arrival time
+Burst time
+Porosity
+P1 
+0 
+9 
+3 
+P2
+1
+4
+2
+P3 
+2 
+9 
+1 
+P4 
+3 
+5 
+4 
+ 
+ 
+14
+L3 
+CO2
+                                                                     Module – 3 
+Q.5 
+a.
+What is critical section? What are the requirements for the solution to 
+critical section problem? Explain Peaterson’s solution.  
+ 
+8 
+L1, 
+L2 
+CO3
+ 
+b.
+Explain Reader’s-Writer’s problem using semaphores.  
+12
+L2 
+CO3
+ 
+ 
+1 of 2
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS303 
+VTU-04-04-2024 08:47:55am
+04-04-2024 09:17:01am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+BCS303
+                                                                           OR 
+Q.6 
+a.
+What is deadlock? What are the necessary conditions for the deadlock to 
+occur?  
+ 
+6 
+L1, 
+L2 
+CO3
+ 
+b.
+Consider the following snap-shot of a system: 
+Process
+Allocation 
+Max 
+Available 
+A
+B
+C
+D
+A
+B
+C
+D
+A
+B
+C
+D
+P0 
+2 
+0 0 
+1 
+4 
+2 
+1 
+2 
+3 
+3 
+2 
+1 
+P1
+3
+1
+2
+1
+5
+2
+5
+2
+P2 
+2 
+1 0 
+3 
+2 
+3 
+1 
+6 
+ 
+ 
+ 
+ 
+P3 
+1 
+3 1 
+2 
+1 
+4 
+2 
+4 
+ 
+ 
+ 
+ 
+P4
+1
+4
+3
+2
+3
+6
+6
+5
+Answer the following using Banker’s algorithm: 
+i) 
+Is the system in safe state? If so give the safe sequence. 
+ii) 
+If process P2 requests (0, 1, 1, 3) resource can it be granted 
+immediately.   
+ 
+14
+L3 
+CO3
+                                                                     Module – 4 
+Q.7 
+a.
+What is paging? Explain with neat diagram paging hardware with TLB? 
+10
+L1, 
+L2
+CO4
+ 
+b.
+What are the commonly used strategies to select a free hole from the 
+available holes?  
+ 
+6 
+L1 
+CO4
+ 
+c. Explain fragmentation in detail.  
+4 
+L2 
+CO4
+                                                                           OR 
+Q.8 
+a.
+With a neat diagram? Describe the steps in handling the page fault.  
+ 
+8 
+L2 
+CO4
+ 
+b.
+Consider the page reference string: 1, 0, 7, 1, 0, 2, 1, 2, 3, 0, 3, 2, 4, 0, 3, 6, 
+2, 1 for a memory with 3 frames. Determine the number of page faults 
+using F1, F0, optimal and LRU replacement algorithms which algorithm is 
+more efficient.  
+12
+L3 
+CO4
+                                                                      Module – 5  
+Q.9 
+a.
+Define file. List and explain the different file attributes and operations.  
+ 
+10
+L1 
+CO5
+ 
+b.
+Explain the different allocation methods.  
+ 
+10
+L2 
+CO5
+ 
+                                                                           OR 
+Q.10
+a.
+What is Access Matrix? Explain Access Matrix method of system 
+protection with domain as objects and its implementation.  
+10
+L1, 
+L2 
+CO5
+ 
+b.
+A drive has 5000 cylinders numbered 0 to 4999. The drive is currently 
+serving a request 143 and previously serviced a request at 125. The queue 
+of pending requests in FIFO order is: 
+86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130 starting from current head 
+position. What is the total distance travelled (in cylinders) by disk arm to 
+satisfy the requests using FCFS, SSTF, SCAN, LOOK and C-LOOK 
+algorithm.  
+ 
+10
+L3 
+CO5
+ * * * * * 
+ 
+ 
+ 2 of 2 
+VTU-04-04-2024 08:47:55am
+04-04-2024 09:17:01am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

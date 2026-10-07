@@ -1,0 +1,3324 @@
+9 - lof Platforms Design Methodology 
+This Chapter Covers 
+IoT Design Methodology that includes: 
+Purpose & Requirements Specification 
+Process Specification 
+Domain Model Specification 
+Information Model Specification 
+Service Specifications 
+IoT Level Specification 
+Functional View Specification 
+Operational View Specification 
+Device & Component Integration 
+Application Development 
+WATFORD LRC 
+MODULE 3
+
+100 
+loT Platforms Design Methodology 
+5.1. 
+Introduction 
+IoT systems comprise of multiple components and deployment tiers. In Chapter-1, we 
+defined six IoT system levels. Each level is suited for different applications and has different 
+component and deployment configurations. Designing IoT systems can be a complex and 
+challenging task as these systems involve interactions between various components such as 
+IoT devices and network resources, web services, analytics components, application and 
+database servers. Due to a wide range of choices available for each of these components, 
+IoT system designers may find it difficult to evaluate the available alternatives. loT system 
+designers often tend to design IoT systems keeping specific products/services in mind. 
+Therefore, these designs are tied to specific product/service choices made. This leads to 
+product, service or vendor lock-in, which while satisfactory to the dominant vendor, is 
+unacceptable to the customer. For such systems, updating the system design to add new 
+features or replacing a particular product/service choice for a component becomes very 
+complex, and in many cases may require complete re-design of the system. 
+In this Chapter, we propose a generic design methodology for IloT system design which 
+is independent of specific product, service or programming language. IoT systems designed 
+with the proposed methodology have reduced design, testing and maintenance time, better 
+interoperability and reduced complexity. 
+With the proposed methodology, loT system 
+designers can compare various alternatives for the loT system components. The methodology 
+described in this Chapter is generally based on the IoT-A reference model [75], but is broad 
+enough to embrace other industry efforts as well. Later chapters in this book describe the 
+implementation aspects of various steps in the proposed methodology. 
+5.2 
+loT Design Methodology 
+Figure 5.1 shows the steps involved in the IoT system design methodology. Each of these 
+steps is explained in the sections that follow. To explain these steps, we use the example of a 
+smart IoT-based home automation system. 
+5.2.1 
+Step 1: Purpose & Requirements Specification 
+The first step in IoT system design methodology is to define the purpose and requirements 
+of the system. In this step, the system purpose, behavior and requirements (such as data 
+collection requirements, data analysis requirements, system management requirements, data 
+privacy and security requirements, user interface requirements, ...) are captured. 
+Applying this to our example of a smart home automation system, the purpose and 
+requirements for the system may be described as follows: 
+e Purpose : A home automation system that allows controlling of the lights in a home 
+remotely using a web application. 
+e Behavior : The home automation system should have auto and manual modes. In auto 
+mode, the system measures the light level in the room and switches on the light when 
+it gets dark. In manual mode, the system provides the option of manually and remotely 
+switching on/off the light. 
+e System Management Requirement : The system should provide remote monitoring 
+and control functions. 
+e Data Analysis Requirenient : The system should perform local analysis of the data. 
+eo 
+ita by 
+gtk i 
+; 
+‘ 
+tes 
+pa 
+Bahga & Madisetti, © 2014 
+
+5.2 loT Design Methodology 
+101 
+Purpose & Requirements 
+Define Purpose & Requirements of loT system 
+Process Model Specification 
+— 
+Define the use cases 
+Domain Model Specification 
+Define Physical Entities, Virtual Entities, Devices, Resources and Services in the loT system 
+Information Model Specification - 
+: 
+a 
+Define the: perenne: (e.g. relations, attributes) of all the information’ in the loT pete 
+Service SEeeneSnOHE 
+: 
+Map Process and Information Model to services and define service specifications 
+Define the loT level ae 
+the ayetern: 
+Functional View (SaecaEsRER 
+Map loT Level to functional groups 
+_ Operational View Specification 
+; 
+Define COMMUnICSrOR options, service hosting options, storage options, device opHons 
+Device & Component Integration 
+Integrate devices, develop and integrate the components 
+Figure 5.1: Steps involved in IoT system design methodology 
+e Application Deployment Requirement : The application should be deployed locally 
+on the device, but should be accessible remotely. 
+e Security Requirement : The system should have basic user authentication capability. 
+5.2.2 
+Step 2: Process Specification 
+The second step in the IoT design methodology is to define the process specification. In this 
+step, the use cases of the IoT system are formally described based on and derived from the 
+purpose and requirement specifications. Figure 5.2 shows the process diagram for the home 
+automation system. The process diagram shows the two modes of the system - auto and 
+manual. In a process diagram, the circle denotes the start of a process, diamond denotes a 
+decision box and rectangle denotes a state or attribute. When the auto mode is chosen, the 
+‘ system monitors the light level. If the light level is low, the system changes the state of the 
+light to “on”. Whereas, if the light level is high, the system changes the state of the light to 
+“off”. When the manual mode is chosen, the system checks the light state set by the user. If 
+the light state set by the user is “on”, the system changes the state of light to “on”. Whereas, 
+if the light state set by the user is “‘off”, the system changes the state of light to “off”. 
+Internet of Things - 
+A Hands-On Approach 
+
+102 
+loT Platforms Design Methodology 
+Mode 
+auto 
+manual 
+- 
+V 
+Light-Level 
+Light-State 
+\ 
+Level: Low <> 
+Level: High 
+state: On 
+state: Off 
+state: On 
+state: Off 
+state; On 
+state: Off 
+Figure 5.2: Process specification for home automation IoT system 
+5.2.3 
+Step 3: Domain Model Specification 
+The third step in the loT design methodology is to define the Domain Model. The domain 
+model describes the main concepts, entities and objects in the domain of IoT system to be 
+designed. Domain model defines the attributes of the objects and relationships between 
+objects. Domain model provides an abstract representation of the concepts, objects and 
+entities in the IoT domain, independent of any specific technology or platform. With the 
+domain model, the loT system designers can get an understanding of the loT domain for 
+which the system is to be designed. Figure 5.3 shows the domain model for the home 
+automation system example. The entities, objects and concepts defined in the domain model 
+include: 
+e Physical Entity : Physical Entity is a discrete and identifiable entity in the physical 
+environment (e.g. a room, a light, an appliance, a car, etc.). The IoT system provides 
+information about the Physical Entity (using sensors) or performs actuation upon the 
+Physical Entity (e.g., switching on a light). In the home automation example, there are 
+two Physical Entities involved - one is the room in the home (of which the lighting 
+conditions are to be monitored) and the other is the light appliance to be controlled. 
+Virtual Entity : Virtual Entity is a representation of the Physical Entity in the digital 
+world. For each Physical Entity, there is a Virtual Entity in the domain model. In the 
+home automation example, there is one Virtual Entity for the room to be monitored, 
+another for the appliance to be controlled. 
+Device : Device provides a medium for interactions between Physical Entities and 
+Virtual Entities. Devices are either attached to Physical Entities or placed near Physical 
+Entities. Devices are used to gather information about Physical Entities (e.g., from 
+Bahga & Madisetti, © 2014 
+
+5.2 loT Design Methodology 
+103 
+sensors), perform actuation upon Physical Entities (e.g. using actuators) or used to 
+identify Physical Entities (e.g., using tags). In the home automation example, the 
+device is a single-board mini computer which has light sensor and actuator (relay 
+switch) attached to it. 
+e Resource : Resources are software components which can be either "on-device" 
+or "network-resources". On-device resources are hosted on the device and include 
+software components that either provide information on or enable actuation upon the 
+Physical Entity to which the device is attached. Network resources include the software 
+components that are available in network (such as a database). In the home automation 
+example, the on-device resource is the operating system that runs on the single-board 
+mini computer. 
+e Service : Services provide an interface for interacting with the Physical Entity. 
+Services access the resources hosted on the device or the network resources to obtain 
+information about the Physical Entity or perform actuation upon the Physical Entity. In 
+the home automation example, there are three services: (1) a service that sets mode to 
+auto or manual, or retrieves the current mode; (2) a service that sets the light appliance 
+state to on/off, or retrieves the current light state; and (3) a controller service that 
+runs as a native service on the device. When in auto mode, the controller service 
+monitors the light level and switches the light on/off and updates the status in the status 
+database. When in manual mode, the controller service retrieves the current state from 
+the database and switches the light on/off. The process of deriving the services from 
+the process specification and information model is described in the later sections. 
+5.2.4 
+Step 4: Information Model Specification 
+The fourth step in the loT design methodology is to define the Information Model. Information 
+Model defines the structure of all the information in the IoT system, for example, attributes 
+of Virtual Entities, relations, etc. Information model does not describe the specifics of how 
+the information is represented or stored. To define the information model, we first list the 
+Virtual Entities defined in the Domain Model. Information model adds more details to the 
+Virtual Entities by defining their attributes and relations. In the home automation example, 
+there are two Virtual Entities - a Virtual Entity for the light appliance (with attribute - light 
+state) and a Virtual Entity for the room (with attribute - light level). Figure 5.4 shows the 
+Information Model for the home automation system example. 
+5.2.5 
+Step 5: Service Specifications 
+The fifth step in the IoT design methodology is to define the service specifications. Service 
+specifications define the services in the IoT system, service types, service inputs/output, 
+service endpoints, service schedules, service preconditions and service effects. 
+You learned about the Process Specification and Information Model in the previous 
+sections. Figure 5.5 shows an example of deriving the services from the process specification 
+and information model for the home automation IoT system. From the process specification 
+and information model, we identify the states and attributes. For each state and attribute we 
+define a service. These services either change the state or attribute values or retrieve the 
+current values. For example, the Mode service sets mode to auto or manual or retrieves the 
+current mode. The State service sets the light appliance state to on/off or retrieves the current 
+Internet of Things - 
+A Hands-On Approach 
+
+104 
+loT Platforms Design Methodology 
+UE 
+ee 
+es 
+<a 
+interacts with 
+User 
+j 
+| 
+| 
+} 
+| 
+Active Digital 
+| 
+| 
+Human User 
+Artefact 
+ir 
+= 
+EUS 
+se 
+\ 
+if 
+App 
+{ 
+} 
+2 
+| 
+ik 
+= 
+invokes/subscribes 
+ae 
+Virtual Entity 
+relates to 
+| Physical Entity 
+Tage ae 
+4 
+7 
+: 
+monitors 
+associated | 
+with | 
+Room 
+Room 
+< 
+| 
+| 
+| 
+| 
+associated| with | — 
+Virtual Entity 
+relates to 
+Physical Entity 
+Sapo 
+> 
+a 
+. 
+; 
+—— 
+exposes 
+Appliance 
+Appliance 
+Pane 
+Resource 
+associated with 
+< 
+hosts 
+Device 
+A 
+) 
+| 
+Minicomputer 
+Network 
+OnDevice 
+attached to 
+t 
+attached to 
+Resource 
+Resource 
+Sensor 
+Actuator 
+LDR 
+Relay 
+sean 
+One-way Association 
+oy 
+wae 
+Lee 
+Type 
+Type: Entity, service, resource, 
+——— 
+Generalization/Specialization 
+Havicosaenbite 
+a 
+Aggregation Relationship 
+Figure 5.3: Domain model of the home automation IoT system 
+Virtual Entity: 
+Virtual Entity: 
+in room 
+LightAppliance 
+foot _ 
+EntityType 
+: 
+Appli 
+EntityType : Room 
+Hs eee ee ae. 
+Ibs Rooms 
+RoomlD ; Room 
+Attribute; 
+Attribute: 
+Light-Level 
+| 
+State 
+AttributeName : lightLevel 
+AttributeName ; lightState 
+AttributeType ; level 
+AttributeType : state 
+yi 
+es 
+has lightlevel 
+has light-level 
+isinstate 
+isin state 
+Level: High 
+level:Low 
+State: On 
+| 
+| 
+State: Off 
+Figure 5.4: Information model of the home automation IoT system 
+light state. The Controller service monitors the light level in auto mode and switches the 
+light on/off and updates the status in the status database. In manual mode, the controller 
+service, retrieves the current state from the database and switches the light on/off. 
+Figures 5.6, 5.7 and 5.8 show specifications of the controller, mode and state services of 
+pe 
+nn 
+nipple ae cadg ee  e 
+Bahga & Madisetti, © 2014 
+
+5.2 lol Design Methodology 
+105 
+Process Specification 
+Mode 
+| SES 
+Mode Service: Sets mode to auto or 
+| 
+| 
+"manual or retrieves the current mode 
+auto 
+Jy manuol 
+re 
+— 
+oe 
+1 
+1 
+1 
+! 
+I 
+\ 
+I 
+v 
+1 
+“i 
+Light - 
+Level 
+} 
+; 
+Light-State 
+rr 
+j 
+j 
+I 
+ee ees | 
+{--———-~4~~~-~--- 1 
+He 
+ee 
+High 
+state; On es 
+ieee 
+i 
+pea 
+Say 
+| 
+| 
+| 
+\ 
+if 
++ 
+J 
+“} 
+\ 
+.. State Service: Sets the light 
+/ 
+state; On 
+state: Off 
+state:On 
+state: Off 
+iN Ss? appliance state to on/off or 
+i 
+retrieves the current light state 
+information Model 
+| 
+Se 
+Virtual Entity: 
+\ 
+voeias Eau. 
+& 
+in room 
+ee | 
+jenn 
+}<———-————~ 
+- 
+: 
+tatiytyps 
+: 
+Apblance 
+\ 
+EnbtyTyp9 
+= Re 
+MR: Reomnt 
+sib Roo 
+\ 
+Sivas 
+Rooenit); Room 
+\ 
+F3 
+ae 
+A spar 
+\ 
+| 
+‘ 
+i 
+ee 
+ee 
+ee et eee 
+i 
+. 
+Attribut 
+| 
+fh oo eareeer 4 I 
+\ 
+ribute: 
+: 
+! 
+i 
+Attribute: 
+' 
+at 
+Light-Level 
+| 
+H 
+State 
+Wi 
+( 
+AttributeName 
+: 
+lightleyel 
+| 
+| 
+' 
+AttributeN ame : Nghtstate 
+1 
+! 
+AttributeType : leval 
+{ 
+1 
+AttributeType 1 state 
+i 
+a 
+ee eee ees 1 
+Re oan eee eee ee | 
+has light- level_— 
+n 
+~~ has light- level 
+is in state 
+~—~_ is in state 
+<_ 
+| 
+Sati 
+ee 
+=< 
+Level: High 
+| 
+1 
+| 
+= 
+i 
+Level; Low 
+state: On 
+state: Off 
+| 
+4 
+Controller Service: In auto mode, the controller service monitors the light level 
+and switches the light on/off and updates the status in the status database. 
+In manual mode, the controller service, retrieves the current state from the 
+database and switches the light on/off. 
+oe 
+Figure 5.5: Deriving services from process specification and information model for home 
+automation IoT system 
+the home automation system. The Mode service is a RESTful web service that sets mode 
+to auto or manual (PUT request), or retrieves the current mode (GET request) 
+. The mode 
+is updated to/retrieved from the database. The State service is a RESTful web service that 
+sets the light appliance state to on/off (PUT request), or retrieves the current light state (GET 
+request), The state is updated to/retrieved from the status database. The Controller service 
+runs as a native service on the device. When in auto mode, the controller service monitors 
+the light level and switches the light on/off and updates the status in the status database. 
+When in manual mode, the controller service, retrieves the current state from the database 
+and switches the light on/off. 
+5.2.6 
+Step 6: loT Level Specification 
+The sixth step in the IoT design methodology is to define the IoT level for the system. In 
+Chapter-1, we defined five loT deployment levels. Figure 5.9 shows the deployment level of 
+the home automation IoT system, which is level-1. 
+Internet of Things - 
+A Hands-On Approach 
+
+106 
+loT Platforms Design Methodology 
+Schedule 
+Interval: 
+Every 5 sec 
+has Schedule 
+Mode: Auto/Manual 
+has Input 
+State: On/Off 
+Service 
+Name: Controller 
+Type: Native 
+has Output 
+Output 
+State: On/Off 
+Figure 5.6: Controller service of the home automation IoT system 
+Output 
+Current Mode: 
+Auto/Manual 
+has Output 
+Service 
+| Name: Mode 
+Type: REST 
+has Service Endpoint 
+has Input 
+oo 
+——-- 
+as 
+Endpoint 
+| 
+Endpoint: /home/mode/ 
+Protocol: HTTP 
+| EEE 
+SE 
+Set Mode: 
+Auto/Manual 
+al 
+Figure 5.7: Service specification for home automation IoT system - mode service 
+5.2.7 
+Step 7: Functional View Specification 
+The seventh step in the IoT design methodology is to define the Functional View. The 
+Functional View (FV) defines the functions of the loT systems grouped into various Functional 
+Groups (FGs). Each Functional Group either provides functionalities for interacting with 
+instances of concepts defined in the Domain Model or provides information related to these 
+concepts. 
+The Functional Groups (FG) included in a Functional View include: 
+e Device : The device FG contains devices for monitoring and control. In the home 
+automation example, the device FG includes a single board mini-computer, a light 
+Bahga & Madisetti, © 2014 
+
+5.2 loT Design Methodology 
+107 
+has Output 
+| 
+Service 
+: 
+5 
+Name: State 
+Type: REST 
+| 
+has Service Endpoint 
+Endpoint: /home/state/ 
+~ Protocol: HTTP 
+has Input 
+State: On/Off 
+Cloud 
+REST 
+Communication 
+REST 
+; Services 
+| 
+| 
+| 
+| 
+l 
+| 
+| 
+l 
+l 
+l 
+| 
+ee 
+aan eee 
+| 
+| 
+| 
+ee rn 
+Po. ea 
+tis 
+l 
+| 
+| 
+| 
+| 
+| 
+l 
+| 
+Resource 
+y 
+<2 Device 
+= 
+Monitoring Node 
+performs analysis, stores data 
+Figure 5.9: Deployment design of the home automation IoT system 
+Internet of Things - 
+A Hands-On Approach 
+
+~ 
+108 
+loT Platforms Design Methodology 
+wiaysks LO] UOTEWIO 
+ME sWIOY JOJ Sdnoss feUONOUNY 0} Joao] JUsUAO|dap suIddey :01°¢ ons 
+(Aqunoes dde) 54 Ajiinsas 
+pue (quewaSeuew dde) 54 uawaseueW, 
+(Aqunoas aseqeyep) 
+(sianias aseqeyep pue uoyeaiidde ‘uoyeaidde 
+54 Aunoas pue (juawadeuew aseqezep) 
+(sadiAsas Gam) 54 Se0;A1as 
+gam) 94 uoyeaiiddy ayy 03 sdew uoneoiddy °9 
+54 Juawaseue| ay} 0} sdetw eseqeyeq “¢ 
+0] dew saoias gam "P 
+(saoiAias gam) 54 saciias 03 dew 
+(sjosojoud pue sig UogesiuNWWOD) 
+(juaweseuew adiAep) 54 JueweseuUe/| 243 pue 
+saoias qa ‘(adlAias aAyeu) 54 selves 
+954 uonesiunWWwoD pue (adunosal 
+(saoinap Bugndwod ‘sasjAep sioqenyoe 
+, BY} 0} sdeW ad!AJas 19{|O1]UOD “E 
+SIIABP-UO) H4 BAB 943 0} detu seduNOsay *Z 
+‘s1osuas) 5-4 99|Aaq 24} 0} sdew aaiAap JO} “T 
+ee 
+quawaseuey) 
+92M 183 
+ae 
+Fae 
+9 
+satAdag eAgEN 
+: 
+i 
+Z 
+- SaIsfas 
+= 
+| 
+Oe. 
+3 
+— 
+> 
+‘ 
+UORDIUNUIWOD 1SIY 
+Bahga & Madisetti, © 2014 
+
+5.2 lol Design Methodology 
+109 
+sensor and a relay switch (actuator). 
+e Communication : The communication FG handles the communication for the loT 
+system. The communication FG includes the communication protocols that form 
+the backbone of IoT systems and enable network connectivity. You learned about 
+various link, network, transport and application layer protocols in Chapter-1. The 
+communication FG also includes the communication APIs (such as REST and WebSocket) 
+that are used by the services and applications to exchange data over the network. In the 
+home automation example the communication protocols include - 802.11 
+(link layer), 
+IPv4/IPv6 (network layer), TCP (transport layer), and HTTP (application layer). The 
+communication API used in the home automation examples is a REST-based API. 
+e Services : The service FG includes various services involved in the oT system such 
+as services for device monitoring, device control services, data publishing services and 
+services for device discovery. In the home automation example, there are two REST 
+services (mode and state service) and one native service (controller service). 
+e Management : The management FG includes all functionalities that are needed to 
+configure and manage the IoT system. 
+e Security : The security FG includes security mechanisms for the IoT system such as 
+authentication, authorization, data security, etc. 
+e Application : The application FG includes applications that provide an interface to 
+the users to control and monitor various aspects of the loT system. Applications also 
+allow users to view the system status and the processed data. 
+Figure 5.10 shows an example of mapping deployment level to functional groups for 
+home automation IoT system. 
+IoT device maps to the Device FG (sensors, actuators devices, computing devices) and 
+the Management FG (device management). Resources map to the Device FG (on-device 
+resource) and Communication FG (communication APIs and protocols). Controller service 
+maps to the Services FG (native service). Web Services map to Services FG . Database 
+maps to the Management FG (database management) and Security FG (database security). 
+Application maps to the Application FG (web application, application and database servers), 
+Management FG (app management) and Security FG (app security). 
+5.2.8 
+Step 8: Operational View Specification 
+The eighth step in the IoT design methodology is to define the Operational View Specifications. 
+In this step, various options pertaining to the IoT system deployment and operation are 
+defined, such as, service hosting options, storage options, device options, application hosting 
+options, etc. 
+Figure 5.11 shows an example of mapping functional groups to operational view specifications 
+for home automation IoT system. 
+Operational View specifications for the home automation example are as follows: 
+e Devices: Computing device (Raspberry Pi), light dependent resistor (sensor), relay 
+switch (actuator). 
+e Communication APIs: REST APIs 
+e Communication Protocols: Link Layer - 802.11, Network Layer - IPv4/IPv6, Transport 
+- TCP, Application - HTTP. 
+e Services: 
+Internet of Things - 
+A Hands-On Approach 
+
+wiasXs JO] UONRUIOINE SUIOY JO} META [eUOTeIOdo 0) sdnoss PeuoHouns Surddeyy <1 1°¢ ainsi 
+loT Platforms Design Methodology 
+youms Ajay sojenyy_ 
+seoinep Zugndwo 
+2 
+; 
+: 
+YQ] 140sues 
+ig Auaqdsey :a2ineqg BugnduioD 
+diy :uoyesyddy 
+: 
+dol uodsuery 
+ieee 
+a ta Absit <q — — 
+$[020}014 UOQeSUNWWOD 
+wea 
+1$]090}04g UOHEINUNWIWIOD 
+SidV 1S3¥ ‘Sid “OnesUNWIWIOD 
+juaweaseueyy 
+& 
+aseqezeg 
+uogezuoyiny 
+ens 
+© 
+jJusweseueyy 
+uogeoquayiny 
+fie 
+Se ouCes ChBEN 
+uoyeoddy 
+“TOSAW “sanuas aseqezea 
+ee 
+ee 
+~ sousas 1S3Y 2383S 
+danas 
+ddy o8uelg eases uoneayddy <———p 
+Eon ce i eee 
+_—> 
+‘S9IAI2S 1S3U @POIN) ‘SedIMES GEM 
+ddy gam o8uelg iddy gam 
+Bd|A4VS 19[}O4JUOD :29MU9S PAREN 
+110 
+Bahga & Madisetti, © 2014 
+
+5.3 Case Study on loT System for Weather Monitoring 
+111 
+1. Controller Service - Hosted on device, implemented in Python and run as a native 
+service. 
+2. Mode service - REST-ful web service, hosted on device, implemented with 
+Django-REST Framework. 
+3. State service - REST-ful web service, hosted on device, implemented with 
+Django-REST Framework. 
+e Application: 
+Web Application - Django Web Application, 
+Application Server - Django App Server, 
+Database Server - MySQL. 
+e Security: 
+Authentication: Web App, Database 
+Authorization: Web App, Database 
+Management: 
+Application Management - Django App Management 
+Database Management - MySQL DB Management, 
+Device Management - Raspberry Pi device Management. 
+5.2.9 
+Step 9: Device & Component Integration 
+The ninth step in the loT design methodology is the integration of the devices and components. 
+Figure 5.12 shows a schematic diagram of the home automation IoT system. The devices 
+and components used in this example are Raspberry Pi mini computer, LDR sensor and relay 
+switch actuator. A detailed description of Raspberry Pi board and how to interface sensors 
+and actuators with the board is provided in later chapters. 
+5.2.10 
+Step 10: Application Development 
+The final step in the loT design methodology is to develop the IoT application. Figure 5.13 
+shows a screenshot of the home automation web application. The application has controls 
+for the mode (auto on or auto off) and the light (on or off). In the auto mode, the loT system 
+controls the light appliance automatically based on the lighting conditions in the room. When 
+auto mode is enabled the light control in the application is disabled and it reflects the current 
+state of the light. When the auto mode is disabled, the light control is enabled and it is used 
+for manually controlling the light. 
+5.3 
+Case Study on loT System for Weather Monitoring 
+In this section we present a case study on design of an IoT system for weather monitoring 
+using the IoT design methodology. The purpose of the weather monitoring system is to 
+collect data on environmental conditions such as temperature, pressure, humidity and light in 
+‘an area using multiple end nodes. The end nodes send the data to the cloud where the data is 
+aggregated and analyzed. 
+Figure 5.14 shows the process specification for the weather monitoring system. The 
+process specification shows that the sensors are read after fixed intervals and the sensor 
+measurements are stored. 
+Internet of Things - 
+A Hands-On Approach 
+
+112 
+loT Platforms Design Methodology 
+| 
+2S (TPA), 
+ZT 
+EE 
+“DEAPRETST ASIII 
+eece 
+efe28e 
+eee 
+eeoe 
+e80¢0 
+eee 
+eebeeeTUa het 
+eee 
+ RVRORY SIE SEY 
+ETiigRNET 
+e@eere 
+eeeee 
+ee2eee 
+e088 
+eoeetoe 
+eeeece 
+caf 
+eeese 
+ee2e0 
+0}! 
+Figure 5.12: Schematic diagram of the home automation IoT system showing the device, 
+sensor and actuator integrated 
+Figure 5.13: Home automation web application screenshot 
+Figure 5.15 shows the domain model for the weather monitoring system. In this domain 
+model the physical entity is the environment which is being monitored. There is a virtual 
+entity for the environment. Devices include temperature sensor, pressure sensor, humidity 
+sensor, light sensor and single-board mini computer. Resources are software components 
+which can be either on-device or network-resources. Services include the controller service 
+that monitors the temperature, pressure, humidity and light and sends the readings to the 
+Bahga & Madisetti, © 2014 
+
+5.3 Case Study on loT System for Weather Monitoring 
+Seepe 
+V 
+Read Sensor 
+VY 
+Store value 
+< 
+Wait 
+= 
+113 
+— 
+oe 
+sme 
+i} 
+User 
+| 
+| 
+| 
+| Active Digital 
+| 
+| Human User | 
+| 
+Artefact 
+ScRaERRcEneneemeeaes | 
+Se 
+| 
+} 
+1 
+bts 
+ze 
+eee ea 
+Invokes/subscribes 
+— | Virtual Entity 
+relates to 
+Physical Entity 
+: 
+7 
+Ge 
+ee 
+* 
+: 
+monitor 
+associated) with 
+Environment 
+Environment 
+exposes 
+Resource 
+associated with 
+hosts 
+Device 
+A 
+7 
+Minl-computer 
+| 
+Frenwon zee 
+; 
+Onaviee 
+attached to 
+attached to 
+__ 
+Resource 
+| 
+Resource 
+Sensor 
+Sensor 
+Sensor 
+Sensor 
+Temperature 
+Pressure 
+Humidity 
+light 
+Sensor 
+Sensor 
+{ 
+Sensor 
+Sensor 
+Figure 5.15: Domain model for weather monitoring IoT system 
+cloud. 
+Internet of Things - 
+A Hands-On Approach 
+
+114 
+____loT 
+Platforms Design Methodology 
+Virtual Entity: 
+Environment 
+EntityType : 
+Environment 
+Attribute: 
+Attribute: 
+Attribute: 
+! 
+Attribute: 
+Staten 
+a= 
+_ 
+State 
+_ 
+is 
+State 
+as 
+State 
+AttributeName : 
+| 
+\ 
+AttributeName : 
+AttributeName : 
+| 
+AttributeName : 
+temperature 
+| 
+pressure 
+humidity 
+light 
+has value 
+has value 
+has value 
+has value 
+| Temperature: val | 
+| 
+Pressure: val 
+| Humidity: val 
+Light: val 
+Figure 5.16: Information model for weather monitoring loT system 
+Figure 5.16 shows the information model for the weather monitoring system. In this 
+example, there is one virtual entity for the environment being sensed. The virtual entity 
+has attributes - temperature, pressure, humidity and light. Figure 5.17 shows an example of 
+deriving the services from the process specification and information model for the weather 
+monitoring system. 
+Figure 5.18 shows the specification of the controller service for the weather monitoring 
+system. The controller service runs as a native service on the device and monitors temperature, 
+pressure, humidity and light once every 15 seconds. 
+The controller service calls the 
+REST service to store these measurements in the cloud. 
+In Chapter-8 we describe a 
+Platform-as-a-Service called Xively that can be used for creating solutions for Internet 
+of Things. An implementation of a controller service that calls the Xively REST API to store 
+data in Xively cloud is described in Chapter-9. 
+Figure 5.19 shows the deployment design for the system. The system consists of multiple 
+nodes placed in different locations for monitoring temperature, humidity and pressure in 
+an area. The end nodes are equipped with various sensors (such as temperature, pressure, 
+humidity and light). The end nodes send the data to the cloud and the data is stored in a cloud 
+database. The analysis of data is done in the cloud to aggregate the data and make predictions. 
+A cloud-based application is used for visualizing the data. The centralized controller can 
+send control commands to the end nodes, for example, to configure the monitoring interval 
+on the end nodes. 
+Figure 5.20 shows an example of mapping deployment level to functional groups for the 
+. 
+weather monitoring system. Figure 5.21 shows an example of mapping functional groups to 
+operational view specifications for the weather monitoring system. 
+Figure 5.22 shows a schematic diagram of the weather monitoring system. The devices 
+and components used in this example are Raspberry Pi mini computer, temperature sensor, 
+humidity sensor, pressure sensor and LDR sensor. 
+Bahga & Madisetti, © 2014 
+
+5.4 Motivation for Using Python 
+115 
+Process Specification 
+ee ee 
+Store value 
+, 
+. 
+a 
+2 
+\ 
+x 
+Z 
+7 
+, 
+\ 
+/ 
+; 
+hi 
+\ 
+/ 
+i 
+/ 
+\ 
+\ 
+i 
+| 
+\ 
+i 
+Wait 
+\ 
+Information Model 
+Virtual Entity: 
+Environment 
+EntityType : 
+Environment 
+et 
+ores 
+M 
+4 
+| 
+' 
+\ : 
+Attribute: 
+| 
+i 
+Attribute: 
+; 
+Attribute: 
+| 
+| 
+Attribute: 
+Hy) 
+al 
+potate 
+coo 
+Seas 
+State 
+| 
+Sigte 
+ce: 
+et 
+> 
+States ss 
+see] 
+i 
+; 
+AttributeName ¢ 
+; 
+| 
+AttributeName : 
+‘ 
+| 
+AttributeName ; 
+i 
+AttributeName : 
+{ 
+i 
+| 
+I 
+temperature 
+} 
+pressure 
+humidity 
+light 
+| 
+gt 
+Sher en ee 
+A 
+ge es ca a 
+ey ee 
+eS ee ee 
+ee 1 
+| 
+has value 
+has value 
+has value 
+has value 
+Temperature: val | 
+| 
+Pressure:val 
+| 
+Humidity: val 
+| 
+i 
+Light: val 
+} 
+temperature, pressure, humidity and light readings and sends to the cloud database. 
+Controller Service: Runs as a native service on the device. Gets the current 
+Figure 5.17: Deriving services from process specification and information model for weather 
+monitoring loT system 
+5.4 
+Motivation for Using Python 
+This book uses the Python language for all the examples, though the basic principles apply 
+to other high level languages. In this section we explain the motivation for using Python 
+for developing IoT systems. Python is a minimalistic language with English-like keywords 
+‘and fewer syntactical constructions as compared to other languages. This makes Python 
+easier to learn and understand. Moreover, Python code is compact as compared to other 
+languages. Python is an interpreted language and does not require an explicit compilation 
+step. The Python interpreter converts the Python code to the intermediate byte code, specific 
+to the system. Python is supported on wide range of platforms, hence Python code is easily 
+Internet of Things - 
+A Hands-On Approach 
+
+6.2 Installing Python 
+123 
+Portable 
+Since Python is an interpreted language, programmers do not have to worry about compilation, 
+linking and loading of programs. Python programs can be directly executed from source 
+code and copied from one machine to other without worrying about portability. The Python 
+interpreter converts the source code to an intermediate form called byte codes and then 
+translates this into the native language of your specific system and then runs it. 
+Broad Library Support 
+Python has a broad library support and works on various platforms such as Windows, Linux, 
+Mac, etc. There are a large number of Python packages available for various applications 
+such as machine learning, image processing, network programming, cryptography, etc. 
+6.2 
+Installing Python 
+Python is a highly portable language that works on various platforms such as Windows, 
+Linux, Mac, etc. This section describes the Python installation steps for Windows and Linux: 
+Windows 
+Python binaries for Windows can be downloaded from http://www.python.org/getit 
+. For 
+the examples and exercise in this book, you would require Python 2.7 which can be directly 
+downloaded from: http://www.python.org/ftp/python/2.7.5/python-2.7.5.msi Once the python 
+binary is installed you can run the python shell at the command prompt using 
+> python 
+; 
+Linux 
+Box 6.1 provides the commands for installing Python on Ubuntu. 
+= Box 6.1: Installing Python on Ubuntu Linux 
+#Install Dependencies 
+sudo apt-get 
+install build-essential 
+sudo apt-get 
+install libreadline-gplv2-dev libncursesw5-dev 
+libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6é-dev libbz2-dev 
+#Download Python 
+wget http://python.org/ftp/python/2.7.5/Python-2.7.5.tgz 
+tac xvi PYthon=Z./. 
+Oo. uge 
+eGd-=Python-2.7:55 
+#Install Python 
+./configure 
+make 
+sudo make install 
+6.3 Python Data Types & Data Structures 
+6.3.1 
+Numbers 
+Number data type is used to store numeric values. Numbers are immutable data types, 
+therefore changing the value of a number data type results in a newly allocated object. 
+Internet of Things - 
+A Hands-On Approach 
+
+124 
+loT Systems - Logical Design using Python 
+Box 6.2 shows some examples of working with numbers. 
+« Box 6.2: Working with Numbers in Python 
+#Integer 
+Soo a=5 
+>>>type 
+(a) 
+<type 
+‘’int’> 
+#Floating Point 
+>>>b=2.5 
+>>>type 
+(b) 
+<type ’float’> 
+#Long 
+>>>x=9898878787676L 
+>>>type 
+(x) 
+<type ’long’> 
+#Complex 
+>>>y=2t54 
+Peery 
+(2255}) 
+a>>type 
+ly) 
+<type '’complex’> 
+ze ry.real 
+2 
+>>>y.imag 
+=) 
+#Addition 
+>>>c=atb 
+Ze, 
+Thee} 
+>>>type 
+(c) 
+stype! tloant> 
+#Subtraction 
+>>>d=a-b 
+SSG 
+Dies 
+>>>type 
+(d) 
+<type 'float’> 
+#Multiplication 
+>>>e=arb 
+2o> ee 
+L2ES 
+>>>type (e) 
+<type “filoat" > 
+#Division 
+>>> t=o/ a 
+St er 
+Bahga & Madisetti, © 2014 
+
+6.3 Python Data Types & Data Structures 
+125 
+O55 
+>>>type (f) 
+<type 
+'’float’> 
+#Power 
+>>>g=axx*«2 
+Peed 
+7a3 
+6.3.2 
+Strings 
+A string is simply a list of characters in order. There are no limits to the number of characters 
+you can have in a string. A string which has zero characters is called an empty string. Box 6.3 
+shows examples of working with strings. 
+s Box 6.3: Working with Strings in Python 
+#Create string 
+>>>s="Hello World!" 
+>>>type(s) 
+acype=' Stre> 
+#String concatenation 
+>>>t="This 
+is sample program." 
+Sia 
+One 
+See 
+: 
+‘Hello World!This 
+is sample program.’ 
+#Get length of string 
+>>>len(s) 
+ie 
+#Convert 
+string to integer 
+SSS 
+Ke 100" 
+>>>type(s) 
+<type 
+‘’str’> 
+>>>y=int 
+(x) 
+>>>y 
+100 
+#Print string 
+Sprint. 
+Ss 
+Hello World! 
+#Formatting output 
+S> Sprint 
+"“The-string 
+(3s) 
+has 
+3d characters" 
+= 
+(s,1len(s)) 
+The string 
+(Hello World!) 
+‘has 
+12 characters 
+#Convert 
+to upper/lower 
+case 
+>>>s-.upper() 
+‘HELLO WORLD!’ 
+>>>s.lower () 
+‘hello world!’ 
+Internet of Things - 
+A Hands-On Approach 
+
+126 
+loT Systems - Logical Design using Python 
+#Accessing sub-strings 
+>>>s [0] 
+eno hd 
+SS Sos lor 
+‘World!’ 
+SSS 
+Mat 
+‘World’ 
+#strip: 
+Returns 
+a copy of the string with 
+#the leading and trailing characters 
+removed. 
+SS Se Ee) 
+’Hello World’ 
+6.3.3 
+Lists 
+List is a compound data type used to group together other values. List items need not all 
+have the same type. A list contains items separated by commas and enclosed within square 
+brackets. Box 6.4 shows examples of working with lists. 
+» Box 6.4: Working with Lists in Python 
+>>>fruits=|'apple’,’orange’,’banana’,’mango’| 
+>>>Stype (fruits) 
+<type List’ > 
+=o>len (fruits) 
+4 
+S>>Eruits|1| 
+‘orange’ 
+SSeiruitsli:3] 
+[’orange’, 
+‘banana’ | 
+o> >iruits|(1:| 
+[’orange’, 
+'banana’, 
+'mango’| 
+#Appending an item to a list 
+>>>fruits.append(’ 
+pear’ ) 
+SSP LeuLes 
+['apple’, 
+‘orange’, 
+‘banana’, 
+‘mango’, 
+'pear’|] 
+#Removing an item from a list 
+>>>fruits.remove(’mango’ ) 
+2S LLULes 
+[‘apple’, 
+‘orange’, 
+‘banana’, 
+‘pear’| 
+#Inserting an item to a list 
+PoCLeules 
+ansert (il, “mango!) 
+SSSiruLts 
+[’apple’, 
+'’mango’, 
+‘orange’, 
+‘banana’, 
+‘pear’ | 
+#Combining lists 
+>>>vegetables=|' potato’ ,’carrot'’,’onion’,’beans’,’radish’] 
+>>>vegetables 
+potato™. 
+carrot’; 
+tonion",.’ 
+beans’, 
+‘radish’ 
+Bahga & Madisetti, © 2014 
+
+6.3 Python Data Types & Data Structures 
+127 
+>>>eatables=fruits+vegetables 
+>>>eatables 
+['apple’, 
+’mango’, 
+‘’orange’, 
+‘banana’, 
+i Dear! = 
+PPOEAtCO’ 1 Carrots 
+| ondon's,. 
+“beans”, 
+‘radish’ | 
+#Mixed data types in a list 
+>>>mixed=|'data’,5,100.1, 
+82873981] 
+>>>type (mixed) 
+<type ’list’> 
+>>>type (mixed|0]) 
+Reyes 
+ce 
+>>>type (mixed|1]) 
+ACV pes ant 
+oe 
+>>>type (mixed[2]) 
+<type. g£loat’> 
+>>>type (mixed|3]) 
+<type ’long’> 
+#It 
+is possible to change individual elements 
+of a list 
+>>>mixed[0]=mixed[0]+" items" 
+>>>mixed|[1]=mixed{1]+1 
+>>>mixed|2]=mixed[2]+0.05 
+>>>mixed 
+['data items’, 
+6, 100.14999999999999, 
+8287398L) 
+#Lists can be nested 
+>>>nested=|fruits, vegetables| 
+>>>nested 
+[’apple’, 
+‘mango’, 
+‘orange’, 
+’banana’, 
+‘'pear’], 
+potato”, 
+catret’, 
+onion"; 
+2 
+beans’, 
+’radish’]| 
+6.3.4 
+Tuples 
+A tuple is a sequence data type that is similar to the list. A tuple consists of a number of 
+values separated by commas and enclosed within parentheses. Unlike lists, the elements 
+of tuples cannot be changed, so tuples can be thought of as read-only lists. Box 6.5 shows 
+examples of working with tuples. 
+=» Box 6.5: Working with Tuples in Python 
+>>>fruits=("apple", 
+"mango", "banana", "pineapple”) 
+>>>fruits 
+(‘apple’, 
+'mango’, 
+‘banana’, 
+’pineapple’ ) 
+>>>type (fruits) 
+<type ’tuple’> 
+#Get length of tuple 
+>>>len(fruits) 
+4 
+#Get an element 
+from a tuple 
+>>>fruits|(0] 
+Internet of Things - 
+A Hands-On Approach 
+
+128 
+loT Systems - Logical Design using Python 
+‘apple’ 
+>>>fruits|[:2] 
+(‘apple’, 
+‘mango’ ) 
+#Combining tuples 
+S>S>vegetables=(" 
+potato’ ,’ carrot’ ,’ onion”,’ radish: ) 
+>>>eatables=fruitstvegetables 
+>>>eatables 
+(‘apple’, 
+'’mango’, 
+‘'banana’, 
+‘’pineapple’, 
+Epotaro' 
+Ucarnot a, Onion’ y= fracas.) 
+6.3.5 
+Dictionaries 
+Dictionary is a mapping data type or a kind of hash table that maps keys to values. Keys in a 
+dictionary can be of any data type, though numbers and strings are commonly used for keys. 
+Values in a dictionary can be any data type or object. Box 6.6 shows examples on working 
+with dictionaries. 
+« Box 6.6: Working with Dictionaries in Python 
+>>>student={' 
+name’ :’Mary’;! id’ :" 8776", major’ :-CS" } 
+SSSstudent 
+Nema Os 
+CC 
+amelie 
+Mia dees 
+Coie 
+een Gey Ot 
+>>>type (student) 
+<type “dict! > 
+#Get length of a dictionary 
+>>>len (student) 
+3 
+#Get the value of a key in dictionary 
+>>>student[’ 
+name’ | 
+‘Mary’ 
+#Get all items 
+in a dictionary 
+>>>student.items 
+() 
+eimason; 
+"CS" 
+) >> name’,..’Mary’), 
+(Cid; 8116" 
+5, 
+#Get all keys in a dictionary 
+>>>student 
+.keys () 
+[ ‘major’, 
+‘name’, 
+‘id’] 
+#Get all values 
+in a dictionary 
+>>>student.values 
+() 
+Lice Mary! 
+S776" 
+>>>student 
+Comeagon’ 
+CS", 
+“namels 
+—“Maty, 
+4 ads 
+2 e776 
+#A value 
+in a dictionary can be another dictionary 
+a> 
+studenti=(! name": 
+David’ "ld: 
+98764, “mayer! +' Boe > 
+Pe SsLudents=1 
+Us student, 
+/2" student kt 
+>>>students 
+Senne 
+let 
+i ak a 
+Bahga & Madisetti, © 2014 
+
+6.4 Control Flow 
+129 
+eee 
+erect 
+de Steeeen Cerne) OTe sr EGR a rian te 
+SMauay 
+a eC ta VeR FT pea. 
+Uérmertae 
+MA YOT i> RCE! (= name! <<" Dayidt, 
+eed? 
+298767} 
+#Check 
+if dictionary has 
+a key 
+>>>student.has_key 
+(’ name’ ) 
+True 
+>>>student .has_key(’ grade’ ) 
+False 
+6.3.6 
+Type Conversions 
+Box 6.7 shows examples of type conversions. 
+« Box 6.7: Type conversion examples 
+#Convert 
+to string 
+>>>a=10000 
+>>>str (a) 
+PLOO.OO? 
+#Convert 
+to int 
+>>>b="2013" 
+>>>int (b) 
+2003 
+#Convert 
+to float 
+>>>float (b) 
+2045350) 
+#Convert 
+to long 
+>>>long (b) 
+2013L 
+#Convert 
+to list 
+>>>s="aeiou" 
+> Sa sts) 
+(rar, 
+Lee. 
+eee 
+Lot, 
+fat) 
+#Convert 
+to set 
+>>>x=|'mango’,’apple’,’banana’,’mango’,’ 
+banana’ | 
+>>>set 
+(x) 
+set ([’mango’, 
+‘'apple’, 
+’banana’]) 
+6.4 
+Control Flow 
+Lets us look at the control flow statements in Python. 
+6.4.1 
+if 
+The if statement in Python is similar to the if statement in other languages. Box 6.8 shows 
+some examples of the if statement. 
+Internet of Things - 
+A Hands-On Approach 
+
+130 
+loT Systems - Logical Design using Python 
+NE 
+a a 
+ae 
+» Box 6.8: if statement examples 
+SS 
+ae Soe kD. 
+SSSit 
+a> lo00e: 
+print, “Moret 
+else: 
+Prune. “less! 
+More 
+>>>if a>10000: 
+if a<1000000: 
+print "Between 
+10k and 100k" 
+else; 
+print "More than 100k" 
+elif a==10000: 
+print “Equal 
+to 10k" 
+else: 
+print 
+"Less than 
+10k" 
+More than 
+100k 
+>>>s="Hello World" 
+SSS Worle 
+Yan ss 
+s=s+" ! " 
+DEINItcs 
+Hello World! 
+S>>>student={"name’:’Mary’; 
+1d’ :! 8776" 3} 
+>S>Sif 
+not student 
+has key (’major”) : 
+student [’major’]='CSs’ 
+>>>student 
+CAMA 
+Oi Sos. Clee 
+namein- 
+oO Mane soa dics 2 Brae 
+6.4.2 
+for 
+The for statement in Python iterates over items of any sequence (list, string, etc.) in the 
+order in which they appear in the sequence. This behavior is different from the for statement 
+in other languages such as C in which an initialization, incrementing and stopping criteria 
+are provided. Box 6.9 shows examples of the for statement. 
+= Box 6.9: for statement examples 
+helloString 
+= 
+"Hello World" 
+fruits=|’apple’,’orange’,’ banana’ ,’mango’ | 
+student. 
+= “name r ' Mary", 
+-ad"t 
+7 SIG. 
+“mater! sw Css 
+#Looping over characters 
+in a string 
+for-c 
+an hellostring: 
+Print 
+<c 
+Bahga & Madisetti, © 2014 
+
+6.4 Control Flow 
+131 
+Se ee 
+a 
+#Looping over items 
+in a list 
+i=0 
+for item 
+in fruits: 
+Print -UPruit= 
+tas 
+Sesto: 
+(Vedtem) 
+i=itl 
+#LOooping over keys in a dictionary 
+for key in student: 
+print 
+"Ss: 
+%s" 
+% (key, student [key]) 
+6.4.3 
+while 
+The while statement in Python executes the statements within the while loop as long as the 
+while condition is true. Box 6.10 shows a while statement example. 
+= Box 6.10: while statement examples 
+#Prints even numbers upto 
+100 
+SS> 
+1 = 
+0 
+>>> while i<=100: 
+if i1%2 == 
+0: 
+Print..1 
+dea 
+eekly 
+atl 
+6.4.4 
+range 
+The range statement in Python generates a list of numbers in arithmetic progression. Examples 
+of range statement are shown in Box 6.11. 
+= Box 6.11: range examples 
+#Generate 
+a list 
+of numbers 
+from 0 - 
+9 
+>>>range 
+(10) 
+Gyo 
+a he, 
+Gy 1 8 
+#Generate 
+a list 
+of numbers 
+from 
+10 
+-— 
+100 with increments 
+of 10 
+>>>range(10,110,10) 
+[10, Oi 
+3 Or Ae ew Oly OO p24 Op 
+Oils 
+90,100] 
+6.4.5 
+break/continue 
+The break and continue statements in Python are similar to the statements in C. The break 
+statement breaks out of the for/while loop whereas the continue statement continues with the 
+next iteration. Box 6.12 shows examples of break and continue usage. 
+= Box 6.12: break/continue examples 
+#Break statement example 
+SS>y=l 
+>>>for 
+x in range(4,256,4): 
+Witee 
+rire 
+arae 
+Internet of Things - 
+A Hands-On Approach 
+
+132 
+loT Systems - Logical Design using Python 
+Ree 
+iS ame 
+break 
+print y 
+4 
+a2 
+384 
+#Continue statement example 
+>>>fruits=[’apple’,’orange’,’banana’,’mango’.] 
+SS>Sfor 
+trem. 
+im Leutes:: 
+if item == 
+"banana": 
+continue 
+else: 
+print item 
+apple 
+orange 
+mango 
+6.4.6 
+pass 
+The pass statement in Python is a null operation. The pass statement is used when a statement 
+is required syntactically but you do not want any command or code to execute. Box 6.13 
+shows an example of pass statement. 
+= Box 6.13: pass statement example 
+fruits=|’apple’,’orange’,’banana’,’mango’ | 
+fOr tem in truris: 
+if item == 
+"banana": 
+pass 
+else: 
+print item 
+apple 
+orange 
+mango 
+6.5 
+Functions 
+A function is a block of code that takes information in (in the form of parameters), does some 
+computation, and returns a new piece of information based on the parameter information. 
+A function in Python is a block of code that begins with the keyword de f followed by the 
+function name and parentheses. The function parameters are enclosed within the parenthesis. 
+The code block within a function begins after a colon that comes after the parenthesis 
+enclosing the parameters. The first statement of the function body can optionally be a 
+documentation string or docstring. Box 6.14 shows an example of a function that computes 
+the average grade given a dictionary containing student records. 
+Bahga & Madisetti, © 2014 
+
+6.5 Functions 
+133 
+» Box 6.14: Example of a function in Python 
+students 
+= 
+{ ‘1': 
+{’name’: 
+MB ODL 
+a 
+I EAAS 
+st PSS , 
+Bros 
+{’name’ 
+: 
+iMaryeyo 
+-Gradees. - 355), 
+Ves 
+{’name’ : 
+(David's, 
+“grade! ... 24 2\5 
+CALs 
+{’name’: 
+-JONM 7. <Grade 
+sooo 
+plo haan 
+{’name’: 
+"Alex! ,-" grade’: 
+3.8}} 
+def averageGrade(students): 
+“This function computes the average grade” 
+sum 
+= 
+0.0 
+for key in students: 
+sum 
+= 
+sum 
++ students 
+[key] [’ grade’ ] 
+average 
+= sum/len(students) 
+return average 
+avg 
+= averageGrade (students) 
+print 
+"The average garde 
+is: 
+%0.2f" 
+% (avg) 
+Functions can have default values of the parameters. If a function with default values is 
+called with fewer parameters or without any parameter, the default values of the parameters 
+are used as shown in the example in Box 6.15. 
+» Box 6.15: Example of function with default arguments 
+>>>def displayFruits 
+(fruits=|’ apple’,’ orange’ |): 
+prunt 
+Uwihere 
+are: 
+sd fruges-in- 
+the 
+last". 
+2. (lem(rrurts)) 
+for 1cem in E£ruLts : 
+print item 
+#Using default arguments 
+>>>displayFruits() 
+apple 
+orange 
+>>>fruits 
+= ['banana’, 
+‘pear’, 
+‘mango’| 
+>>>displayFruits (fruits) 
+banana 
+pear 
+mango 
+All parameters in the Python functions are passed by reference. Therefore, if a parameter 
+is changed within a function the change also reflected back in the calling function. Box 6.16 
+shows an example of parameter passing by reference. 
+= Box 6.16: Example of passing by reference 
+>>>def displayFruits (fruits): 
+print 
+"There 
+are 
+%d fruits 
+in the list" 
+% (len(fruits)) 
+for item 
+ian fruits: 
+Susser 
+nnn 
+nn nnn 
+UE atEEaSE aT 
+Internet of Things - 
+A Hands-On Approach 
+
+134 
+loT Systems - Logical Design using Python 
+ie a aN 
+conf icc 
+| a ae ss amet kg aera 8 A 
+print item 
+print "Adding one more 
+fruit™ 
+fruits.append(’mango’ ) 
+SSsfruits 
+= |’banana’, 
+‘pear’, 
+"apple’| 
+>>>displayFruits (fruits) 
+There 
+are 
+3 fruits 
+in. the tist 
+banana 
+pear 
+apple 
+Adding one more fruit 
+2 
+>>>Sprint 
+"There are 
+$d fruits 
+in the list" 
+% 
+(len(fruits)) 
+There 
+are 
+4 fruits 
+in the list 
+Functions can also be called using keyword arguments that identify the arguments by 
+the parameter name when the function is called. Box 6.17 shows examples of keyword 
+arguments. 
+« Box 6.17: Examples of keyword arguments 
+>>>def printStudentRecords 
+(name, age=20,major='CS’): 
+print 
+"Name: 
+" 
++ name 
+Prin’ 
+“Ages 
+st strlage) 
+print 
+“Majors 
+2" 
++ mator 
+#This will give error 
+as name 
+is required argument 
+>>>printStudentRecords 
+() 
+Traceback 
+(most recent 
+call last): 
+File “<stdine" 
+bine? bin <module> 
+TypeError: 
+printStudentRecords() 
+takes 
+at least 
+1 argument 
+(0 given) 
+>>>printStudentRecords 
+(name=’ Alex’ ) 
+Name: 
+Alex 
+Age:. 
+20 
+Masjor 22 CS 
+>>>printStudentRecords 
+(name=' Bob’ , age=22,major=’ ECE’ ) 
+Name: 
+Bob 
+Age: 
+22 
+Major: 
+HCE 
+>>>printStudentRecords 
+(name=’ Alan’ ,major=’ ECE’ ) 
+Name: 
+Alan 
+Age: 
+20 
+Major: 
+ECE 
+#name 
+is a formal argument. 
+#x*xkwargs 
+is a keyword argument 
+that receives 
+all 
+#arguments except the formal argument 
+as 
+a dictionary. 
+>>>def 
+student (name, 
+«*kwargs): 
+print 
+"Student Name: 
+" 
++ name 
+for key in kwargs: 
+Bahga & Madisetti, © 2014 
+
+6.6 Modules 
+135 
+print key +’: 
+(otc kwargs [key] 
+>>>student (name=’Bob’, 
+age='20', 
+major 
+= 
+’CS’) 
+Student Name: 
+Bob 
+ager 
+20 
+major: 
+CS 
+Python functions can have variable length arguments. These variable length arguments 
+are passed as a tuple to the function with an argument prefixed with asterix (*) as shown in 
+Box 6.18. 
+» Box 6.18: Example of variable length arguments 
+def student (name, 
+x*varargs): 
+print "Student 
+Name: 
+" 
++ name 
+for item in varargs: 
+print item 
+>>>student 
+(’ Nav’ ) 
+Student 
+Name: 
+Nav 
+>>>student (’Amy’, 
+’Age: 
+24’) 
+Student 
+Name: 
+Amy 
+Age: 
+24 
+SS Sstudent ("Bob”;, 
+’Age: 
+20%, 
+"Major: 
+CS”) 
+Student Name: 
+Bob 
+Age: 
+20 
+Mayor. 
+-CS 
+6.6 
+Modules 
+Python allows organizing of the program code into different modules which improves the 
+code readability and management. A module is a Python file that defines some functionality 
+in the form of functions or classes. Modules can be imported using the import keyword. 
+Modules to be imported must be present in the search path. Box 6.19 shows the example of a 
+student module that contains two functions and Box 6.20 shows an example of importing the 
+student module and using it. 
+a Box 6.19: Module student 
+def averageGrade (students) : 
+sum 
+= 0.0 
+for key in students: 
+sum = sum + students|key]|’ 
+grade’ | 
+average 
+= sum/len(students) 
+return average 
+def printRecords (students) : 
+Internet of Things - 
+A Hands-On Approach 
+
+136 
+loT Systems - Logical Design using Python 
+print "There are 
+%d students" 
+%(len(students) ) 
+i=1 
+for key in students: 
+print 
+“Student—sd: 
+ETS) 
+print "Name: 
+" 
++ students|key]|’ 
+name’ | 
+print "Grade: 
+" 
++ str(students[key]|’ 
+grade’ }) 
+es 
+« Box 6.20: Using module student 
+>>>import 
+student 
+SSS studentss =— 
+iv 
+‘name’: 
+PROD, 
+“grades 
+Bey 
+TDi 
+eA Met as eM y= CNG Oey, 6. soy 
+BS aae 
+‘name’: 
+RaAvViGu, 
+“Cgradet;: 
+AZ, 
+ihe 
+’name’: 
+Sonn’, 
+grace. 
+Ae 
+Sh 
+OA 
+RO LAGE 
+Oo 
+>>>student.printRecords (students) 
+There 
+are 
+5 students 
+Student-1:; 
+Name: 
+Bob 
+Grade: 
+2.5 
+Student-2: 
+Name: 
+David 
+Grade: 
+4.2 
+Student-3: 
+Name: 
+Mary 
+Grade: 
+3.5 
+Student-4: 
+Name: 
+Alex 
+Grade: 
+3.8 
+Student-—5: 
+Name: 
+John 
+Grade: 
+4.1 
+>>>avg 
+= 
+student. 
+averageGrade (students) 
+>>>print 
+"The average garde 
+is: 
+%0.2f" 
+% (avg) 
+B62 
+The import keyword followed by the module name imports all the functions in the module. 
+If you want to use only a specific function it is recommended to import only that function 
+using the keyword from as shown in the example in Box 6.21. 
+s Box 6.21: Importing a specific function from a module 
+»>from student 
+import averageGrade 
+Bahga & Madisetti, © 2014 
+
+6.7 Packages 
+137 
+I ee 
+ee 
+mee students =—-'1's 
+“names 
+=’ Bob”, 
+-gqradel: 
+2-5, 
+tao 
+name @s 5" Many, 
+“boradekis 
+735, 
+(Qi 
+Hames 
+“David 
+7ograde!: 
+4.2, 
+i aten 
+i name. 
+John, 
+Cgrade 
+ls" 4.1. 
+Doh 
+Mame a 1 Alex oo grades 
+<3)8 
+>>>avg 
+= averageGrade (students) 
+>e>print 
+"The average garde 
+is: 
+%0.2f" 
+% (avg) 
+a5 62 
+Python comes with a number of standard modules such as system related modules 
+(sys), OS related module (os), mathematical modules (math, fractions, etc.), Internet related 
+modules (email, json. etc), etc. The complete list of standard modules is available in the 
+Python documentation [87]. Box 6.22 shows an example of listing all names defined in a 
+module using the built-in dir function. 
+« Box 6.22: Listing all names defined in a module 
+>>>import email 
+>>>dir 
+(email) 
+["Charset’, 
+‘Encoders’, 
+‘Errors’, 
+'FeedParser’, 
+’Generator’, 
+’Header’, 
+‘Iterators’, 
+'’LazyImporter’, 
+'MIMEAudio’, 
+‘MIMEBase’, 
+’MIMEImage’, 
+‘MIMEMessage’, 
+’MIMEMultipart’, 
+‘MIMENonMultipart’, 
+‘’MIMEText’, 
+‘Message’, 
+‘Parser’, 
+'Utils’, 
+’ _LOWERNAMES’, 
+’ MIMENAMES’, 
+deisatiire Meas eee wel ent Wainy ain abc enmme 
+caries 
+Cognit 
+a errata 
+LESAN) Vier 
+AC RAGS 
+sia PAtMa 
+4) "Versions", 
+’ name’, 
+'base64MIME’, 
+’email’, 
+‘’importer’, 
+‘message_from_file’, 
+‘'message_from_string’, 
+'’mime’, 
+‘quopriMIME’, 
+reyes? | 
+6.7 
+Packages 
+Python package is hierarchical file structure that consists of modules and subpackages. 
+Packages allow better organization of modules related to a single application environment. 
+For example, Box 6.23 shows the listing of the skimage package that provides image 
+processing algorithms. 
+The package is organized into a root directory (skimage) with 
+sub-directories (color, draw, etc) which are sub-packages within the skimage package. Each 
+directory contains a special file named __init__.py which tells Python to treat directories as 
+packages. This file can either be an empty file or contain some initialization code for the 
+package. 
+« Box 6.23: skimage package listing 
+skimage/ 
+Top level package 
+Pen 
+tee say 
+Treat directory 
+as 
+a package 
+color/ 
+color subpackage 
+See 
+i DY. 
+colorconv.py 
+Internet of Things - 
+A Hands-On Approach 
+
+138 
+loT Systems - Logical Design using Python 
+colorlabel.py 
+EgbUCoOLOrs 
+Jpy 
+draw/ 
+draw subpackage 
+eeu aed 
+1 ON 
+draw.py 
+setup.py 
+exposure/ 
+exposure subpackage 
+See UT Cis a, OY. 
+_adapthist.py 
+exposure.py 
+5 
+feature/ 
+feature subpackage 
+Siecilia 
+hy eden oe ORZ 
+_brief.py 
+_daisy.py 
+6.8 
+File Handling 
+Python allows reading and writing to files using the file object. The open(filename, mode) 
+function is used to get a file object. The mode can be read (r), write (w), append (a), read 
+and write (r+ or w+), read-binary (rb), write-binary (wb), etc. Box 6.24 shows an example 
+of reading an entire file with read function. After the file contents have been read the close 
+function is called which closes the file object. 
+« Box 6.24: Example of reading an entire file 
+PoSeip.= Open (Chiles 
+tet 
+xr) 
+>>>content 
+= 
+fp.read() 
+>>>print content 
+Python supports more than one programming paradigms 
+including object-oriented programming and structured 
+programming 
+Python 
+is an interpreted language and does 
+not require 
+jan explicit “compiz lation 
+step. 
+>>>ifp.close() 
+Box 6.25 shows an example of reading line by line from a file using the readline function. 
+= Box 6.25: Example of reading line by line 
+>>>fp.close() 
+>>>fp 
+= open(’ file.txt’,’r’) 
+>>>print 
+"Line-1: 
+"+ fp.readline() 
+Line-l: 
+Python supports more than one programming paradigms 
+including object-oriented programming and structured 
+programming 
+SP Sprint oo hiner? 
+<o.!- to read hine:() 
+Line-2: 
+Python 
+is an interpreted language and does not 
+require 
+an explicit compilation 
+step. 
+Bahga & Madisetti, © 2014 
+
+6.8 File Handling 
+139 
+: 
+>>>fp.close() 
+Box 6.26 shows an example of reading lines of a file in a loop using the readlines function. 
+= Box 6.26: Example of reading lines in a loop 
+poeoip 
+= open (tile txt’, 
+2h) 
+>>>lines 
+= 
+fp.readlines() 
+>>>for 
+line 
+in lines: 
+print line 
+Python supports more than one programming paradigms including 
+object-oriented programming and structured programming 
+Python is an interpreted language and does not 
+require 
+an explicit compilation 
+step. 
+Box 6.27 shows an example of reading a certain number of bytes from a file using the 
+read(size) function. 
+= Box 6.27: Example of reading a certain number of bytes 
+>>>fp 
+= open(’file.txt’,’r’) 
+>>>fp.read(10) 
+‘Python 
+sup’ 
+>>>fp.close 
+() 
+Box 6.28 shows an example of getting the current position of read using the tell function. 
+s Box 6.28: Example of getting the current position of read 
+SSSip-=-open 
+/? file.txt.,'r’) 
+>>>fp-read(10) 
+TRVEWOR Sup 
+>>>currentpos 
+= fp.tell 
+>>>print currentpos 
+<built-in method tell 
+of file object 
+at 0x0000000002391390> 
+>>>fp.close 
+() 
+Box 6.29 shows an example of seeking to a certain position in a file using the seek 
+function. 
+= Box 6.29: Example of seeking to a certain position 
+SSS ip 
+open ( filevext! 
+77 r" ) 
+>>>fp.seek (10,0) 
+>>>content 
+= fp.read(10) 
+>>>print content 
+ports more 
+= 
+nn 
+LEU UEEENdEE ESE 
+Internet of Things - 
+A Hands-On Approach 
+
+140 
+loT Systems - Logical Design using Python 
+>>>fp.close() 
+Box 6.30 shows an example of writing a file using the write function. 
+» Box 6.30: Example of writing to a file 
+>>>Sfo 
+= open(’filel.txt’,’w’) 
+S>ocontent=’ 
+This is an example 
+of writing to 
+a file 
+4n Python. ” 
+>>>fo.write (content) 
+>>>fo.close() 
+6.9 
+Date/Time Operations 
+Python provides several functions for date and time access and conversions. The datetime 
+module allows manipulating date and time in several ways. Box 6.31 shows examples of 
+manipulating with date. 
+» Box 6.31: Examples of manipulating with date 
+>>>from datetime import date 
+>>>now 
+= date.today 
+() 
+>>>print 
+"Date: 
+" 
++ now.strftime("%m-%Sd—-Zy") 
+Date: 
+07-24-13 
+>>>print 
+"Day of Week: 
+" 
++ now.strftime ("%A") 
+Day of Week: 
+Wednesday 
+SSS print Month: 
+" 
++ now. strftime ("SB") 
+Month: 
+duly 
+a 
+>>>then 
+= date(2013, 
+6, 
+7) 
+>>>timediff 
+= now 
+—- 
+then 
+>>>timediff.days 
+47 
+The time module in Python provides various time-related functions. Box 6.32 shows 
+examples of manipulating with time. 
+= Box 6.32: Examples of manipulating with time 
+>>>import time 
+>>>nowtime 
+= time.time() 
+>>>time.localtime (nowtime) 
+time.struct_time (tm_year=2013, 
+tm_mon=7, 
+tm_mday=24, 
+tm_ 
+ec=ol, 
+tm_wday=2, 
+tim_yday=205, 
+tm isdst=0) 
+>>>time.asctime 
+(time. localtime (nowtime) ) 
+"Wed Jul 24 16:14:51 
+2013” 
+S>S>>time 
+. stritime("tThe 
+date 
+is Sd-sm-Sy. 
+Today 
+is 
+a %A. 
+It 
+is %H hours, 
+$M minutes 
+and %8 seconds 
+now.") 
+‘The date-is 24-07-13. 
+Today 
+is a Wednesday. 
+It is 16 hours, 
+15 minutes 
+and 14 seconds 
+now.’ 
+Bahga & Madisetti, © 2014 
+
+6.10 Classes 
+141 
+6.10 
+Classes 
+Python is an Object-Oriented Programming (OOP) language. Python provides all the standard 
+features of Object Oriented Programming such as classes, class variables, class methods, 
+inheritance, function overloading, and operator overloading. Let us briefly look at these OOP 
+concepts: 
+Class 
+A class is simply a representation of a type of object and user-defined prototype for an object 
+that is composed of three things: a name, attributes, and operations/methods. 
+Instance/Object 
+Object is an instance of the data structure defined by a class. 
+Inheritance 
+Inheritance is the process of forming a new class from an existing class or base class. 
+Function overloading 
+Function overloading is a form of polymorphism that allows a function to have different 
+meanings, depending on its context. 
+Operator overloading 
+Operator overloading is a form of polymorphism that allows assignment of more than one 
+function to a particular operator. 
+Function overriding 
+Function overriding allows a child class to provide a specific implementation of a function 
+that is already provided by the base class. Child class implementation of the overridden 
+function has the same name, parameters and return type as the function in the base class. 
+Box 6.33 shows an example of a Class. The variable studentCount is a class variable 
+that is shared by all instances of the class Student and is accessed by Student .studentCount. 
+The variables name, id and grades are instance variables which are specific to each instance 
+of the class. There is a special method by the name __init__() which is the class constructor. 
+The class constructor initializes a new instance when it is created. The function __del__() is 
+the class destructor. 
+= Box 6.33: Examples of a class 
+>>>class 
+Student: 
+studentCount 
+= 
+0 
+dems 
+iit (self, 
+name, 
+1d): 
+Point “Constructor called! 
+self.name 
+= name 
+self.id 
+= 
+id 
+Student.studentCount 
+= Student.studentCount 
++ 1 
+self.grades= 
+CStesdela (seit): 
+Print “Destructor 
+called" 
+Internet of Things - 
+A Hands-On Approach 
+
+142 
+loT Systems - Logical Design using Python 
+def getStudentCount (self): 
+return Student .studentCount 
+def addGrade(self,key,value): 
+self .grades{key|=value 
+def getGrade (self, key) : 
+return self.grades|key| 
+def printGrades (self): 
+for key in self.grades: 
+print key + ": 
+" 
++ self.grades|key] 
+S>>s 
+= Student 
+(/ Steve", 1989237) 
+Constructor called 
+>>>s.addGrade(’Math’,’ 
+90’) 
+>>>s.addGrade(’ Physics’ ,’ 85’) 
+>>>s.printGrades 
+() 
+Physics: 
+85 
+Math: 
+90 
+>>>mathgrade 
+= s.getGrade(’Math’ ) 
+>>>print mathgrade 
+90 
+>>>count 
+= s.getStudentCount 
+() 
+>>>print 
+count 
+AE 
+>>>dels 
+Destructor called 
+Box 6.34 shows an example of class inheritance. In this example Shape is the base class 
+and Circle is the derived class. The class Circle inherits the attributes of the Shape class. 
+The child class Circle overrides the methods and attributes of the base class (eg. draw() 
+function defined in the base class Shape is overridden in child class Circle). It is possible to 
+hide some class attributes by naming them with a double underscore prefix. For example, 
+__label attribute is hidden and cannot be directly accessed using the object (circ.__label 
+gives an error). To hide the attributes with double underscore prefix, Python changes their 
+names internally and prefixes the class name (e.g. __/abel is changed to _Circle__label). 
+» Box 6.34: Examples of class inheritance 
+>>>class 
+Shape: 
+Geb accra 
+be set) 
+print 
+"Base class constructor" 
+self.color 
+= 
+’Green’ 
+self.lineWeight 
+= 
+10.0 
+def draw(self): 
+print "Draw 
+- 
+to be implemented" 
+def setColor(self, 
+c): 
+self.color 
+= 
+c 
+def getColor(self): 
+return self.color 
+Bahga & Madisetti, © 2014 
+
+6.10 Classes 
+def setLineWeight 
+(self, lwt): 
+self.lineWeight 
+= 
+lwt 
+def getLineWeight (self): 
+return self.lineWeight 
+>>>class 
+Circle (Shape) : 
+det 
+sinter 
+(sel, 
+or). 
+print 
+"Child class: constructor” 
+self.center =c 
+self.radius 
+= 
+r 
+self.color 
+= 
+’Green’ 
+self.lineWeight 
+= 
+10.0 
+self.__-label 
+= 
+’Hidden circle 
+label’ 
+def setCenter(self,c): 
+self.center =c 
+def getCenter (self): 
+return self.center 
+def setRadius(self,r): 
+self.radius 
+= 
+r 
+def getRadius (self): 
+return self.radius 
+def draw(self): 
+print 
+"Draw Circle 
+(overridden function)" 
+Seochkass Point: 
+ders 
+unit 
+(self, 
+ox, 
+vy): 
+self.xCoordinate 
+= 
+x 
+self.yCoordinate 
+= y 
+def setXCoordinate(self,x): 
+self.xCoordinate 
+= 
+x 
+def getXCoordinate (self) : 
+return self.xCoordinate 
+def 
+set YCoordinate(self,y): 
+self.yCoordinate 
+= y 
+def getYCoordinate (self): 
+return self.yCoordinate 
+>>>p 
+= Point (2,4) 
+SSS cine =“Circle( 
+py 7) 
+Child class constructor 
+= SScure.getColor 
+() 
+‘Green’ 
+SSS circ. sstColor(” 
+Red* ) 
+SSS cLlre<get 
+Colon () 
+‘Red’ 
+>>>circ.getLineWeight 
+() 
+10-20 
+>>>circ.getCenter 
+() .getXCoordinate () 
+Z 
+>>>circ.getCenter().getYCoordinate 
+() 
+4 
+143 
+Internet of Things - 
+A Hands-On Approach 
+
+144 
+loT Systems - Logical Design using Python 
+>>>circ.draw() 
+Draw Circle 
+(overridden 
+function) 
+=> Scire radius 
+4 
+SS 
+Girne 
+aber: 
+Traceback 
+(most recent 
+call 
+last): 
+Pile 
+-"<stdin="> 
+Line 
+1, 
+an <module> 
+AttributeError: 
+Circle 
+instance 
+has 
+no attribute 
+’_ label’ 
+SS SCirceacirele.. 
+label 
+‘Hidden circle 
+label’ 
+6.11. 
+Python Packages of Interest for loT 
+6.11.1 
+JSON 
+JavaScript Object Notation (JSON) is an easy to read and write data-interchange format. 
+JSON is used as an alternative to XML and is is easy for machines to parse and generate. 
+JSON is built on two structures - a collection of name-value pairs (e.g. a Python dictionary) 
+and ordered lists of values (e.g.. a Python list). 
+JSON format is often used for serializing and transmitting structured data over a network 
+connection, for example, transmitting data between a server and web application. Box 6.35 
+shows an example of a Twitter tweet object encoded as JSON. 
+= Box 6.35: JSON Example - A Twitter tweet object 
+{ 
+"created_at": 
+MS at oun 
+20 Hels 
+o 43 OOO 
+20a oe 
+"i1d":340794787059875841, 
+"text":"What 
+a bright and sunny day today!", 
+"Cruncated":false, 
+Winereply 
+Coo status La" snail, 
+"user": { 
+MIM 
+SS B8Z25039 , 
+"name": "Harry", 
+"followers_count":316, 
+"friends 
+count "3298, 
+Wlisted:-count™ 
+0), 
+“ereated=at"s" 
+Sun Och 
+02 15-5167 
+0000. 20LE 
+WRavor 
+Lees coum: "22 54, 
+"statuses. 
+count 1L/07, 
+VHOtLt 
+TL Gatiome "emai 
+A 
+Uke Keto) ihe 
+"type" :"Point™, 
+"coordinates" :(26.92782727,75.78908449| 
+AS 
+"coordinates": { 
+Wevipes 
+sr olan ie 
+Bahga & Madisetti, © 2014 
+
+6.11 Python Packages of Interest for loT 
+145 
+"coordinates":[75.78908449, 26.92782727] 
+}, 
+Mplace nui 
+Lex euesesorbheenas 
+hsm anwee dies 
+"retweet_count":0, 
+NEavorite: count: 
+Nentrt res: 4 
+"hashtags":||, 
+"symbols": 
+|], 
+Norte: 
+(|; 
+"user_mentions": || 
+lar 
+"favorited": false, 
+"retweeted":false, 
+"filter_level":"medium", 
+lang’ 
+2 ni! 
+Exchange of information encoded as JSON involves encoding and decoding steps. The 
+Python JSON package [109] provides functions for encoding and decoding JSON. 
+Box 6.36 shows an example of JSON encoding and decoding. 
+» Box 6.36: Encoding & Decoding JSON in Python 
+SS Import: Son 
+>>>message 
+= 
+{ 
+Vereated™ =; “Wed Jun 
+3l 2013", 
+Wes EM : LEO HO aE 
+"text":"This 
+is 
+a test message.", 
+} 
+>>> 4son.dumps (message) 
+Cittext! 
+Mihi Ss 1S a test) message, 
+ad's 
+-sl00LE, 
+VGreatea:= 
+. "Wed Jun 3 2013") 
+>>>decodedMsg 
+= 
+json.loads( 
+‘’{"text": 
+We 
+Sib 
+Se 
+test message.", 
+"id": 
+"001", 
+"created": 
+"Wed Jun 
+31 2013"}’) 
+>>>decodedMsg|’ created’ | 
+u’Wed Jun 31 2013’ 
+>>>decodedMsg[’ 
+text’ | 
+Ui This 
+1s a test message./ 
+6.11.2 
+XML 
+- XML (Extensible Markup Language) is a data format for structured document interchange. 
+Box 6.37 shows an example of an XML file. In this section you will learn how to parse, read 
+and write XML with Python. The Python minidom library provides a minimal implementation 
+of the Document Object Model interface and has an API similar to that in other languages. 
+Box 6.38 shows a Python program for parsing an XML file. Box 6.39 shows a Python 
+Internet of Things - 
+A Hands-On Approach 
+
+146 
+loT Systems - Logical Design using Python 
+ae 
+a 
+re 
+program for creating an XML file. 
+« Box 6.37: XML example 
+<?xml version="1.0"?> 
+<catalog> 
+= plant 
+10s ols 
+<common>Bloodroot</common> 
+<botanical>Sanguinaria canadensis</botanical> 
+<zone>4</zone> 
+<light>Mostly Shady</light> 
+<price> 2.44 </price> 
+<availability>031599</availability> 
+</plant> 
+<plant id='2’ 
+> 
+<common>Columbine</common> 
+<botanical>Aquilegia canadensis</botanical> 
+<zone>3</zone> 
+<light>Mostly Shady</light> 
+<price> 9.37</price > 
+<availability>030699</availability> 
+</plant> 
+<plant 
+id=" 3’ 
+=> 
+<common>Marsh Marigold</common> 
+<botanical>Caltha palustris</botanical> 
+<zone>4</zone> 
+<light>Mostly Sunny</light> 
+<price> 6.81</price> 
+<availability>051799</availability> 
+</plant> 
+</catalog> 
+a Box 6.38: Parsing an XML file in Python 
+from xml.dom.minidom import parse 
+dom 
+= parse("test.xml") 
+for node 
+in dom.getElementsByTagName (’plant’): 
+id=node.getAttribute(’id’) 
+Prine 
+PA ait a De Mer eh 
+common=node.getElementsByTagName 
+(’ common’ ) [0] 
+.childNodes[0].nodeValue 
+print 
+"Common:", 
+common 
+botanical=node.getElement 
+sByTagName (’ botanical’) [0] 
+.childNodes 
+[0] .-nodeValue 
+Prine Botanica 
+ia 
+“botanic 
+as. 
+zone=node.getElementsByTagName 
+(’ zone’ ) [0] 
+.childNodes[0].nodeValue 
+print 
+"Zone:", 
+zone 
+Bahga & Madisetti, © 2014 
+
+6.11 Python Packages of Interest for loT 
+147 
+= Box 6.39: Creating an XML file with Python 
+#Python example to create the following XML: 
+#’ <?xml version="1.0" 
+?> <Class> <Student> 
+#<Name>Alex</Name> <Major>ECE</Major> </Student 
+> </Class> 
+from xml.dom.minidom import Document 
+doc 
+= Document 
+() 
+# create base element 
+base 
+= doc.createElement (’Class’ ) 
+doc.appendChild (base) 
+# create an entry element 
+entry 
+= doc.createHKlement 
+(’ Student’ ) 
+base.appendChild(entry) 
+# create 
+an element 
+and append to entry element 
+name 
+= doc.createElement 
+(’ Name’ ) 
+nameContent 
+= doc.createTextNode 
+(’ Alex’ ) 
+name.appendChild (nameContent) 
+entry .appendChild 
+(name) 
+# create 
+an element 
+and append to entry element 
+major 
+= doc.createElement (’Major’ ) 
+majorContent 
+= doc.createlextNode (‘RCH’) 
+major.appendChild(majorContent) 
+entry.appendChild(major) 
+fp = open(’foo.xml’,’w’) 
+doc.writexml 
+() 
+fp.close 
+() 
+6.11.3 
+ HTTPLib & URLLib 
+HTTPLib2 and URLLib2 are Python libraries used in network/internet programming [111, 
+112]. HTTPLib2 is an HTTP client library and URLLib2 is a library for fetching URLs. 
+Box 6.40 shows an example of an HTTP GET request using the HTTPLib. The variable 
+resp contains the response headers and content contains the content retrieved from the URL. 
+» Box 6.40: HTTP GET request example using HTTPLib 
+SSS) 
+import. Metp 
+li be 
+SS> h = httplib2.Http() 
+>>> resp, 
+content 
+= h.request ("http://example.com", 
+"GET") 
+Se Fes 
+{' status’: 
+’200’, 
+‘’content-length’ : 
+U2 IO, 
+Veontenk= locaton = 
+Pottp://examplé.com’, 
+(x-cache’ > “HII’, 
+“accept=ranges”: 
+‘bytes’, 
+'server’: 
+‘ECS 
+(com/F858).",. 
+7? Last-modified’: 
+Thu, 
+De Ape colo 
+LO 
+betes oN e Sragr: 
+Internet of Things - 
+A Hands-On Approach 
+
+148 
+loT Systems - Logical Design using Python 
+WO 
+a 
+ee 
+EE 
+ee eee 
+'"780602-4£6-—4db31b2978ec0"", 
+‘date’: 
+‘Wed, 
+31 Jul 2013 
+12 86205 2oME, 
+‘content-type’: 
+‘text/html; 
+charset=ULF-8’ } 
+oe 
+COM 
+ent 
+'<!doctype html>\n<html>\n<head>\n 
+<title>Example Domain</title>\n\n 
+<meta charset="utf—8" 
+/>\n 
+Box 6.41 shows an HTTP request example using URLLib2. A request object is created 
+by calling urllib2.Request with the URL to fetch as input parameter. Then urllib2.urlopen 
+is called with the request object which returns the response object for the requested URL. 
+The response object is read by calling read function. 
+« Box 6.41: HTTP request example using URLLib2 
+SS Import uel wb? 
+Se 
+>>> req = urllib2.Request (‘http://example.com’ ) 
+>>> response 
+= urllib2.urlopen 
+(req) 
+>>> response_page 
+= response.read() 
+Zee Lesponse page 
+'<!doctype html>\n<html>\n<head>\n 
+<title>Example Domain</title>\n\n 
+<meta charset="utf-8". 
+/>\n 
+Box 6.42 shows an example of an HTTP POST request. The data in the POST body is 
+encoded using the urlencode function from urllib. 
+« Box 6.42: HTTP POST example using HTTPLib2 
+SSS 
+AMNpOLrt DitpuipZ 
+>>> 
+IMpOLrt uri Lip 
+Seen 
+= htetplib2 .Attp ¢) 
+SSS data 
+r( titles) 
+Cloud computing! + 
+Seo: 
+resp; 
+CGontent 
+= 
+h. request ("http://www.htmlcodetutorial.com/cgi-bin/mycgi.pl", 
+"POST", 
+urllib.urlencode 
+(data) ) 
+Zee: 
+LESDp 
+{7 status’ > '200", 
+"transfersencodings:-“chunkedt, 
+"server’: 
+‘'Apache/2.0.64 
+(Unix) 
+mod_ssl/2.0.64 OpenSSL/0.9.7a 
+mod_auth_passthrough/2.1 mod_bwlimited/1.4 FrontPage/5.0.2.2635 
+PHP /S< 32104, 
+“connect ons. 
+Close’, 
+‘date’. 
+! Wed, ao 
+luni os 
+12:41:20 GMT’, 
+‘’content-type’: 
+'text/html; 
+charset=1S0-8859-1/ } 
+>>> 
+content 
+’ <HTML>\n<HEAD>\n<TITLE>Idocs 
+Guide to 
+HTML: 
+My CGI</TITLE>\n</HEAD> 
+Box 6.43 shows an example of sending data to a URL using URLLib2 (e.g. an HTML 
+Bahga & Madisetti, © 2014 
+
+6.11 Python Packages of Interest for loT 
+149 
+form submission). This example is similar to the HTTP POST example in Box 6.42 and uses 
+URLLib2 request object instead of HTTPLib2. 
+= Box 6.43: Example of sending data to a URL 
+eo IMPOr eC. Uk 
+5 
+lei ones abba alien 
+ay 
+Se 
+>>> url 
+= ‘'http://www.htmlcodetutorial.com/cgi-bin/mycgi.pl’ 
+2 > Valves 
+= 
+{tit let=- 
+Cloud Computing’; 
+ee 
+an Guagiere 
+stm 
+Py nom 
+ise} 
+2S 
+>>> data 
+= urllib.urlencode (values) 
+>>> 
+reg 
+= urllib2.Request 
+(url, data) 
+>>> response 
+= urllib2.urlopen 
+(req) 
+>>> the_page 
+= response.read() 
+>>> the_page 
+’ <HTML>\n<HEAD>\n<TITLE>Idocs Guide to 
+HIML: 
+My CGI</TITLE>\n</HEAD> 
+6.11.4 
+SMTPLib 
+Simple Mail Transfer Protocol (SMTP) is a protocol which handles sending email and routing 
+e-mail between mail servers. The Python smtplib module provides an SMTP 
+client session 
+object that can be used to send email [113]. 
+Box 6.44 shows a Python example of sending email from a Gmail account. The string 
+message contains the email message to be sent. To send email from a Gmail account the 
+Gmail SMTP server is specified in the server string. 
+To send an email, first a connection is established with the SMTP server by calling 
+smt plib.SMT P with the SMTP server name and port. The user name and password provided 
+are then used to login into the server. The email is then sent by calling server.sendmail 
+function with the from address, to address list and message as input parameters. 
+» Box 6.44: Python example of sending email 
+import smtplib 
+from_email 
+= ’<enter-gmail-address>’ 
+recipients_list 
+= [’<enter-sender-email>’ | 
+eo-list.= 
+[-} 
+subject 
+= 
+’Hello’ 
+message 
+= 
+’This 
+is 
+a test message.’ 
+username 
+= '’<enter-gmail-username>’ 
+password 
+= ’<enter-gmail-password>’ 
+server 
+= /smtp.gmail.com:587’ 
+def sendemail (from_addr, 
+to_addr_list, 
+cc_addr_list, 
+subject, 
+message, 
+login, 
+password, 
+Internet of Things - 
+A Hands-On Approach 
+
+150 
+loT Systems - Logical Design using Python 
+5) aN 
+in ee Ladlien ss) eine acer! ieee 6) 
+smtpserver) : 
+header 
+= 
+’From: 
+%s\n’ 
+% £romvaddr 
+header 
++= “To: 
+-%s\n" 
+%-”,!' 
+. join (to addr_list) 
+header 
++= &Ces\“$3\n"S 
+"," 
+- join (eeraddr: 
+inst) 
+header 
++= ’Subject: 
+ss\n\n! 
+% subject 
+message 
+= header 
++ message 
+server 
+= smtplib.SMTP (smtpserver) 
+server.starttls 
+() 
+server. login(login, password) 
+problems 
+= server.sendmail (from_addr, 
+to_addr_list, 
+message) 
+server.quit 
+() 
+#Send email 
+sendemail (fromzemail, 
+recipients 
+list, 
+cc_list, 
+subject, 
+message, 
+username, 
+password, 
+server) 
+Summary 
+In this chapter you learned the essentials of the Python programming language. Python is a 
+general-purpose, high level programming language that supports more than one programming 
+paradigms including object-oriented programming and structured programming. Python is 
+an interpreted language and does not require an explicit compilation step. Python provides 
+an interactive mode in which the user can submit commands at the Python prompt and 
+interact with the interpreter directly. Python supports both procedure-oriented programming 
+and object-oriented programming. Python programs can be directly executed from source 
+code and copied from one machine to another without worrying about portability. Python 
+Data Types & Data Structures include Numbers, Strings, Lists, Tuples and Dictionaries. 
+Control flow statements in Python include if, for, while, break, continue, range and pass. 
+A function in Python is a block of code that begins with the keyword def followed by the 
+function name and parentheses. Python allows organizing the program code into different 
+modules which improves the code readability and makes it easy to manage. Python packages 
+allow better organization of modules related to a single application environment. Python 
+provides all the standard features of Object Oriented Programming such as classes, class 
+variables, class methods, inheritance, function overloading, and operator overloading. 
+Review Questions 
+1. What is the difference between procedure-oriented programming and object-oriented 
+programming? 
+What is an interpreted language? 
+Describe a use case of Python dictionary? 
+What is a keyword argument in Python? 
+What are variable length arguments? 
+What is the difference between a Python module and a package? 
+How is function overriding implemented in Python? 
+NAWARYN 
+Bahga & Madisetti, © 2014 
+
+6.11 Python Packages of Interest for loT 
+151 
+Lab Exercises 
+1. In this exercise you will create a Python program to compute document statistics. 
+Follow the steps below: 
+e Create a text file with some random text. 
+e Create a Python program with functions for reading the file, computing word 
+count and top 10 words. Use the template below: 
+def readFile(filename): 
+#Implement this 
+def wordCount(contents): 
+#Implement this 
+def topTenWords(wordCountDict): 
+#Implement this 
+def main(): 
+filename = sys.argv[1] 
+contents = readFile(filename) 
+wordCountDict=wordCount(contents) 
+topTenWords(wordCountDict) 
+if namer === main 
+-*: 
+main() 
+e Run the Python program as follows: 
+python documentstats.py filename.txt 
+e Extend Exercise-1 to compute top 10 keywords in a file. To ignore stop-words 
+(commonly occurring words such as ’an’, ’the’, *how’, etc) create a list of 
+stop-words. Ignore stop-words when computing top 10 keywords. 
+Internet of Things - 
+A Hands-On Approach 

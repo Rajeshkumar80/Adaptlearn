@@ -1,0 +1,394 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fourth Semester B.E./B.Tech. Degree Examination, June/July 2025 
+Discrete Mathematical Structures     
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                    2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Define Tautology and Contradiction. Show that for any proposition p and q 
+the compound proposition [p  (p  q)] is a tautology and the compound 
+proposition [p  (~p  q)] is a contradiction by using truth table. 
+ 
+06
+L2 CO1
+ 
+b.
+Prove the following logical equivalence without using truth table: 
+i)   [(p  q)  {~q (r  ~q)}]  ~(q  p) 
+ii)  {[~p  (~q  r)]  (q  r)  (p  r)}  r 
+ 
+07
+L2 CO1
+ 
+c. 
+ 
+Prove the following is a valid argument : 
+  p  (q  r) 
+  r  s 
+~(q  s) 
+ ~p 
+  
+07
+L3 CO1
+                                                                           OR 
+Q.2 
+a. For inverse of all real numbers, let p(x): x  0, q(x) : x2  0, r(x) : x2-3x-4=0 
+s(x) : x2 – 3 > 0. Determine the truth values of the following : 
+(i)   x, p(x)  q(x)             (ii) x, p(x)  q(x) 
+(iii) x, q(x)  s(x)           (iv) x, r(x)  s(x) 
+ 
+06
+L2 CO1
+ 
+b.
+Test the validity of the following arguments: 
+If a triangle has two equal sides, then it is isosceles 
+If a triangle is isosceles, then it has two equal angles 
+The triangle ABC does not have two equal angles  
+ ABC does not have two equal sides 
+ 
+ 
+07
+L3 CO1
+ 
+c. 
+ 
+Give indirect proof for the following statement: 
+(i) 
+For all integers k and l, if kl is odd, then both k and l are odd. 
+(ii) 
+For all integers k and l, if k + l is even, then k and l are both 
+even or both  odd. 
+ 
+07
+L3 CO1
+                                                                      Module – 2  
+Q.3 
+a. Prove by Mathematical induction, for all integers n  1 
+ 1.2 + 2.3 + 3.4 + ……..+ n(n+1) =
+)
+2
+n
+)(
+1
+n
+(
+n
+3
+1
+
+
+ 
+ 
+06
+L2 CO2
+ 
+b.
+A sequence {an} is defined recursively by a0 = 1   a1= 1   a2 = 1    and  
+an= an–1 + an–3  for all n  3.  Prove that  
+
+
+n
+2
+n
+2
+a
+
+
+ for all integer n  0. 
+ 
+07
+L2 CO2
+ 
+                                                                         1 of 3                                       
+USN 
+BCS405A
+VTU-17-10-2025 08:38:56am
+17-10-2025 09:01:16am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS405A
+ 
+ 
+Q.3 
+c. 
+ 
+Find the number of permutations of the letters of word  MASSASAUGA. 
+In how many of these, all four A’s are together? How many of them begin 
+with S? 
+ 
+07
+L3 CO2
+                                                                           OR 
+Q.4 
+a. From seven consonants and five vowels, how many sets consisting of four 
+different consonants and three different vowels can be formed?  
+ 
+06
+L2 CO2
+ 
+b.
+Find the coefficient of  
+     a2b3c2d5  in the expansion of  (a + 2b – 3c + 2d + 5)16 
+ 
+07
+L3 CO2
+ 
+c. 
+ 
+In how many ways can 10 identical pencils be distributed among 5 children 
+in the following case: 
+(i) 
+There are no restrictions 
+(ii) 
+Each child gets atleast one pencil 
+(iii) 
+The youngest child gets atleast two pencils  
+ 
+07
+L3 CO2
+                                                                      Module – 3  
+Q.5 
+a. Let A = {1, 2, 3, 4}  and B = {1, 2, 3, 4, 5 , 6} 
+(i) 
+Find how many functions are there from A to B. How many of 
+these are one to one? 
+(ii) 
+Find how many functions are there from B to A. How many of 
+these are onto? How many are one to one?   
+  
+06
+L2 CO3
+ 
+b.
+State Pigeonhole Principle. How many persons must be chosen in order that 
+at least five of them will have birthdays in the same calendar month?    
+ 
+07
+L3 CO3
+ 
+c. 
+ 
+Prove that “A function f : A  B is invertible if and only if it is one to one 
+and onto”. 
+ 
+07
+L2 CO3
+                                                                           OR 
+Q.6 
+a. Let A = {1, 2, 3, 4} and R be the relation on A defined by xRy if and only 
+if “x divides y”, written as x/y. 
+(i) 
+Write down R as a set of ordered pairs. 
+(ii) 
+Draw the digraph of R, matrix M(R) 
+(iii) 
+Determine the indegree and outdegree of the vertices in the 
+digraph. 
+ 
+06
+L2 CO3
+ 
+b.
+Let A = {1, 2, 3, 4, 5}. Define a relation R on A  A by (x1 , y1) R (x2 , y2) 
+if and only if  x1 + y1= x2 + y2
+ . 
+(i) 
+Verify  that R is an equivalence relation on AA 
+(ii) 
+Determine the equivalence classes of [(1, 3)] 
+(iii) 
+Determine the partition of AA induced by R    
+ 
+07
+L3 CO3
+ 
+c. 
+ 
+Let s = {1, 2, 3} and P(S) be the power set of S. On P(S) define the relation 
+R by XRY if and only of X  Y. Show that this relation is a partial order on 
+P(S). Draw its Hasse diagram.   
+ 
+07
+L2 CO3
+ 
+ 
+                                                                         2 of 3                                       
+ 
+VTU-17-10-2025 08:38:56am
+17-10-2025 09:01:16am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS405A
+ 
+                                                                      Module – 4  
+Q.7 
+a. Define Derangement. Find the number of derangements of 1, 2, 3, 4.  
+List them. 
+ 
+06
+L2 CO4
+ 
+b.
+Find the number of permutations of the letters a, b, c,…..x, y, z in which 
+none of the patterns spin, game, path or net occurs.  
+ 
+07
+L3 CO4
+ 
+c. 
+ 
+Four persons P1, P2, P3, P4  who arrive late for a dinner party find that only 
+one chair at each of five tables T1, T2, T3, T4  and T5 is vacant. P1 will not 
+sit at T1 or T2 , P2 will not sit at T2, P3 will not sit at T3 or T4 and  P4 will 
+not sit at T4 or T5
+ . Find the number of ways they can occupy the vacant 
+chairs. 
+ 
+07
+L3 CO4
+                                                                           OR 
+Q.8 
+a. Out of 30 students in a hostel, 15 study History, 8 study Economics and 6 
+study Geography. It is known that 3 students study all these subjects. Show 
+that 7 or more students study none of these subjects.   
+ 
+06
+L3 CO4
+ 
+b.
+Solve the recurrence relation  an – 3an–1 = 5  3n for n  1 given that a0 = 2. 
+ 
+07
+L2 CO4
+ 
+c. 
+ 
+Determine the number of positive integers n such that 1  n  100 and n is 
+not divisible by 2, 3 or 5.  
+07
+L3 CO4
+                                                                      Module – 5  
+Q.9 
+a. If  is an operation on z defined by x  y = x + y + 1,  prove that (z, ) is an 
+abelian group. 
+ 
+06
+L2 CO5
+ 
+b.
+The symmetric group S4 consists of all the permutations of the set  
+A ={1, 2, 3, 4}. What is the order of S4? What is the identity element in S4? 
+If  
+
+
+
+
+
+
+
+
+1
+3
+4
+2
+4
+3
+2
+1
+   and   = 
+
+
+
+
+
+
+3
+1
+2
+4
+4
+3
+2
+1
+ 
+Verify the ( )–1 = –1 –1   
+ 
+07
+L3 CO5
+ 
+c. 
+ 
+Let G be a group and let  J = {x  G / xy = yx for all y  G } 
+Prove that  J  is a subgroup of G.   
+ 
+07
+L2 CO5
+                                                                           OR 
+Q.10
+a. Prove that the group (z4 , +) is cyclic. Find all its generators. 
+ 
+06
+L3 CO5
+ 
+b.
+Prove the theorem “There exists a one to one correspondence between the 
+elements of a subgroup and the elements of the left (right) coset thereof”.  
+ 
+07
+L2 CO5
+ 
+c. State and prove Lagrange’s theorem.  
+ 
+07
+L2 CO5
+* * * * * 
+ 
+ 
+ 
+ 
+ 
+ 
+3 of 3 
+ 
+VTU-17-10-2025 08:38:56am
+17-10-2025 09:01:16am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

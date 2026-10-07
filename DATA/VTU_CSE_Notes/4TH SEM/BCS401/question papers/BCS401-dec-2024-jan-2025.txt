@@ -1,0 +1,340 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fourth Semester B.E./B.Tech. Degree Examination, Dec.2024/Jan.2025 
+Analysis and Design of Algorithms    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                       2.  M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Explain the various steps in algorithm design and analysis process with the 
+flow diagram. 
+08
+L1 CO1
+ 
+b.
+Give formal and informal definitions of asymptotic notations. 
+06
+L1 CO1
+ 
+c. Explain the general plan of mathematical analysis of recursive algorithm 
+with an example. 
+06
+L1 CO1
+                                                                           OR 
+Q.2 
+a. Design algorithm for tower of Hanoi problem and obtain time complexity. 
+10
+L1 CO1
+ 
+b.
+Write an algorithm to search an element in an array using sequential search. 
+Discuss the best case, worst case and average case efficiency of this 
+algorithm. 
+10
+L1 CO1
+                                                                      Module – 2  
+Q.3 
+a. Write an algorithm to sort the numbers using insertion sort. Discuss its 
+efficiency. 
+10
+L2 CO2
+ 
+b.
+Design quick sort algorithm and obtain its best, average and worst case 
+efficiency. 
+10
+L2 CO2
+                                                                           OR 
+Q.4 
+a. Write merge sort algorithm and sort the list E X A M P L E. 
+08
+L2 CO2
+ 
+b.
+Apply the DFS based algorithm to solve the topological sorting problem for 
+the following graph, Fig.Q4(b) 
+ 
+Fig.Q4(b) 
+06
+L3 CO2
+ 
+c. Write algorithm for pre-order, post order and in order traversals of a tree. 
+Write pre-order, in-order and post order for the given tree. 
+ 
+                                                     Fig.Q4(c) 
+ 
+06
+L2 CO2
+ 
+1 of 3 
+ 
+USN 
+BCS401 
+VTU-06-01-2025 08:46:32am
+06-01-2025 09:04:55am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+BCS401
+ 
+                                                                      Module – 3  
+Q.5 
+a. Define AVL tree. Construct AVL tree for the list 5, 6, 8, 3, 2, 4, 7. 
+10
+L3 CO3
+ 
+b.
+Define heap. Sort the following lists by heapsort:  
+    H  E  A  P  S  O  R  T    (in alphabetical order) 
+10
+L3 CO3
+                                                                           OR 
+Q.6 
+a. Write the algorithm for comparison counting sort. Discuss its efficiency. 
+10
+L2 CO4
+ 
+b.
+Design Horspools algorithm for string matching. Apply Horspools 
+algorithm 
+to 
+find 
+the 
+pattern 
+BARBER 
+on 
+the 
+text 
+JIM_SAW_ME_IN_BARBERSHOP 
+10
+L3 CO4
+                                                                      Module – 4  
+Q.7 
+a. Write Warshall’s algorithm and apply the same to compute transitive 
+closure of a directed graph. 
+                               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1
+0
+0
+1
+0
+0
+0
+0
+0
+1
+1
+1
+0
+0
+0
+0
+0
+0
+1
+0
+0
+1
+0
+0
+1
+e
+d
+c
+b
+a
+e
+d
+c
+b
+a
+    
+ 
+10
+L3 CO3
+ 
+b.
+Construct minimum cost spanning tree using Kruskal’s algorithm for the 
+following graph, Fig.Q7(b). 
+ 
+Fig.Q7(b) 
+10
+L3 CO4
+                                                                           OR 
+Q.8 
+a. Solve the following single source shortest path problem assuming vertex 
+‘5’ as the source. 
+ 
+                                                         Fig.Q8(a) 
+10
+L3 CO4
+ 
+b.
+Write Huffman’s algorithm. Construct Huffman tree and resulting code 
+word for the following: 
+Character 
+A 
+B 
+C 
+D 
+E 
+- 
+Probability
+0.5
+0.35
+0.5
+0.1
+0.4
+0.2
+Encode the text DAD_CBE. 
+10
+L4 CO4
+                                                                      Module – 5  
+Q.9 
+a. Explain the following with example: (i) P problem    (ii) NP problem 
+06
+L1 CO5
+ 
+b.
+What is decision tree? Construct decision tree for the three element 
+insertion sort. 
+08
+L2 CO5
+ 
+c. Construct state space tree to solve 4 queens problem. 
+06
+L3 CO5
+ 
+2 of 3 
+VTU-06-01-2025 08:46:32am
+06-01-2025 09:04:55am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+BCS401
+ 
+                                                                           OR 
+Q.10
+a. What is backtracking? Apply back tracking to solve the below instance of 
+sum of subset problem: s = {3, 5, 6, 7},  d = 15 
+10
+L3 CO6
+ 
+b.
+Solve the following instance of knapsack problem using branch and bound 
+technique knapsack capacity = 10. 
+Item
+Weight
+Value
+1 
+2 
+3 
+4 
+4 
+7 
+5 
+3 
+40 
+42 
+25 
+12 
+                
+10
+L4 CO6
+                                                                           
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3 of 3 
+VTU-06-01-2025 08:46:32am
+06-01-2025 09:04:55am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

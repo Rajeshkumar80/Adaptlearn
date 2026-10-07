@@ -1,0 +1,245 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E./B.Tech. Degree Examination, June/July 2025 
+Digital Design and Computer Organization     
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                       2.  M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Demonstrate the positive and negative logic using AND gate.  
+05
+L2 CO1
+ 
+b.
+Show that NAND and NOR function are commutative and but not 
+associative.  
+05
+L3 CO1
+ 
+c. Simplify the Boolean function  F(w,x,y,z) = m (0,1,2,4,6,7,9,12,14) using 
+K-Map and implement using NAND gates.  
+10
+L3 CO1
+                                                                           OR 
+Q.2 
+a. What is Binary Logic? List out any 4 laws of logic.  
+05
+L1 CO1
+ 
+b.
+Find the POS expression for  F(A.B.C,D) = 
+
+
+14
+,
+13
+,
+10
+,8,5,3,2
+M
+
+ + 
+d(1,6,7,11) and realize it using NOR gates.  
+05
+L3 CO1
+ 
+c. Simplify the following Boolean functions using K-map and write the 
+verilog program for realizing the minimized expression.  
+i) F(X,Y,Z) = m (0,1,4,5,6) +d (2,3) 
+ii) F(W,X,Y,Z) = m (5,6,7,12,14,15 ) +d(9,11,13) 
+10
+L3 CO1
+                                                                      Module – 2  
+Q.3 
+a. Define Decoder Implement the following boolean functions using a 
+decoder  
+F1(A,B,C) = m(1,3,4,7) 
+F2(A,B,C) = m(0,2,,3,6) 
+06
+L3 CO2
+ 
+b.
+Write the verilog program to implement full adder and full sub tractor 
+circuits.  
+06
+L3 CO2
+ 
+c. Design an octal to Binary Encoder. 
+08
+L3 CO2
+                                                                           OR 
+Q.4 
+a. Define Multiplexer. Implement the Boolean function 
+ F (A,B,C,D) = m(1,3,4,11,12,13,14,15) with 8:1 multiplexer. 
+06
+L3 CO2
+ 
+b.
+Explain the working of 4 – bit adder using  4 full adders. 
+06
+L2 CO2
+ 
+c. Write the characteristic equation, Excitation table and FSM representations 
+for SR,JK and D flip flops  
+08
+L2 CO2
+                                                                      Module – 3  
+Q.5 
+a. With a block diagram explain the processor and Memory communication.  
+06
+L2 CO3
+ 
+b.
+With relevant examples, Explain the following addressing modes.  
+i) Index  
+ii) Base with index and offset  
+iii) Indirect. 
+06
+L2 CO3
+ 
+c. Demonstrate the instruction  execution and sequencing for C[A] +[B] 
+08
+L2 CO3
+                                                                           
+ 
+ 
+ 
+ 
+1 of 2 
+ 
+USN 
+BCS302 
+VTU-20-06-2025 01:19:06pm
+20-06-2025 01:32:04pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+ 
+       BCS302
+OR 
+Q.6 
+a. Describe the Big Endian  and little endian address assignment with 
+examples  
+06
+L2 CO3
+ 
+b.
+The Registers R1 and R2 has decimal values 1200 and 4600.  Calculate the 
+EA of the memory operand in each of the following instructions when they 
+are executed in sequence.  
+i) load 20 (R1), R5  
+ii) Move # 3000, R5 
+iii) Store R5, 30(R1,R2)  
+iv) add – (R2), R5  
+v) Sub (R1)+, R5  
+vi) add (R2)+,R1 
+06
+L3 CO3
+ 
+c. Demonstrate the Branching operations using a loop to add n – numbers 
+with block diagram.  
+08
+L3 CO3
+                                                                      Module – 4  
+Q.7 
+a. Explain the effect of size, cost and speed in Memory hierarchy.  
+10
+L2 CO4
+ 
+b.
+Explain Centralized and distributed Bus arbitration approaches.  
+10
+L2 CO4
+                                                                           OR 
+Q.8 
+a. Describe the different memory mapping functions.   
+10
+L2 CO4
+ 
+b.
+Explain how to handle interrupt from multiple devices using daisy chain 
+and priority scheme. 
+10
+L2 CO4
+                                                                      Module – 5  
+Q.9 
+a. With a neat diagram, explain the single bus organization of the data path 
+inside a processor.  
+10
+L2 CO5
+ 
+b.
+Describe in detail, the basic idea of instruction pipeline. 
+10
+L2 CO5
+                                                                           OR 
+Q.10
+a. Explain the complete set of operations involved in executing the instruction 
+ADD (R3), R1 along with control sequence.  
+10
+L2 CO5
+ 
+b.
+Explain the process of storing a word from processor to memory. 
+10
+L2 CO1
+                                                                           
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2 of 2 
+VTU-20-06-2025 01:19:06pm
+20-06-2025 01:32:04pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

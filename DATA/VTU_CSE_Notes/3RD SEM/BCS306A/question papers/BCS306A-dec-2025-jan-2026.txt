@@ -1,0 +1,246 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E./B.Tech. Degree Examination, Dec.2025/Jan.2026 
+Object Oriented Programming with Java    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                      2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Explain feature of Java. 
+ 
+7 
+L2 CO1
+ 
+b.
+Define array, write a java program to calculate the average among the 
+elements [8, 6, 2, 7].  
+ 
+7 
+L3 CO1
+ 
+c. List and explain operators in JAVA with examples.  
+ 
+6 
+L2 CO1
+                                                                           OR 
+Q.2 
+a. Explain OOP’s features in java.  
+ 
+7 
+L2 CO1
+ 
+b.
+Write a java program to sort the elements using a for loop.  
+ 
+7 
+L3 CO1
+ 
+c. With example, explain different types of if statement in JAVA.  
+ 
+6 
+L2 CO1
+                                                                      Module – 2  
+Q.3 
+a. Define Constructor. Explain two types of constructors with an example.  
+ 
+7 
+L3 CO2
+ 
+b.
+Define Recursion. Write a recursive program to find factorial of a number.  
+ 
+7 
+L3 CO2
+ 
+c. Explain garbage collection with an example, explain final and finalize ( ) 
+method.  
+ 
+6 
+L2 CO2
+                                                                           OR 
+Q.4 
+a. Define class. Explain call by value and call by reference with an example 
+program.  
+ 
+7 
+L3 CO2
+ 
+b.
+Using proper class and methods write a program to perform stack 
+operations.  
+ 
+7 
+L3 CO2
+ 
+c. Explain the use of this keyword in java with an example.  
+ 
+6 
+L2 CO2
+                                                                      Module – 3  
+Q.5 
+a. Write a java program to implement multilevel inheritance with 3 levels of 
+hierarchy.  
+ 
+7 
+L3 CO3
+ 
+b.
+Define interface. With suitable program explain nested interface in java.  
+ 
+7 
+L3 CO3
+ 
+c. Explain dynamic method dispatch with a suitable example.  
+ 
+6 
+L2 CO3
+ 
+1 of 2 
+USN 
+BCS306A 
+VTU-17-02-2026 01:14:49pm
+17-02-2026 01:30:55pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS306A
+ 
+                                                                           OR 
+Q.6 
+a. Explain inheritance. Write a java program to implement single level 
+inheritance.  
+ 
+7 
+L3 CO3
+ 
+b.
+Explain the importance of the super key word in inheritance, illustrate with 
+a suitable example.  
+ 
+7 
+L3 CO3
+ 
+c. Define method overloading and overriding with example.  
+ 
+6 
+L2 CO3
+                                                                      Module – 4  
+Q.7 
+a. Define Package, with an example, explain the steps are involved in creating 
+a user-defined package.  
+ 
+7 
+L2 CO4
+ 
+b.
+With sample code, explain chained exception.  
+ 
+7 
+L3 CO4
+ 
+c. Define an exception, with syntax explain all five keywords used in 
+exception handling.  
+ 
+6 
+L2 CO4
+                                                                           OR 
+Q.8 
+a. Explain the concept of package importing in java with an example.  
+ 
+7 
+L2 CO4
+ 
+b.
+How do you create your own exception class, explain with a program.  
+ 
+7 
+L2 CO4
+ 
+c. With an example, explain working of a nested try block within an 
+exception.  
+ 
+6 
+L3 CO4
+                                                                      Module – 5  
+Q.9 
+a. Define Thread. With diagram explain the java thread model. 
+ 
+7 
+L2 CO5
+ 
+b.
+Explain synchronization with an example, how synchronization is 
+implemented in java.  
+ 
+7 
+L3 CO5
+ 
+c. With suitable example, explain values( ) and valueOf( ) method in 
+enumeration.  
+ 
+6 
+L2 CO5
+                                                                           OR 
+Q.10
+a. Define Multithreading, write a program to create multiple threads in java.  
+ 
+7 
+L2 CO5
+ 
+b.
+Demonstrates the usage of compareTo( ) and equals( ) method with 
+enumeration constants.  
+ 
+7 
+L3 CO5
+ 
+c. Explain autoboxing / unboxing in expressions.  
+ 
+6 
+L2 CO5
+* * * * * 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2 of 2 
+VTU-17-02-2026 01:14:49pm
+17-02-2026 01:30:55pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

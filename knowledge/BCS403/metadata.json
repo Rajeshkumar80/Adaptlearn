@@ -1,0 +1,155 @@
+{
+  "subject_code": "BCS403",
+  "subject_name": "Database Management Systems",
+  "semester": 4,
+  "semester_label": "4TH SEM",
+  "modules": {
+    "1": {
+      "title": "Introduction to DBMS and ER Model",
+      "topics": [
+        ": Introduction to Databases",
+        "Introduction",
+        "STUDENT file: stores data on each student.",
+        "COURSE file: stores data on each course.",
+        "SECTION file: stores data on each section of a course.",
+        "PREREQUISITE file :stores the prerequisites of each course.",
+        "Characteristics of the Database Approach",
+        "Self-Describing Nature of a Database System",
+        "Insulation between Programs and Data, and Data Abstraction",
+        "Support of Multiple Views of the Data"
+      ],
+      "sources": [
+        "BCS403-module-1-pdf-1.txt"
+      ],
+      "content_chars": 94149
+    },
+    "2": {
+      "title": "Relational Model and SQL",
+      "topics": [
+        ": The Relational Data Model",
+        "Relational Model Concepts",
+        "Domains, Attributes, Tuples, and Relations",
+        "Characteristics of Relations",
+        "Ordering of Tuples in a Relation",
+        "Ordering of Values within a Tuple and an Alternative Definition of a Relation",
+        "Values and NULLs in the Tuples",
+        "Interpretation (Meaning) of a Relation",
+        "Relational Model Notation",
+        "Relational Model Constraints and Relational Database Schemas"
+      ],
+      "sources": [
+        "BCS403-module-2-pdf-1.txt"
+      ],
+      "content_chars": 63047
+    },
+    "3": {
+      "title": "Normalization",
+      "topics": [
+        "Objectives",
+        "Introduction to DB design",
+        "The logical (or conceptual) level",
+        "The implementation (or physical storage) level",
+        "Informal Design Guidelines for Relation Schemas",
+        "Making sure that the semantics of the attributes is clear in the schema",
+        "Reducing the redundant information in tuples",
+        "Reducing the NULL values in tuples",
+        "Disallowing the possibility of generating spurious tuples",
+        "Imparting Clear Semantics to Attributes in Relations"
+      ],
+      "sources": [
+        "BCS403-module-3-pdf-1.txt"
+      ],
+      "content_chars": 65932
+    },
+    "4": {
+      "title": "Transactions and Concurrency Control",
+      "topics": [
+        "More Complex SQL Retrieval Queries",
+        "Comparisons Involving NULL and Three-Valued Logic",
+        "Unknown value.",
+        "FROM EMPLOYEE",
+        "Nested Queries, Tuples, and Set/Multiset Comparisons",
+        "FROM EMPLOYEE",
+        "FROM EMPLOYEE",
+        "FROM EMPLOYEE AS E",
+        "FROM DEPENDENT AS D",
+        "Correlated Nested Queries"
+      ],
+      "sources": [
+        "BCS403-module-4-pdf-1.txt"
+      ],
+      "content_chars": 65454
+    },
+    "5": {
+      "title": "Indexing, Hashing and File Organization",
+      "topics": [
+        "Introduction to Concurrency Control",
+        "Two-Phase Locking Techniques for Concurrency Control",
+        "Types of Locks and System Lock Tables",
+        "Binary Locks",
+        "A transaction",
+        "Shared/Exclusive (or Read/Write) Locks",
+        "A transaction T must issue the operation unlock(X) after all read_item(X) and",
+        "Guaranteeing Serializability by Two-Phase Locking",
+        "Variations of Two-Phase Locking",
+        "Dealing with Deadlock and Starvation"
+      ],
+      "sources": [
+        "BCS403-module-5-pdf-1.txt"
+      ],
+      "content_chars": 107348
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\BCS403-module-1-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\BCS403-module-2-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\BCS403-module-3-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\BCS403-module-4-pdf-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\BCS403-module-5-pdf-1.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\BCS403-module-1-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\BCS403-module-2-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\BCS403-module-3-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\BCS403-module-4-pdf-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\BCS403-module-5-pdf-1.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\question papers\\BCS403-dec-2024-jan-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\question papers\\BCS403-dec-2024-jan-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\question papers\\BCS403-dec-2025-jan-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\question papers\\BCS403-dec-2025-jan-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\question papers\\BCS403-jun-july-2024.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\question papers\\BCS403-jun-july-2024.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\question papers\\BCS403-june-july-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\question papers\\BCS403-june-july-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\question papers\\BCS403-model-set-1-and-2-paper.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\4TH SEM\\BCS403\\question papers\\BCS403-model-set-1-and-2-paper.txt"
+    ],
+    "model_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\4TH SEM\\BCS403\\model_papers.md"
+    ],
+    "previous_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\4TH SEM\\BCS403\\previous_papers.md"
+    ],
+    "textbooks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_4\\BCS403_DBMS\\R1_MySQL_Cookbook_Paul_DuBois.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_4\\BCS403_DBMS\\R1_MySQL_Cookbook_Paul_DuBois.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_4\\BCS403_DBMS\\T1_Fundamentals_of_Database_Systems_Elmasri_Navathe.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_4\\BCS403_DBMS\\T1_Fundamentals_of_Database_Systems_Elmasri_Navathe.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_4\\BCS403_DBMS\\T2_Database_System_Concepts_Silberschatz_Korth.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_4\\BCS403_DBMS\\T2_Database_System_Concepts_Silberschatz_Korth.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_4\\BCS403\\BCS403_Database_Management_Systems.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to DBMS and ER Model",
+    "2": "Relational Model and SQL",
+    "3": "Normalization",
+    "4": "Transactions and Concurrency Control",
+    "5": "Indexing, Hashing and File Organization"
+  }
+}

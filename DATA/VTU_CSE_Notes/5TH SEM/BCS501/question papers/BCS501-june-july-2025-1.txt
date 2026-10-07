@@ -1,0 +1,193 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fifth Semester B.E./B.Tech. Degree Examination, June/July 2025 
+Software Engineering & Project Management    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                      2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a.
+Explain the software process in software engineering highlighting the 
+importance of software engineering.
+10
+L2
+CO1
+ 
+b.
+Explain the five activities that a generic process framework for software 
+engineering encompasses.
+10
+L2
+CO1
+                                                                           OR 
+Q.2
+a.
+Explain software myths with examples.
+10
+L2
+CO1
+ 
+b.
+Explain Incremental process models and evolutionary process models with 
+a neat diagram.
+10
+L2
+CO1
+                                                                      Module – 2  
+Q.3
+a.
+Explain the different tasks which requirements engineering encompasses.
+10
+L2
+CO2
+b.
+Explain the nature and characteristics of software system.
+10
+L2
+CO2
+                                                                           OR 
+Q.4 
+a.
+Explain requirements elicitation and various techniques used in 
+requirements elicitation along with its importance. 
+10
+L2
+CO2
+b.
+Illustrate an UML use case diagram for home security function.
+10
+L2
+CO2
+                                                                      Module – 3  
+Q.5
+a.
+Explain Agile process and agility principles.
+10
+L2
+CO3
+ 
+b.
+Explain Extreme Programming (XP) with a neat diagram. 
+10
+L2
+CO3
+                                                                           OR 
+Q.6
+a.
+Explain SCRUM process with a neat diagram.
+10
+L2
+CO3
+ 
+b.
+Explain Agility with the cost of change with diagram. Explain the 
+principles of Agile software development.
+10
+L2
+CO3
+                                                                      Module – 4  
+Q.7
+a.
+Explain different categories of software projects with example.
+10
+L2
+CO4
+ 
+b.
+Compare between Project Management Life Cycle And Software 
+Development Life Cycle and its phases.
+10
+L2
+CO4
+                                                                           OR 
+Q.8 
+a.
+Explain the difference between traditional and modern project 
+management. 
+10
+L2
+CO4
+ 
+b.
+Explain the concepts in activity planning in software project management. 
+10
+L2
+CO4
+                                                                      Module – 5  
+Q.9 
+a.
+Explain place of software quality in project management. 
+10
+L2
+CO5
+b.
+Explain in detail the techniques to enhance software quality.
+10
+L1
+CO5
+                                                                           OR 
+Q.10
+a.
+Explain Quality Management Systems. With principles of BSENISO9001 : 
+2000. 
+10
+L2
+CO5
+ 
+b.
+Explain the techniques to enhance software quality and software reliability. 
+Explain SEICMM levels. 
+10
+L2
+CO5
+                                                                      * * * * * 
+ 
+ 
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS501 
+VTU-18-06-2025 01:21:40pm
+18-06-2025 01:39:05pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

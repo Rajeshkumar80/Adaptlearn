@@ -1,0 +1,288 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fourth Semester B.E./B.Tech. Degree Examination, Dec.2024/Jan.2025 
+Biology for Engineers (CSE)     
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                     2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                 Module – 1
+M
+L
+C
+Q.1 
+a.
+What is stem cell? Explain its types and list its applications.  
+7 
+L2
+CO1
+ 
+b.
+Explain in detail the properties and functions of nucleic acids.  
+6 
+L2 
+CO1
+ 
+c. Explain the importance of special biomolecules.  
+7 
+L2 
+CO1
+                                                                           OR 
+Q.2 
+a.
+What is a biomolecule? Explain the classifications of biomolecule.  
+ 
+7 
+L2
+CO1
+ 
+b.
+Explain the properties and functions of carbohydrates.  
+ 
+6 
+L2
+CO1
+ 
+c. Describe the structure and functions of a cell with a neat diagram.  
+ 
+7 
+L3
+CO1
+                                                                      Module – 2  
+Q.3 
+a.
+What is the role of lipids? Outline the process of obtaining biodiesel from 
+lipids.  
+ 
+7 
+L3
+CO2
+ 
+b.
+Differentiate between PHA and PLA as a bioplastic materials.  
+ 
+6 
+L4 
+CO1
+ 
+c. Explain the role of DNA vaccine for rabies and RNA vaccine for 
+COVID-19. 
+ 
+7 
+L2 
+CO1
+                                                                          OR
+Q.4 
+a.
+What are the key properties, advantages and limitations of cellulose based 
+water filters. 
+7 
+L3
+CO2
+ 
+b.
+How can DNA finger printing be applied to evaluate its effectiveness and 
+reliability in forensic applications.  
+ 
+6 
+L4 
+CO1
+ 
+c. Describe the use of meat analogue and plant protein as food.  
+ 
+7 
+L2 
+CO2
+                                                                     Module – 3 
+Q.5 
+a.
+Deliberate the functioning of brain as CPU system. 
+7 
+L3
+CO2
+ 
+b.
+Write a short note on spirometry and ventilator. 
+6 
+L2 
+CO2
+ 
+c. Explain heart as pump system.  
+7 
+L3 
+CO2
+ 
+ 
+1 of 2 
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BBOC407 
+VTU-28-01-2025 08:43:45am
+28-01-2025 09:00:45am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BBOC407
+ 
+                                                                          OR
+Q.6 
+a.
+Explain eye as a camera system.  
+ 
+7 
+L3
+CO2
+ 
+b.
+Write a short note on cardiac pacemaker.  
+ 
+6 
+L2 
+CO2
+ 
+c. Explain kidney as purification system.  
+ 
+7 
+L3 
+CO2
+                                                                     Module – 4 
+Q.7 
+a.
+Describe the materials used and engineering applications of Velcro 
+technology.  
+ 
+7 
+L3
+CO3
+ 
+b.
+Compare the process of photosynthesis to the functioning of photovoltaic 
+cells.  
+6 
+L4 
+CO3
+ 
+c. Explain the HBOCs and PFCs as human blood substituents.  
+7 
+L3 
+CO3
+                                                                           OR 
+Q.8 
+a.
+Explain the terms lotus leaf effect and bird flying.  
+7 
+L3
+CO3
+ 
+b.
+Compare 
+biological 
+echolocation 
+and 
+technological 
+echolocation 
+highlighting their applications in navigation and detection.  
+ 
+6 
+L4 
+CO3
+ 
+c. Explain the terms shark skin, swim suits and bullet train using biological 
+concepts.  
+7 
+L3 
+CO3
+                                                                      Module – 5  
+Q.9 
+a.
+Compare the functioning of electrical tongue and human tongue. 
+ 
+7 
+L4
+CO4
+ 
+b.
+Explain muscle cells as scaffold for tissue growth.  
+6 
+L2 
+CO4
+ 
+c. Explain bioremediation and biomining via microbial surface adsorption.  
+7 
+L2 
+CO4
+                                                                           OR 
+Q.10
+a.
+Illustrate the basic steps of bioprinting process and list the various types of 
+bioprinting techniques.  
+7 
+L4
+CO4
+ 
+b.
+Write a short note on: 
+i) 
+Importance of DNA origami 
+ii) 
+Self healing bioconcrete.  
+6 
+L2 
+CO4
+ 
+c. Discuss the applications of artificial intelligence in the diagnosis of disease. 
+7 
+L2 
+CO4
+* * * * * 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2 of 2 
+VTU-28-01-2025 08:43:45am
+28-01-2025 09:00:45am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

@@ -1,0 +1,325 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E./B.Tech. Degree Examination, Dec.2024/Jan.2025 
+Data Structures and Applications    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                    2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                 Module – 1
+M
+L
+C
+Q.1 
+a.
+Define Data Structures. Explain the classification of data structures with a 
+neat diagram. 
+ 
+8 
+L2
+CO1
+ 
+b.
+Write a C Functions to implement pop , push and display operations for 
+stacks using assays. 
+ 
+7 
+L2
+CO2
+ 
+c. Differentiate structures and unions. 
+ 
+5 
+L2
+CO1
+                                                                          OR
+Q.2 
+a.
+Write an algorithm to evaluate a postfix expression and apply the same for 
+the given postfix expression. 
+6 2 / 3 – 4  2 * +. 
+7 
+L3
+CO2
+ 
+b.
+Explain the dynamic memory allocation function in detail. 
+ 
+8 
+L2
+CO1
+ 
+c. What is Sparse matrix? Give the triplet form of a given matrix and find its 
+transpose  
+A = 
+
+
+
+
+
+
+
+
+
+
+
+
+0
+0
+6
+2
+0
+0
+0
+0
+0
+0
+0
+7
+5
+0
+0
+4
+0
+3
+0
+0
+ 
+ 
+5 
+L3
+CO1
+                                                                      Module – 2  
+Q.3 
+a.
+Define Queue. Discuss how to represent a queue using dynamic assays. 
+ 
+8 
+L2
+CO2
+ 
+b.
+Write a C Function to implement insertion ( )  ,   deletion  ( ) and display ( ) 
+operations on circular queue. 
+ 
+6 
+L3
+CO2
+ 
+c. Write a note on Multiple stacks and queues with suitable diagram. 
+ 
+6 
+L2
+CO2
+                                                                           OR 
+Q.4 
+a.
+What is a linked list? Explain the different types of linked list with neat 
+diagram. 
+6 
+L2
+CO3
+ 
+b.
+Write a C function for the following on singly linked list with example :  
+i)    Insert a node of the beginning 
+ii)   Delete a node at the front 
+iii)  Display. 
+ 
+8 
+L3
+CO3
+ 
+ 
+c. Write the C function to add two polynomials. 
+ 
+6 
+L2
+CO3
+ 
+ 
+ 
+ 
+1 of 2 
+ 
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS304 
+VTU-21-01-2025 01:19:51pm
+21-01-2025 01:30:53pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS304
+ 
+                                                                     Module – 3 
+Q.5 
+a.
+Discuss how binary trees are represented using :  i)  Assay   ii)  Linked list. 
+   
+6 
+L2
+CO4
+ 
+b.
+Define Threaded binary tree. Discuss In – threaded binary tree. 
+  
+6 
+L2
+CO4
+ 
+c. Write the C function for the following additional list operation : 
+i)     Inverting Singly linked list      ii)    Concatenating Singly linked list. 
+  
+8 
+L3
+CO3
+                                                                           OR 
+Q.6 
+a.
+Discuss Inorder , Preorder , Postorder and Level order traversal with 
+suitable function for each. 
+ 
+8 
+L3
+CO4
+ 
+b.
+Define the threaded binary tree. Construct threaded binary tree for the 
+following element :  A, B, C, D, E, F, G, H, I. 
+ 
+6 
+L2
+CO4
+ 
+c. Write a C function for the following : 
+i)     Insert a node at the beginning of doubly linked list. 
+ii)    Deleting a node at the end of the doubly linked list. 
+ 
+6 
+L3
+CO3
+                                                                      Module – 4  
+Q.7 
+a.
+Define Forest , Transform the forest into a binary tree and traverse using 
+inorder , preorder and postorder traversal with an example. 
+  
+8 
+L1
+CO5
+ 
+b.
+Define Binary search tree. Construct a binary search tree for the following 
+elements :  100 , 85 ,  45 , 55 , 120 , 20 , 70 , 90 , 115 , 65 , 130 , 145. 
+6 
+L2
+CO5
+ 
+c. Discuss Selection tree with an example. 
+6 
+L2
+CO5
+                                                                           OR 
+Q.8 
+a.
+Define Graph. Explain adjacency matrix and adjacency list representation 
+with an example. 
+8 
+L2
+CO5
+ 
+b.
+Define the following terminology with example :   
+i)   Digraph    ii)    Weighted graph     iii)   Self loop    iv)  Connected graph. 
+ 
+6 
+L2
+CO5
+ 
+c. Briefly explain about Elementary graph operations. 
+ 
+6 
+L3
+CO5
+                                                                     Module – 5 
+Q.9 
+a.
+Explain in detail about Static and Dynamic Hashing. 
+ 
+6 
+L2
+CO5
+ 
+b.
+What is Collision? What are the methods to resolve collision? 
+ 
+7 
+L2
+CO5
+ 
+c. Explain Priority queue with the help of an examples. 
+ 
+7 
+L2
+CO5
+                                                                          OR
+Q.10
+a.
+Define Hashing. Explain different hashing functions with suitable 
+examples. 
+ 
+12
+L2
+CO5
+ 
+b.
+Write short note on  : 
+i)    Leftist trees       ii)    Optimal binary search tree. 
+ 
+8 
+L3
+CO5
+* * * * * 
+2 of 2 
+VTU-21-01-2025 01:19:51pm
+21-01-2025 01:30:53pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

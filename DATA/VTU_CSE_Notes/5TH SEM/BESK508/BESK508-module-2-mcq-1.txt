@@ -1,0 +1,869 @@
+ 
+ 
+1 
+ 
+                               
+ 
+         
+                                    
+ 
+MODULE 2 
+ADVANCES IN ENERGY SYSTEM 
+AND NATURAL RESOURCE 
+MANAGEMENT 
+ 
+1. Which of the following supplies maximum amount of hydrogen gas? 
+a) Natural gas 
+b) Anaerobic Digestion 
+c) Wastewater treatment 
+d) Electrolysis 
+   Answer: a 
+ 
+2. In terms of greenhouse gas emissions, how good or bad is hydrogen fuel? 
+a) Major contributor of greenhouse gas emissions 
+b) Zero-emission fuel 
+c) Lowest contributor of greenhouse gas emissions 
+d) Hydrogen cannot be used as fuel 
+   Answer: b 
+ 
+3. Which of the following use hydrogen as fuel? 
+a) Fossil fuels 
+b) Anaerobic digestion 
+c) Fuel cells 
+d) Cooking 
+   Answer: c 
+ 
+4. Which of the following is the most popular application of hydrogen fuel cell? 
+a) Fuel cell vehicles 
+b) Fuel cell energy power plants 
+c) Fuel cells stand-alone power supplies 
+d) Fuel cells spacecraft 
+Answer: d 
+ 
+5. How is hydrogen gas produced from fossil fuels? 
+a) Partial oxidation of methane 
+b) Electrolysis 
+c) Evaporation 
+d) Biomass gasification 
+Answer: a 
+ 
+6. What is the major drawback of steam-methane reforming technique to produce 
+hydrogen? 
+a) Capital intensive 
+MODULE-02
+Environmental Studies
+vtucode.in
+BESK508
+
+ 
+ 
+2 
+ 
+                   
+        
+   
+                                    
+ 
+b) Releases greenhouse gases into atmosphere 
+c) A niche technology 
+d) Poor efficiency 
+Answer: b 
+ 
+7. How does electrolysis produce hydrogen? 
+a) By running electricity to combine hydrogen and water 
+b) By separating water into hydrogen and oxygen and generating electricity 
+c) By passing electricity into water to separate it into hydrogen and oxygen 
+d) By passing electricity into water to evaporate it into hydrogen 
+    Answer: c 
+ 
+8. Why is hydrogen hazardous as fuel? 
+a) Because of high ignition and low combustion energy 
+b) Because of high ignition and high combustion energy 
+c) Because low ignition and low combustion energy 
+d) Because of low ignition and high combustion energy 
+Answer: d 
+ 
+9. Traditionally, why is steam methane reforming preferred over electrolysis? 
+a) Because electrolysis requires electricity 
+b) Because electrolysis has lower production efficiency 
+c) Because steam methane reforming produces greenhouse gases 
+d) Because electrolysis produces greenhouse gases 
+Answer: a 
+ 
+10. What is the main problem in using hydrogen as fuel for vehicles? 
+a) Capital intensive 
+b) Storage 
+c) Fuel cell technology is not well established 
+d) Cars will become heavy 
+Answer: b 
+ 
+11. What is a fuel cell? 
+a) Converts heat energy to chemical energy 
+b) Converts heat energy to electrical energy 
+c) Converts chemical energy to electrical energy 
+d) Converts kinetic energy to heat energy .                 Answer: c 
+12. How does hydrogen fuel cell work? 
+a) Membrane → hydrogen ions → electric current and recombination with oxygen 
+b) Electric current and recombination with oxygen → hydrogen ions → membrane 
+c) Hydrogen ions → membrane → electric current and recombination with oxygen 
+d) Recombination with oxygen → electric current → membrane → hydrogen ions 
+Answer: d 
+ 
+MODULE-02
+Environmental Studies
+vtucode.in
+BESK508
+
+ 
+ 
+3 
+ 
+                   
+        
+               
+                                    
+ 
+13. What does hydrogen fuel cell emit? 
+a) Water 
+b) Steam 
+c) Greenhouse gas 
+d) Methane 
+Answer: a 
+ 
+14. Fuel cell vehicle is sourced by a battery. 
+a) True 
+b) False 
+  Answer: b 
+ 
+15. High pressure containers are used to store hydrogen. 
+a) True 
+b) False 
+Answer: a 
+ 
+16. Which of the following energy has the greatest potential among all the sources of 
+renewable energy? 
+a) Solar energy 
+b) Wind Energy 
+c) Thermal energy 
+d) Hydro-electrical energy 
+Answer: a 
+ 
+17. What is the rate of solar energy reaching the earth 
+surface? a) 1016W 
+b) 865W 
+c) 2854W 
+d) 1912W 
+Answer: a 
+ 
+ 
+18. What is total amount of solar energy received by earth and atmosphere? 
+a) 3.8 X 1024 J/year 
+b) 9.2 X 1024 J/year 
+c) 5.4 X 1024 J/year 
+d) 2.1 X 1024 J/year 
+Answer: a 
+ 
+19. Which is most common source of energy from which electricity is produced? 
+a) Hydroelectricity 
+b) Wind energy 
+c) Coal 
+MODULE-02
+Environmental Studies
+vtucode.in
+BESK508
+
+ 
+ 
+4 
+ 
+                            
+              
+                                    
+ 
+d) Solar energy 
+Answer: c 
+ 
+20. Oil is estimated to last for 
+more. 
+a) 100 years 
+b) 500 years 
+c) A decade 
+d) 800 years 
+Answer: a 
+ 
+21. Complete the following reaction. 
+H2O + CO2 →   
+ 
+a) CH2O + O2 
+b) CO2 + O2 
+c) H + CO2 + O2 
+d) CH2O + H2O + O2 
+Answer: a 
+ 
+22. In what form is solar energy is radiated from the sun? 
+a) Ultraviolet Radiation 
+b) Infrared radiation 
+c) Electromagnetic waves 
+d) Transverse waves 
+Answer: c 
+ 
+ 
+ 
+ 
+ 
+ 
+23. What does MHD stands for in the energy field? 
+a) Magneto Hydro Dynamic 
+b) Metal Hydrogen Detox 
+c) Micro Hybrid Drive 
+d) Metering Head Differential 
+Answer: a 
+ 
+24. Solar radiation which reaches the surface without scattering or absorbed is 
+called 
+ 
+a) Beam Radiation 
+b) Infrared radiation 
+c) Ultraviolet radiation 
+d) Diffuse radiation 
+Answer: a 
+MODULE-02
+Environmental Studies
+vtucode.in
+BESK508
+
+ 
+ 
+5 
+ 
+                            
+              
+                                    
+ 
+ 
+25. The scattered solar radiation is called   
+ 
+a) Direct Radiation 
+b) Beam Radiation 
+c) Diffuse radiation 
+d) Infrared Radiation 
+Answer: c 
+ 
+26. Solar radiation received at any point of earth is called   
+ 
+a) Insolation 
+b) Beam Radiation 
+c) Diffuse Radiation 
+d) Infrared rays 
+Answer: a 
+ 
+27. Insolation is less   
+ 
+a) When the sun is low 
+b) When the sun right above head 
+c) At night 
+d) At sun rise 
+Answer: a 
+ 
+ 
+ 
+ 
+ 
+28 . HW stands for   
+ 
+a) High and Low water 
+b) High Level Waste 
+c) Heated Low Level water 
+d) High and Low Waste 
+Answer: b 
+ 
+28.What is unit of nuclear radiation? 
+a) Reaumur 
+b) Roentgen 
+c) Rankine 
+d) Pascal 
+Answer: b 
+ 
+29. Which type of fuel is removed from the reactor core after reaching end of core life 
+service? 
+a) Burnt Fuel 
+b) Spent fuel 
+c) Engine oil 
+MODULE-02
+Environmental Studies
+vtucode.in
+BESK508
+
+ 
+ 
+6 
+ 
+                            
+              
+                                    
+ 
+d) Radioactive fuel 
+Answer: b 
+ 
+30. The ocean thermal energy conversion (OTEC) is uses   
+ 
+a) Energy difference 
+b) Potential difference 
+c) Temperature difference 
+d) Kinetic difference 
+Answer: c 
+ 
+31. OTEC is developed in   
+ a) 1880 
+b) 1926 
+c) 1890 
+d) 1930 
+Answer: a 
+ 
+32. The OTEC is constructed in   
+ a) 1920 
+b) 1924 
+c) 1922 
+d) 1926           Answer: d 
+ 
+33. The by-product of the ocean thermal energy conversion is   
+ 
+a) Hot water 
+b) Desalinated water 
+c) Chemicals 
+d) Gases 
+Answer: b 
+ 
+34. In ocean thermal energy conversion, the plant pumps the deep cold sea water and 
+do not pump the surface sea water. 
+a) True 
+b) False  
+    Answer: b 
+ 
+35. How many types of OTEC plants are there? 
+a) 1 
+b) 2 
+c) 3 
+d) 4 
+  Answer: c 
+ 
+36. Closed cycle systems use the fluid having   
+ 
+a) High boiling points 
+b) Low boiling points 
+c) High viscosity 
+MODULE-02
+Environmental Studies
+vtucode.in
+BESK508
+
+ 
+ 
+7 
+ 
+                            
+             
+                                    
+ 
+d) Low viscosity 
+Answer: b 
+ 
+37. Warm surface sea water is pumped through a 
+to vaporize the fluid. 
+a) Heat exchanger 
+b) Generator 
+c) Evaporator 
+d) Condenser 
+Answer: a 
+ 
+38. The heat exchanger 
+the vapour into a liquid which is recycled. 
+a) Condenses 
+b) Heats 
+c) Cools 
+d) Evaporates                                     Answer: a 
+                    
+39. Open cycle OTEC uses 
+surface water directly to make electricity. 
+a) Hot 
+b) Warm 
+c) Cool 
+d) Icy                                     
+  Answer: b 
+ 
+40. In some cases, the steam drives the low pressure turbine attached to the electrical 
+generator. 
+a) True 
+b) False 
+   Answer: a 
+ 
+41. The steam leaves the   
+ 
+a) Salts 
+b) Aluminium 
+c) Copper 
+d) Silver 
+   Answer: a 
+ 
+42. The open cycle system produces 
+water. 
+a) Desalinated 
+b) Impure 
+c) Contaminated 
+d) Chlorinated 
+   Answer: a 
+ 
+43. In 
+method the sea water enters a vacuum chamber and flash evaporated. 
+a) Closed cycle system 
+MODULE-02
+Environmental Studies
+vtucode.in
+BESK508
+
+ 
+ 
+8 
+ 
+                            
+   
+                                    
+ 
+b) Open cycle system 
+c) Hybrid OTEC 
+d) Neither closed nor open system 
+   Answer: c 
+44. How is OTEC caused? 
+a) By wind energy 
+b) By geothermal energy 
+c) By solar energy 
+d) By gravitational force 
+Answer: c 
+ 
+45. What does OTEC stand for? 
+a) Ocean thermal energy cultivation 
+b) Ocean thermal energy conversion 
+c) Ocean techno energy conservation 
+d) Ocean thermal energy consumption 
+Answer: b 
+ 
+46. Which country has world’s largest tidal power plant? 
+a) Netherlands 
+b) South Korea 
+c) Laos 
+d) Bolivia 
+Answer: b 
+ 
+47. Which type of turbine is commonly used in tidal energy? 
+a) Francis turbine 
+b) Kaplan turbine 
+c) Pelton wheel 
+d) Gorlov turbine 
+Answer: b 
+ 
+48. How is water trapped from coastal waters? 
+a) By building canals 
+b) By building dams 
+c) By digging wells 
+d) By storing in tanks 
+Answer: b 
+ 
+49. Water to the turbine is allowed through the   
+ 
+a) Pipes 
+b) Sluice gates 
+c) Canals 
+MODULE-02
+Environmental Studies
+vtucode.in
+BESK508
+
+ 
+ 
+9 
+ 
+                            
+              
+                                    
+ 
+d) Pumps 
+Answer: b 
+ 
+50. The tides are rhythmic and constant. 
+a) True 
+b) False 
+Answer: b 
+ 
+51. For exactly how much time does it take for one tidal cycle? 
+a) 22h, 20min 
+b) 24h, 50min 
+c) 20h, 10min 
+d) 22h, 50min 
+Answer: b 
+ 
+52. What type of tide is it if the difference between high and low tide is greatest? 
+a) Diurnal tide 
+b) Neap tide 
+c) Spring tide 
+d) Ebb tide 
+Answer: c 
+ 
+53. A tide whose difference between high and low tides is least is called as   
+ 
+a) Diurnal tide 
+b) Neap tide 
+c) Spring tide 
+d) Ebb tide 
+Answer: b 
+ 
+54. Which of the turbine can be mounted vertically and horizontally? 
+a) Pelton wheel 
+b) Kaplan turbine 
+c) Gorlov turbine 
+d) Francis turbine 
+Answer: c 
+ 
+55. What types of tides occur when there is so much interference with continents? 
+a) Diurnal tide 
+b) Neap tide 
+c) Spring tide 
+d) Ebb tide 
+Answer: a 
+ 
+ 
+ 
+MODULE-02
+Environmental Studies
+vtucode.in
+BESK508
+
+ 
+ 
+10 
+ 
+                            
+              
+                                    
+ 
+ 
+ 
+ 
+56. What does Heating and cooling of the atmosphere generates? 
+a) Thermo line circulation 
+b) Radiation currents 
+c) Convection currents 
+d) Conduction currents 
+Answer: c 
+ 
+57. How much is the energy available in the winds over the earth surface is estimated 
+to be? a) 2.9 X 120 MW 
+b) 1.6 X 107 MW 
+c) 1 MW 
+d) 5MW 
+Answer: b 
+ 
+58. How much wind power does 
+India hold? a) 20,000 MW 
+b) 12,000 MW 
+c) 140,000 MW 
+d) 5000 MW 
+   Answer: a 
+ 
+59. What is the main source for the formation of wind? 
+a) Uneven land 
+b) Sun 
+c) Vegetation 
+d) Seasons 
+Answer: b 
+ 
+60. Which country created wind mills? 
+a) Egypt 
+b) Mongolia 
+c) Iran 
+d) Japan 
+Answer: c 
+ 
+61. “During the day, the air above the land heats up more quickly than the air over water”. 
+a) True 
+b) False 
+Answer: a 
+ 
+62. What happens when the land near the earth’s equator is heated? 
+a) All the oceans gets heated up 
+MODULE-02
+Environmental Studies
+vtucode.in
+BESK508
+
+ 
+ 
+11 
+ 
+                            
+             
+                                    
+ 
+b) Small wind currents are formed 
+c) Rise in tides 
+d) Large atmospheric winds are created 
+Answer: d 
+ 
+63. What type of energy is wind energy? 
+a) Renewable energy 
+b) Non-renewable energy 
+c) Conventional energy 
+d) Commercial energy 
+Answer: a 
+ 
+64. What are used to turn wind energy into electrical energy? 
+a) Turbine 
+b) Generators 
+c) Yaw motor 
+d) Blades 
+Answer: a 
+ 
+65. What is the diameter of wind turbine blades? 
+a) 320 feet 
+b) 220 feet 
+c) 80 feet 
+d) 500 feet 
+Answer: b 
+ 
+66. At what range of speed is the electricity from the wind turbine is 
+generated? a) 100 – 125 mph 
+b) 450 – 650 mph 
+c) 250 – 450 mph 
+d) 30-35 mph 
+   Answer: d 
+ 
+ 
+ 
+ 
+ 
+ 
+67. When did the development of wind power in 
+India begin? a) 1965 
+b) 1954 
+c) 1990 
+d) 1985 
+Answer: c 
+MODULE-02
+Environmental Studies
+vtucode.in
+BESK508
+
+ 
+ 
+12 
+ 
+                             
+             
+                                    
+ 
+ 
+68. Disasters can be broadly termed as 
+types. 
+a) 2 
+b) 4 
+c) 5 
+d) 3 
+Answer: a 
+ 
+69. The annual flood peaks in India are recorded in months of: 
+a) June, July 
+b) July, August 
+c) July, September 
+d) August, September 
+Answer: d 
+ 
+70. Uttarakhand lies in zone 
+of Earthquake prone areas. 
+a) 5 
+b) 3 
+c) 4 
+d) 2 
+Answer: c 
+ 
+71. To measure flood variability, 
+is used widely. 
+a) FFMI 
+b) FI 
+c) FMI 
+d) FFI 
+Answer: a 
+ 
+72. Disaster management deals with situation that occurs after the disaster. 
+a) True 
+b) False 
+Answer: b 
+ 
+73. How many elements of disaster management are there? 
+a) 8 
+b) 7 
+c) 4 
+d) 6 
+Answer: d 
+ 
+74. Which of the below is an example of slow-onset disaster? 
+a) Earthquake 
+b) Tsunami 
+MODULE-02
+Environmental Studies
+vtucode.in
+BESK508
+
+ 
+ 
+13 
+ 
+                            
+             
+                                    
+ 
+c) Cyclone 
+d) Draught 
+Answer: d 
+ 
+75. How many phases of disaster response are there? 
+a) 5 
+b) 4 
+c) 3 
+d) 2 
+Answer: a 
+ 
+76. The first step in preparedness planning is: 
+a) Analysis of data collected 
+b) Determination of objectives 
+c) Development of implementing device 
+d) Determination of strategy 
+Answer: b 
+ 
+77. Tsunami detectors are placed in sea at 
+kms from shore. 
+a) 25 
+b) 100 
+c) 50 
+d) 85 
+Answer: c 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+78. Carbon footprint can be measured by: 
+a) Carbon dating 
+b) Instruments 
+c) Carbon accounting 
+d) Formula 
+ 
+Answer: c 
+79. A legally binding agreement between 2 or more nation states relating to environment is: 
+a) BEA 
+b) BA 
+c) MA 
+d) MEA 
+Answer: d 
+ 
+MODULE-02
+Environmental Studies
+vtucode.in
+BESK508
+
+ 
+ 
+14 
+ 
+                             
+             
+                                    
+ 
+80.  
+ is a programme run by UN related to sustainable development. 
+a) GHG indicator 
+b) Agenda 21 
+c) IPCC 
+d) UNEP 
+Answer: b 
+ 
+81. For a gold LEED certification, how many points are 
+required? a) 40-49 
+b) 60-79 
+c) 50-59 
+d) 80-110 
+Answer: b 
+ 
+82. Which of the below green building in India has received a platinum LEED 
+certification? 
+a) Dabur India, Chandigarh 
+b) Logix Cyber Park, UP 
+c) Unitech Commercial Tower, Chandigarh 
+d) Suzlon One Earth, Pune 
+Answer: d 
+83.  
+ is the conventional source for hydel power. 
+a) Tidal wave 
+b) Currents 
+c) Water 
+d) Ripples 
+Answer: c 
+ 
+84. The first academic publication about ecological footprints 
+was in: a) 1992 
+b) 1990 
+c) 1993 
+d) 1994 
+Answer: a 
+ 
+85. Which of the below is a global scale environmental issue? 
+a) Eutrophication 
+b) Regional ozone 
+c) Climate change 
+d) Pollution 
+Answer: c 
+ 
+86. Carbon can be stored in organic matter in the form of: 
+a) Biomass 
+MODULE-02
+Environmental Studies
+vtucode.in
+BESK508
+
+ 
+ 
+15 
+ 
+                            
+              
+                                    
+ 
+b) Biofuel 
+c) Bioenergy 
+d) Bio carbon 
+Answer: a 
+ 
+87. The ‘Miracle Material’ that can turn CO2 into liquid fuel is: 
+a) Propene 
+b) moCopper 
+c) Graphene 
+d) Potassium 
+Answer: c 
+ 
+88. Acid rains are produced by 
+(a) Excess NO2 and SO2 from burning fossil fuels 
+(b) Excess production of NH3 by industry and coal gas 
+(c) Excess release of carbon monoxide by incomplete combustion 
+(d)Excess formation of CO2 by combustion and animal respiration. (1988, 89) 
+ Answer (a) 
+ 
+89. Green house effect is warming due to 
+(a) Infra-red rays reaching earth 
+(b) Moisture layer in atmosphere 
+(c) Increase in temperature due to increase in carbon dioxide concentration of atmosphere 
+(d) Ozone layer of atmosphere. 
+Answer ( c) 
+MODULE-02
+Environmental Studies
+vtucode.in
+BESK508

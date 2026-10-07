@@ -1,0 +1,739 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E./B.Tech. Degree Examination, Dec.2023/Jan.2024 
+Mathematics for Computer Science    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                     2. VTU Formula Hand Book is permitted.  
+                    3. M : Marks , L: Bloom’s level , C: Course outcomes.    
+                   4. Mathematics hand book is permitted. 
+ 
+                 Module – 1
+M
+L
+C
+Q.1 
+a.
+A Random variable X has the following probability function for variable 
+values of x. 
+x 
+0
+1
+2 
+3 
+4 
+5 
+6 
+7 
+P(x)
+0
+k
+2k
+2k
+3k
+k2
+2k2
+7k2+k
+(i) 
+Find the value of k. 
+(ii) 
+Evaluate 
+)
+6
+x
+(
+P
+
+ and 
+)
+6
+x
+3
+(
+P
+
+
+. 
+ 
+6 
+L2
+CO1
+ 
+b.
+Find the mean and variance of Binomial distribution. 
+ 
+7 
+L2
+CO2
+ 
+c. In a certain town the duration of a shower is exponentially distributed with 
+mean 5 minutes. What is the probability that a shower will last for, 
+(i) 
+10 minutes or more. 
+(ii) 
+Less than 10 minutes. 
+(iii) 
+Between 10 and 12 minutes. 
+ 
+7 
+L3
+CO2
+                                                                           OR 
+Q.2 
+a.
+A 
+random 
+variable 
+x 
+has 
+the 
+following 
+density 
+function 
+elsewhere
+3
+x
+3
+   
+0
+Kx
+)
+x
+(
+P
+2
+
+
+
+
+
+
+
+. Find the value of K.  
+Evaluate  (i)  
+
+2
+x
+1
+P
+
+
+                 (ii)    
+
+2
+x
+P
+
+  
+ 
+6 
+L2
+CO1
+ 
+b.
+In a factory producing blades, the probability of any blade being defective 
+is 0.002. If blades are supplied in packets of 10, using Poisson distribution 
+determine the number of packets containing, 
+(i) 
+No defective. 
+(ii) One defective  
+(iii) Two defective blades respectively in a consignment of 10,000 
+packets.  
+ 
+7 
+L2
+CO2
+ 
+c. In a test on electric bulbs, it was found that the life time of a particular 
+brand was distributed normally with an average life of 2000 hours and 
+standard deviation of 60 hours. If a firm purchases 2500 bulbs find the 
+number of bulbs that are likely to last for, 
+(i) 
+More than 2100 hours. 
+(ii) 
+Between 1900 to 2100 hours. 
+(iii) 
+Less than 1950 hours. 
+(Given 
+4525
+.0
+)
+67
+.1(
+
+
+, 
+)
+2967
+.0
+)
+83
+.0
+(
+
+
+ 
+ 
+7 
+L3
+CO2
+ 
+ 
+ 
+1 of 4 
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS301 
+VTU-19-04-2024 08:54:35am
+19-04-2024 09:05:45am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS301 
+ 
+                                                                      Module – 2  
+Q.3 
+a.
+The joint probability distribution table for two random variable x and y is 
+as follows : 
+       Y
+X 
+-2 
+-1 
+4 
+5 
+1
+0.1
+0.2
+0
+0.3
+2 
+0.2
+0.1
+0.1
+0 
+Determine the marginal probability distribution of x and y. Obtain the 
+correlation coefficient between x and y. 
+ 
+6 
+L2
+CO2
+ 
+b.
+Find the unique fixed probability vector for the regular stochastic matrix 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3
+1
+3
+2
+0
+3
+1
+2
+1
+6
+1
+0
+1
+0
+A
+ 
+ 
+7 
+L2
+CO3
+ 
+c. Three boys A, B, C are throwing ball to each other. A always throws the 
+ball to B and B always throws the ball to C. C is just as likely to throw the 
+ball to B as to A. If C was the first person to throw the ball find the 
+probabilities that after three throws : 
+(i) 
+A has the ball. 
+(ii) 
+B has the ball. 
+(iii) 
+C has the ball. 
+ 
+7 
+L3
+CO3
+                                                                           OR 
+Q.4 
+a.
+The joint probability distribution of two discrete random variables x and y 
+is given by f(x, y) = k(2x+y) where x and y are integers. Such that 
+2
+x
+0
+
+
+, 
+3
+y
+0
+
+
+. 
+(i) 
+Find the value of the constant K. 
+(ii) 
+Find the marginal probability distribution of X and Y. 
+(iii) 
+Show that the random variables X and Y are dependent. 
+ 
+6 
+L2
+CO2
+ 
+ 
+ 
+b.
+Find the unique fixed probability vector for the matrix, 
+
+
+
+
+
+
+
+
+
+
+
+
+
+0
+2
+1
+2
+1
+1
+0
+0
+0
+1
+0
+P
+. 
+ 
+7 
+L2
+CO3
+ 
+c. Each year a man trades his car for a new car in 3 brands of the popular 
+company. If he has a ‘swift’ he trades it for ‘Dzire’. If he has a ‘Dzire’ he 
+trades it for a ‘Wagnor’. If he has a ‘Wagnor’ he is just as likely to trade it 
+for a new ‘Wagnor’ or for a ‘Dzire’ or a ‘Swift’ one. In 2020 he bought his 
+first car which was ‘Wagnor’. Find the probability that he has 
+(i) 
+2022 Wagnor. 
+(ii) 
+2022 Swift. 
+(iii) 
+2023 Dzire. 
+(iv) 
+2023 Wagnor. 
+ 
+7 
+L3
+CO3
+                                                                     Module – 3 
+Q.5 
+a.
+Explain the following terms: 
+(i) 
+Statistical Hypothesis. 
+(ii) 
+Critical region of statistical test. 
+(iii) 
+Test for significance. 
+ 
+6 
+L1
+CO5
+2 of 4 
+VTU-19-04-2024 08:54:35am
+19-04-2024 09:05:45am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS301 
+ 
+ 
+b.
+In 324 throws of a six faced die an odd number turned up 181 times. Is it 
+reasonable to think that the die is an unbiased one at 5% level of 
+significance? 
+ 
+7 
+L3
+CO4
+ 
+c. One type of aircraft is found to develop engine trouble in 5 flights out of a 
+total of 100 and another type in 7 flights out of a total 200 flights. Is there a 
+significant difference in the two types of aircrafts so far as engine defects 
+are concerned? Test at 5% significance level. 
+ 
+7 
+L3
+CO4
+                                                                           OR 
+Q.6 
+a.
+Define :  
+(i) 
+Null Hypothesis. 
+(ii) 
+Significance level. 
+(iii) 
+Type I and II error. 
+ 
+6 
+L1
+CO5
+ 
+b.
+A coin was tossed 1000 times and head turns up 540 times. Test the 
+hypothesis that the coin is unbiased at 1% level of significance. 
+ 
+7 
+L3
+CO4
+ 
+c. In an exit poll enquiry it was revealed that 600 voters in one locality and 
+400 voters from an other locality favoured 55% and 48% respectively a 
+particular party to come to power. Test the hypothesis that there is a 
+difference in the locality in respect of the opinion at 1% level of 
+significance. 
+ 
+7 
+L3
+CO4
+                                                                      Module – 4  
+Q.7 
+a.
+A random sample of size 64 is taken from an infinite population having 
+mean 112 and variance 144. Using central limit theorem, find the 
+probability of getting the sample mean X greater than 114.5 
+ 
+6 
+L2
+CO5
+ 
+b.
+The following data shows the runs scored by two batsman: Can it be said 
+that the performance of batsman A is more consistent than the performance 
+of batsman B? Use 1% level of significance (F0.01, 4, 7 = 7.85)  
+Batsman A
+40
+50
+35
+25
+60
+70
+65
+55
+Batsman B
+60
+70
+40
+30
+50
+- 
+- 
+- 
+ 
+7 
+L2
+CO4
+ 
+c. A coins are tossed 100 times and the following results were obtained. Fit a 
+binomial distribution for the data and calculate the theoretical frequencies. 
+Number of heads
+0
+1 
+2 
+3 
+4
+Frequency
+5
+29
+36
+25
+5
+(Given 
+49
+.9
+2
+05
+.0
+
+
+ for 4 degree of freedom) 
+ 
+7 
+L3
+CO4
+                                                                          OR
+Q.8 
+a.
+Suppose that 10, 12, 16, 19 is a sample taken from a normal population 
+with variance 6.25. Find at 95% confidence interval for the population 
+mean. 
+ 
+6 
+L2
+CO4
+ 
+b.
+The individuals are choosen at random from a population and their heights 
+in inches are found to be 63, 63, 66, 67, 68, 69, 70, 70, 71,71. Test the 
+hypothesis that the mean height of the universe is 66 inches. (Given 
+262
+.2
+t
+05
+.0
+
+ for 9 degree of freedom). 
+ 
+7 
+L3
+CO5
+ 
+c. A sample analysis of examination results of 500 students war made. It was 
+found that 220 students had failed, 170 had secured third class, 90 had 
+secured second class and 20 had secured first class. Do these figures 
+support the general examination result which is in the ratio 4 : 3 : 2 : 1 for 
+the respective categories  
+(Given 
+81
+.7
+2
+05
+.0
+
+
+ for 3 degree of freedom). 
+7 
+L3
+CO4
+3 of 4 
+VTU-19-04-2024 08:54:35am
+19-04-2024 09:05:45am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS301 
+ 
+                                                                     Module – 5 
+Q.9 
+a.
+Three different kinds of food are tested on three groups of rats for 5 weeks. 
+The objective is to check the difference in mean weight (in grams) of the 
+rats per week. Apply one-way ANOVA using a 0.05 significance level to 
+the following data : 
+Food 1
+8 
+12
+19
+8 
+6
+11
+Food 2
+4
+5
+4
+6
+9
+7
+Food 3
+11
+8 
+7 
+13
+7
+9 
+ 
+ 
+10
+L3
+CO6
+ 
+b.
+Analyze and interpret the following statistics concerning output of wheat 
+per field obtained as a result of experiment conducted to test four varieties 
+of wheat viz. A, B, C, D under a Latin-square design. 
+C 
+25
+B 
+23
+A 
+20
+D 
+20
+A 
+19
+D 
+19
+C 
+21
+B 
+18
+B 
+19
+A 
+14
+D 
+17
+C 
+20
+D 
+17
+C 
+20
+B 
+21
+A 
+15
+ 
+10
+L4
+CO6
+                                                                           OR 
+Q.10
+a.
+Set up an analysis of variance table for the following per acre production 
+data for three varieties of wheat, each grown on four plots and state it the 
+variety differences are significant at 5% significant level (Two way 
+ANOVA). 
+Plot of land
+Per acre production data
+Variety of wheat 
+A
+B
+C
+1 
+6 
+5 
+5 
+2
+7
+5
+4
+3 
+3 
+3 
+3 
+4 
+8 
+7 
+4 
+ 
+ 
+10
+L3
+CO6
+ 
+b.
+Set up ANOVA table for the following information relating to three drugs 
+testing to judge the effectiveness in reducing blood pressure for three 
+different groups of people. 
+Group of people
+Drug 
+X
+Y
+Z
+A 
+14
+15
+10
+9
+11
+11
+B 
+12
+11
+7 
+8
+10
+11
+C 
+10
+11
+11
+11
+8 
+7 
+Do the drugs act differently?  
+Are the different groups of people affected differently? 
+Is the interaction term significant? 
+Answer the above questions taking a significant level of 5%? 
+ 
+10
+L4
+CO6
+                                                                      * * * * * 
+ 
+ 
+4 of 4 
+VTU-19-04-2024 08:54:35am
+19-04-2024 09:05:45am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

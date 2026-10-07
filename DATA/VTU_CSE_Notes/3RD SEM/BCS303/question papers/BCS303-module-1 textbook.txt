@@ -1,0 +1,3619 @@
+1.1 
+CH 
+ER 
+An 
+is a program that manages the computer hardware. It 
+also provides a basis for application programs and acts as an intermediary 
+between the computer user and the computer hardware. An amazing aspect 
+of operating systems is how varied they are in accomplishing these tasks. 
+Mainframe operating systems are designed primarily to optimize utilization 
+of hardware. Personal computer (PC) operating systems support complex 
+games, business applications, and everything in between. Operating systems 
+for handheld computers are designed to provide an environment in which a 
+user can easily interface with the computer to execute programs. Thus, some 
+operating systems are designed to be convenient, others to be efficient, and others 
+some combination of the two. 
+Before we can explore the details of computer system operation, we need 
+to know something about system structure. We begin by discussing the basic 
+functions of system startup, I/0, and storage. We also describe the basic 
+computer architecture that makes it possible to write a functional operating 
+system. 
+Because an operating system is large and complex, it must be created 
+piece by piece. Each of these pieces should be a well-delineated portion of the 
+system, with carefully defined inputs, outputs, and functions. In this chapter, 
+we provide a general overview of the major components of an operating 
+system. 
+To provide a grand tour of the major components of operating systems. 
+To describe the basic organization of computer systems. 
+We begin our discussion by looking at the operating system's role in the 
+overall computer system. A computer system can be divided roughly into 
+3 
+
+4 
+Chapter 1 
+compiler 
+assembler 
+text editor 
+operating system 
+database 
+system 
+Figure 1.1 
+Abstract view of the components of a computer system. 
+four components: the hardware/ the operating system, the application programs/ 
+and the users (Figure 1.1). 
+The hardwa.te-the 
+the 
+and the 
+<ievices-provides the basic computing resources for the 
+system. The 
+as word processors/ spreadsheets/ 
+compilers, and Web browsers-define the ways in which these resources are 
+used to solve users' computing problems. The operating system controls the 
+hardware and coordinates its use among the various application programs for 
+the various users. 
+We can also view a computer system as consisting of hardware/ software/ 
+and data. The operating system provides the means for proper use of these 
+resources in the operation of the computer system. An operating system is 
+similar to a government. Like a government, it performs no useful function by 
+itself. It simply provides an environment within which other programs can do 
+useful work. 
+To understand more fully the operating systemfs role, we next explore 
+operating systems from two viewpoints: that of the user and that of the system. 
+1.1.1 
+User View 
+The user's view of the computer varies according to the interface being 
+used. Most computer users sit in front of a PC, consisting of a monitor/ 
+keyboard/ mouse, and system unit. Such a system is designed for one user 
+to monopolize its resources. The goal is to maximize the work (or play) that 
+the user is performing. In this case/ the operating system is designed mostly 
+for 
+with some attention paid to performance and none paid 
+to 
+various hardware and software resources are 
+shared. Performance is, of course, important to the user; but such systems 
+
+1.1 
+5 
+are optimized for the single-user experience rather than the requirements of 
+multiple users. 
+In other cases, a user sits at a terminal connected to a 
+or a 
+Other users are accessing the sance computer through other 
+terminals. These users share resources and may exchange information. The 
+operating system in S"Llclc cases is designed to maximize resource utilization-
+to assure that all available CPU time, memory, and I/0 are used efficiently and 
+tbat no individual user takes more than her fair share. 
+In still otber cases, users sit at 
+connected to networks of 
+other workstations and 
+These users have dedicated resources at their 
+disposal, but they also share resources such as networking and servers-file, 
+compute, and print servers. Therefore, their operating system is designed to 
+compromise between individual usability and resource utilization. 
+Recently, many varieties of handheld computers have come into fashion. 
+Most of these devices are standalone units for individual users. Some are 
+connected to networks, either directly by wire or (more often) through wireless 
+modems and networking. Because of power, speed, and interface limitations, 
+they perform relatively few remote operations. Their operating systems are 
+designed mostly for individual usability, but performance per unit of battery 
+life is important as well. 
+Some computers have little or no user view. For example, embedded 
+computers in home devices and automobiles may have numeric keypads and 
+may turn indicator lights on or off to show status, but they and their operating 
+systems are designed primarily to run without user intervention. 
+1.1.2 System View 
+From the computer's point of view, the operating system is the program 
+most intimately involved with the hardware. In this context, we can view 
+an operating system as a 
+. A computer system has many 
+resources that may be required to solve a problem: CPU time, memory space, 
+file-storage space, I/0 devices, and so on. The operating system acts as the 
+manager of these resources. Facing numerous and possibly conflicting requests 
+for resources, the operating system must decide how to allocate them to specific 
+programs and users so that it can operate the computer system efficiently and 
+fairly. As we have seen, resource allocation is especially important where many 
+users access the same mainframe or minicomputer. 
+A slightly different view of an operating system emphasizes the need to 
+control the various I/0 devices and user programs. An operating system is a 
+control program. A 
+manages the execution of user programs 
+to prevent errors and improper use of the computer. It is especially concerned 
+with the operation and control of I/O devices. 
+1.1.3 Defining Operating Systems 
+We have looked at the operating system's role from the views of the user 
+and of the system. How, though, can we define what an operating system 
+is? In general, we have no completely adequate definition of an operating 
+system. Operating systems exist because they offer a reasonable way to solve 
+the problem of creating a usable computing system. The fundamental goal 
+of computer systems is to execute user programs and to make solving user 
+
+6 
+Chapter 1 
+1.2 
+STORAGE DEFINITIONS AND NOTATION 
+A 
+is the basic unit of computer storage. It can contain one of two values, 
+zero and one. All other storage in a computer is based on collections of bits. 
+Given enough bits, it is amazing how many things a computer can represent: 
+numbers, letters, images, movies, sounds, documents, and programs, to name 
+a few. A 
+is 8 bits, and on most computers it is the smallest convenient 
+chunk of storage. For example, most computers don't have an instruction 
+to move a bit but do have one to move a byte. A less common term is 
+which is a given computer architecture's native storage unit. A word is 
+generally made up of one or more bytes. For example, a computer may have 
+instructions to move 64-bit (8-byte) words. 
+A kilobyte, or KB, is 1,024 bytes; a megabyte, or MB, is 1,0242 bytes; and 
+a gigabyte, or GB, !s 1,0243 bytes. Computer manufacturers often round off 
+these numbers and say that a megabyte is 1 million bytes and a gigabyte is 1 
+billion bytes. 
+problems easier. Toward this goal, computer hardware is constructed. Since 
+bare hardware alone is not particularly easy to use, application programs are 
+developed. These programs require certain common operations, such as those 
+controlling the II 0 devices. The common functions of controlling and allocating 
+resources are then brought together into one piece of software: the operating 
+system. 
+In addition, we have no universally accepted definition of what is part of the 
+operating system. A simple viewpoint is that it includes everything a vendor 
+ships when you order "the operating system." The features included, however, 
+vary greatly across systems. Some systems take up less than 1 megabyte of 
+space and lack even a full-screen editor, whereas others require gigabytes of 
+space and are entirely based on graphical windowing systems. A more common 
+definition, and the one that we usually follow, is that the operating system 
+is the one program running at all times on the computer-usually called 
+the 
+. (Along with the kernel, there are two other types of programs: 
+which are associated with the operating system but are not 
+part of the kernel, and 
+which include all programs not 
+associated with the operation of the system.) 
+The matter of what constitutes an operating system has become increas-
+ingly important. In 1998, the United States Deparhnent of Justice filed suit 
+against Microsoft, in essence claiming that Microsoft included too much func-
+tionality in its operating systems and thus prevented application vendors from 
+competing. For example, a Web browser was an integral part of the operating 
+systems. As a result, Microsoft was found guilty of using its operating-system 
+monopoly to limit competition. 
+Before we can explore the details of how computer systems operate, we need 
+general knowledge of the structure of a computer system. In this section, 
+we look at several parts of this structure. The section is mostly concerned 
+
+1.2 
+THE STUDY OFOPERATING SYSTEMS 
+There has neverbeenarnore interestirighnwtostud yoperating systems:· and 
+it has neverb.een.e~sier.Theopen-sourc;e movernent has overtaken .operating 
+systems, caJ.tsing marly ofthenctobemadeavailable in both source and binary 
+(e~ecuta]Jle) fonnat.·.This Iistindud~~Linu)(, BSDUNIX/Solat•is,and part of• 
+]\II~cos.x. Th~availa~ilityqf·source.code.q,llowsus.tostudyoperq,til}.gsy?tems 
+frorrt theinsid,eout' . Questionsthat previo)1sly could onlyb~ answerecL~y 
+looking atdocumentaticmor thebehayior.ofan op~rating system c.annow be 
+answered by examining the code itself. 
+In additi?n,. the rise of virtualization as a ll}.ainsfreafll. ( andfrequelltly free) 
+cmnp)1ter ftmctionmakesitpos;~i1Jlet()runnmnyoperqtingsystems.ontop.of 
+onecoresystem .. Forexample,VMware(J:lttp.://www .• vmwarE:).com):provides 
+afree·''player'' on which hundreds.of free .''virtualappliilnces'' cann.m.Using 
+this method,students call tryolit hundreds. ofoperatingsystems.withintheir 
+existing operatingsystems .atno cost. 
+... ··. . .. 
+.·. ·.. · 
+... · 
+Operating .sy~temsthat are no lortge~ ~ofllmerci~lly viableltave been 
+opell-~o}lrced asvvell, ·enablirtg·.usto study how system~ pperated i~< 
+time.of•.•f~v.r~r CPU, ll}.emory,•·•etnd.storcrge•·•·.resoJ.trces,·····.An ... exten~iye.b).It·•not 
+complete .•. list ()f 9pen'-sourct operafirtg-"system pr?j~?ts is .. availa~le £rom 
+ht~p :// dm()~ ' org/ C:omp)1ters/Softp(lre /Operati»g:-Systems/p~~m._Sourc~/-
+S. i.m 
+.. • .. •· .. ·.u. l·a·t·o . .rs.•· .. o··.f······s·· .. P 
+... e 
+... c 
+.. i.fi 
+.. ·.·c·· . ·. ·•.h 
+..... a 
+... ·.r 
+... ·.d 
+...• w ... •·.a .•. r 
+... e 
+..... ·.· .... ar .. e· 
+.. · .a·l·s·o 
+.. · 
+...... a·.··v 
+.. •· ... a.il .. ·<1. b 
+... ·.·.le·· ... ·.i·n···.· 
+. · 
+... · ... s .. om 
+.•. ·. · 
+. e. •.·.c.·.· .... a····.·s·e· s. '···· ... al . I.·.o 
+....... w.· 
+.•.. m.· .•··.g .. 
+th~ operat~<g systell}.to.runon.''na~ve''.hardware, ... all~ithrrtthec?l}.fines 
+of a modem CO!TIPJ-Iter and moderJ1 OPf/'atirtg ~ystem. For: example, a 
+DECSYSTEMc20 simulator running on Mac OS X can boot TOPS-20, loa~. the 
+~ource.tages;.·and modify al'ld comp~le·<l·.J:t.evvTOPS-20 .k~rneL ··Art·interested 
+stltdent ~ar• search theint~rnet to find the origillal papers that de~cribe the 
+operating systemand .. the.origipa~ manuals: 
+Tl<e adve~t?fogen-source operafirtg sy~te1Tis also l}."lal<es it easy t?··.make 
+the move fromstu~enttooper<:lting~systemdeveloper.With some knov.rledge, 
+som~ effo1't, a11d an Internet connection,a student c;al'leven create a new 
+operating-systemdistribution! Justa. fev.r years, ~go itwas diffic]_llt or 
+if1Lpossible ··to. get acce~s·. to ·source co?e . . N?v.r·. that access is.·liJnited only 
+bylt()wmuchtimeand disk space a student has. 
+· 
+7 
+with computer-system organization, so you can skim or skip it if you already 
+understand the concepts. 
+1.2.1 Computer-System Operation 
+A modern general-purpose computer system consists of one or more CPUs 
+and a number of device controllers connected through a common bus that 
+provides access to shared memory (Figure 1.2). Each device controller is in 
+charge of a specific type of device (for example, disk drives, audio devices, and 
+video displays). The CPU and the device controllers can execute concurrently, 
+competing for memory cycles. To ensure orderly access to the shared memory, 
+a memory controller is provided whose function is to synchronize access to the 
+memory. 
+For a computer to start rum<ing-for instance, when it is powered 
+up or rebooted-it needs to have an initial program to run. This initial 
+
+8 
+Chapter 1 
+mouse 
+keyboard 
+printer 
+monitor 
+O ~~~ 
+(_rlo•i-nneh b 
+Figure 1.2 A modern computer system. 
+program, or 
+tends to be simple. Typically, it is stored 
+in read-only memory 
+or electrically erasable programmable read-only 
+memory 
+known by the general term 
+within the computer 
+hardware. It initializes all aspects of the system, from CPU registers to device 
+controllers to memory contents. The bootstrap program must know how to load 
+the operating system and how to start executing that system. To accomplish this 
+goal, the bootstrap program must locate and load into memory the operating-
+system kernel. The operating system then starts executing the first process, 
+such as "init," and waits for some event to occur. 
+The occurrence of an event is usually signaled by an 
+from either 
+the hardware or the software. Hardware may trigger an interrupt at any time 
+by sending a signal to the CPU, usually by way of the system bus. Software 
+may trigger an interrupt 
+executing a special operation called a 
+(also called a 
+When the CPU is interrupted, it stops what it is doing and immediately 
+transfers execution to a fixed location. The fixed location usually contains 
+the starting address where the service routine for the interrupt is located. 
+The interrupt service routine executes; on completion, the CPU resumes the 
+interrupted computation. A time line of this operation is shown in Figure 1.3. 
+Interrupts are an important part of a computer architecture. Each computer 
+design has its own interrupt mechanism, but several functions are common. 
+The interrupt must transfer control to the appropriate interrupt service routine. 
+The straightforward method for handling this transfer would be to invoke a 
+generic routine to examine the interrupt information; the routine, in turn, 
+would call the interrupt-specific handler. However, interrupts must be handled 
+quickly. Since only a predefined number of interrupts is possible, a table of 
+pointers to interrupt routines can be used instead to provide the necessary 
+speed. The interrupt routine is called indirectly through the table, with no 
+intermediate routine needed. Generally, the table of pointers is stored in low 
+memory (the first hundred or so locations). These locations hold the addresses 
+of the interrupt service routines for the various devices. This array, or 
+of addresses is then indexed by a unique device number, given with 
+the interrupt request, to provide the address of the interrupt service routine for 
+
+CPU 
+user 
+1/0 
+device 
+process 
+executing 
+1/0 interrupt 
+processing 
+idle 
+"~""~-~-
+tmcefeniog 
+I L 
+.. 
+1/0 
+request 
+1.2 
+ll 
+v 
+-~~'"''''''~'"''"-~~ -~~-"] 
+t---~---
+''m'] 
+L,~"~~~ 
+transfer 
+done 
+1/0 
+transfer 
+request 
+done 
+Figure 1.3 Interrupt time line for a single process doing output. 
+9 
+the interrupting device. Operating systems as different as Windows and UNIX 
+dispatch interrupts in this manner. 
+The interrupt architecture must also save the address of the interrupted 
+instruction. Many old designs simply stored the interrupt address in a 
+fixed location or in a location indexed by the device number. More recent 
+architectures store the return address on the system stack. If the interrupt 
+routine needs to modify the processor state-for instance, by modifying 
+register values-it must explicitly save the current state and then restore that 
+state before returning. After the interrupt is serviced, the saved return address 
+is loaded into the program counter, and the interrupted computation resumes 
+as though the interrupt had not occurred. 
+1.2.2 Storage Structure 
+The CPU can load instructions only from memory, so any programs to run must 
+be stored there. General-purpose computers run most of their programs from 
+rewriteable memory, called main memory (also called 
+or RAM). Main 
+commonly is implemented in a semiconductor 
+technology called 
+Computers use 
+other forms of memory as well. Because the read-only memory (ROM) camwt 
+be changed, only static programs are stored there. The immutability of ROM 
+is of use in game cartridges. EEPROM camwt be changed frequently and so 
+contains mostly static programs. For example, smartphones have EEPROM to 
+store their factory-il<stalled programs. 
+All forms of memory provide an array of words. Each word has its 
+own address. Interaction is achieved through a sequence of load or store 
+instructions to specific memory addresses. The load instruction moves a word 
+from main memory to an internal register within the CPU, whereas the store 
+instruction moves the content of a register to main memory. Aside from explicit 
+loads and stores, the CPU automatically loads instructions from main memory 
+for execution. 
+A typical instruction-execution cycle, as executed on a system with a 
+architecture, first fetches an il1struction from memory and stores 
+that instruction in the 
+. The instruction is then decoded 
+and may cause operands to be fetched from memory and stored in some 
+
+10 
+Chapter 1 
+internal register. After the instruction on the operands has been executed, the 
+result may be stored back in memory. Notice that the memory unit sees only 
+a stream of memory addresses; it does not know how they are generated (by 
+the instruction counter, indexing, indirection, literal addresses, or some other 
+means) or what they are for (instructions or data). Accordingly, we can ignore 
+how a memory address is generated by a program. We are interested only in 
+the sequence of memory addresses generated by the running program. 
+Ideally, we want the programs and data to reside in main ncemory 
+permanently. This arrangement usually is not possible for the following two 
+reasons: 
+Main memory is usually too small to store all needed programs and data 
+permanently. 
+Main memory is a volatile storage device that loses its contents when 
+power is turned off or otherwise lost. 
+Thus, most computer systems provide 
+as an extension 
+of main memory. The main requirement for secondary storage is that it be able 
+to hold large quantities of data permanently. 
+The most common secondary-storage device is a 
+which 
+provides storage for both programs and data. Most programs (system and 
+application) are stored on a disk until they are loaded into memory. Many 
+programs then use the disk as both the source and the destination of their 
+processing. Hence, the proper management of disk storage is of central 
+importance to a computer system, as we discuss in Chapter 12. 
+In a larger sense, however, the storage structure that we have described-
+consisting of registers, main memory, and magnetic disks-is only one of many 
+possible storage systems. Others include cache memory, CD-ROM, magnetic 
+tapes, and so on. Each storage system provides the basic functions of storing 
+a datum and holding that datum until it is retrieved at a later time. The main 
+differences among the various storage systems lie in speed, cost, size, and 
+volatility. 
+The wide variety of storage systems in a computer system can be organized 
+in a hierarchy (Figure 1.4) according to speed and cost. The higher levels are 
+expensive, but they are fast. As we move down the hierarchy, the cost per bit 
+generally decreases, whereas the access time generally increases. This trade-off 
+is reasonable; if a given storage system were both faster and less expensive 
+than another-other properties being the same-then there would be no 
+reason to use the slower, more expensive memory. In fact, many early storage 
+devices, including paper tape and core memories, are relegated to museums 
+now that magnetic tape and 
+have become faster and 
+cheaper. The top four levels of memory in Figure 1.4 may be constructed using 
+semiconductor memory. 
+In addition to differing in speed and cost, the various storage systems 
+are either volatile or nonvolatile. As mentioned earlier, 
+loses 
+its contents when the power to the device is removed. In the absence of 
+expensive battery and generator backup systems, data must be written to 
+for safekeeping. In the hierarchy shown in Figure 1.4, the 
+the electronic disk are volatile, whereas those below 
+
+1.3 
+15 
+Figure 1.6 Symmetric multiprocessing architecture. 
+Solaris. The benefit of this model is that many processes can run simultaneously 
+-N processes can run if there are N CPUs-without causing a significant 
+deterioration of performance. However, we must carefully control I/0 to 
+ensure that the data reach the appropriate processor. Also, since the CPUs 
+are separate, one may be sitting idle while another is overloaded, resulting in 
+inefficiencies. These inefficiencies can be avoided if the processors share certain 
+data structures. A multiprocessor system of this form will allow processes and 
+resources-such as memory-to be shared dynamically among the various 
+processors and can lower the variance among the processors. Such a system 
+must be written carefully, as we shall see in Chapter 6. Virtually all modern 
+operating systems-including Windows, Windows XP, Mac OS X, and Linux 
+-now provide support for SMP. 
+The difference between symmetric and asymmetric multiprocessing may 
+result from either hardware or software. Special hardware can differentiate the 
+multiple processors, or the software can be written to allow only one master and 
+multiple slaves. For instance, Sun's operating system SunOS Version 4 provided 
+asymmetric multiprocessing, whereas Version 5 (Solaris) is symmetric on the 
+same hardware. 
+Multiprocessing adds CPUs to increase computing power. If the CPU has an 
+integrated memory controller, then adding CPUs can also increase the amount 
+of memory addressable in the system. Either way, multiprocessing can cause 
+a system to change its memory access model from uniform memory access 
+to non-uniform memory access 
+UMA is defined as the situation 
+in which access to any RAM from any CPU takes the same amount of time. With 
+NUMA, some parts of memory may take longer to access than other parts, 
+creating a performance penalty. Operating systems can minimize the NUMA 
+penalty through resource management_, as discussed in Section 9.5.4. 
+A recent trend in CPU design is to in.clude multiple computing 
+on 
+a single chip. In essence, these are multiprocessor chips. They can be more 
+efficient than multiple chips with single cores because on-chip communication 
+is faster than between-chip communication. In addition, one chip with multiple 
+cores uses significantly less power than multiple single-core chips. As a result, 
+multicore systems are especially well suited for server systems such as database 
+and Web servers. 
+
+16 
+Chapter 1 
+Figure 1.7 A dual-core design with two cores placed on the same chip. 
+In Figure 1.7, we show a dual-core design with two cores on the same 
+chip. In this design, each core has its own register set as well as its own local 
+cache; other designs might use a shared cache or a combination of local and 
+shared caches. Aside from architectural considerations, such as cache, memory, 
+and bus contention, these multicore CPUs appear to the operating system 
+as N standard processors. This tendency puts pressure on operating system 
+designers-and application programmers-to make use of those CPUs. 
+Finally, 
+are a recent development in which multiple processor 
+boards, I/0 boards, and networking boards are placed in the same chassis. 
+The difference between these and traditional multiprocessor systems is that 
+each blade-processor board boots independently and runs its own operating 
+system. Some blade-server boards are n1.ultiprocessor as well, which blurs the 
+lines between types of computers. In essence, these servers consist of multiple 
+independent multiprocessor systems. 
+1.3.3 Clustered Systems 
+Another type of multiple-CPU system is the 
+Like multipro-
+cessor systems, clustered systems gather together multiple CPUs to accomplish 
+computational work. Clustered systems differ from multiprocessor systems, 
+however, in that they are composed of two or more individual systems-or 
+nodes-joined together. The definition of the term clustered is not concrete; 
+many commercial packages wrestle with what a clustered system is and why 
+one form is better than another. The generally accepted definition is that clus-
+tered computers share storage and are closely linked via a JC'.H.a,,·o.x 
+(as described in Section 1.10) or a faster interconnect, such as InfiniBand. 
+Clustering is usually used to provide 
+service; that is, 
+service will continue even if one or more systems in the cluster faiL High 
+availability is generally obtained by adding a level of redundancy in the 
+system. A layer of cluster software runs on the cluster nodes. Each node can 
+monitor one or more of the others (over the LAN). If the monitored machine 
+fails, the monitoring machine can take ownership of its storage and restart the 
+applications that were running on the failed machine. The users and clients of 
+the applications see only a brief interruption of service. 
+
+1.3 
+BEOWULF CLUSTERS 
+Beowulf clusters are designed for solving high-performance computing 
+tasks. These clusters are built using comm.odi ty hard ware-such as. personal 
+computers-that are connected via a simple local area network Interestingly, 
+a Beowulf duster uses no one specific software package but rather consists 
+of a set of open-source software libraries that allow the con1puting nodes 
+in the cluster to communicate with one another .. Thus,.there are a variety of 
+approaches for constructing a Beowulf cluster, although Beowulf computing 
+nodes typically run the Linux operating system. Since Beowulf clusters 
+require no special hardware and operate using open~source software that 
+is freely available, they offer a low-cost strategy for building a high~ 
+performance computing cluster. In fact, some Beowulf clusters built from 
+collections of discarded personal computers are using ht.mdreds of cornputing 
+nodes to solve computationally expensive problems in scientific computing. 
+Clusterin.g can be structured 
+or symmetrically. In 
+17 
+one machine is in 
+while the other is 
+rmming the applications. The hot-standby host machine does nothing but 
+monitor the active server. If that server fails, the hot-standby host becomes the 
+active server. In 
+two or more hosts are rmming applications 
+and are monitoring each other. This mode is obviously more efficient, as it uses 
+all of the available hardware. It does require that more than one application be 
+available to run. 
+As a cluster consists of several 
+clusters may also be used to provide 
+environ-
+ments. Such systems can supply significantly greater computational power 
+than single-processor or even SMP systems because they are capable of running 
+an application concurrently on all computers in the cluster. However, appli-
+cations must be written 
+to take advantage of the cluster by using 
+a technique known as 
+which consists of dividing a program 
+into separate components that run in parallel on individual computers in the 
+cluster. Typically, these applications are designed so that once each computing 
+node in the cluster has solved its portion of the problem, the results from all 
+the nodes are combined into a final solution. 
+Other forms of clusters include parallel clusters and clustering over a 
+wide-area network (WAN) (as described in Section 1.10). Parallel clusters allow 
+multiple hosts to access the same data on the shared storage. Because most 
+operating systems lack support for simultaneous data access by multiple hosts, 
+parallel clusters are usually accomplished by use of special versions of software 
+and special releases of applications. For example, Oracle Real Application 
+Cluster is a version of Oracle's database that has been designed to run on 
+a parallel cluster. Each machine runs Oracle, and a layer of software tracks 
+access to the shared disk. Each machine has full access to all data in the 
+database. To provide this shared access to data, the system must also supply 
+access control and locking to ensure that no conflicting operations occur. This 
+function, commonly known as a 
+is included 
+in some cluster technology. 
+
+18 
+Chapter 1 
+1.4 
+interconnect 
+interconnect 
+computer 
+computer 
+computer 
+Figure 1.8 General structure of a clustered system. 
+Cluster technology is changing rapidly. Some cluster products support 
+dozens of systems in a cluster, as well as clustered nodes that are separated 
+by miles. Many of these improvements are made possible by 
+(SAJ·~Is), as described in Section 12.3.3, which allow many systems 
+to attach to a pool of storage. If the applications and their data are stored on 
+the SAN, then the cluster software can assign the application to run on any 
+host that is attached to the SAN. If the host fails, then any other host can take 
+over. In a database cluster, dozens of hosts can share the same database, greatly 
+increasing performance and reliability. Figure 1.8 depicts the general structure 
+of a clustered system. 
+Now that we have discussed basic information about computer-system orga-
+nization and architecture, we are ready to talk about operating systems. 
+An operating system provides the envirorunent within which programs are 
+executed. Internally, operating systems vary greatly in their makeup, since 
+they are organized along many different lines. There are, however, many 
+commonalities, which we consider in this section. 
+One of the most important aspects of operating systems is the ability 
+to multiprogram. A single program cannot, in generat k~~p~ith_er thg CPU 
+ortbt?J/Qgey:ic:es 1Jusy_C1t all times: Single users frequently have multiple 
+programs running. Il.ul 
+increases CPU utilization byorganizing 
+jobs(codeand datafso 
+. 
+. ... . . _ 
+hasoi1(0tO execl1te. 
+-
+· 
+---- fhe idea is as follows: The op-ei:atlng system keeps several jobs in memory 
+simultaneously (Figure 1.9). Since, in generat main memory is too small to 
+accommodate all jobs, the jobs are kept initially on the disk in the 
+This pool consists of all processes residing on disk awaiting allocation of main 
+memory. 
+Ih~ setofjobs inmemg_ry_canbe asubt:;et of the jobs kept in thejql:Jpoo1. 
+The operating system picks and begins to execute one of the jobs in memory. 
+Eventually, the job may have to wait for some task, such as an I/O operation, 
+
+1.4 
+19 
+Figure 1.9 Memory layout for a multiprogramming system. 
+!()_C()_tnpl~te: In a non-multiprogrammed system, the CPU would sit idle. In 
+a multiprogrammed system, the operatilcg system simply switches to, and 
+executes, another job. When that job needs to wait, the CPU is switched to 
+another job, and so on. Eventually the first job finishes waiting and gets the 
+CPU back. As long as at least one job needs to execute, the CPU is never idle. 
+This idea is common in other life situations. A lawyer does not work for 
+only one client at a time, for example. While one case is waiting to go to trial 
+or have papers typed, the lawyer can work on another case. If he has enough 
+clients, the lawyer will never be idle for lack of work. (Idle lawyers tend to 
+become politicians, so there is a certain social value in keeping lawyers busy.) 
+Multiprogrammed systems provide an environment in which the various 
+system resources (for example, CPU, memory, and peripheral devices) are 
+utilized effectively, but they do not provide for user interaction with the 
+computer system. 
+is_~l()gi~alex_tension of 
+multiprogramming. ~' time-s!caring syste~s,the CPl] execu~eslnl1ltiplejobs 
+by switcll.Ing~ainong them, but the switches occur so frequently that the ~1sers 
+canh~teract with eachprograffi~v Ere l.t1sil.mning.--···· 
+-Ti1ne shar:il~g requi.i-es an 
+. . (or 
+-
+which provides direct communication between the user and the system. The 
+user gives instructions to the operating system or to a program directly, using a 
+input device such as a keyboard or a mouse, and waits for immediate results on 
+an output device. Accordingly, !!'te 
+sho~1ld be sh()rt=typically 
+less than one second. 
+A time-shared operating system allows many users to share the computer 
+simultaneously. Since each action or command in a time-shared system tends 
+to be short, only a little CPU time is needed for each user. As the system switches 
+rapidly from one user to the next, each user is given the impression that the 
+entire computer system is dedicated to his use, even though it is being shared 
+among many users. 
+A time-shared operating system 11ses CPU scheduling and multiprogram-
+ming to provide each user with a small portion of a time-shared computer. 
+Eachuserhas atleast or:t_e S§parateprogra111inmemory. A program loaded into 
+
+20 
+1.5 
+Chapter 1 
+memory and executing is called a 
+When a process executes, it typically 
+executes for only a short tirne 
+it either finishes or needs to perform I/0. 
+I/0 may be interactive; that is, output goes to a display for the user, and input 
+comes from a user keyboard, mouse, or other device. Since interactive I/0 
+typically runs at "people speeds," it may take a long time to complete. Input, 
+for example, may be bounded by the user's typing speed; seven characters per 
+second is fast for people but incredibly slow for computers. Rather than let 
+the CPU sit idle as this interactive input takes place, the operating system will 
+rapidly switch the CPU to the program of some other user. 
+Time sharing and multiprogramming require that several jobs be kept 
+simultaneously in memory. If several jobs are ready to be brought into memory, 
+and if there is not enough room for all of them, then the system must choose 
+among them. Making this decision is 
+which is discussed in 
+Chapter 5. When the operating system selects a job from the job pool, it loads 
+that job into memory for execution. Having several programs in memory at the 
+same time requires some form of memory management, which is covered in 
+Chapters 8 and 9. In addition, !f_s~veraJjq}Jsaxere(lclY to rw~at the same time, 
+the system must choose among them. Making this decision i~ _ _ sd1,2dviii·lg, 
+which is discussed in Chapter 5. Finally, running multiple jobscoi~cl.lrl:ei1Hy 
+requires that their ability to affect one another be limited in all phases of the 
+operating system, including process scheduling, disk storage, and memory 
+management. These considerations are discussed throughout the text. 
+In a time-sharing system, the operating system must ensure reasonable 
+response time, which is sometimes accomplished through 
+where 
+processes are swapped in and out of main memory to the disk. A more common 
+method for achieving this goal 
+tec:hDiql1~_fuC!t __ CillQws._ 
+the execution of aprocessthat isnot completely inl1le1Yl_clD~- (Chapter 9). 
+The main advai1tage of the virtual-memory scheme is that it enables users 
+to run programs that are larger than actual 
+. Further, it 
+abstracts main memory into a large, uniform array of storage, separating logical 
+as viewed by the user from physical memory. This arrangement frees 
+programmers from concern over memory-storage limitations. 
+Time-sharing systems must also provide a file system (Chapters 10 and 11). 
+The file system resides on a collection of disks; hence, disk management must 
+be provided (Chapter 12). Also, time-sharing systems provide a mechanism for 
+protecting resources from inappropriate use (Chapter 14). To ensure orderly 
+execution, the system must provide mechanisms for job synchronization and 
+communication (Chapter 6), and it may ensure that jobs do not get stuck in a 
+deadlock, forever waiting for one another (Chapter 7). 
+}\SI1[e11tio11ecl ~arlier, rn()clETnopexatli1KSYStems_m~e _ 
+If there 
+are no processes to execute, no I/0 devices to service, and no users to whom 
+to respond, an operating system will sit quietly waiting for something to 
+happen. Events are almost always signaled by the occurrence of an interrupt 
+or a trap. 
+(or an 
+is_ a software~generated interruptca~seci 
+~it[ler byan error (for 
+division byzero or invalid memory acc~ss_) 
+or by a specific request from a user program that an operating-system service 
+
+1.5 
+21 
+be performed. The interrupt-driven nature of an operating system defines 
+that system's general structure. For each type of interrupt, separate segments 
+of code in the operating system determine what action should be taken. An 
+interrupt service routine is provided that is responsible for dealing with the 
+interrupt. 
+Since the operating system and the users share the hardware and software 
+resources of the computer system, we need to make sure that an error in a 
+user program could cause problems only for the one program running. With 
+sharing, many processes could be adversely affected by a bug in one program. 
+For example, if a process gets stuck in an infinite loop, this loop could prev.ent 
+the correct operation of many other processes. More subtle errors can occur 
+in a multiprogramming system, where one erroneous program might modify 
+another program, the data of another program, or even the operating system 
+itself. 
+Without protection against these sorts of errors, either the computer must 
+execute only one process at a time or all output must be suspect. A properly 
+designed operating system must ensure that an incorrect (or malicious) 
+program cannot cause other program~ to .~X.t;cute incorrectly. 
+~~,;~,_C: 
+·· 
+;·..c·~ 
+1.5.1 Dual-Mode Operation · 
+In order to ensure the proper execution of the operating system, we must be 
+able to distinguish between the execution of operating-system code and user-
+defined code. The approach taken by most computer systems is to provide 
+hardware support that allows us to differentiate among various modes of 
+execution. 
+At the very least we need two 
+and 
+(also called 
+or 
+A bit, called the 
+is added to the hardware of the computer to 
+indicate the current mode: kernel (0) or user (1). \!Viththeplode1:Jit\!Ve2lrea]Jle 
+to distinguishbetween a task that is executed onbehalf of the operating system 
+aicd one that is executeci on behalfoftheJJser, When tl~e computer systel.n1s 
+executing on behalf of a user application, the system is in user mode. However, 
+when a user application requests a service from the operating system (via a 
+.. system call), it must transition from user to kernel mode to fulfill the request. 
+/ This is shown in Figure 1.10. As we shall see, this architectural enhancement is 
+useful for many other aspects of system operation as well. 
+execute system call 
+Figure 1. i 0 Transition from user to kernel mode. 
+user mode 
+(mode bit = I) 
+kernel mode 
+(mode bit = 0) 
+
+22 
+Chapter 1 
+At system boot time, the hardware starts in kernel mode. The operating 
+system is then loaded and starts user applications in user mode. Whenever a 
+trap or interrupt occurs, the hardware switches from user mode to kernel mode 
+(that is, changes the state of the mode bit to 0). Thus, whenever the operating 
+system gains control of the computer, it is in kernel mode. The system always 
+switches to user mode (by setting the mode bit to 1) before passing control to 
+a user program. 
+The dual mode of operation provides us with the means for protecting the 
+operating system from errant users-and errant users from one another. }Ye 
+_(!CC011lplishthis protection by designating some ofthe machineinE;tructions~ha! 
+:trliJjT cal1_seJ~i:i~l11 
+ins trucrci\}]<§l: Il1e hardware all~\<\'Spl·iyileg~d 
+instrl]ctionsto be 
+o11ly inkern~Ll11QQ_~, If an attempt is made to 
+execute a privileged instruction in user mode, the hardware does not execute 
+the instruction but rather treats it as illegal and traps it to the operating system. 
+The instruction to switch to kernel mode is an example of a privileged 
+instruction. Some other examples include I/0 controt timer management and 
+interrupt management. As we shall see throughout the text, there are many 
+additional privileged instructions. 
+We can now see the life cycle of instruction execution in a computer system. 
+Initial control resides in the operating system, where instructions are executed 
+in kernel mode. When control is given to a user application, the mode is set to 
+user mode. Eventually, control is switched back to the operating system via an 
+interrupt, a trap, or a system call. 
+_5ysiemcalls proyide the means for auser program to ask the operating 
+2}'St~m to perforp:t tasks re_?erved forjhe operating syst~m gr1 the 1.lser 
+.12l.:Qgra1ll'sbeha,lf A system call is invoked in a variety of ways, depending 
+on the functionality provided by the underlying processor. In all forms, it is the 
+method used by a process to request action by the operating system. A system 
+call usually takes the form of a trap to a specific location in the interrupt vector. 
+This trap can be executed by a generic trap instruction, although some systems 
+(such as the MIPS R2000 family) have a specific syscall instruction. 
+When asystep1 calljs e)(ecutect it is treated by the hardware as a software 
+-i:rlt~rr:l.l:[if:C()iltrol passes through the interrupt vector to a service routine in 
+the operating system/ and the m()de bit is set to kernel mode. The system-
+caflserv1ce routine is a part of the operating system. The-kernel examines 
+the interrupting instruction to determine what system call has occurred; a 
+~ parameter indicates what type of service the user program is requesting. 
+Additional information needed for the r~quest_may be passed in registers, 
+on the stack/ or in memory (with pointers to the memory locations passed in 
+registers). The kernel vedfies that the parameters are correct and legat executes 
+ti1erequest, and returns control to the instruction following the system call. We 
+describe system calls more fully in Section 2.3. 
+The lack of a hardware-supported dual mode can cause serious shortcom-
+ings in an operating system. For instance, MS-DOS was written for the Intel 
+8088 architecture, which has no mode bit and therefore no dual mode. A user 
+program rum1ing awry can wipe out the operating system by writing over it 
+with data; and multiple programs are able to write to a device at the same time, 
+with potentially disastrous results. Recent versions of the Intel CPU do provide 
+dual-mode operation. Accordingly, most contemporary operating systems-
+such as Microsoft Vista and Windows XP, as well as Unix, Linux, and Solaris 
+
+1.6 
+1.6 
+23 
+-take advantage of this dual-mode feature and provide greater protection for 
+the operating system. 
+Once hardware protection is in place, it detects errors that violate modes. 
+These errors are normally handled by the operating system. If a user program 
+fails in some way-such as by making an attempt either to execute an illegal 
+instruction or to access memory that is not in the user's address space-then 
+the hardware traps to the operating system. The trap transfers control through 
+the interrupt vector to the operating system, just as an interrupt does. When 
+a program error occurs, the operating system must terminate the program 
+abnormally. This situation is handled by the same code as a user-requested 
+abnormal termination. An appropriate error message is given, and the memory 
+of the program may be dumped. The memory dump is usually written to a 
+file so that the user or programmer can examine it and perhaps correct it and 
+restart the program. 
+1.5.2 Timer 
+Wer:r1,_ust ensure th<t! the ope:J;atil}gsystemiJ:taintains t:ontrol overthe C}J_!:l_~ 
+We cam1.ot allow a userp~ogram to_ get stuc:kin e1ninfinite loop or to fail 
+to call syste1n seryices and never retltrn control to the c:>perating system. To 
+~c<:9!ll£1I:S~ tl1.1s=g~at we_can usea 
+_A_tirn~r_can beset to interrupt 
+th~ c:c:>mp_ut~r af_t~ril §p~c:ified peri() d. The period may be fixed (for example, 
+1/60 second) or variable (for example, from 1 millisecond to 1 second). A 
+is generally implemented by a fixed-rate clock and a counter. 
+The operating system sets the counter. Every time the clock ticks, the counter 
+is decremented. When the counter reaches 0, an interrupt occurs. For instance, 
+a 10-bit counter with a 1-millisecond clock allows interrupts at intervals from 
+1 millisecond to 1,024 milliseconds, in steps of 1 millisecond. 
+Before turning over control to the user, the operating system ensures 
+that the timer is set to interrupt. lL~ll.~ __ tiJ11e_£_il1t~rrl1pts/control transfers 
+automatically totll.e ()pel:9:t~~Y§!epl,_"\Thicfl__!l-1(1Ytreat the interrupt as a faiaf 
+error or n:taygi-y_etll.ep_rograrn rnc:>r~!i:rn~:. Clearly,il~structions that modify the 
+content of the timer are privileged. 
+Thus, we can use the timer to prevent a user program from running too 
+long. A simple technique is to il1.itialize a counter with the amount of time that a 
+program is allowed to run. A program with a 7-minute time limit, for example, 
+would have its counter initialized to 420. Every second, the timer interrupts 
+and the counter is decremented by 1. As long as the counter is positive, control 
+is returned to the user program. When the counter becomes negative, the 
+operating system terminates the program for exceeding the assigned time 
+limit. 
+A program does nothing unless its instructions are executed by a CPU. A 
+program in execution, as mentioned, is a process. A time-shared user program 
+such as a compiler is a process. A word-processing program being run by an 
+individual user on a PC is a process. A system task, such as sending output 
+to a printer, can also be a process (or at least part of one). For now, you can 
+consider a process to be a job or a time-shared program, but later you will learn 
+
+24 
+Chapter 1 
+1.7 
+that the concept is more general. As we shall see in Chapter 3, it is possible 
+to provide system calls that allow processes to create subprocesses to execute 
+concurrent! y. 
+A process needs certain resources---including CPU time, me111ory, files, 
+and-I;o devices:::_:_ to accomplish its:task These i·esources are e!tl1er given to 
+the process when it is created or-allocated to it while it is running. In addition 
+to the various physical and logical resources that a process obtains when it is 
+created, various initialization data (input) may be passed along. For example, 
+consider a process whose function is to display the status of a file on the screen 
+of a terminal. The process will be given as an input the name of the file and will 
+execute the appropriate instructions and system calls to obtain and display 
+on the terminal the desired information. When the process terminates, the 
+operating system will reclaim any reusable resources. 
+l"Ve ~_111pl:t21size that a program by itselfis nota process; a program is a 
+· y_assive er~!~ty, likt:tl1e C()I1terltsof a fil(?storecl_m1 c!iskL~A.ThereasC\_pr(Jce~~s_1s 21~1 
+aCtive entity. A si-Dgl~::1hr:eaded proc~ss has on~_pr_ogra111 cou11!er s:eecifying the 
+nexf1il~r:Uc_tiogt()_eX~ClJte. (Threads are covered in Chapter 4.) The -execi.rtioil. 
+of such a process must be sequential. The CPU executes one instruction of the 
+process after another, until the process completes. Further, at any time, one 
+instruction at most is executed on behalf of the process. Thus, although two 
+processes may be associated with the same program, they are nevertheless 
+considered two separate execution sequences. A multithreaded process has 
+multiple program counters, each pointing to the next instruction to execute for 
+a given thread. 
+A process is the unit of work in a system. Such a system consists of a 
+collection of processes, some of which are operating-system processes (those 
+that execute system code) and the rest of which are user processes (those that 
+execute user code). Al]Jheseprocesses canp()t~!ltially execute concurrently-
+_llY.IJ:lli}!p_l~)(_i!lg ()I'\a sir1gle _C:Pl],for_~)(ample. 
+- -
+-
+--- ----
+The operating system is responsible for the following activities in connec-
+tion with process management: 
+Scheduling processes and threads on the CPUs 
+Creating and deleting both user and system processes 
+Suspending and resuming processes 
+Providing mechanisms for process synchronization 
+Providing mechanisms for process communication 
+We discuss process-management techniques in Chapters 3 through 6. 
+As we discussed in Section 1.2.2, the main memory is central to the operation 
+of a modern computer system. Main memory is a large array of words or bytes, 
+ranging in size from hundreds of thousands to billions. Each word or byte has 
+its own address. Main memory is a repository of quickly accessible data shared 
+by the CPU and I/0 devices. The central processor reads instructions from main 
+
+1.8 
+1.8 
+25 
+memory during the instruction-fetch cycle and both reads and writes data from 
+main memory during the data-fetch cycle (on a von Neumann architecture). 
+As noted earlier, the main memory is generallythe only large storage device 
+that the CPU is able to address and access directly. For example, for the CPU to 
+process data from disk, those data mu.st first be transferred to main n"lemory 
+by CPU-generated I/0 calls. In the same way, instructions must be in memory 
+for the CPU to execute them. 
+For a program to be executed, it must be mapped to absolute addresses and 
+loaded into memory. As the program executes, it accesses program instructions 
+and data from memory by generating these absolute addresses. Eventually, 
+the program terminates, its memory space is declared available, and the next 
+program can be loaded and executed. 
+To improve both the utilization of the CPU and the speed of the computer's 
+response to its users, general-purpose computers must keep several programs 
+in memory, creating a need for memory management. Many different memory-
+management schemes are used. These schemes reflect various approaches, and 
+the effectiveness of any given algorithm depends on the situation. In selecting a 
+memory-management scheme for a specific system, we must take into account 
+many factors-especially the hardware design of the system. Each algorithm 
+requires its own hardware support. 
+The operating system is responsible for the following activities in connec-
+tion with memory management: 
+Keeping track of which parts of memory are currently being used and by 
+whom 
+Deciding which processes (or parts thereof) and data to move into and out 
+of memory 
+Allocating and deallocating memory space as needed 
+Memory-management techniques are discussed il1 Chapters 8 and 9. 
+To make the computer system convenient for users, the operating system 
+provides a uniform, logical view of information storage. The operating system 
+abstracts from the physical properties of its storage devices to define a logical 
+storage unit, the file. The operating system maps files onto physical media and 
+accesses these files via the storage devices. 
+1.8.1 File-System Management 
+Pile management is one of the most visible components of an operating system. 
+Computers can store information on several different types of physical media. 
+Magnetic disk, optical disk, and magnetic tape are the most common. Each 
+of these media has its own characteristics and physical organization. Each 
+medium is controlled by a device, such as a disk drive or tape drive, that 
+also has its own unique characteristics. These properties include access speed, 
+capacity, data-transfer rate, and access method (sequential or randmn). 
+
+26 
+Chapter 1 
+A file is a collection of related information defined by its creator. Commonly, 
+files represent programs (both source and object forms) and data. Data files may 
+be numeric, alphabetic, alphanumeric, or binary. Files may be free-form (for 
+example, text files), or they may be formatted rigidly (for example, fixed fields). 
+Clearly, the concept of a file is an extremely general one. 
+The operating system implements the abstract concept of a file by managing 
+mass-storage media, such as tapes and disks, and the devices that control them. 
+Also, files are normally organized into directories to make them easier to use. 
+Finally, when multiple users have access to files, it may be desirable to control 
+by whom and in what ways (for example, read, write, append) files may be 
+accessed. 
+The operating system is responsible for the following activities in connec-
+tion with file management: 
+Creating and deleting files 
+Creating and deleting directories to organize files 
+Supporting primitives for manipulating files and directories 
+Mapping files onto secondary storage 
+Backing up files on stable (nonvolatile) storage media 
+File-management teclmiques are discussed in Chapters 10 and 11. 
+1.8.2 Mass-Storage Management 
+As we have already seen, because main memory is too small to accommodate 
+all data and programs, and because the data that it holds are lost when power 
+is lost, the computer system must provide secondary storage to back up main 
+memory. Most modern computer systems use disks as the principal on-line 
+storage medium for both programs and data. Most programs-including 
+compilers, assemblers, word processors, editors, and formatters-are stored 
+on a disk until loaded into memory and then use the disk as both the source 
+and destination of their processing. Hence, the proper management of disk 
+storage is of central importance to a computer system. The operating system is 
+responsible for the following activities in connection with disk management: 
+Free-space management 
+Storage allocation 
+Disk scheduling 
+Because secondary storage is used frequently, it must be used efficiently. The 
+entire speed of operation of a computer may hinge on the speeds of the disk 
+subsystem and the algorithms that manipulate that subsystem. 
+There are, however, many uses for storage that is slower and lower in cost 
+(and sometimes of higher capacity) than secondary storage. Backups of disk 
+data, seldom-used data, and long-term archival storage are some examples. 
+Magnetic 
+drives and their tapes and CD and DVD drives and platters are 
+typical 
+devices. The media (tapes and optical platters) vary 
+between 
+(write-once, read-many-times) and 
+(read-write) formats. 
+
+1.8 
+27 
+Tertiary storage is not crucial to systern performance, but it still must 
+be managed. Some operating systems take on this task, while others leave 
+tertiary-storage management to application progran1s. Some of the functions 
+that operating systerns can provide include mounting and unmounting rnedia 
+in devices, allocating and freeing the devices for exclusive use by processes, 
+and migrating data from secondary to tertiary storage. 
+Techniques for secondary and tertiary storage management are discussed 
+in Chapter 12. 
+1.8.3 Caching 
+is an important principle of computer systems. Information is 
+normally kept in some storage system (such as main memory). As it is used, 
+it is copied into a faster storage system-the cache-on a temporary basis. 
+When we need a particular piece of information, we first check whether it is 
+in the cache. If it is, we use the information directly from the cache; if it is not, 
+we use the information from the source, putting a copy in the cache under the 
+assumption that we will need it again soon. 
+In addition, internal programmable registers, . such as index registers, 
+provide a high-speed cache for main memory. The programmer (or compiler) 
+implements the register-allocation and register-replacement algorithms to 
+decide which information to keep in registers and which to keep in main 
+memory. There are also caches that are implemented totally in hardware. 
+For instance, most systems have an instruction cache to hold the instructions 
+expected to be executed next. Without this cache, the CPU would have to wait 
+several cycles while an instruction was fetched from main memory. For similar 
+reasons, most systems have one or more high-speed data caches in the memory 
+hierarchy. We are not concerned with these hardware-only caches in this text, 
+since they are outside the control of the operating system. 
+Because caches have limited size, 
+is an important 
+design problem. Careful selection of the cache size and of a replacement policy 
+can result in greatly increased performance. Figure 1.11 compares storage 
+performance in large workstations and small servers. Various replacement 
+algorithms for software-controlled caches are discussed in Chapter 9. 
+Typical size 
+<16MB 
+<64GB 
+>100GB 
+Implementation 
+custom memory with 
+on-chip. or off-chip CMOS DRAM 
+magnetic disk 
+technology 
+multiple ports, CMOS 
+CMOSSRAM 
+Access time (ns) 
+0.25-0.5 
+0.5-25 
+80-250 
+5,000.000 
+Bandwidth (MB/sec) 20,000 ~ 100,000 
+5000- 10,000 
+1000-5000 
+20-150 
+Managed by 
+compiler 
+hardware 
+operating system operating system 
+Backed by 
+cache 
+main memory 
+disk 
+CD or tape 
+Figure 1.11 
+Performance of various levels of storage. 
+
+28 
+Chapter 1 
+Main memory can be viewed as a fast cache for secondary storage, since 
+data in secondary storage must be copied into main memory for use, and 
+data must be in main memory before being moved to secondary storage for 
+safekeeping. The file-system data, which resides permanently on secondary 
+storage, may appear on several levels in the storage hierarchy. At the highest 
+level, the operating system may maintain a cache of file-system data in main 
+memory. In addition, electronic RAM disks (also known as 
+may be used for high-speed storage that is accessed through the file-system 
+interface. The bulk of secondary storage is on magnetic disks. The magnetic-
+disk storage, in turn, is often backed up onto magnetic tapes or removable 
+disks to protect against data loss in case of a hard-disk failure. Some systems 
+autoinatically archive old file data from secondary storage to tertiary storage, 
+such as tape jukeboxes, to lower the storage cost (see Chapter 12). 
+The movement of information between levels of a storage hierarchy may 
+be either explicit or implicit, depending on the hardware design and the 
+controlling operating-system software. f_o].')!LStilnce,datatransfe~ from cache 
+_l~CPU 
+~'11~cl_ !"~g~~!~:r-_s _is __ ~1suall y ahardvvare function, with no op-era t[ii.g=sy-s tern 
+intervention. In contrast, transfer of daTa-from- aisk to memory is usually 
+controlledby the-op~ra-t!:ri.g"system. 
+-
+- fn a 11ier2rrchical storage structure, the same data may appear in different 
+levels of the storage system. For example, suppose that an integer A that is to 
+be incremented by 1 is located in file B, and file B resides on magnetic disk. 
+The increment operation proceeds by first issuing an I/O operation to copy the 
+disk block on which A resides to main memory. This operation is followed by 
+copying A to the cache and to an internal register. Thus, the copy of A appears 
+in several places: on the magnetic disk, in main memory, in the cache, and in an 
+internal register (see Figure 1.12). Once the increment takes place in the internal 
+register, the value of A differs in the various storage systems. The value of A 
+becomes the same only after the new value of A is written from the internal 
+register back to the magnetic disk. 
+In a computing environment where only one process executes at a tim.e, 
+this arrangement poses no difficulties, since an access to integer A will always 
+be to the copy at the highest level of the hierarchy. However, in a multitasking 
+environment, where the CPU is switched back and -forth-among var1ous 
+processes~ extreme care must be taken to ensure that, if several processe~vv:is}l 
+i:o-accessA, then each of these processes will obtain the most recently updated 
+___ c_=--.C. of A. 
+-
+-
+-
+-
+The situation becomes more complicated in a multiprocessor environment 
+where, in addition to maintaining internal registers, each of the CPUs also 
+contains a local cache (Figure 1.6). ~'"1_ su~bC1:.1l_<:_n~i£o!_l:_Il'l_~1lt,~S<2EY()f_A IJ.t~y 
+exist simultaneouslyinseyeral caches. Since the variousCPUs can all execute 
+.S:2~1c~r~~l~tly,"\,Ve-must1nake surethat an 
+to the value ofA in one cache 
+Figure 1.12 Migration of integer A from disk to register. 
+
+1.9 
+1.9 
+29 
+1.8.4 1/0 Systems 
+One of the purposes of a11 operating system is to hide the peculiarities ofspecific 
+hardware d~~ic:~Jro1n th~l1S~J:: For example, in UNIX, the peculiarities of I/O 
+devices are hidden from the bulk of the operating system itself by the I/0 
+subsystem. The I/O subsystem consists of several components: 
+A memory-management component that includes buffering, caching, and 
+spooling 
+A general device-driver interface 
+Drivers for specific hardware devices 
+Only the device driver knows the peculiarities of the specific device to which 
+it is assigned. 
+We discussed in Section 1.2.3 how interrupt handlers and device drivers are 
+used in the construction of efficient I/O subsystems. In Chapter 13, we discuss 
+how the I/O subsystem interfaces to the other system components, manages 
+devices, transfers data, and detects I/0 completion. 
+If a computer system has multiple users and allows the concurrent execution 
+of multiple processes, then access to data must be regulated. For that purpose, 
+mechanisms ensure that files, memory segments, CPU, and other resources can 
+be operated on by only those processes that have gained proper authoriza-
+tion from the operating system. For example, memory-addressing hardware 
+ensures that a process can execute only within its own address space. The 
+timer ensures that no process can gain control of the CPU without eventually 
+relinquishing control. Device-control registers are not accessible to users, so 
+the integrity of the various peripheral devices is protected. 
+Protection, then, is any mechanism for controlling the access of processes 
+or users-to the resourcesdefined by a computer system. This mechanism rni1st 
+provide means to speCify the confrols to be imposed and means to enforce the 
+controls. 
+Protection can improve reliability by detecting latent errors at the interfaces 
+between component subsystems. Early detection of interface errors can often 
+prevent contamination of a healthy subsystem by another subsystem that is 
+
+30 
+Chapter 1 
+1.10 
+malfunctioning. Furthermore, an unprotected resource cannot defend against 
+use (or n<isuse) by an unauthorized or incompetent user. A protection-oriented 
+system provides a means to distinguish between authorized and unauthorized 
+usage, as we discuss in Chapter 14. 
+6§yt:;terl<_ca1lhave adequateprotection but still be prone to failure and 
+aDo_w inappr()priat~ acs~s~: Consider a user whose authentication information 
+(her means of identifying herself to the system) is stolen. Her data could be 
+copied or deleted, even though file and memory protection are working. It is 
+the job of 
+to defend a system from external and internal attacks. Such 
+attacks spread across a huge range and include viruses and worms, denial-of-
+service attacks (which use all of a system's resources and so keep legitimate 
+users out of the system), identity theft, and theft of service (unauthorized use 
+of a system). Prevention of some of these attacks is considered an operating-
+system function on some systems, while other systems leave the prevention to 
+policy or additional software. Due to the alarming rise in security incidents, 
+operating-system security features represent a fast-growing area of research 
+and implementation. Security is discussed in Chapter 15. 
+Protection and security require the system to be able to distinguish among 
+all its users. Most 
+maintain a list of user names and 
+--·--
+-
+In Windows Vista parlance, this is _<1_ 
+These numerical IDs are unique, one per user. When a user 
+logs in 
+system, the authentication stage determines the appropriate user 
+ID for the user. That user ID is associated with all of the user's processes and 
+threads. When an ID needs to be user readable, it is translated back to the user 
+name via the user name list. 
+In some circumstances, we wish to distinguish among sets of users rather 
+than individual users. For example, the owner of a file on a UNIX system may be 
+allowed to issue all operations on that file, whereas a selected set of users may 
+only be allowed to read the file. To accomplish this, we need to define a group 
+name and the set of users belonging to that group. Group functionality can 
+be implemented as a system-wide list of group names and 
+ic'1entifiers. 
+A user can be in one or more groups, depending on operating-system design 
+decisions. The user's group IDs are also included in every associated process 
+and thread. 
+In the course of normal use of a system, the user ID and 
+are s-l.iffici.e11t. HoV\Tever; a user sometimes needs to 
+to gain 
+extra permissions for an activity. The user may need access to a 
+fhatis 
+resh;icted,for examp1e.Operatmg systems provide various methods to allow 
+privilege escalation. On UNIX, for example, the setuid attribute on a program 
+causes that program to run with the user ID of the owner of the file, rather than 
+the current user's ID. The process runs with this 
+until it turns off 
+the extra privileges or terminates. 
+A distributed system is a collection of physically separate, possibly heteroge-
+neous, computer systems that are networked to provide the users with access 
+to the various resources that the system maintains. Access to a shared resource 
+
+1.10 
+31 
+increases computation speed, functionality, data availability, and reliability. 
+Some operating systems generalize network access as a form of file access, with 
+the details of networking contained in the network interface's device driver. 
+Others make users specifically invoke network functions. Generally, systems 
+contain a mix of the two modes-for example FTP and NFS. The protocols 
+that create a distributed system can greatly affect that system's utility and 
+popularity. 
+A 
+in the simplest terms, is a communication path between 
+two or more systems. Distributed systems depend on networking for their 
+functionality. Networks vary by the protocols used, the distances between 
+nodes, and the transport media. TCP /IP is the most common network protocol, 
+although ATM and other protocols are in widespread use. Likewise, operating-
+system support of protocols varies. Most operating systems support TCP /IP, 
+including the Windows and UNIX operating systems. Some systems support 
+proprietary protocols to suit their needs. To an operating system, a network 
+protocol simply needs an interface device-a network adapter, for example-
+with a device driver to manage it, as well as software to handle data. These 
+concepts are discussed throughout this book. 
+Networks are characterized based on the distances between their nodes. 
+A 
+computers within a room, a floor, 
+or a building. A 
+N) usually links buildings, cities, 
+or countries. A global company may have a WAN to com1ect its offices 
+worldwide. These networks may run one protocol or several protocols. The 
+continuing advent of new technologies brings about new forms of networks. 
+For example, a 
+{]'/!Al··I} could link buildings within 
+'.::a city. BlueTooth and 802.11 devices use wireless technology to commt.micate 
+over a distance of several feet, in essence creating a 
+such 
+as might be found in a home. 
+The media to carry networks are equally varied. They include copper wires, 
+fiber strands, and wireless transmissions between satellites, microwave dishes, 
+and radios. When computing devices are connected to cellular phones, they 
+create a network. Even very short-range infrared communication can be used 
+for networking. At a rudimentary level, whenever computers communicate, 
+they use or create a network. These networks also vary in their performance 
+and reliability. 
+Some operating systems have taken the concept of networks and dis-
+tributed systems further than the notion of providing network connectivity. A 
+is an operating system that provides features such 
+as file sharing across the network and that includes a communication scheme 
+that allows different processes on different computers to exchange messages. 
+A computer rmming a network operating system acts autonomously from all 
+other computers on the network, although it is aware of the network and is 
+able to communicate with other networked computers. A distributed operat-
+ing system provides a less autonomous envirorunent: The different operating 
+systems comm"Lmicate closely enough to provide the illusion that only a single 
+operating system controls the network. 
+We cover computer networks and distributed systems in Chapters 16 
+through 18. 
+
+32 
+Chapter 1 
+1.11 
+The discussion thus far has focused on the general-purpose computer systems 
+that we are all familiar with. There are, however, other classes of computer 
+systems whose functions are more limited and whose objective is to deal with 
+limited computation domains. 
+1.11.1 
+Real-Time Embedded Systems 
+Embedded computers are the most prevalent form of computers in existence. 
+These devices are found everywhere, from car engines and manufacturing 
+robots to DVDs and microwave ovens. They tend to have very specific tasks. 
+The systencs they run on are usually primitive, and so the operating systems 
+provide limited features. Usually, they have little or no user interface, preferring 
+to spend their time monitoring and managing hardware devices, such as 
+automobile engines and robotic arms. 
+These embedded systems vary considerably. Some are general-purpose 
+computers, running standard operating systems-such as UNIX-with 
+special-purpose applications to implement the functionality. Others are 
+hardware devices with a special-purpose embedded operating system 
+providing just the functionality desired. Yet others are hardware devices 
+with application-specific integrated circuits 
+that perform their tasks 
+without an operating system. 
+The use of embedded systems continues to expand. The power of these 
+devices, both as standalone units and as elements of networks and the Web, 
+is sure to increase as well. Even now, entire houses can be computerized, so 
+that a central computer-either a general-purpose computer or an embedded 
+system-can control heating and lighting, alarm systems, and even coffee 
+makers. Web access can enable a home owner to tell the house to heat up 
+before she arrives home. Someday, the refrigerator may call the grocery store 
+when it notices the milk is gone. 
+Embedded systems almost always run 
+A 
+real-time system is used when rigid time requirements 
+been placed on 
+the operation of a processor or the flow of data; thus, it is often used as a 
+control device in a dedicated application. Sensors bring data to the computer. 
+The computer must analyze the data and possibly adjust controls to modify 
+the sensor inputs. Systems that control scientific experiments, medical imaging 
+systems, industrial control systems, and certain display systems are real-
+time systems. Some automobile-engine fuel-injection systems, home-appliance 
+controllers, and weapon systems are also real-time systems. 
+A real-time system has well-defined, fixed time constraints. Processing 
+must be done within the defined constraints, or the system will fail. For instance, 
+it would not do for a robot arm to be instructed to halt after it had smashed 
+into the car it was building. A real-time system functions correctly only if it 
+returns the correct result within its time constraints. Contrast this system with 
+a time-sharing system, where it is desirable (but not mandatory) to respond 
+quickly or a batch system, which may have no time constraints at all. 
+In Chapter 19, we cover real-time embedded systems in great detail. In 
+Chapter 5, we consider the scheduling facility needed to implement real-time 
+functionality in an operating system. In Chapter 9, we describe the design 
+
+1.11 
+33 
+of memory management for real-time computing. Finally, in Chapter 22, we 
+describe the real-time components of the Windows XP operating system. 
+1.11.2 Multimedia Systems 
+Most operating systems are designed to handle conventional data such as 
+text files, progran'ls, word-processing documents, and spreadsheets. However, 
+a recent trend in technology is the incorporation of multimedia data into 
+computer systems. Multimedia data consist of audio and video files as well as 
+conventional files. These data differ from conventional data in that multimedia 
+data-such as frames of video-must be delivered (streamed) according to 
+certain time restrictions (for example, 30 frames per second). 
+Multimedia describes a wide range of applications in popular use today. 
+These include audio files such as MP3, DVD movies, video conferencing, and 
+short video clips of movie previews or news stories downloaded over the 
+Internet. Multimedia applications may also include live webcasts (broadcasting 
+over the World Wide Web) of speeches or sporting events and even live 
+webcams that allow a viewer in Manhattan to observe customers at a cafe 
+in Paris. Multimedia applications need not be either audio or video; rather, a 
+multimedia application often includes a combination of both. For example, a 
+movie may consist of separate audio and video tracks. Nor must multimedia 
+applications be delivered only to desktop personal computers. Increasingly, 
+they are being directed toward smaller devices, including PDAs and cellular 
+telephones. For example, a stock trader may have stock quotes delivered 
+wirelessly and in real time to his PDA. 
+In Chapter 20, we explore the demands of multimedia applications, 
+describe how multimedia data differ from conventional data, and explain how 
+the nature of these data affects the design of operating systems that support 
+the requirements of multimedia systems. 
+1.11.3 Handheld Systems 
+include personal digital assistants (PDAs), such as Palm 
+and Pocket-Pes, and cellular telephones, many of which use special-purpose 
+embedded operating systems. Developers of handheld systems and applica-
+tions face many challenges, most of which are due to the limited size of such 
+devices. For example, a PDA is typically about 5 inches in height and 3 inches 
+in width, and it weighs less than one-half pound. Because of their size, most 
+handheld devices have small amounts of memory, slow processors, and small 
+display screens. We take a look now at each of these limitations. 
+The amount of physical memory in a handheld depends on the device, but 
+typically it is somewhere between 1 MB and 1 GB. (Contrast this with a typical 
+PC or workstation, which may have several gigabytes of memory.) As a result, 
+the operating system and applications must manage memory efficiently. This 
+includes returning all allocated memory to the memory manager when the 
+memory is not being used. In Chapter 9, we explore virtual memory, which 
+allows developers to write programs that behave as if the system has more 
+memory than is physically available. Currently, not many handheld devices 
+use virtual memory techniques, so program developers must work within the 
+confines of limited physical memory. 
+
+34 
+Chapter 1 
+1.12 
+A second issue of concern to developers of handheld devices is the speed 
+of the processor used in the devices. Processors for most handheld devices 
+run at a fraction of the speed of a processor in a PC. Faster processors require 
+more power. To include a faster processor in a handheld device would require 
+a larger battery, which would take up more space and would have to be 
+replaced (or recharged) more frequently. Most handheld devices use smaller, 
+slower processors that consume less power. Therefore, the operating system 
+and applications must be designed not to tax the processor. 
+The last issue confronting program designers for handheld devices is l/0. 
+A lack of physical space limits input methods to small keyboards, handwriting 
+recognition, or small screen-based keyboards. The small display screens limit 
+output options. Whereas a monitor for a home computer may measure up to 
+30 inches, the display for a handheld device is often no more than 3 inches 
+square. Familiar tasks, such as reading e-mail and browsing Web pages, must 
+be condensed into smaller displays. One approach for displaying the content 
+in Web pages is 
+where only a small subset of a Web page is 
+delivered and displayed on the handheld device. 
+Some handheld devices use wireless technology, such as BlueTooth or 
+802.11, allowing remote access to e-mail and Web browsing. Cellular telephones 
+with connectivity to the Internet fall into this category. However, for PDAs that 
+do not provide wireless access, downloading data typically requires the user 
+first to download the data to a PC or workstation and then download the data 
+to the PDA. Some PDAs allow data to be directly copied from one device to 
+another using an infrared link 
+Generally, the limitations in the functionality of PDAs are balanced by 
+their convenience and portability. Their use continues to expand as network 
+com1ections become more available and other options, such as digital cameras 
+and MP3 players, expand their utility. 
+So far, we have provided an overview of computer-system organization and 
+major operating-system components. We conclude with a brief overview of 
+how these are used in a variety of computing environments. 
+1.12.1 Traditional Computing 
+As computing matures, the lines separating many of the traditional computing 
+environments are blurring. Consider the "typical office environment." Just a 
+few years ago, this environment consisted of PCs connected to a network, 
+with servers providing file and print services. Remote access was awkward, 
+and portability was achieved by use of laptop computers. Terminals attached 
+to mainframes were prevalent at many companies as well, with even fewer 
+remote access and portability options. 
+The current trend is toward providing more ways to access these computing 
+environments. Web technologies are stretching the boundaries of traditional 
+computing. Companies establish 
+which provide Web accessibility 
+to their internal servers. 
+ccxEpu1as are essentially terminals that 
+understand Web-based computing. Handheld computers can synchronize with 
+
+1.12 
+35 
+PCs to allow very portable use of con1pany information. Handheld PDAs can 
+also connect to 
+to use the company's Web portal (as well as 
+the myriad other Web resources). 
+At home, most users had a single computer with a slow modem connection 
+to the office, the Internet, or both. Today, network-connection speeds once 
+available only at great cost are relatively inexpensive, giving home users more 
+access to more data. These fast data connections are allowing home computers 
+to serve up Web pages and to run networks that include printers, client PCs, 
+and servers. Some homes even have 
+to protect their networks from 
+security breaches. Those firewalls cost thousands of dollars a few years ago 
+and did not even exist a decade ago. 
+In the latter half of the previous century, computing resources were scarce. 
+(Before that, they were nonexistent!) For a period of time, systems were either 
+batch or interactive. Batch systems processed jobs in bulk, with predetermined 
+input (from files or other sources of data). Interactive systems waited for 
+input from users. To optimize the use of the computing resources, multiple 
+users shared time on these systems. Time-sharing systems used a timer and 
+scheduling algorithms to rapidly cycle processes through the CPU, giving each 
+user a share of the resources. 
+Today, traditional time-sharing systems are uncommon. The same schedul-
+ing technique is still in use on workstations and servers, but frequently the 
+processes are all owned by the same user (or a single user and the operating 
+system). User processes, and system processes that provide services to the user, 
+are managed so that each frequently gets a slice of computer time. Consider 
+the windows created while a user is working on a PC, for example, and the fact 
+that they may be performing different tasks at the same time. 
+1.12.2 Client-Server Computing 
+As PCs have become faste1~ more powerful, and cheaper, designers have shifted 
+away from centralized system architecture. Terminals connected to centralized 
+systems are now being supplanted by PCs. Correspondingly, user-interface 
+functionality once handled directly by centralized systems is increasingly being 
+handled by PCs. As a result, many of today' s systems act as 
+to satisfy requests generated by 
+This form of specialized 
+distributed system, called a 
+system, has the general structure 
+depicted in Figure 1.13. 
+Server systems can be broadly categorized as compute servers and file 
+servers: 
+Figure 1.13 General structure of a client-server system. 
+
+36 
+Chapter 1 
+The 
+provides an interface to which a client can 
+send a request to perform an action (for example, read data); in response, 
+the server executes the action and sends back results to the client A server 
+running a database that responds to client requests for data is an example 
+of such a system. 
+The 
+provides a file-system interface where clients can 
+create, update, read, and delete files. An example of such a system is a Web 
+server that delivers files to clients running Web browsers. 
+1.12.3 Peer-to-Peer Computing 
+Another structure for a distributed system is the peer-to-peer (P2P) system 
+model. In this model, clients and servers are not distinguished from one 
+another; instead, all nodes within the system are considered peers, and each 
+ncay act as either a client or a server, depending on whether it is requesting or 
+providing a service. Peer-to-peer systems offer an advantage over traditional 
+client-server systems. In a client-server system, the server is a bottleneck; but 
+in a peer-to-peer system, services can be provided by several nodes distributed 
+throughout the network. 
+To participate in a peer-to-peer system, a node must first join the network 
+of peers. Once a node has joined the network, it can begin providing services 
+to-and requesting services from -other nodes in the network. Determining 
+what services are available is accomplished in one of two general ways: 
+When a node joins a network, it registers its service with a centralized 
+lookup service on the network. Any node desiring a specific service first 
+contacts this centralized lookup service to determine which node provides 
+the service. The remainder of the communication takes place between the 
+client and the service provider. 
+A peer acting as a client must first discover what node provides a desired 
+service by broadcasting a request for the service to all other nodes in the 
+network. The node (or nodes) providing that service responds to the peer 
+making the request. To support this approach, a discovery protocol must be 
+provided that allows peers to discover services provided by other peers in 
+the network. 
+Peer-to-peer networks gained widespread popularity in the late 1990s with 
+several file-sharing services, such as Napster and Gnutella, that enable peers 
+to exchange files with one another. The Napster system uses an approach 
+similar to the first type described above: a centralized server maintains an 
+index of all files stored on peer nodes in the Napster network, and the actual 
+exchanging of files takes place between the peer nodes. The Gnutella system 
+uses a technique similar to the second type: a client broadcasts file requests 
+to other nodes in the system, and nodes that can service the request respond 
+directly to the client. The future of exchanging files remains uncertain because 
+many of the files are copyrighted (music, for example), and there are laws 
+governing the distribution of copyrighted material. In any case, though, peer-
+to-peer technology undoubtedly will play a role in the future of many services, 
+such as searching, file exchange, and e-mail. 
+
+1.13 
+1.13 
+37 
+1.12.4 Web-Based Computing 
+The Web has become ubiquitous/ leading to more access by a wider variety of 
+devices than was dreamt of a few years ago. PCs are still the most prevalent 
+access devices/ with workstations/ handheld PDAs 1 and even cell phones also 
+providing access. 
+Web computing has increased the emphasis on networking. Devices that 
+were not previously networked now include wired or wireless access. Devices 
+that were networked now have faster network connectivity/ provided by either 
+improved networking technology optimized network implementation code/ 
+or both. 
+The implementation of Web-based computing has given rise to new 
+categories of devices/ such as 
+which distribute network 
+connections an1.ong a pool of similar servers. Operating systems like Windows 
+95 1 which acted as Web clients/ have evolved into Linux and Windows XP 1 which 
+can act as Web servers as well as clients. Generally/ the Web has increased the 
+complexity of devices because their users require them to be Web-enabled. 
+The study of operating systems/ as noted earlier/ is made easier by the 
+availability of a vast number of open-source releases. 
+are those made available in source-code format rather than as 
+compiled binary code. Linux is the most famous open- source operating system, 
+while Microsoft Windows is a well-known example of the opposite dosed-
+approach. Starting with the source code allows the programmer to 
+produce binary code that can be executed on a system. Doing the opposite-
+the source code from the binaries-is quite a lot of work1 
+and useful items such as comments are never recovered. Learning operating 
+systems by examining the actual source code1 rather than reading summaries of 
+that code/ can be extremely useful. With the source code in hand/ a student can 
+modify the operating system and then compile and nm the code to try out those 
+changes1 which is another excellent learning tool. This text indudes projects 
+that involve modifying operating system source code/ while also describing 
+algorithms at a high level to be sure all important operating system topics are 
+covered. Throughout the text1 we provide pointers to examples of open-source 
+code for deeper study. 
+There are many benefits to open-source operating systems/ including a 
+commtmity of interested (and usually unpaid) programmers who contribute 
+to the code by helping to debug it analyze it/ provide support/ and suggest 
+changes. Arguably/ open-source code is more secure than closed-source code 
+because many more eyes are viewing the code. Certainly open-source code has 
+bugs/ but open-source advocates argue that bugs tend to be found and fixed 
+faster owing to the number of people using and viewing the code. Companies 
+that earn revenue from selling their programs tend to be hesitant to open-source 
+their code/ but Red Hat/ SUSE1 Sun/ and a myriad of other companies are doing 
+just that and showing that commercial companies benefit/ rather than suffer/ 
+when they open-source their code. Revenue can be generated through support 
+contracts and the sale of hardware on which the software runs/ for example. 
+
+2.1 
+An operating system provides the environment within which programs are 
+executed. Internally, operating systems vary greatly in their makeup, since 
+they are organized along many different lines. The design of a new operating 
+system is a major task. It is important that the goals of the system be well 
+defined before the design begins. These goals form the basis for choices among 
+various algorithms and strategies. 
+We can view an operating system from several vantage points. One view 
+focuses on the services that the system provides; another, on the interface that 
+it makes available to users and programmers; a third, on its components and 
+their interconnections. In this chapter, we explore all three aspects of operating 
+systems, showin.g the viewpoints of users, programmers, and operating-system 
+designers. We consider what services an operating system provides, how 
+they are provided, how they are debugged, and what the various method-
+ologies are for designing such systems. Finally, we describe how operating 
+systems are created and how a computer starts its operating system. 
+To describe the services an operating system provides to users, processes, 
+and other systems. 
+To discuss the various ways of structuring an operating system. 
+To explain how operating systems are installed and customized and how 
+they boot. 
+An operating system provides an environment for the execution of programs. 
+It provides certain services to programs and to the users of those programs. 
+The specific services provided, of course, differ from one operating system to 
+another, but we can identify common classes. These operating-system services 
+are provided for the convenience of the programmer, to n1.ake the programming 
+49 
+
+50 
+Chapter 2 
+user and other system programs 
+hardware 
+Figure 2. i 
+A view of operating system services. 
+task easier. Figure 2.1 shows one view of the various operating-system services 
+and how they interrelate. 
+One set of operating-system services provides functions that are helpfuJ to 
+the user. 
+~ 
+~ 
+User interface. Almost all operating systems have a 
+This interface can take several forms. One is a Dcfr'":c;~, 
+which uses text commands and a method for entering them 
+(say, a program to allow entering and editing of commands). Another is 
+a batch 
+in which commands and directives to control those 
+commands are entered into files, and those files are executed. Most 
+commonly, a 
+is used. Here, the interface 
+is a window system with a pointing device to direct I/0, choose from 
+menus, and make selections and a keyboard to enter text. Some systems 
+provide two or all three of these variations. 
+Program execution. The system must be able to load a program into 
+memory and to run that program. The program must be able to end its 
+execution, either normally or abnormally (indicating error). 
+I/O operations. A running program may require I/0, which may involve a 
+file or an I/0 device. For specific devices, special functions may be desired 
+(such as recording to a CD or DVD drive or blanking a display screen). For 
+efficiency and protection, users usually cannot control I/0 devices directly. 
+Therefore, the operating system must provide a means to do I/0. 
+File-system manipulation. The file system is of particular interest. Obvi-
+ously, programs need to read and write files and directories. They also 
+need to create and delete them by name, search for a given file, and list file 
+information. Finally, some programs include permissions management to 
+allow or deny access to files or directories based on file ownership. Many 
+operating systems provide a variety of file systems, sometimes to allow 
+personal choice, and sometimes to provide specific features or performance 
+characteristics. 
+
+2.1 
+51 
+Communications. There are many circumstances in which one process 
+needs to exchange information with another process. Such communication 
+ncay occur between processes that are executing on the same computer 
+or between processes that are executing on different computer systems 
+tied together by a computer network. Communications may be imple-
+mented via shared rnenwry or through message passing, in which packets of 
+information are moved between processes by the operating system. 
+Error detection. The operating system needs to be constantly aware of 
+possible errors. Errors may occur in the CPU and memory hardware (such 
+as a memory error or a power failure), in I/0 devices (such as a parity error 
+on tape, a connection failure on a network, or lack of paper in the printer), 
+and in the user program (such as an arithmetic overflow, an attempt to 
+access an illegal memory location, or a too-great use of CPU time). For each 
+type of error, the operating system should take the appropriate action to 
+ensure correct and consistent computing. Of course, there is variation in 
+how operating systems react to and correct errors. Debugging facilities can 
+greatly enhance the user's and programmer's abilities to use the system 
+efficiently. 
+Another set of operating-system functions exists not for helping the user 
+but rather for ensuring the efficient operation of the system itself. Systems with 
+multiple users can gain efficiency by sharing the computer resources among 
+the users. 
+Resource allocation. When there are I}lultiple usersormultiple jobs 
+rmuung at the sametime, resources must be allocated to each of them. 
+Many d1Herent -types of resources are managed by the operating system. 
+Some (such as CPU cycles, main memory, and file storage) may have special 
+allocation code, whereas others (such as I/0 devices) may have much more 
+general request and release code. For instance, in determining how best to 
+use the CPU, operating systems have CPU-scheduling routines that take into 
+account the speed of the CPU, the jobs that must be executed, the number of 
+registers available, and other factors. There may also be routines to allocate 
+printers, modems, USB storage drives, and other peripheral devices. 
+Accounting. Vl[e want to_keeptrack of whichusers use}lovy rnL1C:hand 
+what kindsofcomputer resources. This record keeping may be used for 
+accoun:tii1g (so thai: users can be billed) or simply for accumulating usage 
+statistics. Usage statistics may be a valuable tool for researchers who wish 
+to reconfigure the system to improve computing services. 
+Protection and security. The owners of information stored in a multiuser or 
+networked computer system may want to control use of that information. 
+When. several separate processes execute concurrently, it ~hould not be 
+possible for one process to interfere with the others or with the operating 
+system itself. Protection iiwolves ensuring that all access to systerr1-
+resources 1S -controlled. Security of the system from outsiders is also 
+important. Such security starts with requiring each user to authenticate 
+himself or herself to the system, usually by means of a password, to gain 
+access to system resources. It extends to defending external I/0 devices, 
+
+52 
+Chapter 2 
+2.2 
+including modems and network adapters, from invalid access attempts 
+and to recording all such connections for detection of break-ins. If a system 
+is to be protected and secure, precautions must be instituted throughout 
+it. A chain is only as strong as its weakest link. 
+We mentioned earlier that there are several ways for users to interface with 
+the operating system. Here, we discuss two fundamental approaches. One 
+provides a command-line interface, or 
+that allows users 
+to directly enter commands to be performed by the operating system. The 
+other allows users to interface with the operating system via a graphical user 
+interface, or GUI. 
+2.2.1 Command Interpreter 
+Some operating systems include the command interpreter in the kernel. Others, 
+such as Windows XP and UNIX, treat the command interpreter as a special 
+program that is rmming when a job is initiated or when a user first logs on 
+(on interactive systems). On systems with multiple command interpreters to 
+choose from, the interpreters are known as shells. For example, on UNIX and 
+Linux systems, a user may choose among several different shells, including 
+the Bourne shell, C shell, Bourne-Again shell, Korn shell, and others. Third-party 
+shells and free user-written shells are also available. Most shells provide similar 
+functionality, and a user's choice of which shell to use is generally based on 
+personal preference. Figure 2.2 shows the Bourne shell command interpreter 
+being used on Solaris 10. 
+The main function of the command interpreter is to get and execute the next 
+user-specified command. Many of the commands given at this level manipulate 
+files: create, delete, list, print, copy, execute, and so on. The MS-DOS and UNIX 
+shells operate in this way. These commands can be implemented in two general 
+ways. 
+In one approach, the command interpreter itself contains the code to 
+execute the command. For example, a command to delete a file may cause 
+the command interpreter to jump to a section of its code that sets up the 
+parameters and makes the appropriate system call. In this case, the number of 
+comn'lands that can be given determines the size of the command interpreter, 
+since each command requires its own implementing code. 
+An alternative approach -used by UNIX, among other operating systems 
+-implements most commands through system programs. In this case, the 
+command interpreter does not understand the cmnmand in any way; it merely 
+uses the command to identify a file to be loaded into memory and executed. 
+Thus, the UNIX command to delete a file 
+rm file.txt 
+would search for a file called rm, load the file into memory, and execute it with 
+the parameter file. txt. The function associated with the rm command would 
+be defined completely by the code in the file rm. In this way, programmers can 
+add new commands to the system easily by creating new files with the proper 
+
+0.0 
+0.0 
+r/s 
+0.0 
+0.6 
+console 
+2.2 
+0.2 
+0.0 
+0.2 
+0 
+0.0 
+0.0 
+0.0 0.0 
+0.0 
+0.0 
+0 
+0 
+extended device statistics 
+w/s 
+0.0 
+0.0 
+kr./s 
+klv/s 
+0.0 
+0.0 
+0.0 
+1 ogi nell 
+idle 
+1SJ un0718days 
+wai ·t actv 
+svc_t 
+9{tN 
+1i~b 
+0.0 
+0.0 
+0.0 
+0 
+0 
+0 
+0 
+0 
+load average: 0.09, 0.11, 8.66 
+JCPU 
+PCPU 
+what 
+1 
+/usr/bin/ssh-agent -- /usr/bi 
+18 
+4 w 
+Figure 2.2 The Bourne shell command interpreter in Solaris I 0. 
+53 
+names. The command-interpreter program, which can be small, does not have 
+to be changed for new commands to be added. 
+2.2.2 Graphical User Interfaces 
+A second strategy for interfacing with the operating system is through a user-
+friendly graphical user interface, or CUI. Here, rather than entering commands 
+directly via a command-line interface, users employ a mouse-based window-
+and-nl.enu system characterized by a 
+metaphor. The user moves the 
+mouse to position its pointer on images, or 
+on the screen (the desktop) 
+that represent programs, files, directories, and system functions. Depending 
+on the mouse pointer's location, clicking a button on the mouse can invoke a 
+program, select a file or directory-known as a folder-or pull down a menu 
+that contains commands. 
+Graphical user interfaces first appeared due in part to research taking place 
+in the early 1970s at Xerox PARC research facility. The first CUI appeared on 
+the Xerox Alto computer in 1973. However, graphical interfaces became more 
+widespread with the advent of Apple Macintosh computers in the 1980s. The 
+user interface for the Macintosh operating system (Mac OS) has undergone 
+various changes over the years, the most significant being the adoption of 
+the Aqua interface that appeared with Mac OS X. Microsoft's first version of 
+Windows-Version 1.0-was based on the addition of a CUI interface to the 
+MS-DOS operating system. Later versions of Windows have made cosmetic 
+changes in the appearance of the CUI along with several enhancements in its 
+functionality, including Windows Explorer. 
+
+54 
+Chapter 2 
+Traditionally, UNIX systencs have been dominated by command-line inter-
+faces. Various GUl interfaces are available, however, including the Common 
+Desktop Environment (CDE) and X-Windows systems, which are common 
+on commercial versions of UNIX, such as Solaris and IBM's AIX system. In 
+addition, there has been significant development in GUI designs from various 
+projects, such as I< Desktop Environment (or KDE) and the GNOME 
+desktop by the GNU project. Both the KDE and GNOME desktops run on Linux 
+and various UNIX systems and are available under open-source licenses, which 
+means their source code is readily available for reading and for modification 
+under specific license terms. 
+The choice of whether to use a command-line or GUI interface is mostly 
+one of personal preference. As a very general rule, many UNIX users prefer 
+command-line interfaces, as they often provide powerful shell interfaces. 
+In contrast, most Windows users are pleased to use the Windows GUI 
+environment and almost never use the MS-DOS shell interface. The various 
+changes undergone by the Macintosh operating systems provide a nice study 
+in contrast. Historically, Mac OS has not provided a command-line interface, 
+always requiring its users to interface with the operating system using its GUI. 
+However, with the release of Mac OS X (which is in part implemented using a 
+UNIX kernel), the operating system now provides both a new Aqua interface 
+and a command-line interface. Figure 2.3 is a screenshot of the Mac OS X GUI. 
+The user interface can vary from system to system and even from user 
+to user within a system. It typically is substantially removed from the actual 
+system structure. The design of a useful and friendly user interface is therefore 
+Figure 2.3 The Mac OS X GUI. 
+
+2.3 
+2.3 
+55 
+not a direct function of the operating systenc. In this book, we concentrate on 
+the fundamental problems of providing adequate service to user programs. 
+From the point of view of the operating system, we do not distinguish between 
+user programs and systern programs. 
+System calls provide an interface to the services made available by an operating 
+system. These calls are generally available as routines written in C and 
+C++, although certain low-level tasks (for example, tasks where hardware 
+must be accessed directly), may need to be written using assembly-language 
+instructions. 
+Before we discuss how an operating system makes system calls available, 
+let's first use an example to illustrate how system calls are used: writing a 
+simple program to read data from one file and copy them to another file. The 
+first input that the program will need is the names of the two files: the input file 
+and the output file. These names can be specified in many ways, depending 
+on the operating-system design. One approach is for the program to ask the 
+user for the names of the two files. In an interactive system, this approach will 
+require a sequence of system calls, first to write a prompting message on the 
+screen and then to read from the keyboard the characters that define the two 
+files. On mouse-based and icon-based systems, a menu of file names is usually 
+displayed in a window. The user can then use the mouse to select the source 
+name, and a window can be opened for the destination name to be specified. 
+This sequence requires many I/0 system calls. 
+Once the two file names are obtained, the program must open the input file 
+and create the output file. Each of these operations requires another system call. 
+There are also possible error conditions for each operation. When the program 
+tries to open the input file, it may find that there is no file of that name or that 
+the file is protected against access. In these cases, the program should print a 
+message on the console (another sequence of system calls) and then terminate 
+abnormally (another system call). If the input file exists, then we must create a 
+new output file. We may find that there is already an output file with the same 
+name. This situation may cause the program to abort (a system call), or we 
+may delete the existing file (another system call) and create a new one (another 
+system call). Another option, in an interactive system, is to ask the user (via 
+a sequence of system calls to output the prompting message and to read the 
+response from the termin.al) whether to replace the existing file or to abort the 
+program. 
+Now that both files are set up, we enter a loop that reads from the input 
+file (a system call) and writes to the output file (another system call). Each read 
+and write must return status information regarding various possible error 
+conditions. On input, the program may find that the end of the file has been 
+reached or that there was a hardware failure in the read (such as a parity error). 
+The write operation may encounter various errors, depending on the output 
+device (no more disk space, printer out of paper, and so on). 
+Finally, after the entire file is copied, the program may close both files 
+(another system call), write a message to the console or window (more 
+system calls), and finally terminate normally (the final system call). As we 
+
+56 
+Chapter 2 
+can see1 even simple programs may make heavy use of the operating system. 
+Frequently/ systems execute thousands of system calls per second. This system-
+call sequence is shown in Figure 2A. 
+Most programmers never see this level of detail however. Typically/ appli-
+caTiol1 developers design program.s accordir1g to an 
+---·-----~Jl~J'I}. Tl1e AJ'Ispecifies a set of functions 
+application programmer/ including the parameters that are passed to each 
+function and the return values the programmer can expect. Three of the most 
+common APis available to application programmers are the Win32 API for Win-
+dows systems, the POSIX API for POSIX-based systems (which include virtually 
+all versions of UNIX, Linux/ and Mac OS X), and the Java API for designing 
+programs that run on the Java virtual machine. Note that-unless specified 
+-the system-call names used throughout this text are generic examples. Each 
+operating system has its own name for each system call. 
+Behind the scenes/ the functions that make up an API typically invoke the 
+actual system calls on behalf of the application programmer. For example, the 
+Win32 function CreateProcess () (which unsurprisingly is used to create 
+a new process) actually calls the NTCreateProcess () system call in the 
+Windows kernel. Why would an application programnl.er prefer programming 
+according to an API rather than invoking actual system calls? There are several 
+reasons for doing so. One benefit of programming according to an API concerns 
+program portability: An application programmer designing a program using 
+an API can expect her program to compile and run on any system that supports 
+the same API (although in reality/ architectural differences often make this 
+more difficult than it may appear). Furthermore/ actual system calls can often 
+be more detailed and difficult to work with than the API available to an 
+application programmer. Regardless/ there often exists a strong correlation 
+between a function in the API and its associated system call within the kernel. 
+Example System Call Sequence 
+Acquire input file name 
+Write prompt to screen 
+Accept input 
+Acquire output file name 
+Write prompt to screen 
+Accept input 
+Open the input file 
+if file doesn't exist, abort 
+Create output file 
+if file exists, abort 
+Loop 
+Read from input file 
+Write to output file 
+Until. read fails 
+Close output file 
+Write completion message to screen 
+Terminate normally 
+Figure 2.4 Example of how system calls are used. 
+
+2.3 
+EXAMPLE OF STANDARD API 
+As an example of a standard APT, consider the ReadFile 0 £unction in the 
+Win32 API-a function for reading £rom a file. The API for this function 
+appears in Figure 2.5 . 
+.. · 
+return value 
+~ 
+BOOL 
+ReadFile c 
+t 
+function name 
+(HANDLE 
+LPVOID 
+DWORD 
+LPDWORD 
+LPOVERLAPPED 
+file, 
+~ 
+buffer, 
+bytes To Read, 
+parameters 
+bytes Read, 
+ovl); 
+Figure 2.5 The API for the ReadFile () function. 
+A description of the parameters passed to ReadFile 0 is as follows: 
+HANDLE file-the file to be read 
+LPVOID buffer-a buffer where the data will be read into and written 
+from 
+DWORD bytesToRead-the number of bytes to be read into the buffer 
+LPDWORD bytesRead -the number of bytes read during the last read 
+LPOVERLAPPED ovl-indicates if overlapped I/0 is being used 
+57 
+In fact, many of the POSIX and Win32 APis are similar to the native system calls 
+provided by the UNIX, Linux, and Windows operating systems. 
+The run-time support system (a set of functions built into libraries included 
+with a compiler) for most programming languages provides a system-call 
+interface that serves as the link to system calls made available by the operating 
+system. The system-call interface intercepts function calls in the API and 
+invokes the necessary system calls within the operating system. Typically, 
+a number is associated with each system call, and the system-call interface 
+maintains a table indexed according to these nun'lbers. The system call interface 
+then invokes the intended system call in the operating-system kernel and 
+returns the status of the system call and any return values. 
+The caller need know nothing about how the system call is implemented or 
+what it does during execution. Rathel~ it need only obey the API and understand 
+what the operating system will do as a result of the execution of that system 
+calL Thus, most of the details of the operating-system interface are hidden from 
+the programmer by the API and are managed by the run-time support library. 
+The relationship between an API, the system-call interface, and the operating 
+
+58 
+Chapter 2 
+2.4 
+user 
+mode 
+kernel 
+mode 
+user application 
+opeo () ( 
+J 
+open () 
+Implementation 
+of open () 
+system call 
+return 
+Figure 2.6 The handling of a user application invoking the open() system call. 
+system is shown in Figure 2.6, which illustrates how the operating system 
+handles a user application invoking the open() system call. 
+System calls occur in different ways, depending onthe COJ:rlpl1te.rjJlll§e. 
+Often, more information is required than simply the identity of the desired 
+system call. The exact type and ammmt of information vary according to the 
+particular operating system and call. For example, to get input, we may need 
+to specify the file or device to use as the source, as well as the address and 
+length of the memory buffer into which the input should be read. Of course, 
+the device or file and length may be implicit in the call. 
+Three general methods are used to pass parameters to the operating 
+system. The simplest approach is to pass the param.eters in registers. In some 
+cases, however, there may be more parameters than registers. In these cases, 
+the parameters are generally stored in a block, or table, in memory, and the 
+address of the block is passed as a parameter in a register (Figure 2.7). This 
+is the approach taken by Linux and Solaris. Parameters also can be placed, or 
+pushed, onto the stack by the program and popped oH the stacl( by the operatirl:g 
+~yste111: Some operating syste1ns prefer the block or stack method because those 
+approaches do not limit the number or length of parameters being passed. 
+System calls can be grouped ~oughly intc) six major categories: process 
+control, file manipuJation, device manipulation, information maintenance, 
+coinmuiii~a1ioii.~; <:lndpr{}tediol}. In Seci:lo:ri.s 2.4.l.~Hi.i=o~l.gli 2.L[6~·we diSCllSS 
+briefly the types of system calls that may be provided by an operating system. 
+Most of these system calls support, or are supported by, concepts and functions 
+
+X: parameters 
+for call 
+load address X 
+system call 13 +-~---
+user program 
+2.4 
+register 
+operating system 
+Figure 2.7 Passing of parameters as a table. 
+59 
+that are discussed in later chapters. Figure 2.8 summarizes the types of system 
+calls normally provided by an operating system. 
+2.4.1 Process Control 
+A running program needs to be able to halt its execution either normally (end) 
+or abnormally (abort). If a system call is made to terminate the currently 
+ruru1il1g program abnormally, or if the program runs into a problem and 
+causes an error trap, a dump of memory is sometimes taken and an error 
+message generated. The dump is written to disk and may be examined by a 
+system program designed to aid the programmer in finding and 
+correcting bugs-to determine the cause of the problem. Under either normal 
+or abnormal circumstances, the operating system must transfer control to the 
+invoking command mterpreter. The command interpreter then reads the next 
+cominand. In an interactive system, the command interpreter simply continues 
+with the next command; it is assumed that the user will issue an appropriate 
+command to respond to any error. In a GUI system, a pop-up wmdow might 
+alert the user to the error and ask for guidance. In a batch system, the command 
+interpreter usually terminates the entire job and continues with the next job. 
+Some systems allow control cards to indicate special recovery actions in case 
+an error occurs. A 
+is a batch-system concept. It is a command to 
+manage the execution of a process. If the program discovers an error in its input 
+and wants to terminate abnormally, it may also want to define an error level. 
+More severe errors can be indicated by a higher-level error parameter. It is then 
+possible to combi11e normal and abnormal termination by defining a normal 
+termination as an error at level 0. The command interpreter or a following 
+program can use this error level to determine the next action automatically. 
+A process or jobexecuting one P!()gral11_11l<:ly __ \;\'(ll1tto Joad andexecut~ 
+anotEer pro-gra1:n:.-Th1s feafl:11:e allows the cmnmand i11terpreter to execute a 
+program as directed by, for example, a user command, the click of a mouse, 
+or a batch command. An interesting question is where to return control when 
+the loaded program terminates. This question is related to the problem of 
+
+60 
+Chapter 2 
+Process control 
+o end, abort 
+o load, execute 
+o create process, terminate process 
+o get process attributes, set process attributes 
+o wait for time 
+o wait event, signal event 
+o allocate and free memory 
+File management 
+o create file, delete file 
+o open, close 
+o read, write, reposition 
+o get file attributes, set file attributes 
+e: Device management 
+o request device, release device 
+o read, write, reposition 
+o get device attributes, set device attributes 
+o logically attach or detach devices 
+Information maintenance 
+o get time or date, set time or date 
+o get system data, set system data 
+o get process, file, or device attributes 
+o set process, file, or device attributes 
+Communications 
+o create, delete communication connection 
+o send, receive messages 
+o transfer status information 
+o attach or detach remote devices 
+Figure 2.8 Types of system calls. 
+whether the existing program is lost, saved, or allowed to continue execution 
+concurrently with the new program. 
+If control returns to the existing program when the new program termi-
+nates, we must save the memory image of the existing program; thus, we have 
+effectively created a mechanism for one program to call another program. If 
+both programs continue concurrently, we have created a new job or process to 
+
+2.4 
+61 
+EXAMPLES OF WINDOWS AND UNIX SYSTEM CALLS 
+Windows 
+Unix 
+Process 
+CreateProcessO 
+fork() 
+Control 
+Exi tProcess () 
+exit() 
+WaitForSingleObject() 
+wait() 
+File 
+CreateFile () 
+open() 
+Manipulation 
+ReadFile() 
+read() 
+WriteFile () 
+write() 
+CloseHandle () 
+close() 
+Device 
+SetConsoleMode() 
+ioctl() 
+Manipulation 
+ReadConsole() 
+read() 
+WriteConsole() 
+write() 
+Information 
+GetCurrentProcessiD() 
+getpid() 
+Maintenance 
+SetTimerO 
+alarm() 
+Sleep() 
+sleep() 
+Communication 
+CreatePipe () 
+pipe() 
+CreateFileMapping() 
+shmget() 
+MapViewOfFile () 
+mmapO 
+Protection 
+SetFileSecurity() 
+chmod() 
+InitlializeSecurityDescriptor() 
+umask() 
+SetSecurityDescriptorGroup() 
+chown() 
+be multi programmed. Often, there is a system call specifically for this purpose 
+(create process or submit job). 
+If we create a new job or process, or perhaps even a set of jobs or processes, 
+we should be able to control its execution. This control requires the ability 
+to determine and reset the attributes of a job or process, including the job's 
+priority, its maximum allowable execution time, and so on (get process 
+attributes and set process attributes). We may also want to terminate 
+a job or process that we created (terminate process) if we find that it is 
+incorrect or is no longer needed. 
+Having created new jobs or processes, we may need to wait for them 
+to finish their execution. We may want to wait for a certain amount of time 
+to pass (wait time); more probably, we will want to wait for a specific event to 
+occur (wait event). The jobs or processes should then signal when that event 
+has occurred (signal event). Quite often, two or more processes may share 
+data. To ensure the integrity of the data being shared, operating systems often 
+provide system calls allowing a process to lock shared data, thus preventing 
+another process from accessing the data while it is locked. Typically such 
+system calls include acquire lock and release lock. System calls of these 
+
+62 
+Chapter 2 
+EXAMPLE OF STANDARD C LIBRARY 
+The standard C library provides a portion o£ the system-call interface for 
+many versions of UNIX and Linux. As an example, let's assume a C program 
+invokes the printf () statement The C library intercepts this call and 
+invokes the necessary system call(s) in the operating system-in this instance, 
+the write() system call. The C library takes the value returned by write() 
+and passes it back to the user program. This is shown in Figure 2.9. 
+user 
+mode 
+kernel 
+mode 
+I 
+I 
+#include <stdio.h> 
+int main () 
+{ 
+-
+printf ("Greetings"); I+ 
+return 0; 
+standard C library 
+write ( ) 
+system call 
+I 
+I 
+) 
+Figure 2.9 
+Standard C library handling of write(). 
+types, dealilcg with the coordination of concurrent processes, are discussed in 
+great detail in Chapter 6. 
+There are so many facets of and variations in process and job control that 
+we next use two examples-one involving a single-tasking system and the 
+other a multitasking system -to clarify these concepts. The MS-DOS operating 
+system is an example of a single-tasking system. It has a command interpreter 
+that is invoked when the computer is started (Figure 2.10(a)). Because MS-DOS 
+is single-tasking, it uses a sincple method to run a program and does not create 
+a new process. It loads the program into memory, writing over most of itself to 
+give the program as much memory as possible (Figure 2.10(b)). Next, it sets the 
+instruction pointer to the first instruction of the program. The program then 
+runs, and either an error causes a trap, or the program executes a system call 
+to terminate. In either case, the error code is saved in the system memory for 
+later use. Following this action, the small portion of the command interpreter 
+that was not overwritten resumes execution. Its first task is to reload the rest 
+
+free memory 
+command 
+interpreter 
+(a) 
+2.4 
+free memory 
+process 
+command 
+interpreter 
+(b) 
+Figure 2.10 MS-DOS execution. (a) At system startup. (b) Running a program. 
+63 
+of the command interpreter from disk Then the command interpreter makes 
+the previous error code available to the user or to the next program. 
+Fre~_J?_S_I)(der_i_\'~c!Jr()In B(:>J,"~eley UNIX) is an example of a multitasking 
+syst(:'~ When a user logs on to the system~ the shell oTthe user's-choice-
+is run. This shell is similar to the MS-DOS shell in that it accepts commands 
+and executes programs that the user requests. However, since FreeBSD is a 
+multitasking system, the command interpreter may continue running while 
+another program is executed (Figure 2.11). Io startanew:__process,_th_es1w1L 
+execu~£2\_:for-k()sy~tem call. Then, the selected program is loaded into 
+memory via an exec() system call, and the program is executed. Depending 
+on the way the command was issued, the shell then either waits for the process 
+to finish or runs the process "in the background." In the latter case, the shell 
+immediately requests another command. When a process is rmming in the 
+background, it cannot receive input directly fron1. the keyboard, because the 
+process D 
+free memory 
+process c 
+interpreter 
+Figure 2.11 
+FreeBSD running multiple programs. 
+
+64 
+Chapter 2 
+shell is using this resource. I/O is therefore done through files or through a CUI 
+interface. Meanwhile, the user is free to ask the shell to run other programs, to 
+monitor the progress of the running process, to change that program's priority, 
+and so on. When the process is done, it executes an exit () system call to 
+terminate, returning to the invoking process a status code of 0 or a nonzero 
+error code. This status or error code is then available to the shell or other 
+programs. Processes are discussed in Chapter 3 with a program example using 
+thefork() and exec() systemcalls. 
+2.4.2 File Management 
+The file system is discussed in more detail in Chapters 10 and 11. We can, 
+however, identify several common system calls dealing with files. 
+We first need to be able to create and delete files. Either system call 
+requires the name of the file and perhaps some of the file's attributes. Once the 
+file is created, we need to open it and to use it. We may also read, write, or 
+reposition (rewinding or skipping to the end of the file, for example). Finally, 
+we need to close the file, indicating that we are no longer using it. 
+We may need these same sets of operations for directories if we have a 
+directory structure for organizing files in the file system. In addition, for either 
+files or directories, we need to be able to determine the values of various 
+attributes and perhaps to reset them if necessary. File attributes include the 
+file name, file type, protection codes, accounting information, and so on. At 
+least two system calls, get file attribute and set file attribute, are 
+required for this function. Some operating systems provide many more calls, 
+such as calls for file move and copy. Others might provide an API that performs 
+those operations using code and other system calls, and others might just 
+provide system programs to perform those tasks. If the system programs are 
+callable by other programs, then each can be considered an API by other system 
+programs. 
+2.4.3 Device Management 
+A process may need several resources to execute-main memory, disk drives, 
+access to files, and so on. If the resources are available, they can be granted, 
+and control can be returned to the user process. Otherwise, the process will 
+have to wait until sufficient resources are available. 
+The various resources controlled by the operating system can be thought 
+of as devices. Some of these devices are physical devices (for example, disk 
+drives), while others can be thought of as abstract or virtual devices (for 
+example, files). A system with multiple users may require us to first request 
+the device, to ensure exclusive use of it. After we are finished with the device, 
+we release it. These functions are similar to the open and close system 
+calls for files. Other operating systems allow Llnmanaged access to devices. 
+The hazard then is the potential for device contention and perhaps deadlock, 
+which is described in Chapter 7. 
+Once the device has been requested (and allocated to us), we can read, 
+write, and (possibly) reposition the device, just as we can with files. In fact, 
+the similarity between I/0 devices and files is so great that many operating 
+systems, including UNIX, merge the two into a combined file-device structure. 
+In this case, a set of system calls is used on both files and devices. Sometimes, 
+
+2.4 
+65 
+l/0 devices are identified by special file names, directory placement, or file 
+attributes. 
+The user interface can also ncake files and devices appear to be similar1 even 
+though the underlying system calls are dissimilar. This is another example of 
+the many design decisions that go into building an operating system and user 
+interface. 
+2.4.4 Information Maintenance 
+Many system calls exist simply for the purpose of transferring information 
+between the user program and the operating system. For example, most 
+systems have a system call to return the current time and date. Other system 
+calls may return information about the system, such as the number of current 
+users, the version number of the operating system, the amount of free memory 
+or disk space, and so on. 
+Another set of system calls is helpful in debugging a program. Many 
+systems provide system calls to dump memory. This provision is useful for 
+debugging. A program trace lists each system call as it is executed. Even 
+microprocessors provide a CPU mode known as single step, in which a trap is 
+executed by the CPU after every instruction. The trap is usually caught by a 
+debugger. 
+Many operating systems provide a time profile of a program to indicate 
+the amount of time that the program executes at a particular location or set 
+of locations. A time prof~~~~(C_92:1i!~~~i!!'ceE a t~(lC~Ki2l<:ility_S?E!:egl1lar _tii"!'_eE 
+interrupts. At every occurrence of the timer interrupt, the value of the program 
+c6l-i:i~te1·-ls recorded. With sufficiently frequent timer interrupts, a statistical 
+picture of the time spent on various parts of the program can be obtained. 
+In addition, the operating system keeps information about all its processes, 
+and system calls are used to access this information. Generally, calls are 
+also used to reset the process information (get process attributes and 
+set process attributes). In Section 3.1.3, we discuss what information is 
+normally kept. 
+2.4.5 Communication 
+Th~~e~e two C()ll1l~cJ:JI1 __ mod_e_l~_()fi!'!e_!El·()_c~ss_col'rll"!'~~nica tion: the .. l"!'~ssag_e::_ 
+passing model and the shared-memory model. !nth~Il!~S~~g_e .. pa,s~iJ1gl"!'()'leL 
+t_l:t_~_C():rrtll12InJfa_fii~gpr§c~~§:~~-e)(c£lailg~ Il'l-es~~ges with one another to transfer 
+i:tcfo_rillaJi()J}. Messages can be exchanged between the processes either directly 
+or indirectly through a common mailbox. Before communication can take 
+place, a connection must be opened. The name of the other communicator 
+must be known, be it another process on the same system or a process on 
+another computer comcected by a communications network. Each computer 
+in a network has a host name by which it is commonly known. A host also 
+has a network identifier, such as an IP address. Similarly, each process has 
+a process narne, and this name is translated into an identifier by which the 
+operating systemcanrefertotheprocess. The get hostidand get processid 
+system calls do this translation. The identifiers are then passed to the general-
+purpose open and close calls provided by the file system or to specific 
+open connection and close connection system calls, depending on the 
+system's model of communication. The recipient process usually must give its 
+
+66 
+Chapter 2 
+2.5 
+permission for comnmnication to take place with an accept connection call. 
+Most processes that will be receiving connections are special-purpose daemons, 
+which are systems programs provided for that purpose. They execute a wait 
+for connection call and are awakened when a connection is rna de. The source 
+of the communication, known as the client, and the receiving daenwn, known as 
+a server, then exchange messages by using read message and write message 
+system calls. The close connection call terminates the communication. 
+_!11 the shared-me_1llorytllodel,proc~sses use s:tlared memorycreate and 
+shared memory attach system calls to create 2rt1d gain access toi·egions oT 
+n1emory owned by other processes. Recall that, normally, the operatinisystein 
+hiesf() prevei1foiie process-from accessing another process's memory. Shared 
+memory requires that two or more processes agree to remove this restriction. 
+They can then exchange information by reading and writing data in the shared 
+areas. The form of the data is determined by the processes and are not under 
+the operating system's control. The processes are also responsible for ensuring 
+that they are not writing to the same location sirnultaneously. Such mechanisms 
+are discussed in Chapter 6. In Chapter 4, we look at a variation of the process 
+scheme-threads-in which memory is shared by default. 
+Both of the models just discussed are common in operating systems, 
+and most systems implement both. Message passing is useful for exchanging 
+smaller amounts of data, because no conflicts need be avoided. It is also easier to 
+implement than is shared memory for intercomputer communication. Shared 
+memory allows maximum speed and convenience of communication, since it 
+can be done at memory transfer speeds when it takes place within a computer. 
+Problems exist, however, in the areas of protection and synchronization 
+between the processes sharing memory. 
+2.4.6 Protection 
+Protection provides a mechanism for controlling access to the resources 
+provided by a computer system. Historically, protection was a concern only on 
+multiprogrammed computer systems with several users. However, with the 
+advent of networking and the Internet, all computer systems, from servers to 
+PDAs, must be concerned with protection. 
+Typically, system calls providing protection include set permission and 
+get permission, which manipulate the permission settings of resources 
+such as files and disks. The allow user and deny user system calls spec-
+ify whether particular users can-or cannot-be allowed access to certain 
+resources. 
+We cover protection in Chapter 14 and the much larger issue of security in 
+Chapter 15. 
+Another aspect of a modern system is the collection of system programs. Recall 
+Figure 1.1, which depicted the logical computer hierarchy. At the lowest level is 
+hardware. Next is the operating system, then the system programs, and finally 
+the application programs. System programs, also known as system utilities, 
+provide a convenient enviromnenf1orprograrn-aevelopmeiiTa1inexecuhon. 
+
+2.5 
+67 
+Some of them are simply user interfaces to system calls; others are considerably 
+more complex. They can be divided into these categories: 
+File management. These programs create, delete, copy, rename, print, 
+dump, list, and generally ncanipulate files and directories. 
+Status information. Some programs simply ask the system for the date, 
+time, amount of available memory or disk space, number of users, or 
+similar status information. Others are more complex, providing detailed 
+performance, logging, and debugging information. Typically, these pro-
+grams format and print the output to the terminal or other output devices 
+or files or display it in a window of the GUI. Some systems also support a 
+which is used to store and retrieve configuration information. 
+File modification. Several text editors may be available to create and 
+modify the content of files stored on disk or other storage devices. There 
+may also be special commands to search contents of files or perform 
+transformations of the text. 
+Programming-language support. Compilers, assemblers, debuggers, and 
+interpreters for common programming languages (such as C, C++, Java, 
+Visual Basic, and PERL) are often provided to the user with the operating 
+system. 
+Program loading and execution. Once a program is assembled or com-
+piled, it must be loaded into memory to be executed. The system may 
+provide absolute loaders, relocatable loaders, linkage editors, and overlay 
+loaders. Debugging systems for either higher-level languages or machine 
+language are needed as well. 
+Communications. These programs provide the mechanism for creating 
+virtual comcections among processes, users, and computer systems. They 
+allow users to send rnessages to one another's screens, to browse Web 
+pages, to send electronic-mail messages, to log in remotely, or to transfer 
+files from one machine to another. 
+In addition to systems programs, most operating systems are supplied 
+with programs that are useful in solving common problems or performing 
+common operations. Such application]JJ:"Ogr!lJ1lS iitclLlde'if\T~l:l l:Jrg_wsf2r~, worg 
+processors an<i text f6-rinattEis,spreadsheets, database systems, compilers, 
+plott1i1g ana s-tafistica]-analysis packages, ancl gan1es~ - -- -
+- --------
+-----
+___ Tne viewoClne Opei;ating-sysrerri-seen b)T inost users is defined by the 
+application and system programs, rather than by the actual systern calls. 
+Consider a user's PC. When a user's computer is rumcing the Mac OS X 
+operating system, the user might see the GUI, featuring a mouse-and-windows 
+interface. Alternatively, or even in one of the windows, the user might have 
+a command-line UNIX shell. Both use the same set of system calls, but the 
+system calls look different and act in different ways. Further confusing the 
+user view, consider the user dual-booting from Mac OS X into Windows Vista. 
+Now the same user on the same hardware has two entirely different interfaces 
+and two sets of applications using the same physical resources. On the same 
+
+68 
+Chapter 2 
+2.6 
+hardware, then, a user can be exposed to multiple user interfaces sequentially 
+or concurrently. 
+In this section, we discuss problems we face in designing and implementing an 
+operating system. There are, of course, no complete solutions to such problems, 
+but there are approaches that have proved successful. 
+2.6.1 
+Design Goals 
+The first problem in designing a system is to define goals and specifications. 
+At the highest level, the design of the system will be affected by the choice of 
+hardware and the type of system: batch, time shared, single user, multiuser, 
+distributed, real time, or general purpose. 
+Beyond this highest design level, the requirements may be much harder to 
+specify. The requirements can, however, be divided into two basic groups: user 
+goals and system goals. 
+Users desire certain obvious properties in a system. The system should be 
+convenient to use, easy to learn and to use, reliable, safe, and fast. Of course, 
+these specifications are not particularly useful in the system design, since there 
+is no general agreement on how to achieve them. 
+A similar set of requirements can be defined by those people who must 
+design, create, maintain, and operate the system. The system should be easy to 
+design, implement, and maintain; and it should be flexible, reliable, error free, 
+and efficient. Again, these requirements are vague and may be interpreted in 
+various ways. 
+There is, in short, no unique solution to the problem of defining the 
+requirements for an operating system. The wide range of systems in existence 
+shows that different requirements can result in a large variety of solutions for 
+different environments. For example, the requirements for VxWorks, a real-
+time operating system for embedded systems, must have been substantially 
+different from those for MVS, a large multiuser, multiaccess operating system 
+for IBM mainframes. 
+Specifying and designing an operating system is a highly creative task. 
+Although no textbook can tell you how to do it, general principles have 
+been developed in the field of software engineering, and we turn now to 
+a discussion of some of these principles. 
+c 
+-
+2.6.2 Mechanisms and Policies 
+., 
+I 
+One important principle is the separation of policy from mechanisiil~echa:: 
+1'lis~s (:leter111il1e hcnu !Q_c:@-son'l~tl-til1g; p()lic:les (i~termir<e . zul1dT wilCbe done. 
+For example, the timer construct (see Section 1.5.2) is a mechani.sril:-forensill1ng 
+CPU protection, but deciding how long the timer is to be set for a particular 
+user is a policy decision. 
+_]'h~_S_§122l!Cl_tig!l:()fP.Qli_cy_an_ci~T1_echanism is imp()rtant for flexibility. Policies 
+are likely to change across places o1:'over- time. 'rri tll'e worst case, each change 
+in policy would require a change in the underlying mechanism. A general 
+mechanism insensitive to changes in policy would be more desirable. A change 
+
+2.6 
+69 
+in policy would then require redefinition of only certain parameters of the 
+system. For instance, consider a mechanism for giving priority to certain types 
+of programs over others. If the mechanism. is properly separated from policy, 
+it can be used either to support a policy decision that I/O-intensive progran1.s 
+should have priority over CPU-intensive ones or to support the opposite policy. 
+Microkernel=based operati1lg sy_sh:~ms(Section 2-?.3)take the separation of 
+mechai~1Sinai~Cfp?Hcyto one extreme byimplementing a basicset()j_pri111.iti_y~ 
+1Jiwding bfocks. These blocks are almost policy free, allowing more advanced 
+-1necharnsms and policies to be added via user-created kernel modules or via 
+user programs themselves. As an example, consider the history of UNIX. At 
+first, it had a time-sharing scheduler. In the latest version of Solaris, scheduling 
+is controlled by loadable tables. Depending on the table currently loaded, 
+the system can be time shared, batch processing, real time, fair share, or 
+any combination. Making the scheduling mechanism general purpose allows 
+vast policy changes to be made with a single load-new-table command. At 
+th_~ ()th~r extreme is_il_~~~t~l"Il ~:ttC:l~-as _\1\t'i_!l_t:l()!YJ'c_~ \1\T~~icJ:l ~Qt~ J1"leC:!'.c:l~~~1l~ 
+and_p()_1i_c_y__a_:r~_epc:()ciec:lj~1._!he sy~te~_ t(J_e_Ilforce__~gl()~~l()Ok an_cl_ fe_eL All 
+applications have similar interfaces, because the interface itself is built into 
+the kernel and system libraries. The Mac OS X operating system has similar 
+functionality. 
+Policy decisions are important for all resource allocation. Whenever it is 
+necessary to decide whether or not to allocate a resource, a policy decision must 
+be made. Whenever the question is how rather than what, it is a mechanism that 
+must be determined. 
+2.6.3 Implementation 
+Once an operating system is designed, it must be implemented. Traditionally, 
+operating systems have been written in assembly language. Now, however, 
+they are most commonly written in higher-level languages such as Cor C++. 
+The first system that was not written in assembly language was probably 
+the Master Control Program (MCP) for Burroughs computers. MCP was written 
+in a variant of ALGOL. MULTICS, developed at MIT, was written mainly in 
+PL/1. The Linux and Windows XP operating systems are written mostly in C, 
+although there are some small sections of assembly code for device drivers and 
+for saving and restoring the state of registers. 
+The advantages of using a higher-level language, or at least a systems-
+implementation language, for implementing operating systems are the same 
+as those accrued when the language is used for application programs: the 
+code can be written faster, is more compact, and is easier to understand and 
+debug. In addition, improvements in compiler technology will improve the 
+generated code for the entire operating system by simple recompilation. Finally, 
+an operating system is far easier to port-to move to some other hardware-if 
+it is written in a higher-level language. For example, MS-DOS was written in Intel 
+8088 assembly language. Consequently, it runs natively only on the Intel X86 
+family of CPUs. (Although MS-DOS runs natively only on Intel X86, emulators 
+of the X86 instruction set allow the operating system to run non-natively-
+slower, with more resource use-on other CPUs. 
+are programs that 
+duplicate the functionality of one system with another system.) The Linux 
+
+70 
+Chapter 2 
+2.7 
+operating system, in contrast, is written mostly inC and is available natively on 
+a number of different CPUs, including Intel X86, Sun SPARC, and IBMPowerPC. 
+The only possible disadvantages of implementing an operating system in a 
+higher-level language are reduced speed and increased storage requirements. 
+This, howeve1~ is no longer a major issue in today's systems. Although an 
+expert assembly-language programmer can produce efficient small routines, 
+for large programs a modern compiler can perform complex analysis and apply 
+sophisticated optimizations that produce excellent code. Modern processors 
+have deep pipelining and n1.ultiple functional units that can handle the details 
+of complex dependencies much more easily than can the human mind. 
+As is true in other systems, major performance improvements in operating 
+systems are more likely to be the result of better data structures and algorithms 
+than of excellent assembly-language code. In addition, although operating sys-
+tems are large, only a small amount of the code is critical to high performance; 
+the memory manager and the CPU scheduler are probably the most critical rou-
+tines. After the system is written and is working correctly, bottleneck routines 
+can be identified and can be replaced with assembly-language equivalents. 
+A system as large and complex as a modern operating system must be 
+engineered carefully if it is to function properly and be modified easily. A 
+common approach is to partition the task into small components rather than 
+have one monolithic system. Each of these modules should be a well-defined 
+portion of the system, with carefully defined inputs, outputs, and functions. 
+We have already discussed briefly in Chapter 1 the common components 
+of operating systems. In this section, we discuss how these components are 
+interconnected and melded into a kernel. 
+2.7.1 Simple Structure 
+Many commercial operating systen1.s do not have well-defined structures. 
+Frequently, such systems started as small, simple, and limited systems and 
+then grew beyond their original scope. MS-DOS is an example of such a systen1.. 
+It was originally designed and implemented by a few people who had no 
+idea that it would become so popular. It was written to provide the most 
+functionality in the least space, so it was not divided into modules carefully. 
+Figure 2.12 shows its structure. 
+In MS-DOS, the interfaces and levels of functionality are not wellseparated. 
+For rnstai1.ce, appii.cat1on programs aie able to access the basic I) b 1:outiri.es 
+to write directly to the display and disk drives. Such freedom leaves MS-DOS 
+vulnerable to errant (or malicio"LlS) programs, causing entire system crashes 
+when user programs fail. Of course, MS-DOS was also limited by the hardware 
+of its era. Because the Intel 8088 for which it was written provides no dual 
+mode and no hardware protection, the designers of MS-DOS had no choice but 
+to leave the base hardware accessible. 
+Another example of limited structuring is the original UNIX operating 
+systein. Like MS~Dc5S, UNix initially was limited· by hard ware ft1il.cfionali.ty. ft 
+consistsoftwo separahlepai;fS: thei<:eril.el ai1d the system prograrns:·Thekei:nel 
+
+2.7 
+71 
+ROM BIOS device drivers 
+Figure 2.12 MS-DOS layer structure. 
+is further separated into a series of interfaces and device drivers, which have 
+been added and expanded over the years as UNIX has evolved. We can view the 
+traditional UNIX operating system as being layered, as shown in Figure 2.13. 
+Everything below the system-call interface and above the physical hardware 
+is the kernel. Tb~l<(Ol"ll~Lp:rgvides__i:h~_fil~syste:rn, C::P_l!_s~h~duLiJl,g, memory 
+management, and other operating-system fm1ctions through system calls. 
+Taken i.n sum~thatl.sai1 enormous an1ol.lnt of functionality to be combined into 
+one level. This monolithic structure was difficult to implement and maintain. 
+2.7.2 Layered Approach 
+Withproper J:tarc:l\A!<lre support, operating systems can be brokeninto pieces 
+that are smaller and more app1:opriate thar:t}hose allowed by the _ _2!i2;g~af 
+(the users) 
+shells and commands 
+compilers and. interpreters 
+system libraries 
+signals terminal 
+handling 
+character 1/0 system 
+terminal drivers 
+file system 
+swapping block 1/0 
+system 
+disk and tape drivers 
+CPU scheduling 
+page replacement 
+demand paging 
+virtual memory 
+Figure 2.13 Traditional UNIX system structure. 
+
+72 
+Chapter 2 
+Figure 2.14 A layered operating system. 
+M~-:.QOi'ilncil]l'J_IX systeill~· The operating system can then retain much greater 
+control over the computer and over the applications that make use of that 
+computer. Implementers have more freedom in changing the inner workin.gs 
+of the system and in creating modular operating systems. Under a top-
+down approach, the overall functionality and features are determined and 
+are separated into components. Information hiding is also important, because 
+it leaves programmers free to implement the low-level routines as they see fit, 
+provided that the external interface of the routine stays unchanged and that 
+the routine itself performs the advertised task. 
+A system can be made modular in many ways. Qne method is the layered 
+approach, in which the operating system is broken ii1to a 1l.umberoflayers 
+""(lever8J.TI1eoottom.Iiiyer.(layer 0).1stheTiarawai;e; the nig:Ytesl: (layerN) .. 1sfhe 
+user interface. This layering structure is depicted in Figure 2.14. 
+An operating-system layer is an implementation of an abstract object made 
+up of data and the operations that can manipulate those data. A typical 
+operating-system layer-say, layer M -consists of data structures and a set 
+of routines that can be invoked by higher-level layers. Layer M, in turn, can 
+invoke operations on lower-level layers. 
+The main advantage of the layered approach is simplicity of construction 
+and debugging. The layers are selected so that each uses functions (operations) 
+and services of only lower-level layers. This approach simplifies debugging 
+and .system verification. The first layer can be debugged without any concern 
+for the rest of the system, because, by definition, it uses only the basic hardware 
+(which is assumed correct) to implement its functions. Once the first layer is 
+debugged, its correct functioning can be assumed while the second layer is 
+debugged, and so on. If an error is found during the debugging of a particular 
+layer, the error must be on that layer, because the layers below it are already 
+debugged. Thus, the design and implementation of the system are simplified. 
+
+2.7 
+73 
+Each layer is implemented with only those operations provided by lower-
+level layers. A layer does not need to know how these operations are 
+implemented; it needs to know only what these operations do. Hence, each 
+layer hides the existence of certain data structures, operations, and hardware 
+from higher-level layers. 
+The major difficulty with the layered approach involves appropriately 
+defining the various layers. Because a layer can use only lower-level layers, 
+careful planning is necessary. For example, the device driver for the backing 
+store (disk space used by virtual-memory algorithms) must be at a lower 
+level than the memory-management routines, because memory management 
+requires the ability to use the backing store. 
+Other requirements may not be so obvious. The backing-store driver would 
+normally be above the CPU scheduler, because the driver may need to wait for 
+I/0 and the CPU can be rescheduled during this time. However, on a large 
+system, the CPU scheduler m.ay have more information about all the active 
+processes than can fit in memory. Therefore, this u1.formation may need to be 
+swapped u1. and out of memory, requiring the backu1.g-store driver routine to 
+be below the CPU scheduler. 
+A final problem with layered implementations is that they tend to be less 
+efficient than other types. For instance, when a user program executes an I/0 
+operation, it executes a system call that is trapped to the I/0 layer, which calls 
+the memory-management laye1~ which in tum calls the CPU-scheduling layer, 
+which is then passed to the hardware. At each layer, the parameters may be 
+modified, data may need to be passed, and so on. Each layer adds overhead to 
+the system call; the net result is a system call that takes longer than does one 
+on a nonlayered system. 
+These limitations have caused a small backlash against layering in recent 
+years. Fewer layers with more functionality are beu1.g designed, providu1.g most 
+of the advantages of modularized code while avoidu1.g the difficult problems 
+of layer definition and interaction. 
+2.7.3 Microkernels 
+We have already seen that as UNIX expanded, the kernel became large 
+and difficult to manage. In the mid-1980s, researchers at Carnegie Mellon 
+University developed an operatu1.g system called Mach that modularized 
+the kernel using the ~i~roke~ll:~_!_~EE1~()2lC:~~I.b~._gL~!b_()_<:!_0ructl.~~~~--t!~e 
+operatingsystem by removing all nonessential cornponentsfrom thekemel and 
+1mp~e_l?:l~-ll:!~~~itil~!?::t~~s-~~fe_l"Il~~~~rl.ls_~l:~i~\r~}:Jr()greili~~:· the.reslin is-a smarrei: 
+kernel. There is little consensus regarding which services should remain u1. the 
+kernel and which should be implemented in user space. Typically, however, 
+microkernels provide minimal process and memory management, in addition 
+to a communication facility. 
+The main function of the micro kernel is to provide a communication facility 
+between the client program and the various services that are also rum1.ing 
+in user space. Communication is provided by message passing, which was 
+described in Section 2.4.5. For example, if the client program wishes to access 
+a file, it must interact with the file server. The client program and service never 
+interact directly. Rathel~ they communicate indirectly by exchanging messages 
+with the microkemel. 
+
+74 
+Chapter 2 
+One benefit of the microkernel approach is ease of extending the operating 
+system. All new services are added to user space and consequently do not 
+require modification of the kernel. When the kernel does have to be modified, 
+the changes tend to be fewer, because the microkernel is a smaller kernel. 
+The resulting operating system is easier to port from one hardware design 
+to another. The microkernel also provides more security and reliability, since 
+most services are running as user-rather than kernel-processes. If a service 
+fails, the rest of the operating system remains untouched. 
+Several contemporary operating systems have used the microkernel 
+approach. Tru64 UNIX (formerly Digital UNIX) provides a UNIX interface to the 
+user, but it is implemented with a Mach kernel. The Mach kernel maps UNIX 
+system calls into messages to the appropriate user-level services. The Mac OS 
+X kernel (also known as Darwin) is also based on the Mach micro kernel. 
+Another example is QNX, a real-time operating system. The QNX nl.icro-
+kernel provides services for message passing and process scheduling. It also 
+handles low-level network communication and hardware interrupts. All other 
+services in QNX are provided by standard processes that run outside the kernel 
+in user mode. 
+Unfortunately, microkernels can suffer from performance decreases due 
+to increased system function overhead. Consider the history of Windows NT. 
+The first release had a layered microkernel organization. However, this version 
+delivered low performance compared with that of Windows 95. Windows NT 
+4.0 partially redressed the performance problem by moving layers from user 
+space to kernel space and integrating them more closely. By the time Windows 
+XP was designed, its architecture was more monolithic than microkernel. 
+2.7.4 Modules 
+Perhaps the best current methodology for operating-system design involves 
+using object-oriented programming techniques to create a modular kernel. 
+Here, the kernel has a set of core components and links in additional services 
+either during boot time or during run time. Such a strategy uses dynamically 
+loadable modules and is common in modern implementations of UNIX, such 
+as Solaris, Linux, and Mac OS X. For example, the Solaris operating system 
+structure, shown in Figure 2.15, is organized armmd a core kernel with seven 
+types of loadable kernel modules: 
+Scheduling classes 
+File systems 
+Loadable system calls 
+Executable formats 
+STREAMS modules 
+Miscellaneous 
+Device and bus drivers 
+Such a design allows the kernel to provide core services yet also allows 
+certain features to be implemented dynamically. For example, device and 
+
+2.7 
+file systems 
+Figure 2.15 Solaris loadable modules. 
+loadable 
+system calls 
+75 
+bus drivers for specific hardware can be added to the kernel, and support 
+for different file systems can be added as loadable modules. The overall 
+result resembles a layered system in that each kernel section has defined, 
+protected interfaces; but it is more flexible than a layered system in that any 
+module can call any other module. Furthermore, the approach is like the 
+microkernel approach in that the primary module has only core functions 
+and knowledge of how to load and communicate with other modules; but it 
+is more efficient, because modules do not need to invoke message passing in 
+order to communicate. 
+The Apple Mac OS X operating system uses a hybrid structure. It is a layered 
+system in which one layer consists of the Mach microkernel. The structure of 
+Mac OS X appears in Figure 2.16. The top layers include application environ-
+ments and a set of services providing a graphical interface to applications. 
+Below these layers is the kernel environment, which consists primarily of the 
+Mach microkernel and the BSD kernel. Mach provides memory management; 
+support for remote procedure calls (RPCs) and interprocess communication 
+(IPC) facilities, including message passing; and thread scheduling. The BSD 
+component provides a BSD command line interface, support for networking 
+and file systems, and an implementation of POSIX APis, including Pthreads. 
+kernel 
+environment 
+application environments 
+and common services 
+Figure 2.16 The Mac OS X structure. 
+
+76 
+Chapter 2 
+2.8 
+In addition to Mach and BSD, the kernel environment provides an I/0 kit for 
+development of device drivers and dynamically loadable modules (which Mac 
+OS X refers to as kernel extensions). As shown in the figure, applications and 
+comn:10n services can make use of either the Mach or BSD facilities directly. 
+The layered approach described in Section 2.7.2 is taken to its logical conclusion 
+in the concept of a 
+The fundamental idea behind a virtual 
+machine is to abstract the hardware of a si11.gle computer (the CPU, memory, 
+disk drives, network interface cards, and so forth) into several different 
+execution environments, thereby creating the illusion that each separate 
+execution environment is run.ning its own private computer. 
+By using CPU scheduling (Chapter 5) and virtual-memory techniques 
+(Chapter 9), an operating system 
+can create the illusion that a process 
+has its own processor with its own (virtual) memory. The virtual machine 
+provides an interface that is identical to the underlying bare hardware. Each 
+process is provided with a (virtual) copy of the underlying computer 
+(Figure 2.17). Usually, the guest process is in fact an operating system, and 
+that is how a single physical machine can run multiple operating systems 
+concurrently, each in its own virtual machine. 
+2.8.1 
+History 
+Virtual machines first appeared commercially on IBM mainframes via the VM 
+operating system in 1972. VM has evolved and is still available, and many of 
+processes 
+programming/ 
+/ 
+interface 
+1----~-----1 
+kernel 
+(a) 
+processes 
+processes 
+processes 
+kernel 
+kernel 
+kernel 
+VM1 
+VM2 
+VM3 
+virtual-machine 
+implementation 
+(b) 
+Figure 2.17 System models. (a) Nonvirtual machine. (b) Virtual machine. 
+
+2.8 
+77 
+the original concepts are found in other systems, making this facility worth 
+exploring. 
+IBM VM370 divided a mainframe into nmltiple virtual machines, each 
+numing its own operating system. A ncajor difficulty with the VM virtual-
+machine approach involved disk systems. Suppose that the physical machine 
+had three disk drives but wanted to support seven virtual machines. Clearly, it 
+could not allocate a disk drive to each virtual machine, because the virtual-
+machine software itself needed substantial disk space to provide virtual 
+memory and spooling. The solution was to provide virtual disks-termed 
+minidislcs in IBM's VM operating system -that are identical in all respects except 
+size. The system implemented each minidisk by allocating as many tracks on 
+the physical disks as the minidisk needed. 
+Once these virtual machines were created, users could run any of the 
+operating systems or software packages that were available on the underlying 
+machine. For the IBM VM system, a user normally ran CMS-a single-user 
+interactive operating system. 
+2.8.2 Benefits 
+There are several reasons for creating a virtual machine. Most of them are 
+fundarnentally related to being able to share the same hardware yet run 
+several different execution environments (that is, different operating systems) 
+concurrently. 
+One important advantage is that the host system is protected from the 
+virtual machines, just as the virtual machines are protected from each other. A 
+virus inside a guest operating system might damage that operating system but 
+is unlikely to affect the host or the other guests. Because each virtual machine 
+is completely isolated from all other virtual machines, there are no protection 
+problems. At the same time, however, there is no direct sharing of resources. 
+Two approaches to provide sharing have been implemented. First, it is possible 
+to share a file-system volume and thus to share files. Second, it is possible to 
+define a network of virtual machines, each of which can send information over 
+the virtual communications network. The network is modeled after physical 
+communication networks but is implemented in software. 
+A virtual-machine system is a perfect vehicle for operating-systems 
+research and development. Normally, changing an operating system is a diffi-
+cult task. Operating systems are large and complex programs, and it is difficult 
+to be sure that a change in one part will not cause obscure bugs to appear 
+in some other part. The power of the operating system makes changing it 
+particularly dangerous. Because the operating system executes in kernel mode, 
+a wrong change in a pointer could cause an error that would destroy the entire 
+file system. Thus, it is necessary to test all changes to the operating system 
+carefully. 
+The operating system, however, runs on and controls the entire machine. 
+Therefore, tlle current system must be stopped and taken out of use while 
+changes are made and tested. This period is comnconly called system-
+development time. Since it makes the system unavailable to users, system-
+development time is often scheduled late at night or on weekends, when system 
+load is low. 
+
+78 
+Chapter 2 
+A virtual-machine system can eliminate much of this problem. System 
+programmers are given their own virtual machine, and system development is 
+done on the virtual machine instead of on a physical machine. Normal system 
+operation seldom needs to be disrupted for system development. 
+Another advantage of virtual machines for developers is that multiple 
+operating systems can be running on the developer's workstation concur-
+rently. This virtualized workstation allows for rapid porting and testing of 
+programs in varying enviromnents. Sin'lilarly, quality-assurance engineers can 
+test their applications in multiple environments without buying, powering, 
+and maintaining a computer for each environment. 
+A major advantage of virtual machines in production data-center use is 
+system 
+which involves taking two or more separate systems 
+and running them in virtual machines on one system. Such physical-to-virtual 
+conversions result in resource optimization, as many lightly used systems can 
+be combined to create one more heavily used system. 
+If the use of virtual machines continues to spread, application deployment 
+will evolve accordingly. If a system can easily add, remove, and move a 
+virtual machine, then why install applications on that system directly? Instead, 
+application developers would pre-install the application on a tuned and 
+customized operating system in a virh1al machine. That virtual environment 
+would be the release mechanism for the application. This method would be 
+an improvement for application developers; application management would 
+become easier, less tuning would required, and technical support of the 
+application would be more straightforward. System administrators would 
+find the environment easier to manage as well. Installation would be simple, 
+and redeploying the application to another system would be much easier 
+than the usual steps of uninstalling and reinstalling. For widespread adoption 
+of this methodology to occur, though, the format of virtual machines must 
+be standardized so that any virtual machine will run on any virtualization 
+platform. The "Open Virtual Machine Format" is an attempt to do just that, 
+and it could succeed in unifying virtual-machine formats. 
+2.8.3 Simulation 
+System virtualization as discussed so far is just one of many system-emulation 
+methodologies. Virtualization is the most common because it makes guest 
+operating systems and applications "believe" they are running on native 
+hardware. Because only the system's resources need to be virtualized, these 
+guests run at almost full speed. 
+Another methodology is 
+in which the host system has one 
+system architecture and the guest system was compiled for a different archi-
+tecture. For example, suppose a company has replaced its outdated computer 
+system with a new system but would like to continue to run certain important 
+programs that were compiled for the old system. The programs could be run 
+in an e1nulator that translates each of the outdated system's instructions into 
+the native instruction set of the new system. Emulation can increase the life of 
+programs and allow us to explore old architectures without having an actual 
+old machine, but its major challenge is performance. Instruction-set emulation 
+can run an order of magnitude slower than native instructions. Thus, unless 
+the new machine is ten times faster than the old, the program running on 
+
+2.8 
+79 
+the new machine will run slower than it did on its native hardware. Another 
+challenge is that it is difficult to create a correct emulator because, in essence, 
+this involves writing an entire CPU in software. 
+2.8.4 Para-virtualization 
+is another vanat10n on this theme. Rather than try to 
+trick a guest operating system into believing it has a system to itself, para-
+virtualization presents the guest with a system that is similar but not identical 
+to the guest's preferred system. The guest must be modified to run on the 
+paravirtualized hardware. The gain for this extra work is more efficient use of 
+resources and a smaller virtualization layer. 
+Solaris 10 includes 
+or 
+that create a virtual layer between 
+the operating system and the applications. In this system, only one kernel is 
+installed, and the hardware is not virtualized. Rather, the operating system 
+and its devices are virtualized, providing processes within a container with 
+the impression that they are the only processes on the system. One or more 
+containers can be created, and each can have its own applications, network 
+stacks, network address and ports, user accounts, and so on. CPU resources 
+can be divided up among the containers and the systemwide processes. Figure 
+2.18 shows a Solaris 10 system with two containers and the standard "global" 
+user space. 
+user programs 
+system programs 
+CPU resources 
+memory resources 
+global zone 
+user programs 
+system programs 
+network addresses 
+device access 
+CPU resources 
+user programs 
+system programs 
+network addresses 
+device access 
+CPU resources 
+memory resources 
+memory resources 
+zone 1 
+zone 2 
+virtual platform 
+device management 
+Figure 2.18 Solaris I 0 with two containers. 
+
+80 
+Chapter 2 
+2.8.5 Implementation 
+Although the virtual-machine concept is usefut it is difficult to implement. 
+Much work is required to provide an exact duplicate of the underlying machine. 
+Remember that the underlying machine typically has two modes: user mode 
+and kernel mode. The virtual-machine software can run in kernel mode, since 
+it is the operating system. The virtual machine itself can execute in only user 
+mode. Just as the physical machine has two modes, however, so must the virtual 
+machine. Consequently, we must have a virtual user mode and a virtual kernel 
+mode, both of which run in a physical user mode. Those actions that cause a 
+transfer from user mode to kernel mode on a real machine (such as a system 
+call or an attempt to execute a privileged instruction) must also cause a transfer 
+from virtual user mode to virtual kernel mode on a virtual machine. 
+Such a transfer can be accomplished as follows. When a system calt for 
+example, is made by a program running on a virtual machine in virtual user 
+mode, it will cause a transfer to the virtual-machine monitor in the real machine. 
+When the virtual-machine monitor gains controt it can change the register 
+contents and program counter for the virtual machine to simulate the effect of 
+the system calL It can then restart the virtual machine, noting that it is now in 
+virtual kernel mode. 
+The major difference, of course, is time. Whereas the real I/O might have 
+taken 100 milliseconds, the virtual I/O might take less time (because it is 
+spooled) or more time (because it is interpreted). In addition, the CPU is 
+being multi programmed among many virtual machines, further slowing down 
+the virtual machines in unpredictable ways. In the extreme case, it may be 
+necessary to simulate all instructions to provide a true virtual machine. VM, 
+discussed earlier, works for IBM machines because normal instructions for the 
+virtual machines can execute directly on the hardware. Only the privileged 
+instructions (needed mainly for I/0) must be simulated and hence execute 
+more slowly. 
+Without some level of hardware support, virtualization would be impos-
+sible. The more hardware support available within a system, the more feature 
+rich, stable, and well performing the virtual machines can be. All major general-
+purpose CPUs provide some amount of hardware support for virtualization. 
+For example, AMD virtualization technology is found in several AMD proces-
+sors. It defines two new modes of operation-host and guest. Virtual machine 
+software can enable host mode, define the characteristics of each guest virtual 
+machine, and then switch the system to guest mode, passing control of the 
+system to the guest operating system that is running in the virtual machine. 
+In guest mode, the virtualized operating system thinks it is rum1.ing on native 
+hardware and sees certain devices (those included in the host's definition of 
+the guest). If the guest tries to access a virtualized resource, then control is 
+passed to the host to manage that interaction. 
+2.8.6 Examples 
+Despite the advantages of virtual machines, they received little attention for 
+a number of years after they were first developed. Today, however, virtual 
+machines are coming into fashion as a means of solving system compatibility 
+problems. In this section, we explore two popular contemporary virtual 
+machines: the VMware Workstation and the Java virtual machine. As you 
+
+2.8 
+81 
+will see, these virtual machines can typically run on top of operating systems 
+of any of the design types discussed earlier. Thus, operating system design 
+methods-simple layers, microkernels, n:wdules, and virtual machines-are 
+not mutually exclusive. 
+2.8.6.1 
+VMware 
+Most of the virtualization techniques discussed in this section require virtual-
+ization to be supported by the kernel. Another method involves writing the 
+virtualization tool to run in user mode as an application on top of the operating 
+system. Virtual machines running within this tool believe they are rum<ing on 
+bare hardware but in fact are running inside a user-level application. 
+is a popular commercial application that abstracts 
+Intel X86 and compatible hardware into isolated virtual machines. VMware 
+Workstation runs as an application on a host operating system such as Windows 
+or Linux and allows this host system to concurrently run several different guest 
+operating systems as independent virtual machines. 
+The architecture of such a system is shown in Figure 2.19. In this scenario, 
+Linux is running as the host operating system; and FreeBSD, Windows NT, and 
+Windows XP are rum<ing as guest operating systems. The virtualization layer is 
+the heart of VMware, as it abstracts the physical hardware into isolated virtual 
+machines running as guest operating systems. Each virtual machine has its 
+own virtual CPU, memory, disk drives, network interfaces, and so forth. 
+The physical disk the guest owns and manages is really just a file within the 
+file system of the host operating system. To create an identical guest instance, 
+we can simply copy the file. Copying the file to another location protects the 
+guest instance against a disaster at the original site. Moving the file to another 
+application 
+application 
+application 
+application 
+guest operating 
+guest operating 
+guest operating 
+system 
+system 
+system 
+(free BSD) 
+(Windows NT) 
+(Windows XP) 
+virtual CPU 
+virtual CPU 
+virtual CPU 
+virtual memory 
+virtual memory 
+virtual memory 
+virtual devices 
+virtual devices 
+virtual devices 
+virtualization layer 
+hardware 
+I· 
+QPU· •.. ·•[ 
+I r!Jemgfy 
+Figure 2.19 VMware architecture. 
+
+82 
+Chapter 2 
+location moves the guest system. These scenarios show how virtualization can 
+improve the efficiency of system administration as well as system resource use. 
+2.8.6.2 The Java Virtual Machine 
+Java is a popular object-oriented programming language introduced by Sun 
+Microsystems in 1995. In addition to a language specification and a large API 
+library, Java also provides a specification for a Java virtual machine-or JVM. 
+Java objects are specified with the class construct; a Java program 
+consists of one or more classes. For each Java class, the compiler produces 
+an architecture-neutral bytecode output (.class) file that will run on any 
+implementation of the JVM. 
+The JVM is a specification for an abstract computer. It consists of a class 
+loader and a Java interpreter that executes the architecture-neutral bytecodes, 
+as diagrammed in Figure 2.20. The class loader loads the compiled . class 
+files from both the Java program and the Java API for execution by the Java 
+interpreter. After a class is loaded, the verifier checks that the . class file is 
+valid Java bytecode and does not overflow or underflow the stack It also 
+ensures that the bytecode does not perform pointer arithmetic, which could 
+provide illegal memory access. If the class passes verification, it is run by the 
+Java interpreter. The JVM also automatically manages memory by performing 
+garbage collection -the practice of reclaiming memory from objects no longer 
+in use and returning it to the system. Much research focuses on garbage 
+collection algorithms for increasing the performance of Java programs in the 
+virtual machine. 
+The JVM may be implemented in software on top of a host operating 
+system, such as Windows, Linux, or Mac OS X, or as part of a Web browser. 
+Alternatively, the JVM may be implemented in hardware on a chip specifically 
+designed to nm Java programs. If the JVM is implemented in. software, the 
+Java interpreter interprets the bytecode operations one at a time. A faster 
+software technique is to use a just-in-time (JIT) compiler. Here, the first time a 
+Java method is invoked, the bytecodes for the method are turned into native 
+machine language for the host system. These operations are then cached so that 
+subsequent invocations of a method are performed using the native machine 
+instructions and the bytecode operations need not be interpreted all over again. 
+A technique that is potentially even faster is to nm the JVM in hardware on a 
+Java program 
+.class files 
+-•I class loader 1-+-
++ 
+I 
+Java I 
+interpreter 
+t 
+host system 
+(Windows, Linux, etc.) 
+Figure 2.20 The Java virtual machine. 
+
+2.8 
+THE .NET FRAMEWORK 
+The .NET Framework is a collection of technologies, including a set of class 
+libraries, and an execution environment that come together to provide a 
+platform for developing software. This platform allows programs to be 
+written to target the .NET Framework instead of a specific architecture. A 
+program written for the .NET Framework need not worry aboutthe specifics 
+of the hardware or the operating system on which it will run. Thus, any 
+architecture implementing .NET will be able to successfully execute the 
+program. This is because the execution environment abstracts these details 
+and provides a virtual machine as an intermediary between the executing 
+program and the underlying architecture. 
+At the core of the .NET Framework is the Common Language Runtime 
+(CLR). The CLR is the implementation of the .NET virtual machine. Itprovides 
+an environment for execution of programs written in any of the languages 
+targeted at the .NET Framework. Programs written in languages such as 
+C# (pronounced C-sharp) and VB.NET are compiled into an intermediate, 
+architecture-independent language called Microsoft Intermediate Language 
+(MS-IL). These compiled files, called assemblies, include MS-IL instructions 
+and metadata. They have file extensions of either .EXE or .DLL. Upon 
+execution of a program, the CLR loads assemblies into what .is known as 
+the Application Domain. As instructions are requested by the executing 
+program, the CLR converts the MS-IL instructions inside the assemblies into 
+native code that is specific to the underlying architecture using just-in-time 
+compilation. Once instructions have been converted to native code, they are 
+kept and will continue to run as native code for the CPU. The architecture of 
+the CLR for the .NET framework is shown in Figure 2.21. 
+compilation 
+CLR 
+C++ 
+source 
+MS-IL 
+assembly 
+VB.Net 
+source 
+MS-IL 
+assembly 
+host system 
+Figure 2.21 
+ArchiteCture ofthe.CLR for the .NET Framework. 
+83 
+
+84 
+Chapter 2 
+2.9 
+special Java chip that executes the Java bytecode operations as native code, thus 
+bypassing the need for either a software interpreter or a just-in-tim.e compiler. 
+Broadly, 
+is the activity of finding and fixing errors, or 
+in a 
+system. Debugging seeks to find and fix errors in both hardware and software. 
+Performance problems are considered bugs, so debugging can also include 
+which seeks to improve performance by removing 
+-""'-·"'-·-···" in the processing taking place within a system. A discussion of 
+hardware debugging is outside of the scope of this text. In this section, we 
+explore debugging kernel and process errors and performance problems. 
+2.9.1 
+Failure Analysis 
+If a process fails, most operating systems write the error information to a 
+to alert system operators or users that the problem occurred. The operating 
+system can also take a 
+capture of the memory (referred to as the 
+"core" in the early days of computing) of the process. This core image is stored 
+in a file for later analysis. Running programs and core dumps can be probed 
+by a 
+a tool designed to allow a programmer to explore the code and 
+memory 
+a process. 
+Debugging user-level process code is a challenge. Operating system kernel 
+debugging even more complex because of the size and complexity of the kernel, 
+its control of the hardware, and the lack of user-level debugging tools. A kernel 
+failure is called a 
+As with a process failure, error information is saved to 
+a log file, and the memory state is saved to a 
+Operating system debugging frequently uses different tools and techniques 
+than process debugging due to the very different nature of these two tasks. 
+Consider that a kernel failure in the file-system code would make it risky for 
+the kernel to try to save its state to a file on the file system before rebooting. 
+A common technique is to save the kernel's memory state to a section of disk 
+set aside for this purpose that contains no file system .. If the kernel detects 
+an unrecoverable error, it writes the entire contents of memory, or at least the 
+kernel-owned parts of the system memory, to the disk area. When the system 
+reboots, a process runs to gather the data from that area and write it to a crash 
+dump file within a file system for analysis. 
+2.9.2 Performance Tuning 
+To identify bottlenecks, we must be able to monitor system performance. Code 
+must be added to compute and display measures of system behavior. In a 
+number of systems, the operating system does this task by producing trace 
+listings of system behavior. All interesting events are logged with their time and 
+important parameters and are written to a file. Later, an analysis program can 
+process the log file to determine system performance and to identify bottlenecks 
+and inefficiencies. These same traces can be run as input for a simulation of 
+a suggested improved system. Traces also can help people to find errors in 
+operating-system behavior. 
+
+2.9 
+Kernighan's Law 
+"Debugging is twice as hard as writing the code in the first place. Therefore, 
+if you write the code as cleverly as possible, you are, by definition, not smart 
+enough to debug it." 
+85 
+Another approach to performance tuning is to include interactive tools 
+with the system that allow users and administrators to question the state of 
+various components of the system to look for bottlenecks. The UNIX command 
+top displays resources used on the system, as well as a sorted list of the "top" 
+resource-using processes. Other tools display the state of disk I/0, memory 
+allocation, and network traffic. The authors of these single-purpose tools try to 
+guess what a user would want to see while analyzing a system and to provide 
+that information. 
+Making running operating systems easier to understand, debug, and tune 
+is an active area of operating system research and implementation. The cycle 
+of enabling tracing as system problems occur and analyzing the traces later 
+is being broken by a new generation of kernel-enabled performance analysis 
+tools. Further, these tools are not single-purpose or merely for sections of code 
+that were written to emit debugging data. The Solaris 10 DTrace dynamic 
+tracing facility is a leading example of such a tool. 
+2.9.3 DTrace 
+is a facility that dynamically adds probes to a running system, both 
+i11 user processes and in the kernel. These probes can be queried via the D 
+programming language to determine an astonishing amount about the kernel, 
+the system state, and process activities. For example, Figure 2.22 follows an 
+application as it executes a system call (ioctl) and further shows the functional 
+calls within the kernel as they execute to perform the system call. Lines ending 
+with "U" are executed in user mode, and lines ending in "K" in kernel mode. 
+Debugging the interactions between user-level and kernel code is nearly 
+impossible without a toolset that understands both sets of code and can 
+instrument the interactions. For that toolset to be truly useful, it must be able 
+to debug any area of a system, including areas that were not written with 
+debugging in mind, and do so without affecting system reliability. This tool 
+must also have a minimum performance impact-ideally it should have no 
+impact when not in use and a proportional impact during use. The DTrace tool 
+meets these requirements and provides a dynamic, safe, low-impact debugging 
+environncent. 
+Until the DTrace framework and tools became available with Solaris 10, 
+kernel debugging was usually shrouded in mystery and accomplished via 
+happenstance and archaic code and tools. For example, CPUs have a breakpoint 
+feature that will halt execution and allow a debugger to examine the state of the 
+system. Then execution can continue until the next breakpoint or termination. 
+This method cannot be used in a multiuser operating-system kernel without 
+negatively affecting all of the users on the system. Pn:rEEn,g, which periodically 
+samples the instruction pointer to determine which code is being executed, can 
+show statistical trends but not individual activities. Code can be included in 
+the kernel to emit specific data under specific circumstances, but that code 
+
+86 
+Chapter 2 
+# ./all.d 'pgrep xclock' XEventsQueued 
+dtrace: script './all.d' matched 52377 probes 
+CPU FUNCTION 
+0 -> XEventsQueued 
+0 
+-> _XEventsQueued 
+u 
+u 
+0 
+-> _XllTransBytesReadable 
+U 
+0 
+<- _XllTransBytesReadable 
+U 
+0 
+-> _XllTransSocketBytesReadable U 
+0 
+<- _XllTransSocketBytesreadable U 
+0 
+-> ioctl 
+U 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 <-
+<-
+<-
+-
+-> ioctl 
+<-
+-> getf 
+-> set active fd 
+<- set active fd 
+<- getf 
+-> get udatamodel 
+<- get udatamodel 
+-> releasef 
+-> clear active 
+-
+<- clear active 
+-> cv broadcast 
+<- cv broadcast 
+<- releasef 
+ioctl 
+ioctl 
+XEventsQueued 
+XEventsQueued 
+fd 
+fd 
+K 
+K 
+K 
+K 
+K 
+K 
+K 
+K 
+K 
+K 
+K 
+K 
+K 
+K 
+u 
+u 
+u 
+Figure 2.22 Solaris 10 dtrace follows a system call within the kernel. 
+slows down the kernel and tends not to be included in the part of the kernel 
+where the specific problem being debugged is occurring. 
+In contrast, DTrace runs on production systems-systems that are running 
+important or critical applications-and causes no harm to the system. It 
+slows activities while enabled, but after execution it resets the system to its 
+pre-debugging state. It is also a broad and deep tool. It can broadly debug 
+everything happening in the system (both at the user and kernel levels and 
+between the user and kernel layers). DTrace can also delve deeply into code, 
+showing individual CPU instructions or kernel subroutine activities. 
+is composed of a compiler, a framework, 
+of 
+written within that framework, and 
+of those probes. DTrace 
+providers create probes. Kernel structures exist to keep track of all probes that 
+the providers have created. The probes are stored in a hash table data structure 
+that is hashed by name and indexed according to unique probe identifiers. 
+When a probe is enabled, a bit of code in the area to be probed is rewritten 
+to call dtrace_probe (probe identifier) and then continue with the code's 
+original operation. Different providers create different kinds of probes. For 
+example, a kernel system-call probe works differently from a user-process 
+probe, and that is different from an I/O probe. 
+DTrace features a compiler that generates a byte code that is run in the 
+kernel. This code is assured to be "safe" by the compiler. For example, no 
+
+2.9 
+87 
+loops are allowed, and only specific kernel state modifications are allowed 
+when specifically requested. Only users with the DTrace "privileges" (or "root" 
+users) are allowed to use DT!·ace, as it can retrieve private kernel data (and 
+modify data if requested). The generated code runs in the kernel and enables 
+probes. It also enables consumers in user mode and enables communications 
+between the two. 
+A DT!·ace consumer is code that is interested in a probe and its results. 
+A consumer requests that the provider create one or more probes. When a 
+probe fires, it emits data that are managed by the kernel. Within the kernel, 
+actions called 
+or 
+are performed when probes 
+fire. One probe can cause multiple ECBs to execute if more than one consumer 
+is interested in that probe. Each ECB contains a predicate ("if statement") that 
+can filter out that ECB. Otherwise, the list of actions in the ECB is executed. The 
+most usual action is to capture some bit of data, such as a variable's value at 
+that point of the probe execution. By gathering such data, a complete picture of 
+a user or kernel action can be built. Further, probes firing from both user space 
+and the kernel can show how a user-level action caused kernel-level reactions. 
+Such data are invaluable for performance monitoril1.g and code optimization. 
+Once the probe consumer tennil1.ates, its ECBs are removed. If there are no 
+ECBs consuming a probe, the probe is removed. That involves rewriting the 
+code to remove the dtrace_probe call and put back the original code. Thus, 
+before a probe is created and after it is destroyed, the system is exactly the 
+same, as if no probing occurred. 
+DTrace takes care to assure that probes do not use too much memory or 
+CPU capacity, which could harm the running system. The buffers used to hold 
+the probe results are monitored for exceeding default and maximum limits. 
+CPU time for probe execution is monitored as well. If limits are exceeded, the 
+consumer is terminated, along with the offending probes. Buffers are allocated 
+per CPU to avoid contention and data loss. 
+An example ofD code and its output shows some of its utility. The following 
+program shows the DTrace code to enable scheduler probes and record the 
+amount of CPU time of each process running with user ID 101 while those 
+probes are enabled (that is, while the program nms): 
+sched:: :on-cpu 
+uid == 101 
+{ 
+self->ts 
+timestamp; 
+} 
+sched: : :off -cpu 
+self->ts 
+{ 
+} 
+©time [execname] 
+self->ts = 0; 
+sum(timestamp- self->ts); 
+The output of the program, showing the processes and how much time (in 
+nanoseconds) they spend running on the CPUs, is shown in Figure 2.23. 
+
+88 
+Chapter 2 
+2.10 
+# dtrace -s sched.d 
+dtrace: script 'sched.d' matched 6 probes 
+Ac 
+grwme-settings-d 
+gnome-vfs-daemon 
+dsdm 
+wnck-applet 
+gnome-panel 
+clock-applet 
+mapping-daemon 
+xscreensaver 
+meta city 
+Xorg 
+gnome-terminal 
+mixer _applet2 
+Java 
+142354 
+158243 
+189804 
+200030 
+277864 
+374916 
+385475 
+514177 
+539281 
+2579646 
+5007269 
+7388447 
+10769137 
+Figure 2.23 Output of the 0 code. 
+Because DTrace is part of the open-source Solaris 10 operating system, 
+it is being added to other operating systems when those systems do not 
+have conflicting license agreements. For example, DTrace has been added to 
+Mac OS X 10.5 and FreeBSD and will likely spread further due to its unique 
+capabilities. Other operating systems, especially the Linux derivatives, are 
+adding kernel-tracing functionality as well. Still other operating systems are 
+beginning to include performance and tracing tools fostered by research at 
+various institutions, including the Paradyn project. 
+It is possible to design, code, and implement an operating system specifically 
+for one machine at one site. More commonly, however, operating systems 
+are designed to nm on any of a class of machines at a variety of sites with 
+a variety of peripheral configurations. The system must then be configured 
+or generated for each specific computer site, a process sometimes known as 
+system generation (SYSGEN). 
+The operating system is normally distributed on disk, on CD-ROM or 
+DVD-ROM, or as an "ISO" image, which is a file in the format of a CD-ROM 
+or DVD-ROM. To generate a system, we use a special program. This SYSGEN 
+program reads from a given file, or asks the operator of the system for 
+information concerning the specific configuration of the hardware systenc, or 
+probes the hardware directly to determine what components are there. The 
+following kinds of information must be determined. 
+What CPU is to be used? What options (extended instruction sets, floating-
+point arithmetic, and so on) are installed? For multiple CPU systems, each 
+CPU may be described. 
+
+2.11 
+2.11 
+89 
+How will the boot disk be formatted? How many sections, or "partitions," 
+will it be separated into, and what will go into each partition? 
+How much memory is available? Some systems will determine this value 
+themselves by referencing memory location after memory location until an 
+"illegal address" fault is generated. This procedure defines the final legal 
+address and hence the amount of available memory. 
+What devices are available? The system will need to know how to address 
+each device (the device number), the device interrupt number, the device's 
+type and model, and any special device characteristics. 
+What operating-system options are desired, or what parameter values are 
+to be used? These options or values might include how many buffers of 
+which sizes should be used, what type of CPU-scheduling algorithm is 
+desired, what the maximum number of processes to be supported is, and 
+so on. 
+Once this information is determined, it can be used in several ways. At one 
+extreme, a system administrator can use it to modify a copy of the source code of 
+the operating system. The operating system then is completely compiled. Data 
+declarations, initializations, and constants, along with conditional compilation, 
+produce an output-object version of the operating system that is tailored to the 
+system described. 
+At a slightly less tailored level, the system description can lead to the 
+creation of tables and the selection of modules from a precompiled library. 
+These modules are linked together to form the generated operating system. 
+Selection allows the library to contain the device drivers for all supported I/0 
+devices, but only those needed are linked into the operating system. Because 
+the system is not recompiled, system generation is faster, but the resulting 
+system may be overly general. 
+At the other extreme, it is possible to construct a system that is completely 
+table driven. All the code is always part of the system, and selection occurs at 
+execution time, rather than at compile or lil1.k time. System generation involves 
+simply creating the appropriate tables to describe the system. 
+The major differences among these approaches are the size and generality 
+of the generated system and the ease of modifying it as the hardware 
+configuration changes. Consider the cost of modifying the system to support a 
+newly acquired graphics termil1.al or another disk drive. Balanced against that 
+cost, of course, is the frequency (or infrequency) of such changes. 
+After an operating system is generated, it must be made available for use by 
+the hardware. But how does the hardware know where the kernel is or how to 
+load that kernel? The procedure of starting a computer by loading the kernel 
+is known as booting the system. On most computer systems, a small piece of 
+code known as the bootstrap program or bootstrap loader locates the kernel, 
+loads it into main memory, and starts its execution. Some computer systems, 
+such as PCs, use a two-step process in which a simple bootstrap loader fetches 
+a more complex boot program from disk, which in turn loads the kernel. 
+
+90 
+Chapter 2 
+2.12 
+When a CPU receives a reset event-for instance, when it is powered up 
+or rebooted -the instruction register is loaded with a predefined memory 
+location, and execution starts there. At that location is the initial bootstrap 
+program. This program is in the form of read-only memory (ROM), because 
+the RAM is in an unknown state at system startup. ROM is convenient because 
+it needs no initialization and cannot easily be infected by a computer virus. 
+The bootstrap program can perform a variety of tasks. Usually, one task 
+is to run diagnostics to determine the state of the machine. If the diagnostics 
+pass, the program can continue with the booting steps. It can also initialize all 
+aspects of the system, from CPU registers to device controllers and the contents 
+of main memory. Sooner or later, it starts the operating system. 
+Some systems-such as cellular phones, PDAs, and game consoles-store 
+the entire operating system in ROM. Storing the operating system in ROM is 
+suitable for small operating systems, simple supporting hardware, and rugged 
+operation. A problem with this approach is that changing the bootstrap code 
+requires changing the ROM hardware chips. Some systems resolve this problem 
+by using erasable programmable read-only memory (EPROM), which is read-
+only except when explicitly given a command to become writable. All forms 
+of ROM are also known as firmware, since their characteristics fall somewhere 
+between those of hardware and those of software. A problem with firmware 
+in general is that executing code there is slower thart executing code in RAM. 
+Some systems store the operating system in firmware and copy it to RAM for 
+fast execution. A final issue with firmware is that it is relatively expensive, so 
+usually only small ammmts are available. 
+For large operating systems (including most general-purpose operating 
+systems like Windows, Mac OS X, and UNIX) or for systems that change 
+frequently, the bootstrap loader is stored in firmware, and the operating system 
+is on disk. In this case, the bootstrap nms diagnostics and has a bit of code 
+that can read a single block at a fixed location (say block zero) from disk into 
+memory and execute the code from that 
+b!ock. The program stored in the 
+boot block may be sophisticated enough to load the entire operating system 
+into memory and begin its execution. More typically, it is simple code (as it fits 
+in a single disk block) and knows only the address on disk and length of the 
+remainder of the bootstrap program. 
+is an example of an open-source 
+bootstrap program for Linux systems. All of the disk-bound bootstrap, and the 
+operating system itself, can be easily changed by writing new versions to disk. 
+A disk that has a boot partition (more on that in Section 12.5.1) is called a boot 
+disk or system disk. 
+Now that the full bootsh·ap program has been loaded, it can traverse the 
+file system to find the operating system kernel, load it into memory, and start 
+its execution. It is only at this point that the system is said to be running. 
+Operating systems provide a number of services. At the lowest level, system 
+calls allow a running program to make requests from the operating system 
+directly. At a higher level, the command interpreter or shell provides a 
+mechanism for a user to issue a request without writing a program. Commands 
+may come from files during batch-mode execution or directly from a terminal 

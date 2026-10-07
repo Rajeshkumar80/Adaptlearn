@@ -1,0 +1,270 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E./B.Tech. Degree Examination, June/July 2025 
+Object Oriented Programming with Java    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                    2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                 Module – 1
+M
+L
+C
+Q.1 
+a.
+List and explain control statements in Java with programming example. 
+10
+L1
+CO1
+ 
+b.
+List and explain operators in Java. 
+ 
+10
+L1
+CO1
+                                                                          OR
+Q.2 
+a.
+How are arrays declared and initialized in Java. Explain with suitable 
+example.
+10
+L2
+CO1
+ 
+b.
+Develop a Java program to add two matrices of suitable order N. 
+ 
+10
+L6
+CO1
+                                                                     Module – 2 
+Q.3 
+a.
+With code Snippet, explain different Access specifiers in Java. 
+10
+L2
+CO2
+ 
+b.
+Explain the Garbage collection and finalize ( ) method in Java. 
+ 
+10
+L2
+CO2
+                                                                          OR
+Q.4 
+a.
+With code snippet, explain method overloading in Java. 
+10
+L3
+CO3
+ 
+b.
+Develop a stack class to hold a maximum of 10 integers with suitable 
+methods. Develop a Java main method to illustrate stack operations. 
+ 
+10
+L6
+CO2
+                                                                      Module – 3  
+Q.5 
+a.
+What is inheritance? Discuss different types of inheritance with suitable 
+example. 
+10
+L2
+CO3
+ 
+b.
+Develop a Java program to create a class named SHAPE, create three sub 
+classes namely CIRCLE, TRIANGLE and SQUARE. Each class has two 
+member functions named DRAW ( ) and ERASE ( ). Demonstrate 
+polymorphism concept by developing suitable methods, defining member 
+data and main program. 
+ 
+10
+L6
+CO3
+                                                                           OR 
+Q.6 
+a.
+Demonstrate with code snippet method overriding in Java and justify with 
+code snippet prevention of overriding in inheritance. 
+10
+L3
+CO3
+ 
+b.
+Briefly explain implementation of interface by taking suitable example. 
+ 
+10
+L2
+CO3
+                                                                      Module – 4  
+Q.7
+a.
+What is package? How to create and import packages in Java.
+10
+L2
+CO4
+ 
+b.
+What is an exception? Explain the followings : 
+(i) 
+try  
+(ii) 
+catch 
+(iii) 
+throw 
+(iv) 
+throws 
+(v) 
+finally 
+ 
+10
+L2
+CO4
+1 of 2 
+ 
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS306A 
+VTU-14-07-2025 01:15:33pm
+14-07-2025 01:36:29pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS306A 
+ 
+                                                                           OR 
+Q.8
+a.
+How do you create your own exception class? Explain with code snippet.
+10
+L2
+CO4
+ 
+b.
+Explain the following terms with respect to packages : 
+(i) 
+Built-in Exceptions 
+(ii) 
+Access protection for packages 
+ 
+10
+L2
+CO4
+                                                                      Module – 5  
+Q.9 
+a.
+What is multithreading? List and explain the methods to implement 
+multithreading. 
+10
+L2
+CO5
+ 
+b.
+Explain the followings : 
+(i) 
+Enumeration 
+(ii) 
+Type wrappers 
+ 
+10
+L2
+CO5
+                                                                          OR
+Q.10
+a.
+List and explain benefits of multi-threading.
+10
+L1
+CO5
+ 
+b.
+What is Autoboxing? Write a Java Program that demonstrates 
+autoboxing/unboxing occurs inside expressions. 
+ 
+10
+L3
+CO5
+                                                                      * * * * * 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2 of 2 
+VTU-14-07-2025 01:15:33pm
+14-07-2025 01:36:29pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

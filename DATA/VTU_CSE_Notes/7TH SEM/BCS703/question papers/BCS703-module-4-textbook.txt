@@ -1,0 +1,3155 @@
+474  CHAPTER 15 / USER AUTHENTICATION
+This chapter examines some of the authentication functions that have been developed 
+to support network-based user authentication. The chapter begins with an introduc-
+tion to some of the concepts and key considerations for user authentication over a 
+network or the Internet. The next section examines user-authentication protocols that 
+rely on symmetric encryption. This is followed by a section on one of the earliest and 
+also one of the most widely used authentication services: Kerberos. Next, the chapter 
+looks at user-authentication protocols that rely on asymmetric encryption. This is fol-
+lowed by a discussion of the X.509 user-authentication protocol. Finally, the concept of 
+federated identity is introduced.
+ 15.1 REMOTE USER-AUTHENTICATION PRINCIPLES
+In most computer security contexts, user authentication is the fundamental build-
+ing block and the primary line of defense. User authentication is the basis for most 
+types of access control and for user accountability. RFC 4949 (Internet Security 
+Glossary) defines user authentication as the process of verifying an identity claimed 
+by or for a system entity. This process consists of two steps:
+ 
+■Identification step: Presenting an identifier to the security system. (Identifiers 
+should be assigned carefully, because authenticated identities are the basis for 
+other security services, such as access control service.)
+ 
+■Verification step: Presenting or generating authentication information that 
+corroborates the binding between the entity and the identifier.
+For example, user Alice Toklas could have the user identifier ABTOKLAS. 
+This information needs to be stored on any server or computer system that Alice 
+wishes to use and could be known to system administrators and other users. 
+LEARNING OBJECTIVES
+After studying this chapter, you should be able to:
+ 
+◆
+Understand the distinction between identification and verification.
+ 
+◆
+Present an overview of techniques for remote user authentication using 
+symmetric encryption.
+ 
+◆
+Give a presentation on Kerberos.
+ 
+◆
+Explain the differences between versions 4 and 5 of Kerberos.
+ 
+◆
+Describe the use of Kerberos in multiple realms.
+ 
+◆
+Present an overview of techniques for remote user authentication using 
+asymmetric encryption.
+ 
+◆
+Understand the need for a federated identity management system.
+ 
+◆
+Explain the use of PIV mechanisms as part of a user authentication system.
+MODULE 4
+
+15.1 / REMOTE USER-AUTHENTICATION PRINCIPLES 475
+A typical item of authentication information associated with this user ID is a pass-
+word, which is kept secret (known only to Alice and to the system). If no one is 
+able to obtain or guess Alice’s password, then the combination of Alice’s user ID 
+and password enables administrators to set up Alice’s access permissions and audit 
+her activity. Because Alice’s ID is not secret, system users can send her email, but 
+because her password is secret, no one can pretend to be Alice.
+In essence, identification is the means by which a user provides a claimed 
+identity to the system; user authentication is the means of establishing the validity 
+of the claim. Note that user authentication is distinct from message authentication. 
+As defined in Chapter 12, message authentication is a procedure that allows com-
+municating parties to verify that the contents of a received message have not been 
+altered and that the source is authentic. This chapter is concerned solely with user 
+authentication.
+The NIST Model for Electronic User Authentication
+NIST SP 800-63-2 (Electronic Authentication Guideline, August 2013) defines elec-
+tronic user authentication as the process of establishing confidence in user identi-
+ties that are presented electronically to an information system. Systems can use the 
+ authenticated identity to determine if the authenticated individual is authorized to 
+ perform particular functions, such as database transactions or access to system re-
+sources. In many cases, the authentication and transaction or other authorized function 
+takes place across an open network such as the Internet. Equally authentication and 
+subsequent authorization can take place locally, such as across a local area network.
+SP 800-63-2 defines a general model for user authentication that involves a num-
+ber of entities and procedures. We discuss this model with reference to Figure 15.1.
+The initial requirement for performing user authentication is that the user 
+must be registered with the system. The following is a typical sequence for registra-
+tion. An applicant applies to a registration authority (RA) to become a subscriber 
+Figure 15.1 The NIST SP 800-63-2 E-Authentication Architectural Model
+Registration
+authority (RA)
+Registration, credential issuance,
+and maintenance
+E-Authentication using
+token and credential
+Identity proofing
+User registration
+Token, credential
+Registration/issuance
+Authenticated session
+Authenticated protocol
+Exchange
+Authenticated
+assertion
+Registration
+Confirmation
+Token/credential
+Validation
+Relying
+party (RP)
+Verifier
+Subscriber/
+claimant
+Credential
+service
+provider (RA)
+
+476  CHAPTER 15 / USER AUTHENTICATION
+of a credential service provider (CSP). In this model, the RA is a trusted entity that 
+establishes and vouches for the identity of an applicant to a CSP. The CSP then 
+engages in an exchange with the subscriber. Depending on the details of the over-
+all authentication system, the CSP issues some sort of electronic credential to the 
+subscriber. The credential is a data structure that authoritatively binds an identity 
+and additional attributes to a token possessed by a subscriber, and can be verified 
+when presented to the verifier in an authentication transaction. The token could 
+be an encryption key or an encrypted password that identifies the subscriber. The 
+token may be issued by the CSP, generated directly by the subscriber, or provided 
+by a third party. The token and credential may be used in subsequent authentica-
+tion events.
+Once a user is registered as a subscriber, the actual authentication process can 
+take place between the subscriber and one or more systems that perform authen-
+tication and, subsequently, authorization. The party to be authenticated is called a 
+claimant and the party verifying that identity is called a verifier. When a claimant 
+successfully demonstrates possession and control of a token to a verifier through an 
+authentication protocol, the verifier can verify that the claimant is the subscriber 
+named in the corresponding credential. The verifier passes on an assertion about the 
+identity of the subscriber to the relying party (RP). That assertion includes identity 
+information about a subscriber, such as the subscriber name, an identifier assigned 
+at registration, or other subscriber attributes that were verified in the registration 
+process. The RP can use the authenticated information provided by the verifier to 
+make access control or authorization decisions.
+An implemented system for authentication will differ from or be more com-
+plex than this simplified model, but the model illustrates the key roles and functions 
+needed for a secure authentication system.
+Means of Authentication
+There are four general means of authenticating a user’s identity, which can be used 
+alone or in combination:
+ 
+■Something the individual knows: Examples include a password, a personal 
+identification number (PIN), or answers to a prearranged set of questions.
+ 
+■Something the individual possesses: Examples include cryptographic keys, 
+electronic keycards, smart cards, and physical keys. This type of authenticator 
+is referred to as a token.
+ 
+■Something the individual is (static biometrics): Examples include recognition 
+by fingerprint, retina, and face.
+ 
+■Something the individual does (dynamic biometrics): Examples include recog-
+nition by voice pattern, handwriting characteristics, and typing rhythm.
+All of these methods, properly implemented and used, can provide secure 
+user authentication. However, each method has problems. An adversary may be 
+able to guess or steal a password. Similarly, an adversary may be able to forge or 
+steal a token. A user may forget a password or lose a token. Furthermore, there is a 
+significant administrative overhead for managing password and token information 
+on systems and securing such information on systems. With respect to biometric 
+
+15.1 / REMOTE USER-AUTHENTICATION PRINCIPLES 477
+authenticators, there are a variety of problems, including dealing with false positives 
+and false negatives, user acceptance, cost, and convenience. For network-based user 
+authentication, the most important methods involve cryptographic keys and some-
+thing the individual knows, such as a password.
+Mutual Authentication
+An important application area is that of mutual authentication protocols. Such pro-
+tocols enable communicating parties to satisfy themselves mutually about each oth-
+er’s identity and to exchange session keys. This topic was examined in Chapter 14. 
+There, the focus was key distribution. We return to this topic here to consider the 
+wider implications of authentication.
+Central to the problem of authenticated key exchange are two issues: confi-
+dentiality and timeliness. To prevent masquerade and to prevent compromise of 
+session keys, essential identification and session-key information must be commu-
+nicated in encrypted form. This requires the prior existence of secret or public keys 
+that can be used for this purpose. The second issue, timeliness, is important because 
+of the threat of message replays. Such replays, at worst, could allow an opponent to 
+compromise a session key or successfully impersonate another party. At minimum, 
+a successful replay can disrupt operations by presenting parties with messages that 
+appear genuine but are not.
+[GONG93] lists the following examples of replay attacks:
+1. The simplest replay attack is one in which the opponent simply copies a mes-
+sage and replays it later.
+2. An opponent can replay a timestamped message within the valid time window. 
+If both the original and the replay arrive within then time window, this inci-
+dent can be logged.
+3. As with example (2), an opponent can replay a timestamped message within 
+the valid time window, but in addition, the opponent suppresses the original 
+message. Thus, the repetition cannot be detected.
+4. Another attack involves a backward replay without modification. This is a re-
+play back to the message sender. This attack is possible if symmetric encryp-
+tion is used and the sender cannot easily recognize the difference between 
+messages sent and messages received on the basis of content.
+One approach to coping with replay attacks is to attach a sequence number to 
+each message used in an authentication exchange. A new message is accepted only 
+if its sequence number is in the proper order. The difficulty with this approach is 
+that it requires each party to keep track of the last sequence number for each claim-
+ant it has dealt with. Because of this overhead, sequence numbers are generally not 
+used for authentication and key exchange. Instead, one of the following two general 
+approaches is used:
+ 
+■Timestamps: Party A accepts a message as fresh only if the message contains 
+a timestamp that, in A’s judgment, is close enough to A’s knowledge of cur-
+rent time. This approach requires that clocks among the various participants 
+be synchronized.
+
+478  CHAPTER 15 / USER AUTHENTICATION
+ 
+■Challenge/response: Party A, expecting a fresh message from B, first sends B 
+a nonce (challenge) and requires that the subsequent message (response) re-
+ceived from B contain the correct nonce value.
+It can be argued (e.g., [LAM92a]) that the timestamp approach should not be 
+used for connection-oriented applications because of the inherent difficulties with 
+this technique. First, some sort of protocol is needed to maintain synchronization 
+among the various processor clocks. This protocol must be both fault tolerant, to 
+cope with network errors, and secure, to cope with hostile attacks. Second, the oppor-
+tunity for a successful attack will arise if there is a temporary loss of synchronization 
+resulting from a fault in the clock mechanism of one of the parties. Finally,  because 
+of the variable and unpredictable nature of network delays, distributed clocks cannot 
+be expected to maintain precise synchronization. Therefore, any timestamp-based 
+procedure must allow for a window of time sufficiently large to accommodate net-
+work delays yet sufficiently small to minimize the opportunity for attack.
+On the other hand, the challenge-response approach is unsuitable for a con-
+nectionless type of application, because it requires the overhead of a handshake be-
+fore any connectionless transmission, effectively negating the chief characteristic of 
+a connectionless transaction. For such applications, reliance on some sort of secure 
+time server and a consistent attempt by each party to keep its clocks in synchroniza-
+tion may be the best approach (e.g., [LAM92b]).
+One-Way Authentication
+One application for which encryption is growing in popularity is electronic mail 
+(email). The very nature of electronic mail, and its chief benefit, is that it is not nec-
+essary for the sender and receiver to be online at the same time. Instead, the email 
+message is forwarded to the receiver’s electronic mailbox, where it is buffered until 
+the receiver is available to read it.
+The “envelope” or header of the email message must be in the clear, so that 
+the message can be handled by the store-and-forward email protocol, such as the 
+Simple Mail Transfer Protocol (SMTP) or X.400. However, it is often desirable that 
+the mail-handling protocol not require access to the plaintext form of the message, 
+because that would require trusting the mail-handling mechanism. Accordingly, the 
+email message should be encrypted such that the mail-handling system is not in 
+ possession of the decryption key.
+A second requirement is that of authentication. Typically, the recipient wants 
+some assurance that the message is from the alleged sender.
+ 15.2 REMOTE USER-AUTHENTICATION USING 
+SYMMETRIC ENCRYPTION
+Mutual Authentication
+As was discussed in Chapter 14, a two-level hierarchy of symmetric encryption keys 
+can be used to provide confidentiality for communication in a distributed environ-
+ment. In general, this strategy involves the use of a trusted key distribution center 
+
+482  CHAPTER 15 / USER AUTHENTICATION
+One-Way Authentication
+Using symmetric encryption, the decentralized key distribution scenario illustrated 
+in Figure 14.5 is impractical. This scheme requires the sender to issue a request to 
+the intended recipient, await a response that includes a session key, and only then 
+send the message.
+With some refinement, the KDC strategy illustrated in Figure 14.3 is a can-
+didate for encrypted electronic mail. Because we wish to avoid requiring that the 
+recipient (B) be on line at the same time as the sender (A), steps 4 and 5 must be 
+eliminated. For a message with content M, the sequence is as follows:
+1. A S KDC: IDA }IDB }N1
+2. KDC S A: E(Ka, [Ks }IDB }N1 }E(Kb, [Ks }IDA])])
+3. A S B:      E(Kb, [Ks }IDA]) }E(Ks, M)
+This approach guarantees that only the intended recipient of a message will be 
+able to read it. It also provides a level of authentication that the sender is A. As 
+ specified, the protocol does not protect against replays. Some measure of defense 
+could be provided by including a timestamp with the message. However, because 
+of the potential delays in the email process, such timestamps may have limited 
+usefulness.
+ 15.3 KERBEROS
+Kerberos4 is an authentication service developed as part of Project Athena at MIT. 
+The problem that Kerberos addresses is this: Assume an open distributed environ-
+ment in which users at workstations wish to access services on servers distributed 
+throughout the network. We would like for servers to be able to restrict access to 
+authorized users and to be able to authenticate requests for service. In this envi-
+ronment, a workstation cannot be trusted to identify its users correctly to network 
+services. In particular, the following three threats exist:
+1. A user may gain access to a particular workstation and pretend to be another 
+user operating from that workstation.
+2. A user may alter the network address of a workstation so that the requests 
+sent from the altered workstation appear to come from the impersonated 
+workstation.
+3. A user may eavesdrop on exchanges and use a replay attack to gain entrance 
+to a server or to disrupt operations.
+In any of these cases, an unauthorized user may be able to gain access to services 
+and data that he or she is not authorized to access. Rather than building in elaborate 
+4“In Greek mythology, a many headed dog, commonly three, perhaps with a serpent’s tail, the guardian 
+of the entrance of Hades.” From Dictionary of Subjects and Symbols in Art, by James Hall, Harper & 
+Row, 1979. Just as the Greek Kerberos has three heads, the modern Kerberos was intended to have three 
+components to guard a network’s gate: authentication, accounting, and audit. The last two heads were 
+never implemented.
+
+15.3 / KERBEROS 483
+authentication protocols at each server, Kerberos provides a centralized authenti-
+cation server whose function is to authenticate users to servers and servers to users. 
+Unlike most other authentication schemes described in this book, Kerberos relies 
+exclusively on symmetric encryption, making no use of public-key encryption.
+Two versions of Kerberos are in common use. Version 4 [MILL88, STEI88] 
+implementations still exist. Version 5 [KOHL94] corrects some of the security defi-
+ciencies of version 4 and has been issued as a proposed Internet Standard (RFC 
+4120 and RFC 4121).5
+We begin this section with a brief discussion of the motivation for the Kerberos 
+approach. Then, because of the complexity of Kerberos, it is best to start with a de-
+scription of the authentication protocol used in version 4. This enables us to see the 
+essence of the Kerberos strategy without considering some of the details required to 
+handle subtle security threats. Finally, we examine version 5.
+Motivation
+If a set of users is provided with dedicated personal computers that have no network 
+connections, then a user’s resources and files can be protected by physically secur-
+ing each personal computer. When these users instead are served by a centralized 
+time-sharing system, the time-sharing operating system must provide the security. 
+The operating system can enforce access-control policies based on user identity and 
+use the logon procedure to identify users.
+Today, neither of these scenarios is typical. More common is a distributed 
+architecture consisting of dedicated user workstations (clients) and distributed 
+or centralized servers. In this environment, three approaches to security can be 
+envisioned.
+1. Rely on each individual client workstation to assure the identity of its user or 
+users and rely on each server to enforce a security policy based on user iden-
+tification (ID).
+2. Require that client systems authenticate themselves to servers, but trust the 
+client system concerning the identity of its user.
+3. Require the user to prove his or her identity for each service invoked. Also 
+require that servers prove their identity to clients.
+In a small, closed environment in which all systems are owned and operated 
+by a single organization, the first or perhaps the second strategy may suffice.6 But 
+in a more open environment in which network connections to other machines are 
+supported, the third approach is needed to protect user information and resources 
+housed at the server. Kerberos supports this third approach. Kerberos assumes a 
+distributed client/server architecture and employs one or more Kerberos servers to 
+provide an authentication service.
+5Versions 1 through 3 were internal development versions. Version 4 is the “original” Kerberos.
+6However, even a closed environment faces the threat of attack by a disgruntled employee.
+
+484  CHAPTER 15 / USER AUTHENTICATION
+The first published report on Kerberos [STEI88] listed the following 
+requirements.
+ 
+■Secure: A network eavesdropper should not be able to obtain the necessary 
+information to impersonate a user. More generally, Kerberos should be strong 
+enough that a potential opponent does not find it to be the weak link.
+ 
+■Reliable: For all services that rely on Kerberos for access control, lack of 
+ availability of the Kerberos service means lack of availability of the supported 
+services. Hence, Kerberos should be highly reliable and should employ a 
+ distributed server architecture with one system able to back up another.
+ 
+■Transparent: Ideally, the user should not be aware that authentication is taking 
+place beyond the requirement to enter a password.
+ 
+■Scalable: The system should be capable of supporting large numbers of clients 
+and servers. This suggests a modular, distributed architecture.
+To support these requirements, the overall scheme of Kerberos is that of a 
+trusted third-party authentication service that uses a protocol based on that pro-
+posed by Needham and Schroeder [NEED78], which was discussed in Section 15.2. 
+It is trusted in the sense that clients and servers trust Kerberos to mediate their 
+mutual authentication. Assuming the Kerberos protocol is well designed, then the 
+authentication service is secure if the Kerberos server itself is secure.7
+Kerberos Version 4
+Version 4 of Kerberos makes use of DES, in a rather elaborate protocol, to pro-
+vide the authentication service. Viewing the protocol as a whole, it is difficult to see 
+the need for the many elements contained therein. Therefore, we adopt a strategy 
+used by Bill Bryant of Project Athena [BRYA88] and build up to the full protocol 
+by looking first at several hypothetical dialogues. Each successive dialogue adds 
+additional complexity to counter security vulnerabilities revealed in the preceding 
+dialogue.
+After examining the protocol, we look at some other aspects of version 4.
+A SIMPLE AUTHENTICATION DIALOGUE In an unprotected network environment, any 
+client can apply to any server for service. The obvious security risk is that of im-
+personation. An opponent can pretend to be another client and obtain unauthor-
+ized privileges on server machines. To counter this threat, servers must be able to 
+confirm the identities of clients who request service. Each server can be required to 
+undertake this task for each client/server interaction, but in an open environment, 
+this places a substantial burden on each server.
+7Remember that the security of the Kerberos server should not automatically be assumed but must be 
+guarded carefully (e.g., in a locked room). It is well to remember the fate of the Greek Kerberos, whom 
+Hercules was ordered by Eurystheus to capture as his Twelfth Labor: “Hercules found the great dog on its 
+chain and seized it by the throat. At once the three heads tried to attack, and Kerberos lashed about with 
+his powerful tail. Hercules hung on grimly, and Kerberos relaxed into unconsciousness. Eurystheus may 
+have been surprised to see Hercules alive—when he saw the three slavering heads and the huge dog they 
+belonged to he was frightened out of his wits, and leapt back into the safety of his great bronze jar.” From 
+The Hamlyn Concise Dictionary of Greek and Roman Mythology, by Michael Stapleton, Hamlyn, 1982.
+
+15.3 / KERBEROS 485
+An alternative is to use an authentication server (AS) that knows the 
+ passwords of all users and stores these in a centralized database. In addition, the AS 
+shares a unique secret key with each server. These keys have been distributed physi-
+cally or in some other secure manner. Consider the following hypothetical dialogue:
+(1) C S AS:    IDC }PC }IDV
+(2) AS S C:    Ticket
+(3) C S V:   IDC }Ticket
+Ticket = E(Kv, [IDC }ADC }IDV])
+where
+ C = client
+ AS = authentication server
+ V = server
+ IDC = identifier of user on C
+ IDV = identifier of V
+ PC = password of user on C
+ ADC = network address of C
+ Kv = secret encryption key shared by AS and V
+In this scenario, the user logs on to a workstation and requests access to server V. 
+The client module C in the user’s workstation requests the user’s password and then 
+sends a message to the AS that includes the user’s ID, the server’s ID, and the user’s 
+password. The AS checks its database to see if the user has supplied the proper 
+password for this user ID and whether this user is permitted access to server V. If 
+both tests are passed, the AS accepts the user as authentic and must now convince 
+the server that this user is authentic. To do so, the AS creates a ticket that con-
+tains the user’s ID and network address and the server’s ID. This ticket is encrypted 
+using the secret key shared by the AS and this server. This ticket is then sent back 
+to C. Because the ticket is encrypted, it cannot be altered by C or by an opponent.
+With this ticket, C can now apply to V for service. C sends a message to V con-
+taining C’s ID and the ticket. V decrypts the ticket and verifies that the user ID in 
+the ticket is the same as the unencrypted user ID in the message. If these two match, 
+the server considers the user authenticated and grants the requested service.
+Each of the ingredients of message (3) is significant. The ticket is encrypted to 
+prevent alteration or forgery. The server’s ID (IDV) is included in the ticket so that 
+the server can verify that it has decrypted the ticket properly. IDC is included in the 
+ticket to indicate that this ticket has been issued on behalf of C. Finally, ADC serves 
+to counter the following threat. An opponent could capture the ticket transmitted 
+in message (2), then use the name IDC and transmit a message of form (3) from 
+another workstation. The server would receive a valid ticket that matches the user 
+ID and grant access to the user on that other workstation. To prevent this attack, 
+the AS includes in the ticket the network address from which the original request 
+came. Now the ticket is valid only if it is transmitted from the same workstation that 
+initially requested the ticket.
+
+486  CHAPTER 15 / USER AUTHENTICATION
+A MORE SECURE AUTHENTICATION DIALOGUE Although the foregoing scenario solves 
+some of the problems of authentication in an open network environment, problems 
+remain. Two in particular stand out. First, we would like to minimize the number 
+of times that a user has to enter a password. Suppose each ticket can be used only 
+once. If user C logs on to a workstation in the morning and wishes to check his or her 
+mail at a mail server, C must supply a password to get a ticket for the mail server. If 
+C wishes to check the mail several times during the day, each attempt requires re-
+entering the password. We can improve matters by saying that tickets are reusable. 
+For a single logon session, the workstation can store the mail server ticket after it is 
+received and use it on behalf of the user for multiple accesses to the mail server.
+However, under this scheme, it remains the case that a user would need a new 
+ticket for every different service. If a user wished to access a print server, a mail 
+server, a file server, and so on, the first instance of each access would require a new 
+ticket and hence require the user to enter the password.
+The second problem is that the earlier scenario involved a plaintext transmis-
+sion of the password [message (1)]. An eavesdropper could capture the password 
+and use any service accessible to the victim.
+To solve these additional problems, we introduce a scheme for avoiding plain-
+text passwords and a new server, known as the ticket-granting server (TGS). The 
+new (but still hypothetical) scenario is as follows.
+Once per user logon session:
+(1) C S AS:    IDC }IDtgs
+(2) AS S C:    E(Kc, Tickettgs)
+Once per type of service:
+(3) C S TGS: IDC }IDV }Tickettgs
+(4) TGS S C: Ticketv
+Once per service session:
+(5) C S V:   IDC }Ticketv
+Tickettgs = E(Ktgs, [IDC }ADC }IDtgs }TS1 }Lifetime1])
+Ticketv = E(Kv, [IDC }ADC }IDv }TS2 }Lifetime2])
+The new service, TGS, issues tickets to users who have been authenticated to 
+AS. Thus, the user first requests a ticket-granting ticket (Tickettgs) from the AS. The 
+client module in the user workstation saves this ticket. Each time the user requires 
+access to a new service, the client applies to the TGS, using the ticket to authenti-
+cate itself. The TGS then grants a ticket for the particular service. The client saves 
+each service-granting ticket and uses it to authenticate its user to a server each time 
+a particular service is requested. Let us look at the details of this scheme:
+1. The client requests a ticket-granting ticket on behalf of the user by sending its 
+user’s ID to the AS, together with the TGS ID, indicating a request to use the 
+TGS service.
+
+15.3 / KERBEROS 487
+2. The AS responds with a ticket that is encrypted with a key that is derived from 
+the user’s password (Kc), which is already stored at the AS. When this response 
+arrives at the client, the client prompts the user for his or her password, gen-
+erates the key, and attempts to decrypt the incoming message. If the correct 
+password is supplied, the ticket is successfully recovered.
+Because only the correct user should know the password, only the correct user 
+can recover the ticket. Thus, we have used the password to obtain credentials from 
+Kerberos without having to transmit the password in plaintext. The ticket itself 
+consists of the ID and network address of the user, and the ID of the TGS. This 
+corresponds to the first scenario. The idea is that the client can use this ticket to 
+request multiple service-granting tickets. So the ticket-granting ticket is to be reus-
+able. However, we do not wish an opponent to be able to capture the ticket and use 
+it. Consider the following scenario: An opponent captures the login ticket and waits 
+until the user has logged off his or her workstation. Then the opponent either gains 
+access to that workstation or configures his workstation with the same network ad-
+dress as that of the victim. The opponent would be able to reuse the ticket to spoof 
+the TGS. To counter this, the ticket includes a timestamp, indicating the date and 
+time at which the ticket was issued, and a lifetime, indicating the length of time for 
+which the ticket is valid (e.g., eight hours). Thus, the client now has a reusable ticket 
+and need not bother the user for a password for each new service request. Finally, 
+note that the ticket-granting ticket is encrypted with a secret key known only to the 
+AS and the TGS. This prevents alteration of the ticket. The ticket is reencrypted 
+with a key based on the user’s password. This assures that the ticket can be recov-
+ered only by the correct user, providing the authentication.
+Now that the client has a ticket-granting ticket, access to any server can be 
+obtained with steps 3 and 4.
+3. The client requests a service-granting ticket on behalf of the user. For this pur-
+pose, the client transmits a message to the TGS containing the user’s ID, the 
+ID of the desired service, and the ticket-granting ticket.
+4. The TGS decrypts the incoming ticket using a key shared only by the AS and 
+the TGS (Ktgs) and verifies the success of the decryption by the presence of its 
+ID. It checks to make sure that the lifetime has not expired. Then it compares 
+the user ID and network address with the incoming information to authenti-
+cate the user. If the user is permitted access to the server V, the TGS issues a 
+ticket to grant access to the requested service.
+The service-granting ticket has the same structure as the ticket-granting ticket. 
+Indeed, because the TGS is a server, we would expect that the same elements are 
+needed to authenticate a client to the TGS and to authenticate a client to an appli-
+cation server. Again, the ticket contains a timestamp and lifetime. If the user wants 
+access to the same service at a later time, the client can simply use the previously 
+acquired service-granting ticket and need not bother the user for a password. Note 
+that the ticket is encrypted with a secret key (Kv) known only to the TGS and the 
+server, preventing alteration.
+Finally, with a particular service-granting ticket, the client can gain access to 
+the corresponding service with step 5.
+
+488  CHAPTER 15 / USER AUTHENTICATION
+5. The client requests access to a service on behalf of the user. For this purpose, the 
+client transmits a message to the server containing the user’s ID and the service-
+granting ticket. The server authenticates by using the contents of the ticket.
+This new scenario satisfies the two requirements of only one password query 
+per user session and protection of the user password.
+THE VERSION 4 AUTHENTICATION DIALOGUE Although the foregoing scenario en-
+hances security compared to the first attempt, two additional problems remain. The 
+heart of the first problem is the lifetime associated with the ticket-granting ticket. 
+If this lifetime is very short (e.g., minutes), then the user will be repeatedly asked 
+for a password. If the lifetime is long (e.g., hours), then an opponent has a greater 
+opportunity for replay. An opponent could eavesdrop on the network and capture 
+a copy of the ticket-granting ticket and then wait for the legitimate user to log out. 
+Then the opponent could forge the legitimate user’s network address and send the 
+message of step (3) to the TGS. This would give the opponent unlimited access to 
+the resources and files available to the legitimate user.
+Similarly, if an opponent captures a service-granting ticket and uses it before it 
+expires, the opponent has access to the corresponding service.
+Thus, we arrive at an additional requirement. A network service (the TGS or 
+an application service) must be able to prove that the person using a ticket is the 
+same person to whom that ticket was issued.
+The second problem is that there may be a requirement for servers to authen-
+ticate themselves to users. Without such authentication, an opponent could sabo-
+tage the configuration so that messages to a server were directed to another loca-
+tion. The false server would then be in a position to act as a real server and capture 
+any information from the user and deny the true service to the user.
+We examine these problems in turn and refer to Table 15.1, which shows the 
+actual Kerberos protocol. Figure 15.2 provides a simplified overview.
+(1)
+C S AS IDc }IDtgs}TS1
+(2)
+AS S C E(Kc, [Kc, tgs }IDtgs}TS2 }Lifetime2 }Tickettgs])
+Tickettgs = E(Ktgs, [Kc, tgs }IDC}ADC}IDtgs}TS2 }Lifetime2])
+(a) Authentication Service Exchange to obtain ticket-granting ticket
+(3)
+C S TGS IDv }Tickettgs}Authenticatorc
+(4)
+TGS S C E(Kc, tgs, [Kc, v }IDv }TS4 }Ticketv])
+Tickettgs = E(Ktgs, [Kc, tgs }IDC}ADC}IDtgs}TS2 }Lifetime2])
+Ticketv = E(Kv, [Kc, v }IDC}ADC}IDv }TS4 }Lifetime4])
+Authenticatorc = E(Kc, tgs, [IDC}ADC}TS3])
+(b) Ticket-Granting Service Exchange to obtain service-granting ticket
+(5)
+C S V Ticketv }Authenticatorc
+(6)
+V S C E(Kc,v, [TS5 + 1]) (for mutual authentication)
+Ticketv = E(Kv, [Kc, v }IDC}ADC}IDv }TS4 }Lifetime4])
+Authenticatorc = E(Kc, v, [IDC}ADC}TS5])
+(c) Client/Server Authentication Exchange to obtain service
+Table 15.1 Summary of Kerberos Version 4 Message Exchanges
+
+15.3 / KERBEROS 489
+First, consider the problem of captured ticket-granting tickets and the need 
+to determine that the ticket presenter is the same as the client for whom the ticket 
+was issued. The threat is that an opponent will steal the ticket and use it before it 
+expires. To get around this problem, let us have the AS provide both the client and 
+the TGS with a secret piece of information in a secure manner. Then the client can 
+prove its identity to the TGS by revealing the secret information—again in a secure 
+manner. An efficient way of accomplishing this is to use an encryption key as the 
+secure information; this is referred to as a session key in Kerberos.
+Table 15.1a shows the technique for distributing the session key. As before, 
+the client sends a message to the AS requesting access to the TGS. The AS re-
+sponds with a message, encrypted with a key derived from the user’s password 
+(Kc), that contains the ticket. The encrypted message also contains a copy of the 
+session key, Kc,tgs, where the subscripts indicate that this is a session key for C and 
+TGS. Because this session key is inside the message encrypted with Kc, only the 
+user’s client can read it. The same session key is included in the ticket, which can 
+be read only by the TGS. Thus, the session key has been securely delivered to both 
+C and the TGS.
+Figure 15.2 Overview of Kerberos
+Authentication
+server
+Ticket-
+granting
+server (TGS)
+Host/
+application
+server
+request ticket-
+granting ticket
+once per
+user logon
+session
+1. User logs on to
+workstation and
+requests service on host
+3. Workstation prompts
+user for password to decrypt
+incoming message, and then
+send ticket and
+authenticator that contains
+user’s name, network
+address, and time to TGS.
+ticket + session key
+request service-
+granting ticket
+ticket + session key
+once per
+type of service
+4. TGS decrypts ticket and
+authenticator, verifies request,
+and then creates ticket for
+requested application server.
+Kerberos
+5. Workstation sends
+ticket and authenticator
+to host.
+6. Host verifies that
+ticket and authenticator
+match, and then grants
+access to service. If
+mutual authentication is
+required, server returns
+an authenticator.
+request service
+provide server
+authenticator
+once per
+service session
+2. AS verifies user’s access right in
+database, and creates ticket-granting ticket
+and session key. Results are encrypted
+using key derived from user’s password.
+
+490  CHAPTER 15 / USER AUTHENTICATION
+Note that several additional pieces of information have been added to this 
+first phase of the dialogue. Message (1) includes a timestamp, so that the AS knows 
+that the message is timely. Message (2) includes several elements of the ticket in a 
+form accessible to C. This enables C to confirm that this ticket is for the TGS and to 
+learn its expiration time.
+Armed with the ticket and the session key, C is ready to approach the TGS. 
+As before, C sends the TGS a message that includes the ticket plus the ID of the 
+requested service [message (3) in Table 15.1b]. In addition, C transmits an authentica-
+tor, which includes the ID and address of C’s user and a timestamp. Unlike the ticket, 
+which is reusable, the authenticator is intended for use only once and has a very short 
+lifetime. The TGS can decrypt the ticket with the key that it shares with the AS. This 
+ticket indicates that user C has been provided with the session key Kc,tgs. In effect, 
+the ticket says, “Anyone who uses Kc,tgs must be C.” The TGS uses the session key to 
+decrypt the authenticator. The TGS can then check the name and address from the 
+authenticator with that of the ticket and with the network address of the incoming 
+message. If all match, then the TGS is assured that the sender of the ticket is indeed 
+the ticket’s real owner. In effect, the authenticator says, “At time TS3, I hereby use 
+Kc,tgs.” Note that the ticket does not prove anyone’s identity but is a way to distribute 
+keys securely. It is the authenticator that proves the client’s identity. Because the au-
+thenticator can be used only once and has a short lifetime, the threat of an opponent 
+stealing both the ticket and the authenticator for presentation later is countered.
+The reply from the TGS in message (4) follows the form of message (2). The 
+message is encrypted with the session key shared by the TGS and C and includes 
+a session key to be shared between C and the server V, the ID of V, and the time-
+stamp of the ticket. The ticket itself includes the same session key.
+C now has a reusable service-granting ticket for V. When C presents this ticket, 
+as shown in message (5), it also sends an authenticator. The server can decrypt the 
+ticket, recover the session key, and decrypt the authenticator.
+If mutual authentication is required, the server can reply as shown in message 
+(6) of Table 15.1. The server returns the value of the timestamp from the authenti-
+cator, incremented by 1, and encrypted in the session key. C can decrypt this mes-
+sage to recover the incremented timestamp. Because the message was encrypted by 
+the session key, C is assured that it could have been created only by V. The contents 
+of the message assure C that this is not a replay of an old reply.
+Finally, at the conclusion of this process, the client and server share a secret 
+key. This key can be used to encrypt future messages between the two or to ex-
+change a new random session key for that purpose.
+Figure 15.3 illustrates the Kerberos exchanges among the parties. Table 15.2 
+summarizes the justification for each of the elements in the Kerberos protocol.
+KERBEROS REALMS AND MULTIPLE KERBERI A full-service Kerberos environment 
+consisting of a Kerberos server, a number of clients, and a number of application 
+servers requires the following:
+1. The Kerberos server must have the user ID and hashed passwords of all partic-
+ipating users in its database. All users are registered with the Kerberos server.
+2. The Kerberos server must share a secret key with each server. All servers are 
+registered with the Kerberos server.
+
+15.3 / KERBEROS 491
+Message (1)
+Client requests ticket-granting ticket.
+IDC
+Tells AS identity of user from this client.
+IDtgs
+Tells AS that user requests access to TGS.
+TS1
+Allows AS to verify that client’s clock is synchronized with that of AS.
+Message (2)
+AS returns ticket-granting ticket.
+Kc
+Encryption is based on user’s password, enabling AS and client to verify password, and 
+protecting contents of message (2).
+Kc, tgs
+Copy of session key accessible to client created by AS to permit secure exchange between 
+client and TGS without requiring them to share a permanent key.
+IDtgs
+Confirms that this ticket is for the TGS.
+TS2
+Informs client of time this ticket was issued.
+Lifetime2
+Informs client of the lifetime of this ticket.
+Tickettgs
+Ticket to be used by client to access TGS.
+(a) Authentication Service Exchange
+Message (3)
+Client requests service-granting ticket.
+IDV
+Tells TGS that user requests access to server V.
+Tickettgs
+Assures TGS that this user has been authenticated by AS.
+Authenticatorc
+Generated by client to validate ticket.
+Table 15.2 Rationale for the Elements of the Kerberos Version 4 Protocol
+Figure 15.3 Kerberos Exchanges
+Client
+Client authentication
+IDc || IDtgs || TS1
+Tickettgs, server ID, and client authentication
+IDv || Tickettgs || Authenticatorc
+Shared key and ticket
+E(Kc,tgs, [Kc,v || IDv || TS4 || Ticketv])
+Ticketv and client authentication
+Ticketv || Authenticatorc
+Service granted
+E(Kc,v, [TS5 + 1])
+Shared key and ticket
+E(Kc, [Kc,tgs || IDtgs || TS2 ||
+Lifetime2 || Tickettgs])
+Authentication
+server (AS)
+Ticket-granting
+server (TGS)
+Service
+provider
+(Continued)
+
+492  CHAPTER 15 / USER AUTHENTICATION
+Message (4)
+TGS returns service-granting ticket.
+Kc, tgs
+Key shared only by C and TGS protects contents of message (4).
+Kc, v
+Copy of session key accessible to client created by TGS to permit secure exchange between 
+client and server without requiring them to share a permanent key.
+IDV
+Confirms that this ticket is for server V.
+TS4
+Informs client of time this ticket was issued.
+TicketV
+Ticket to be used by client to access server V.
+Tickettgs
+Reusable so that user does not have to reenter password.
+Ktgs
+Ticket is encrypted with key known only to AS and TGS, to prevent tampering.
+Kc, tgs
+Copy of session key accessible to TGS used to decrypt authenticator, thereby  authenticating 
+ticket.
+IDC
+Indicates the rightful owner of this ticket.
+ADC
+Prevents use of ticket from workstation other than one that initially requested the ticket.
+IDtgs
+Assures server that it has decrypted ticket properly.
+TS2
+Informs TGS of time this ticket was issued.
+Lifetime2
+Prevents replay after ticket has expired.
+Authenticatorc
+Assures TGS that the ticket presenter is the same as the client for whom the ticket was 
+issued has very short lifetime to prevent replay.
+Kc, tgs
+Authenticator is encrypted with key known only to client and TGS, to prevent tampering.
+IDC
+Must match ID in ticket to authenticate ticket.
+ADC
+Must match address in ticket to authenticate ticket.
+TS3
+Informs TGS of time this authenticator was generated.
+(b) Ticket-Granting Service Exchange
+Message (5)
+Client requests service.
+TicketV
+Assures server that this user has been authenticated by AS.
+Authenticatorc
+Generated by client to validate ticket.
+Message (6)
+Optional authentication of server to client.
+Kc, v
+Assures C that this message is from V.
+TS5 + 1
+Assures C that this is not a replay of an old reply.
+Ticketv
+Reusable so that client does not need to request a new ticket from TGS for each access to 
+the same server.
+Kv
+Ticket is encrypted with key known only to TGS and server, to prevent tampering.
+Kc, v
+Copy of session key accessible to client; used to decrypt authenticator, thereby  authenticating 
+ticket.
+IDC
+Indicates the rightful owner of this ticket.
+ADC
+Prevents use of ticket from workstation other than one that initially requested the ticket.
+IDV
+Assures server that it has decrypted ticket properly.
+TS4
+Informs server of time this ticket was issued.
+Lifetime4
+Prevents replay after ticket has expired.
+Authenticatorc
+Assures server that the ticket presenter is the same as the client for whom the ticket was 
+issued; has very short lifetime to prevent replay.
+Kc, v
+Authenticator is encrypted with key known only to client and server, to prevent tampering.
+IDC
+Must match ID in ticket to authenticate ticket.
+ADC
+Must match address in ticket to authenticate ticket.
+TS5
+Informs server of time this authenticator was generated.
+(c) Client/Server Authentication Exchange
+Table 15.2 Continued
+
+15.3 / KERBEROS 493
+Such an environment is referred to as a Kerberos realm. The concept of 
+realm can be explained as follows. A Kerberos realm is a set of managed nodes 
+that share the same Kerberos database. The Kerberos database resides on the 
+Kerberos master computer system, which should be kept in a physically secure 
+room. A read-only copy of the Kerberos database might also reside on other 
+Kerberos computer systems. However, all changes to the database must be 
+made on the master computer system. Changing or accessing the contents of a 
+Kerberos database requires the Kerberos master password. A related concept 
+is that of a Kerberos principal, which is a service or user that is known to the 
+Kerberos system. Each Kerberos principal is identified by its principal name. 
+Principal names consist of three parts: a service or user name, an instance name, 
+and a realm name.
+Networks of clients and servers under different administrative organizations 
+typically constitute different realms. That is, it generally is not practical or does 
+not conform to administrative policy to have users and servers in one administra-
+tive domain registered with a Kerberos server elsewhere. However, users in one 
+realm may need access to servers in other realms, and some servers may be will-
+ing to provide service to users from other realms, provided that those users are 
+authenticated.
+Kerberos provides a mechanism for supporting such interrealm  authentication. 
+For two realms to support interrealm authentication, a third requirement is added:
+3. The Kerberos server in each interoperating realm shares a secret key with the 
+server in the other realm. The two Kerberos servers are registered with each 
+other.
+The scheme requires that the Kerberos server in one realm trust the Kerberos 
+server in the other realm to authenticate its users. Furthermore, the participating 
+servers in the second realm must also be willing to trust the Kerberos server in the 
+first realm.
+With these ground rules in place, we can describe the mechanism as follows 
+(Figure 15.4): A user wishing service on a server in another realm needs a ticket for 
+that server. The user’s client follows the usual procedures to gain access to the local 
+TGS and then requests a ticket-granting ticket for a remote TGS (TGS in another 
+realm). The client can then apply to the remote TGS for a service-granting ticket for 
+the desired server in the realm of the remote TGS.
+The details of the exchanges illustrated in Figure 15.4 are as follows (compare 
+Table 15.1).
+(1) C S AS:    IDc }IDtgs }TS1
+(2) AS S C:      E(Kc, [Kc, tgs }IDtgs }TS2 }Lifetime2 }Tickettgs])
+(3) C S TGS:   IDtgsrem}Tickettgs }Authenticatorc
+(4) TGS S C:    E(Kc,tgs, [Kc, tgsrem}IDtgsrem}TS4 }Tickettgsrem])
+(5) C S TGSrem: IDvrem}Tickettgsrem}Authenticatorc
+(6) TGSrem S C: E(Kc,tgsrem, [Kc, vrem}IDvrem}TS6 }Ticketvrem])
+(7) C S Vrem:     Ticketvrem}Authenticatorc
+
+494  CHAPTER 15 / USER AUTHENTICATION
+The ticket presented to the remote server (Vrem) indicates the realm in which 
+the user was originally authenticated. The server chooses whether to honor the re-
+mote request.
+One problem presented by the foregoing approach is that it does not scale well 
+to many realms. If there are N realms, then there must be N(N - 1)/2 secure key 
+exchanges so that each Kerberos realm can interoperate with all other Kerberos 
+realms.
+Kerberos Version 5
+Kerberos version 5 is specified in RFC 4120 and provides a number of improve-
+ments over version 4 [KOHL94]. To begin, we provide an overview of the changes 
+from version 4 to version 5 and then look at the version 5 protocol.
+Figure 15.4 Request for Service in Another Realm
+Authentication
+server (AS)
+Ticket-
+granting
+server (TGS)
+Kerberos
+Authentication
+server (AS)
+Ticket-
+granting
+server (TGS)
+Kerberos
+Client
+Realm A
+Host/
+application
+server
+Realm B
+1. Request ticket for local TGS
+2. Ticket for local TGS
+3. Request ticket for remote
+TGS
+4. Ticket for remote TGS
+5. Request ticket
+for remote server
+6. Ticket for remote server
+7. Request remote service
+
+15.3 / KERBEROS 495
+DIFFERENCES BETWEEN VERSIONS 4 AND 5 Version 5 is intended to address the limita-
+tions of version 4 in two areas: environmental shortcomings and technical deficien-
+cies. Let us briefly summarize the improvements in each area.8
+Kerberos version 4 was developed for use within the Project Athena environ-
+ment and, accordingly, did not fully address the need to be of general purpose. This 
+led to the following environmental shortcomings.
+1. Encryption system dependence: Version 4 requires the use of DES. Export 
+restriction on DES as well as doubts about the strength of DES were thus of 
+concern. In version 5, ciphertext is tagged with an encryption-type identifier 
+so that any encryption technique may be used. Encryption keys are tagged 
+with a type and a length, allowing the same key to be used in different al-
+gorithms and allowing the specification of different variations on a given 
+algorithm.
+2. Internet protocol dependence: Version 4 requires the use of Internet Protocol 
+(IP) addresses. Other address types, such as the ISO network address, are not 
+accommodated. Version 5 network addresses are tagged with type and length, 
+allowing any network address type to be used.
+3. Message byte ordering: In version 4, the sender of a message employs a byte 
+ordering of its own choosing and tags the message to indicate least signifi-
+cant byte in lowest address or most significant byte in lowest address. This 
+techniques works but does not follow established conventions. In version 
+5, all message structures are defined using Abstract Syntax Notation One 
+(ASN.1) and Basic Encoding Rules (BER), which provide an unambiguous 
+byte ordering.
+4. Ticket lifetime: Lifetime values in version 4 are encoded in an 8-bit quantity 
+in units of five minutes. Thus, the maximum lifetime that can be expressed is 
+28 * 5 = 1280 minutes (a little over 21 hours). This may be inadequate for 
+some applications (e.g., a long-running simulation that requires valid Kerberos 
+credentials throughout execution). In version 5, tickets include an explicit start 
+time and end time, allowing tickets with arbitrary lifetimes.
+5. Authentication forwarding: Version 4 does not allow credentials issued to one 
+client to be forwarded to some other host and used by some other client. This 
+capability would enable a client to access a server and have that server access 
+another server on behalf of the client. For example, a client issues a request to 
+a print server that then accesses the client’s file from a file server, using the cli-
+ent’s credentials for access. Version 5 provides this capability.
+6. Interrealm authentication: In version 4, interoperability among N realms 
+ requires on the order of N2 Kerberos-to-Kerberos relationships, as described 
+earlier. Version 5 supports a method that requires fewer relationships, as de-
+scribed shortly.
+8The following discussion follows the presentation in [KOHL94].
+
+496  CHAPTER 15 / USER AUTHENTICATION
+Apart from these environmental limitations, there are technical  deficiencies 
+in the version 4 protocol itself. Most of these deficiencies were documented in 
+[BELL90], and version 5 attempts to address these. The deficiencies are the 
+following.
+1. Double encryption: Note in Table 15.1 [messages (2) and (4)] that tickets pro-
+vided to clients are encrypted twice—once with the secret key of the target 
+server and then again with a secret key known to the client. The second en-
+cryption is not necessary and is computationally wasteful.
+2. PCBC encryption: Encryption in version 4 makes use of a nonstandard mode 
+of DES known as propagating cipher block chaining (PCBC).9 It has been 
+demonstrated that this mode is vulnerable to an attack involving the inter-
+change of ciphertext blocks [KOHL89]. PCBC was intended to provide an in-
+tegrity check as part of the encryption operation. Version 5 provides explicit 
+integrity mechanisms, allowing the standard CBC mode to be used for encryp-
+tion. In particular, a checksum or hash code is attached to the message prior to 
+encryption using CBC.
+3. Session keys: Each ticket includes a session key that is used by the client 
+to encrypt the authenticator sent to the service associated with that ticket. 
+In addition, the session key may subsequently be used by the client and the 
+server to protect messages passed during that session. However, because 
+the same ticket may be used repeatedly to gain service from a particular 
+server, there is the risk that an opponent will replay messages from an old 
+session to the client or the server. In version 5, it is possible for a client 
+and server to negotiate a subsession key, which is to be used only for that 
+one connection. A new access by the client would result in the use of a new 
+subsession key.
+4. Password attacks: Both versions are vulnerable to a password attack. The mes-
+sage from the AS to the client includes material encrypted with a key based 
+on the client’s password.10 An opponent can capture this message and attempt 
+to decrypt it by trying various passwords. If the result of a test decryption is of 
+the proper form, then the opponent has discovered the client’s password and 
+may subsequently use it to gain authentication credentials from Kerberos. This 
+is the same type of password attack described in Chapter 21, with the same 
+kinds of countermeasures being applicable. Version 5 does provide a mecha-
+nism known as preauthentication, which should make password attacks more 
+difficult, but it does not prevent them.
+THE VERSION 5 AUTHENTICATION DIALOGUE Table 15.3 summarizes the basic ver-
+sion 5 dialogue. This is best explained by comparison with version 4 (Table 15.1).
+First, consider the authentication service exchange. Message (1) is a client re-
+quest for a ticket-granting ticket. As before, it includes the ID of the user and the TGS. 
+The following new elements are added:
+9This is described in Appendix T.
+10Appendix T describes the mapping of passwords to encryption keys.
+
+15.3 / KERBEROS 497
+(1)
+C S AS Options }IDc }Realmc }IDtgs}Times }Nonce1
+(2)
+AS S C RealmC}IDC}Tickettgs}E(Kc, [Kc,tgs}Times }Nonce1 }Realmtgs}IDtgs])
+Tickettgs = E(Ktgs, [Flags }Kc,tgs}Realmc }IDC}ADC}Times])
+(a) Authentication Service Exchange to obtain ticket-granting ticket
+(3)
+C S TGS Options }IDv }Times }Nonce2 }Tickettgs}Authenticatorc
+(4)
+TGS S C Realmc }IDC}Ticketv }E(Kc,tgs, [Kc,v }Times }Nonce2 }Realmv }IDv])
+Tickettgs = E(Ktgs, [Flags }Kc,tgs}Realmc }IDC}ADC}Times])
+Ticketv = E(Kv, [Flags }Kc,v }Realmc }IDC}ADC}Times])
+Authenticatorc = E(Kc,tgs, [IDC}Realmc }TS1])
+(b) Ticket-Granting Service Exchange to obtain service-granting ticket
+(5)
+C S V Options }Ticketv }Authenticatorc
+(6)
+V S C EKc,v[TS2 }Subkey }Seq #]
+Ticketv = E(Kv, [Flag }Kc,v }Realmc }IDC}ADC}Times])
+Authenticatorc = E(Kc,v, [IDC}Relamc }TS2 }Subkey }Seq #])
+(c) Client/Server Authentication Exchange to obtain service
+Table 15.3 Summary of Kerberos Version 5 Message Exchanges
+ 
+■Realm: Indicates realm of user
+ 
+■Options: Used to request that certain flags be set in the returned ticket
+ 
+■Times: Used by the client to request the following time settings in the ticket:
+—from: the desired start time for the requested ticket
+—till: the requested expiration time for the requested ticket
+—rtime: requested renew-till time
+ 
+■Nonce: A random value to be repeated in message (2) to assure that the re-
+sponse is fresh and has not been replayed by an opponent
+Message (2) returns a ticket-granting ticket, identifying information for the 
+client, and a block encrypted using the encryption key based on the user’s password. 
+This block includes the session key to be used between the client and the TGS, 
+times specified in message (1), the nonce from message (1), and TGS identifying 
+information. The ticket itself includes the session key, identifying information for 
+the client, the requested time values, and flags that reflect the status of this ticket 
+and the requested options. These flags introduce significant new functionality to 
+ version 5. For now, we defer a discussion of these flags and concentrate on the over-
+all  structure of the version 5 protocol.
+Let us now compare the ticket-granting service exchange for versions 
+4 and 5. We see that message (3) for both versions includes an authenticator, a 
+ticket, and the name of the requested service. In addition, version 5 includes re-
+quested times and options for the ticket and a nonce—all with functions similar 
+to those of message (1). The authenticator itself is essentially the same as the one 
+used in version 4.
+
+498  CHAPTER 15 / USER AUTHENTICATION
+Message (4) has the same structure as message (2). It returns a ticket plus 
+information needed by the client, with the information encrypted using the session 
+key now shared by the client and the TGS.
+Finally, for the client/server authentication exchange, several new features 
+ appear in version 5. In message (5), the client may request as an option that mutual 
+authentication is required. The authenticator includes several new fields:
+ 
+■Subkey: The client’s choice for an encryption key to be used to protect this 
+specific application session. If this field is omitted, the session key from the 
+ticket (Kc,v) is used.
+ 
+■Sequence number: An optional field that specifies the starting sequence num-
+ber to be used by the server for messages sent to the client during this session. 
+Messages may be sequence numbered to detect replays.
+If mutual authentication is required, the server responds with message (6). 
+This message includes the timestamp from the authenticator. Note that in version 4, 
+the timestamp was incremented by one. This is not necessary in version 5, because 
+the nature of the format of messages is such that it is not possible for an oppo-
+nent to create message (6) without knowledge of the appropriate encryption keys. 
+The subkey field, if present, overrides the subkey field, if present, in message (5).  
+The optional sequence number field specifies the starting sequence number to be 
+used by the client.
+TICKET FLAGS The flags field included in tickets in version 5 supports expanded 
+functionality compared to that available in version 4. Table 15.4 summarizes the 
+flags that may be included in a ticket.
+INITIAL
+This ticket was issued using the AS protocol and not issued based on a 
+ticket-granting ticket.
+PRE-AUTHENT
+During initial authentication, the client was authenticated by the KDC 
+before a ticket was issued.
+HW-AUTHENT
+The protocol employed for initial authentication required the use of hard-
+ware expected to be possessed solely by the named client.
+RENEWABLE
+Tells TGS that this ticket can be used to obtain a replacement ticket that 
+expires at a later date.
+MAY-POSTDATE
+Tells TGS that a postdated ticket may be issued based on this ticket-
+granting ticket.
+POSTDATED
+Indicates that this ticket has been postdated; the end server can check the 
+authtime field to see when the original authentication occurred.
+INVALID
+This ticket is invalid and must be validated by the KDC before use.
+PROXIABLE
+Tells TGS that a new service-granting ticket with a different network 
+address may be issued based on the presented ticket.
+PROXY
+Indicates that this ticket is a proxy.
+FORWARDABLE
+Tells TGS that a new ticket-granting ticket with a different network 
+address may be issued based on this ticket-granting ticket.
+FORWARDED
+Indicates that this ticket has either been forwarded or was issued based on 
+authentication involving a forwarded ticket-granting ticket.
+Table 15.4 Kerberos Version 5 Flags
+
+15.3 / KERBEROS 499
+The INITIAL flag indicates that this ticket was issued by the AS, not by the 
+TGS. When a client requests a service-granting ticket from the TGS, it presents a 
+ticket-granting ticket obtained from the AS. In version 4, this was the only way to 
+obtain a service-granting ticket. Version 5 provides the additional capability that 
+the client can get a service-granting ticket directly from the AS. The utility of this is 
+as follows: A server, such as a password-changing server, may wish to know that the 
+client’s password was recently tested.
+The PRE-AUTHENT flag, if set, indicates that when the AS received the ini-
+tial request [message (1)], it authenticated the client before issuing a ticket. The 
+exact form of this preauthentication is left unspecified. As an example, the MIT 
+implementation of version 5 has encrypted timestamp preauthentication, enabled 
+by default. When a user wants to get a ticket, it has to send to the AS a preauthen-
+tication block containing a random confounder, a version number, and a timestamp 
+all encrypted in the client’s password-based key. The AS decrypts the block and will 
+not send a ticket-granting ticket back unless the timestamp in the preauthentica-
+tion block is within the allowable time skew (time interval to account for clock drift 
+and network delays). Another possibility is the use of a smart card that generates 
+continually changing passwords that are included in the preauthenticated messages. 
+The passwords generated by the card can be based on a user’s password but be 
+transformed by the card so that, in effect, arbitrary passwords are used. This pre-
+vents an attack based on easily guessed passwords. If a smart card or similar device 
+was used, this is indicated by the HW-AUTHENT flag.
+When a ticket has a long lifetime, there is the potential for it to be stolen and 
+used by an opponent for a considerable period. If a short lifetime is used to lessen 
+the threat, then overhead is involved in acquiring new tickets. In the case of a ticket-
+granting ticket, the client would either have to store the user’s secret key, which is 
+clearly risky, or repeatedly ask the user for a password. A compromise scheme is 
+the use of renewable tickets. A ticket with the RENEWABLE flag set includes two 
+expiration times: One for this specific ticket and one that is the latest permissible 
+value for an expiration time. A client can have the ticket renewed by presenting it 
+to the TGS with a requested new expiration time. If the new time is within the limit 
+of the latest permissible value, the TGS can issue a new ticket with a new session 
+time and a later specific expiration time. The advantage of this mechanism is that 
+the TGS may refuse to renew a ticket reported as stolen.
+A client may request that the AS provide a ticket-granting ticket with the 
+MAY-POSTDATE flag set. The client can then use this ticket to request a ticket 
+that is flagged as POSTDATED and INVALID from the TGS. Subsequently, the 
+client may submit the postdated ticket for validation. This scheme can be useful 
+for running a long batch job on a server that requires a ticket periodically. The 
+client can obtain a number of tickets for this session at once, with spread out time 
+values. All but the first ticket are initially invalid. When the execution reaches a 
+point in time when a new ticket is required, the client can get the appropriate ticket 
+validated. With this approach, the client does not have to repeatedly use its ticket-
+granting ticket to obtain a service-granting ticket.
+In version 5, it is possible for a server to act as a proxy on behalf of a client, in 
+effect adopting the credentials and privileges of the client to request a service from 
+another server. If a client wishes to use this mechanism, it requests a ticket-granting 
+
+500  CHAPTER 15 / USER AUTHENTICATION
+ticket with the PROXIABLE flag set. When this ticket is presented to the TGS, the 
+TGS is permitted to issue a service-granting ticket with a different network address; 
+this latter ticket will have its PROXY flag set. An application receiving such a ticket 
+may accept it or require additional authentication to provide an audit trail.11
+The proxy concept is a limited case of the more powerful forwarding procedure. 
+If a ticket is set with the FORWARDABLE flag, a TGS can issue to the requestor a 
+ticket-granting ticket with a different network address and the FORWARDED flag 
+set. This ticket then can be presented to a remote TGS. This capability allows a cli-
+ent to gain access to a server on another realm without requiring that each Kerberos 
+maintain a secret key with Kerberos servers in every other realm. For example, 
+realms could be structured hierarchically. Then a client could walk up the tree to a 
+common node and then back down to reach a target realm. Each step of the walk 
+would involve forwarding a ticket-granting ticket to the next TGS in the path.
+ 15.4 REMOTE USER-AUTHENTICATION USING 
+ASYMMETRIC ENCRYPTION
+Mutual Authentication
+In Chapter 14, we presented one approach to the use of public-key encryption for 
+the purpose of session-key distribution (Figure 14.9). This protocol assumes that 
+each of the two parties is in possession of the current public key of the other. It may 
+not be practical to require this assumption.
+A protocol using timestamps is provided in [DENN81]:
+1. A S AS: IDA}IDB
+2. AS S A: E(PRas, [IDA}PUa }T]) }E(PRas, [IDB }PUb }T])
+3. A S B:    E(PRas, [IDA}PUa }T]) }E(PRas, [IDB }PUb }T]) } 
+ 
+E(PUb, E(PRa, [Ks }T]))
+In this case, the central system is referred to as an authentication server (AS), 
+because it is not actually responsible for secret-key distribution. Rather, the AS pro-
+vides public-key certificates. The session key is chosen and encrypted by A; hence, 
+there is no risk of exposure by the AS. The timestamps protect against replays of 
+compromised keys.
+This protocol is compact but, as before, requires the synchronization of clocks. 
+Another approach, proposed by Woo and Lam [WOO92a], makes use of nonces. 
+The protocol consists of the following steps.
+1. A S KDC: IDA}IDB
+2. KDC S A: E(PRauth, [IDB }PUb])
+3. A S B:    E(PUb, [Na }IDA])
+4. B S KDC: IDA}IDB }E(PUauth, Na)
+5. KDC S B: E(PRauth, [IDA}PUa]) }E(PUb, E(PRauth, [Na }Ks }IDB]))
+11For a discussion of some of the possible uses of the proxy capability, see [NEUM93b].
+
+15.4 / REMOTE USER-AUTHENTICATION USING ASYMMETRIC ENCRYPTION 501
+6. B S A:    E(PUa, [E(PRauth, [(Na }Ks }IDB)]) }Nb])
+7. A S B:    E(Ks, Nb)
+In step 1, A informs the KDC of its intention to establish a secure connection 
+with B. The KDC returns to A a copy of B’s public-key certificate (step 2). Using B’s 
+public key, A informs B of its desire to communicate and sends a nonce Na (step 3). 
+In step 4, B asks the KDC for A’s public-key certificate and requests a session key; 
+B includes A’s nonce so that the KDC can stamp the session key with that nonce. 
+The nonce is protected using the KDC’s public key. In step 5, the KDC returns to 
+B a copy of A’s public-key certificate, plus the information {Na, Ks, IDB}. This infor-
+mation basically says that Ks is a secret key generated by the KDC on behalf of B 
+and tied to Na; the binding of Ks and Na will assure A that Ks is fresh. This triple is 
+encrypted using the KDC’s private key to allow B to verify that the triple is in fact 
+from the KDC. It is also encrypted using B’s public key so that no other entity may 
+use the triple in an attempt to establish a fraudulent connection with A. In step 6, 
+the triple {Na, Ks, IDB}, still encrypted with the KDC’s private key, is relayed to A, 
+together with a nonce Nb generated by B. All the foregoing are encrypted using A’s 
+public key. A retrieves the session key Ks, uses it to encrypt Nb, and returns it to B. 
+This last message assures B of A’s knowledge of the session key.
+This seems to be a secure protocol that takes into account the various attacks. 
+However, the authors themselves spotted a flaw and submitted a revised version of 
+the algorithm in [WOO92b]:
+1. A S KDC: IDA}IDB
+2. KDC S A:     E(PRauth, [IDB }PUb])
+3. A S B:     E(PUb, [Na }IDA])
+4. B S KDC: IDA}IDB }E(PUauth, Na)
+5. KDC S B: E(PRauth, [IDA}PUa]) }E(PUb, E(PRauth, [Na }Ks }IDA}IDB]))
+6. B S A:    E(PUa, [Nb }E(PRauth, [Na }Ks }IDA}IDB])])
+7. A S B:    E(Ks, Nb)
+The identifier of A, IDA, is added to the set of items encrypted with the KDC’s 
+private key in steps 5 and 6. This binds the session key Ks to the identities of the two 
+parties that will be engaged in the session. This inclusion of IDA accounts for the 
+fact that the nonce value Na is considered unique only among all nonces generated 
+by A, not among all nonces generated by all parties. Thus, it is the pair {IDA, Na} 
+that uniquely identifies the connection request of A.
+In both this example and the protocols described earlier, protocols that ap-
+peared secure were revised after additional analysis. These examples highlight the 
+difficulty of getting things right in the area of authentication.
+One-Way Authentication
+We have already presented public-key encryption approaches that are suited to 
+electronic mail, including the straightforward encryption of the entire message for 
+confidentiality (Figure 12.1b), authentication (Figure 12.1c), or both (Figure 12.1d). 
+These approaches require that either the sender know the recipient’s public key 
+
+502  CHAPTER 15 / USER AUTHENTICATION
+(confidentiality), the recipient know the sender’s public key (authentication), or 
+both (confidentiality plus authentication). In addition, the public-key algorithm 
+must be applied once or twice to what may be a long message.
+If confidentiality is the primary concern, then the following may be more efficient:
+A S B: E(PUb, Ks) }E(Ks, M)
+In this case, the message is encrypted with a one-time secret key. A also encrypts this 
+one-time key with B’s public key. Only B will be able to use the corresponding private 
+key to recover the one-time key and then use that key to decrypt the message. This 
+scheme is more efficient than simply encrypting the entire message with B’s public key.
+If authentication is the primary concern, then a digital signature may suffice, 
+as was illustrated in Figure 13.2:
+A S B: M }E(PRa, H(M))
+This method guarantees that A cannot later deny having sent the message. 
+However, this technique is open to another kind of fraud. Bob composes a mes-
+sage to his boss Alice that contains an idea that will save the company money. He 
+ appends his digital signature and sends it into the email system. Eventually, the 
+message will get delivered to Alice’s mailbox. But suppose that Max has heard of 
+Bob’s idea and gains access to the mail queue before delivery. He finds Bob’s mes-
+sage, strips off his signature, appends his, and requeues the message to be delivered 
+to Alice. Max gets credit for Bob’s idea.
+To counter such a scheme, both the message and signature can be encrypted 
+with the recipient’s public key:
+A S B: E(PUb, [M }E(PRa, H(M))])
+The latter two schemes require that B know A’s public key and be convinced 
+that it is timely. An effective way to provide this assurance is the digital certificate, 
+described in Chapter 14. Now we have
+A S B: M }E(PRa, H(M)) }E(PRas, [T}IDA}PUa])
+In addition to the message, A sends B the signature encrypted with A’s private 
+key and A’s certificate encrypted with the private key of the authentication server. 
+The recipient of the message first uses the certificate to obtain the sender’s public 
+key and verify that it is authentic and then uses the public key to verify the message 
+itself. If confidentiality is required, then the entire message can be encrypted with 
+B’s public key. Alternatively, the entire message can be encrypted with a one-time 
+secret key; the secret key is also transmitted, encrypted with B’s public key. This ap-
+proach is explored in Chapter 19.
+ 15.5 FEDERATED IDENTITY MANAGEMENT
+Federated identity management is a relatively new concept dealing with the use of 
+a common identity management scheme across multiple enterprises and numerous 
+applications and supporting many thousands, even millions, of users. We begin our 
+overview with a discussion of the concept of identity management and then examine 
+federated identity management.
+
+17.1 / WEB SECURITY CONSIDERATIONS 547
+Virtually all businesses, most government agencies, and many individuals now have 
+Web sites. The number of individuals and companies with Internet access is expanding 
+rapidly and all of these have graphical Web browsers. As a result, businesses are enthu-
+siastic about setting up facilities on the Web for electronic commerce. But the reality 
+is that the Internet and the Web are extremely vulnerable to compromises of various 
+sorts. As businesses wake up to this reality, the demand for secure Web services grows.
+The topic of Web security is a broad one and can easily fill a book. In this chap-
+ter, we begin with a discussion of the general requirements for Web security and then 
+focus on three standardized schemes that are becoming increasingly important as part 
+of Web commerce and that focus on security at the transport layer: SSL/TLS, HTTPS, 
+and SSH.
+ 17.1 WEB SECURITY CONSIDERATIONS
+The World Wide Web is fundamentally a client/server application running over the 
+Internet and TCP/IP intranets. As such, the security tools and approaches discussed 
+so far in this book are relevant to the issue of Web security. However, the following 
+characteristics of Web usage suggest the need for tailored security tools:
+ 
+■Although Web browsers are very easy to use, Web servers are relatively easy 
+to configure and manage, and Web content is increasingly easy to develop, the 
+underlying software is extraordinarily complex. This complex software may 
+hide many potential security flaws. The short history of the Web is filled with 
+examples of new and upgraded systems, properly installed, that are vulnerable 
+to a variety of security attacks.
+ 
+■A Web server can be exploited as a launching pad into the corporation’s or 
+agency’s entire computer complex. Once the Web server is subverted, an 
+attacker may be able to gain access to data and systems not part of the Web 
+itself but connected to the server at the local site.
+LEARNING OBJECTIVES
+After studying this chapter, you should be able to:
+ 
+◆
+Summarize Web security threats and Web traffic security approaches.
+ 
+◆
+Present an overview of Transport Layer Security (TLS).
+ 
+◆
+Understand the differences between Secure Sockets Layer and Transport 
+Layer Security.
+ 
+◆
+Compare the pseudorandom function used in Transport Layer Security 
+with those discussed earlier in the book.
+ 
+◆
+Present an overview of HTTPS (HTTP over SSL).
+ 
+◆
+Present an overview of Secure Shell (SSH).
+
+548  CHAPTER 17 / TRANSPORT-LEVEL SECURITY
+ 
+■Casual and untrained (in security matters) users are common clients for Web-
+based services. Such users are not necessarily aware of the security risks that 
+exist and do not have the tools or knowledge to take effective countermeasures.
+Web Security Threats
+Table 17.1 provides a summary of the types of security threats faced when using the 
+Web. One way to group these threats is in terms of passive and active attacks. Passive 
+attacks include eavesdropping on network traffic between browser and server and 
+gaining access to information on a Web site that is supposed to be restricted. Active 
+attacks include impersonating another user, altering messages in transit between 
+client and server, and altering information on a Web site.
+Another way to classify Web security threats is in terms of the location of the 
+threat: Web server, Web browser, and network traffic between browser and server. 
+Issues of server and browser security fall into the category of computer system secu-
+rity; Part Six of this book addresses the issue of system security in general but is also 
+applicable to Web system security. Issues of traffic security fall into the category of 
+network security and are addressed in this chapter.
+Web Traffic Security Approaches
+A number of approaches to providing Web security are possible. The various 
+approaches that have been considered are similar in the services they provide and, 
+to some extent, in the mechanisms that they use, but they differ with respect to their 
+scope of applicability and their relative location within the TCP/IP protocol stack.
+Threats
+Consequences
+Countermeasures
+Integrity
+r Modification of user data
+r Trojan horse browser
+r Modification of memory
+r Modification of message 
+ traffic in transit
+r Loss of information
+r Compromise of machine
+r Vulnerability to all other 
+threats
+Cryptographic 
+checksums
+Confidentiality
+r Eavesdropping on the net
+r Theft of info from server
+r Theft of data from client
+r Info about network 
+configuration
+r Info about which client talks 
+to server
+r Loss of information
+r Loss of privacy
+Encryption, Web 
+proxies
+Denial of 
+Service
+r Killing of user threads
+r Flooding machine with bogus 
+requests
+r Filling up disk or memory
+r Isolating machine by DNS 
+attacks
+r Disruptive
+r Annoying
+r Prevent user from getting work 
+done
+Difficult to prevent
+Authentication
+r Impersonation of legitimate 
+users
+r Data forgery
+r Misrepresentation of user
+r Belief that false information 
+is valid
+Cryptographic 
+techniques
+Table 17.1 A Comparison of Threats on the Web
+
+17.2 / TRANSPORT LAYER SECURITY 549
+Figure 17.1 illustrates this difference. One way to provide Web security is 
+to use IP security (IPsec) (Figure 17.1a). The advantage of using IPsec is that it is 
+transparent to end users and applications and provides a general-purpose solution. 
+Furthermore, IPsec includes a filtering capability so that only selected traffic need 
+incur the overhead of IPsec processing.
+Another relatively general-purpose solution is to implement security just 
+above TCP (Figure 17.1b). The foremost example of this approach is the Secure 
+Sockets Layer (SSL) and the follow-on Internet standard known as Transport 
+Layer Security (TLS). At this level, there are two implementation choices. For full 
+generality, SSL (or TLS) could be provided as part of the underlying protocol suite 
+and therefore be transparent to applications. Alternatively, TLS can be embedded 
+in specific packages. For example, virtually all browsers come equipped with TLS, 
+and most Web servers have implemented the protocol.
+Application-specific security services are embedded within the particular 
+application. Figure 17.1c shows examples of this architecture. The advantage of this 
+approach is that the service can be tailored to the specific needs of a given application.
+ 17.2 TRANSPORT LAYER SECURITY
+One of the most widely used security services is Transport Layer Security (TSL); 
+the current version is Version 1.2, defined in RFC 5246. TLS is an Internet stan-
+dard that evolved from a commercial protocol known as Secure Sockets Layer 
+(SSL). Although SSL implementations are still around, it has been deprecated by 
+IETF and is disabled by most corporations offering TLS software. TLS is a general-
+purpose service implemented as a set of protocols that rely on TCP. At this level, 
+there are two implementation choices. For full generality, TLS could be provided 
+as part of the underlying protocol suite and therefore be transparent to applica-
+tions. Alternatively, TLS can be embedded in specific packages. For example, most 
+browsers come equipped with TLS, and most Web servers have implemented the 
+protocol.
+TLS Architecture
+TLS is designed to make use of TCP to provide a reliable end-to-end secure ser-
+vice. TLS is not a single protocol but rather two layers of protocols, as illustrated in 
+Figure 17.2.
+Figure 17.1 Relative Location of Security Facilities in the TCP/IP Protocol Stack
+SMTP
+HTTP
+TCP
+IP/IPSec
+(a) Network level
+FTP
+SMTP
+HTTP
+TCP
+SSL or TLS
+IP
+(b) Transport level
+FTP
+IP
+S/MIME
+HTTP
+Kerberos
+UDP
+SMTP
+(c) Application level
+TCP
+
+550  CHAPTER 17 / TRANSPORT-LEVEL SECURITY
+The TLS Record Protocol provides basic security services to various higher-
+layer protocols. In particular, the Hypertext Transfer Protocol (HTTP), which 
+provides the transfer service for Web client/server interaction, can operate on top 
+of TLS. Three higher-layer protocols are defined as part of TLS: the Handshake 
+Protocol; the Change Cipher Spec Protocol; and the Alert Protocol. These TLS-
+specific protocols are used in the management of TLS exchanges and are examined 
+later in this section. A fourth protocol, the Heartbeat Protocol, is defined in a sepa-
+rate RFC and is also discussed subsequently in this section.
+Two important TLS concepts are the TLS session and the TLS connection, 
+which are defined in the specification as follows:
+ 
+■Connection: A connection is a transport (in the OSI layering model definition) 
+that provides a suitable type of service. For TLS, such connections are peer-to-
+peer relationships. The connections are transient. Every connection is associ-
+ated with one session.
+ 
+■Session: A TLS session is an association between a client and a server. Sessions 
+are created by the Handshake Protocol. Sessions define a set of cryptographic 
+security parameters, which can be shared among multiple connections. Sessions 
+are used to avoid the expensive negotiation of new security parameters for 
+each connection.
+Between any pair of parties (applications such as HTTP on client and server), 
+there may be multiple secure connections. In theory, there may also be multiple 
+simultaneous sessions between parties, but this feature is not used in practice.
+There are a number of states associated with each session. Once a session is 
+ established, there is a current operating state for both read and write (i.e., receive 
+and send). In addition, during the Handshake Protocol, pending read and write 
+states are created. Upon successful conclusion of the Handshake Protocol, the 
+pending states become the current states.
+A session state is defined by the following parameters:
+ 
+■Session identifier: An arbitrary byte sequence chosen by the server to identify 
+an active or resumable session state.
+ 
+■Peer certificate: An X509.v3 certificate of the peer. This element of the state 
+may be null.
+Figure 17.2 TLS Protocol Stack
+IP
+TCP
+Record protocol
+Handshake
+protocol
+Change
+cipher spec
+protocol
+Alert
+protocol
+HTTP
+Heartbeat
+protocol
+
+17.2 / TRANSPORT LAYER SECURITY 551
+ 
+■Compression method: The algorithm used to compress data prior to encryption.
+ 
+■Cipher spec: Specifies the bulk data encryption algorithm (such as null, AES, 
+etc.) and a hash algorithm (such as MD5 or SHA-1) used for MAC calculation. 
+It also defines cryptographic attributes such as the hash_size.
+ 
+■Master secret: 48-byte secret shared between the client and server.
+ 
+■Is resumable: A flag indicating whether the session can be used to initiate new 
+connections.
+A connection state is defined by the following parameters:
+ 
+■Server and client random: Byte sequences that are chosen by the server and 
+client for each connection.
+ 
+■Server write MAC secret: The secret key used in MAC operations on data sent 
+by the server.
+ 
+■Client write MAC secret: The symmetric key used in MAC operations on data 
+sent by the client.
+ 
+■Server write key: The symmetric encryption key for data encrypted by the 
+server and decrypted by the client.
+ 
+■Client write key: The symmetric encryption key for data encrypted by the 
+ client and decrypted by the server.
+ 
+■Initialization vectors: When a block cipher in CBC mode is used, an initial-
+ization vector (IV) is maintained for each key. This field is first initialized by 
+the TLS Handshake Protocol. Thereafter, the final ciphertext block from each 
+ record is preserved for use as the IV with the following record.
+ 
+■Sequence numbers: Each party maintains separate sequence numbers for 
+transmitted and received messages for each connection. When a party sends or 
+receives a “change cipher spec message,” the appropriate sequence number is 
+set to zero. Sequence numbers may not exceed 264 - 1.
+TLS Record Protocol
+The TLS Record Protocol provides two services for TLS connections:
+ 
+■Confidentiality: The Handshake Protocol defines a shared secret key that is 
+used for conventional encryption of TLS payloads.
+ 
+■Message Integrity: The Handshake Protocol also defines a shared secret key 
+that is used to form a message authentication code (MAC).
+Figure 17.3 indicates the overall operation of the TLS Record Protocol. The 
+Record Protocol takes an application message to be transmitted, fragments the data 
+into manageable blocks, optionally compresses the data, applies a MAC, encrypts, 
+adds a header, and transmits the resulting unit in a TCP segment. Received data 
+are decrypted, verified, decompressed, and reassembled before being delivered to 
+higher-level users.
+The first step is fragmentation. Each upper-layer message is fragmented into 
+blocks of 214 bytes (16,384 bytes) or less. Next, compression is optionally applied. 
+Compression must be lossless and may not increase the content length by more than 
+
+552  CHAPTER 17 / TRANSPORT-LEVEL SECURITY
+1024 bytes.1 In TLSv2, no compression algorithm is specified, so the default com-
+pression algorithm is null.
+The next step in processing is to compute a message authentication code over 
+the compressed data. TLS makes use of the HMAC algorithm defined in RFC 2104. 
+Recall from Chapter 12 that HMAC is defined as
+ 
+HMACK(M) = H[(K+ ⊕opad) ‘ H[(K+ ⊕ipad) ‘ M]] 
+where
+H     = embedded hash function (for TLS, either MD5 or SHA-1)
+M     = message input to HMAC
+K+    = secret key padded with zeros on the left so that the result is equal to 
+the block length of the hash code (for MD5 and SHA-1, block 
+length = 512 bits)
+ipad = 00110110 (36 in hexadecimal) repeated 64 times (512 bits)
+opad = 01011100 (5C in hexadecimal) repeated 64 times (512 bits)
+For TLS, the MAC calculation encompasses the fields indicated in the 
+ following expression:
+HMAC_hash(MAC_write_secret, seq_num ‘ TLSCompressed.type ‘ 
+TLSCompressed.version ‘ TLSCompressed.length ‘ TLSCompressed.fragment)
+The MAC calculation covers all of the fields XXX, plus the field 
+TLSCompressed.version, which is the version of the protocol being employed.
+Next, the compressed message plus the MAC are encrypted using symmetric 
+encryption. Encryption may not increase the content length by more than 1024 bytes, 
+Figure 17.3 TLS Record Protocol Operation
+Application data
+Fragment
+Compress
+Add MAC
+Encrypt
+Append TLS
+record header
+1Of course, one hopes that compression shrinks rather than expands the data. However, for very short 
+blocks, it is possible, because of formatting conventions, that the compression algorithm will actually pro-
+vide output that is longer than the input.
+
+17.2 / TRANSPORT LAYER SECURITY 553
+so that the total length may not exceed 214 + 2048. The following encryption algo-
+rithms are permitted:
+Block Cipher
+Stream Cipher
+Algorithm
+Key Size
+Algorithm
+Key Size
+AES
+3DES
+128, 256
+168
+RC4-128
+128
+For stream encryption, the compressed message plus the MAC are encrypted. 
+Note that the MAC is computed before encryption takes place and that the MAC is 
+then encrypted along with the plaintext or compressed plaintext.
+For block encryption, padding may be added after the MAC prior to encryp-
+tion. The padding is in the form of a number of padding bytes followed by a one-
+byte indication of the length of the padding. The padding can be any amount that 
+results in a total that is a multiple of the cipher’s block length, up to a maximum 
+of 255 bytes. For example, if the cipher block length is 16 bytes (e.g., AES) and if 
+the plaintext (or compressed text if compression is used) plus MAC plus padding 
+length byte is 79 bytes long, then the padding length (in bytes) can be 1, 17, 33, and 
+so on, up to 161. At a padding length of 161, the total length is 79 + 161 = 240. A 
+variable padding length may be used to frustrate attacks based on an analysis of 
+the lengths of exchanged messages.
+The final step of TLS Record Protocol processing is to prepend a header con-
+sisting of the following fields:
+ 
+■Content Type (8 bits): The higher-layer protocol used to process the enclosed 
+fragment.
+ 
+■Major Version (8 bits): Indicates major version of TLS in use. For TLSv2, the 
+value is 3.
+ 
+■Minor Version (8 bits): Indicates minor version in use. For TLSv2, the value is 1.
+ 
+■Compressed Length (16 bits): The length in bytes of the plaintext fragment 
+(or compressed fragment if compression is used). The maximum value is 
+214 + 2048.
+The content types that have been defined are change_cipher_spec, 
+alert, handshake, and application_data. The first three are the TLS-
+specific protocols, discussed next. Note that no distinction is made among the vari-
+ous applications (e.g., HTTP) that might use TLS; the content of the data created by 
+such applications is opaque to TLS. 
+Figure 17.4 illustrates the TLS record format.
+Change Cipher Spec Protocol
+The Change Cipher Spec Protocol is one of the four TLS-specific protocols that use 
+the TLS Record Protocol, and it is the simplest. This protocol consists of a single 
+message (Figure 17.5a), which consists of a single byte with the value 1. The sole 
+purpose of this message is to cause the pending state to be copied into the current 
+state, which updates the cipher suite to be used on this connection.
+
+554  CHAPTER 17 / TRANSPORT-LEVEL SECURITY
+Alert Protocol
+The Alert Protocol is used to convey TLS-related alerts to the peer entity. As with 
+other applications that use TLS, alert messages are compressed and encrypted, as 
+specified by the current state.
+Each message in this protocol consists of two bytes (Figure 17.5b). The first 
+byte takes the value warning (1) or fatal (2) to convey the severity of the message. 
+If the level is fatal, TLS immediately terminates the connection. Other connections 
+on the same session may continue, but no new connections on this session may 
+be established. The second byte contains a code that indicates the specific alert. 
+The  following alerts are always fatal:
+ 
+■unexpected_message: An inappropriate message was received.
+ 
+■bad_record_mac: An incorrect MAC was received.
+ 
+■decompression_failure: The decompression function received improper input 
+(e.g., unable to decompress or decompress to greater than maximum allowable 
+length).
+ 
+■handshake_failure: Sender was unable to negotiate an acceptable set of secu-
+rity parameters given the options available.
+ 
+■illegal_parameter: A field in a handshake message was out of range or incon-
+sistent with other fields.
+Figure 17.5 TLS Record Protocol Payload
+1
+(a) Change Cipher Spec Protocol
+1 byte
+Type
+(c) Handshake Protocol
+1 byte
+Length
+3 bytes
+Content
+Ú 0 bytes
+(d) Other Upper-Layer Protocol (e.g., HTTP)
+Opaque content
+Ú 1 byte
+Level
+(b) Alert Protocol
+1 byte 1 byte
+Alert
+Figure 17.4 TLS Record Format
+Content
+type
+Major
+version
+Minor
+version
+Compressed
+length
+Plaintext
+(optionally
+compressed)
+MAC (0, 16, or 20 bytes)
+Encrypted
+
+17.2 / TRANSPORT LAYER SECURITY 555
+ 
+■decryption_failed: A ciphertext decrypted in an invalid way; either it was not 
+an even multiple of the block length or its padding values, when checked, were 
+incorrect.
+ 
+■record_overflow: A TLS record was received with a payload (ciphertext) 
+whose length exceeds 214 + 2048 bytes, or the ciphertext decrypted to a length 
+of greater than 214 + 1024 bytes.
+ 
+■unknown_ca: A valid certificate chain or partial chain was received, but the 
+certificate was not accepted because the CA certificate could not be located or 
+could not be matched with a known, trusted CA.
+ 
+■access_denied: A valid certificate was received, but when access control was 
+applied, the sender decided not to proceed with the negotiation.
+ 
+■decode_error: A message could not be decoded, because either a field was out 
+of its specified range or the length of the message was incorrect.
+ 
+■export_restriction: A negotiation not in compliance with export restrictions on 
+key length was detected.
+ 
+■protocol_version: The protocol version the client attempted to negotiate is 
+recognized but not supported.
+ 
+■insufficient_security: Returned instead of handshake_failure when a negotia-
+tion has failed specifically because the server requires ciphers more secure 
+than those supported by the client.
+ 
+■internal_error: An internal error unrelated to the peer or the correctness of 
+the protocol makes it impossible to continue.
+The remaining alerts are the following.
+ 
+■close_notify: Notifies the recipient that the sender will not send any more mes-
+sages on this connection. Each party is required to send a close_notify alert 
+before closing the write side of a connection.
+ 
+■bad_certificate: A received certificate was corrupt (e.g., contained a signature 
+that did not verify).
+ 
+■unsupported_certificate: The type of the received certificate is not supported.
+ 
+■certificate_revoked: A certificate has been revoked by its signer.
+ 
+■certificate_expired: A certificate has expired.
+ 
+■certificate_unknown: Some other unspecified issue arose in processing the 
+certificate, rendering it unacceptable.
+ 
+■decrypt_error: A handshake cryptographic operation failed, including being 
+unable to verify a signature, decrypt a key exchange, or validate a finished 
+message.
+ 
+■user_canceled: This handshake is being canceled for some reason unrelated to 
+a protocol failure.
+ 
+■no_renegotiation: Sent by a client in response to a hello request or by the 
+server in response to a client hello after initial handshaking. Either of these 
+messages would normally result in renegotiation, but this alert indicates that 
+the sender is not able to renegotiate. This message is always a warning.
+
+556  CHAPTER 17 / TRANSPORT-LEVEL SECURITY
+Handshake Protocol
+The most complex part of TLS is the Handshake Protocol. This protocol allows 
+the server and client to authenticate each other and to negotiate an encryption and 
+MAC algorithm and cryptographic keys to be used to protect data sent in a TLS 
+record. The Handshake Protocol is used before any application data is transmitted.
+The Handshake Protocol consists of a series of messages exchanged by client 
+and server. All of these have the format shown in Figure 17.5c . Each message has 
+three fields:
+ 
+■Type (1 byte): Indicates one of 10 messages. Table 17.2 lists the defined mes-
+sage types.
+ 
+■Length (3 bytes): The length of the message in bytes.
+ 
+■
+Content (# 0 bytes): The parameters associated with this message; these are 
+listed in Table 17.2.
+Figure 17.6 shows the initial exchange needed to establish a logical connection 
+between client and server. The exchange can be viewed as having four phases.
+PHASE 1. ESTABLISH SECURITY CAPABILITIES Phase 1 initiates a logical connection 
+and establishes the security capabilities that will be associated with it. The exchange 
+is initiated by the client, which sends a client_hello message with the following 
+parameters:
+ 
+■Version: The highest TLS version understood by the client.
+ 
+■Random: A client-generated random structure consisting of a 32-bit time-
+stamp and 28 bytes generated by a secure random number generator. These 
+values serve as nonces and are used during key exchange to prevent replay 
+attacks.
+ 
+■Session ID: A variable-length session identifier. A nonzero value indicates that 
+the client wishes to update the parameters of an existing connection or to cre-
+ate a new connection on this session. A zero value indicates that the client 
+wishes to establish a new connection on a new session.
+Message Type
+Parameters
+hello_request
+null
+client_hello
+version, random, session id, cipher suite, compression method
+server_hello
+version, random, session id, cipher suite, compression method
+certificate
+chain of X.509v3 certificates
+server_key_exchange
+parameters, signature
+certificate_request
+type, authorities
+server_done
+null
+certificate_verify
+signature
+client_key_exchange
+parameters, signature
+finished
+hash value
+Table 17.2 TLS Handshake Protocol Message Types
+
+17.2 / TRANSPORT LAYER SECURITY 557
+ 
+■CipherSuite: This is a list that contains the combinations of cryptographic 
+algorithms supported by the client, in decreasing order of preference. Each 
+element of the list (each cipher suite) defines both a key exchange algorithm 
+and a CipherSpec; these are discussed subsequently.
+ 
+■Compression Method: This is a list of the compression methods the client 
+supports.
+After sending the client_hello message, the client waits for the server_
+hello message, which contains the same parameters as the client_hello 
+Figure 17.6 Handshake Protocol Action
+Client
+Server
+Phase 1
+Establish security capabilities, including
+protocol version, session ID, cipher suite,
+compression method, and initial random
+numbers.
+Phase 2
+Server may send certificate, key exchange,
+and request certificate. Server signals end
+of hello message phase.
+Phase 3
+Client sends certificate if requested. Client
+sends key exchange. Client may send
+certificate verification.
+Phase 4
+Change cipher suite and finish
+handshake protocol.
+Note: Shaded transfers are
+optional or situation-dependent
+messages that are not always sent.
+finished
+change_cipher_spec
+finished
+change_cipher_spec
+certificate_verify
+client_key_exchange
+certificate
+server_hello_done
+certificate_request
+server_key_exchange
+certificate
+server_hello
+client_hello
+Time
+
+558  CHAPTER 17 / TRANSPORT-LEVEL SECURITY
+ message. For the server_hello message, the following conventions apply. The 
+Version field contains the lowest of the version suggested by the client and the highest 
+supported by the server. The Random field is generated by the server and is indepen-
+dent of the client’s Random field. If the SessionID field of the client was nonzero, the 
+same value is used by the server; otherwise the server’s SessionID field contains the 
+value for a new session. The CipherSuite field contains the single cipher suite selected 
+by the server from those proposed by the client. The Compression field contains the 
+compression method selected by the server from those proposed by the client.
+The first element of the Ciphersuite parameter is the key exchange method 
+(i.e., the means by which the cryptographic keys for conventional encryption and 
+MAC are exchanged). The following key exchange methods are supported.
+ 
+■RSA: The secret key is encrypted with the receiver’s RSA public key. A public-
+key certificate for the receiver’s key must be made available.
+ 
+■Fixed Diffie–Hellman: This is a Diffie–Hellman key exchange in which the 
+server’s certificate contains the Diffie–Hellman public parameters signed by 
+the certificate authority (CA). That is, the public-key certificate contains the 
+Diffie–Hellman public-key parameters. The client provides its Diffie–Hellman 
+public-key parameters either in a certificate, if client authentication is re-
+quired, or in a key exchange message. This method results in a fixed secret key 
+between two peers based on the Diffie–Hellman calculation using the fixed 
+public keys.
+ 
+■Ephemeral Diffie-Hellman: This technique is used to create ephemeral (tem-
+porary, one-time) secret keys. In this case, the Diffie–Hellman public keys are 
+exchanged and signed using the sender’s private RSA or DSS key. The receiver 
+can use the corresponding public key to verify the signature. Certificates are used 
+to authenticate the public keys. This would appear to be the most secure of the 
+three Diffie–Hellman options because it results in a temporary, authenticated key.
+ 
+■Anonymous Diffie–Hellman: The base Diffie–Hellman algorithm is used 
+with no authentication. That is, each side sends its public Diffie–Hellman pa-
+rameters to the other with no authentication. This approach is vulnerable to 
+man-in-the-middle attacks, in which the attacker conducts anonymous Diffie–
+Hellman with both parties.
+Following the definition of a key exchange method is the CipherSpec, which 
+includes the following fields:
+ 
+■CipherAlgorithm: Any of the algorithms mentioned earlier: RC4, RC2, DES, 
+3DES, DES40, or IDEA
+ 
+■MACAlgorithm: MD5 or SHA-1
+ 
+■CipherType: Stream or Block
+ 
+■IsExportable: True or False
+ 
+■HashSize: 0, 16 (for MD5), or 20 (for SHA-1) bytes
+ 
+■Key Material: A sequence of bytes that contain data used in generating the 
+write keys
+ 
+■IV Size: The size of the Initialization Value for Cipher Block Chaining (CBC) 
+encryption
+
+17.2 / TRANSPORT LAYER SECURITY 559
+PHASE 2. SERVER AUTHENTICATION AND KEY EXCHANGE The server begins this 
+phase by sending its certificate if it needs to be authenticated; the message con-
+tains one or a chain of X.509 certificates. The certificate message is required for 
+any agreed-on key exchange method except anonymous Diffie–Hellman. Note 
+that if fixed Diffie–Hellman is used, this certificate message functions as the serv-
+er’s key exchange message because it contains the server’s public Diffie–Hellman 
+parameters.
+Next, a server_key_exchange message may be sent if it is required. It is not 
+required in two instances: (1) The server has sent a certificate with fixed Diffie–
+Hellman parameters; or (2) RSA key exchange is to be used. The server_key_ 
+exchange message is needed for the following:
+ 
+■Anonymous Diffie–Hellman: The message content consists of the two global 
+Diffie–Hellman values (a prime number and a primitive root of that number) 
+plus the server’s public Diffie–Hellman key (see Figure 10.1).
+ 
+■Ephemeral Diffie–Hellman: The message content includes the three Diffie–
+Hellman parameters provided for anonymous Diffie–Hellman plus a signature 
+of those parameters.
+ 
+■RSA key exchange (in which the server is using RSA but has a signature-only 
+RSA key): Accordingly, the client cannot simply send a secret key encrypted 
+with the server’s public key. Instead, the server must create a temporary RSA 
+public/private key pair and use the server_key_exchange message to send the 
+public key. The message content includes the two parameters of the temporary 
+RSA public key (exponent and modulus; see Figure 9.5) plus a signature of 
+those parameters.
+Some further details about the signatures are warranted. As usual, a signature 
+is created by taking the hash of a message and encrypting it with the sender’s private 
+key. In this case, the hash is defined as
+ 
+hash(ClientHello.random ‘ ServerHello.random ‘ ServerParams) 
+So the hash covers not only the Diffie–Hellman or RSA parameters but also the 
+two nonces from the initial hello messages. This ensures against replay attacks and 
+misrepresentation. In the case of a DSS signature, the hash is performed using the 
+SHA-1 algorithm. In the case of an RSA signature, both an MD5 and an SHA-1 
+hash are calculated, and the concatenation of the two hashes (36 bytes) is encrypted 
+with the server’s private key.
+Next, a nonanonymous server (server not using anonymous Diffie–Hellman) 
+can request a certificate from the client. The certificate_request message includes 
+two parameters: certificate_type and certificate_authorities. The certificate type in-
+dicates the public-key algorithm and its use:
+ 
+■RSA, signature only
+ 
+■DSS, signature only
+ 
+■RSA for fixed Diffie–Hellman; in this case the signature is used only for 
+authentication, by sending a certificate signed with RSA
+ 
+■DSS for fixed Diffie–Hellman; again, used only for authentication
+
+560  CHAPTER 17 / TRANSPORT-LEVEL SECURITY
+The second parameter in the certificate_request message is a list of the distin-
+guished names of acceptable certificate authorities.
+The final message in phase 2, and one that is always required, is the server_
+done message, which is sent by the server to indicate the end of the server hello and 
+associated messages. After sending this message, the server will wait for a client 
+response. This message has no parameters.
+PHASE 3. CLIENT AUTHENTICATION AND KEY EXCHANGE Upon receipt of the 
+server_done message, the client should verify that the server provided a valid 
+certificate (if required) and check that the server_hello parameters are accept-
+able. If all is satisfactory, the client sends one or more messages back to the server.
+If the server has requested a certificate, the client begins this phase by send-
+ing a certificate message. If no suitable certificate is available, the client sends a 
+no_certificate alert instead.
+Next is the client_key_exchange message, which must be sent in this phase. 
+The content of the message depends on the type of key exchange, as follows:
+ 
+■RSA: The client generates a 48-byte pre-master secret and encrypts with the 
+public key from the server’s certificate or temporary RSA key from a server_
+key_exchange message. Its use to compute a master secret is explained later.
+ 
+■Ephemeral or Anonymous Diffie–Hellman: The client’s public Diffie–Hellman 
+parameters are sent.
+ 
+■Fixed Diffie–Hellman: The client’s public Diffie–Hellman parameters were 
+sent in a certificate message, so the content of this message is null.
+Finally, in this phase, the client may send a certificate_verify message to pro-
+vide explicit verification of a client certificate. This message is only sent following 
+any client certificate that has signing capability (i.e., all certificates except those 
+containing fixed Diffie–Hellman parameters). This message signs a hash code based 
+on the preceding messages, defined as
+CertificateVerify.signature.md5_hash
+ MD5(handshake_messages);
+Certificate.signature.sha_hash
+ SHA(handshake_messages);
+where handshake_messages refers to all Handshake Protocol messages sent or 
+received starting at client_hello but not including this message. If the user’s 
+private key is DSS, then it is used to encrypt the SHA-1 hash. If the user’s private 
+key is RSA, it is used to encrypt the concatenation of the MD5 and SHA-1 hashes. 
+In either case, the purpose is to verify the client’s ownership of the private key for 
+the client certificate. Even if someone is misusing the client’s certificate, he or she 
+would be unable to send this message.
+PHASE 4. FINISH Phase 4 completes the setting up of a secure connection. The  client 
+sends a change_cipher_spec message and copies the pending CipherSpec into the 
+current CipherSpec. Note that this message is not considered part of the Handshake 
+Protocol but is sent using the Change Cipher Spec Protocol. The client then imme-
+diately sends the finished message under the new algorithms, keys, and secrets. 
+
+17.2 / TRANSPORT LAYER SECURITY 561
+The finished message verifies that the key exchange and authentication processes 
+were successful. The content of the finished message is:
+PRF(master_secret, finished_label, MD5(handshake_messages) ‘ SHA@1
+(handshake_messages))
+where finished_label is the string “client finished” for the client and “server 
+finished” for the server.
+In response to these two messages, the server sends its own change_ cipher_
+spec message, transfers the pending to the current CipherSpec, and sends its fin-
+ished message. At this point, the handshake is complete and the client and server 
+may begin to exchange application-layer data.
+Cryptographic Computations
+Two further items are of interest: (1) the creation of a shared master secret by 
+means of the key exchange; and (2) the generation of cryptographic parameters 
+from the master secret.
+MASTER SECRET CREATION The shared master secret is a one-time 48-byte value 
+(384 bits) generated for this session by means of secure key exchange. The creation 
+is in two stages. First, a pre_master_secret is exchanged. Second, the  master_
+secret is calculated by both parties. For pre_master_secret exchange, there 
+are two possibilities.
+ 
+■RSA: A 48-byte pre_master_secret is generated by the client, encrypted with 
+the server’s public RSA key, and sent to the server. The server decrypts the 
+ciphertext using its private key to recover the pre_master_secret.
+ 
+■Diffie–Hellman: Both client and server generate a Diffie–Hellman public key. 
+After these are exchanged, each side performs the Diffie–Hellman calculation 
+to create the shared pre_master_secret.
+Both sides now compute the master_secret as
+master_secret =
+ PRF(pre_master_secret, “master secret”, ClientHello.random ‘ ServerHello 
+.random)
+where ClientHello.random and ServerHello.random are the two nonce 
+values exchanged in the initial hello messages.
+The algorithm is performed until 48 bytes of pseudorandom output are pro-
+duced. The calculation of the key block material (MAC secret keys, session encryp-
+tion keys, and IVs) is defined as
+key_block =
+ PRF(SecurityParameters.master_secret, “key expansion”,
+SecurityParameters.server_random ‘ SecurityParameters.client_random)
+until enough output has been generated.
+
+562  CHAPTER 17 / TRANSPORT-LEVEL SECURITY
+GENERATION OF CRYPTOGRAPHIC PARAMETERS CipherSpecs require a client write 
+MAC secret, a server write MAC secret, a client write key, a server write key, a 
+client write IV, and a server write IV, which are generated from the master secret 
+in that order. These parameters are generated from the master secret by hashing 
+the master secret into a sequence of secure bytes of sufficient length for all needed 
+parameters.
+The generation of the key material from the master secret uses the same for-
+mat for generation of the master secret from the pre-master secret as
+key_block = MD5(master_secret ‘ SHA(=A> ‘ master_secret ‘
+ServerHello.random ‘ ClientHello.random)) ‘ 
+MD5(master_secret ‘ SHA(=BB> ‘ master_secret ‘ 
+ServerHello.random ‘ ClientHello.random)) ‘ 
+MD5(master_secret ‘ SHA(=CCC> ‘ master_secret ‘ 
+ServerHello.random ‘ ClientHello.random)) ‘ c
+until enough output has been generated. The result of this algorithmic structure is a 
+pseudorandom function. We can view the master_secret as the pseudorandom 
+seed value to the function. The client and server random numbers can be viewed as 
+salt values to complicate cryptanalysis (see Chapter 21 for a discussion of the use of 
+salt values).
+PSEUDORANDOM FUNCTION TLS makes use of a pseudorandom function referred 
+to as PRF to expand secrets into blocks of data for purposes of key generation or 
+validation. The objective is to make use of a relatively small, shared secret value but 
+to generate longer blocks of data in a way that is secure from the kinds of attacks 
+made on hash functions and MACs. The PRF is based on the data expansion func-
+tion (Figure 17.7) given as
+ 
+P_hash(secret, seed) = HMAC_hash(secret, A(1) ‘ seed) ‘
+                                          HMAC_hash(secret, A(2) ‘ seed) ‘
+                                         HMAC_hash(secret, A(3) ‘ seed) ‘
+ 
+where A() is defined as
+A(0) = seed
+A(i) = HMAC_hash(secret, A(i - 1))
+The data expansion function makes use of the HMAC algorithm with either MD5 
+or SHA-1 as the underlying hash function. As can be seen, P_hash can be iterated 
+as many times as necessary to produce the required quantity of data. For example, if 
+P_SHA256 was used to generate 80 bytes of data, it would have to be iterated three 
+times (through A(3)), producing 96 bytes of data of which the last 16 would be dis-
+carded. In this case, P_MD5 would have to be iterated four times, producing exactly 
+64 bytes of data. Note that each iteration involves two executions of HMAC, each 
+of which in turn involves two executions of the underlying hash algorithm.
+
+17.2 / TRANSPORT LAYER SECURITY 563
+To make PRF as secure as possible, it uses two hash algorithms in a way that 
+should guarantee its security if either algorithm remains secure. PRF is defined as
+ 
+PRF(secret, label, seed) = P_6hash7(secret, label ‘ seed) 
+PRF takes as input a secret value, an identifying label, and a seed value and 
+produces an output of arbitrary length.
+Heartbeat Protocol
+In the context of computer networks, a heartbeat is a periodic signal generated by 
+hardware or software to indicate normal operation or to synchronize other parts of 
+a system. A heartbeat protocol is typically used to monitor the availability of a pro-
+tocol entity. In the specific case of TLS, a Heartbeat protocol was defined in 2012 in 
+RFC 6250 (Transport Layer Security (TLS) and Datagram Transport Layer Security 
+(DTLS) Heartbeat Extension).
+Figure 17.7 TLS Function P_hash(secret, seed)
+Secret
+Seed
+Seed
+A(1)
+HMAC
+Secret
+Secret
+Length = hash size
+Secret
+Seed
+A(2)
+HMAC
+HMAC
+Secret
+Seed
+A(3)
+HMAC
+HMAC
+Secret
+HMAC
+
+564  CHAPTER 17 / TRANSPORT-LEVEL SECURITY
+The Heartbeat protocol runs on top of the TLS Record Protocol and con-
+sists of two message types: heartbeat_request and heartbeat_response. 
+The use of the Heartbeat protocol is established during Phase 1 of the Handshake 
+protocol (Figure 17.6). Each peer indicates whether it supports heartbeats. If heart-
+beats are supported, the peer indicates whether it is willing to receive heartbeat_ 
+request messages and respond with heartbeat_response messages or only 
+willing to send heartbeat_request messages.
+A heartbeat_request message can be sent at any time. Whenever a re-
+quest message is received, it should be answered promptly with a corresponding 
+heartbeat_response message. The heartbeat_request message includes 
+payload length, payload, and padding fields. The payload is a random content 
+between 16 bytes and 64 Kbytes in length. The corresponding heartbeat_ 
+response message must include an exact copy of the received payload. The pad-
+ding is also random content. The padding enables the sender to perform a path 
+MTU (maximum transfer unit) discovery operation, by sending requests with in-
+creasing padding until there is no answer anymore, because one of the hosts on 
+the path cannot handle the message.
+The heartbeat serves two purposes. First, it assures the sender that the recipi-
+ent is still alive, even though there may not have been any activity over the under-
+lying TCP connection for a while. Second, the heartbeat generates activity across 
+the connection during idle periods, which avoids closure by a firewall that does not 
+tolerate idle connections.
+The requirement for the exchange of a payload was designed into the Heartbeat 
+protocol to support its use in a connectionless version of TLS known as Datagram 
+Transport Layer Security (DTLS). Because a connectionless service is subject 
+to packet loss, the payload enables the requestor to match response messages to 
+request messages. For simplicity, the same version of the Heartbeat protocol is used 
+with both TLS and DTLS. Thus, the payload is required for both TLS and DTLS.
+SSL/TLS ATTACKS
+Since the first introduction of SSL in 1994, and the subsequent standardization of 
+TLS, numerous attacks have been devised against these protocols. The appearance 
+of each attack has necessitated changes in the protocol, the encryption tools used, or 
+some aspect of the implementation of SSL and TLS to counter these threats.
+ATTACK CATEGORIES We can group the attacks into four general categories:
+ 
+■Attacks on the handshake protocol: As early as 1998, an approach to com-
+promising the handshake protocol based on exploiting the formatting and 
+implementation of the RSA encryption scheme was presented [BLEI98]. As 
+ countermeasures were implemented the attack was refined and adjusted to not 
+only thwart the countermeasures but also speed up the attack [e.g., BARD12].
+ 
+■Attacks on the record and application data protocols: A number of vulnerabili-
+ties have been discovered in these protocols, leading to patches to counter the 
+new threats. As a recent example, in 2011, researchers Thai Duong and Juliano 
+Rizzo demonstrated a proof of concept called BEAST (Browser Exploit Against 
+SSL/TLS) that turned what had been considered only a theoretical vulnerability 
+
+17.2 / TRANSPORT LAYER SECURITY 565
+into a practical attack [GOOD11]. BEAST leverages a type of cryptographic 
+attack called a chosen-plaintext attack. The attacker mounts the attack by 
+choosing a guess for the plaintext that is associated with a known ciphertext. The 
+researchers developed a practical algorithm for launching successful attacks. 
+Subsequent patches were able to thwart this attack. The authors of the BEAST 
+attack are also the creators of the 2012 CRIME (Compression Ratio Info-leak 
+Made Easy) attack, which can allow an attacker to recover the content of web 
+cookies when data compression is used along with TLS [GOOD12]. When used 
+to recover the content of secret authentication cookies, it allows an attacker to 
+perform session hijacking on an authenticated web session.
+ 
+■Attacks on the PKI: Checking the validity of X.509 certificates is an activity 
+subject to a variety of attacks, both in the context of SSL/TLS and elsewhere. 
+For example, [GEOR12] demonstrated that commonly used libraries for 
+SSL/TLS suffer from vulnerable certificate validation implementations. The 
+ authors revealed weaknesses in the source code of OpenSSL, GnuTLS, JSSE, 
+ApacheHttpClient, Weberknecht, cURL, PHP, Python and applications built 
+upon or with these products.
+ 
+■Other attacks: [MEYE13] lists a number of attacks that do not fit into any of 
+the preceding categories. One example is an attack announced in 2011 by the 
+German hacker group The Hackers Choice, which is a DoS attack [KUMA11]. 
+The attack creates a heavy processing load on a server by overwhelming the 
+target with SSL/TLS handshake requests. Boosting system load is done by 
+establishing new connections or using renegotiation. Assuming that the major-
+ity of computation during a handshake is done by the server, the attack creates 
+more system load on the server than on the source device, leading to a DoS. 
+The server is forced to continuously recompute random numbers and keys.
+The history of attacks and countermeasures for SSL/TLS is representative of 
+that for other Internet-based protocols. A “perfect” protocol and a “perfect” imple-
+mentation strategy are never achieved. A constant back-and-forth between threats 
+and countermeasures determines the evolution of Internet-based protocols.
+TLSv1.3
+In 2014, the IETF TLS working group began work on a version 1.3 of TLS. The 
+primary aim is to improve the security of TLS. As of this writing, TLSv1.3 is still 
+in a draft stage, but the final standard is likely to be very close to the current draft. 
+Among the significant changes from version 1.2 are the following:
+ 
+■TLSv1.3 removes support for a number of options and functions. Remov-
+ing code that implements functions no longer needed reduces the chances 
+of potentially dangerous coding errors and reduces the attack surface. The 
+deleted items include:
+–Compression
+–Ciphers that do not offer authenticated encryption
+–Static RSA and DH key exchange
+–32-bit timestamp as part of the Random parameter in the client_hello 
+message
+
+566  CHAPTER 17 / TRANSPORT-LEVEL SECURITY
+–Renegotiation
+–Change Cipher Spec Protocol
+–RC4
+–Use of MD5 and SHA-224 hashes with signatures
+ 
+■TLSv1.3 uses Diffie–Hellman or Elliptic Curve Diffie–Hellman for key 
+exchange and does not permit RSA. The danger with RSA is that if the private 
+key is compromised, all handshakes using these cipher suites will be compro-
+mised. With DH or ECDH, a new key is negotiated for each handshake.
+ 
+■TLSv1.3 allows for a “1 round trip time” handshake by changing the order of 
+message sent with establishing a secure connection. The client sends a  Client 
+Key Exchange message containing its cryptographic parameters for key estab-
+lishment before a cipher suite has been negotiated. This enables a server 
+to  calculate keys for encryption and authentication before sending its first 
+response. Reducing the number of packets sent during this handshake phase 
+speeds up the process and reduces the attack surface.
+These changes should improve the efficiency and security of TLS.
+ 17.3 HTTPS
+HTTPS (HTTP over SSL) refers to the combination of HTTP and SSL to imple-
+ment secure communication between a Web browser and a Web server. The HTTPS 
+capability is built into all modern Web browsers. Its use depends on the Web server 
+supporting HTTPS communication. For example, some search engines do not sup-
+port HTTPS.
+The principal difference seen by a user of a Web browser is that URL (uniform 
+resource locator) addresses begin with https:// rather than http://. A normal HTTP 
+connection uses port 80. If HTTPS is specified, port 443 is used, which invokes SSL.
+When HTTPS is used, the following elements of the communication are 
+encrypted:
+ 
+■URL of the requested document
+ 
+■Contents of the document
+ 
+■Contents of browser forms (filled in by browser user)
+ 
+■Cookies sent from browser to server and from server to browser
+ 
+■Contents of HTTP header
+HTTPS is documented in RFC 2818, HTTP Over TLS. There is no fundamen-
+tal change in using HTTP over either SSL or TLS, and both implementations are 
+referred to as HTTPS.
+Connection Initiation
+For HTTPS, the agent acting as the HTTP client also acts as the TLS client. The 
+client initiates a connection to the server on the appropriate port and then sends 
+the TLS ClientHello to begin the TLS handshake. When the TLS handshake has 
+
+19.3 / EMAIL THREATS AND COMPREHENSIVE EMAIL SECURITY 625
+the local model for the representation of some form of information. Examples 
+include a UNIX-style text file, or a Sun raster image, or a VMS indexed file, and 
+audio data in a system-dependent format stored only in memory. In  essence, 
+the data are created in the native form that corresponds to the type specified 
+by the media type.
+ 
+■Canonical form: The entire body, including out-of-band information such as 
+record lengths and possibly file attribute information, is converted to a univer-
+sal canonical form. The specific media type of the body as well as its associated 
+attributes dictates the nature of the canonical form that is used. Conversion to 
+the proper canonical form may involve character set conversion, transforma-
+tion of audio data, compression, or various other operations specific to the 
+various media types.
+ 19.3 EMAIL THREATS AND COMPREHENSIVE EMAIL SECURITY
+For both organizations and individuals, email is both pervasive and especially vul-
+nerable to a wide range of security threats. In general terms, email security threats 
+can be classified as follows:
+ 
+■Authenticity-related threats: Could result in unauthorized access to an enter-
+prise’s email system.
+ 
+■Integrity-related threats: Could result in unauthorized modification of email 
+content.
+ 
+■Confidentiality-related threats: Could result in unauthorized disclosure of 
+ sensitive information.
+ 
+■Availability-related threats: Could prevent end users from being able to send 
+or receive email.
+A useful list of specific email threats, together with approaches to mitigation, 
+is provided in NIST SP 800-177 (Trustworthy Email, September 2015) and is shown 
+in Table 19.3.
+SP 800-177 recommends use of a variety of standardized protocols as a means 
+for countering these threats. These include:
+ 
+■STARTTLS: An SMTP security extension that provides authentication, integ-
+rity, non-repudiation (via digital signatures) and confidentiality (via encryp-
+tion) for the entire SMTP message by running SMTP over TLS.
+ 
+■S/MIME: Provides authentication, integrity, non-repudiation (via digital 
+ signatures) and confidentiality (via encryption) of the message body carried 
+in SMTP messages.
+ 
+■DNS Security Extensions (DNSSEC): Provides authentication and integ-
+rity protection of DNS data, and is an underlying tool used by various email 
+ security protocols.
+ 
+■DNS-based Authentication of Named Entities (DANE): Is designed to over-
+come problems in the certificate authority (CA) system by providing an 
+ alternative channel for authenticating public keys based on DNSSEC, with the 
+
+626  CHAPTER 19 / ELECTRONIC MAIL SECURITY
+Threat
+Impact on Purported 
+Sender
+Impact on Receiver
+Mitigation
+Email sent by 
+unauthorized MTA in 
+enterprise (e.g., malware 
+botnet)
+Loss of reputation, valid 
+email from enterprise 
+may be blocked as 
+possible spam/phishing 
+attack.
+UBE and/or email 
+containing malicious 
+links may be delivered 
+into user inboxes.
+Deployment of domain-
+based authentication 
+techniques. Use of 
+digital signatures over 
+email.
+Email message sent 
+using spoofed or 
+unregistered sending 
+domain
+Loss of reputation, valid 
+email from enterprise 
+may be blocked as 
+possible spam/phishing 
+attack.
+UBE and/or email 
+containing malicious 
+links may be delivered 
+into user inboxes.
+Deployment of domain-
+based authentication 
+techniques. Use of 
+digital signatures over 
+email.
+Email message sent 
+using forged sending 
+address or email address 
+(i.e., phishing, spear 
+phishing)
+Loss of reputation, valid 
+email from enterprise 
+may be blocked as 
+possible spam/phishing 
+attack.
+UBE and/or email 
+containing malicious 
+links may be delivered. 
+Users may inadvertently 
+divulge sensitive 
+information or PII.
+Deployment of domain-
+based authentication 
+techniques. Use of 
+digital signatures over 
+email.
+Email modified in transit
+Leak of sensitive 
+information or PII.
+Leak of sensitive 
+information, altered 
+message may contain 
+malicious information.
+Use of TLS to encrypt 
+email transfer between 
+servers. Use of end-to-
+end email encryption.
+Disclosure of sensitive 
+information (e.g., PII) 
+via monitoring and 
+capturing of email traffic
+Leak of sensitive 
+information or PII.
+Leak of sensitive 
+information, altered 
+message may contain 
+malicious information.
+Use of TLS to encrypt 
+email transfer between 
+servers. Use of end-to-
+end email encryption.
+Unsolicited Bulk Email 
+(UBE) (i.e., spam)
+None, unless purported 
+sender is spoofed.
+UBE and/or email 
+containing malicious 
+links may be delivered 
+into user inboxes.
+Techniques to address 
+UBE.
+DoS/DDoS attack 
+against an enterprises’ 
+email servers
+Inability to send email.
+Inability to receive 
+email.
+Multiple mail servers, 
+use of cloud-based email 
+providers.
+Table 19.3 Email Threats and Mitigations
+result that the same trust relationships used to certify IP addresses are used to 
+certify servers operating on those addresses.
+ 
+■Sender Policy Framework (SPF): Uses the Domain Name System (DNS) to 
+allow domain owners to create records that associate the domain name with a 
+specific IP address range of authorized message senders. It is a simple matter 
+for receivers to check the SPF TXT record in the DNS to confirm that the pur-
+ported sender of a message is permitted to use that source address and reject 
+mail that does not come from an authorized IP address.
+ 
+■DomainKeys Identified Mail (DKIM): Enables an MTA to sign selected 
+ headers and the body of a message. This validates the source domain of the 
+mail and provides message body integrity.
+ 
+■Domain-based Message Authentication, Reporting, and Conformance 
+(DMARC): Lets senders know the proportionate effectiveness of their SPF 
+and DKIM policies, and signals to receivers what action should be taken in 
+various individual and bulk attack scenarios.
+
+19.4 / S/MIME 627
+Figure 19.4 shows how these components interact to provide message authen-
+ticity and integrity. Not shown, for simplicity, is that S/MIME also provides message 
+confidentiality by encrypting messages.
+ 19.4 S/MIME
+Secure/Multipurpose Internet Mail Extension (S/MIME) is a security enhancement 
+to the MIME Internet email format standard based on technology from RSA Data 
+Security. S/MIME is a complex capability that is defined in a number of documents. 
+The most important documents relevant to S/MIME include the following:
+ 
+■RFC 5750, S/MIME Version 3.2 Certificate Handling: Specifies conventions 
+for X.509 certificate usage by (S/MIME) v3.2.
+Figure 19.4  The Interrelationship of DNSSEC, SPF, DKIM, DMARC, DANE, and  
+S/MIME for Assuring Message Authenticity and Integrity
+msg
+msg
+sig
+msg
+sig
+msg
+sig
+Sender
+MUA
+Sender’s S/MIME
+signing key
+(private key)
+DKIM
+signature
+DKIM TXT RR provides
+sending MTA’s public key
+to receiving MTA
+DMARC TXT tells receiving
+MTA that sender uses
+DKIM and SPF
+DANE TLSA RR
+specifies SMTP
+TLS certificate
+Receiver MUA
+verifies S/MIME
+signature
+DNSSEC secured
+DNSSEC secured
+MTA’s DKIM
+signing key
+DANE = DNS-based Authentication of Named Entities
+DKIM = DomainKeys Identified Mail
+DMARC = Domain-based Message Authentication, Reporting, and Conformance
+DNSSEC = Domain Name System Security Extensions
+SPF = Sender Policy Framework
+S/MIME = Secure Multi-Purpose Internet Mail Extensions
+TLSA RR = Transport Layer Security Authentication Resource Record
+SPF TXT specfies
+sender’s IP address
+Sender
+DNS
+Receiver
+DNS
+Receiver
+MUA
+Sending
+MTA
+Receiving
+MTA
+
+628  CHAPTER 19 / ELECTRONIC MAIL SECURITY
+ 
+■RFC 5751, S/MIME) Version 3.2 Message Specification: The principal defining 
+document for S/MIME message creation and processing.
+ 
+■RFC 4134, Examples of S/MIME Messages: Gives examples of message  bodies 
+formatted using S/MIME.
+ 
+■RFC 2634, Enhanced Security Services for S/MIME: Describes four optional 
+security service extensions for S/MIME.
+ 
+■RFC 5652, Cryptographic Message Syntax (CMS): Describes the Crypto-
+graphic Message Syntax (CMS). This syntax is used to digitally sign, digest, 
+authenticate, or encrypt arbitrary message content.
+ 
+■RFC 3370, CMS Algorithms: Describes the conventions for using several 
+ cryptographic algorithms with the CMS.
+ 
+■RFC 5752, Multiple Signatures in CMS: Describes the use of multiple, parallel 
+signatures for a message.
+ 
+■RFC 1847, Security Multiparts for MIME—Multipart/Signed and Multipart/
+Encrypted: Defines a framework within which security services may be applied 
+to MIME body parts. The use of a digital signature is relevant to S/MIME, as 
+explained subsequently.
+Operational Description
+S/MIME provides for four message-related services: authentication, confidential-
+ity, compression, and email compatibility (Table 19.4). This subsection provides 
+an overview. We then look in more detail at this capability by examining message 
+ formats and message preparation.
+AUTHENTICATION Authentication is provided by means of a digital  signature, using 
+the general scheme discussed in Chapter 13 and illustrated in Figure 13.1. Most 
+commonly RSA with SHA-256 is used. The sequence is as follows:
+1. The sender creates a message.
+2. SHA-256 is used to generate a 256-bit message digest of the message.
+Function
+Typical Algorithm
+Typical Action
+Digital signature
+RSA/SHA-256
+A hash code of a message is created using SHA-256. 
+This message digest is encrypted using SHA-256 
+with the sender’s private key and included with 
+the message.
+Message encryption
+AES-128 with CBC
+A message is encrypted using AES-128 with CBC 
+with a one-time session key generated by the 
+sender. The session key is encrypted using RSA 
+with the recipient’s public key and included with 
+the message.
+Compression
+unspecified
+A message may be compressed for storage or 
+transmission.
+Email compatibility
+Radix-64 conversion
+To provide transparency for email applications, an 
+encrypted message may be converted to an ASCII 
+string using radix-64 conversion.
+Table 19.4 Summary of S/MIME Services
+
+19.4 / S/MIME 629
+3. The message digest is encrypted with RSA using the sender’s private key, and 
+the result is appended to the message. Also appended is identifying information 
+for the signer, which will enable the receiver to retrieve the  signer’s public key.
+4. The receiver uses RSA with the sender’s public key to decrypt and recover the 
+message digest.
+5. The receiver generates a new message digest for the message and compares 
+it with the decrypted hash code. If the two match, the message is accepted as 
+authentic.
+The combination of SHA-256 and RSA provides an effective digital signature 
+scheme. Because of the strength of RSA, the recipient is assured that only the pos-
+sessor of the matching private key can generate the signature. Because of the strength 
+of SHA-256, the recipient is assured that no one else could generate a new message 
+that matches the hash code and, hence, the signature of the original message.
+Although signatures normally are found attached to the message or file that 
+they sign, this is not always the case: Detached signatures are supported. A  detached 
+signature may be stored and transmitted separately from the message it signs. This 
+is useful in several contexts. A user may wish to maintain a separate signature log 
+of all messages sent or received. A detached signature of an executable program 
+can detect subsequent virus infection. Finally, detached signatures can be used 
+when more than one party must sign a document, such as a legal contract. Each 
+person’s signature is independent and therefore is applied only to the document. 
+Otherwise, signatures would have to be nested, with the second signer signing both 
+the  document and the first signature, and so on.
+CONFIDENTIALITY S/MIME provides confidentiality by encrypting messages. Most 
+commonly AES with a 128-bit key is used, with the cipher block chaining (CBC) 
+mode. The key itself is also encrypted, typically with RSA, as explained below.
+As always, one must address the problem of key distribution. In S/MIME, 
+each symmetric key, referred to as a content-encryption key, is used only once. That 
+is, a new key is generated as a random number for each message. Because it is to be 
+used only once, the content-encryption key is bound to the message and transmit-
+ted with it. To protect the key, it is encrypted with the receiver’s public key. The 
+sequence can be described as follows:
+1. The sender generates a message and a random 128-bit number to be used as a 
+content-encryption key for this message only.
+2. The message is encrypted using the content-encryption key.
+3. The content-encryption key is encrypted with RSA using the recipient’s public 
+key and is attached to the message.
+4. The receiver uses RSA with its private key to decrypt and recover the 
+ content-encryption key.
+5. The content-encryption key is used to decrypt the message.
+Several observations may be made. First, to reduce encryption time, the com-
+bination of symmetric and public-key encryption is used in preference to simply 
+using public-key encryption to encrypt the message directly: Symmetric algorithms 
+
+630  CHAPTER 19 / ELECTRONIC MAIL SECURITY
+are substantially faster than asymmetric ones for a large block of content. Second, 
+the use of the public-key algorithm solves the session-key distribution problem, 
+because only the recipient is able to recover the session key that is bound to the 
+message. Note that we do not need a session-key exchange protocol of the type 
+discussed in Chapter 14,  because we are not beginning an ongoing session. Rather, 
+each message is a one-time independent event with its own key. Furthermore, given 
+the store-and-forward nature of electronic mail, the use of handshaking to assure 
+that both sides have the same session key is not practical. Finally, the use of one-
+time symmetric keys strengthens what is already a strong symmetric encryption 
+ approach. Only a small amount of plaintext is encrypted with each key, and there is 
+no relationship among the keys. Thus, to the extent that the public-key algorithm is 
+secure, the entire scheme is secure.
+CONFIDENTIALITY AND AUTHENTICATION As Figure 19.5 illustrates, both confi-
+dentiality and encryption may be used for the same message. The figure shows a 
+ sequence in which a signature is generated for the plaintext message and appended 
+to the message. Then the plaintext message and signature are encrypted as a single 
+block using symmetric encryption and the symmetric encryption key is encrypted 
+using public-key encryption.
+S/MIME allows the signing and message encryption operations to be per-
+formed in either order. If signing is done first, the identity of the signer is hidden 
+by the encryption. Plus, it is generally more convenient to store a signature with a 
+plaintext version of a message. Furthermore, for purposes of third-party verifica-
+tion, if the signature is performed first, a third party need not be concerned with the 
+symmetric key when verifying the signature.
+If encryption is done first, it is possible to verify a signature without exposing 
+the message content. This can be useful in a context in which automatic signature 
+verification is desired, as no private key material is required to verify a signature. 
+However, in this case the recipient cannot determine any relationship between the 
+signer and the unencrypted content of the message.
+EMAIL COMPATIBILITY When S/MIME is used, at least part of the block to be trans-
+mitted is encrypted. If only the signature service is used, then the message digest is 
+encrypted (with the sender’s private key). If the confidentiality service is used, the 
+message plus signature (if present) are encrypted (with a one-time symmetric key). 
+Thus, part or all of the resulting block consists of a stream of arbitrary 8-bit octets. 
+However, many electronic mail systems only permit the use of blocks consisting 
+of ASCII text. To accommodate this restriction, S/MIME provides the service of 
+converting the raw 8-bit binary stream to a stream of printable ASCII characters, 
+a process referred to as 7-bit encoding.
+The scheme typically used for this purpose is Base64 conversion. Each group 
+of three octets of binary data is mapped into four ASCII characters. See Appendix 
+X for a description.
+One noteworthy aspect of the Base64 algorithm is that it blindly converts the 
+input stream to Base64 format regardless of content, even if the input happens to 
+be ASCII text. Thus, if a message is signed but not encrypted and the conversion 
+is  applied to the entire block, the output will be unreadable to the casual observer, 
+which provides a certain level of confidentiality.
+
+19.4 / S/MIME 631
+RFC 5751 also recommends that even if outer 7-bit encoding is not used, the 
+original MIME content should be 7-bit encoded. The reason for this is that it allows 
+the MIME entity to be handled in any environment without changing it. For exam-
+ple, a trusted gateway might remove the encryption, but not the signature, of a mes-
+sage, and then forward the signed message on to the end recipient so that they can 
+verify the signatures directly. If the transport internal to the site is not 8-bit clean, 
+such as on a wide area network with a single mail gateway, verifying the signature 
+will not be possible unless the original MIME entity was only 7-bit data.
+COMPRESSION S/MIME also offers the ability to compress a message. This has the 
+benefit of saving space both for email transmission and for file storage. Compression 
+Figure 19.5 Simplified S/MIME Functional Flow
+Sign
+(e.g., RSA/
+SHA-256)
+Sender’s
+private key
+(a) Sender signs, then encrypts message
+(b) Receiver decrypts message, then verifies sender’s signature
+One-time
+secret key
+Encrypt
+(e.g,
+AES-128/
+CBC 
+Encrypt
+(e.g., RSA)
+msg
+msg
+sig
+sig
+sig
+msg
+sig
+Receiver’s
+public key
+Sender’s
+public key
+Decrypt
+(e.g., RSA)
+Receiver’s
+private key
+Secret key
+generated by
+sender
+Decrypt
+(e.g,
+AES-128/
+CBC
+Verify
+signature
+(e.g., RSA/
+SHA-256)
+msg
+msg
+
+632  CHAPTER 19 / ELECTRONIC MAIL SECURITY
+can be applied in any order with respect to the signing and message encryption 
+ operations. RFC 5751 provides the following guidelines:
+ 
+■Compression of binary encoded encrypted data is discouraged, since it will not 
+yield significant compression. Base64 encrypted data could very well benefit, 
+however.
+ 
+■If a lossy compression algorithm is used with signing, you will need to  compress 
+first, then sign.
+S/MIME Message Content Types
+S/MIME uses the following message content types, which are defined in RFC 5652, 
+Cryptographic Message Syntax:
+ 
+■Data: Refers to the inner MIME-encoded message content, which may then 
+be encapsulated in a SignedData, EnvelopedData, or CompressedData con-
+tent type.
+ 
+■SignedData: Used to apply a digital signature to a message.
+ 
+■EnvelopedData: This consists of encrypted content of any type and encrypted-
+content encryption keys for one or more recipients.
+ 
+■CompressedData: Used to apply data compression to a message.
+The Data content type is also used for a procedure known as clear signing. 
+For clear signing, a digital signature is calculated for a MIME-encoded message and 
+the two parts, the message and signature, form a multipart MIME message. Unlike 
+SignedData, which involves encapsulating the message and signature in a special 
+format, clear-signed messages can be read and their signatures verified by email 
+entities that do not implement S/MIME.
+Approved Cryptographic Algorithms
+Table 19.5 summarizes the cryptographic algorithms used in S/MIME. S/MIME 
+uses the following terminology taken from RFC 2119 (Key Words for use in RFCs to 
+Indicate Requirement Levels, March 1997) to specify the requirement level:
+ 
+■MUST: The definition is an absolute requirement of the specification. An 
+ implementation must include this feature or function to be in conformance 
+with the specification.
+ 
+■SHOULD: There may exist valid reasons in particular circumstances to ignore 
+this feature or function, but it is recommended that an implementation include 
+the feature or function.
+The S/MIME specification includes a discussion of the procedure for deciding 
+which content encryption algorithm to use. In essence, a sending agent has two deci-
+sions to make. First, the sending agent must determine if the receiving agent is  capable 
+of decrypting using a given encryption algorithm. Second, if the receiving agent is only 
+capable of accepting weakly encrypted content, the sending agent must decide if it is 
+acceptable to send using weak encryption. To support this decision process, a sending 
+agent may announce its decrypting capabilities in order of preference for any message 
+that it sends out. A receiving agent may store that information for future use.
+
+19.4 / S/MIME 633
+The following rules, in the following order, should be followed by a sending agent.
+1. If the sending agent has a list of preferred decrypting capabilities from an 
+ intended recipient, it SHOULD choose the first (highest preference) capabil-
+ity on the list that it is capable of using.
+2. If the sending agent has no such list of capabilities from an intended recipient 
+but has received one or more messages from the recipient, then the outgoing 
+message SHOULD use the same encryption algorithm as was used on the last 
+signed and encrypted message received from that intended recipient.
+3. If the sending agent has no knowledge about the decryption capabilities of the 
+intended recipient and is willing to risk that the recipient may not be able to 
+decrypt the message, then the sending agent SHOULD use triple DES.
+4. If the sending agent has no knowledge about the decryption capabilities of the 
+intended recipient and is not willing to risk that the recipient may not be able 
+to decrypt the message, then the sending agent MUST use RC2/40.
+If a message is to be sent to multiple recipients and a common encryption 
+ algorithm cannot be selected for all, then the sending agent will need to send two 
+messages. However, in that case, it is important to note that the security of the 
+ message is made vulnerable by the transmission of one copy with lower security.
+S/MIME Messages
+S/MIME makes use of a number of new MIME content types. All of the new applica-
+tion types use the designation PKCS. This refers to a set of public-key cryptography 
+specifications issued by RSA Laboratories and made available for the S/MIME effort.
+Function
+Requirement
+Create a message digest to be used in 
+forming a digital signature.
+MUST support SHA-256
+SHOULD support SHA-1
+Receiver SHOULD support MD5 for backward compatibility
+Use message digest to form a digital 
+signature.
+MUST support RSA with SHA-256
+SHOULD support
+—DSA with SHA-256
+—RSASSA-PSS with SHA-256
+—RSA with SHA-1
+—DSA with SHA-1
+—RSA with MD5
+Encrypt session key for transmission with 
+a message.
+MUST support RSA encryption
+SHOULD support
+—RSAES-OAEP
+—Diffie–Hellman ephemeral-static mode
+Encrypt message for transmission with a 
+one-time session key.
+MUST support AES-128 with CBC
+SHOULD support
+—AES-192 CBC and AES-256 CBC
+—Triple DES CBC
+Table 19.5 Cryptographic Algorithms Used in S/MIME
+
+634  CHAPTER 19 / ELECTRONIC MAIL SECURITY
+We examine each of these in turn after first looking at the general procedures 
+for S/MIME message preparation.
+SECURING A MIME ENTITY S/MIME secures a MIME entity with a signature, 
+ encryption, or both. A MIME entity may be an entire message (except for the RFC 
+5322 headers), or if the MIME content type is multipart, then a MIME entity is one 
+or more of the subparts of the message. The MIME entity is prepared according 
+to the normal rules for MIME message preparation. Then the MIME entity plus 
+some security-related data, such as algorithm identifiers and certificates, are pro-
+cessed by S/MIME to produce what is known as a PKCS object. A PKCS object is 
+then treated as message content and wrapped in MIME (provided with appropriate 
+MIME headers). This process should become clear as we look at specific objects 
+and provide examples.
+In all cases, the message to be sent is converted to canonical form. In par-
+ticular, for a given type and subtype, the appropriate canonical form is used for the 
+message content. For a multipart message, the appropriate canonical form is used 
+for each subpart.
+The use of transfer encoding requires special attention. For most cases, the 
+result of applying the security algorithm will be to produce an object that is partially 
+or totally represented in arbitrary binary data. This will then be wrapped in an outer 
+MIME message and transfer encoding can be applied at that point, typically base64. 
+However, in the case of a multipart signed message (described in more detail later), 
+the message content in one of the subparts is unchanged by the security process. 
+Unless that content is 7 bit, it should be transfer encoded using base64 or quoted-
+printable so that there is no danger of altering the content to which the signature 
+was applied.
+We now look at each of the S/MIME content types.
+ENVELOPEDDATA An application/pkcs7-mime subtype is used for one of four cat-
+egories of S/MIME processing, each with a unique smime-type parameter. In all 
+cases, the resulting entity, (referred to as an object) is represented in a form known 
+as Basic Encoding Rules (BER), which is defined in ITU-T Recommendation 
+X.209. The BER format consists of arbitrary octet strings and is therefore binary 
+data. Such an object should be transfer encoded with base64 in the outer MIME 
+message. We first look at envelopedData.
+The steps for preparing an envelopedData MIME entity are:
+1. Generate a pseudorandom session key for a particular symmetric encryption 
+algorithm (RC2/40 or triple DES).
+2. For each recipient, encrypt the session key with the recipient’s public RSA key.
+3. For each recipient, prepare a block known as RecipientInfo that contains 
+an identifier of the recipient’s public-key certificate,1 an identifier of the 
+ algorithm used to encrypt the session key, and the encrypted session key.
+4. Encrypt the message content with the session key.
+1This is an X.509 certificate, discussed later in this section.
+
+19.4 / S/MIME 635
+The RecipientInfo blocks followed by the encrypted content constitute the 
+envelopedData. This information is then encoded into base64. A sample message 
+(excluding the RFC 5322 headers) is given below.
+Content-Type: application/pkcs7-mime; smime-type=enveloped-
+data; name=smime.p7m
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=smime.p7m
+rfvbnj756tbBghyHhHUujhJhjH77n8HHGT9HG4VQpfyF467GhIGfHfYT6
+7n8HHGghyHhHUujhJh4VQpfyF467GhIGfHfYGTrfvbnjT6jH7756tbB9H
+f8HHGTrfvhJhjH776tbB9HG4VQbnj7567GhIGfHfYT6ghyHhHUujpfyF4
+0GhIGfHfQbnj756YT64V
+To recover the encrypted message, the recipient first strips off the base64 
+ encoding. Then the recipient’s private key is used to recover the session key. Finally, 
+the message content is decrypted with the session key.
+SIGNEDDATA The signedData smime-type can be used with one or more signers. 
+For clarity, we confine our description to the case of a single digital signature. The 
+steps for preparing a signedData MIME entity are as follows.
+1. Select a message digest algorithm (SHA or MD5).
+2. Compute the message digest (hash function) of the content to be signed.
+3. Encrypt the message digest with the signer’s private key.
+4. Prepare a block known as SignerInfo that contains the signer’s public-key 
+certificate, an identifier of the message digest algorithm, an identifier of the 
+ algorithm used to encrypt the message digest, and the encrypted message 
+digest.
+The signedData entity consists of a series of blocks, including a message 
+digest algorithm identifier, the message being signed, and SignerInfo. The 
+signedData entity may also include a set of public-key certificates sufficient to 
+constitute a chain from a recognized root or top-level certification authority to the 
+signer. This information is then encoded into base64. A sample message (excluding 
+the RFC 5322 headers) is the following.
+Content-Type: application/pkcs7-mime; smime-type=signed-
+data; name=smime.p7m
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=smime.p7m
+567GhIGfHfYT6ghyHhHUujpfyF4f8HHGTrfvhJhjH776tbB9HG4VQbnj7
+77n8HHGT9HG4VQpfyF467GhIGfHfYT6rfvbnj756tbBghyHhHUujhJhjH
+HUujhJh4VQpfyF467GhIGfHfYGTrfvbnjT6jH7756tbB9H7n8HHGghyHh
+6YT64V0GhIGfHfQbnj75
+
+636  CHAPTER 19 / ELECTRONIC MAIL SECURITY
+To recover the signed message and verify the signature, the recipient first strips 
+off the base64 encoding. Then the signer’s public key is used to decrypt the message 
+digest. The recipient independently computes the message digest and  compares it to 
+the decrypted message digest to verify the signature.
+CLEAR SIGNING Clear signing is achieved using the multipart content type with 
+a signed subtype. As was mentioned, this signing process does not involve trans-
+forming the message to be signed, so that the message is sent “in the clear.” Thus, 
+recipients with MIME capability but not S/MIME capability are able to read the 
+ incoming message.
+A multipart/signed message has two parts. The first part can be any MIME 
+type but must be prepared so that it will not be altered during transfer from source 
+to destination. This means that if the first part is not 7 bit, then it needs to be  encoded 
+using base64 or quoted-printable. Then this part is processed in the same manner 
+as signedData, but in this case an object with signedData format is created that 
+has an empty message content field. This object is a detached signature. It is then 
+transfer encoded using base64 to become the second part of the multipart/signed 
+message. This second part has a MIME content type of application and a subtype of 
+pkcs7-signature. Here is a sample message:
+Content-Type: multipart/signed;
+protocol=”application/pkcs7-signature”;
+micalg=sha1; boundary=boundary42
+—boundary42
+Content-Type: text/plain
+This is a clear-signed message.
+—boundary42
+Content-Type: application/pkcs7-signature; name=smime.p7s
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=smime.p7s
+ghyHhHUujhJhjH77n8HHGTrfvbnj756tbB9HG4VQpfyF467GhIGfHfYT6
+4VQpfyF467GhIGfHfYT6jH77n8HHGghyHhHUujhJh756tbB9HGTrfvbnj
+n8HHGTrfvhJhjH776tbB9HG4VQbnj7567GhIGfHfYT6ghyHhHUujpfyF4
+7GhIGfHfYT64VQbnj756
+—boundary42—
+The protocol parameter indicates that this is a two-part clear-signed entity. 
+The micalg parameter indicates the type of message digest used. The receiver can 
+verify the signature by taking the message digest of the first part and comparing this 
+to the message digest recovered from the signature in the second part.
+REGISTRATION REQUEST Typically, an application or user will apply to a certi-
+fication authority for a public-key certificate. The application/pkcs10 S/MIME 
+
+19.4 / S/MIME 637
+ entity is used to transfer a certification request. The certification  request 
+ includes  certificationRequestInfo block, followed by an  identifier 
+of the public-key  encryption algorithm, followed by the signature of the 
+ certificationRequestInfo block, made using the sender’s private key. The 
+certificationRequestInfo block includes a name of the certificate subject 
+(the entity whose public key is to be certified) and a bit-string representation of the 
+user’s public key.
+CERTIFICATES-ONLY MESSAGE A message containing only certificates or a certificate 
+revocation list (CRL) can be sent in response to a registration request. The message 
+is an application/pkcs7-mime type/subtype with an smime-type parameter of degen-
+erate. The steps involved are the same as those for creating a signedData  message, 
+except that there is no message content and the signerInfo field is empty.
+S/MIME Certificate Processing
+S/MIME uses public-key certificates that conform to version 3 of X.509 (see 
+Chapter 14). S/MIME managers and/or users must configure each client with a list of 
+trusted keys and with certificate revocation lists. That is, the responsibility is local for 
+maintaining the certificates needed to verify incoming signatures and to encrypt outgo-
+ing messages. On the other hand, the certificates are signed by certification authorities.
+USER AGENT ROLE An S/MIME user has several key management functions to 
+perform.
+ 
+■Key generation: The user of some related administrative utility (e.g., one 
+ associated with LAN management) MUST be capable of generating separate 
+Diffie–Hellman and DSS key pairs and SHOULD be capable of generating 
+RSA key pairs. Each key pair MUST be generated from a good source of 
+nondeterministic random input and be protected in a secure fashion. A user 
+agent SHOULD generate RSA key pairs with a length in the range of 768 to 
+1024 bits and MUST NOT generate a length of less than 512 bits.
+ 
+■Registration: A user’s public key must be registered with a certification 
+ authority in order to receive an X.509 public-key certificate.
+ 
+■Certificate storage and retrieval: A user requires access to a local list of certifi-
+cates in order to verify incoming signatures and to encrypt outgoing messages. 
+Such a list could be maintained by the user or by some local administrative 
+entity on behalf of a number of users.
+Enhanced Security Services
+RFC 2634 defines four enhanced security services for S/MIME:
+ 
+■Signed receipts: A signed receipt may be requested in a SignedData  object. 
+Returning a signed receipt provides proof of delivery to the originator of a 
+message and allows the originator to demonstrate to a third party that the 
+ recipient received the message. In essence, the recipient signs the entire 
+ original message plus the original (sender’s) signature and appends the new 
+signature to form a new S/MIME message.
+
+638  CHAPTER 19 / ELECTRONIC MAIL SECURITY
+ 
+■Security labels: A security label may be included in the authenticated  attributes 
+of a SignedData object. A security label is a set of security information 
+ regarding the sensitivity of the content that is protected by S/MIME encapsu-
+lation. The labels may be used for access control, by indicating which users are 
+permitted access to an object. Other uses include priority (secret, confidential, 
+restricted, and so on) or role based, describing which kind of people can see 
+the information (e.g., patient’s health-care team, medical billing agents).
+ 
+■Secure mailing lists: When a user sends a message to multiple recipients, a 
+certain amount of per-recipient processing is required, including the use of 
+each recipient’s public key. The user can be relieved of this work by employ-
+ing the services of an S/MIME Mail List Agent (MLA). An MLA can take a 
+single incoming message, perform the recipient-specific encryption for each 
+recipient, and forward the message. The originator of a message need only 
+send the message to the MLA with encryption performed using the MLA’s 
+public key.
+ 
+■Signing certificates: This service is used to securely bind a sender’s certificate 
+to their signature through a signing certificate attribute.
+ 19.5 PRETTY GOOD PRIVACY
+An alternative email security protocol is Pretty Good Privacy (PGP), which has 
+ essentially the same functionality as S/MIME. PGP was created by Phil Zimmerman 
+and implemented as a product first released in 1991. It was made available free of 
+charge and became quite popular for personal use. The initial PGP protocol was 
+proprietary and used some encryption algorithms with intellectual property restric-
+tions. In 1996, version 5.x of PGP was defined in IETF RFC 1991, PGP Message 
+Exchange Formats. Subsequently, OpenPGP was developed as a new standard 
+protocol based on PGP version 5.x. OpenPGP is defined in RFC 4880 (OpenPGP 
+Message Format, November 2007) and RFC 3156 (MIME Security with OpenPGP, 
+August 2001).
+There are two significant differences between S/MIME and OpenPGP:
+ 
+■Key Certification: S/MIME uses X.509 certificates that are issued by Certificate 
+Authorities (or local agencies that have been delegated authority by a CA to 
+issue certificates). In OpenPGP, users generate their own OpenPGP public 
+and private keys and then solicit signatures for their public keys from individu-
+als or organizations to which they are known. Whereas X.509 certificates are 
+trusted if there is a valid PKIX chain to a trusted root, an OpenPGP public key 
+is trusted if it is signed by another OpenPGP public key that is trusted by the 
+recipient. This is called the Web-of-Trust.
+ 
+■Key Distribution: OpenPGP does not include the sender’s public key with 
+each message, so it is necessary for recipients of OpenPGP messages to sepa-
+rately obtain the sender’s public key in order to verify the message. Many 
+ organizations post OpenPGP keys on TLS-protected websites: People who 
+wish to verify digital signatures or send these organizations encrypted mail 
+
+19.6 / DNSSEC 639
+need to manually download these keys and add them to their OpenPGP 
+ clients. Keys may also be registered with the OpenPGP public key servers, 
+which are servers that maintain a database of PGP public keys organized by 
+email  address. Anyone may post a public key to the OpenPGP key servers, 
+and that public key may contain any email address. There is no vetting of 
+OpenPGP keys, so users must use the Web-of-Trust to decide whether to trust 
+a given public key.
+NIST 800-177 recommends the use of S/MIME rather than PGP because of 
+the greater confidence in the CA system of verifying public keys.
+Appendix P provides an overview of PGP.
+ 19.6 DNSSEC
+DNS Security Extensions (DNSSEC) are used by several protocols that provide 
+email security. This section provides a brief overview of the Domain Name System 
+(DNS) and then looks at DNSSEC.
+Domain Name System
+DNS is a directory lookup service that provides a mapping between the name of a 
+host on the Internet and its numeric IP address. DNS is essential to the functioning 
+of the Internet. The DNS is used by MUAs and MTAs to find the address of the 
+next hop server for mail delivery. Sending MTAs query DNS for the Mail Exchange 
+Resource Record (MX RR) of the recipient’s domain (the right hand side of the 
+“@” symbol) in order to find the receiving MTA to contact.
+Four elements comprise the DNS:
+ 
+■Domain name space: DNS uses a tree-structured name space to identify 
+ resources on the Internet.
+ 
+■DNS database: Conceptually, each node and leaf in the name space tree struc-
+ture names a set of information (e.g., IP address, name server for this domain 
+name) that is contained in resource record. The collection of all RRs is orga-
+nized into a distributed database.
+ 
+■Name servers: These are server programs that hold information about a por-
+tion of the domain name tree structure and the associated RRs.
+ 
+■Resolvers: These are programs that extract information from name servers in 
+response to client requests. A typical client request is for an IP address corre-
+sponding to a given domain name.
+THE DNS DATABASE DNS is based on a hierarchical database containing resource 
+records (RRs) that include the name, IP address, and other information about hosts. 
+The key features of the database are as follows:
+ 
+■Variable-depth hierarchy for names: DNS allows essentially unlimited levels 
+and uses the period (.) as the level delimiter in printed names, as described 
+earlier.

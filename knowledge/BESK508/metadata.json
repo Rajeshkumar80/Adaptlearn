@@ -1,0 +1,129 @@
+{
+  "subject_code": "BESK508",
+  "subject_name": "Environmental Studies",
+  "semester": 5,
+  "semester_label": "5TH SEM",
+  "modules": {
+    "1": {
+      "title": "Environmental Science Basics",
+      "topics": [
+        "The term ‘Environment’ has been derived from the French word which means",
+        "Biosphere is",
+        "Atmosphere consists of 79 per cent Nitrogen and 21 per cent Oxygen by",
+        "Which of the following is a biotic component of an ecosystem?",
+        "In an ecosystem, the flow of energy is",
+        "Which Pyramid is always upright",
+        "In complex ecosystems the degree of species diversity is",
+        "The organisms who directly feed on producers are called",
+        "The sequence of eating and being eaten in an ecosystem is called",
+        "Which of the following is a producer in an ecosystem"
+      ],
+      "sources": [
+        "BESK508-module-1-mcq-1.txt"
+      ],
+      "content_chars": 13799
+    },
+    "2": {
+      "title": "Natural Resources",
+      "topics": [
+        "ADVANCES IN ENERGY SYSTEM",
+        "AND NATURAL RESOURCE",
+        "MANAGEMENT",
+        "Which of the following supplies maximum amount of hydrogen gas?",
+        "In terms of greenhouse gas emissions, how good or bad is hydrogen fuel?",
+        "Which of the following use hydrogen as fuel?",
+        "Which of the following is the most popular application of hydrogen fuel cell?",
+        "How is hydrogen gas produced from fossil fuels?",
+        "What is the major drawback of steam-methane reforming technique to produce",
+        "How does electrolysis produce hydrogen?"
+      ],
+      "sources": [
+        "BESK508-module-2-mcq-1.txt"
+      ],
+      "content_chars": 14539
+    },
+    "3": {
+      "title": "Ecosystems and Biodiversity",
+      "topics": [
+        "Ground water characteristics must be monitored at least once in a",
+        "Ground water samples should be collected at least up to a distance",
+        "How should the monitoring wells be arranged in the absence of bore wells?",
+        "The directions of the ground water flow have to be established with",
+        "When did the Central Pollution Control Board established?",
+        "Who appoints the chairman of the Central Pollution Control Board?",
+        "Where is the head office of the Central Pollution Control Board?",
+        "What is the full form of NAMP?",
+        "When did the National Green Tribunal Act constituted?",
+        "Groundwater containing bacteria and viruses can result in"
+      ],
+      "sources": [
+        "BESK508-module-3-mcq-1.txt"
+      ],
+      "content_chars": 26427
+    },
+    "4": {
+      "title": "Environmental Pollution",
+      "topics": [
+        "Which of the following doesn’t control aquifer behaviour?",
+        "An aquifer can hold water",
+        "When would the dam become irrelevant?",
+        "Groundwater is a source of trouble at which place?",
+        "An associated protection of rising water-table is the development of",
+        "How many cubic kilometers of land ice decrease in Antarctica since 2002?",
+        "Which one of the following is the reason for a sea level rise?",
+        "What is the full form of IPCC?",
+        "Which one of the following is a result of climate change?",
+        "How food production reduced due to climate change?"
+      ],
+      "sources": [
+        "BESK508-module-4-mcq-1.txt"
+      ],
+      "content_chars": 21676
+    },
+    "5": {
+      "title": "Social Issues and Environment",
+      "topics": [
+        "Remote sensing uses which of the following waves in its procedure?",
+        "The relation between velocity, wavelength and frequency can be given as",
+        "Which of the following is not a principle of remote sensing?",
+        "Which among the following waves is having less wavelength range?",
+        "In visible region, the blue light is having a wave length range of",
+        "Which of the following is not a classification of scattering principle?",
+        "Polar orbiting satellites are generally placed at an altitude range of",
+        "Which of the following field is used by the EM waves?",
+        "Which one of the following statement is incorrect regarding the electromagnetic",
+        "The changes in the reflectivity/emissivity with time, is called:"
+      ],
+      "sources": [
+        "BESK508-module-5-mcq-1.txt"
+      ],
+      "content_chars": 8793
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BESK508\\BESK508-module-1-mcq-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BESK508\\BESK508-module-2-mcq-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BESK508\\BESK508-module-3-mcq-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BESK508\\BESK508-module-4-mcq-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BESK508\\BESK508-module-5-mcq-1.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BESK508\\BESK508-module-1-mcq-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BESK508\\BESK508-module-2-mcq-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BESK508\\BESK508-module-3-mcq-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BESK508\\BESK508-module-4-mcq-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\5TH SEM\\BESK508\\BESK508-module-5-mcq-1.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_5\\BESK508\\BESK508_Environmental_Studies.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Environmental Science Basics",
+    "2": "Natural Resources",
+    "3": "Ecosystems and Biodiversity",
+    "4": "Environmental Pollution",
+    "5": "Social Issues and Environment"
+  }
+}

@@ -1,0 +1,3837 @@
+6
+CHAPTER
+GPU programming with
+CUDA
+6.1 GPUs and GPGPU
+In the late 1990s and early 2000s, the computer industry responded to the demand for
+highly realistic computer video games and video animations by developing extremely
+powerful graphics processing units or GPUs. These processors, as their name sug-
+gests, are designed to improve the performance of programs that need to render many
+detailed images.
+The existence of this computational power was a temptation to programmers who
+didn’t specialize in computer graphics, and by the early 2000s they were trying to ap-
+ply the power of GPUs to solving general computational problems, problems such as
+searching and sorting, rather than graphics. This became known as General Purpose
+computing on GPUs or GPGPU.
+One of the biggest difﬁculties faced by the early developers of GPGPU was that
+the GPUs of the time could only be programmed using computer graphics APIs,
+such as Direct3D and OpenGL. So programmers needed to reformulate algorithms
+for general computational problems so that they used graphics concepts, such as ver-
+tices, triangles, and pixels. This added considerable complexity to the development
+of early GPGPU programs, and it wasn’t long before several groups started work on
+developing languages and compilers that allowed programmers to implement general
+algorithms for GPUs in APIs that more closely resembled conventional, high-level
+languages for CPUs.
+These efforts led to the development of several APIs for general purpose pro-
+gramming on GPUs. Currently the most widely used APIs are CUDA and OpenCL.
+CUDA was developed for use on Nvidia GPUs. OpenCL, on the other hand, was de-
+signed to be highly portable. It was designed for use on arbitrary GPUs and other
+processors—processors such as ﬁeld programmable gate arrays (FPGAs) and digi-
+tal signal processors (DSPs). To ensure this portability, an OpenCL program must
+include a good deal of code providing information about which systems it can be
+run on and information about how it should be run. Since CUDA was developed to
+run only on Nvidia GPUs, it requires relatively modest setup, and, as a consequence,
+we’ll use it instead of OpenCL.
+An Introduction to Parallel Programming. https://doi.org/10.1016/B978-0-12-804605-0.00013-0
+Copyright © 2022 Elsevier Inc. All rights reserved.
+291
+MODULE 5
+
+292
+CHAPTER 6 GPU programming with CUDA
+Table 6.1 Execution of branch on a SIMD system.
+Time
+Datapaths with x[i] >= 0
+Datapaths with x[i] < 0
+1
+Test x[i] >= 0
+Test x[i] >= 0
+2
+x[i] += 1
+Idle
+3
+Idle
+x[i] -= 2
+6.2 GPU architectures
+As we’ve seen (see Chapter 2), CPU architectures can be extremely complex. How-
+ever, we often think of a conventional CPU as a SISD device in Flynn’s Taxonomy
+(see Section 2.3): the processor fetches an instruction from memory and executes
+the instruction on a small number of data items. The instruction is an element of the
+Single Instruction stream—the “SI” in SISD—and the data items are elements of the
+Single Data stream—the “SD” in SISD. GPUs, however, are composed of SIMD or
+Single Instruction stream, Multiple Data stream processors. So, to understand how to
+program them, we need to ﬁrst look at their architecture.
+Recall (from Section 2.3) that we can think of a SIMD processor as being com-
+posed of a single control unit and multiple datapaths. The control unit fetches an
+instruction from memory and broadcasts it to the datapaths. Each datapath either ex-
+ecutes the instruction on its data or is idle.
+For example, suppose there are n datapaths that share an n-element array x. Also
+suppose that the ith datapath will work with x[i]. Now suppose we want to add 1
+to the nonnegative elements of x and subtract 2 from the negative elements of x. We
+might implement this with the following code:
+/∗
+Datapath
+i
+e x e c u t e s
+the
+f o l l o w i n g
+code
+∗/
+i f
+( x [ i ] >= 0)
+x [ i ] += 1;
+e l s e
+x [ i ] −= 2;
+In a typical SIMD system, each datapath carries out the test x[i] >= 0. Then the dat-
+apaths for which the test is true execute x[i] += 1, while those for which x[i] < 0 are
+idle. Then the roles of the datapaths are reversed: those for which x[i] >= 0 are idle
+while the other datapaths execute x[i] −= 2. See Table 6.1.
+A typical GPU can be thought of as being composed of one or more SIMD proces-
+sors. Nvidia GPUs are composed of Streaming Multiprocessors or SMs.1 One SM
+can have several control units and many more datapaths. So an SM can be thought
+of as consisting of one or more SIMD processors. The SMs, however, operate asyn-
+chronously: there is no penalty if one branch of an if−else executes on one SM, and
+1 The abbreviation that Nvidia uses for a streaming multiprocessor depends on the particular GPU mi-
+croarchitecture. For example, Tesla and Fermi multiprocessors have SMs, Kepler multiprocessors have
+SMXs, and Maxwell multiprocessors have SMMs. More recent GPUs have SMs. We’ll use SM, regard-
+less of the microarchitecture.
+
+6.3 Heterogeneous computing
+293
+Table 6.2 Execution of branch on a system with multiple SMs.
+Time
+Datapaths with x[i] >= 0 (on SM A)
+Datapaths with x[i] < 0 (on SM B)
+1
+Test x[i] >= 0
+Test x[i] >= 0
+2
+x[i] += 1
+x[i] -= 2
+the other executes on another SM. So in our preceding example, if all the threads with
+x[i] >= 0 were executing on one SM, and all the threads with x[i] < 0 were executing
+on another, the execution of our if−else example would require only two stages. (See
+Table 6.2.)
+In Nvidia parlance, the datapaths are called cores, Streaming Processors, or SPs.
+Currently,2 one of the most powerful Nvidia processor has 82 SMs, and each SM has
+128 SPs for a total of 10,496 SPs. Since we use the term “core” to mean something
+else when we’re discussing MIMD architectures, we’ll use SP to denote an Nvidia
+datapath. Also note that Nvidia uses the term SIMT instead of SIMD. SIMT stands
+for Single Instruction Multiple Thread, and the term is used because threads on an
+SM that are executing the same instruction may not execute simultaneously: to hide
+memory access latency, some threads may block while memory is accessed and other
+threads, that have already accessed the data, may proceed with execution.
+Each SM has a relatively small block of memory that is shared among its SPs. As
+we’ll see, this memory can be accessed very quickly by the SPs. All of the SMs on a
+single chip also have access to a much larger block of memory that is shared among
+all the SPs. Accessing this memory is relatively slow. (See Fig. 6.1.)
+The GPU and its associated memory are usually physically separate from the
+CPU and its associated memory. In Nvidia documentation, the CPU together with its
+associated memory is often called the host, and the GPU together with its memory
+is called the device. In earlier systems the physical separation of host and device
+memories required that data was usually explicitly transferred between CPU memory
+and GPU memory. That is, a function was called that would transfer a block of data
+from host memory to device memory or vice versa. So, for example, data read from
+a ﬁle by the CPU or output data generated by the GPU would have to be transferred
+between the host and device with an explicit function call. However, in more recent
+Nvidia systems (those with compute capability ≥3.0), the explicit transfers in the
+source code aren’t needed for correctness, although they may be able to improve
+overall performance. (See Fig. 6.2.)
+6.3 Heterogeneous computing
+Up to now we’ve implicitly assumed that our parallel programs will be run on systems
+in which the individual processors have identical architectures. Writing a program
+2 Spring 2021.
+
+294
+CHAPTER 6 GPU programming with CUDA
+FIGURE 6.1
+Simpliﬁed block diagram of a GPU.
+FIGURE 6.2
+Simpliﬁed block diagram of a CPU and a GPU.
+
+6.4 CUDA hello
+295
+that runs on a GPU is an example of heterogeneous computing. The reason is that
+the programs make use of both a host processor—a conventional CPU—and a de-
+vice processor—a GPU—and, as we’ve just seen, the two processors have different
+architectures.
+We’ll still write a single program (using the SPMD approach—see Section 2.4.1),
+but now there will be functions that we write for conventional CPUs and functions
+that we write for GPUs. So, effectively, we’ll be writing two programs.
+Heterogeneous computing has become much more important in recent years. Re-
+call from Chapter 1 that from about 1986 to 2003, the single-thread performance of
+conventional CPUs was increasing, on average, more than 50% per year, but since
+2003, the improvement in single-thread performance has decreased to the point that
+from 2015 to 2017, it has been growing at less than 4% per year [28]. So program-
+mers are leaving no stone unturned in their search for ways to bolster performance,
+and one possibility is to make use of other types of processors, processors other than
+CPUs. Our focus is GPUs, but other possibilities include Field Programmable Gate
+Arrays or FPGAs, and Digital Signal Processors or DSPs. FPGAs contain pro-
+grammable logic blocks and interconnects that can be conﬁgured prior to program
+execution. DSPs contain special circuitry for manipulating (e.g., compressing, ﬁlter-
+ing) signals, especially “real-world” analog signals.
+6.4 CUDA hello
+So let’s start talking about the CUDA API, the API we’ll be using to program hetero-
+geneous CPU–GPU systems.
+CUDA is a software platform that can be used to write GPGPU programs for
+heterogeneous systems equipped with an Nvidia GPU. CUDA was originally an
+acronym for “Compute Uniﬁed Device Architecture,” which was meant to suggest
+that it provided a single interface for programming both CPU and GPU. More re-
+cently, however, Nvidia has decided that CUDA is not an acronym; it’s simply the
+name of an API for GPGPU programming.
+There is a language-speciﬁc CUDA API for several languages; for example, there
+are CUDA APIs for C, C++, Fortran, Python, and Java. We’ll be using CUDA C, but
+we need to be aware that sometimes we’ll need to use some C++ constructs. This is
+because the CUDA C compiler can compile both C and C++ programs, and it can
+do this because it is a modiﬁed C++ compiler. So where the speciﬁcations for C
+and C++ differ the CUDA compiler sometimes uses C++. For example, since the C
+library function malloc returns a void∗pointer, a C program doesn’t need a cast in the
+instruction
+f l o a t
+∗x =
+malloc ( n∗s i z e o f ( f l o a t ) ) ;
+However, in C++ a cast is required
+f l o a t
+∗x = ( f l o a t ∗)
+malloc ( n∗s i z e o f ( f l o a t ) ) ;
+
+296
+CHAPTER 6 GPU programming with CUDA
+As usual, we’ll begin by implementing a version of the “hello, world” program.
+We’ll write a CUDA C program in which each CUDA thread prints a greeting.3 Since
+the program is heterogeneous, we will, effectively, be writing two programs: a host
+or CPU program and a device or GPU program.
+Note that even though our programs are written in CUDA C, CUDA programs
+cannot be compiled with an ordinary C compiler. So unlike MPI and Pthreads, CUDA
+is not just a library that can be linked in to an ordinary C program: CUDA requires a
+special compiler. For example, an ordinary C compiler (such as gcc) generates a ma-
+chine language executable for a single CPU (e.g., an x86 processor), but the CUDA
+compiler must generate machine language for two different processors: the host pro-
+cessor and the device processor.
+6.4.1 The source code
+The source code for a CUDA program that prints a greeting from each thread on the
+GPU is shown in Program 6.1.
+As you might guess, there’s a header ﬁle for CUDA programs, which we include
+in Line 2.
+The Hello function follows the include directives and starts on Line 5. This func-
+tion is run by each thread on the GPU. In CUDA parlance, it’s called a kernel,
+a function that is started by the host but runs on the device. CUDA kernels are iden-
+tiﬁed by the keyword __global__, and they always have return type void.
+The main function follows the kernel on Line 12. Like ordinary C programs,
+CUDA C programs start execution in main, and the main function runs on the host. The
+function ﬁrst gets the number of threads from the command line. It then starts the re-
+quired number of copies of the kernel on Line 18. The call to cudaDeviceSynchronize
+will cause the main program to wait until all the threads have ﬁnished executing the
+kernel, and when this happens, the program terminates as usual with return 0.
+6.4.2 Compiling and running the program
+A CUDA program ﬁle that contains both host code and device code should be stored
+in a ﬁle with a “.cu” sufﬁx. For example, our hello program is in a ﬁle called
+cuda_hello.cu. We can compile it using the CUDA compiler nvcc. The command
+should look something like this4:
+$ nvcc -o cuda_hello cuda_hello.cu
+If we want to run one thread on the GPU, we can type
+$ ./cuda_hello 1
+and the output will be
+3 This program requires an Nvidia GPU with compute capability ≥2.0.
+4 Recall that the dollar sign ($) denotes the shell prompt, and it should not be typed.
+
+6.4 CUDA hello
+297
+1
+# include < s t d i o . h>
+2
+# include <cuda . h>
+/∗
+Header
+f i l e
+f o r CUDA ∗/
+3
+4
+/∗
+Device
+code :
+runs on GPU ∗/
+5
+__global__
+void
+Hello ( void ) {
+6
+7
+printf ( " Hello
+from
+thread
+% d !\ n" ,
+threadIdx . x ) ;
+8
+}
+/∗
+Hello
+∗/
+9
+10
+11
+/∗
+Host
+code :
+Runs on CPU ∗/
+12
+i n t
+main ( i n t
+argc ,
+char∗
+argv [ ] )
+{
+13
+i n t
+thread_count ;
+/∗Number of
+t h r e a d s
+to
+run on GPU ∗/
+14
+15
+thread_count =
+strtol ( argv [ 1 ] ,
+NULL ,
+1 0 ) ;
+16
+/∗
+Get
+thread_count
+from command
+l i n e
+∗/
+17
+18
+Hello
+<<<1,
+thread_count > > >();
+19
+/∗
+S t a r t
+thread_count
+th r e a d s
+on GPU,
+∗/
+20
+21
+cudaDeviceSynchronize ( ) ;
+/∗
+Wait
+f o r GPU to
+f i n i s h
+∗/
+22
+23
+return
+0;
+24
+}
+/∗
+main
+∗/
+Program 6.1: CUDA program that prints greetings from the threads.
+Hello
+from
+thread
+0!
+If we want to run ten threads on the GPU, we can type
+$ ./cuda_hello 10
+and the output of will be
+Hello
+from
+thread
+0!
+Hello
+from
+thread
+1!
+Hello
+from
+thread
+2!
+Hello
+from
+thread
+3!
+Hello
+from
+thread
+4!
+Hello
+from
+thread
+5!
+Hello
+from
+thread
+6!
+Hello
+from
+thread
+7!
+Hello
+from
+thread
+8!
+Hello
+from
+thread
+9!
+
+298
+CHAPTER 6 GPU programming with CUDA
+6.5 A closer look
+So what exactly happens when we run cuda_hello? Let’s take a closer look.
+As we noted earlier, execution begins on the host in the main function. It gets the
+number of threads from the command line by calling the C library strtol function.
+Things get interesting in the call to the kernel in Line 18. Here we tell the system
+how many threads to start on the GPU by enclosing the pair
+1 ,
+thread_count
+in triple angle brackets. If there were any arguments to the Hello function, we would
+enclose them in the following parentheses.
+The kernel speciﬁes the code that each thread will execute. So each of our threads
+will print a message
+" Hello
+from
+thread
+% d \ n "
+The decimal int format speciﬁer (%d) refers to the variable threadIdx.x. The struct
+threadIdx is one of several variables deﬁned by CUDA when a kernel is started. In
+our example, the ﬁeld x gives the relative index or rank of the thread that is executing.
+So we use it to print a message containing the thread’s rank.
+After a thread has printed its message, it terminates execution.
+Notice that our kernel code uses the Single-Program Multiple-Data or SPMD
+paradigm: each thread runs a copy of the same code on its own data. In this case,
+the only thread-speciﬁc data is the thread rank stored in threadIdx.x.
+One very important difference between the execution of an ordinary C function
+and a CUDA kernel is that kernel execution is asynchronous. This means that the
+call to the kernel on the host returns as soon as the host has notiﬁed the system
+that it should start running the kernel, and even though the call in main has re-
+turned, the threads executing the kernel may not have ﬁnished executing. The call to
+cudaDeviceSynchronize in Line 21 forces the main function to wait until all the threads
+executing the kernel have completed. If we omitted the call to cudaDeviceSynchronize,
+our program could terminate before the threads produced any output, and it might ap-
+pear that the kernel was never called.
+When the host returns from the call to cudaDeviceSynchronize, the main function
+then terminates as usual with return 0.
+To summarize, then:
+•
+Execution begins in main, which is running on the host.
+•
+The number of threads is taken from the command line.
+•
+The call to Hello starts the kernel.
+•
+The <<<1, thread_count>>> in the call speciﬁes that thread_count copies of the
+kernel should be started on the device.
+•
+When the kernel is started, the struct threadIdx is initialized by the system, and
+in our example the ﬁeld threadIdx.x contains the thread’s index or rank.
+•
+Each thread prints its message and terminates.
+•
+The call to cudaDeviceSynchronize in main forces the host to wait until all of the
+threads have completed kernel execution before continuing and terminating.
+
+6.6 Threads, blocks, and grids
+299
+6.6 Threads, blocks, and grids
+You’re probably wondering why we put a “1” in the angle brackets in our call to
+Hello:
+Hello
+<<<1,
+thread_count > > >();
+Recall that an Nvidia GPU consists of a collection of streaming multiprocessors
+(SMs), and each streaming multiprocessor consists of a collection of streaming pro-
+cessors (SPs). When a CUDA kernel runs, each individual thread will execute its
+code on an SP. With “1” as the ﬁrst value in angle brackets, all of the threads that are
+started by the kernel call will run on a single SM. If our GPU has two SMs, we can
+try to use both of them with the kernel call
+Hello
+<<<2,
+thread_count /2 > > >();
+If thread_count is even, this kernel call will start a total of thread_count threads, and
+the threads will be divided between the two SMs: thread_count/2 threads will run on
+each SM. (What happens if thread_count is odd?)
+CUDA organizes threads into blocks and grids. A thread block (or just a block
+if the context makes it clear) is a collection of threads that run on a single SM. In a
+kernel call the ﬁrst value in the angle brackets speciﬁes the number of thread blocks.
+The second value is the number of threads in each thread block. So when we started
+the kernel with
+Hello
+<<<1,
+thread_count > > >();
+we were using one thread block, which consisted of thread_count threads, and, as a
+consequence, we only used one SM.
+We can modify our greetings program so that it uses a user-speciﬁed number of
+blocks, each consisting of a user-speciﬁed number of threads. (See Program 6.2.) In
+this program we get both the number of thread blocks and the number of threads in
+each block from the command line. Now the kernel call starts blk_ct thread blocks,
+each of which contains th_per_blk threads.
+When the kernel is started, each block is assigned to an SM, and the threads in the
+block are then run on that SM. The output is similar to the output from the original
+program, except that now we’re using two system-deﬁned variables: threadIdx.x and
+blockIdx.x. As you’ve probably guessed, threadIdx.x gives a thread’s rank or index in
+its block, and blockIdx.x gives a block’s rank in the grid.
+A grid is just the collection of thread blocks started by a kernel. So a thread block
+is composed of threads, and a grid is composed of thread blocks.
+There are several built-in variables that a thread can use to get information on the
+grid started by the kernel. The following four variables are structs that are initialized
+in each thread’s memory when a kernel begins execution:
+•
+threadIdx: the rank or index of the thread in its thread block.
+•
+blockDim: the dimensions, shape, or size of the thread blocks.
+
+300
+CHAPTER 6 GPU programming with CUDA
+1
+# include < s t d i o . h>
+2
+# include <cuda . h>
+/∗
+Header
+f i l e
+f o r CUDA ∗/
+3
+4
+/∗
+Device
+code :
+runs on GPU ∗/
+5
+__global__
+void
+Hello ( void ) {
+6
+7
+printf ( " Hello
+from
+thread
+% d
+in
+block
+% d \n " ,
+8
+threadIdx . x ,
+blockIdx . x ) ;
+9
+}
+/∗
+Hello
+∗/
+10
+11
+12
+/∗
+Host
+code :
+Runs on CPU ∗/
+13
+i n t
+main ( i n t
+argc ,
+char∗
+argv [ ] )
+{
+14
+i n t
+blk_ct ;
+/∗Number of
+thread
+blocks
+∗/
+15
+i n t
+th_per_blk ;
+/∗Number of
+th r e a d s
+in
+each
+block
+∗/
+16
+17
+blk_ct =
+strtol ( argv [ 1 ] ,
+NULL ,
+1 0 ) ;
+18
+/∗
+Get number
+of
+blocks
+from command
+l i n e
+∗/
+19
+th_per_blk =
+strtol ( argv [ 2 ] ,
+NULL ,
+1 0 ) ;
+20
+/∗
+Get number
+of
+th r e a d s
+per
+block
+from command
+l i n e
+∗/
+21
+22
+Hello <<<blk_ct ,
+th_per_blk > > >();
+23
+/∗
+S t a r t
+b l k _ c t ∗t h _ p e r _ b l k
+th r e a d s
+on GPU,
+∗/
+24
+25
+cudaDeviceSynchronize ( ) ;
+/∗
+Wait
+f o r GPU to
+f i n i s h
+∗/
+26
+27
+return
+0;
+28
+}
+/∗
+main
+∗/
+Program 6.2: CUDA program that prints greetings from threads in multiple blocks.
+•
+blockIdx: the rank or index of the block within the grid.
+•
+gridDim: the dimensions, shape, or size of the grid.
+All of these structs have three ﬁelds, x, y, and z,5 and the ﬁelds all have unsigned
+integer types. The ﬁelds are often convenient for applications. For example, an ap-
+plication that uses graphics may ﬁnd it convenient to assign a thread to a point in
+two- or three-dimensional space, and the ﬁelds in threadIdx can be used to indicate
+the point’s position. An application that makes extensive use of matrices may ﬁnd it
+convenient to assign a thread to an element of a matrix, and the ﬁelds in threadIdx
+can be used to indicate the column and row of the element.
+5 Nvidia devices that have compute capability < 2 (see Section 6.7) only allow x- and y-dimensions in a
+grid.
+
+6.7 Nvidia compute capabilities and device architectures
+301
+When we call a kernel with something like
+i n t
+blk_ct ,
+th_per_blk ;
+. . .
+Hello <<<blk_ct ,
+th_per_blk > >();
+the three-element structures gridDim and blockDim are initialized by assigning the val-
+ues in angle brackets to the x ﬁelds. So, effectively, the following assignments are
+made:
+gridDim . x =
+blk_ct ;
+blockDim . x =
+th_per_blk ;
+The y and z ﬁelds are initialized to 1. If we want to use values other than 1 for the y
+and z ﬁelds, we should declare two variables of type dim3, and pass them into the call
+to the kernel. For example,
+dim3
+grid_dims ,
+block_dims ;
+grid_dims . x = 2;
+grid_dims . y = 3;
+grid_dims . z = 1;
+block_dims . x = 4;
+block_dims . y = 4;
+block_dims . z = 4;
+. . .
+Kernel <<<grid_dims ,
+block_dims >>>
+( . . . ) ;
+This should start a grid with 2×3×1 = 6 blocks, each of which has 43 = 64 threads.
+Note that all the blocks must have the same dimensions. More importantly, CUDA
+requires that thread blocks be independent. So one thread block must be able to com-
+plete its execution, regardless of the states of the other thread blocks: the thread
+blocks can be executed sequentially in any order, or they can be executed in par-
+allel. This ensures that the GPU can schedule a block to execute solely on the basis
+of the state of that block: it doesn’t need to check on the state of any other block.6
+6.7 Nvidia compute capabilities and device architectures7
+There are limits on the number of threads and the number of blocks. The limits
+depend on what Nvidia calls the compute capability of the GPU. The compute ca-
+pability is a number having the form a.b. Currently the a-value or major revision
+number can be 1,2,3,5,6,7,8. (There is no major revision number 4.) The possible
+b-values or minor revision numbers depend on the major revision value, but currently
+6 With the introduction of CUDA 9 and the Pascal processor, it became possible to synchronize threads
+in multiple blocks. See Subsection 7.1.13 and Exercise 7.6.
+7 The values in this section are current as of spring 2021, but some of them may change when Nvidia
+releases new GPUs and new versions of CUDA.
+
+302
+CHAPTER 6 GPU programming with CUDA
+Table 6.3 GPU architectures and compute capabilities.
+Name
+Ampere
+Tesla
+Fermi
+Kepler
+Maxwell
+Pascal
+Volta
+Turing
+Compute
+capability
+8.0
+1.b
+2.b
+3.b
+5.b
+6.b
+7.0
+7.5
+they fall in the range 0–7. CUDA no longer supports devices with compute capability
+< 3.
+For devices with compute capability > 1, the maximum number of threads per
+block is 1024. For devices with compute capability 2.b, the maximum number of
+threads that can be assigned to a single SM is 1536, and for devices with compute
+capability > 2, the maximum is currently 2048. There are also limits on the sizes of
+the dimensions in both blocks and grids. For example, for compute capability > 1,
+the maximum x- or y-dimension is 1024, and the maximum z-dimension is 64. For
+further information, see the appendix on compute capabilities in the CUDA C++
+Programming Guide [11].
+Nvidia also has names for the microarchitectures of its GPUs. Table 6.3 shows
+the current list of architectures and some of their corresponding compute capabilities.
+Somewhat confusingly, Nvidia also uses Tesla as the name for their products targeting
+GPGPU.
+We should note that Nvidia has a number of “product families” that can consist of
+anything from an Nvidia-based graphics card to a “system on a chip,” which has the
+main hardware components of a system, such as a mobile phone in a single integrated
+circuit.
+Finally, note that there are a number of versions of the CUDA API, and they do
+not correspond to the compute capabilities of the different GPUs.
+6.8 Vector addition
+GPUs and CUDA are designed to be especially effective when they run data-parallel
+programs. So let’s write a very simple, data-parallel CUDA program that’s embarrass-
+ingly parallel: a program that adds two vectors or arrays. We’ll deﬁne three n-element
+arrays, x, y, and z. We’ll initialize x and y on the host. Then a kernel can start at least
+n threads, and the ith thread will add
+z [ i ] =
+x [ i ] +
+y [ i ] ;
+Since GPUs tend to have more 32-bit than 64-bit ﬂoating point units, let’s use arrays
+of floats rather than doubles:
+f l o a t
+∗x ,
+∗y ,
+∗z ;
+After allocating and initializing the arrays, we’ll call the kernel, and after the kernel
+completes execution, the program checks the result, frees memory, and quits. See
+Program 6.3, which shows the kernel and the main function.
+Let’s take a closer look at the program.
+
+6.8 Vector addition
+303
+1
+__global__
+void
+Vec_add (
+2
+const
+f l o a t
+x [ ]
+/∗
+in
+∗/ ,
+3
+const
+f l o a t
+y [ ]
+/∗
+in
+∗/ ,
+4
+f l o a t
+z [ ]
+/∗
+out
+∗/ ,
+5
+const
+i n t
+n
+/∗
+in
+∗/ ) {
+6
+i n t
+my_elt =
+blockDim . x ∗
+blockIdx . x +
+threadIdx . x ;
+7
+8
+/∗
+t o t a l
+th r e a d s = b l k _ c t ∗t h _ p e r _ b l k may be > n ∗/
+9
+i f
+( my_elt <
+n )
+10
+z [ my_elt ] =
+x [ my_elt ] +
+y [ my_elt ] ;
+11
+}
+/∗
+Vec_add
+∗/
+12
+13
+i n t
+main ( i n t
+argc ,
+char∗
+argv [ ] )
+{
+14
+i n t
+n ,
+th_per_blk ,
+blk_ct ;
+15
+char
+i_g ;
+/∗
+Are x and y
+user
+i n p u t
+or random? ∗/
+16
+f l o a t
+∗x ,
+∗y ,
+∗z ,
+∗cz ;
+17
+double
+diff_norm ;
+18
+19
+/∗
+Get
+the command
+l i n e
+arguments ,
+and
+s e t
+up
+v e c t o r s
+∗/
+20
+Get_args ( argc ,
+argv , &n , &blk_ct , &th_per_blk , &i_g ) ;
+21
+Allocate_vectors (&x , &y , &z , &cz ,
+n ) ;
+22
+Init_vectors ( x ,
+y ,
+n ,
+i_g ) ;
+23
+24
+/∗
+Invoke
+k e r n e l
+and
+wait
+f o r
+i t
+to
+complete
+∗/
+25
+Vec_add <<<blk_ct ,
+th_per_blk >>>(x ,
+y ,
+z ,
+n ) ;
+26
+cudaDeviceSynchronize ( ) ;
+27
+28
+/∗
+Check
+f o r
+c o r r e c t n e s s
+∗/
+29
+Serial_vec_add ( x ,
+y ,
+cz ,
+n ) ;
+30
+diff_norm =
+Two_norm_diff ( z ,
+cz ,
+n ) ;
+31
+printf ( " Two - norm
+of
+difference
+between
+host
+and
+" ) ;
+32
+printf ( " device
+=
+% e \ n " ,
+diff_norm ) ;
+33
+34
+/∗
+Free
+s t o r a g e
+and
+q u i t
+∗/
+35
+Free_vectors ( x ,
+y ,
+z ,
+cz ) ;
+36
+return
+0;
+37
+}
+/∗
+main
+∗/
+Program 6.3: Kernel and main function of a CUDA program that adds two vectors.
+6.8.1 The kernel
+In the kernel (Lines 1–11), we ﬁrst determine which element of z the thread should
+compute. We’ve chosen to make this index the same as the global rank or index of
+the thread. Since we’re only using the x ﬁelds of the blockDim and threadIdx structs,
+there are a total of
+
+304
+CHAPTER 6 GPU programming with CUDA
+Table 6.4 Global thread ranks or indexes in
+a grid with 4 blocks and 5 threads per block.
+threadIdx.x
+blockIdx.x
+0
+1
+2
+3
+4
+0
+0
+1
+2
+3
+4
+1
+5
+6
+7
+8
+9
+2
+10
+11
+12
+13
+14
+3
+15
+16
+17
+18
+19
+gridDim . x ∗
+blockDim . x
+threads. So we can assign a unique “global” rank or index to each thread by using the
+formula
+rank =
+blockDim . x ∗
+blockIdx . x +
+threadIdx . x
+For example, if we have four blocks and ﬁve threads in each block, then the global
+ranks or indexes are shown in Table 6.4. In the kernel, we assign this global rank to
+my_elt and use this as the subscript for accessing each thread’s elements of the arrays
+x, y, and z.
+Note that we’ve allowed for the possibility that the total number of threads may
+not be exactly the same as the number of components of the vectors. So before car-
+rying out the addition,
+z [ my_elt ] =
+x [ my_elt ] +
+y [ my_elt ] ;
+we ﬁrst check that my_elt < n. For example, if we have n = 997, and we want at least
+two blocks with at least two threads per block, then, since 997 is prime, we can’t
+possibly have exactly 997 threads. Since this kernel needs to be executed by at least
+n threads, we must start more than 997. For example, we might use four blocks of
+256 threads, and the last 27 threads in the last block would skip the line
+z [ my_elt ] =
+x [ my_elt ] +
+y [ my_elt ] ;
+Note that if we needed to run our program on a system that didn’t support CUDA,
+we could replace the kernel with a serial vector addition function. (See Program 6.4.)
+So we can view the CUDA kernel as taking the serial for loop and assigning each
+iteration to a different thread. This is often how we start the design process when
+we want to parallelize a serial code for CUDA: assign the iterations of a loop to
+individual threads.
+Also note that if we apply Foster’s method to parallelizing the serial vector sum,
+and we make the tasks the additions of the individual components, then we don’t
+need to do anything for the communication and aggregation phases, and the mapping
+phase simply assigns each addition to a thread.
+
+6.8 Vector addition
+305
+1
+void
+Serial_vec_add (
+2
+const
+f l o a t
+x [ ]
+/∗
+in
+∗/ ,
+3
+const
+f l o a t
+y [ ]
+/∗
+in
+∗/ ,
+4
+f l o a t
+cz [ ]
+/∗
+out
+∗/ ,
+5
+const
+i n t
+n
+/∗
+in
+∗/ ) {
+6
+7
+for
+( i n t
+i = 0;
+i <
+n ;
+i++)
+8
+cz [ i ] =
+x [ i ] +
+y [ i ] ;
+9
+}
+/∗
+Serial_vec_add
+∗/
+Program 6.4: Serial vector addition function.
+6.8.2 Get_args
+After declaring the variables, the main function calls a Get_args function, which re-
+turns n, the number of elements in the arrays, blk_ct, the number of thread blocks,
+and th_per_blk, the number of threads in each block. It gets these from the command
+line. It also returns a char i_g. This tells the program whether the user will input x
+and y or whether it should generate them using a random number generator. If the user
+doesn’t enter the correct number of command line arguments, the function prints a
+usage summary and terminates execution. Also if n is greater than the total number
+of threads, it prints a message and terminates. (See Program 6.5.) Note that Get_args
+is written in standard C, and it runs completely on the host.
+6.8.3 Allocate_vectors and managed memory
+After getting the command line arguments, the main function calls Allocate_vectors,
+which allocates storage for four n-element arrays of ﬂoat :
+x ,
+y ,
+z ,
+cz
+The ﬁrst three arrays are used on both the host and the device. The fourth array,
+cz, is only used on the host: we use it to compute the vector sum with one core of
+the host. We do this so that we can check the result computed on the device. (See
+Program 6.6.)
+First note that since cz is only used on the host, we allocate its storage using the
+standard C library function malloc. For the other three arrays, we allocate storage in
+Lines 9–11 using the CUDA function
+__host__
+cudaError_t
+cudaMallocManaged
+(
+void ∗∗
+devPtr
+/∗
+out
+∗/ ,
+size_t
+size
+/∗
+in
+∗/ ,
+unsigned
+flags
+/∗
+in
+∗/ ) ;
+The __host__ qualiﬁer is a CUDA addition to C, and it indicates that the function
+should be called and run on the host. This is the default for functions in CUDA
+
+306
+CHAPTER 6 GPU programming with CUDA
+1
+void
+Get_args (
+2
+const
+i n t
+argc
+/∗
+in
+∗/ ,
+3
+char∗
+argv [ ]
+/∗
+in
+∗/ ,
+4
+i n t ∗
+n_p
+/∗
+out
+∗/ ,
+5
+i n t ∗
+blk_ct_p
+/∗
+out
+∗/ ,
+6
+i n t ∗
+th_per_blk_p
+/∗
+out
+∗/ ,
+7
+char∗
+i_g
+/∗
+out
+∗/ ) {
+8
+i f
+( argc !=
+5) {
+9
+/∗
+P r i n t
+an
+error
+message and
+e x i t
+∗/
+10
+. . .
+11
+}
+12
+13
+∗n_p =
+strtol ( argv [ 1 ] ,
+NULL ,
+1 0 ) ;
+14
+∗blk_ct_p =
+strtol ( argv [ 2 ] ,
+NULL ,
+1 0 ) ;
+15
+∗th_per_blk_p =
+strtol ( argv [ 3 ] ,
+NULL ,
+1 0 ) ;
+16
+∗i_g =
+argv [ 4 ] [ 0 ] ;
+17
+18
+/∗
+I s
+n > t o t a l
+thread
+count = b l k _ c t ∗t h _ p e r _ b l k ? ∗/
+19
+i f
+(∗n_p > (∗blk_ct_p )∗(∗th_per_blk_p ) )
+{
+20
+/∗
+P r i n t
+an
+error
+message and
+e x i t
+∗/
+21
+. . .
+22
+}
+23
+}
+/∗
+Get_args
+∗/
+Program 6.5: Get_args function from CUDA program that adds two vectors.
+1
+void
+Allocate_vectors (
+2
+f l o a t ∗∗
+x_p
+/∗
+out
+∗/ ,
+3
+f l o a t ∗∗
+y_p
+/∗
+out
+∗/ ,
+4
+f l o a t ∗∗
+z_p
+/∗
+out
+∗/ ,
+5
+f l o a t ∗∗
+cz_p
+/∗
+out
+∗/ ,
+6
+i n t
+n
+/∗
+in
+∗/ ) {
+7
+8
+/∗x ,
+y ,
+and z
+are
+used on
+host
+and
+device
+∗/
+9
+cudaMallocManaged ( x_p ,
+n∗s i z e o f ( f l o a t ) ) ;
+10
+cudaMallocManaged ( y_p ,
+n∗s i z e o f ( f l o a t ) ) ;
+11
+cudaMallocManaged ( z_p ,
+n∗s i z e o f ( f l o a t ) ) ;
+12
+13
+/∗
+cz
+i s
+only
+used on
+host
+∗/
+14
+∗cz_p = ( f l o a t ∗)
+malloc ( n∗s i z e o f ( f l o a t ) ) ;
+15
+}
+/∗
+A l l o c a t e _ v e c t o r s
+∗/
+Program 6.6: Array allocation function of CUDA program that adds two vectors.
+
+6.8 Vector addition
+307
+programs, so it can be omitted when we’re writing our own functions, and they’ll
+only be run on the host.
+The return value, which has type cudaError_t, allows the function to return an er-
+ror. Most CUDA functions return a cudaError_t value, and if you’re having problems
+with your code, it is a very good idea to check it. However, always checking it tends
+to clutter the code, and this can distract us from the main purpose of a program. So
+in the code we discuss we’ll generally ignore cudaError_t return values.
+The ﬁrst argument is a pointer to a pointer: it refers to the pointer that’s being
+allocated. The second argument speciﬁes the number of bytes that should be allo-
+cated. The flags argument controls which kernels can access the allocated memory.
+It defaults to cudaMemAttachGlobal and can be omitted.
+The function cudaMallocManaged is one of several CUDA memory allocation func-
+tions. It allocates memory that will be automatically managed by the “uniﬁed memory
+system.” This is a relatively recent addition to CUDA,8 and it allows a programmer
+to write CUDA programs as if the host and device shared a single memory: pointers
+referring to memory allocated with cudaMallocManaged can be used on both the device
+and the host, even when the host and the device have separate physical memories. As
+you can imagine this greatly simpliﬁes programming, but there are some cautions.
+Here are a few:
+1. Uniﬁed memory requires a device with compute capability ≥3.0, and a 64-bit
+host operating system.
+2. On
+devices
+with
+compute
+capability
+< 6.0
+memory
+allocated
+with
+cudaMallocManaged cannot be simultaneously accessed by both the device and the
+host. When a kernel is executing, it has exclusive access to memory allocated with
+cudaMallocManaged.
+3. Kernels that use uniﬁed memory can be slower than kernels that treat device mem-
+ory as separate from host memory.
+The last caution has to do with the transfer of data between the host and the device.
+When a program uses uniﬁed memory, it is up to the system to decide when to transfer
+from the host to the device or vice versa. In programs that explicitly transfer data, it is
+up to the programmer to include code that implements the transfers, and she may be
+able to exploit her knowledge of the code to do things that reduce the cost of transfers,
+things such as omitting some transfers or overlapping data transfer with computation.
+At the end of this section we’ll brieﬂy discuss the modiﬁcations required if you
+want to explicitly handle the transfers between host and device.
+6.8.4 Other functions called from main
+Except for the Free_vectors function, the other host functions that we call from main
+are just standard C.
+8 It ﬁrst became available in CUDA 6.0.
+
+308
+CHAPTER 6 GPU programming with CUDA
+The function Init_vectors either reads x and y from stdin using scanf or generates
+them using the C library function random. It uses the last command line argument i_g
+to decide which it should do.
+The Serial_vec_add function (Program 6.4) just adds x and y on the host using a
+for loop. It stores the result in the host array cz.
+The Two_norm_diff function computes the “distance” between the vector z com-
+puted by the kernel and the vector cz computed by Serial_vec_add. So it takes the
+difference between corresponding components of z and cz, squares them, adds the
+squares, and takes the square root:
+
+(z[0] −cz[0])2 + (z[1] −cz[1])2 + ··· + (z[n −1] −cz[n −1])2.
+See Program 6.7.
+1
+double
+Two_norm_diff (
+2
+const
+f l o a t
+z [ ]
+/∗
+in
+∗/ ,
+3
+const
+f l o a t
+cz [ ]
+/∗
+in
+∗/ ,
+4
+const
+i n t
+n
+/∗
+in
+∗/ ) {
+5
+double
+diff ,
+sum = 0 . 0 ;
+6
+7
+for
+( i n t
+i = 0;
+i <
+n ;
+i++) {
+8
+diff =
+z [ i ] −cz [ i ] ;
+9
+sum +=
+diff∗diff ;
+10
+}
+11
+return
+sqrt ( sum ) ;
+12
+}
+/∗
+Two_norm_diff
+∗/
+Program 6.7: C function that ﬁnds the distance between two vectors.
+The Free_vectors function just frees the arrays allocated by Allocate_vectors.
+The array cz is freed using the C library function free, but since the other arrays are
+allocated using cudaMallocManaged, they must be freed by calling cudaFree:
+__host__
+__device__
+cudaError_t
+cudaFree
+(
+void ∗
+ptr
+)
+The qualiﬁer __device__ is a CUDA addition to C, and it indicates that the function
+can be called from the device. So cudaFree can be called from the host or the device.
+However, if a pointer is allocated on the device, it cannot be freed on the host, and
+vice versa.
+It’s important to note that unless memory allocated on the device is explicitly
+freed by the program, it won’t be freed until the program terminates. So if a CUDA
+program calls two (or more) kernels, and the memory used by the ﬁrst kernel isn’t
+explicitly freed before the second is called, it will remain allocated, regardless of
+whether the second kernel actually uses it.
+See Program 6.8.
+
+6.8 Vector addition
+309
+1
+void
+Free_vectors (
+2
+f l o a t ∗
+x
+/∗
+in / out
+∗/ ,
+3
+f l o a t ∗
+y
+/∗
+in / out
+∗/ ,
+4
+f l o a t ∗
+z
+/∗
+in / out
+∗/ ,
+5
+f l o a t ∗
+cz
+/∗
+in / out
+∗/ ) {
+6
+7
+/∗
+A l l o c a t e d
+with
+cudaMallocManaged
+∗/
+8
+cudaFree ( x ) ;
+9
+cudaFree ( y ) ;
+10
+cudaFree ( z ) ;
+11
+12
+/∗
+A l l o c a t e d
+with
+malloc
+∗/
+13
+free ( cz ) ;
+14
+}
+/∗
+Free_vectors
+∗/
+Program 6.8: CUDA function that frees four arrays.
+6.8.5 Explicit memory transfers9
+Let’s take a look at how to modify the vector addition program for a system that
+doesn’t provide uniﬁed memory. Program 6.9 shows the kernel and main function for
+the modiﬁed program.
+The ﬁrst thing to notice is that the kernel is unchanged: the arguments are x, y, z,
+and n. It ﬁnds the thread’s global index, my_elt, and if this is less than n, it adds the
+elements of x and y to get the corresponding element of z.
+The basic structure of the main function is almost the same. However, since we’re
+assuming uniﬁed memory is unavailable, pointers on the host aren’t valid on the de-
+vice, and vice versa: an address on the host may be illegal on the device, or, even
+worse, it might refer to memory that the device is using for some other purpose.
+Similar problems occur if we try to use a device address on the host. So instead of
+declaring and allocating storage for three arrays that are all valid on both the host and
+the device, we declare and allocate storage for three arrays that are valid on the host
+hx, hy, and hz, and we declare and allocate storage for three arrays that are valid on
+the device, dx, dy, and dz. The declarations are in Lines 15–16, and the allocations
+are in the Allocate_vectors function called in Line 20. The function itself is in Pro-
+gram 6.10. Since uniﬁed memory isn’t available, instead of using cudaMallocManaged,
+we use the C library function malloc for the host arrays, and the CUDA function
+cudaMalloc for the device arrays:
+__host__
+__device__
+cudaError_t
+cudaMalloc
+(
+void ∗∗
+dev_p
+/∗
+out
+∗/ ,
+size_t
+size
+/∗
+in
+∗/ ) ;
+9 If your device has compute capability ≥3.0, you can skip this section.
+
+310
+CHAPTER 6 GPU programming with CUDA
+1
+__global__
+void
+Vec_add (
+2
+const
+f l o a t
+x [ ]
+/∗
+in
+∗/ ,
+3
+const
+f l o a t
+y [ ]
+/∗
+in
+∗/ ,
+4
+f l o a t
+z [ ]
+/∗
+out
+∗/ ,
+5
+const
+i n t
+n
+/∗
+in
+∗/ ) {
+6
+i n t
+my_elt =
+blockDim . x ∗
+blockIdx . x +
+threadIdx . x ;
+7
+8
+i f
+( my_elt <
+n )
+9
+z [ my_elt ] =
+x [ my_elt ] +
+y [ my_elt ] ;
+10
+}
+/∗
+Vec_add
+∗/
+11
+12
+i n t
+main ( i n t
+argc ,
+char∗
+argv [ ] )
+{
+13
+i n t
+n ,
+th_per_blk ,
+blk_ct ;
+14
+char
+i_g ;
+/∗
+Are x and y
+user
+i n p u t
+or random? ∗/
+15
+f l o a t
+∗hx ,
+∗hy ,
+∗hz ,
+∗cz ;
+/∗
+Host
+arrays
+∗/
+16
+f l o a t
+∗dx ,
+∗dy ,
+∗dz ;
+/∗
+Device
+arrays
+∗/
+17
+double
+diff_norm ;
+18
+19
+Get_args ( argc ,
+argv , &n , &blk_ct , &th_per_blk , &i_g ) ;
+20
+Allocate_vectors (&hx , &hy , &hz , &cz , &dx , &dy , &dz ,
+n ) ;
+21
+Init_vectors ( hx ,
+hy ,
+n ,
+i_g ) ;
+22
+23
+/∗Copy
+v e c t o r s
+x and y from
+host
+to
+device
+∗/
+24
+cudaMemcpy ( dx ,
+hx ,
+n∗s i z e o f ( f l o a t ) ,
+cudaMemcpyHostToDevice ) ;
+25
+cudaMemcpy ( dy ,
+hy ,
+n∗s i z e o f ( f l o a t ) ,
+cudaMemcpyHostToDevice ) ;
+26
+27
+28
+Vec_add <<<blk_ct ,
+th_per_blk >>>(dx ,
+dy ,
+dz ,
+n ) ;
+29
+30
+/∗
+Wait
+f o r
+k e r n e l
+to
+complete
+and copy
+r e s u l t
+to
+host
+∗/
+31
+cudaMemcpy ( hz ,
+dz ,
+n∗s i z e o f ( f l o a t ) ,
+cudaMemcpyDeviceToHost ) ;
+32
+33
+Serial_vec_add ( hx ,
+hy ,
+cz ,
+n ) ;
+34
+diff_norm =
+Two_norm_diff ( hz ,
+cz ,
+n ) ;
+35
+printf ( " Two - norm
+of
+difference
+between
+host
+and
+" ) ;
+36
+printf ( " device
+=
+% e \ n " ,
+diff_norm ) ;
+37
+38
+Free_vectors ( hx ,
+hy ,
+hz ,
+cz ,
+dx ,
+dy ,
+dz ) ;
+39
+40
+return
+0;
+41
+}
+/∗
+main
+∗/
+Program 6.9: Part of CUDA program that implements vector addition without uniﬁed
+memory.
+
+6.8 Vector addition
+311
+1
+void
+Allocate_vectors (
+2
+f l o a t ∗∗
+hx_p
+/∗
+out
+∗/ ,
+3
+f l o a t ∗∗
+hy_p
+/∗
+out
+∗/ ,
+4
+f l o a t ∗∗
+hz_p
+/∗
+out
+∗/ ,
+5
+f l o a t ∗∗
+cz_p
+/∗
+out
+∗/ ,
+6
+f l o a t ∗∗
+dx_p
+/∗
+out
+∗/ ,
+7
+f l o a t ∗∗
+dy_p
+/∗
+out
+∗/ ,
+8
+f l o a t ∗∗
+dz_p
+/∗
+out
+∗/ ,
+9
+i n t
+n
+/∗
+in
+∗/ )
+{
+10
+11
+/∗dx ,
+dy ,
+and dz
+are
+used on
+device
+∗/
+12
+cudaMalloc ( dx_p ,
+n∗s i z e o f ( f l o a t ) ) ;
+13
+cudaMalloc ( dy_p ,
+n∗s i z e o f ( f l o a t ) ) ;
+14
+cudaMalloc ( dz_p ,
+n∗s i z e o f ( f l o a t ) ) ;
+15
+16
+/∗hx ,
+hy ,
+hz ,
+cz
+are
+used on
+host
+∗/
+17
+∗hx_p = ( f l o a t ∗)
+malloc ( n∗s i z e o f ( f l o a t ) ) ;
+18
+∗hy_p = ( f l o a t ∗)
+malloc ( n∗s i z e o f ( f l o a t ) ) ;
+19
+∗hz_p = ( f l o a t ∗)
+malloc ( n∗s i z e o f ( f l o a t ) ) ;
+20
+∗cz_p = ( f l o a t ∗)
+malloc ( n∗s i z e o f ( f l o a t ) ) ;
+21
+}
+/∗
+A l l o c a t e _ v e c t o r s
+∗/
+Program 6.10: Allocate_vectors function for CUDA vector addition program that
+doesn’t use uniﬁed memory.
+The ﬁrst argument is a reference to a pointer that will be used on the device. The
+second argument speciﬁes the number of bytes to allocate on the device.
+After we’ve initialized hx and hy on the host, we copy their contents over to the
+device, storing the transferred contents in the memory allocated for dx and dy, respec-
+tively. The copying is done in Lines 24–26 using the CUDA function cudaMemcpy:
+__host__
+cudaError_t
+cudaMemcpy
+(
+void ∗
+dest
+/∗
+out
+∗/ ,
+const
+void ∗
+source
+/∗
+in
+∗/ ,
+size_t
+count
+/∗
+in
+∗/ ,
+cudaMemcpyKind
+kind
+/∗
+in
+∗/ ) ;
+This copies count bytes from the memory referred to by source into the memory
+referred to by dest. The type of the kind argument, cudaMemcpyKind, is an enumer-
+ated type deﬁned by CUDA that speciﬁes where the source and dest pointers are
+located. For our purposes the two values of interest are cudaMemcpyHostToDevice and
+cudaMemcpyDeviceToHost. The ﬁrst indicates that we’re copying from the host to the
+device, and the second indicates that we’re copying from the device to the host.
+The call to the kernel in Line 28 uses the pointers dx, dy, and dz, because these are
+addresses that are valid on the device.
+
+312
+CHAPTER 6 GPU programming with CUDA
+After the call to the kernel, we copy the result of the vector addition from the
+device to the host in Line 31 using cudaMemcpy again. A call to cudaMemcpy is syn-
+chronous, so it waits for the kernel to ﬁnish executing before carrying out the transfer.
+So in this version of vector addition we do not need to use cudaDeviceSynchronize to
+ensure that the kernel has completed before proceeding.
+After copying the result from the device back to the host, the program checks the
+result, frees the memory allocated on the host and the device, and terminates. So for
+this part of the program, the only difference from the original program is that we’re
+freeing seven pointers instead of four. As before, the Free_vectors function frees the
+storage allocated on the host with the C library function free. It uses cudaFree to free
+the storage allocated on the device.
+6.9 Returning results from CUDA kernels
+There are several things that you should be aware of regarding CUDA kernels. First,
+they always have return type void, so they can’t be used to return a value. They also
+can’t return anything to the host through the standard C pass-by-reference. The reason
+for this is that addresses on the host are, in most systems, invalid on the device, and
+vice versa. For example, suppose we try something like this:
+__global__
+void
+Add ( i n t
+x ,
+i n t
+y ,
+i n t ∗
+sum_p ) {
+∗sum_p =
+x +
+y ;
+}
+/∗
+Add ∗/
+i n t
+main ( void ) {
+i n t
+sum = −5;
+Add
+<<<1, 1>>> (2 ,
+3 , &sum ) ;
+cudaDeviceSynchronize ( ) ;
+printf ( " The
+sum
+is
+% d \ n " ,
+sum ) ;
+return
+0;
+}
+It’s likely that either the host will print -5 or the device will hang. The reason is that
+the address &sum is probably invalid on the device. So the dereference
+∗sum_p =
+x +
+y ;
+is attempting to assign x + y to an invalid memory location.
+There are several possible approaches to “returning” a result to the host from a
+kernel. One is to declare pointer variables and allocate a single memory location.
+On a system that supports uniﬁed memory, the computed value will be automatically
+copied back to host memory:
+__global__
+void
+Add ( i n t
+x ,
+i n t
+y ,
+i n t ∗
+sum_p ) {
+∗sum_p =
+x +
+y ;
+}
+/∗
+Add ∗/
+
+6.9 Returning results from CUDA kernels
+313
+i n t
+main ( void ) {
+i n t ∗
+sum_p ;
+cudaMallocManaged (&sum_p ,
+s i z e o f ( i n t ) ) ;
+∗sum_p = −5;
+Add
+<<<1, 1>>> (2 ,
+3 ,
+sum_p ) ;
+cudaDeviceSynchronize ( ) ;
+printf ( " The
+sum
+is
+%d\n" , ∗sum_p ) ;
+cudaFree ( sum_p ) ;
+return
+0;
+}
+If your system doesn’t support uniﬁed memory, the same idea will work, but the
+result will have to be explicitly copied from the device to the host:
+__global__
+void
+Add ( i n t
+x ,
+i n t
+y ,
+i n t ∗sum_p ) {
+∗sum_p =
+x +
+y ;
+}
+/∗
+Add ∗/
+i n t
+main ( void ) {
+i n t ∗hsum_p ,
+∗dsum_p ;
+hsum_p = ( i n t ∗)
+malloc ( s i z e o f ( i n t ) ) ;
+cudaMalloc(&dsum_p ,
+s i z e o f ( i n t ) ) ;
+∗hsum_p = −5;
+Add
+<<<1, 1>>> (2 ,
+3 ,
+dsum_p ) ;
+cudaMemcpy ( hsum_p ,
+dsum_p ,
+s i z e o f ( i n t ) ,
+cudaMemcpyDeviceToHost ) ;
+printf ( " The
+sum
+is
+%d\n" , ∗hsum_p ) ;
+free ( hsum_p ) ;
+cudaFree ( dsum_p ) ;
+return
+0;
+}
+Note that in both the uniﬁed and non-uniﬁed memory settings, we’re returning a
+single value from the device to the host.
+If uniﬁed memory is available, another option is to use a global managed variable
+for the sum:
+__managed__
+i n t
+sum ;
+__global__
+void
+Add ( i n t
+x ,
+i n t
+y ) {
+sum =
+x +
+y ;
+}
+/∗
+Add ∗/
+i n t
+main ( void ) {
+sum = −5;
+Add
+<<<1, 1>>> (2 ,
+3 ) ;
+
+314
+CHAPTER 6 GPU programming with CUDA
+cudaDeviceSynchronize ( ) ;
+printf ( " After
+kernel :
+The
+sum
+is
+% d \ n " ,
+sum ) ;
+return
+0;
+}
+The qualiﬁer __managed__ declares sum to be a managed int that is accessible to all the
+functions, regardless of whether they run on the host or the device. Since it’s man-
+aged, the same restrictions apply to it that apply to managed variables allocated with
+cudaMallocManaged. So this option is unavailable on systems with compute capability
+< 3.0, and on systems with compute capability < 6.0, sum can’t be accessed on the
+host while the kernel is running. So after the call to Add has started, the host can’t
+access sum until after the call to cudaDeviceSynchronize has completed.
+Since this last approach uses a global variable, it has the usual problem of reduced
+modularity associated with global variables.
+6.10 CUDA trapezoidal rule I
+6.10.1 The trapezoidal rule
+Let’s try to implement a CUDA version of the trapezoidal rule. Recall (see Sec-
+tion 3.2.1) that the trapezoidal rule estimates the area between an interval on the
+x-axis and the graph of a function by dividing the interval into subintervals and
+approximating the area between each subinterval and the graph by the area of a trape-
+zoid. (See Fig. 3.3.) So if the interval is [a,b] and there are n trapezoids, we’ll divide
+[a,b] into n equal subintervals, and the length of each subinterval will be
+h = (b −a)/n.
+Then if xi is the left end point of the ith subinterval,
+xi = a + ih,
+for i = 0,1,2,...,n −1. To simplify the notation, we’ll also denote b, the right end
+point of the interval, as
+b = xn = a + nh.
+Recall that if a trapezoid has height h and base lengths c and d, then its area is
+h
+2(c + d).
+So if we think of the length of the subinterval [xi,xi+1] as the height of the ith
+trapezoid, and f (xi) and f (xi+1) as the two base lengths (see Fig. 3.4), then the area
+of the ith trapezoid is
+h
+2 [f (xi) + f (xi+1)].
+
+6.10 CUDA trapezoidal rule I
+315
+This gives us a total approximation of the area between the graph and the x-axis as
+h
+2 [f (x0) + f (x1)] + h
+2 [f (x1) + f (x2)] + ··· + h
+2 [f (xn−1) + f (xn)],
+and we can rewrite this as
+h
+1
+2 (f (a) + f (b)) + (f (x1) + f (x2) + ··· + f (xn−1))
+
+.
+We can implement this with the serial function shown in Program 6.11.
+1
+f l o a t
+Serial_trap (
+2
+const
+f l o a t
+a
+/∗
+in
+∗/ ,
+3
+const
+f l o a t
+b
+/∗
+in
+∗/ ,
+4
+const
+i n t
+n
+/∗
+in
+∗/ ) {
+5
+f l o a t
+x ,
+h = ( b−a ) / n ;
+6
+f l o a t
+trap = 0.5∗( f ( a ) +
+f ( b ) ) ;
+7
+8
+for
+( i n t
+i = 1;
+i <=
+n−1;
+i++) {
+9
+x =
+a +
+i∗h ;
+10
+trap +=
+f ( x ) ;
+11
+}
+12
+trap =
+trap∗h ;
+13
+14
+return
+trap ;
+15
+}
+/∗
+S e r i a l _ t r a p
+∗/
+Program 6.11: A serial function implementing the trapezoidal rule for a single CPU.
+6.10.2 A CUDA implementation
+If n is large, the vast majority of the work in the serial implementation is done by
+the for loop. So when we apply Foster’s method to the trapezoidal rule, we’re mainly
+interested in two types of tasks: the ﬁrst is the evaluation of the function f at xi, and
+the second is the addition of f (xi) into trap. Here i = 1,...,n −1. The second type
+of task depends on the ﬁrst. So we can aggregate these two tasks.
+This suggests that each thread in our CUDA implementation might carry out one
+iteration of the serial for loop. We can assign a unique integer rank to each thread
+as we did with the vector addition program. Then we can compute an x-value, the
+function value, and add in the function value to the “running sum”:
+/∗h and
+trap
+are
+formal
+arguments
+to
+the
+k e r n e l
+∗/
+i n t
+my_i =
+blockDim . x ∗
+blockIdx . x +
+threadIdx . x ;
+f l o a t
+my_x =
+a +
+my_i∗h ;
+f l o a t
+my_trap =
+f ( my_x ) ;
+f l o a t
+trap +=
+my_trap ;
+
+316
+CHAPTER 6 GPU programming with CUDA
+However, it’s immediately obvious that there are several problems here:
+1. We haven’t initialized h or trap.
+2. The my_i value can be too large or too small: the serial loop ranges from 1 up to
+and including n −1. The smallest value for my_i is 0 and the largest is the total
+number of threads minus 1.
+3. The variable trap must be shared among the threads. So the addition of my_trap
+forms a race condition: when multiple threads try to update trap at roughly the
+same time, one thread can overwrite another thread’s result, and the ﬁnal value in
+trap may be wrong. (For a discussion of race conditions, see Section 2.4.3.)
+4. The variable trap in the serial code is returned by the function, and, as we’ve seen,
+kernels must have void return type.
+5. We see from the serial code that we need to multiply the total in trap by h after all
+of the threads have added their results.
+Program 6.12 shows how we might deal with these problems. In the following
+sections, we’ll look at the rationales for the various choices we’ve made.
+6.10.3 Initialization, return value, and ﬁnal update
+To deal with the initialization and the ﬁnal update (Items 1 and 5), we could try to
+select a single thread—say, thread 0 in block 0—to carry out the operations:
+i n t
+my_i =
+blockDim . x ∗
+blockIdx . x +
+threadIdx . x ;
+i f
+( my_i == 0) {
+h = ( b−a ) / n ;
+trap = 0.5∗( f ( a ) +
+f ( b ) ) ;
+}
+. . .
+i f
+( my_i == 0)
+trap =
+trap∗h ;
+There are (at least) a couple of problems with these options: formal arguments to
+functions are private to the executing thread and thread synchronization.
+Kernel and function arguments are private to the executing thread.
+Like the threads started in Pthreads and OpenMP, each CUDA thread has its own
+stack and, and since formal arguments are allocated on the thread’s stack, each thread
+has its own private variables h and trap. So any changes made to one of these vari-
+ables by one thread won’t be visible to the other threads. We could have each thread
+initialize h, but we could also just do the initialization once in the host. If we do this
+before the kernel is called, each thread will get a copy of the value of h.
+Things are more complicated with trap. Since it’s updated by multiple threads,
+it must be shared among the threads. We can achieve the effect of sharing trap by
+allocating storage for a memory location before the kernel is called. This allocated
+memory location will correspond to what we’ve been calling trap. Now we can pass
+
+6.10 CUDA trapezoidal rule I
+317
+1
+__global__
+void
+Dev_trap (
+2
+const
+f l o a t
+a
+/∗
+in
+∗/ ,
+3
+const
+f l o a t
+b
+/∗
+in
+∗/ ,
+4
+const
+f l o a t
+h
+/∗
+in
+∗/ ,
+5
+const
+i n t
+n
+/∗
+in
+∗/ ,
+6
+f l o a t ∗
+trap_p
+/∗
+in / out
+∗/ ) {
+7
+i n t
+my_i =
+blockDim . x ∗
+blockIdx . x +
+threadIdx . x ;
+8
+9
+/∗
+f ( x_0 )
+and
+f ( x_n )
+were computed on
+the
+host .
+So
+∗/
+10
+/∗
+compute
+f ( x_1 ) ,
+f ( x_2 ) ,
+. . . ,
+f ( x_ ( n −1))
+∗/
+11
+i f
+(0 <
+my_i && my_i <
+n ) {
+12
+f l o a t
+my_x =
+a +
+my_i∗h ;
+13
+f l o a t
+my_trap =
+f ( my_x ) ;
+14
+atomicAdd ( trap_p ,
+my_trap ) ;
+15
+}
+16
+}
+/∗
+Dev_trap
+∗/
+17
+18
+/∗
+Host
+code
+∗/
+19
+void
+Trap_wrapper (
+20
+const
+f l o a t
+a
+/∗
+in
+∗/ ,
+21
+const
+f l o a t
+b
+/∗
+in
+∗/ ,
+22
+const
+i n t
+n
+/∗
+in
+∗/ ,
+23
+f l o a t ∗
+trap_p
+/∗
+out
+∗/ ,
+24
+const
+i n t
+blk_ct
+/∗
+in
+∗/ ,
+25
+const
+i n t
+th_per_blk
+/∗
+in
+∗/ ) {
+26
+27
+/∗
+trap_p
+s to r a g e
+a l l o c a t e d
+in
+main
+with
+28
+∗cudaMallocManaged
+∗/
+29
+∗trap_p = 0.5∗( f ( a ) +
+f ( b ) ) ;
+30
+f l o a t
+h = ( b−a ) / n ;
+31
+32
+Dev_trap <<<blk_ct ,
+th_per_blk >>>(a ,
+b ,
+h ,
+n ,
+trap_p ) ;
+33
+cudaDeviceSynchronize ( ) ;
+34
+35
+∗trap_p =
+h ∗(∗trap_p ) ;
+36
+}
+/∗
+Trap_wrapper
+∗/
+Program 6.12: CUDA kernel and wrapper implementing trapezoidal rule.
+a pointer to the memory location to the kernel. That is, we can do something like
+this:
+/∗
+Host
+code
+∗/
+f l o a t ∗
+trap_p ;
+cudaMallocManaged (&trap_p ,
+s i z e o f ( f l o a t ) ) ;
+. . .
+
+318
+CHAPTER 6 GPU programming with CUDA
+∗trap_p = 0.5∗( f ( a ) +
+f ( b ) ) ;
+/∗
+Call
+k e r n e l
+∗/
+. . .
+/∗
+A f t e r
+r e t u r n
+from
+k e r n e l
+∗/
+∗trap_p =
+h ∗(∗trap_p ) ;
+When we do this, each thread will get its own copy of trap_p, but all of the copies of
+trap_p will refer to the same memory location. So ∗trap_p will be shared.
+Note that using a pointer instead of a simple ﬂoat also solves the problem of
+returning the value of trap in Item 4.
+A wrapper function
+If you look at the code in Program 6.12, you’ll see that we’ve placed most of the
+code we use before and after calling the kernel in a wrapper function, Trap_wrapper.
+A wrapper function is a function whose main purpose is to call another function. It
+can perform any preparation needed for the call. It can also perform any additional
+work needed after the call.
+6.10.4 Using the correct threads
+We assume that the number of threads, blk_ct∗th_per_blk, is at least as large as the
+number of trapezoids. Since the serial for loop iterates from 1 up to n−1, thread 0 and
+any thread with my_i > n −1, shouldn’t execute the code in the body of the serial for
+loop. So we should include a test before the main part of the kernel code
+i f
+(0 <
+my_i && my_i <
+n ) {
+/∗
+Compute x ,
+f ( x ) ,
+and add
+in
+to ∗trap_p
+∗/
+. . .
+}
+See Line 11 in Program 6.12.
+6.10.5 Updating the return value and atomicAdd
+This leaves the problem of updating ∗trap_p (Item 3 in the list above). Since the
+memory location is shared, an update such as
+∗trap_p +=
+my_trap ;
+forms a race condition, and the actual value ultimately stored in ∗trap_p will be un-
+predictable. We’re solving this problem by using a special CUDA library function,
+atomicAdd, to carry out the addition.
+An operation carried out by a thread is atomic if it appears to all the other threads
+as if it were “indivisible.” So if another thread tries to access the result of the operation
+or an operand used in the operation, the access will occur either before the operation
+
+6.10 CUDA trapezoidal rule I
+319
+started or after the operation completed. Effectively, then, the operation appears to
+consist of a single, indivisible, machine instruction.
+As we saw earlier (see Section 2.4.3), addition is not ordinarily an atomic op-
+eration: it consists of several machine instructions. So if one thread is executing an
+addition, it’s possible for another thread to access the operands and the result while
+the addition is in progress. Because of this, the CUDA library deﬁnes several atomic
+addition functions. The one we’re using has the following syntax:
+__device__
+f l o a t
+atomicAdd (
+f l o a t ∗
+float_p
+/∗
+in / out
+∗/ ,
+f l o a t
+val
+/∗
+in
+∗/ ) ;
+This atomically adds the contents of val to the contents of the memory referred to
+by float_p and stores the result in the memory referred to by float_p. It returns the
+value of the memory referred to by float_p at the beginning of the call. See Line 14
+of Program 6.12.
+6.10.6 Performance of the CUDA trapezoidal rule
+We can ﬁnd the run-time of our trapezoidal rule by ﬁnding the execution time of the
+Trap_wrapper function. The execution of this function includes all of the computa-
+tions carried out by the serial trapezoidal rule, including the initialization of ∗trap_p
+(Line 29) and h (Line 30), and the ﬁnal update to ∗trap_p (Line 35). It also includes
+all of the calculations in the body of the serial for loop in the Dev_trap kernel. So we
+can effectively determine the run-time of the CUDA trapezoidal rule by timing a host
+function, and we only need to insert calls to our timing functions before and after the
+call to Trap_wrapper. We use the GET_TIME macro deﬁned in the timer.h header ﬁle on
+the book’s website:
+double
+start ,
+finish ;
+. . .
+GET_TIME ( start ) ;
+Trap_wrapper ( a ,
+b ,
+n ,
+trap_p ,
+blk_ct ,
+th_per_blk ) ;
+GET_TIME ( finish ) ;
+printf ( " Elapsed
+time
+for
+cuda
+=
+% e
+seconds \ n " ,
+finish−start ) ;
+The same approach can be used to time the serial trapezoidal rule:
+GET_TIME ( start )
+trap =
+Serial_trap ( a ,
+b ,
+n ) ;
+GET_TIME ( finish ) ;
+printf ( " Elapsed
+time
+for
+cpu
+=
+% e
+seconds \ n " ,
+finish−start ) ;
+Recall from the section on taking timings (Section 2.6.4) that we take a number
+of timings, and we ordinarily report the minimum elapsed time. However, if the vast
+majority of the times are much greater (e.g., 1% or 0.1% greater), then the minimum
+time may not be reproducible. So other users who run the program may get a time
+
+320
+CHAPTER 6 GPU programming with CUDA
+Table 6.5 Mean run-times for serial and CUDA trapezoidal rule
+(times are in ms).
+System
+ARM
+Cortex-A15
+Nvidia
+GK20A
+Intel
+Core i7
+Nvidia GeForce
+GTX Titan X
+Clock
+2.3 GHz
+852 MHz
+3.5 GHz
+1.08 GHz
+SMs, SPs
+1, 192
+24, 3072
+Run-time
+33.6
+20.7
+4.48
+3.08
+much larger than ours. When this happens, we report the mean or median of the
+elapsed times.
+Now when we ran this program on our hardware, there were a number of times
+that were within 1% of the minimum time. However, we’ll be comparing the run-
+times of this program with programs that had very few run-times within 1% of the
+minimum. So for our discussion of implementing the trapezoidal rule using CUDA
+(Sections 6.10–6.13), we’ll use the mean run-time, and the means are taken over at
+least 50 executions.
+When we run the serial trapezoidal and the CUDA trapezoidal rule functions
+many times and take the means of the elapsed times, we get the results shown in Ta-
+ble 6.5. These were taken using n = 220 = 1,048,576 trapezoids with f (x) = x2 + 1,
+a = −3, and b = 3. The GPUs use 1024 blocks with 1024 threads per block for a
+total of 1,048,576 threads. The 192 SPs of the GK20A are clearly much faster than a
+fairly slow conventional processor, an ARM Cortex-A15, but a single core of an Intel
+Core i7 is much faster than the GK20A. The 3072 SPs on a Titan X were 45% faster
+than the single core of the Intel, but it would seem that with 3072 SPs, we should be
+able to do better.
+6.11 CUDA trapezoidal rule II: improving performance
+If you’ve read the Pthreads or OpenMP chapter, you can probably make a good guess
+at how to make the CUDA program run faster. For a thread’s call to atomicAdd to
+actually be atomic, no other thread can update ∗trap_p while the call is in progress. In
+other words, the updates to ∗trap_p can’t take place simultaneously, and our program
+may not be very parallel at this point.
+One way to improve the performance is to carry out a tree-structured global sum
+that’s similar to the tree-structured global sum we introduced in the MPI chapter
+(Section 3.4.1). However, because of the differences between the GPU architecture
+and the distributed-memory CPU architecture, the details are somewhat different.
+6.11.1 Tree-structured communication
+We can visualize the execution of the “global sum” we implemented in the CUDA
+trapezoidal rule as a more or less random, linear ordering of the threads. For ex-
+
+6.11 CUDA trapezoidal rule II: improving performance
+321
+Table 6.6 Basic global sum with eight
+threads.
+Time
+Thread
+my_trap
+∗trap_p
+Start
+—
+—
+9
+t0
+5
+11
+20
+t1
+2
+5
+25
+t2
+3
+7
+32
+t3
+7
+15
+47
+t4
+4
+9
+56
+t5
+6
+13
+69
+t6
+0
+1
+70
+t7
+1
+3
+73
+ample, suppose we have only 8 threads and one thread block. Then our threads
+are 0,1,...,7, and one of the threads will be the ﬁrst to succeed with the call to
+atomicAdd. Say it’s thread 5. Then another thread will succeed. Say it’s thread 2.
+Continuing in this fashion we get a sequence of atomicAdds, one per thread. Table 6.6
+shows how this might proceed over time. Here, we’re trying to keep the computations
+simple: we’re assuming that f (x) = 2x + 1, a = 0, and b = 8. So h = (8 −0)/8 = 1,
+and the value referenced by trap_p at the start of the global sum is
+0.5 × (f (a) + f (b)) = 0.5 × (1 + 17) = 9.
+What’s important is that this approach may serialize the threads. So the com-
+putation may require a sequence of 8 calculations. Fig. 6.3 illustrates a possible
+computation.
+So rather than have each thread wait for its turn to do an addition into ∗trap_p,
+we can pair up the threads so that half of the “active” threads add their partial sum to
+their partner’s partial sum. This gives us a structure that resembles a tree (or, perhaps
+better, a shrub). See Fig. 6.4.
+In our ﬁgures, we’ve gone from requiring a sequence of 8 consecutive additions to
+a sequence of 4. More generally, if we double the number of threads and values (e.g.,
+increase from 8 to 16), we’ll double the length of the sequence of additions using the
+basic approach, while we’ll only add one using the second, tree-structured approach.
+For example, if we increase the number of threads and values from 8 to 16, the ﬁrst
+approach requires a sequence of 16 additions, but the tree-structured approach only
+requires 5. In fact, if there are t threads and t values, the ﬁrst approach requires a
+sequence of t additions, while the tree-structured approach requires ⌈log2(t)⌉+1. For
+example, if we have 1000 threads and values, we’ll go from 1000 communications
+and sums using the basic approach to 11 using the tree-structured approach, and if
+we have 1,000,000, we’ll go from 1,000,000 to 21!
+There are two standard implementations of a tree-structured sum in CUDA. One
+implementation uses shared memory, and in devices with compute capability < 3 this
+
+322
+CHAPTER 6 GPU programming with CUDA
+FIGURE 6.3
+Basic sum.
+is the best implementation. However, in devices with compute capability ≥3 there
+are several functions called warp shufﬂes, that allow a collection of threads within a
+warp to read variables stored by other threads in the warp.
+6.11.2 Local variables, registers, shared and global memory
+Before we explain the details of how warp shufﬂes work, let’s digress for a moment
+and talk about memory in CUDA. In Section 6.2 we mentioned that SMs in an Nvidia
+processor have access to two collections of memory locations: each SM has access to
+its own “shared” memory, which is accessible only to the SPs belonging to the SM.
+More precisely, the shared memory allocated for a thread block is only accessible
+to the threads in that block. On the other hand, all of the SPs and all of the threads
+have access to “global” memory. The number of shared memory locations is rela-
+tively small, but they are quite fast, while the number of global memory locations is
+relatively large, but they are relatively slow. So we can think of the GPU memory
+
+6.11 CUDA trapezoidal rule II: improving performance
+323
+FIGURE 6.4
+Tree-structured sum.
+Table 6.7 Memory statistics for some Nvidia GPUs.
+GPU
+Compute
+Capability
+Registers:
+Bytes per
+Thread
+Shared Mem:
+Bytes per
+Block
+Global Mem:
+Bytes per
+GPU
+Quadro 600
+2.1
+504
+48K
+1G
+GK20A (Jetson TK1)
+3.2
+504
+48K
+2G
+GeForce GTX Titan X
+5.2
+504
+48K
+12G
+as a hierarchy with three “levels.” At the bottom, is the slowest, largest level: global
+memory. In the middle is a faster, smaller level: shared memory. At the top is the
+fastest, smallest level: the registers. For example, Table 6.7 gives some information
+on relative sizes. Access times also increase dramatically. It takes on the order of 1
+cycle to copy a 4-byte int from one register to another. Depending on the system it
+can take up to an order of magnitude more time to copy from one shared memory
+location to another, and it can take from two to three orders of magnitude more time
+to copy from one global memory location to another.
+An obvious question here: what about local variables? How much storage is avail-
+able for them? And how fast is it? This depends on total available memory and
+program memory usage. If there is enough storage, local variables are stored in regis-
+ters. However, if there isn’t enough register storage, local variables are “spilled” to a
+
+324
+CHAPTER 6 GPU programming with CUDA
+region of global memory that’s thread private, i.e., only the thread that owns the local
+variables can access them.
+So as long as we have sufﬁcient register storage, we expect the performance of
+a kernel to improve if we increase our use of registers and reduce our use of shared
+and/or global memory. The catch, of course, is that the storage available in registers
+is tiny compared to the storage available in shared and global memory.
+6.11.3 Warps and warp shufﬂes
+In particular, if we can implement a global sum in registers, we expect its performance
+to be superior to an implementation that uses shared or global memory, and the warp
+shufﬂe functions introduced in CUDA 3.0 allow us to do this.
+In CUDA a warp is a set of threads with consecutive ranks belonging to a thread
+block. The number of threads in a warp is currently 32, although Nvidia has stated
+that this could change. There is a variable initialized by the system that stores the size
+of a warp:
+i n t
+warpSize
+The threads in a warp operate in SIMD fashion. So threads in different warps can
+execute different statements with no penalty, while threads within the same warp
+must execute the same statement. When the threads within a warp attempt to execute
+different statements—e.g., they take different branches in an if−else statement—the
+threads are said to have diverged. When divergent threads ﬁnish executing different
+statements, and start executing the same statement, they are said to have converged.
+The rank of a thread within a warp is called the thread’s lane, and it can be com-
+puted using the formula
+lane =
+threadIdx . x % warpSize ;
+The warp shufﬂe functions allow the threads in a warp to read from registers used
+by another thread in the same warp. Let’s take a look at the one we’ll use to implement
+a tree-structured sum of the values stored by the threads in a warp10:
+__device__
+f l o a t
+__shfl_down_sync (
+unsigned
+mask
+/∗
+in
+∗/ ,
+f l o a t
+var
+/∗
+in
+∗/ ,
+unsigned
+diff
+/∗
+in
+∗/ ,
+i n t
+width =
+warpSize
+/∗
+in
+∗/ ) ;
+The mask argument indicates which threads are participating in the call. A bit,
+representing the thread’s lane, must be set for each participating thread to ensure
+that all of the threads in the call have converged—i.e., arrived at the call—before
+any thread begins executing the call to __shfl_down_sync. We’ll ordinarily use all the
+threads in the warp. So we’ll usually deﬁne
+10 Note that the syntax of the warp shufﬂes was changed in CUDA 9.0. So you may run across CUDA
+programs that use the older syntax.
+
+6.11 CUDA trapezoidal rule II: improving performance
+325
+mask = 0 xffffffff ;
+Recall that 0x denotes a hexadecimal (base 16) value and 0xf is 1510, which is
+11112.11 So this value of mask is 32 1’s in binary, and it indicates that every thread
+in the warp participates in the call to __shfl_down_sync. If the thread with lane l calls
+__shfl_down_sync, then the value stored in var on the thread with
+lane = l + diff
+is returned on thread l. Since diff has type unsigned, it is ≥0. So the value that’s
+returned is from a higher-ranked thread. Hence the name “shufﬂe down.”
+We’ll only use width = warpSize, and since its default value is warpSize, we’ll omit
+it from our calls.
+There are several possible issues:
+•
+What happens if thread l calls __shfl_down_sync but thread l + diff doesn’t? In
+this case, the value returned by the call on thread l is undeﬁned.
+•
+What happens if thread l calls __shfl_down_sync but l + diff ≥warpSize? In this
+case the call will return the value in var already stored on thread l.
+•
+What happens if thread l calls __shfl_down_sync, and l + diff < warpSize, but
+l + diff > largest lane in the warp. In other words, because the thread block size
+is not a multiple of warpSize, the last warp in the block has fewer than warpSize
+threads. Say there are w threads in the last warp, where 0 < w < warpSize. Then
+if
+l + diff ≥w,
+the value returned by the call is also undeﬁned.
+So to avoid undeﬁned results, it’s best if
+•
+All the threads in the warp call __shfl_down_sync, and
+•
+All the warps have warpSize threads, or, equivalently, the thread block size
+(blockDim.x) is a multiple of warpSize.
+6.11.4 Implementing tree-structured global sum with a warp shufﬂe
+So we can implement a tree-structured global sum using the following code:
+__device__
+f l o a t
+Warp_sum ( f l o a t
+var ) {
+unsigned
+mask = 0 xffffffff ;
+for
+( i n t
+diff =
+warpSize / 2 ;
+diff > 0;
+diff =
+diff / 2 )
+var +=
+__shfl_down_sync_sync ( mask ,
+var ,
+diff ) ;
+return
+var ;
+}
+/∗Warp_sum ∗/
+11 The subscripts indicate the base.
+
+326
+CHAPTER 6 GPU programming with CUDA
+FIGURE 6.5
+Tree-structured sum using warp shufﬂe.
+Fig. 6.5 shows how the function would operate if warpSize were 8. (The diagram
+would be illegible if we used a warpSize of 32.) Perhaps the most confusing point in
+the behavior of __shfl_down_sync is that when the lane ID
+l + diff ≥warpSize,
+the call returns the value in the caller’s var. In the diagram this is shown by having
+only one arrow entering the oval with the sum, and it’s labeled with the value just
+calculated by the thread carrying out the sum. In the row corresponding to diff = 4
+(the ﬁrst row of sums), the threads with lane IDs l = 4,5,6, and 7 all have l + 4 ≥8.
+So the call to __shfl_down_sync returns their current var values, 9,11,13, and 15, re-
+spectively, and these values are doubled, because the return value of the call is added
+into the calling thread’s variable var. Similar behavior occurs in the row correspond-
+ing to the sums for diff = 2 and lane IDs l = 6 and 7, and in the last row when
+diff = 1 for the thread with lane ID l = 7.
+From a practical standpoint, it’s important to remember that this implementation
+will only return the correct sum on the thread with lane ID 0. If all of the threads
+need the result, we can use an alternative warp shufﬂe function, __shfl_xor. See Ex-
+ercise 6.6.
+6.11.5 Shared memory and an alternative to the warp shufﬂe
+If your GPU has compute capability < 3.0, you won’t be able to use the warp shufﬂe
+functions in your code, and a thread won’t be able to directly access the registers
+of other threads. However, your code can use shared memory, and threads in the
+same thread block can all access the same shared memory locations. In fact, although
+shared memory access is slower than register access, we’ll see that the shared memory
+implementation can be just as fast as the warp shufﬂe implementation.
+
+6.11 CUDA trapezoidal rule II: improving performance
+327
+FIGURE 6.6
+Dissemination sum using shared memory.
+Since the threads belonging to a single warp operate synchronously, we can im-
+plement something very similar to a warp shufﬂe using shared memory instead of
+registers.
+__device__
+f l o a t
+Shared_mem_sum ( f l o a t
+shared_vals [ ] )
+{
+i n t
+my_lane =
+threadIdx . x % warpSize ;
+for
+( i n t
+diff =
+warpSize / 2 ;
+diff > 0;
+diff =
+diff / 2 )
+{
+/∗Make sure 0 <= source < warpSize
+∗/
+i n t
+source = ( my_lane +
+diff ) % warpSize ;
+shared_vals [ my_lane ] +=
+shared_vals [ source ] ;
+}
+return
+shared_vals [ my_lane ] ;
+}
+This should be called by all the threads in a warp, and the array shared_vals should be
+stored in the shared memory of the SM that’s running the warp. Since the threads in
+the warp are operating in SIMD fashion, they effectively execute the code of the
+function in lockstep. So there’s no race condition in the updates to shared_vals:
+all the threads read the values in shared_vals[source] before any thread updates
+shared_vals[my_lane].
+Technically speaking, this isn’t a tree-structured sum. It’s sometimes called a dis-
+semination sum or dissemination reduction. Fig. 6.6 illustrates the copying and
+additions that take place. Unlike the earlier ﬁgures, this ﬁgure doesn’t show the di-
+rect contributions that a thread makes to its sums: including these lines would have
+made the ﬁgure too difﬁcult to read. Also note that every thread reads a value from
+another thread in each pass through the for statement. After all these values have
+been added in, every thread has the correct sum—not just thread 0. Although we
+won’t need this for the trapezoidal rule, this can be useful in other applications. Fur-
+
+328
+CHAPTER 6 GPU programming with CUDA
+thermore, in any cycle in which the threads in a warp are working, each thread either
+executes the current instruction or it is idle. So the cost of having every thread exe-
+cute the same instruction shouldn’t be any greater than having some of the threads
+execute one instruction and the others idle.
+An obvious question here is: how does Shared_mem_sum make use of Nvidia’s
+shared memory? The answer is that it’s not required to use shared memory. The
+function’s argument, the array shared_vals, could reside in either global memory or
+shared memory. In either case, the function would return the sum of the elements of
+shared_vals.
+However, to get the best performance, the argument shared_vals should be deﬁned
+to be __shared__ in a kernel. For example, if we know that shared_vals will need to
+store at most 32 ﬂoats in each thread block, we can add this deﬁnition to our kernel:
+__shared__
+f l o a t
+shared_vals [ 3 2 ] ;
+For each thread block this sets aside storage for a collection of 32 ﬂoats in the shared
+memory of the SM to which the block is assigned.
+Alternatively, if it isn’t known at compile time how much shared memory is
+needed, it can be declared as
+extern
+__shared__
+f l o a t
+shared_vals [ ] ;
+and when the kernel is called, a third argument can be included in the triple angle
+brackets specifying the size in bytes of the block of shared memory. For example, if
+we were using Shared_mem_sum in a trapezoidal rule program, we might call the kernel
+Dev_trap with
+Dev_trap <<<blk_ct ,
+th_per_blk ,
+th_per_blk ∗s i z e o f ( f l o a t )>>>
+( . . .
+args
+to
+Dev_trap
+. . . ) ;
+This would allocate storage for th_per_blk ﬂoats in the shared_vals array in each
+thread block.
+6.12 Implementation of trapezoidal rule with warpSize
+thread blocks
+Let’s put together what we’ve learned about more efﬁcient sums, warps, warp shuf-
+ﬂes, and shared memory to create a couple of new implementations of the trapezoidal
+rule.
+For both versions we’ll assume that the thread blocks consist of warpSize threads,
+and we’ll use one of our “tree-structured” sums to add the results of the threads in
+the warp. After computing the function values and adding the results within a warp,
+the thread with lane ID 0 in the warp will add the warp sum into the total using
+Atomic_add.
+
+6.12 Implementation of trapezoidal rule with warpSize thread blocks
+329
+6.12.1 Host code
+For both the warp shufﬂe and the shared memory versions, the host code is virtually
+identical to the code for our ﬁrst CUDA version. The only substantive difference is
+that there is no th_per_blk variable in the new versions, since we’re assuming that
+each thread block has warpSize threads.
+6.12.2 Kernel with warp shufﬂe
+Our kernel is shown in Program 6.13. Initialization of my_trap is the same as it was
+in our original implementation (Program 6.12). However, instead of adding each
+1
+__global__
+void
+Dev_trap (
+2
+const
+f l o a t
+a
+/∗
+in
+∗/ ,
+3
+const
+f l o a t
+b
+/∗
+in
+∗/ ,
+4
+const
+f l o a t
+h
+/∗
+in
+∗/ ,
+5
+const
+i n t
+n
+/∗
+in
+∗/ ,
+6
+f l o a t ∗
+trap_p
+/∗
+in / out
+∗/ ) {
+7
+i n t
+my_i =
+blockDim . x ∗
+blockIdx . x +
+threadIdx . x ;
+8
+9
+f l o a t
+my_trap = 0.0 f ;
+10
+i f
+(0 <
+my_i && my_i <
+n ) {
+11
+f l o a t
+my_x =
+a +
+my_i∗h ;
+12
+my_trap =
+f ( my_x ) ;
+13
+}
+14
+15
+f l o a t
+result =
+Warp_sum ( my_trap ) ;
+16
+17
+/∗
+r e s u l t
+i s
+c o r r e c t
+only
+on
+thread 0 ∗/
+18
+i f
+( threadIdx . x == 0)
+atomicAdd ( trap_p ,
+result ) ;
+19
+}
+/∗
+Dev_trap
+∗/
+Program 6.13: CUDA kernel implementing trapezoidal rule and using Warp_sum.
+thread’s calculation directly into ∗trap_p, each warp (or, in this case, thread block)
+calls the Warp_sum function (Fig. 6.5) to add the values computed by the threads in the
+warp. Then, when the warp returns, thread (or lane) 0 adds the warp sum for its thread
+block (result) into the global total. Since, in general, this version will use multiple
+thread blocks, there will be multiple warp sums that need to be added to ∗trap_p.
+So if we didn’t use atomicAdd, the addition of result to ∗trap_p would form a race
+condition.
+6.12.3 Kernel with shared memory
+The kernel that uses shared memory is shown in Program 6.14. It is almost identical
+to the version that uses the warp shufﬂe. The main differences are that it declares an
+
+330
+CHAPTER 6 GPU programming with CUDA
+1
+__global__
+void
+Dev_trap (
+2
+const
+f l o a t
+a
+/∗
+in
+∗/ ,
+3
+const
+f l o a t
+b
+/∗
+in
+∗/ ,
+4
+const
+f l o a t
+h
+/∗
+in
+∗/ ,
+5
+const
+i n t
+n
+/∗
+in
+∗/ ,
+6
+f l o a t ∗
+trap_p
+/∗
+out
+∗/ ) {
+7
+__shared__
+f l o a t
+shared_vals [ WARPSZ ] ;
+8
+i n t
+my_i =
+blockDim . x ∗
+blockIdx . x +
+threadIdx . x ;
+9
+i n t
+my_lane =
+threadIdx . x % warpSize ;
+10
+11
+shared_vals [ my_lane ] = 0.0 f ;
+12
+i f
+(0 <
+my_i && my_i <
+n ) {
+13
+f l o a t
+my_x =
+a +
+my_i∗h ;
+14
+shared_vals [ my_lane ] =
+f ( my_x ) ;
+15
+}
+16
+17
+f l o a t
+result =
+Shared_mem_sum ( shared_vals ) ;
+18
+19
+/∗
+r e s u l t
+i s
+the
+same on
+a l l
+th r e a d s
+in a block .
+∗/
+20
+i f
+( threadIdx . x == 0)
+atomicAdd ( trap_p ,
+result ) ;
+21
+}
+/∗
+Dev_trap
+∗/
+Program 6.14: CUDA kernel implementing trapezoidal rule and using shared mem-
+ory.
+array of shared memory in Line 7; it initializes this array in Lines 11 and 14; and, of
+course, the call to Shared_mem_sum is passed this array rather than a scalar register.
+Since we know at compile time how much storage we’ll need in shared_vals, we
+can deﬁne the array by simply preceding the ordinary C deﬁnition with the CUDA
+qualiﬁer __shared__:
+__shared__
+f l o a t
+shared_vals [ WARPSZ ] ;
+Note that the CUDA deﬁned variable warpSize is not deﬁned at compile-time. So our
+program deﬁnes a preprocessor macro
+# define
+WARPSZ 32
+6.12.4 Performance
+Of course, we want to see how the various implementations perform. (See Table 6.8.)
+The problem is the same as the problem we ran earlier (see Table 6.5): we’re in-
+tegrating f (x) = x2 + 1 on the interval [−3,3], and there are 220 = 1,048,576
+trapezoids. However, since the thread block size is 32, we’re using 32,768 thread
+blocks (32 × 32,768 = 1,048,576).
+
+6.13 CUDA trapezoidal rule III: blocks with more than one warp
+331
+Table 6.8 Mean run-times for trapezoidal rule using block size of
+32 threads (times in ms).
+System
+ARM
+Cortex-A15
+Nvidia
+GK20A
+Intel
+Core i7
+Nvidia GeForce
+GTX Titan X
+Clock
+2.3 GHz
+852 MHz
+3.5 GHz
+1.08 GHz
+SMs, SPs
+1, 192
+24, 3072
+Original
+33.6
+20.7
+4.48
+3.08
+Warp Shufﬂe
+14.4
+0.210
+Shared Memory
+15.0
+0.206
+We see that on both systems and with both sum implementations, the new pro-
+grams do signiﬁcantly better than the original. For the GK20A, the warp shufﬂe
+version runs in about 70% of the time of the original, and the shared memory version
+runs in about 72% of the time of the original. For the Titan X, the improvements are
+much more impressive: both versions run in less than 7% of the time of the original.
+Perhaps most striking is the fact that on the Titan X, the warp shufﬂe is, on average,
+slightly slower than the shared memory version.
+6.13 CUDA trapezoidal rule III: blocks with more than one
+warp
+Limiting ourselves to thread blocks with only 32 threads reduces the power and ﬂex-
+ibility of our CUDA programs. For example, devices with compute capability ≥2.0
+can have blocks with as many as 1024 threads or 32 warps, and CUDA provides a
+fast barrier that can be used to synchronize all the threads in a block. So if we limited
+ourselves to only 32 threads in a block, we wouldn’t be using one of the most useful
+features of CUDA: the ability to efﬁciently synchronize large numbers of threads.
+So what would a “block” sum look like if we allowed ourselves to use blocks with
+up to 1024 threads? We could use one of our existing warp sums to add the values
+computed by the threads in each warp. Then we would have as many as 1024/32 = 32
+warp sums, and we could use one warp in the thread block to add the warp sums.
+Since two threads belong to the same warp if their ranks in the block have the
+same quotient when divided by warpSize, to add the warp sums, we can use warp 0,
+the threads with ranks 0, 1, ..., 31 in the block.
+6.13.1 __syncthreads
+We might try to use the following pseudocode for ﬁnding the sum of the values com-
+puted by all the threads in a block:
+Each
+thread
+computes
+its
+contribution ;
+Each
+warp
+adds
+its
+threads ’
+contributions ;
+Warp
+0
+in
+block
+adds
+warp
+sums ;
+
+332
+CHAPTER 6 GPU programming with CUDA
+However, there’s a race condition. Do you see it? When warp 0 tries to compute the
+total of the warp sums in the block, it doesn’t know whether all the warps in the
+block have completed their sums. For example, suppose we have two warps, warp 0
+and warp 1, each of which has 32 threads. Recall that the threads in a warp operate in
+SIMD fashion: no thread in the warp proceeds to a new instruction until all the threads
+in the warp have completed (or skipped) the current instruction. But the threads in
+warp 0 can operate independently of the threads in warp 1. So if warp 0 ﬁnishes
+computing its sum before warp 1 computes its sum, warp 0 could try to add warp 1’s
+sum to its sum before warp 1 has ﬁnished, and, in this case, the block sum could be
+incorrect.
+So we must make sure that warp 0 doesn’t start adding up the warp sums until all
+of the warps in the block are done. We can do this by using CUDA’s fast barrier:
+__device__
+void
+__syncthreads ( void ) ;
+This will cause the threads in the thread block to wait in the call until all of the threads
+have started the call. Using __syncthreads, we can modify our pseudocode so that the
+race condition is avoided:
+Each
+thread
+computes
+its
+contribution ;
+Each
+warp
+adds
+its
+threads ’
+contributions ;
+__syncthreads ();
+Warp
+0
+in
+block
+adds
+warp
+sums ;
+Now warp 0 won’t be able to add the warp sums until every warp in the block has
+completed its sum.
+There are a couple of important caveats when we use __syncthreads. First, it’s
+critical that all of the threads in the block execute the call. For example, if the block
+contains at least two threads, and our code includes something like this:
+i n t
+my_x =
+threadIdx . x ;
+i f
+( my_x <
+blockDim . x / 2 )
+__syncthreads ( ) ;
+my_x ++;
+then only half the threads in the block will call __syncthreads, and these threads can’t
+proceed until all the threads in the block have called __syncthreads. So they will wait
+forever for the other threads to call __syncthreads.
+The second caveat is that __syncthreads only synchronizes the threads in a
+block. If a grid contains at least two blocks, and if all the threads in the grid call
+__syncthreads then the threads in different blocks will continue to operate indepen-
+dently of each other. So we can’t synchronize the threads in a general grid with
+__syncthreads.12
+12 CUDA 9 includes an API that allows programs to deﬁne barriers across more general collections of
+threads than thread blocks, but deﬁning a barrier across multiple thread blocks requires hardware support
+that’s not available in processors with compute capability < 6.
+
+6.13 CUDA trapezoidal rule III: blocks with more than one warp
+333
+6.13.2 More shared memory
+If we try to implement the pseudocode in CUDA, we’ll see that there’s an important
+detail that the pseudocode doesn’t show: after the call to __syncthreads, how does
+warp 0 obtain access to the sums computed by the other warps? It can’t use a warp
+shufﬂe and registers: the warp shufﬂes only allow a thread to read a register belonging
+to another thread when that thread belongs to the same warp, and, for the ﬁnal warp
+sum we would like the threads in warp 0 to read registers belonging to threads in
+other warps.
+You may have guessed that the solution is to use shared memory. If we use warp
+shufﬂes to compute the warp sums, we can just declare a shared array that can store
+up to 32 ﬂoats, and the thread with lane 0 in warp w can store its warp sum in element
+w of the array:
+__shared__
+f l o a t
+warp_sum_arr [ WARPSZ ] ;
+i n t
+my_warp =
+threadIdx . x
+/
+warpSize ;
+i n t
+my_lane =
+threadIdx . x % warpSize ;
+/ /
+Threads
+c a l c u l a t e
+t h e i r
+c o n t r i b u t i o n s ;
+. . .
+f l o a t
+my_result =
+Warp_sum ( my_trap ) ;
+i f
+( my_lane == 0)
+warp_sum_arr [ my_warp ] =
+my_result ;
+__syncthreads ( ) ;
+/ /
+Warp 0 adds
+the
+sums
+in
+warp_sum_arr
+. . .
+6.13.3 Shared memory warp sums
+If we’re using shared memory instead of warp shufﬂes to compute the warp sums,
+we’ll need enough shared memory for each warp in a thread block. Since shared
+variables are shared by all the threads in a thread block, we need an array large
+enough to hold the contributions of all of the threads to the sum. So we can declare
+an array with 1024 elements—the largest possible block size—and partition it among
+the warps:
+/ /
+Make max thread
+block
+s i z e
+a v a i l a b l e
+at
+compile
+time
+# define
+MAX_BLKSZ 1024
+. . .
+___shared__
+f l o a t
+thread_calcs [ MAX_BLKSZ ] ;
+Now each warp will store its threads’ calculations in a subarray of thread_calcs:
+f l o a t ∗
+shared_vals =
+thread_calcs +
+my_warp ∗warpSize ;
+In this setting a thread stores its contribution in the subarray referred to by
+shared_vals:
+shared_vals [ my_lane ] =
+f ( my_x ) ;
+Now each warp can compute the sum of its threads’ contributions by using our shared
+memory implementation that uses blocks with 32 threads:
+
+334
+CHAPTER 6 GPU programming with CUDA
+f l o a t
+my_result =
+Shared_mem_sum ( shared_vals ) ;
+To continue we need to store the warp sums in locations that can be accessed
+by the threads in warp 0 in the block, and it might be tempting to try to make a
+subarray of thread_calcs do “double duty.” For example, we might try to use the ﬁrst
+32 elements for both the contributions of the threads in warp 0, and the warp sums
+computed by the warps in the block. So if we have a block with 32 warps of 32
+threads, warp w might store its sum in thread_calcs[w] for w = 0,1,2,...,31.
+The problem with this approach is that we’ll get another race condition. When
+can the other warps safely overwrite the elements in warp 0’s block? After a warp has
+completed its call to Shared_mem_sum, it would need to wait until warp 0 has ﬁnished
+its call to Shared_mem_sum before writing to thread_calcs:
+f l o a t
+my_result =
+Shared_mem_sum ( shared_vals ) ;
+__syncthreads ( ) ;
+i f
+( my_lane == 0)
+thread_calcs [ my_warp ] =
+my_result .
+This is all well and good, but warp 0 still can’t proceed with the ﬁnal call to
+Shared_mem_sum: it must wait until all the warps have written to thread_calcs. So we
+would need a second call to __syncthreads before warp 0 could proceed:
+i f
+( my_lane == 0)
+thread_calcs [ my_warp ] =
+my_result .
+__syncthreads ( ) ;
+/ /
+I t ’ s
+s a f e
+f o r
+warp 0 to
+proceed
+. . .
+i f
+( my_warp == 0)
+my_result =
+Shared_mem_sum ( thread_calcs ) ;
+Calls to __syncthreads are fast, but they’re not free: every thread in the thread
+block will have to wait until all the threads in the block have called __syncthreads. So
+this can be costly. For example, if there are more threads in the block than there are
+SPs in an SM, the threads in the block won’t all be able to execute simultaneously. So
+some threads will be delayed reaching the second call to __syncthreads, and all of the
+threads in the block will be delayed until the last thread is able to call __syncthreads.
+So we should only call __syncthreads() when we have to.
+Alternatively, each warp could store its warp sum in the “ﬁrst” element of its
+subarray:
+f l o a t
+my_result =
+Shared_mem_sum ( shared_vals ) ;
+i f
+( my_lane == 0)
+shared_vals [ 0 ] =
+my_result ;
+__syncthreads ( ) ;
+. . .
+It might at ﬁrst appear that this would result in a race condition when the thread with
+lane 0 attempts to update shared_vals, but the update is OK. Can you explain why?
+6.13.4 Shared memory banks
+However, this implementation may not be as fast as possible. The reason has to do
+with details of the design of shared memory: Nvidia divides the shared memory on
+
+6.13 CUDA trapezoidal rule III: blocks with more than one warp
+335
+Table 6.9 Shared memory banks: Columns are mem-
+ory banks. The entries in the body of the table show
+subscripts of elements of thread_calcs.
+Bank
+0
+1
+2
+. . .
+30
+31
+Subscripts
+0
+1
+2
+. . .
+30
+31
+32
+33
+34
+. . .
+62
+63
+64
+65
+66
+. . .
+94
+95
+96
+97
+98
+. . .
+126
+127
+...
+...
+...
+...
+...
+...
+992
+993
+994
+. . .
+1022
+1023
+an SM into 32 “banks” (16 for GPUs with compute capability < 2.0). This is done so
+that the 32 threads in a warp can simultaneously access shared memory: the threads
+in a warp can simultaneously access shared memory when each thread accesses a
+different bank.
+Table 6.9 illustrates the organization of thread_calcs. In the table, the columns
+are banks, and the rows show the subscripts of consecutive elements of thread_calcs.
+So the 32 threads in a warp can simultaneously access the 32 elements in any one of
+the rows, or, more generally, if each thread access is to a different column.
+When two or more threads access different elements in a single bank (or column in
+the table), then those accesses must be serialized. So the problem with our approach
+to saving the warp sums in elements 0, 32, 64, ..., 992 is that these are all in the
+same bank. So when we try to execute them, the GPU will serialize access, e.g.,
+element 0 will be written, then element 32, then element 64, etc. So the writes will
+take something like 32 times as long as it would if the 32 elements were stored in
+different banks, e.g., a row of the table.
+The details of bank access are a little complicated and some of the details depend
+on the compute capability, but the main points are
+•
+If each thread in a warp accesses a different bank, the accesses can happen simul-
+taneously.
+•
+If multiple threads access different memory locations in a single bank, the accesses
+must be serialized.
+•
+If multiple threads read the same memory location in a bank, the value read is
+broadcast to the reading threads, and the reads are simultaneous.
+The CUDA programming Guide [11] provides full details.
+Thus we could exploit the use of the shared memory banks if we stored the results
+in a contiguous subarray of shared memory. Since each thread block can use at least
+16 Kbytes of shared memory, and our “current” deﬁnition of shared_vals only uses
+at most 1024 ﬂoats or 4 Kbytes of shared memory, there is plenty of shared memory
+available for storing 32 more ﬂoats.
+
+336
+CHAPTER 6 GPU programming with CUDA
+So if we’re using shared memory warp sums, a simple solution is to declare two
+arrays of shared memory: one for storing the computations made by each thread, and
+another for storing the warp sums.
+__shared__
+f l o a t
+thread_calcs [ MAX_BLKSZ ] ;
+__shared__
+f l o a t
+warp_sum_arr [ WARPSZ ] ;
+f l o a t ∗
+shared_vals =
+thread_calcs +
+my_warp ∗warpSize ;
+. . .
+f l o a t
+my_result =
+Shared_mem_sum ( shared_vals ) ;
+i f
+( my_lane == 0)
+warp_sum_arr [ my_warp ] =
+my_result ;
+__syncthreads ( ) ;
+. . .
+6.13.5 Finishing up
+The remaining codes for the warp sum kernel and the shared memory sum kernel are
+very similar. First warp 0 computes the sum of the elements in warp_sum_arr. Then
+thread 0 in the block adds the block sum into the total across all the threads in the
+grid using atomicAdd. Here’s the code for the shared memory sum:
+i f
+( my_warp == 0) {
+i f
+( threadIdx . x >=
+blockDim . x / warpSize )
+warp_sum_arr [ threadIdx . x ] = 0 . 0 ;
+blk_result =
+Shared_mem_sum ( warp_sum_arr ) ;
+}
+i f
+( threadIdx . x == 0)
+atomicAdd ( trap_p ,
+blk_result ) ;
+In the test threadIdx.x > blockDim.x/warpSize we’re checking to see if there are
+fewer than 32 warps in the block. If there are, then the ﬁnal elements in warp_sum_arr
+won’t have been initialized. For example, if there are 256 warps in the block, then
+blockDim . x / warpSize = 256/32 = 8
+So there are only 8 warps in a block and we’ll have only initialized elements
+0,1,...,7 of warp_sum_arr. But the warp sum function expects 32 values. So for
+the threads with threadIdx.x >= 8, we assign
+warp_sum_arr [ threadIdx . x ] = 0 . 0 ;
+For the sake of completeness, Program 6.15 shows the kernel that uses shared
+memory. The main differences between this kernel and the kernel that uses warp
+shufﬂes are that the declaration of the ﬁrst shared array isn’t needed in the warp
+shufﬂe version, and, of course, the warp shufﬂe version calls Warp_sum instead of
+Shared_mem_sum.
+6.13.6 Performance
+Before moving on, let’s take a ﬁnal look at the run-times for our various versions of
+the trapezoidal rule. (See Table 6.10.) The problem is the same: ﬁnd the area under
+
+6.13 CUDA trapezoidal rule III: blocks with more than one warp
+337
+1
+__global__
+void
+Dev_trap (
+2
+const
+f l o a t
+a
+/∗
+in
+∗/ ,
+3
+const
+f l o a t
+b
+/∗
+in
+∗/ ,
+4
+const
+f l o a t
+h
+/∗
+in
+∗/ ,
+5
+const
+i n t
+n
+/∗
+in
+∗/ ,
+6
+f l o a t ∗
+trap_p
+/∗
+out
+∗/ ) {
+7
+__shared__
+f l o a t
+thread_calcs [ MAX_BLKSZ ] ;
+8
+__shared__
+f l o a t
+warp_sum_arr [ WARPSZ ] ;
+9
+i n t
+my_i =
+blockDim . x ∗
+blockIdx . x +
+threadIdx . x ;
+10
+i n t
+my_warp =
+threadIdx . x
+/
+warpSize ;
+11
+i n t
+my_lane =
+threadIdx . x % warpSize ;
+12
+f l o a t ∗
+shared_vals =
+thread_calcs +
+my_warp ∗warpSize ;
+13
+f l o a t
+blk_result = 0 . 0 ;
+14
+15
+shared_vals [ my_lane ] = 0.0 f ;
+16
+i f
+(0 <
+my_i && my_i <
+n ) {
+17
+f l o a t
+my_x =
+a +
+my_i∗h ;
+18
+shared_vals [ my_lane ] =
+f ( my_x ) ;
+19
+}
+20
+21
+f l o a t
+my_result =
+Shared_mem_sum ( shared_vals ) ;
+22
+i f
+( my_lane == 0)
+warp_sum_arr [ my_warp ] =
+my_result ;
+23
+__syncthreads ( ) ;
+24
+25
+i f
+( my_warp == 0) {
+26
+i f
+( threadIdx . x >=
+blockDim . x / warpSize )
+27
+warp_sum_arr [ threadIdx . x ] = 0 . 0 ;
+28
+blk_result =
+Shared_mem_sum ( warp_sum_arr ) ;
+29
+}
+30
+31
+i f
+( threadIdx . x == 0)
+atomicAdd ( trap_p ,
+blk_result ) ;
+32
+}
+/∗
+Dev_trap
+∗/
+Program 6.15: CUDA kernel implementing trapezoidal rule and using shared mem-
+ory. This version can use large thread blocks.
+the graph of y = x2+1 between x = −3 and x = 3 using 220 = 1,048,576 trapezoids.
+However, instead of using a block size of 32 threads, this version uses a block size of
+1024 threads. The larger blocks provide a signiﬁcant advantage on the GK20A: the
+warp shufﬂe version is more than 10% faster than the version that uses 32 threads per
+block, and the shared memory version is about 5% faster. On the Titan X, the perfor-
+mance improvement is huge: the warp shufﬂe version is more than 30% faster, and
+the shared memory version is more than 25% faster. So on the faster GPU, reducing
+the number of threads calling atomicAdd was well worth the additional programming
+effort.
+
+338
+CHAPTER 6 GPU programming with CUDA
+Table 6.10
+Mean run-times for trapezoidal rule using arbitrary block size
+(times in ms).
+System
+ARM
+Cortex-A15
+Nvidia
+GK20A
+Intel
+Core i7
+Nvidia GeForce
+GTX Titan X
+Clock
+2.3 GHz
+852 MHz
+3.5 GHz
+1.08 GHz
+SMs, SPs
+1, 192
+24, 3072
+Original
+33.6
+20.7
+4.48
+3.08
+Warp Shufﬂe, 32 ths/blk
+14.4
+0.210
+Shared Memory, 32 ths/blk
+15.0
+0.206
+Warp Shufﬂe
+12.8
+0.141
+Shared Memory
+14.3
+0.150
+6.14 Bitonic sort
+Bitonic sort is a somewhat unusual sorting algorithm, but it has the virtue that it can
+be parallelized fairly easily. Even better, it can be parallelized so that the threads
+operate independently of each other for clearly deﬁned segments of code. On the
+down side, it’s not a very intuitive sorting algorithm, and our implementation will
+require frequent use of barriers. In spite of this, our parallelization with CUDA will
+be considerably faster than a single core implementation on a CPU.
+The algorithm proceeds by building subsequences of keys that form bitonic se-
+quences. A bitonic sequence is a sequence that ﬁrst increases and then decreases.13
+The butterﬂy structure (see Section 3.4.4) is at the heart of bitonic sort. However,
+now, instead of deﬁning the structure by communicating between pairs of processes,
+we deﬁne it by the use of compare-swap operations.
+6.14.1 Serial bitonic sort
+To see how this works suppose that n is a positive integer that is a power of 2, and
+we have a list of n integer keys. Any pair of consecutive elements can be turned
+into either an increasing or a decreasing sequence by a compare-swap: these are
+two-element butterﬂies. If we have a four-element list, we can ﬁrst create a bitonic
+sequence with a couple of compare swaps or two-element butterﬂies. We then use a
+four-element butterﬂy to create a sorted list.
+As an example, suppose our input list is {40,20,10,30}. Then the ﬁrst two ele-
+ments can be turned into an increasing sequence by a compare-swap:
+if (list[0] > list[1]) Swap(&list[0], &list[1]);
+13 Technically, a bitonic sequence is either a sequence that ﬁrst increases and then decreases, or it is a
+sequence that can be converted to such a sequence by one or more circular shifts. For example, 3,5,4,2,1
+is a bitonic sequence, since it increases and then decreases, but 5,4,2,1,3 is also a bitonic sequence, since
+it can be converted to the ﬁrst sequence by a circular shift.

@@ -1,0 +1,219 @@
+BCS306A 
+Page 01 of 02 
+ 
+Model Question Paper-I/II with effect from 2023-24 (CBCS Scheme) 
+ 
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E. Degree Examination 
+Object Oriented Programming with JAVA 
+ 
+TIME: 03 Hours    
+                                    
+ 
+Max.  Marks: 100 
+   Note:  01. Answer any FIVE full questions, choosing at least ONE question from each MODULE.  
+02. Use a JAVA code snippet to illustrate a specific code design or a purpose. 
+ 
+Module -1 
+*Bloom’s 
+Taxonomy 
+Level 
+Marks 
+Q.01 
+a 
+Explain different lexical issues in JAVA. 
+L2 
+7 
+b 
+Define Array. Write a Java program to implement the addition of two matrixes.  
+L3 
+7 
+c 
+Explain the following operations with examples. (i)<< (ii)>> (iii)>>>  
+L2 
+6 
+OR 
+ 
+ 
+Q.02 
+a 
+Explain object-oriented principles. 
+L2 
+7 
+b 
+Write a Java program to sort the elements using a for loop.  
+L3 
+7 
+c 
+Explain different types of if statements in JAVA 
+L2 
+6 
+Module-2 
+ 
+ 
+Q. 03 
+a 
+What are constructors? Explain two types of constructors with an example 
+program. 
+L3 
+7 
+b 
+Define recursion. Write a recursive program to find nth Fibonacci number. 
+L3 
+7 
+c 
+Explain the various access specifiers in Java. 
+L2 
+6 
+OR 
+ 
+ 
+Q.04 
+a 
+Explain call by value and call by reference with an example program 
+L3 
+7 
+b 
+Write a program to perform Stack operations using proper class and Methods. 
+L3 
+7 
+c 
+Explain the use of this in JAVA with an example. 
+L2 
+6 
+Module-3 
+ 
+ 
+Q. 05 
+a 
+Write a Java program to implement multilevel inheritance with 3 levels of 
+hierarchy. 
+L3 
+7 
+b 
+Explain how an interface is used to achieve multiple Inheritances in Java. 
+L3 
+7 
+c 
+Explain the method overriding with a suitable example. 
+L2 
+6 
+OR 
+ 
+ 
+Q. 06 
+a 
+What is single-level inheritance? Write a Java program to implement single-level 
+inheritance. 
+L3 
+7 
+b 
+What is the importance of the super keyword in inheritance? Illustrate with a 
+suitable example. 
+L3 
+7 
+c 
+What is abstract class and abstract method? Explain with an example.  
+L2 
+6 
+Module-4 
+ 
+ 
+Q. 07 
+a 
+Define package. Explain the steps involved in creating a user-defined package 
+with an example. 
+L2 
+7 
+b 
+Write 
+a 
+program 
+that 
+contains 
+one 
+method 
+that 
+will 
+throw 
+an 
+IllegalAccessException and use proper exception handles so that the exception 
+should be printed. 
+L3 
+7 
+c 
+Define an exception. What are the key terms used in exception handling? 
+Explain. 
+L2 
+6 
+OR 
+ 
+ 
+Q. 08 
+a 
+Explain the concept of importing packages in Java and provide an example 
+demonstrating the usage of the import statement. 
+L2 
+7 
+b 
+How do you create your own exception class? Explain with a program. 
+L3 
+7 
+c 
+Demonstrate the working of a nested try block with an example. 
+L2 
+6 
+ 
+
+BCS306A 
+Page 02 of 02 
+ 
+Module-5 
+ 
+ 
+Q. 09 
+a 
+What do you mean by a thread? Explain the different ways of creating threads. 
+L2 
+7 
+b 
+What is the need of synchronization? Explain with an example how 
+synchronization is implemented in JAVA. 
+L3 
+7 
+c 
+Discuss values() and value Of() methods in Enumerations with suitable examples. 
+L2 
+6 
+OR 
+ 
+ 
+Q. 10 
+a 
+What is multithreading? Write a program to create multiple threads in JAVA. 
+L2 
+7 
+b 
+Explain with an example how inter-thread communication is implemented in 
+JAVA. 
+L3 
+7 
+c 
+Explain auto-boxing/unboxing in expressions. 
+L2 
+6 
+ 

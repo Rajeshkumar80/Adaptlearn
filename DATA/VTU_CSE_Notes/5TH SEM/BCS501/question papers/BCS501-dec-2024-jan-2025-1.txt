@@ -1,0 +1,159 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fifth Semester B.E./B.Tech. Degree Examination, Dec.2024/Jan.2025 
+Software Engineering and Project Management    
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                      2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Explain software process and software engineering practices.  
+10
+L2 CO1
+ 
+b.
+Explain the waterfall model and incremental model, with diagram.  
+10
+L2 
+CO1
+                                                                           OR 
+Q.2 
+a. Explain Boehm Spiral process model with a neat diagram. Mention its 
+advantages and disadvantages. 
+10
+L2 CO1
+ 
+b.
+Explain the five activities of a generic process framework for software 
+engineering.   
+10
+L2 CO1
+                                                                      Module – 2  
+Q.3 
+a. Explain the distinct tasks of requirement engineering.  
+10
+L2 CO2
+ 
+b.
+Illustrate the UML use case diagram for safe home system. 
+10
+L2 CO2
+                                                                           OR 
+Q.4 
+a. Explain Class-Responsibility-Collaborator(CRC) modeling and data 
+modeling with an example.  
+10
+L2 CO2
+ 
+b.
+Explain the elements of analysis model in requirement modeling. 
+10
+L2 CO2
+                                                                      Module – 3  
+Q.5 
+a. Explain the principles of agile process development. 
+10
+L2 CO3
+ 
+b.
+Explain the following : 
+i)   Adaptive software development 
+ii)  SCRUM 
+10
+L2 CO3
+                                                                           OR 
+Q.6 
+a. Explain the concepts of extremes programming with a neat diagram.  
+10
+L2 CO3
+ 
+b.
+Explain design modeling principles that guide the respective framework 
+activity. 
+10
+L2 
+CO3
+                                                                      Module – 4  
+Q.7 
+a. Illustrate the project management life cycle with a neat diagram. 
+10
+L2 CO4
+ 
+b.
+Explain : i)  Different ways of categorizing software projects 
+                ii)  Smart objectives 
+10
+L2 CO4
+                                                                           OR 
+Q.8 
+a. Explain the difference between traditional versus modern project 
+management practices along with the role of management. 
+10
+L3 CO4
+ 
+b.
+Explain software development life cycle (ISO 12207) with a neat diagram. 
+10
+L2 CO4
+                                                                      Module – 5  
+Q.9 
+a. Explain Quality Management System with principles of BS EN ISO-9001-
+2000. 
+10
+L2 CO5
+ 
+b.
+Explain the following : 
+i)   McCall model             ii)  Garvin’s Quality Dimensions.  
+10
+L2 CO5
+                                                                           OR 
+Q.10
+a. Describe six generic functions allowed in automated estimation techniques 
+of software projects. 
+10
+L3 CO5
+ 
+b.
+Explain COCOMO II model. 
+10
+L2 CO5
+ 
+                                                                       * * * * *                                                       
+USN 
+BCS501 
+VTU-08-01-2025 01:46:04pm
+08-01-2025 02:01:12pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

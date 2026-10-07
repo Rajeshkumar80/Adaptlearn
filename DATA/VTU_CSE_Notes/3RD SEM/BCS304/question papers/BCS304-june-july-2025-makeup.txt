@@ -1,0 +1,327 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E./B.Tech. Degree Examination, June/July 2025 
+Data Structures and Applications     
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                    2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Differentiate between static and dynamic memory allocation. Write syntax 
+for malloc( ), calloc( ), realloc( )  and free( ) functions. 
+ 
+08
+L2 CO1
+ 
+b.
+Write KMP pattern matching algorithm and apply the same to search the 
+pattern “abcdabcy” in the text “abcxabcdabxabcdabcdabcy”. 
+ 
+08
+L3 CO2
+ 
+c. 
+ 
+Differentiate between Structure and Union. 
+04
+L1 CO1
+                                                                           OR 
+Q.2 
+a. Write a C function to evaluate postfix expression. Evaluate 231  + 9 – 
+using the same.  
+ 
+08
+L2 CO2
+ 
+b.
+Implement push( ), pop( ) and display operations of stack using array. 
+ 
+08
+L2 CO2
+ 
+c. 
+ 
+Write a C function to perform transpose of a given sparse matrix. 
+04
+L3 CO1
+                                                                      Module – 2  
+Q.3 
+a. Explain the need of Circular Queue. Implement Insert( ), delete( ) and 
+display( ) operations on the circular queue. 
+ 
+10
+L3 CO2
+ 
+b.
+Implement following operations on Single Linked List: 
+(i)  Delete a node at the end of SLL. 
+(ii) Insert a node at the beginning of SLL. 
+ 
+10
+L3 CO3
+                                                                           OR 
+Q.4 
+a. Explain and write a C function to implement Multiple Stack. 
+ 
+10
+L3 CO2
+ 
+b.
+Develop a C function to add two polynomials using Single Linked List.   
+ 
+10
+L3 CO3
+                                                                      Module – 3  
+Q.5 
+a. Give the diagrammatical representation of below sparse matrix using 
+Linked List. 
+          
+
+
+
+
+
+
+
+
+
+
+
+
+0
+0
+0
+0
+4
+0
+1
+3
+10
+0
+0
+0
+0
+7
+0
+0
+ 
+ 
+05
+L2 CO3
+ 
+ 
+ 
+                                                                               1 of 3                                            
+USN 
+BCS304
+VTU-16-10-2025 08:49:06am
+16-10-2025 09:08:23am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS304
+ 
+Q.5 
+b.
+Traverse given tree using Inorder, Preorder and Post order traversal. Also 
+write C functions for Inorder, Preorder and Postorder. [Refer Fig.Q5(b)] 
+ 
+Fig.Q5(b) 
+ 
+08
+L3 CO4
+ 
+c. What are the advantages of threaded binary tree over a binary tree? 
+Construct threaded binary tree for the following elements: 
+     A,B,C,D,E,F,G,H,I 
+ 
+07
+L3 CO4
+                                                                           OR 
+Q.6 
+a. Define Double Linked List. Create a C function for the following DLL 
+operations: 
+(i) 
+Inserting a node at front 
+(ii) 
+Deleting a node at end 
+ 
+08
+L3 CO3
+ 
+b.
+Define Tree. Explain the representation of Tree with an example. 
+ 
+06
+L2 CO4
+ 
+c. 
+ 
+ 
+Define the following with example : 
+i)  Complete Binary Tree           (ii) Height of a Tree   (iii) Full Binary Tree  
+06
+L2 CO4
+                                                                      Module – 4  
+Q.7 
+a. Write a iterative C function to perform following operations on Binary 
+Search Tree : 
+i)  Search a key element         ii) Insert a node 
+ 
+10
+L3 CO4
+ 
+b.
+Convert the following forest into Binary Tree and perform inorder, preorder 
+and post order traversal. [Refer Fig.Q7(b)]  
+ 
+                                                    Fig.Q7(b) 
+10
+L2 CO4
+ 
+ 
+ 
+ 
+                                                                               2 of 3                                           
+VTU-16-10-2025 08:49:06am
+16-10-2025 09:08:23am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS304
+ 
+ 
+                                                                           OR 
+Q.8 
+a. Define Selection Tree. Construct first 4 winners from given runs below: 
+5 
+9 
+18
+8 
+90
+09
+7 
+8 
+14
+13
+19
+11
+95
+17
+13
+10
+24
+16
+20
+15
+98
+19
+14
+15
+ 
+ 
+10
+L2 CO4
+ 
+b.
+Design the algorithm to traverse below graph using BFS and DFS 
+technique. Traverse the below graph using BFS from source vertex. 
+[Refer Fig.Q8(b)] 
+ 
+                                                      Fig.Q8(b) 
+ 
+10
+L3 CO4
+                                                                      Module – 5  
+Q.9 
+a. Write a note on Static and Dynamic Hashing. 
+ 
+06
+L2 CO5
+ 
+b.
+Construct the OBST for following items. Let n = 4 
+(a1, a2, a3, a4) = (do, if, int, while) 
+Let (p1, p2, p3, p4) = (3, 3, 1, 1) 
+(q0, q1, q2, q3, q4) = (2, 3, 1, 1, 1) 
+ 
+10
+L3 CO5
+ 
+c. 
+ 
+Explain the following with an example : 
+(i)   HBLT             (ii) WBLT 
+04
+L3 CO5
+                                                                           OR 
+Q.10
+a. Define Collision. Explain the methods to resolve collision. Explain linear 
+probing for the data 
+       12, 13, 15, 16, 74, 75, 83, 42  
+ 
+08
+L2 CO5
+ 
+b.
+Explain Leftist tree with an example. 
+ 
+08
+L2 CO5
+ 
+c. 
+ 
+Explain different Hash functions. 
+04
+L2 CO5
+* * * * * 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3 of 3 
+VTU-16-10-2025 08:49:06am
+16-10-2025 09:08:23am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

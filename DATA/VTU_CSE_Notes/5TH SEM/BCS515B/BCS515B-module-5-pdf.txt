@@ -1,0 +1,428 @@
+Module 5 
+9.4 Backward Chaining  
+This algorithm work backward from the goal, chaining through rules to find known facts that support the 
+proof. It is called with a list of goals containing the original query, and returns the set of all substitutions 
+satisfying the query. The algorithm takes the first goal in the list and finds every clause in the knowledge 
+base whose head, unifies with the goal. Each such clause creates a new recursive call in which body, of the 
+clause is added to the goal stack . Remember that facts are clauses with a head but no body, so when a goal 
+unifies with a known fact, no new sub goals are added to the stack and the goal is solved. The algorithm for 
+backward chaining and proof tree for finding criminal (West) using backward chaining are given below. 
+ 
+
+Logic programming:  
+• Prolog is by far the most widely used logic programming language.  
+• Prolog programs are sets of definite clauses written in a notation different from standard first-order 
+logic.  
+• Prolog uses uppercase letters for variables and lowercase for constants.  
+• Clauses are written with the head preceding the body; " : -" is used for left implication, commas 
+separate literals in the body, and a period marks the end of a sentence . 
+ 
+• Prolog includes "syntactic sugar" for list notation and arithmetic. Prolog program for append (X, Y, 
+Z), which succeeds if list Z is the result of appending lists x and Y. 
+ 
+• For example, we can ask the query append (A, B, [1, 2]): what two lists can be appended to give [1, 
+2]? We get back the solutions 
+ 
+• The execution of Prolog programs is done via depth-first backward chaining  
+• Prolog allows a form of negation called negation as failure. A negated goal not P is considered 
+proved if the system fails to prove p. Thus, the sentence  
+• Alive (X) : - not dead(X) can be read as "Everyone is alive if not provably dead."  
+• Prolog has an equality operator, =, but it lacks the full power of logical equality. An equality goal 
+succeeds if the two terms are unifiable and fails otherwise. So X+Y=2+3 succeeds with x bound to 
+2 and Y bound to 3, but Morningstar=evening star fails.  
+• The occur check is omitted from Prolog's unification algorithm. 
+Efficient implementation of logic programs:  
+• The execution of a Prolog program can happen in two modes: interpreted and compiled.  
+• Interpretation essentially amounts to running the FOL-BC-ASK algorithm, with the program as the 
+knowledge base. These are designed to maximize speed.  
+• First, instead of constructing the list of all possible answers for each sub goal before continuing to 
+the next, Prolog interpreters generate one answer and a "promise" to generate the rest when the 
+current answer has been fully explored. This promise is called a choice point.FOL-BC-ASK spends 
+a good deal of time in generating and composing substitutions  when a path in search fails. Prolog 
+will backup to previous choice point and unbind some variables. This is called ―TRAIL‖. So, new 
+variable is bound by UNIFY-VAR and it is pushed on to trail.  
+• Prolog Compilers compile into an intermediate language i.e., Warren Abstract Machine or WAM 
+named after David. H. D. Warren who is one of the implementers of first prolog compiler. So, WAM 
+is an abstract instruction set that is suitable for prolog and can be either translated or interpreted into 
+machine language.  
+Continuations are used to implement choice point’scontinuation as packaging up a procedure and a list 
+of arguments that together define what should be done next whenever the current goal succeeds.  
+Parallelization can also provide substantial speedup. There are two principal sources of parallelism  
+
+1. The first, called OR-parallelism, comes from the possibility of a goal unifying with many different 
+clauses in the knowledge base. Each gives rise to an independent branch in the search space that can lead 
+to a potential solution, and all such branches can be solved in parallel.  
+2. The second, called AND-parallelism, comes from the possibility of solving each conjunct in the body 
+of an implication in parallel. AND-parallelism is more difficult to achieve, because solutions for the whole 
+conjunction require consistent bindings for all the variables.  
+Redundant inference and infinite loops: 
+Consider the following logic program that decides if a path exists between two points on a directed graph. 
+ 
+A simple three-node graph, described by the facts link (a, b) and link (b, c) 
+ 
+It generates the query path (a, c)  
+Hence each node is connected to two random successors in the next layer. 
+ 
+Constraint logic programming:  
+The Constraint Satisfaction problem can be solved in prolog as same like backtracking algorithm. Because 
+it works only for finite domain CSP’s in prolog terms there must be finite number of solutions for any goal 
+with unbound variables. 
+ 
+ 
+• If we have a query, triangle (3, 4, and 5) works fine but the query like, triangle (3, 4, Z) no solution.  
+• The difficulty is variable in prolog can be in one of two states i.e., Unbound or bound.  
+• Binding a variable to a particular term can be viewed as an extreme form of constraint namely 
+“equality”.CLP allows variables to be constrained rather than bound.  
+• The solution to triangle (3, 4, Z) is Constraint 7>=Z>=1. 
+ 
+ 
+
+9.5 RESOLUTION 
+As in the propositional case, first-order resolution requires that sentences be in conjunctive normal form 
+(CNF) that is, a conjunction of clauses, where each clause is a disjunction of literals.  
+Literals can contain variables, which are assumed to be universally quantified. Every sentence of first-order 
+logic can be converted into an inferentially equivalent CNF sentence. We will illustrate the procedure by 
+translating the sentence  
+"Everyone who loves all animals is loved by someone," or 
+ 
+The steps are as follows:  
+• Eliminate implications:  
+ 
+• Move Negation inwards: In addition to the usual rules for negated connectives, we need rules for 
+negated quantifiers. Thus, we have  
+ 
+Our sentence goes through the following transformations. 
+ 
+Standardize variables: For sentences like  
+use the same variable name twice, change the name of one of the variables. This avoids confusion later 
+when we drop the quantifiers. Thus, we have 
+ 
+Skolemize: Skolemization is the process of removing existential quantifiers by elimination. Translate 3 x 
+P(x) into P(A), where A is a new constant. If we apply this rule to our sample sentence, however, we 
+obtain  
+ 
+Which has the wrong meaning entirely: it says that everyone either fails to love a particular animal A or is 
+loved by some particular entity B. In fact, our original sentence allows each person to fail to love a different 
+animal or to be loved by a different person.  
+Thus, we want the Skolem entities to depend on x: 
+ 
+Here F and G are Skolem functions. The general rule is that the arguments of the Skolem function are all 
+the universally quantified variables in whose scope the existential quantifier appears.  
+• Drop universal quantifiers: At this point, all remaining variables must be universally quantified. 
+Moreover, the sentence is equivalent to one in which all the universal quantifiers have been moved 
+to the left. We can therefore drop the universal quantifiers  
+ 
+
+• Distribute V over A 
+ 
+This is the CNF form of given sentence.  
+The resolution inference rule:  
+The resolution rule for first-order clauses is simply a lifted version of the propositional resolution rule. 
+Propositional literals are complementary if one is the negation of the other; first-order literals are 
+complementary if one unifies with the negation of the other. Thus we have 
+ 
+Where UNIFY (li, m j) == θ.  
+For example, we can resolve the two clauses 
+ 
+By eliminating the complementary literals Loves (G(x), x) and ¬Loves (u, v), with unifier  
+θ = {u/G(x), v/x), to produce the resolvent clause  
+ 
+Example proofs:  
+Resolution proves that KB /= a by proving KB A la unsatisfiable, i.e., by deriving the empty clause. The 
+sentences in CNF are 
+ 
+The resolution proof is shown in below figure; 
+ 
+Notice the structure: single "spine" beginning with the goal clause, resolving against clauses from the knowledge 
+base until the empty clause is generated. Backward chaining is really just a special case of resolution with a 
+particular control strategy to decide which resolution to perform next. 
+
+ 
+10.1 CLASSICAL PLANNING 
+Planning Classical Planning: AI as the study of rational action, which means that planning—devising a 
+plan of action to achieve one’s goals—is a critical part of AI. We have seen two examples of planning agents 
+so far the search-based problem-solving agent.  
+DEFINITION OF CLASSICAL PLANNING: The problem-solving agent can find sequences of actions 
+that result in a goal state. But it deals with atomic representations of states and thus needs good domain-
+specific heuristics to perform well. The hybrid propositional logical agent can find plans without domain-
+specific heuristics because it uses domain-independent heuristics based on the logical structure of the 
+problem but it relies on ground (variable-free) propositional inference, which means that it may be 
+swamped when there are many actions and states. For example, in the world, the simple action of moving 
+astep forward had to be repeated for all four agent orientations, T time steps, and n2 current locations.  
+In response to this, planning researchers have settled on a factored representation— one in which a state 
+of the world is represented by a collection of variables. We use a language called PDDL, the Planning 
+Domain Definition Language that allows us to express all 4Tn2 actions with one action schema. There have 
+been several versions of PDDL.we select a simple version and alter its syntax to be consistent with the rest 
+of the book. We now show how PDDL describes the four things we need to define a search problem: the 
+initial state, the actions that are available in a state, the result of applying an action, and the goal test.  
+Each state is represented as a conjunction of flaunts that are ground, functionless atoms. For example, Poor 
+∧ Unknown might represent the state of a hapless agent, and a state in a package delivery problem might 
+be At(Truck 1, Melbourne) ∧ At(Truck 2, Sydney ). Database semantics is used: the closed-world 
+assumption means that any flaunts that are not mentioned are false, and the unique names assumption means 
+that Truck 1 and Truck 2 are distinct.  
+A set of ground (variable-free) actions can be represented by a single action schema. The schema is a lifted 
+representation—it lifts the level of reasoning from propositional logic to a restricted subset of first-order 
+logic. For example, here is an action schema for flying a plane from one location to another:  
+Action(Fly (p, from, to),  
+PRECOND:At(p, from) ∧ Plane(p) ∧ Airport (from) ∧ Airport (to)  
+EFFECT:¬At(p, from) ∧ At(p, to))  
+The schema consists of the action name, a list of all the variables used in the schema, a precondition and an 
+effect.  
+A set of action schemas serves as a definition of a planning domain. A specific problem within the domain 
+is defined with the addition of an initial state and a goal.  
+state is a conjunction of ground atoms. (As with all states, the closed-world assumption is used, which 
+means that any atoms that are not mentioned are false.) The goal is just like a precondition: a conjunction 
+of literals (positive or negative) that may contain variables, such as At(p, SFO ) ∧ Plane(p). Any variables 
+are treated as existentially quantified, so this goal is to have any plane at SFO. The problem is solved when 
+we can find a sequence of actions that end in a states that entails the goal.  
+Example: Air cargo transport 
+An air cargo transport problem involving loading and unloading cargo and flying it from place to place. 
+The problem can be defined with three actions: Load , Unload , and Fly . The actions affect two predicates: 
+In(c, p) means that cargo c is inside plane p, and At(x, a) means that object x (either plane or cargo) is at 
+airport a. Note that some care must be taken to make sure the At predicates are maintained properly. When 
+a plane flies from one airport to another, all the cargo inside the plane goes with it. In first-order logic it 
+
+would be easy to quantify over all objects that are inside the plane. But basic PDDL does not have a 
+universal quantifier, so we need a different solution. The approach we use is to say that a piece of cargo 
+ceases to be At anywhere when it is In a plane; the cargo only becomes At the new airport when it is 
+unloaded. So At really means “available for use at a given location.”  
+The complexity of classical planning :  
+We consider the theoretical complexity of planning and distinguish two decision problems. PlanSAT is the 
+question of whether there exists any plan that solves a planning problem. Bounded PlanSAT asks whether 
+there is a solution of length k or less; this can be used to find an optimal plan. 
+The first result is that both decision problems are decidable for classical planning. The proof follows from 
+the fact that the number of states is finite. But if we add function symbols to the language, then the number 
+of states becomes infinite, and PlanSAT becomes only semi decidable: an algorithm exists that will 
+terminate with the correct answer for any solvable problem, but may not terminate on unsolvable problems. 
+The Bounded PlanSAT problem remains decidable even in the presence of function symbols.  
+Both PlanSAT and Bounded PlanSAT are in the complexity class PSPACE, a class that is larger (and hence 
+more difficult) than NP and refers to problems that can be solved by a deterministic Turing machine with a 
+polynomial amount of space. Even if we make some rather severe restrictions, the problems remain quite 
+difficult. 
+10.2 ALGORITHMS FOR PLANNING AS STATE-SPACE SEARCH 
+Forward (progression) state-space search:  
+Now that we have shown how a planning problem maps into a search problem, we can solve 
+planning problems with any of the heuristic search algorithms from Chapter 3 or a local 
+search algorithm from Chapter 4 (provided we keep track of the actions used to reach the 
+goal). From the earliest days of planning research (around 1961) until around 1998 it was 
+assumed that forward state-space search was too inefficient to be practical. It is not hard to 
+come up with reasons why .  
+First, forward search is prone to exploring irrelevant actions. Consider the noble task of 
+buying a copy of AI: A Modern Approach from an online bookseller. Suppose there is an 
+action schema Buy(isbn) with effect Own(isbn). ISBNs are 10 digits, so this action schema 
+represents 10 billion ground actions. An uninformed forward-search algorithm would have 
+to start enumerating these 10 billion actions to find one that leads to the goal.  
+Second, planning problems often have large state spaces. Consider an air cargo problem 
+with 10 airports, where each airport has 5 planes and 20 pieces of cargo. The goal is to move 
+all the cargo at airport A to airport B. There is a simple solution to the problem: load the 20 
+pieces of cargo into one of the planes at A, fly the plane to B, and unload the cargo. Finding 
+the solution can be difficult because the average branching factor is huge: each of the 50 
+planes can fly to 9 other airports, and each of the 200 packages can be either unloaded (if it 
+is loaded) or loaded into any plane at its airport (if it is unloaded). So in any state there is a 
+minimum of 450 actions (when all the packages are at airports with no planes) and a 
+maximum of 10,450 (when all packages and planes are at the same airport). On average, 
+let’s say there are about 2000 possible actions per state, so the search graph up to the depth 
+of the obvious solution has about 2000 nodes. 
+
+ 
+Backward (regression) relevant-states search:  
+In regression search we start at the goal and apply the actions backward until we find a 
+sequence of steps that reaches the initial state. It is called relevant-states search because we 
+only consider actions that are relevant to the goal (or current state). As in belief-state search 
+(Section 4.4), there is a set of relevant states to consider at each step, not just a single state.  
+We start with the goal, which is a conjunction of literals forming a description of a set of 
+states—for example, the goal ¬Poor ∧ Famous describes those states in which Poor is false, 
+Famous is true, and any other fluent can have any value. If there are n ground flaunts in a 
+domain, then there are 2n ground states (each fluent can be true or false), but 3n descriptions 
+of sets of goal states (each fluent can be positive, negative, or not mentioned).  
+In general, backward search works only when we know how to regress from a state 
+description to the predecessor state description. For example, it is hard to search backwards 
+for a solution to the n-queens. 
+problem because there is no easy way to describe the states that are one move away from 
+the goal. Happily, the PDDL representation was designed to make it easy to regress 
+actions—if a domain can be expressed in PDDL, then we can do regression search on it.  
+The final issue is deciding which actions are candidates to regress over. In the forward 
+direction we chose actions that were applicable—those actions that could be the next step 
+in the plan. In backward search we want actions that are relevant—those actions that could 
+be the last step in a plan leading up to the current goal state.  
+
+Heuristics for planning:  
+Neither forward nor backward search is efficient without a good heuristic function. Recall 
+from Chapter 3 that a heuristic function h(s) estimates the distance from a state s to the goal 
+and that if we can derive an admissible heuristic for this distance—one that does not 
+overestimate—then we can use A∗ search to find optimal solutions. An admissible heuristic 
+can be derived by defining a relaxed problem that is easier to solve. The exact cost of a 
+solution to this easier problem then becomes the heuristic for the original problem.  
+By definition, there is no way to analyze an atomic state, and thus it it requires some 
+ingenuity by a human analyst to define good domain-specific heuristics for search problems 
+with atomic states. Planning uses a factored representation for states and action schemas. 
+That makes it possible to define good domain-independent heuristics and for programs to 
+automatically apply a good domain-independent heuristic for a given problem. 
+10.3 Planning Graphs:  
+All of the heuristics we have suggested can suffer from inaccuracies. This section shows 
+how a special data structure called a planning graph can be used to give better heuristic 
+estimates. These heuristics can be applied to any of the search techniques we have seen so 
+far. Alternatively, we can search for a solution over the space formed by the planning graph, 
+using an algorithm called GRAPHPLAN.  
+ 
+Figure 10.7 shows a simple planning problem, and Figure 10.8 shows its planning graph. 
+Each action at level Ai is connected to its preconditions at Si and its effects at Si+1. So a 
+literal appears because an action caused it, but we also want to say that a literal can persist 
+
+if no action negates it. This is represented by a persistence action (sometimes called a no-
+op). For every literal C, we add to the problem a persistence action with precondition C 
+and effect C. Level A0 in Figure 10.8 shows one “real” action, Eat (Cake), along with two 
+persistence actions drawn as small square boxes. 
+ 
+ 
+A planning problem asks if we can reach a goal state from the initial state. Suppose we are 
+given a tree of all possible actions from the initial state to successor states, and their 
+successors, and so on. If we indexed this tree appropriately, we could answer the planning 
+question “can we reach state G from state S0” immediately, just by looking it up. Of course, 
+
+the tree is of exponential size, so this approach is impractical. A planning graph is 
+polynomial- size approximation to this tree that can be constructed quickly. The planning 
+graph can’t answer definitively whether G is reachable from S0, but it can estimate how 
+many steps it takes to reach G. The estimate is always correct when it reports the goal is not 
+reachable, and it never overestimates the number of steps, so it is an admissible heuristic. 
+A planning graph is a directed graph organized into levels: first a level S0 for the initial state, 
+consisting of nodes representing each fluent that holds in S0; then a level A0 consisting of 
+nodes for each ground action that might be applicable in S0; then alternating levels Si 
+followed by Ai; until we reach a termination condition (to be discussed later).  
+Roughly speaking, Si contains all the literals that could hold at time i, depending on the 
+actions executed at preceding time steps. If it is possible that either P or ¬P could hold, then 
+both will be represented in Si. Also roughly speaking, Ai contains all the actions that could 
+have their preconditions satisfied at time i. We say “roughly speaking” because the planning 
+graph records only a restricted subset of the possible negative interactions among actions; 
+therefore, a literal might show up at level Sj when actually it could not be true until a later 
+level, if at all. (A literal will never show up too late.) Despite the possible error, the level j 
+at which a literal first appears is a good estimate of how difficult it is to achieve the literal 
+from the initial state.  
+We now define mutex links for both actions and literals. A mutex relation holds between 
+two actions at a given level if any of the following three conditions holds:  
+• Inconsistent effects: one action negates an effect of the other. For example, Eat(Cake) and 
+the persistence of Have(Cake) have inconsistent effects because they disagree on the effect 
+Have(Cake).  
+• Interference: one of the effects of one action is the negation of a precondition of the other. 
+For example Eat(Cake) interferes with the persistence of Have(Cake) by its precondition.  
+• Competing needs: one of the preconditions of one action is mutually exclusive with a 
+precondition of the other. For example, Bake(Cake) and Eat(Cake) are mutex because they 
+compete on the value of the Have(Cake) precondition. 
+A mutex relation holds between two literals at the same level if one is the negation of the 
+other or if each possible pair of actions that could achieve the two literals is mutually 
+exclusive. This condition is called inconsistent support. For example, Have(Cake) and 
+Eaten(Cake) are mutex in S1 because the only way of achieving Have(Cake), the persistence 
+action, is mutex with the only way of achieving Eaten(Cake), namely Eat(Cake). In S2 the 
+two literals are not mutex, because there are new ways of achieving them, such as 
+Bake(Cake) and the persistence of Eaten(Cake), that are not mutex.  other Classical Planning 
+Approaches:  
+Currently the most popular and effective approaches to fully automated planning are:  
+• Translating to a Boolean satisfiability (SAT) problem  
+• Forward state-space search with carefully crafted heuristics  
+
+• Search using a planning graph (Section 10.3) 
+These three approaches are not the only ones tried in the 40-year history of automated 
+planning. Figure 10.11 shows some of the top systems in the International Planning 
+Competitions, which have been held every even year since 1998. In this section we first 
+describe the translation to a satisfiability problem and then describe three other influential 
+approaches: planning as first-order logical deduction; as constraint satisfaction; and as plan 
+refinement.  
+Classical planning as Boolean satisfiability :  
+we saw how SATPLAN solves planning problems that are expressed in propositional logic. 
+Here we show how to translate a PDDL description into a form that can be processed by 
+SATPLAN. The translation is a series of straightforward steps:  
+• Proposition Alize the actions: replace each action schema with a set of ground actions 
+formed by substituting constants for each of the variables. These ground actions are not part 
+of the translation, but will be used in subsequent steps.  
+• Define the initial state: assert F 0 for every fluent F in the problem’s initial state, and ¬F 
+for every fluent not mentioned in the initial state.  
+• Proposition Alize the goal: for every variable in the goal, replace the literals that contain 
+the variable with a disjunction over constants. For example, the goal of having block A on 
+another block, On(A, x) ∧ Block (x) in a world with objects A, B and C, would be replaced 
+by the goal  
+(On(A, A) ∧ Block (A)) ∨ (On(A, B) ∧ Block (B)) ∨ (On(A, C) ∧ Block (C)) . 
+• Add successor-state axioms: For each fluent F , add an axiom of the form  
+F t+1 ⇔ ActionCausesF t ∨ (F t ∧ ¬ActionCausesNotF t) ,  
+where Action CausesF is a disjunction of all the ground actions that have F in their add list, 
+and Action CausesNotF is a disjunction of all the ground actions that have F in their delete 
+list.  
+Analysis of Planning approaches:  
+Planning combines the two major areas of AI we have covered so far: search and logic. A 
+planner can be seen either as a program that searches for a solution or as one that 
+(constructively) proves the existence of a solution. The cross-fertilization of ideas from the 
+two areas has led both to improvements in performance amounting to several orders of 
+magnitude in the last decade and to an increased use of planners in industrial applications. 
+Unfortunately, we do not yet have a clear understanding of which techniques work best on 
+which kinds of problems. Quite possibly, new techniques will emerge that dominate existing 
+methods. 
+Planning is foremost an exercise in controlling combinatorial explosion. If there are n 
+propositions in a domain, then there are 2n states. As we have seen, planning is PSPACE- 
+
+hard. Against such pessimism, the identification of independent sub problems can be a 
+powerful weapon. In the best case—full decomposability of the problem—we get an 
+exponential speedup.  
+Decomposability is destroyed, however, by negative interactions between actions. 
+GRAPHPLAN records mutexes to point out where the difficult interactions are. SATPLAN 
+rep- resents a similar range of mutex relations, but does so by using the general CNF form 
+rather than a specific data structure. Forward search addresses the problem heuristically by 
+trying to find patterns (subsets of propositions) that cover the independent sub problems. 
+Since this approach is heuristic, it can work even when the sub problems are not completely 
+independent.  
+Sometimes it is possible to solve a problem efficiently by recognizing that negative 
+interactions can be ruled out. We say that a problem has serializable sub goals if there exists 
+an order of sub goals such that the planner can achieve them in that order without having to 
+undo any of the previously achieved sub goals. For example, in the blocks world, if the goal 
+is to build a tower (e.g., A on B, which in turn is on C, which in turn is on the Table, as in 
+Figure 10.4 on page 371), then the sub goals are serializable bottom to top: if we first achieve 
+C on Table, we will never have to undo it while we are achieving the other sub goals. 
+Planners such as GRAPHPLAN, SATPLAN, and FF have moved the field of planning 
+forward, by raising the level of performance of planning systems. 
+Planning and Acting in the Real World:  
+This allows human experts to communicate to the planner what they know about how to 
+solve the problem. Hierarchy also lends itself to efficient plan construction because the 
+planner can solve a problem at an abstract level before delving into details. Presents agent 
+architectures that can handle uncertain environments and interleave deliberation with 
+execution, and gives some examples of real-world systems.  
+Time, Schedules, and Resources:  
+The classical planning representation talks about what to do, and in what order, but the 
+representation cannot talk about time: how long an action takes and when it occurs. For 
+example, the planners of Chapter 10 could produce a schedule for an airline that says which 
+planes are assigned to which flights, but we really need to know departure and arrival times 
+as well. This is the subject matter of scheduling. The real world also imposes many resource 
+constraints; for example, an airline has a limited number of staff—and staff who are on one 
+flight cannot be on another at the same time. This section covers methods for representing 
+and solving planning problems that include temporal and resource constraints. 
+The approach we take in this section is “plan first, schedule later”: that is, we divide the 
+overall problem into a planning phase in which actions are selected, with some ordering 
+constraints, to meet the goals of the problem, and a later scheduling phase, in which temporal 
+information is added to the plan to ensure that it meets resource and deadline constraints. 
+
+ 
+This approach is common in real-world manufacturing and logistical settings, where the 
+planning phase is often performed by human experts. The automated methods of Chapter 10 
+can also be used for the planning phase, provided that they produce plans with just the 
+minimal ordering constraints required for correctness. GRAPHPLAN (Section 10.3), 
+SATPLAN (Section 10.4.1), and partial-order planners (Section 10.4.4) can do this; search-
+based methods (Section 10.2) produce totally ordered plans, but these can easily be 
+converted to plans with minimal ordering constraints.  
+Termination of GRAPHPLAN 
+So far, we have skated over the question of termination. Here we show that GRAPHPLAN 
+will in fact terminate and return failure when there is no solution. The first thing to 
+understand is why we can’t stop expanding the graph as soon as it has leveled off. Consider 
+an air cargo domain with one plane and n pieces of cargo at airport A, all of which have 
+airport B as their destination. In this version of the problem, only one piece of cargo can fit 
+in the plane at a time. The graph will level off at level 4, reflecting the fact that for any single 
+piece of cargo, we can load it, fly it, and unload it at the destination in three steps. But that 
+does not mean that a solution can be extracted from the graph at level 4; in fact a solution 
+will require 4n − 1 steps: for each piece of cargo we load, fly, and unload, and for all but the 
+last piece we need to fly back to airport A to get the next piece. 
+How long do we have to keep expanding after the graph has leveled off? If the function 
+EXTRACT-SOLUTION fails to find a solution, then there must have been at least one set 
+of goals that were not achievable and were marked as a no-good. So if it is possible that 
+there might be fewer no-goods in the next level, then we should continue. As soon as the 
+graph itself and the no-goods have both leveled off, with no solution found, we can terminate 
+with failure because there is no possibility of a subsequent change that could add a solution. 
+ 
+The properties are as follows: 
+
+ 

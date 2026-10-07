@@ -1,0 +1,95 @@
+{
+  "subject_code": "BCS601",
+  "subject_name": "Compiler Design",
+  "semester": 6,
+  "semester_label": "6TH SEM",
+  "modules": {
+    "1": {
+      "title": "Introduction to Compilers & Lexical Analysis",
+      "topics": [
+        "Language Processors: Compilers, Interpreters, Assemblers, Linkers, Loaders",
+        "Phases of a Compiler: Lexical, Syntax, Semantic, ICG, Optimization, Code Generation",
+        "The Structure of a Compiler: Analysis and Synthesis Model",
+        "Symbol Table Management and Error Handling Across Phases",
+        "Compiler Construction Tools and Cousins of the Compiler",
+        "Lexical Analysis: Role of Scanner, Tokens, Patterns, and Lexemes",
+        "Specification of Tokens: Regular Expressions and Regular Definitions",
+        "Recognition of Tokens: Transition Diagrams and Finite Automata",
+        "The Lexical-Analyzer Generator: LEX / Flex Architecture and Specification",
+        "Trace of Statement: position = initial + rate * 60 Through All Phases"
+      ],
+      "sources": [
+        "Dragon Book (Compilers: Principles, Techniques, and Tools - Aho, Lam, Sethi, Ullman)",
+        "VTU Course Outcomes BCS601"
+      ],
+      "content_chars": 10348
+    },
+    "2": {
+      "title": "Syntax Analysis (Top-Down Parsing)",
+      "topics": [
+        "Role of Parser: Context-Free Grammars (CFG) and Derivations",
+        "Ambiguous Grammars and Eliminating Ambiguity",
+        "Elimination of Left Recursion and Left Factoring",
+        "Top-Down Parsing: Recursive-Descent Parsing and Backtracking",
+        "LL(1) Grammars: Computation of FIRST and FOLLOW Sets",
+        "Construction of Predictive Parsing Table M[A, a]",
+        "Non-recursive Predictive Parsing Algorithm Using Explicit Stack",
+        "Error Recovery Strategies in Predictive Parsing"
+      ],
+      "sources": [
+        "Dragon Book (Compilers: Principles, Techniques, and Tools)"
+      ],
+      "content_chars": 3840
+    },
+    "3": {
+      "title": "Bottom-Up Parsing (LR Parsers)",
+      "topics": [
+        "Bottom-Up Parsing: Reductions, Handles, and Handle Pruning",
+        "Shift-Reduce Parsing: Shift, Reduce, Accept, Error Actions",
+        "Conflicts in Shift-Reduce Parsers: Shift/Reduce and Reduce/Reduce Conflicts",
+        "Model of an LR Parser and LR Parsing Algorithm",
+        "Simple LR (SLR) Parsing: LR(0) Items, Closure, GOTO, and Table Construction",
+        "Canonical LR (CLR) Parsing: LR(1) Items and Table Construction",
+        "Lookahead LR (LALR) Parsing: State Merging and Table Construction",
+        "Using Parser Generators: YACC / Bison Syntax and Semantic Actions"
+      ],
+      "sources": [
+        "Dragon Book (Compilers: Principles, Techniques, and Tools)"
+      ],
+      "content_chars": 2950
+    },
+    "4": {
+      "title": "Syntax-Directed Translation & Intermediate Code Generation",
+      "topics": [
+        "Syntax-Directed Definitions (SDD): Synthesized and Inherited Attributes",
+        "Evaluation Orders for SDDs: Dependency Graphs, S-Attributed and L-Attributed Definitions",
+        "Syntax-Directed Translation Schemes (SDTS): Postfix Translation",
+        "Intermediate Representations: Directed Acyclic Graphs (DAG), Syntax Trees",
+        "Three-Address Code (TAC): Quadruples, Triples, and Indirect Triples",
+        "Translation of Expressions and Boolean Expressions",
+        "Backpatching for Boolean Expressions and Flow-of-Control Statements"
+      ],
+      "sources": [
+        "Dragon Book (Compilers: Principles, Techniques, and Tools)"
+      ],
+      "content_chars": 2537
+    },
+    "5": {
+      "title": "Code Optimization, Run-Time Environments & Target Code Generation",
+      "topics": [
+        "Run-Time Storage Organization: Code, Static, Stack, Heap Segments",
+        "Activation Records and Storage Allocation Strategies",
+        "Principal Sources of Optimization: Common Subexpression, Copy Propagation, Dead Code",
+        "Loop Optimizations: Code Motion, Induction Variable Elimination, Reduction in Strength",
+        "Basic Blocks and Flow Graphs: Identifying Leaders and Constructing Flow Graphs",
+        "DAG Representation of Basic Blocks and Local Optimizations",
+        "Target Code Generator Design Issues: Instruction Selection, Register Allocation and Assignment",
+        "Peephole Optimization Techniques"
+      ],
+      "sources": [
+        "Dragon Book (Compilers: Principles, Techniques, and Tools)"
+      ],
+      "content_chars": 3563
+    }
+  }
+}

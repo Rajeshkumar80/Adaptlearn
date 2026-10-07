@@ -1,0 +1,275 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E./B.Tech. Degree Examination, Dec.2024/Jan.2025 
+Object Oriented Programming with JAVA     
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                      2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a.
+List and explain any three features of object oriented programming.  
+ 
+6 
+L1
+CO1
+ 
+b.
+What do you mean by type conversion and type casting? Give examples.   
+ 
+8 
+L2 
+CO1
+ 
+c. How to declare and initialize 1-D and 2-D arrays in Java. Give examples.  
+ 
+6 
+L2 
+CO1
+                                                                           OR 
+Q.2 
+a.
+List the short circuit operators and show the concept using few examples.  
+ 
+4 
+L2
+CO1
+ 
+b.
+With a java program, illustrate the use of ternary operator to find the 
+greatest of three numbers.  
+ 
+6 
+L3 
+CO1
+ 
+c. Develop a Java program to demonstrate the working of for each version of 
+for loop. Initialize the 2D array with values and print them using for each.  
+ 
+10
+L2 
+CO1
+                                                                      Module – 2  
+Q.3 
+a.
+Develop a program in Java to implement a stack of integers.  
+ 
+12
+L3
+CO2
+ 
+b.
+What are constructors? Give the types and explain the properties of 
+constructors. Support with appropriate examples.  
+ 
+8 
+L2 
+CO2
+                                                                           OR 
+Q.4 
+a.
+Illustrate with an example program to pass objects as arguments.  
+ 
+10
+L2
+CO2
+ 
+b.
+Explain different access specifies in Java with example program. 
+ 
+10
+L2 
+CO2
+                                                                      Module – 3  
+Q.5 
+a.
+Define inheritance. List and explain different types of inheritance in Java 
+with code snippets.  
+ 
+10
+L2
+CO3
+ 
+b.
+Compare and contrast between overloading and overriding in Java with 
+example program for each.  
+ 
+10
+L2 
+CO3
+                                                                          OR
+Q.6 
+a.
+Analyze an interface in Java and list out the speed of an interface. Illustrate 
+with the help of a program the importance of an interface.  
+ 
+10
+L2
+CO3
+ 
+b.
+List the different uses of final and demonstrate each with the of code 
+snippets.  
+ 
+10
+L2 
+CO3
+1 of 2 
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS306A 
+VTU-24-01-2025 01:22:51pm
+24-01-2025 01:31:28pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BCS306A
+ 
+                                                                     Module – 4 
+Q.7 
+a.
+Define a package. Explain how to create user defined package with 
+example.  
+ 
+7 
+L2
+CO4
+ 
+b.
+Discuss about exception handling in Java.  Give the framework of the 
+exception handling block. List the types of exception.  
+ 
+8 
+L2 
+CO4
+ 
+c. Develop a Java program to raise a custom exception for division by zero 
+using try, catch, throw and finally.  
+ 
+5 
+L3 
+CO4
+                                                                           OR 
+Q.8 
+a.
+Compare throw and throws keyword by providing suitable example 
+program.  
+ 
+10
+L2
+CO4
+ 
+b.
+Explain about the need for finally block. 
+ 
+5 
+L2 
+CO4
+ 
+c. Discuss about chained exceptions.  
+ 
+5 
+L2 
+CO4
+                                                                     Module – 5 
+Q.9 
+a.
+Define thread. Demonstrate creation of multiple threads with a program. 
+ 
+10
+L2
+CO5
+ 
+b.
+Explain the two ways in which Java threads can be instantiated. Support 
+your explanation with a sample program.  
+ 
+10
+L2 
+CO5
+                                                                          OR
+Q.10
+a.
+What is enumeration? Explain the methods values( ) and valueof( ). 
+ 
+10
+L2
+CO5
+ 
+b.
+Explain about type wrappers and auto boxing.  
+ 
+ 
+10
+L2 
+CO5
+* * * * * 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2 of 2 
+VTU-24-01-2025 01:22:51pm
+24-01-2025 01:31:28pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

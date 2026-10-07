@@ -1,0 +1,144 @@
+{
+  "subject_code": "BCS613C",
+  "subject_name": "Natural Language Processing",
+  "semester": 6,
+  "semester_label": "6TH SEM",
+  "modules": {
+    "4": {
+      "title": "Semantics and Discourse",
+      "topics": [
+        "Solidity: The most popular programming language for writing Ethereum smart",
+        "Ganache: A personal blockchain for Ethereum development. It helps developers",
+        "Infura: A cloud-based service that provides scalable access to Ethereum nodes.",
+        "MetaMask: A browser extension that acts as a wallet and interface for Ethereum",
+        "Soft Fork",
+        "Hard Fork",
+        "Nonce-This is a value that is incremented every time a transaction is sent from",
+        "Storageroot This field represents the root node of a Merkle Patricia tree that",
+        "R (32 bytes)",
+        "S (32 bytes)"
+      ],
+      "sources": [
+        "BCS613-module-4-pdf.txt"
+      ],
+      "content_chars": 71528
+    },
+    "1": {
+      "title": "Introduction to NLP",
+      "topics": [
+        "Single Point of Control:",
+        "Scalability Issues:",
+        "Distributed Control:",
+        "Fault Tolerance:",
+        "CAP THEOREM",
+        "BYZANTINE GENERAL PROBLEM",
+        "CONSENSUS",
+        "CONSENSUS MECHANISMS",
+        "TYPES OF CONSENSUS MECHANISM",
+        "THE HISTORY OF BLOCKCHAIN"
+      ],
+      "sources": [
+        "BCS613A-module-1-pdf.txt"
+      ],
+      "content_chars": 58650
+    },
+    "2": {
+      "title": "Text Processing and Morphology",
+      "topics": [
+        "DECENTRALIZATION USING BLOCKCHAIN",
+        "Disintermediation:",
+        "Contest-driven decentralization",
+        "ROUTES TO DECENTRALIZATION",
+        "What is being decentralized?",
+        "What level of decentralization is required?",
+        "What blockchain is used?",
+        "What security mechanism is used?",
+        "Money transfer system",
+        "Disintermediation"
+      ],
+      "sources": [
+        "BCS613A-module-2-pdf.txt"
+      ],
+      "content_chars": 137938
+    },
+    "3": {
+      "title": "Syntax and Parsing",
+      "topics": [
+        "BITCOIN",
+        "BITCOIN DEFINITION",
+        "THE TRANSACTION LIFECYCLE OF A BITCOIN",
+        "The wallet software signs the transaction using the sender's private key.",
+        "Mining nodes (miners) who are listening for the transactions verify and include",
+        "Next, the mining starts, which is the process through which the blockchain is",
+        "Finally, the confirmations start to appear in the receiver's wallet and after",
+        "TRANSACTION POOL",
+        "THE TRANSACTION DATA STRUCTURE",
+        "THE SCRIPT LANGUAGE"
+      ],
+      "sources": [
+        "BCS613A-module-3-pdf.txt"
+      ],
+      "content_chars": 111592
+    },
+    "5": {
+      "title": "NLP Applications",
+      "topics": [
+        "MODULAR APPROACH",
+        "PRIVACY AND CONFIDENTIALITY",
+        "IDENTITY",
+        "AUDITABILITY",
+        "INTEROPERABILITY",
+        "PORTABILITY",
+        "FABRIC",
+        "MEMBERSHIP SERVICES",
+        "User identity validation.",
+        "User registration."
+      ],
+      "sources": [
+        "BCS613A-module-5-pdf.txt"
+      ],
+      "content_chars": 44347
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\BCS613-module-4-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\BCS613A-module-1-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\BCS613A-module-2-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\BCS613A-module-5-pdf.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\BCS613-module-4-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\BCS613A-module-1-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\BCS613A-module-2-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\BCS613A-module-3-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\BCS613A-module-5-pdf.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\question papers\\BCS613A-dec-2025-jan-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\question papers\\BCS613A-dec-2025-jan-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\question papers\\BCS613A-june-july-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\question papers\\BCS613A-june-july-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\question papers\\BCS613C-module-1-textbook-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\question papers\\BCS613C-module-1-textbook-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\question papers\\BCS613C-module-2-textbook-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\question papers\\BCS613C-module-2-textbook-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\question papers\\BCS613C-module-3-textbook-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\question papers\\BCS613C-module-3-textbook-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\question papers\\BCS613C-module-4-textbook-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\question papers\\BCS613C-module-4-textbook-1.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\question papers\\BCS613C-module-5-textbook-1.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\6TH SEM\\BCS613C\\question papers\\BCS613C-module-5-textbook-1.txt"
+    ],
+    "textbook_notes": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\6TH SEM\\BCS613C\\textbook_notes.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to NLP",
+    "2": "Text Processing and Morphology",
+    "3": "Syntax and Parsing",
+    "4": "Semantics and Discourse",
+    "5": "NLP Applications"
+  }
+}

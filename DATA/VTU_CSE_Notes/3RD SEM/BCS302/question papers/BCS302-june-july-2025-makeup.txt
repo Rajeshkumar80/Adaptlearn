@@ -1,0 +1,213 @@
+ 
+     
+ 
+                   
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E/B.Tech. Degree Examination, June/July 2025  
+Digital Design and Computer Organization   
+ 
+Time: 3 hrs.                                                                                                    Max. Marks:100 
+     
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                   2. M : Marks , L: Bloom’s level , C: Course outcomes. 
+    
+ 
+Module – 1 
+M
+L
+C
+1
+a.
+Apply the basic theorems and postulates of Boolean algebra to simplify the 
+following expression to minimum number of literals and draw the original and 
+simplified expressions with logic diagram.  
+i) xy + x1z + yz                                   ii) x + x1y 
+10
+L3 CO1
+b.
+Apply k – map Technique to simplify the function 
+F ( w, x, y, z ) =  (1, 3, 7, 11, 15) and d ( w, x, y, z ) =  ( 0, 2, 5) and also 
+implement the simplified function with NAND gate.  
+10
+L3 CO1
+                                                                       OR
+2
+a.
+Describe Map Method for three variables. 
+7
+L2
+CO1
+b.
+Explain Positive and Negative logic and prove that positive AND is equal to 
+negative OR.  
+7
+L2 CO1
+c.
+Develop a verilog gate –level description of the circuit shown in Fig. Q. 2 ( c) 
+ 
+Fig. Q. 2(c) 
+6
+L3 CO1
+ 
+                                                                  Module – 2 
+3
+a.
+Design a combinational circuit that converts a four – bit BCD code to Excess 
+3 code.  
+10
+L2 CO3
+b.
+Design 3 to 8 decoder.  Also implement full adder using 3 to 8 decoder. 
+10
+L3
+CO2
+                                                                      OR
+4
+a.
+Describe 4  1 mox with block diagram and truth table.  Also develop a 
+behavioral model verilog code for 4  1 mux.  
+10
+L3 CO2
+b. 
+What is flip flop?  Explain positive edge triggered D type of flip flop. 
+10
+L2 CO2
+                                                                Module – 3 
+5
+a.
+With a neat block diagram explain the functional units of computer. 
+10
+L2 CO3
+b.
+Explain the Basic Instruction types with examples. 
+10
+L2 CO3
+1 of 2 
+ 
+USN 
+BCS302
+VTU-10-10-2025 08:19:43am
+10-10-2025 09:04:40am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+                  BCS302 
+                                                                        OR
+6
+a. 
+Define addressing mode. Explain any four types of addressing modes with 
+example.  
+10
+L2
+CO3
+b.
+Develop a program to add list of N numbers using auto increment addressing 
+mode and develop the program for the concept of branching with relevant 
+memory diagram for both data and program.  
+   
+10
+L3 CO3
+                                                                Module – 4 
+7
+a.
+With a neat diagram explain the concept of accessing I/O devices. 
+10
+L2
+CO4
+b.
+What is bus arbitration?  Explain centralized and distributed arbitration 
+method with a neat diagram.  
+ 
+10
+L2 CO4
+                                                                        OR
+8
+a.
+With neat sketches, explain various method for handling multiple interrupt 
+requests raised by multiple devices.  
+10
+L2 CO4
+b.
+What is cache memory?  Explain any two mapping functions of cache 
+memory. 
+  
+10
+L2
+CO4
+                                                                 Module – 5 
+9
+a.
+Draw the single bus architecture and write the control sequence for execution 
+of instruction ADD ( R3) , R1 
+10
+L3 CO5
+b.
+With a suitable diagram explain the concept of register transfer and fetching of 
+word from memory.  
+ 
+10
+L2 CO5
+                                                                       OR
+10
+a.
+With a neat diagram explain the flow of 4 – stage pipeline operation. 
+10
+L2
+CO5
+b.
+Explain the role of cache memory and pipeline performance. 
+ 
+10
+L2
+CO5
+* * * * * 
+                                                                         
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2 of 2 
+ 
+ 
+ 
+ 
+ 
+VTU-10-10-2025 08:19:43am
+10-10-2025 09:04:40am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

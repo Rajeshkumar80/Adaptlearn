@@ -1,0 +1,725 @@
+58
+CHAPTER 2 Parallel hardware and parallel software
+or, at best, unpredictable performance, since each time a running process accessed
+memory, it might access local memory—that is, memory belonging to the core on
+which it was executing—or remote memory, memory belonging to another core. Ac-
+cessing remote memory can take hundreds or even thousands of times longer than
+accessing local memory. As an example, consider the following pseudocode for a
+shared-memory vector addition:
+shared
+i n t
+n = .
+.
+.
+;
+shared
+double
+x [ n ] ,
+y [ n ] ;
+private
+i n t
+i ,
+my_first_element ,
+my_last_element ;
+my_first_element = .
+.
+.
+;
+my_last_element = .
+.
+.
+;
+/∗
+I n i t i a l i z e
+x and y
+∗/
+.
+.
+.
+for
+( i =
+my_first_element ;
+i <=
+my_last_element ;
+i++)
+x [ i ] +=
+y [ i ] ;
+We ﬁrst declare two shared arrays. Then, on the basis of the process’s rank, we de-
+termine which elements of the array “belong” to which process. After initializing the
+arrays, each process adds its assigned elements. If the assigned elements of x and y
+have been allocated so that the elements assigned to each process are in the memory
+attached to the core the process is running on, then this code should be very fast.
+However, if, for example, all of x is assigned to core 0 and all of y is assigned to
+core 1, then the performance is likely to be terrible, since each time the assignment
+x[i] += y[i] is executed, the process will need to refer to remote memory.
+Partitioned global address space, or PGAS, languages provide some of the
+mechanisms of shared-memory programs. However, they provide the programmer
+with tools to avoid the problem we just discussed. Private variables are allocated in
+the local memory of the core on which the process is executing, and the distribution
+of the data in shared data structures is controlled by the programmer. So, for example,
+she knows which elements of a shared array are in which process’s local memory.
+There are several projects currently working on the development of PGAS lan-
+guages. See, for example, [8,54].
+2.4.5 GPU programming
+GPUs are usually not “standalone” processors. They don’t ordinarily run an operating
+system and system services, such as direct access to secondary storage. So program-
+ming a GPU also involves writing code for the CPU “host” system, which runs on an
+ordinary CPU. The memory for the CPU host and the GPU memory are usually sep-
+arate. So the code that runs on the host typically allocates and initializes storage on
+both the CPU and the GPU. It will start the program on the GPU, and it is responsible
+for the output of the results of the GPU program. Thus GPU programming is really
+heterogeneous programming, since it involves programming two different types of
+processors.
+MODULE 2
+
+2.4 Parallel software
+59
+The GPU itself will have one or more processors. Each of these processors is
+capable of running hundreds or thousands of threads. In the systems we’ll be using,
+the processors share a large block of memory, but each individual processor has a
+small block of much faster memory that can only be accessed by threads running on
+that processor. These blocks of faster memory can be thought of as a programmer-
+managed cache.
+The threads running on a processor are typically divided into groups: the threads
+within a group use the SIMD model, and two threads in different groups can run
+independently. The threads in a SIMD group may not run in lockstep. That is, they
+may not all execute the same instruction at the same time. However, no thread in
+the group will execute the next instruction until all the threads in the group have
+completed executing the current instruction. If the threads in a group are executing a
+branch, it may be necessary to idle some of the threads. For example, suppose there
+are 32 threads in a SIMD group, and each thread has a private variable rank_in_gp
+that ranges from 0 to 31. Suppose also that the threads are executing the following
+code:
+/ /
+Thread
+p r i v a t e
+v a r i a b l e s
+i n t
+rank_in_gp ,
+my_x ;
+. . .
+i f
+( rank_in_gp < 16)
+my_x += 1;
+e l s e
+my_x −= 1;
+Then the threads with rank < 16 will execute the ﬁrst assignment, while the threads
+with rank ≥16 are idle. After the threads with rank < 16 are done, the roles will be re-
+versed: the threads with rank < 16 will be idle, while the threads with rank ≥16 will
+execute the second assignment. Of course, idling half the threads for two instructions
+isn’t a very efﬁcient use of the available resources. So it’s up to the programmer to
+minimize branching, where the threads within a SIMD group take different branches.
+Another issue in GPU programming that’s different from CPU programming is
+how the threads are scheduled to execute. GPUs use a hardware scheduler (unlike
+CPUs, which use software to schedule threads and processes), and this hardware
+scheduler uses very little overhead. However, the scheduler will choose to execute
+an instruction when all the threads in the SIMD group are ready. In the preceding
+example, before executing the test, we would want the variable rank_in_gp stored in
+a register by each thread. So, to maximize use of the hardware, we usually create
+a large number of SIMD groups. When this is the case, groups that aren’t ready to
+execute (e.g., they’re waiting for data from memory, or waiting for the completion of
+a previous instruction) can be idled, and the scheduler can choose a SIMD group that
+is ready.
+
+60
+CHAPTER 2 Parallel hardware and parallel software
+2.4.6 Programming hybrid systems
+Before moving on, we should note that it is possible to program systems such as
+clusters of multicore processors using a combination of a shared-memory API on the
+nodes and a distributed-memory API for internode communication. However, this
+is usually only done for programs that require the highest possible levels of perfor-
+mance, since the complexity of this “hybrid” API makes program development much
+more difﬁcult. See, for example, [45]. Rather, such systems are often programmed
+using a single, distributed-memory API for both inter- and intra-node communica-
+tion.
+2.5 Input and output
+2.5.1 MIMD systems
+We’ve generally avoided the issue of input and output. There are a couple of reasons.
+First and foremost, parallel I/O, in which multiple cores access multiple disks or other
+devices, is a subject to which one could easily devote a book. See, for example, [38].
+Second, the vast majority of the programs we’ll develop do very little in the way of
+I/O. The amount of data they read and write is quite small and easily managed by
+the standard C I/O functions printf, fprintf, scanf, and fscanf. However, even the
+limited use we make of these functions can potentially cause some problems. Since
+these functions are part of standard C, which is a serial language, the standard says
+nothing about what happens when they’re called by different processes. On the other
+hand, threads that are forked by a single process do share stdin, stdout, and stderr.
+However, as we’ve seen, when multiple threads attempt to access one of these, the
+outcome is nondeterministic, and it’s impossible to predict what will happen.
+When we call printf from multiple processes/threads, we, as developers, usually
+want the output to appear on the console of a single system, the system on which we
+started the program. In fact, this is what the vast majority of systems do. However,
+with processes, there is no guarantee, and we need to be aware that it is possible for
+a system to do something else: for example, only one process has access to stdout or
+stderr, or even no processes have access to stdout or stderr.
+What should happen with calls to
+scanf when we’re running multiple
+processes/threads is a little less obvious. Should the input be divided among the
+processes/threads? Or should only a single process/thread be allowed to call scanf?
+The vast majority of systems allow at least one process to call scanf—usually
+process 0—while most allow multiple threads to call scanf. Once again, there are
+some systems that don’t allow any processes to call scanf.
+When multiple processes/threads can access stdout, stderr, or stdin, as you
+might guess, the distribution of the input and the sequence of the output are usu-
+ally nondeterministic. For output, the data will probably appear in a different order
+each time the program is run, or, even worse, the output of one process/thread may
+be broken up by the output of another process/thread. For input, the data read by each
+process/thread may be different on each run, even if the same input is used.
+
+2.6 Performance
+61
+To partially address these issues, we’ll be making these assumptions and follow-
+ing these rules when our parallel programs need to do I/O:
+•
+In distributed-memory programs, only process 0 will access stdin. In shared-
+memory programs, only the master thread or thread 0 will access stdin.
+•
+In
+both
+distributed-memory
+and
+shared-memory
+programs,
+all
+the
+processes/threads can access stdout and stderr.
+•
+However, because of the nondeterministic order of output to stdout, in most cases
+only a single process/thread will be used for all output to stdout. The principal
+exception will be output for debugging a program. In this situation, we’ll often
+have multiple processes/threads writing to stdout.
+•
+Only a single process/thread will attempt to access any single ﬁle other than stdin,
+stdout, or stderr. So, for example, each process/thread can open its own, private
+ﬁle for reading or writing, but no two processes/threads will open the same ﬁle.
+•
+Debug output should always include the rank or ID of the process/thread that’s
+generating the output.
+2.5.2 GPUs
+In most cases, the host code in our GPU programs will carry out all I/O. Since we’ll
+only be running one process/thread on the host, the standard C I/O functions should
+behave as they do in ordinary serial C programs.
+The exception to the rule that we use the host for I/O is that when we are debug-
+ging our GPU code, we’ll want to be able to write to stdout and/or stderr. In the
+systems we use, each thread can write to stdout, and, as with MIMD programs, the
+order of the output is nondeterministic. Also in the systems we use, no GPU thread
+has access to stderr, stdin, or secondary storage.
+2.6 Performance
+Of course our main purpose in writing parallel programs is usually increased per-
+formance. So what can we expect? And how can we evaluate our programs? In this
+section, we’ll start by looking at the performance of homogeneous MIMD systems.
+So we’ll assume that all of the cores have the same architecture. Since this is not the
+case for GPUs, we’ll talk about the performance of GPUs in a separate subsection.
+2.6.1 Speedup and efﬁciency in MIMD systems
+Usually the best our parallel program can do is to divide the work equally among
+the cores while at the same time introducing no additional work for the cores. If we
+succeed in doing this, and we run our program with p cores, one thread or process on
+each core, then our parallel program will run p times faster than the serial program
+runs on a single core of the same design. If we call the serial run-time Tserial and
+our parallel run-time Tparallel, then it’s usually the case that the best possible run-time
+
+62
+CHAPTER 2 Parallel hardware and parallel software
+Table 2.4 Speedups and efﬁciencies
+of a parallel program.
+p
+1
+2
+4
+8
+16
+S
+1.0
+1.9
+3.6
+6.5
+10.8
+E = S/p
+1.0
+0.95
+0.90
+0.81
+0.68
+of our parallel program is Tparallel = Tserial/p. When this happens, we say that our
+parallel program has linear speedup.
+In practice, we usually don’t get perfect linear speedup, because the use of mul-
+tiple processes/threads almost invariably introduces some overhead. For example,
+shared-memory programs will almost always have critical sections, which will re-
+quire that we use some mutual exclusion mechanism, such as a mutex. The calls to
+the mutex functions are the overhead that’s not present in the serial program, and
+the use of the mutex forces the parallel program to serialize execution of the criti-
+cal section. Distributed-memory programs will almost always need to transmit data
+across the network, which is usually much slower than local memory access. Serial
+programs, on the other hand, won’t have these overheads. Thus it will be unusual
+for us to ﬁnd that our parallel programs get linear speedup. Furthermore, it’s likely
+that the overheads will increase as we increase the number of processes or threads.
+For example, more threads will probably mean more threads need to access a critical
+section, and more processes will probably mean more data needs to be transmitted
+across the network.
+So if we deﬁne the speedup of a parallel program to be
+S = Tserial
+Tparallel
+,
+then linear speedup has S = p. Furthermore, since as p increases we expect the par-
+allel overhead to increase, we also expect S to become a smaller and smaller fraction
+of the ideal, linear speedup p. Another way of saying this is that S/p will probably
+get smaller and smaller as p increases. Table 2.4 shows an example of the changes in
+S and S/p as p increases.1 This value, S/p, is sometimes called the efﬁciency of the
+parallel program. If we substitute the formula for S, we see that the efﬁciency is
+E = S
+p =
+
+Tserial
+Tparallel
+
+p
+=
+Tserial
+p · Tparallel
+.
+If the serial run-time has been taken on the same type of core that the parallel
+system is using, we can think of efﬁciency as the average utilization of the parallel
+1 These data are taken from Chapter 3. See Tables 3.6 and 3.7.
+
+2.6 Performance
+63
+Table 2.5 Speedups and efﬁciencies of paral-
+lel program on different problem sizes.
+p
+1
+2
+4
+8
+16
+Half
+S
+1.0
+1.9
+3.1
+4.8
+6.2
+E
+1.0
+0.95
+0.78
+0.60
+0.39
+Original
+S
+1.0
+1.9
+3.6
+6.5
+10.8
+E
+1.0
+0.95
+0.90
+0.81
+0.68
+Double
+S
+1.0
+1.9
+3.9
+7.5
+14.2
+E
+1.0
+0.95
+0.98
+0.94
+0.89
+cores on solving the problem. That is, the efﬁciency can be thought of as the fraction
+of the parallel run-time that’s spent, on average, by each core working on solving
+the original problem. The remainder of the parallel run-time is the parallel overhead.
+This can be seen by simply multiplying the efﬁciency and the parallel run-time:
+E · Tparallel =
+Tserial
+p · Tparallel
+· Tparallel = Tserial
+p
+.
+For example, suppose we have Tserial = 24 ms, p = 8, and Tparallel = 4 ms. Then
+E = 24
+8 · 4 = 3
+4,
+and, on average, each process/thread spends 3/4 · 4 = 3 ms on solving the original
+problem, and 4 −3 = 1 ms in parallel overhead.
+Many parallel programs are developed by explicitly dividing the work of the serial
+program among the processes/threads and adding in the necessary “parallel over-
+head,” such as mutual exclusion or communication. Therefore if Toverhead denotes
+this parallel overhead, it’s often the case that
+Tparallel = Tserial/p + Toverhead.
+When this formula applies, it’s clear that the parallel efﬁciency is just the fraction
+of the parallel run-time spent by the parallel program in the original problem, be-
+cause the formula divides the parallel run-time into the time on the original problem,
+Tserial/p, and the time spent in parallel overhead, Toverhead.
+We’ve already seen that Tparallel, S, and E depend on p, the number of processes or
+threads. We also need to keep in mind that Tparallel, S, E, and Tserial all depend on the
+problem size. For example, if we halve and double the problem size of the program,
+whose speedups are shown in Table 2.4, we get the speedups and efﬁciencies shown
+in Table 2.5. The speedups are plotted in Fig. 2.18, and the efﬁciencies are plotted in
+Fig. 2.19.
+We see that in this example, when we increase the problem size, the speedups and
+the efﬁciencies increase, while they decrease when we decrease the problem size.
+
+64
+CHAPTER 2 Parallel hardware and parallel software
+FIGURE 2.18
+Speedups of parallel program on different problem sizes.
+FIGURE 2.19
+Efﬁciencies of parallel program on different problem sizes.
+This behavior is quite common, because in many parallel programs, as the problem
+size is increased but the number of processes/threads is ﬁxed, the parallel overhead
+grows much more slowly than the time spent in solving the original problem. That is,
+
+2.6 Performance
+65
+if we think of Tserial and Toverhead as functions of the problem size, Tserial grows much
+faster as the problem size is increased. Exercise 2.15 goes into more detail.
+A ﬁnal issue to consider is what values of Tserial should be used when reporting
+speedups and efﬁciencies. Some authors say that Tserial should be the run-time of the
+fastest program on the fastest processor available. However, since it’s often the case
+that we think of efﬁciency as the utilization of the cores on the parallel system, in
+practice, most authors use a serial program, on which the parallel program was based
+and run it on a single processor of the parallel system. So if we were studying the
+performance of a parallel shell sort program, authors in the ﬁrst group might use a
+serial radix sort or quicksort on a single core of the fastest system available, while
+authors in the second group would use a serial shell sort on a single processor of the
+parallel system. We’ll generally use the second approach.
+2.6.2 Amdahl’s law
+Back in the 1960s, Gene Amdahl made an observation [3] that’s become known as
+Amdahl’s law. It says, roughly, that unless virtually all of a serial program is paral-
+lelized, the possible speedup is going to be very limited—regardless of the number of
+cores available. Suppose, for example, that we’re able to parallelize 90% of a serial
+program. Furthermore, suppose that the parallelization is “perfect,” that is, regardless
+of the number of cores p we use, the speedup of this part of the program will be p.
+If the serial run-time is Tserial = 20 seconds, then the run-time of the parallelized part
+will be 0.9 × Tserial/p = 18/p and the run-time of the “unparallelized” part will be
+0.1 × Tserial = 2. The overall parallel run-time will be
+Tparallel = 0.9 × Tserial/p + 0.1 × Tserial = 18/p + 2,
+and the speedup will be
+S =
+Tserial
+0.9 × Tserial/p + 0.1 × Tserial
+=
+20
+18/p + 2.
+Now as p gets larger and larger, 0.9 × Tserial/p = 18/p gets closer and closer to 0,
+so the total parallel run-time can’t be smaller than 0.1 × Tserial = 2. That is, the de-
+nominator in S can’t be smaller than 0.1 × Tserial = 2. The fraction S must therefore
+satisfy the inequality
+S ≤
+Tserial
+0.1 × Tserial
+= 20
+2 = 10.
+That is, S ≤10. This is saying that even though we’ve done a perfect job in paral-
+lelizing 90% of the program, and even if we have, say, 1000 cores, we’ll never get a
+speedup better than 10.
+More generally, if a fraction r of our serial program remains unparallelized,
+then Amdahl’s law says we can’t get a speedup better than 1/r. In our example,
+r = 1 −0.9 = 1/10, so we couldn’t get a speedup better than 10. Therefore if a
+
+66
+CHAPTER 2 Parallel hardware and parallel software
+fraction r of our serial program is “inherently serial,” that is, cannot possibly be par-
+allelized, then we can’t possibly get a speedup better than 1/r. Thus even if r is quite
+small—say, 1/100—and we have a system with thousands of cores, we can’t possibly
+get a speedup better than 100.
+This is pretty daunting. Should we give up and go home? Well, no. There are
+several reasons not to be too worried by Amdahl’s law. First, it doesn’t take into con-
+sideration the problem size. For many problems, as we increase the problem size,
+the “inherently serial” fraction of the program decreases in size; a more mathemat-
+ical version of this statement is known as Gustafson’s law [25]. Second, there are
+thousands of programs used by scientists and engineers that routinely obtain huge
+speedups on large distributed-memory systems. Finally, is a small speedup so awful?
+In many cases, obtaining a speedup of 5 or 10 is more than adequate, especially if the
+effort involved in developing the parallel program wasn’t very large.
+2.6.3 Scalability in MIMD systems
+The word “scalable” has a wide variety of informal uses. Indeed, we’ve used it several
+times already. Roughly speaking, a program is scalable if, by increasing the power of
+the system it’s run on (e.g., increasing the number of cores), we can obtain speedups
+over the program when it’s run on a less powerful system (e.g., a system with fewer
+cores). However, in discussions of MIMD parallel program performance, scalabil-
+ity has a somewhat more formal deﬁnition. Suppose we run a parallel program with
+a ﬁxed number of processes/threads and a ﬁxed input size, and we obtain an efﬁ-
+ciency E. Suppose we now increase the number of processes/threads that are used by
+the program. If we can ﬁnd a corresponding rate of increase in the problem size so
+that the program always has efﬁciency E, then the program is scalable.
+As an example, suppose that Tserial = n, where the units of Tserial are in microsec-
+onds, and n is also the problem size. Also suppose that Tparallel = n/p + 1. Then
+E =
+n
+p(n/p + 1) =
+n
+n + p.
+To see if the program is scalable, we increase the number of processes/threads by a
+factor of k, and we want to ﬁnd the factor x that we need to increase the problem size
+by, so that E is unchanged. The number of processes/threads will be kp; the problem
+size will be xn, and we want to solve the following equation for x:
+E =
+n
+n + p =
+xn
+xn + kp.
+Well, if x = k, there will be a common factor of k in the denominator xn + kp =
+kn + kp = k(n + p), and we can reduce the fraction to get
+xn
+xn + kp =
+kn
+k(n + p) =
+n
+n + p.
+
+2.6 Performance
+67
+In other words, if we increase the problem size at the same rate that we increase the
+number of processes/threads, then the efﬁciency will be unchanged, and our program
+is scalable.
+There are a couple of cases that have special names. If, when we increase the
+number of processes/threads, we can keep the efﬁciency ﬁxed without increasing the
+problem size, the program is said to be strongly scalable. If we can keep the efﬁciency
+ﬁxed by increasing the problem size at the same rate as we increase the number of
+processes/threads, then the program is said to be weakly scalable. The program in our
+example would be weakly scalable.
+2.6.4 Taking timings of MIMD programs
+You may have been wondering how we ﬁnd Tserial and Tparallel. There are a lot of
+different approaches, and with parallel programs the details may depend on the API.
+However, there are a few general observations we can make that may make things a
+little easier.
+The ﬁrst thing to note is that there are at least two different reasons for taking tim-
+ings. During program development, we may take timings to determine if the program
+is behaving as we intend. For example, in a distributed-memory program, we might
+be interested in ﬁnding out how much time the processes are spending waiting for
+messages, because if this value is large, there is almost certainly something wrong
+either with our design or our implementation. On the other hand, once we’ve com-
+pleted development of the program, we’re often interested in determining how good
+its performance is. Perhaps surprisingly, the way we take these two timings is usually
+different. For the ﬁrst timing, we usually need very detailed information: How much
+time did the program spend in this part of the program? How much time did it spend
+in that part? For the second, we usually report a single value. Right now we’ll talk
+about the second type of timing. See Exercise 2.21 for a brief discussion of one issue
+in taking the ﬁrst type of timing.
+Second, we’re usually not interested in the time that elapses between the pro-
+gram’s start and the program’s ﬁnish. We’re usually interested only in some part of
+the program. For example, if we write a program that implements bubble sort, we’re
+probably only interested in the time it takes to sort the keys, not the time it takes to
+read them in and print them out. So we probably can’t use something like the Unix
+shell command time, which reports the time taken to run a program from start to
+ﬁnish.
+Third, we’re usually not interested in “CPU time.” This is the time reported by
+the standard C function clock. It’s the total time the program spends in code executed
+as part of the program. It would include the time for code we’ve written; it would
+include the time we spend in library functions, such as pow or sin; and it would in-
+clude the time the operating system spends in functions we call, such as printf and
+scanf. It would not include time the program was idle, and this could be a problem.
+For example, in a distributed-memory program, a process that calls a receive function
+may have to wait for the sending process to execute the matching send, and the op-
+erating system might put the receiving process to sleep while it waits. This idle time
+
+68
+CHAPTER 2 Parallel hardware and parallel software
+wouldn’t be counted as CPU time, since no function that’s been called by the process
+is active. However, it should count in our evaluation of the overall run-time, since it
+may be a real cost in our program. If each time the program is run, the process has
+to wait, ignoring the time it spends waiting would give a misleading picture of the
+actual run-time of the program.
+Thus when you see an article reporting the run-time of a parallel program, the
+reported time is usually “wall clock” time. That is, the authors of the article report
+the time that has elapsed between the start and ﬁnish of execution of the code that the
+user is interested in. If the user could see the execution of the program, she would
+hit the start button on her stopwatch when it begins execution and hit the stop button
+when it stops execution. Of course, she can’t see her code executing, but she can
+modify the source code so that it looks something like this:
+double
+start ,
+finish ;
+.
+.
+.
+start =
+Get_current_time ( ) ;
+/∗Code
+t h a t we want
+to
+time
+∗/
+.
+.
+.
+finish =
+Get_current_time ( ) ;
+printf ( " The
+elapsed
+time
+=
+% e
+seconds \n " ,
+finish−start ) ;
+The function Get_current_time() is a hypothetical function that’s supposed to return
+the number of seconds that have elapsed since some ﬁxed time in the past. It’s just
+a placeholder. The actual function that is used will depend on the API. For example,
+MPI has a function MPI_Wtime that could be used here, and the OpenMP API for
+shared-memory programming has a function omp_get_wtime. Both functions return
+wall clock time instead of CPU time.
+There may be an issue with the resolution of the timer function. The resolu-
+tion is the unit of measurement on the timer. It’s the duration of the shortest event
+that can have a nonzero time. Some timer functions have resolutions in milliseconds
+(10−3 seconds), and when instructions can take times that are less than a nanosecond
+(10−9 seconds), a program may have to execute millions of instructions before the
+timer reports a nonzero time. Many APIs provide a function that reports the resolu-
+tion of the timer. Other APIs specify that a timer must have a given resolution. In
+either case we, as the programmers, need to check these values.
+When we’re timing parallel programs, we need to be a little more careful about
+how the timings are taken. In our example, the code that we want to time is probably
+being executed by multiple processes or threads, and our original timing will result
+in the output of p elapsed times:
+private
+double
+start ,
+finish ;
+.
+.
+.
+start =
+Get_current_time ( ) ;
+/∗Code
+t h a t we want
+to
+time
+∗/
+.
+.
+.
+finish =
+Get_current_time ( ) ;
+printf ( " The
+elapsed
+time
+=
+% e
+seconds \n " ,
+finish−start ) ;
+
+2.6 Performance
+69
+However, what we’re usually interested in is a single time: the time that has elapsed
+from when the ﬁrst process/thread began execution of the code to the time the last
+process/thread ﬁnished execution of the code. We often can’t obtain this exactly, since
+there may not be any correspondence between the clock on one node and the clock
+on another node. We usually settle for a compromise that looks something like this:
+shared
+double
+global_elapsed ;
+private
+double
+my_start ,
+my_finish ,
+my_elapsed ;
+.
+.
+.
+/∗
+Synchronize
+a l l
+p r o c e s s e s / th r e a d s
+∗/
+Barrier ( ) ;
+my_start =
+Get_current_time ( ) ;
+/∗Code
+t h a t we want
+to
+time
+∗/
+.
+.
+.
+my_finish =
+Get_current_time ( ) ;
+my_elapsed =
+my_finish −
+my_start ;
+/∗
+Find
+the max across
+a l l
+p r o c e s s e s / t h r e a d s
+∗/
+global_elapsed =
+Global_max ( my_elapsed ) ;
+i f
+( my_rank == 0)
+printf ( " The
+elapsed
+time
+=
+% e
+seconds \ n " ,
+global_elapsed ) ;
+Here, we ﬁrst execute a barrier function that approximately synchronizes all of the
+processes/threads. We would like for all the processes/threads to return from the
+call simultaneously, but such a function usually can only guarantee that all the pro-
+cesses/threads have started the call when the ﬁrst process/thread returns. We then
+execute the code as before, and each process/thread ﬁnds the time it took. Then all
+the processes/threads call a global maximum function, which returns the largest of
+the elapsed times, and process/thread 0 prints it out.
+We also need to be aware of the variability in timings. When we run a program
+several times, it’s extremely likely that the elapsed time will be different for each run.
+This will be true, even if each time we run the program we use the same input and
+the same systems. It might seem that the best way to deal with this would be to report
+either a mean or a median run-time. However, it’s unlikely that some outside event
+could actually make our program run faster than its best possible run-time. So instead
+of reporting the mean or median time, we usually report the minimum time.
+Running more than one thread per core can cause dramatic increases in the vari-
+ability of timings. More importantly, if we run more than one thread per core, the
+system will have to take extra time to schedule and deschedule cores, and this will
+add to the overall run-time. Therefore we rarely run more than one thread per core.
+Finally, as a practical matter, since our programs won’t be designed for high-
+performance I/O, we’ll usually not include I/O in our reported run-times.
+
+70
+CHAPTER 2 Parallel hardware and parallel software
+2.6.5 GPU performance
+In our discussion of MIMD performance, there is an assumption that we can evalu-
+ate a parallel program by comparing its performance to the performance of a serial
+program. We can, of course, compare the performance of a GPU program to the per-
+formance of a serial program, and it’s quite common to see reported speedups of GPU
+programs over serial programs or parallel MIMD programs.
+However, as we noted in our discussion of efﬁciency of MIMD programs, we
+often assume that the serial program is run on the same type of core that’s used by
+the parallel computer. Since GPUs use cores that are inherently parallel, this type of
+comparison usually doesn’t make sense for GPUs. So efﬁciency is ordinarily not used
+in discussions of the performance of GPUs.
+Similarly, since the cores on the GPU are fundamentally different from conven-
+tional CPUs, it doesn’t make sense to talk about linear speedup of a GPU program
+relative to a serial CPU program.
+Note that since efﬁciency of a GPU program relative to a CPU program doesn’t
+make sense, the formal deﬁnition of the scalability of a MIMD program can’t be
+applied to a GPU program. However, the informal usage of scalability is routinely
+applied to GPUs: a GPU program is scalable if we can increase the size of the GPU
+and obtain speedups over the performance of the program on a smaller GPU.
+If we run the inherently serial part of a GPU program on a conventional, serial
+processor, then Amdahl’s law can be applied to GPU programs, and the resulting
+upper bound on the possible speedup will be the same as the upper bound on the
+possible speedup for a MIMD program. That is, if a fraction r of the original serial
+program isn’t parallelized, and this fraction is run on a conventional serial processor,
+then the best possible speedup of the program running on the GPU and the serial
+processor will be less than 1/r.
+It should be noted that the same caveats that apply to Amdahl’s law on MIMD
+systems also apply to Amdahl’s law on GPUs: It’s likely that the “inherently serial”
+fraction will depend on the problem size, and if it gets smaller as the problem size
+increases, the bound on the best possible speedup will increase. Also, many GPU pro-
+grams obtain huge speedups, and, ﬁnally, a relatively small speedup may be perfectly
+adequate.
+The same basic ideas about timing that we discussed for MIMD programs also
+apply to GPU programs. However, since a GPU program is ordinarily started and
+ﬁnished on a conventional CPU, as long as we’re interested in the performance of the
+entirety of the program running on the GPU, we can usually just use the timer on the
+CPU, starting it before the GPU part(s) of the program are started, and stopping it
+after the GPU part(s) are done. There are more complicated scenarios—e.g., running
+a program on multiple CPU-GPU pairs—that require more care, but we won’t be
+dealing with these types of programs. If we only want to time a subset of the code
+running on the GPU, we’ll need to use a timer deﬁned by the API for the GPU.

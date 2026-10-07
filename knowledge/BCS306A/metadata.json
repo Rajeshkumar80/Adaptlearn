@@ -1,0 +1,132 @@
+{
+  "subject_code": "BCS306A",
+  "subject_name": "Object Oriented Programming with Java",
+  "semester": 3,
+  "semester_label": "3RD SEM",
+  "modules": {
+    "3": {
+      "title": "Exception Handling and Multithreading",
+      "topics": [],
+      "sources": [
+        "BCS306A-module-3-pdf.txt"
+      ],
+      "content_chars": 23851
+    },
+    "4": {
+      "title": "Packages and I/O Streams",
+      "topics": [
+        "OUTPUT"
+      ],
+      "sources": [
+        "BCS306A-module-4-pdf.txt"
+      ],
+      "content_chars": 13316
+    },
+    "5": {
+      "title": "Collections and Generics",
+      "topics": [
+        "It is the thread from which other “child” threads",
+        "Often, it must be the last thread to finish",
+        "Although",
+        "To do so, you must obtain a reference to it by",
+        "Its general form is shown here:",
+        "OUTPUT"
+      ],
+      "sources": [
+        "BCS306A-module-5-pdf.txt"
+      ],
+      "content_chars": 23613
+    },
+    "1": {
+      "title": "Introduction to Java — Classes and Objects",
+      "topics": [
+        "Network Circle,",
+        "Boylston Street, Suite 900",
+        "Creating and Destroying Objects. . . . . . . . . . . . . . . . . . .5",
+        "Methods Common to All Objects. . . . . . . . . . . . . . . . . .33",
+        "CONTENTS",
+        "Classes and Interfaces. . . . . . . . . . . . . . . . . . . . . . . . . . .67",
+        "Enums and Annotations . . . . . . . . . . . . . . . . . . . . . . . .147",
+        "CONTENTS",
+        "General Programming . . . . . . . . . . . . . . . . . . . . . . . . .209",
+        "CONTENTS"
+      ],
+      "sources": [
+        "R1_Effective_Java_Joshua_Bloch.txt"
+      ],
+      "content_chars": 119822
+    },
+    "2": {
+      "title": "Inheritance and Interfaces",
+      "topics": [
+        "Use the == operator to check if the argument is a reference to this object.",
+        "Use the instanceof operator to check if the argument has the correct type.",
+        "Cast the argument to the correct type. Because this cast was preceded by an",
+        "For each “significant” field in the class, check if that field of the argument",
+        "METHODS COMMON TO ALL OBJECTS",
+        "When you are finished writing your equals method, ask yourself three",
+        "METHODS COMMON TO ALL OBJECTS",
+        "Store some constant nonzero value, say, 17, in an int variable called result.",
+        "METHODS COMMON TO ALL OBJECTS",
+        "Return result."
+      ],
+      "sources": [
+        "R1_Effective_Java_Joshua_Bloch.txt"
+      ],
+      "content_chars": 119476
+    }
+  },
+  "sources": {
+    "module_pdfs": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\BCS306A-module-1-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\BCS306A-module-2-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\BCS306A-module-3-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\BCS306A-module-4-pdf.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\BCS306A-module-5-pdf.pdf"
+    ],
+    "module_txts": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\BCS306A-module-1-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\BCS306A-module-2-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\BCS306A-module-3-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\BCS306A-module-4-pdf.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\BCS306A-module-5-pdf.txt"
+    ],
+    "question_papers": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\question papers\\BCS306A-dec-2023-jan-2024.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\question papers\\BCS306A-dec-2023-jan-2024.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\question papers\\BCS306A-dec-2024-jan-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\question papers\\BCS306A-dec-2024-jan-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\question papers\\BCS306A-dec-2025-jan-2026.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\question papers\\BCS306A-dec-2025-jan-2026.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\question papers\\BCS306A-june-july-2025-makeup.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\question papers\\BCS306A-june-july-2025-makeup.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\question papers\\BCS306A-june-july-2025.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\question papers\\BCS306A-june-july-2025.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\question papers\\BCS306A-mdoel-set-1-paper.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Notes\\3RD SEM\\BCS306A\\question papers\\BCS306A-mdoel-set-1-paper.txt"
+    ],
+    "previous_papers": [
+      "D:\\Adaptlearn\\DATA\\question_papers\\3RD SEM\\BCS306A\\previous_papers.md"
+    ],
+    "textbooks": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS306A_Java_Programming\\R1_Effective_Java_Joshua_Bloch.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS306A_Java_Programming\\R1_Effective_Java_Joshua_Bloch.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS306A_Java_Programming\\R2_Java_Concurrency_In_Practice_Goetz.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS306A_Java_Programming\\R2_Java_Concurrency_In_Practice_Goetz.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS306A_Java_Programming\\T1_Java_The_Complete_Reference_Herbert_Schildt.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS306A_Java_Programming\\T1_Java_The_Complete_Reference_Herbert_Schildt.txt",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS306A_Java_Programming\\T2_Core_Java_Volume_I_Fundamentals_Horstmann.pdf",
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_Textbooks\\Sem_3\\BCS306A_Java_Programming\\T2_Core_Java_Volume_I_Fundamentals_Horstmann.txt"
+    ],
+    "course_outcomes": [
+      "D:\\Adaptlearn\\DATA\\VTU_CSE_CourseOutcomes\\Sem_3\\BCS306A\\BCS306A_Object_Oriented_Programming_with_Java.md"
+    ]
+  },
+  "module_titles": {
+    "1": "Introduction to Java — Classes and Objects",
+    "2": "Inheritance and Interfaces",
+    "3": "Exception Handling and Multithreading",
+    "4": "Packages and I/O Streams",
+    "5": "Collections and Generics"
+  }
+}

@@ -1,0 +1,359 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Third Semester B.E./B.Tech. Degree Examination, June/July 2025 
+Operating Systems      
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                      2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a.
+With neat diagram, Explain abstract view of the components of a computer 
+system.  
+ 
+6 
+L3
+CO1
+ 
+b.
+With neat diagram, explain virtual, non virtual and VM ware architecture.  
+ 
+8 
+L3 
+CO1
+ 
+c. Explain with neat diagram Dual-Mode operation.  
+ 
+6 
+L3 
+CO1
+                                                                           OR 
+Q.2 
+a.
+Explain types of system calls provided by operating system.  
+6 
+L3
+CO1
+ 
+b.
+Explain with neat diagram simple structure of MS-DOS layer structure and 
+unix system structure.  
+8 
+L3 
+CO1
+ 
+c. Explain operating-system services.  
+ 
+6 
+L3 
+CO1
+                                                                      Module – 2  
+Q.3 
+a.
+Explain process state with diagram.  
+ 
+5 
+L2
+CO2
+ 
+b.
+What do you mean by interprocess communication? Explain two model of 
+interprocess communication.  
+ 
+9 
+L2 
+CO2
+ 
+c. What are three types of multithreading models? Explain.  
+ 
+6 
+L2 
+CO2
+                                                                           OR 
+Q.4 
+a.
+What do you mean by thread libraries? Discuss threading issues.  
+ 
+5 
+L2
+CO2
+ 
+b.
+Consider the following set of four process with length of CPU burst given 
+in MS: 
+Process
+Burst time
+P1 
+24 
+P2
+3
+P3 
+3 
+Compute the waiting time and average turn around time for the above 
+process using FCFS scheduling algorithm.  
+10
+L2 
+CO2
+ 
+c. With diagram explain SMT architecture.  
+5 
+L2 
+CO2
+                                                                      Module – 3  
+Q.5 
+a.
+What is critical section problem? Explain Peterson’s solution and 
+synchronization hardware solution for critical section problem. 
+10
+L3
+CO3
+ 
+b.
+Write a code for readers-writers process. 
+6 
+L3 
+CO3
+ 
+c. Discuss the structure of philosopher.  
+4 
+L3 
+CO3
+ 
+1 of 2 
+ 
+USN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BCS303
+VTU-14-10-2025 08:46:43am
+14-10-2025 09:01:04am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+BCS303
+                                                                          OR
+Q.6 
+a.
+What are the four necessary condition for deadlock occurrence?  
+ 
+4 
+L3
+CO3
+ 
+b.
+Explain with neat diagram resource-allocation graph for deadlock 
+avoidance.  
+ 
+6 
+L3 
+CO3
+ 
+c. 
+ 
+Consider the following snapshot of the system: 
+Process
+Allocation
+Max
+Available
+A
+B
+C
+A
+B
+C
+A
+B
+C
+P0
+0
+1
+0
+7
+5
+3
+3
+3
+2
+P1 
+2 
+0 
+0 
+3 
+2 
+2
+ 
+ 
+ 
+P2
+3
+0
+2
+9
+0
+2
+P3 
+2 
+1 
+1 
+2 
+2 
+2
+ 
+ 
+ 
+P4 
+0 
+0 
+2 
+4 
+3 
+3
+ 
+ 
+ 
+Determine whether the system is safe using Banker’s algorithm. If the 
+request for P1 arrives for (1, 0, 2) can the request be granted immediately.  
+ 
+10
+L3 
+CO4
+                                                                      Module – 4  
+Q.7 
+a.
+Explain the following with respect to dynamic storage allocation: 
+i) First fit          ii) Best fit           iii) Worst fit 
+ 
+3 
+L3
+CO4
+ 
+b.
+What is Paging? Explain with neat diagram paging hardware and paging 
+model of logical and physical memory.  
+ 
+10
+L3 
+CO4
+ 
+c. With neat diagram, explain segmentation hardware.  
+ 
+7 
+L3 
+CO4
+                                                                           OR 
+Q.8 
+a.
+With neat diagram, explain demand paging system.   
+ 
+6 
+L3
+CO4
+ 
+b.
+Consider the page reference string: 
+7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1 
+for a memory with 3 frames. Determine the number of page faults using 
+FiFO, optimal and LRU replacement algorithms. Which algorithm is most 
+efficient?  
+ 
+9 
+L3 
+CO1
+ 
+c. Write a note on copy_on_write technique.  
+ 
+5 
+L3 
+CO1
+                                                                     Module – 5 
+Q.9 
+a.
+Explain bit vector and linked free-space list on disc. 
+6 
+L3
+CO5
+CO6
+ 
+b.
+Explain with neat diagram contiguous allocation and indexed allocation.  
+ 
+8 
+L3 
+CO5
+CO6
+ 
+c. With neat diagram single level and two level directory structure. 
+6 
+L3 
+CO5
+CO6
+                                                                          OR
+Q.10
+a. Discuss network attached storage.  
+ 
+5 
+L3
+CO5
+CO6
+ 
+b.
+A disk drive has 200 cylinders 0 to 199. Head starts at 53 to serve the 
+request queue: 
+98, 183, 37, 122, 14, 124, 65, 67. Draw disk head schedule diagram and 
+explain for FCFS, SSTF, C-SCAN and C-LOCK. 
+ 
+10
+L3 
+CO5
+CO6
+ 
+c. Explain the concept of access matrix.  
+5 
+L3 
+CO5
+CO6
+* * * * * 
+2 of 2 
+VTU-14-10-2025 08:46:43am
+14-10-2025 09:01:04am
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

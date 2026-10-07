@@ -1,0 +1,268 @@
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fourth Semester B.E./B.Tech. Degree Examination, June/July 2025 
+Biology for Engineers (CSE)     
+ 
+Time: 3 hrs.                                                                                                Max. Marks: 100 
+ 
+Note: 1. Answer any FIVE full questions, choosing ONE full question from each module. 
+                       2. M : Marks , L: Bloom’s level , C: Course outcomes.    
+ 
+                  Module – 1 
+M
+L 
+C 
+Q.1 
+a. Define Cell. Explain function and structure of cell. 
+ 
+7 
+L2 CO1
+ 
+b.
+List the various hormones and write the functions of them.  
+  
+7 
+L2 
+CO1
+ 
+c. Demonstrate the properties and function of lipids.  
+ 
+6 
+L3 
+CO1
+                                                                           OR 
+Q.2 
+a. What are stem cells? Discuss the function of stem cells.  
+ 
+7 
+L2 CO1
+ 
+b.
+List the vitamins and write the functions of them.  
+ 
+7 
+L2 
+CO1
+ 
+c. Demonstrate the properties and function of nuclic acids.  
+ 
+6 
+L3 
+CO1
+                                                                      Module – 2  
+Q.3 
+a. Define Biomolecule. List the classification of biomolecules with each one 
+example in short in engineering application.  
+ 
+7 
+L2 CO2
+ 
+b.
+Explain the applications of enzymes in biosensors and bio bleaching.  
+ 
+7 
+L2 
+CO2
+ 
+c. What is DNA finger printing? Explain the process involved in DNA finger 
+printing.  
+ 
+6 
+L3 
+CO2
+                                                                           OR 
+Q.4 
+a. Explain the properties of cellulose as an effective water filter.  
+ 
+7 
+L2 CO2
+ 
+b.
+List the properties of PHA and explain the engineering applications of 
+PHA. 
+ 
+7 
+L2 
+CO2
+ 
+c. Demonstrate whey as a protein. 
+ 
+6 
+L3 
+CO2
+                                                                      Module – 3  
+Q.5 
+a. Define ECG. Explain in detail.  
+  
+7 
+L2 CO3
+ 
+b.
+How kidney will be used as a filteration system, explain with one type of 
+dialysis example.  
+ 
+7 
+L2 
+CO3
+ 
+c. Illustrate Brain as a CPU system.  
+ 
+6 
+L3 
+CO3
+ 
+1 of 2 
+ 
+USN 
+BBOC407 
+VTU-17-06-2025 01:18:45pm
+17-06-2025 01:31:10pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+
+ 
+BBOC407
+ 
+                                                                           OR 
+Q.6 
+a. Briefly discuss the various bio engineering solutions for muscular 
+dystrophy. 
+  
+7 
+L2 CO3
+ 
+b.
+Explain robotic arms for Prosthetic device. 
+ 
+7 
+L2 
+CO3
+ 
+c. Illustrate eye as a camera system.  
+ 
+6 
+L3 
+CO3
+                                                                      Module – 4  
+Q.7 
+a. Compare the process of photo synthesis to the functioning of photo 
+synthesis to the functioning of photovoltaic cells.  
+ 
+7 
+L2 CO4
+ 
+b.
+Super hydrophobic and self cleaning surfaces. Explain in detail.  
+ 
+7 
+L2 
+CO4
+ 
+c. Write a note on Lotus leaf effect.  
+ 
+6 
+L3 
+CO4
+                                                                           OR 
+Q.8 
+a. Compare HBOC’s and PEC. 
+ 
+7 
+L2 CO4
+ 
+b.
+How shark skin and swim suits are using biological concepts.   
+ 
+7 
+L2 
+CO4
+ 
+c. Write a note on GPS technology.  
+ 
+6 
+L3 
+CO4
+                                                                      Module – 5  
+Q.9 
+a. Explain in detail flow AI will be used in all disease diagnosis.  
+ 
+7 
+L2 CO5
+ 
+b.
+Demonstrate bioremediation and biomining.  
+ 
+7 
+L3 
+CO5
+ 
+c. Explain muscular system as a scaffold.  
+ 
+6 
+L2 
+CO5
+                                                                           OR 
+Q.10
+a. Explain in detail electrical nose in food science.  
+ 
+7 
+L2 CO5
+ 
+b.
+Demonstrate bioprinting technique list all of them.  
+ 
+7 
+L3 
+CO5
+ 
+c. Explain DNA origami and Bio computing.  
+ 
+6 
+L2 
+CO5
+* * * * * 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2 of 2 
+VTU-17-06-2025 01:18:45pm
+17-06-2025 01:31:10pm
+AD - AD - AD - AD - AD - AD - AD - AD - AD
+AD - AD - AD - AD - AD - AD - AD - AD - AD

@@ -1,0 +1,1441 @@
+ 
+ 
+ 
+MODULE 3: INTELLECTUAL PROPERTY RIGHTS, PATENTS AND 
+PROCESS OF PATENTING 
+Syllabus 
+ 
+Introduction to Intellectual Property: Role of IP in the Economic and Cultural Development of 
+the Society, IP Governance, IP as a Global Indicator of Innovation, Origin of IP, History of IP in 
+India, Major Amendments in IP Laws and Acts in India. 
+ 
+Patents: Conditions for Obtaining a Patent Protection, To Patent or Not to Patent an Invention, 
+Rights Associated with Patents, Enforcement of Patent Rights, Inventions, and Eligible for 
+Patenting, Non-Patentable Matters, Patent Infringements, Avoid Public Disclosure of an 
+Invention before Patenting. 
+ 
+Process of Patenting: Prior Art Search, Choice of Application to be Filed, Patent Application 
+Forms, Jurisdiction of Filing Patent Application, Publication, Pre-grant Opposition, Examination, 
+Grant of a Patent, Validity of Patent Protection, Post-grant Opposition, Commercialization of a 
+Patent, Need for a Patent Attorney/Agent, Can a Worldwide Patent be Obtained, Do I Need First 
+to File a Patent in India, Patent Related Forms, Fee Structure, Types of Patent Applications, 
+Commonly Used Terms in Patenting, National Bodies Dealing with Patent Affairs, Utility 
+Models 
+ 
+ 
+ 
+ 
+INTRODUCTION TO INTELLECTUAL PROPERTY 
+ 
+ Intellectual Property (IP) is the terminology attributed to intangible assets having 
+commercial value, and arising from human intelligence, creativity, and imagination, but 
+typically lacking physical form. 
+ Intellectual Property Rights (IPR) is the privileges accorded to the creator/inventor (of IP) 
+in conformance with the laws. These rights are given to the creator/inventor in exchange 
+for revealing the process of creation/invention in the public domain. The inventor is 
+conferred with the special rights to use, sell, distribute, offering for sale and restricting 
+others from using the invention without his prior permission 
+    Page 1
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ Broadly, IP comprises of two branches i.e. Copyrights and Related Rights and Industrial 
+Property Rights. 
+o Copyrights and Related Rights refer to the creative expressions in the fields of 
+literature and art, such as books, publications, architecture, music, wood/stone 
+carvings, 
+pictures, 
+portrays 
+sculptures, 
+films 
+and 
+computer-based 
+software‘s/databases. 
+o The Industrial Property Rights refer to the Patents, Trademarks, Trade Services, 
+Industrial Designs and Geographical Indications 
+ Copyright: Copyright is the right bestowed on the owner or creator in relation to 
+publication, and distribution of a piece of writing, music, picture or related works. 
+Copyright also applies to technical contents such as software, datasheets and related 
+documents. 
+ Patents: A patent is a legal record that bestows the holder the exclusive right over an 
+invention as per the claims, in a limited geographical domain and for a limited duration 
+by thwarting possible interested parties from any form of manufacture, use or sale of the 
+product or outcome of the invention 
+ Trademarks: A trademark is a sign that suitably differentiates the owner‘s goods or 
+services from those of others 
+ Trade services: Any services in relation to trade or any trade related financing, lending 
+or other financial accommodation provided(or to be provided) by the bank, including but 
+not limited to issuance/amendment of letter of credit, document arrival under letter of 
+credit, application for negotiation and inquiries etc., 
+ Industrial Designs: An industrial design protection is related to certain specific 
+ornamental shapes associated with products whose duplication the owner may wish to 
+prevent 
+ Geographical Indications: A geographical indication (GI) is a name or sign used on 
+products which corresponds to a specific geographical location or origin. Items that meet 
+geographical origin and quality standards may be endorsed with a government-issued 
+stamp which acts as official certification of the origins and standards of the product. 
+    Page 2
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ROLE OF IP IN THE ECONOMIC AND CULTURAL DEVELOPMENT OF THE 
+SOCIETY 
+ Creativity being the keystone of progress, no civilized society can afford to ignore the 
+basic requirement of encouraging the same. The economic and social development of a 
+society is largely dependent on creativity. 
+ The protection provided by the IPR to the creators/innovators is in fact an act of 
+incentivization for encouraging them to create more and motivates others to create new. 
+ However, if IPR is practiced rigidly, it may have a negative impact on the progress of 
+society. For example, compliance with the Trade-Related Aspects of Intellectual Property 
+Rights (TRIPS) Agreement has affected the farming community as they are unable to 
+store seeds for the next crop. Multinational companies regulate the price of seeds, which 
+is generally beyond the reach of a majority of the farmers. 
+ To circumvent the negative impact of IPR, certain laws, exceptions and limitations 
+associated with IPR have been enacted to maintain a balance between the interests of the 
+creators/inventors and the community. 
+ For example, farmers rights under the Protection of Plant Varieties and Farmers Rights 
+(PVP&FR) Act, 2001 entitles them to many privileges, such as Rights on seeds provides 
+rights to the farmers to save seeds, use seeds and share, exchange or sell seeds to other 
+farmers. 
+ Right to protection against accusations of infringement protects the farmers from 
+infringement and other legal accusation levied upon them due to his legal ignorance in 
+using other‗s plant varieties. 
+ The use of copyrighted material for education and religious ceremonies is exempted from 
+the operation of the rights granted in the Copyright Act. 
+ Similarly, a patent can be revoked in favor of compulsory licensing by the government 
+during an emergency or a natural calamity. 
+ In addition, if an invention/creation is not in the interest of society, it is not registered by 
+the government for grant of any rights associated with IP. For example, cloning of human 
+embryos is banned for IP protection, and so is the creation of super microbial pathogens, 
+which can play havoc with human lives. 
+    Page 3
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+IP GOVERNANCE 
+ 
+ Since IP is an integral component of human society, each and every nation has dedicated 
+agencies for laying out the guidelines, implementation and enforcement of IP related 
+matters. 
+ In India, many organizations/agencies deal with various aspects of IP. The governance of 
+all categories of IP, except the Plant Variety and Farmers Rights Act, is carried out by the 
+Department for Promotion of Industry & Internal Trade (DPIIT) under the aegis of 
+Ministry of Commerce and Industry, Govt. of India. 
+ There are a few other dedicated organizations/departments established by the government 
+to 
+promote 
+patent-ecosystem 
+(patent 
+awareness, 
+patent 
+filing 
+and 
+patent 
+commercialization) in India e.g. Technology Information Forecasting and Assessment 
+Council (TIFAC), National Research Development Corporation (NRDC) and Cell for 
+IPR Promotion and Management (CIPAM), etc. 
+ In order to create a hassle-free exchange of IP related activities amongst all the nations, it 
+is imperative to have minimum standards of rules and regulations pertaining to all aspects 
+of IP including rights, empowerment, exceptions, etc. 
+ To achieve this goal, the United Nations (UN) has established an organization called the 
+World Intellectual Property Organization (WIPO). 
+ This agency is at the forefront of imparting knowledge about IP and governs international 
+filing and registration of IP through various Conventions and Treaties like Paris 
+Conventions, Patent Cooperation Treaty (PCT), Rome Convention, Berne Convention, 
+etc. 
+ 
+IP AS A GLOBAL INDICATOR OF INNOVATION 
+ 
+ IP, especially patents, is considered as one of the important cogs in assessing the 
+innovation index of a nation. 
+ The global ranking organizations always have IP or a subset of IP as one of the 
+parameters for understanding and grading the Science, Technology and Innovation (STI) 
+ecosystem of a nation. 
+    Page 4
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ For example, the Scimago (publically available online portal which ranks journals and 
+countries based on the data taken from Scopus) 2020 report ranked India at 4th position 
+in the parameter of a number of Research Publications and 50th position in the parameter 
+of Intellectual Property Rights. 
+ The global ranking can be improved by sensitizing the teaching and scientific 
+communities about the importance of IP and creating infrastructure for the same in the 
+institutes of higher learning. 
+ 
+ORIGIN OF IP 
+ 
+ Though there is no official record of the origin of IP, it is believed that a rudimentary 
+form of IP was being practiced around 500 Before the Common Era (BCE) in Sybaris, a 
+state of Greece. 
+ The natives of Sybaris were granted a year‗s protection for using their intellect to create 
+ 
+any new improvement in luxury. 
+ A practical and pragmatic approach for IP governance started taking shape in medieval 
+Europe. In 1623, Britain passed an Intellectual Property Legislation which entitled guilds 
+(association of artisans or merchants) to create innovations and bring them to market for 
+trade purposes. 
+ However, this legislation brought a lot of resentment amongst the public, and thus was 
+replaced by the Statute of Monopolies‗, which gave the rights to the original 
+creator/inventor for 14 years. Another legislation, Statute of Anne‗, was passed by the 
+British parliament in 1710. 
+ This legislation aimed at strengthening copyrights by providing rights to the authors for 
+recreation and distribution of their work. The work could also be renewed for another 14 
+years. 
+ By the end of the 18th century and the beginning of the 19th century, almost every 
+country started laying down IP legislation to protect their novel inventions and creations. 
+    Page 5
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+HISTORY OF IP IN INDIA 
+ 
+Patents 
+ 
+ The history of the Indian patent system dates back to the pre independence era of British 
+rule. The first patent related legislation in India was Act VI of 1856, adapted from the 
+British Patent Law of 1852. The objective of this legislation was to encourage the 
+inventions of new and useful manufactures. 
+ At the beginning of the 20th century, all the earlier Acts related to inventions and designs 
+were done away with the introduction of ―The Indian Patents and Designs Act‖ 1911 (Act 
+II of 1911). 
+ As per this Act, the governance of patents was placed under the management of the 
+Controller of Patents. In the next three decades, many amendments were introduced for 
+reciprocal arrangements with other countries for securing priority dates. These 
+amendments dealt with; 
+o Use of invention by the government 
+o Patent of Addition 
+o Enhancing the term of the patent from 14 years to 16 years. 
+o Filing of Provisional Application and submission of Complete Application 
+within 9 months from the date of filing the application. 
+ Keeping the national interest in mind, recommendations were made in 1949 as a 
+modification to existing ―The Indian Patents and Designs Act‖. And those 
+recommendations are as follows 
+o Misuse of patents rights needs to be prevented. 
+o There must be a clear indication in the Act that food, medicine and surgical and 
+curative devices should be made available to the masses at the cheapest rate by 
+giving reasonable compensation to the owner of the patent. 
+o Amendments in Sections 22, 23 and 23A of the Patent and Design Act, 1911 on 
+the lines of the UK Patent Act. 
+ These recommendations were introduced in the Act XXXII of 1950. 
+ Two years later, another amendment (Act LXX of 1952) was made to provide 
+compulsory licensing of patents related to food, drugs and chemicals killing insects and 
+    Page 6
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+microbes. Based on these amendments, a bill was presented in the parliament in 1953 but 
+was rejected. 
+ In 1957 a committee was constituted and the committee submitted its report to the 
+government in 1959. It comprised of two segments addressing 
+o General aspects of the patent laws, and 
+o Bill rejected back in 1953. 
+ The revised patent legislation was submitted to the Lok Sabha in 1965. After many 
+hiccups, clarifications and modifications the Patents Act, 1970 
+ In 1999, The Patents (Amendment) Act, 1999 was introduced providing for the filing of 
+applications for ‗Product Patents‗ in the areas of drugs, pharmaceuticals and 
+agrochemicals 
+ The new Patent Act also included provisions for the grant of Exclusive Market Rights 
+(EMRs) for the distribution and sale of pharma products on fulfillment of certain 
+conditions. The second amendment to the 1970 Act was made through the Patents 
+(Amendment) Act, 2002 (Act 38 of 2002). This Act introduced new Patent Rules, 2003, 
+thus replacing the earlier Patents Rules, 1972. 
+ With the rapidly changing scenario of IPR at a global level, a need was felt to further 
+amend the Patent Act, 1970. The highlight of the Patents (Amendments) Act 2005 were: 
+o Product patent for inventions in all fields of technology. 
+o New forms of known substances excluded to prevent ever greening of the patent. 
+o Rationalization of the opposition procedure. 
+o Introduction of pre-grant opposition by representation. 
+o Introduction of post-grant opposition. 
+o Compulsory license for export purposes. 
+o Compulsory license for manufacture. 
+o Extension of grace period from 6 months to 12 months for filing a patent, if 
+published in government exhibition. 
+ 
+Copyrights and related rights 
+ 
+ The concept of copyrights started way back in the 15th century. However, the actual need 
+for copyrights law was felt only after the invention of printers and copiers. 
+    Page 7
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ Before the invention of printers, writing could be created only once. It was highly 
+laborious and the risk of errors was involved in the manual process of copying by a 
+scribe. 
+ The evolution of copyrights law in India occurred in three phases. First, two phases were 
+enacted during the British Raj. 
+o In the first phase, the concept of copyrights was introduced in 1847 through an 
+enactment during the East India Company‗s regime. The term of copyrights was 
+for the lifetime of the author plus seven years after death. The registration of 
+copyright was mandatory for the enforcement of rights under the Act. The 
+government could grant a compulsory license to publish a book if the owner of 
+the copyright, upon the death of the author, refused to allow its publication. 
+o In the second phase Indian legislature, under the British Raj, enacted the 
+Copyright Act of 1914 based on the Imperial Copyright Act (1911) of the UK. An 
+Act for criminal sanction for an infringement was introduced. 
+o The third phase of the copyrights regime was witnessed post-independence. The 
+Copyright Act 1957 was enacted, superseding the Indian Copyright Act, 1914, in 
+order to suit the provisions of the Berne Convention (1886). 
+ The 1957 Act has been amended six times (1983, 1984, 1992, 1994 and 1999, 2012), to 
+comply with WIPO Copyright Treaty (WCT), 1996 and WIPO Performances and 
+Phonograms Treaty (WPPT), 1996. 
+ India is an active member of nearly all significant international Conventions/Treaties 
+related to Copyright Law e.g. the Berne Convention as modified in Paris in 1971, the 
+Universal Copyright Convention (1951), the Rome Convention (1961), WCT, WPPT and 
+(TRIPS, 1995). 
+ 
+Trademarks 
+ 
+ The first statutory law related to Trademarks (TM) in India was the Trade Marks Act, 
+1940, which was carved out from the Trade Marks Act, 1938 of the UK. 
+ It was followed by the incorporation of provisions of TM stated in the Indian Penal Code, 
+Criminal Procedure Code and the Sea Customs Act. 
+    Page 8
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ Later on, Trade Marks Act, 1940 was rechristened as Trade and Merchandise Marks Act, 
+1958. 
+ Nearly four decades later, this Act was repealed by the Trade Marks Act, 1999. The need 
+for this occurred to comply with the provisions of the TRIPS. It is the current governing 
+law related to register TM. 
+ 
+Geographical Indications 
+ 
+ India, as a member of WTO, enacted the Geographical Indications of Goods (Registration 
+and Protection) Act, 1999. 
+ It came into force with effect from 15th September 2003. Geographical Indicators have 
+been defined under Article 22 (1) of the WTO Agreement on TRIPS. 
+ 
+Industrial Design 
+ 
+ The need to protect Industrial Designs (ID) was recognized in the 18th century and the 
+Indian legislation enacted the ―Patterns and Designs Act‖ in 1872 for the first time. The 
+Act was enacted to protect the rights over the creation of the designs and novel patterns 
+by the inventors. 
+ The Act was replaced by the British Patents and Designs Act in 1907, which later became 
+the basis for the Indian Patents and Designs Act, 1911. 
+ In 1970, a separate Act was enacted for the patent, i.e. the Patent Act, 1970. The Indian 
+Patents and Designs Act, 1911, remained in force for designs only. 
+ Finally, in the year 2000, a dedicated Act for the ID was passed, which came into force in 
+2001. 
+ 
+Semiconductor Integrated Circuits and Layout designs 
+ 
+ In the 21st century, Information Technology (IT) has revolutionized the economic and 
+societal growth of the world economy. 
+ The rapid and tremendous scientific advancements in the field of IT resulted in the 
+creation of a new class of IP called the Layout-Design of the Semiconductor Integrated 
+Circuits. Various organizations, including WTO and TRIPS Agreement laid down rules 
+    Page 9
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+and regulations regarding the protection of Semiconductor Integrated Circuits and Layout 
+Designs (SICLD) 
+ India being a member of the WTO also passed an Act called the SICLD Act, 2000. This 
+Act is TRIPS compliant and fulfils the conditions of the TRIPS agreement (Articles. 35 
+to 38) concerning the protection of SICLD. 
+ 
+Plant varieties 
+ 
+ Till 1970s, not much emphasis was laid on patentable matter originating from animals 
+and plants. However, microbes and microbial products/processes were patentable. 
+ To include all kinds of biological materials under the ambit of patent laws, a decision to 
+enact a new sui generis law under the International Convention for the Protection of New 
+Varieties of Plants (UPOV, 1978) and UPOV, 1991 was taken. 
+ These decisions were taken to address environmental and public interest concerns. 
+ The Indian Patents Act, 1970 excludes ―plants and animals in whole or any part thereof 
+other than microorganisms‖ from patentability. 
+ To comply with the mandate of Article 27.3 (b) of TRIPS, India adopted the Protection of 
+Plant Varieties and Farmers Rights (PPV&FR) Act, 2001 as a sui generis regime 
+protecting not only new plant varieties but also farmer‘s rights. 
+ 
+Biodiversity conservation 
+ 
+ In 1927 the ―Indian Forest Act‖ and later on the ―Wildlife Protection Act‖ 1972 was 
+enacted to provide legal protection to biodiversity. 
+ In 1988, the ―National Forest Policy‖ was passed, which brought revolutionary changes 
+in the conservation and management of biodiversity. 
+ The Acts and policies in force to protect the environment and biodiversity in India 
+include Mining and Mineral Development Regulation Act, 1957; Water (prevention and 
+control of pollution) Act, 1974; Forest Conservation Act, 1980; Biological Diversity Act, 
+2002; Scheduled Tribes and other Traditional Forest Dwellers (recognition of rights) Act, 
+2006; National Biodiversity Action Plan, 2009; National Environment Policy, 2006 and a 
+few more. 
+  Page 10
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+MAJOR AMENDMENTS IN IP LAWS AND ACTS IN INDIA 
+ 
+In order to fill the gaps existing in the IP Laws and Acts and also to introduce new 
+guidelines/directions based on the current scenario (socially and politically), each nation keeps 
+on updating the concerned IP Laws and Acts. Some of the salient amendments made in Indian 
+Laws and Acts on IPR are mentioned below: 
+Sl. No 
+Year 
+Historical Proceedings 
+PATENTS 
+1 
+1856 
+ 
+The Act VI of 1856 on the protection of inventions based on the 
+British Patent Law of 1852. 
+2 
+1859 
+ Rights renamed as "Exclusive Privileges" 
+ Time for the priority increased from 6 months to 12 months. 
+3 
+1883 
+ The Patterns and Designs Protection Act 
+ Introduction of novelty in the invention. 
+ A grace period of 6 months for the disclosure of the invention. 
+4 
+1911 
+ Renamed as "The Indian Patent and Design Act" and brought under 
+the management of "Controller of Patents" 
+5 
+1930 
+ Introduction of Patent of Addition. 
+ Government can use the invention if required. 
+ The term of patent protection increased from 14 to 16 years. 
+6 
+1945 
+ Filing of the provisional specification to secure the priority date. 
+ Provision of submitting complete specifications within 9 months. 
+7 
+1949 
+ Dedicated Committee formed under the leadership of Justice Bakshi 
+Tek Chand for reviewing patent system as per the national 
+Environment. 
+8 
+1950 
+ A working statement needs to be submitted at the Patent Office 
+ Endorsement of the Patents with the words "License of Right‖ on the 
+application made by the government so that the Controller could grant 
+The license. 
+9 
+1952 
+ Provision of "Compulsory License" in the areas of food, medicine and 
+insecticide germicide. 
+ Process for producing substance or any invention relating to surgical 
+  Page 11
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ 
+or curative devices. 
+10 
+1965 
+ After incorporation of the recommendation submitted by the 
+committee formed in 1949, a new bill was introduced in Lok Sabha 
+but was not cleared. 
+11 
+1967 
+ Again submitted to Parliamentary Committee. 
+ 1911 Act remained applicable for Designs. 
+12 
+1970 
+ The Patent Act, 1970 passed by the Parliament Committee. 
+13 
+1972 
+ The Patent Act, 1970 came into force with the introduction of patent 
+rules. 
+14 
+1995 
+ TRIPS Agreement was signed by India and got transition period 1995- 
+2005 to make domestic laws compatible with TRIPS. 
+15 
+1999 
+ Introducing the provisions for receiving the applications for the 
+product patent in the field of pharmaceuticals and agro-chemicals 
+(mail box)*. 
+ Provisions for the grant of EMRs for distribution and sale of pharma 
+products on fulfillment of certain conditions. 
+ Grant of EMR subject to certain conditions. After the amendments 
+(1999) the product patents related to the pharmaceuticals and 
+agrochemicals were kept on hold for examination till 2005. It is called 
+a mailbox or black box. 
+16 
+2002 
+ The uniform 20-year term of the patent for all inventions. 
+ Disclosure of source and geographical origin of biological material 
+made compulsory. 
+ Establishment of Appellate Board. 
+ Compulsory License provisions strengthened. 
+17 
+2003 
+ The Patents Rules, 2003 were introduced. 
+18 
+2005 
+ Product patent for inventions in all fields of technology including 
+food, drug, chemicals and microorganisms. 
+ New forms of known substances excluded in order to prevent the ever- 
+greening of the patent. 
+ Introduction of the pre-grant opposition. 
+  Page 12
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ 
+ Introduction of post-grant opposition. 
+ Extension of grace period to 12 months. 
+COPYRIGHTS AND RELATED RIGHTS 
+1 
+1847 
+ The concept of Copyrights in India was introduced. 
+ Validity - Lifetime+7 years but not more than 42 years in total. 
+2 
+1914 
+ Copyright Act, 1914 was introduced based on the 
+ Imperial Copyright Act, 1911 of UK. 
+3 
+1957 
+ Copyright Act, 1914 was replaced with Copyright Act, 1957 with 
+minor modifications 
+4 
+1984 
+ Penalty on second and subsequent conviction 
+5 
+1994 
+ Registration of Copyright Society made mandatory 
+6 
+2012 
+ To comply with international Treaties for copyrights protection in the 
+digital environment. 
+ Right to receive royalties for authors and music composers. 
+ Exception of copyrights for physically disabled persons to access any 
+work. 
+7 
+2013 
+ Copyrights Rules, 2013 introduced. 
+TRADEMARKS 
+1 
+1940 
+ Trademarks Registry established in India. 
+2 
+1958 
+ The Trade and Merchandise Marks Act, 1958 enacted as per TRIPS 
+Agreement. 
+3 
+1999 
+ Amended to avoid duplicity and ensure securing proprietors trade and 
+goodwill 
+4 
+2002 
+ Trademarks Rules introduced. 
+5 
+2010 
+ Amended to comply with Madrid Protocol for international filing. 
+ Provision for filing opposition of the registration within 4 months.\ 
+6 
+2013 
+ Trademarks Rules introduced. 
+GEOGRAPHICAL INDICATIONS 
+1 
+1999 
+ Being a member of the World Trade Organization (TRIPS), GI of 
+goods (Registration and Protection) Act was introduced. 
+  Page 13
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ 
+2 
+2002 
+ The Geographical Indications of Goods (Registration and Protection) 
+Rules, 2002 was introduced. 
+3 
+2003 
+ The Geographical Indications of Goods (Registration & Protection) 
+Act came into force 
+INDUSTRIAL DESIGNS/ DESIGNS 
+1 
+1872 
+ Patterns and Designs Protection Act introduced for the protection of 
+new patterns and designs. 
+2 
+1888 
+ Amended as Invention and Design Act, 1988 for the protection of new 
+inventions and designs. 
+3 
+1911 
+ Renamed as The Indian Patent and Design Act. 
+4 
+2000 
+ Design Act, 2000 was introduced; separated from the Indian Patent 
+and Design Act. 
+5 
+2001 
+ Design Rules, 2001 introduced. 
+SEMICONDUCTOR INTEGRATED CIRCUITS: LAYOUT DESIGNS (SICLD) 
+1 
+2000 
+ Semiconductor Integrated Circuits Layout Design (SICLD) Act 2000 
+introduced as a signatory of WTO. 
+2 
+2001 
+ SICLD Rules introduced. 
+PROTECTION OF PLANT VARITIES AND FARMERS RIGHTS 
+1 
+1970 
+ The Patent Act, 1970 excluded plants and animals in whole or in any 
+part from patentability (in 1999 amendments). 
+2 
+1991 
+ Enactment of protection of new varieties of plants on sui generis basis 
+on the lines of UPOV. 
+3 
+2001 
+ In line with TRIPS Agreement enactment of PPV&FR Act was 
+introduced. 
+BIOLOGICAL DIVERSITY 
+1 
+2002 
+ The Biological Diversity Act, 2002 introduced on the lines of the 
+Convention on Biological Diversity (CBD, 1992). 
+2 
+2003 
+ Establishment of National Biodiversity Authority. 
+ Designation of repositories under the Biological Diversity Act 
+3 
+2004 
+ Biological Diversity Rules introduced. 
+  Page 14
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+PATENTS 
+ A patent is an exclusive right granted for an innovation that generally provides a new 
+way of doing something or offers a new technical solution to a problem. 
+ The exclusive right legally protects the invention from being copied or reproduced by 
+others. 
+ In return, the invention must be disclosed in an application in a manner sufficiently clear 
+and complete to enable it to be replicated by a person with an ordinary level of skill in the 
+relevant field. 
+ 
+CONDITIONS FOR OBTAINING A PATENT PROTECTION 
+ 
+There is a set criterion, as provided in Section 2(1)(j) of the Patents Act, 1970, which must be 
+fulfilled for a product or a process to qualify for the grant of a patent. The criterion encompasses: 
+ Novelty - Not part of ‘State of the Art’. The innovation claimed in the patent application 
+is new and not known to anybody in the world. In other words, the innovation is 
+o not in the knowledge of the public, 
+o not published anywhere through any means of publication and 
+o not be claimed in any other specification by any other applicant. 
+ Inventive step - Not obvious to the person (s) skilled in the art. The innovation is 
+o a technical advancement over the existing knowledge, 
+o possesses economic significance and, 
+o not obvious to a person skilled in the concerned subject. 
+ Capable of industrial application - For the benefit of society. The invention is capable of 
+being made or used in any industry. 
+ 
+TO PATENT OR NOT TO PATENT AN INVENTION 
+ 
+ Once an invention has been developed, the inventor has to decide whether to exploit the 
+invention for personal benefits as provided by the statutory laws of the country or put it in 
+the public domain. 
+ By and large, the inventor prefers the former option. Only a miniscule of inventions is 
+placed in the public domain without claiming any benefits. 
+  Page 15
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ In the latter case, anybody can exploit the innovation for commercial or societal benefit 
+without paying any money to the inventor. 
+ If the owner of an invention wishes to seek monetary gains, he can choose from either of 
+the two options, i.e. patenting or Trade Secret. If the inventor is absolutely sure of 
+maintaining the secrecy of invention for a very long period (maybe 100 years or more) 
+and the probability of reverse engineering of the technology is nil or very low, then the 
+―Trade Secret‖ category is preferred. 
+ If the invention has a short life span or can be kept secret only for a small period of time 
+(a couple of years or so) or the probability of reverse engineering is high once the 
+invention is in the public domain, then the ―patent‖ category is preferred. 
+ 
+RIGHTS ASSOCIATED WITH PATENTS 
+ 
+ As per the Court of Law, a patent owner has the right to decide who may or may not use 
+the patented invention. 
+ In other words, the patent protection provided by the law states that the invention cannot 
+be commercially made, used, distributed, imported, or sold by others without the patent 
+owner's consent. 
+ The patent owner may permit other parties to use the invention on mutually agreed terms. 
+ As a matter of fact, the patent rights are negative rights as the owner is restricting others 
+from using the patent in any manner without his prior permission. 
+ The patent holder may choose to sue the infringing party to stop illegal use of the patent 
+and also ask for compensation for the unauthorized use. 
+ 
+ENFORCEMENT OF PATENT RIGHTS 
+ 
+ Enforcement is the process of ensuring compliance with laws, regulations, rules, 
+standards and social norms. 
+ Patent rights are usually enforced by the judicial courts. 
+ The Court of Law has the authority to stop patent infringement. 
+ However, the main responsibility for monitoring, identifying and taking action against 
+infringers of a patent lies with the patent owner. 
+  Page 16
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+INVENTIONS ELIGIBLE FOR PATENTING 
+ 
+ Patents may be granted for inventions/technologies in any field, ranging from a paper clip 
+or ballpoint pen to a nanotechnology chip or a Harvard mouse (mouse with cancer 
+genes). 
+ It is a general belief that patents are awarded only to major scientific breakthroughs. But, 
+it is not true. 
+ In fact, the majority of patents are granted to inventions displaying an improvement over 
+the existing invention. 
+ For example, many patents can be awarded to a single molecule e.g. penicillin‘s (an 
+antibiotic that kills microbes) and its derivatives. The derivatives are made by making 
+subtle changes in the structure of the penicillin resulting in new/improved properties, 
+such as acid stability or temperature stability or killing a wide range of microbes (germs). 
+The new antibiotic molecules, known as second, third or fourth generation penicillin‘s 
+can also be patented. 
+ In our daily life, we use many patented items, such as toothbrush, toothpaste, shoes, pen, 
+eyeglasses, textiles, mobile phones, wrist watch, bicycle, scooter, car, television, cold 
+drinks, beverages and many more. 
+ It is not uncommon that many products contain several inventions (patents) e.g. the 
+laptop computer involves hundreds of inventions working together. Similarly, cars, 
+mobile phones and televisions have many patented components. 
+ 
+NON-PATENTABLE MATTERS 
+ 
+In the Patent Act, 1970, there are some exclusion (product and processes) that cannot be 
+patented, such as: 
+ Invention contrary to public morality - a method for human cloning, a method for 
+gambling. 
+ Mere discovery - finding a new micro-organism occurring freely in nature, laws of 
+gravity. 
+ Mere discovery of a new form of a known substance - use of aspirin for heart 
+treatment. Aspirin was patented for reducing fever and mild pains. 
+  Page 17
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ Frivolous invention - dough supplemented with herbs, merely changing the taste of the 
+dough, 100 years calendar, and bus timetable. 
+ Arrangement or rearrangement - an umbrella fitted with a fan, a torch attached to a 
+bucket. 
+ Inventions falling within Section 20(1) of the Atomic Energy Act, 1962 - inventions 
+relating to compounds of Uranium, Beryllium, Thorium, Plutonium, Radium, Graphite, 
+Lithium and more as notified by the Central Government from time to time. 
+ Literary, dramatic, musical, artistic work - books, sculptures, drawings, paintings, 
+computer programmer, mathematical calculations, online chatting method, method of 
+teaching, method of learning a language as they are the subject matter of Copyright Act. 
+1957. 
+ Topography of integrated circuits - protection of layout designs of integrated circuits is 
+provided separately under the Semiconductor Integrated Circuit Layout Designs Act, 
+2000. 
+ Plants and animals - plants and animals in whole or any part including seeds, varieties 
+and species and essentially biological processes for the production or propagation of 
+plants and animals are excluded from the scope of protection under patents. 
+ Traditional knowledge - an invention which in effect is traditional knowledge or which 
+is an aggregation or duplication of known properties of traditionally known components 
+are also excluded. 
+ 
+PATENT INFRINGEMENTS 
+ 
+ Once the patent is granted to the applicant, he owns the right to use or exploit the 
+invention in any capacity. If anyone uses the invention without the prior permission of 
+the owner, that act will be considered an infringement of the invention. Infringements can 
+be classified into two categories 
+ Direct Infringement - when a product is substantially close to any patented product or in 
+a case where the marketing or commercial use of the invention is carried out without the 
+permission of the owner of the invention. 
+ Indirect Infringement - When some amount of deceit or accidental infringement 
+happens without any intention of infringement. If such an unlawful act has been 
+  Page 18
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+committed, the patentee holds the right to sue the infringer through judicial intervention. 
+Every country has certain laws to deal with such unlawful acts. Following reliefs are 
+made available to the patentee: 
+o Interlocutory/interim injunction. 
+o Damages or accounts of profits. 
+o Permanent injunction 
+ 
+AVOID PUBLIC DISCLOSURE OF AN INVENTION BEFORE PATENTING 
+ 
+ Generally, an invention that has been either published or publicly displayed cannot be 
+patented, as the claimed invention will lose the Novelty ‗criterion. 
+ However, under certain circumstances, the Patents Act provides a grace period of 12 
+months for filing a patent application from the date of its publication in a journal or 
+presentation in a reputed scientific society or exhibition. 
+ Sometimes, disclosure of an invention before filing a patent application is unavoidable, 
+e.g. selling your invention to a potential investor or a business partner who would like to 
+know complete details of the invention in order to judge its commercial value. In such a 
+case, it is advisable to sign a Non-Disclosure Agreement (NDA) or any other confidential 
+agreement to safeguards your interest 
+ 
+PROCESS OF PATENTING 
+ 
+ In India, the process of grant of a patent is a lengthy procedure that may take anywhere 3- 
+4 years or more. The major steps involved in this process are listed in figure 
+ 
+  Page 19
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ While the process of patenting includes – Prior art search, Choice of Application to be 
+Filed, Patent Application Forms, Jurisdiction of Filing Patent Application, Publication, 
+Pre-grant Opposition, Examination, Grant of a Patent, Validity of Patent Protection, Post- 
+grant Opposition 
+ 
+PRIOR ART SEARCH 
+ 
+ Before an inventor embarks upon the patent filing process, he has to ensure that his 
+invention is novel as per the criterion for the grant of a patent. For this, he/she has to 
+check whether or not his invention already exists in the public domain. 
+ For this, he/she needs to read patent documents and Non-Patent Literature (NPL), 
+scientific journals/reports/magazines, etc. 
+ The information lying in the public domain in any form, either before the filing of the 
+patent application or the priority date of the patent application claiming the invention, is 
+termed as Prior Art. 
+ Conducting a prior art search before filing the patent has advantages as it averts 
+infringement, tracks research and development and provides access to detailed 
+information on the invention. 
+ The prior art search is carried out on the parameters such as novelty, patentability, state 
+of the art, infringement, validity and freedom to operate. 
+ The commonly used databases for prior art search fall in two categories i.e. Patents 
+Databases and NPL. The patent databases are 
+o Indian 
+Patent 
+Advanced 
+Search 
+System 
+(InPASS- 
+http://ipindiaservices.gov.in/publicsearch/). 
+o Patentscope (WIPO- https://www.wipo.int/patentscope/en/). 
+o Espacenet (EU- https://worldwide.espacenet.com/patent/). 
+o USPTO (USA- https://www.uspto.gov/). 
+o Google Patents Advanced Search (https://patents.google.com/advanced). 
+o Orbit Intelligence (https://www.questel.com/business-intelligence-software/orbit- 
+intelligence/). 
+o Derwent 
+Innovation 
+(https://clarivate.com/derwent/solutions/derwent- 
+innovation/). 
+  Page 20
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+o PROQUEST (https://about.proquest.com/search/?searchKeyword=patent+). 
+ Non-Patent Literature (NPL) 
+o Scholarly 
+publications: 
+Handbooks, 
+Textbooks, 
+Withdrawn, 
+Patents, 
+Encyclopedias, Journals (IEEE, Research Gate, Springer, Wiley Online Library, 
+etc.), Dissertations, NCBI‗s, PubMed, Conference Proceedings, Technical 
+Reports, Public Conferences, etc. 
+o Industry/trade publications: Industry reviews and public disclosures (Social 
+media, YouTube, Books, Magazines, Datasheets, Blueprints, etc.). 
+o Others: Newspapers, Websites, Technology blogs, Researchers websites, etc. 
+o Although, majority of NPL data is available freely on the public forum, some of 
+the journals are paid and can be accessed after paying the subscription. 
+o Major Patent Office‘s such as the United States Patent and Trademark Office's 
+(USPTO), European Patent Office (EPO), Japan Patent Office (JPO), etc. are 
+maintaining in house NPL databases to make patents examination more effective 
+ 
+CHOICE OF APPLICATION TO BE FILED 
+ 
+Once a decision has been made to patent the invention, the next step is, what kind of application 
+needs to be filed i.e. provisional patent application or complete (Final) patent application - 
+generally, the provisional patent application is preferred for the following reasons: 
+ 
+ It is cheaper, takes less time, and involves fewer formalities. 
+ Any improvements made in the invention after the filing of the provisional application 
+can be included in the final application. In other words, the provisional application does 
+not require complete specifications of the inventions. The application can be filed even 
+though some data is yet to be collected from pending experiments. 
+ A provisional application allows you to secure a priority date for the patent applied. 
+ 
+PATENT APPLICATION FORMS 
+ 
+ As per the Patent Act, 1970 (Section 39) and the Patents Rules, 2003 (Rule 7, 54, 135 and 
+sub rule (1) of rule 20, the application for the grant of patent is filed using Form-1 and 
+Form-2. 
+  Page 21
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ The information sought in Form-1 is general in nature i.e. Title of Application, Names of 
+Applicant(s) and Inventor(s), Type of Application (Ordinary, Convention, PCT-NP 
+(PCT- National Phase), Divisional, Patent of Addition, etc.). 
+ Whereas Form-2 seeks technical information and whether to file the provisional 
+application or complete the application. For Provisional Application, only Description of 
+the Invention and the Abstract is to be furnished. Whereas, Complete Application 
+requires Description of the Invention, Abstract, Claims and the manner in which 
+invention have to be performed. 
+ The Claims of the patent are a very crucial part of the specifications because they define 
+the actual boundary of the invention. 
+ Claims specify what is actually claimed by the invention and what is being sought to be 
+protected. It clearly describes what the patent does and does not cover 
+ 
+  Page 22
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ 
+ 
+  Page 23
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  Page 24
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ 
+ 
+ Page 25
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+JURISDICTION OF FILING PATENT APPLICATION 
+ 
+Region 
+States 
+Address 
+NORTH 
+Haryana, Himachal Pradesh, Punjab, 
+Rajasthan, Uttar Pradesh, 
+Uttarakhand, Delhi and the Union 
+Territory of Chandigarh, Jammu and 
+Kashmir and Ladakh. 
+Intellectual Property Office Building, Plot 
+No. 32, 
+Sector 14, Dwarka, 
+New Delhi-110078 
+Phone: 011-28032491 
+Fax: 011-28034301 
+Email: delhi-patent@nic.in 
+SOUTH 
+Andhra Pradesh, Karnataka, Kerala, 
+Tamil Nadu, Telangana and the 
+Union Territories of Pondicherry 
+and Lakshadweep 
+Patent Office Intellectual Property Building 
+G.S.T. Road, Guindy, Chennai-600032 
+Phone: 044-22505242 
+Fax: 044-22502066 
+Email: chennaipatent@nic.in 
+WEST 
+Maharashtra, Gujarat, Madhya 
+Pradesh, Goa and Chhattisgarh and 
+the Union Territories of Daman and 
+Diu & Dadra and Nagar Haveli 
+Boudhik Sampada Bhawan, Antop Hill, S. M. 
+Road, Mumbai - 400 037. 
+Phone: 022- 24153651, 24148165 
+Fax: 022-24130387 
+Email: mumbaipatent@nic.in 
+REST OF 
+INDIA 
+Remaining States 
+Intellectual Property Office Building, CP-2 
+Sector V, Salt Lake City, Kolkata-700091 
+Phone: 033-23679101, 
+033-23671987 
+Fax: 033-23671988 
+Email: kolkatapatent@nic.in 
+ 
+PUBLICATION 
+ 
+ Once the patent application has been filed at the Regional Patent Office, the patent 
+application is kept secret for 18 months in the Patent Office. 
+  Page 26
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ After the expiry of 18 months (from the date of filing of the application or the priority 
+claimed date, whichever is earlier), the application is published in the Official Journal 
+of Patent Office (http://www.ipindia.nic.in/journalpatents.html). 
+ The purpose of publishing the application is to inform the public about the invention. 
+The publication of an application is a mandatory step. 
+ 
+PRE-GRANT OPPOSITION 
+ 
+ If anybody has an objection to the invention claimed in the patent application, he/she can 
+challenge the application by approaching the Controller of Patents within 6 months from 
+the date of publication. It is termed as Pre-grant Opposition. 
+ Depending on the outcome of the case, the patent application may be rejected or 
+recommended for the next step, i.e. patent examination. 
+ Although the patent application is kept secret for 18 months, but under special 
+circumstances, this period can be reduced when the patentee/applicant plans to sell or 
+license the patent or seek an investor). 
+ For this, the applicant has to fill a Form-9 and submit it to the Controller General. 
+ 
+EXAMINATION 
+ 
+ Patent examination is a critical step in the process of grant of a patent. All the important 
+criteria (novel, inventive step, etc.) are scrutinized by the professionals depending on the 
+content of the invention. 
+ Usually, the examiner raises certain queries/doubts which need to be addressed by the 
+inventors. Once the examiner is satisfied with the answers received from the inventors, 
+the application is recommended for the grant of a patent. 
+ It is pertinent to mention that a patent application is not examined automatically after 
+clearing the publication stage. The applicant or his representative has to make a request 
+for examination of the patent by filing Form-18A and submitting the same within 48 
+months from the date of filing of the application 
+  Page 27
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+GRANT OF PATENT 
+ 
+ After fulfilling all the requirements for the grant of a patent, including all 
+objections/queries raised by the Patent Examiner and the public at large, the patent is 
+granted to the applicant. 
+ The granted patent is published in the Official Journal of the Patent Office. 
+ This journal is published every Friday and contains information related to patent 
+applications published under section (u/s) 11A, post-grant publication, restoration of 
+patent, notifications, list of non-working patents and public notices issued by the Patent 
+Office. 
+ 
+VALIDITY OF PATENT PROTECTION 
+ 
+ The patent protection is granted to an applicant for a limited period, generally 20 years, 
+starting from the date of filing of the application. 
+ Once a patent is granted for an invention in India, the next vital step is to ensure that it is 
+renewed annually by paying Patent Renewal Fee as per Section 53, Rule 80 of the Indian 
+Patents Act, till the expiry of the patent grant period. 
+ Non-payment of Patent Renewal Fee might result in the cancellation of the patent. 
+ In some countries, patent protection may be extended beyond 20 years. 
+ The extension aims to compensate for the time expended on the administrative approval 
+procedure before products can be put on the market. The time taken for this procedure 
+means that the patent owner may sometimes not be able to benefit from his right for a 
+considerable period after the grant of the patent. 
+ 
+POST GRANT OPPOSITION 
+ 
+ Once the patent has been granted by the Patent Office, it still can be challenged by 
+anyone within one year from the date of publication of the grant of the patent. 
+ The granted patent can be challenged either via a Patent Office or in a Court of Law. 
+ These bodies may invalidate or revoke a patent upon a successful challenge by the 
+interested party on the grounds mentioned below: 
+  Page 28
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+o The applicant for the patent wrongfully obtained the invention or any part of the 
+invention. 
+o The invention claimed has been published before the priority date. 
+o The invention claimed was publicly known / used before the priority date. 
+o The invention claimed is obvious and does not involve an inventive step. 
+o The subject of the claim is not patentable as per Chapter II of the Patent Act, 
+1970. 
+o The details/specifications of the invention do not sufficiently and clearly describe 
+the invention. 
+ 
+COMMERCIALIZATION OF A PATENT 
+ 
+ The patent owner may grant permission to an individual/organization/industry to make, 
+use, and sell his patented invention. This takes place according to agreed terms and 
+conditions between the involving parties. 
+ A patent owner may grant a license to a third party for the reasons mentioned below: 
+o The patent owner has a decent job e.g. university professor and has no desire or 
+aptitude to exploit the patent on his own. 
+o The patent owner may not have the necessary manufacturing facilities. 
+o The manufacturing facility is not able to meet the market demand. 
+o The patent owner wishes to concentrate on one geographic market; for other 
+geographical markets, he may choose to license the patent rights. 
+ Once the patent is granted, the patentee (person holding the rights to the patent) enjoys 
+the exclusive rights to use the patented invention. 
+ Only the patentee has the right to license or deal with the patent for any deliberations. 
+Although, the validity of the granted patent is for 20 years (from the date of filing a 
+patent application), but the patentee is required to furnish information (Form-27), on an 
+annual basis relating to the commercialization/selling of the patent. It is called as 
+Working/Licensing of the Patent. 
+ The licensing of a patent can be exclusive or non-exclusive. 
+  Page 29
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ In an Exclusive License, the patent is sold to only one individual/organization for a fixed 
+time period. During this time period, no other person or entity can exploit the relevant IP 
+except the named licensee. 
+ In Non-Exclusive License, a patentee can sell his patent rights to as many 
+individuals/parties as he likes. If the patentee is not able to commercialize his patent 
+within three years from the date of the grant of a patent, any person may submit an 
+application to the Controller of Patents for grant of Compulsory Licensing (of the patent), 
+subject to the fulfillment of following conditions: 
+o Reasonable requirements of the public concerning the patented invention have not 
+been satisfied. 
+o The patented invention is not available to the public at a reasonable price. 
+o The patented invention is not worked in the territory of India. 
+ 
+NEED FOR PATENT ATTORNEY / AGENT 
+ 
+ In general, applicants can prepare their patent applications and file them without 
+assistance from a patent attorney. 
+ However, given the complexity of patent documents, it is advisable to seek legal 
+assistance from a patent attorney/agent when drafting a patent application. 
+ Furthermore, the legislation of many countries requires that an applicant, whose ordinary 
+residence or principal place of business is outside the country, be represented by an 
+attorney or agent qualified in the country (which usually means an agent or attorney who 
+resides and practices in that country 
+ 
+CAN A WORLDWIDE PATENT BE OBTAINED? 
+ 
+ There is no such term as Universal Patent or World Patent or International Patent as the 
+patent rights are territorial. 
+ An application for a patent must be filed with a Patent Office of the country in which one 
+wishes to seek patent protection. Unfortunately, this option becomes laborious, 
+cumbersome, time consuming and expensive if one wishes to file a patent application in 
+many countries. 
+  Page 30
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ To ease out this issue, many Regional Offices have been established which receive patent 
+applications on behalf of a group of nations e.g. European Patent Office and African 
+Regional Intellectual Property Organization. 
+ A single application is sufficient to cover many nations that are members of a particular 
+regional office/organization. 
+ However, if one wishes to seek patent protection in several countries worldwide, it is 
+preferred to file an international patent under the Patent Cooperation Treaty (PCT). 
+ The only condition is that the applicant‗s country should be a member of PCT. India, 
+along with over 190 nations, is a member of PCT. 
+ 
+DO I NEED FIRST TO FILE A PATENT IN INDIA 
+ 
+ Yes, in general, Indian residents are required to file the patent application first in India. 
+Subsequently, they may file for patent protection in other countries. 
+ But for this, prior approval is needed from the Patent Office. However, this approval can 
+be waived off under the following circumstances: 
+o The applicant is not an Indian resident. 
+o If 6 weeks have expired since the patent application was filed in India by an 
+Indian resident. 
+o If two or more inventors are working on an invention in a foreign country and one 
+of the inventors is an Indian resident. The invention does not have a potential 
+market in India and hence does not wish to file the patent in India. In such a 
+scenario, the Indian resident has to seek Foreign Filing Permission (FFP) from an 
+Indian Patent Office. 
+o In case of international collaboration, if one part of the invention originated in 
+India and the inventor is an Indian resident, he has to seek permission to file the 
+patent outside India. 
+o If the invention is related to defense or atomic energy or utility model, the 
+inventor/s needs to seek permission from the Indian Patent Office because 
+inventions related to these domains are not the subject matter of patentability in 
+India. 
+  Page 31
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+PATENT RELATED FORMS 
+ 
+ There are over 30 patent-related forms. Some of them are mentioned below. 
+ 
+ 
+FEES STRUCTURE 
+ 
+ As per the patent Act, 1970 and The Patents Rules (1972), the requisite fee has been 
+specified based on the type of form/s to be submitted to the Office. 
+ Electronically filed applications are 10% cheaper than physical filing. 
+  Page 32
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+TYPES OF PATENT APPLICATIONS 
+ 
+ Provisional Application - A patent application filed when the invention is not fully 
+finalized and some part of the invention is still under experimentation. Such type of 
+application helps to obtain the priority date for the invention. 
+ Ordinary Application - A patent application filed with complete specifications and 
+claims but without claiming any priority date. 
+ PCT Application - An international application filed in accordance with PCT. A single 
+application can be filed to seek patent protection and claim priority in all the member 
+countries of PCT. 
+ Divisional Application - When an application claims more than one invention, the 
+applicant on his own or to meet the official objection on the ground of plurality may 
+  Page 33
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+divide the application and file two or more applications. This application divided out of 
+the parent one is known as a Divisional Application. 
+ Patent of Addition Application - When an invention is a slight modification of the 
+earlier invention for which the patentee has already applied for or has obtained a patent, 
+the applicant can go for Patent of Addition, if the modification in the invention is new. 
+Benefit - There is no need to pay a separate renewal fee for the Patent of Addition, during 
+the term of the main patent. It expires along with the main patent. 
+ Convention Application - If a patent application has been filed in the Indian Patent 
+Office and the applicant wishes to file the same invention in the one or more Convention 
+countries (e.g. Paris Convention) by claiming the same priority date on which application 
+was filed in India, such an application is known as Convention Application. The 
+applicant has to file Convention Application within 12 months from the date of filing in 
+India to claim the same priority date. 
+ 
+COMMONLY USED TERMS IN PATENTING 
+ 
+Sl. No 
+Terms 
+Definition 
+1 
+Inventor 
+Creator of an invention 
+2 
+Applicant 
+Organization/individual/industry that 
+files 
+a 
+patent 
+application or applies for a patent 
+3 
+Patentee 
+A person/organization who owns the patent (granted) 
+4 
+Licensee 
+Organization/individual/industry which obtains a license 
+of the patent from the Patentee for commercialization 
+purpose 
+5 
+Assignee 
+A person in whose name patent has been assigned legally 
+6 
+In force 
+The applicant is paying the annuity (renewal fee) for the 
+patent to keep it alive (Active Patent) 
+7 
+Working of a patent 
+The selling   of   a   patent   to   an   individual/party   for 
+commercial exploitation is called as working of a patent 
+8 
+Patent Specification 
+Patent specification is a written description of the 
+invention and the way of representation and process of 
+making and using the same 
+  Page 34
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ 
+9 
+Priority right 
+It is a time-limited right, activated by the first filing of an 
+application for a patent 
+10 
+Priority date 
+The claimed date on which the first application for the 
+invention is filed 
+11 
+Patent claims 
+Claims can be defined as the scope of the protection 
+conferred by a patent, or the protection sought in a patent 
+application. The purpose of the claims is to define which 
+subject matter is protected by the patent 
+12 
+National phase application 
+An application filed to obtain patents in different 
+countries 
+simultaneously 
+based 
+on 
+a 
+single 
+International/PCT application 
+13 
+Patent revocation 
+The revocation means cancellation of the patent due to 
+certain reasons, such as lack of patentability or 
+wrongfully obtaining a patent 
+14 
+Restoration of patent 
+Once a patent has been ceased (e.g. due to non-payment 
+of the fee) it can be restored within a permitted period by 
+paying the requisite fee 
+ 
+NATIONAL BODIES DEALING WITH PATENT AFFAIRS 
+There are many departments/organizations/bodies dealing with various aspects of patents, 
+namely, 
+ The Indian Patent Office (IPO) - The Office of the Controller General of Patents, 
+Designs and Trade Marks generally known as the Indian Patent Office, is an agency 
+under the Department for Promotion of Industry and Internal Trade which administers the 
+Indian law of Patents, Designs and Trade Marks. 
+ Department for Promotion for Industry and Internal Trade (DPIIT) - DPIIT, earlier 
+known as the Department of Industrial Policy and Promotion (DIPP), under the Ministry 
+of Commerce and Industry, Govt. of India, is the apex IP body. It came into existence in 
+1995 and is the main body for regulating and administering the industrial sector. 
+ Technology Information, Forecasting and Assessment Council (TIFAC) - The 
+importance of undertaking technology forecasting and assessment studies on a systematic 
+  Page 35
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+and continuing basis was highlighted in the Government of India‗s Technology Policy 
+Statement (TPS) of 1983. Therefore in 1985, TIFAC was established as an autonomous 
+body, registered as a Society in 1988, under the Department of Science and Technology. 
+It is an important cog in filling a critical gap in the overall Science and Technology 
+system of India. Its mission is to assess the state-of-art of technologies and set directions 
+for future technological developments in India in important socio-economic sectors 
+ National Research Development Corporation (NRDC) - NRDC, an enterprise of 
+Department of Scientific & Industrial Research (DSIR), Govt. of India, was set up in 
+1953 with a mandate to develop, promote and transfer/commercialize IP and technologies 
+emanating 
+from 
+Higher 
+Education 
+Institutes 
+(HEIs), 
+R&D 
+research 
+laboratories/institutions and Public Sector Undertakings (PSUs). NRDC has a repository 
+of 2500 Indian technologies, filed over 1700 Patents and transferred about 5000 
+technologies in different sectors in India. It has also created a technology data bank 
+(http://fccollc.com/nrdclive/) containing information regarding technologies available in 
+various fields, such as electrical & electronics, mechanical, coil, mining, biotechnology, 
+healthcare, leather, etc. 
+ 
+UTILITY MODELS 
+ 
+ In many cases, a new invention involves an incremental improvement over the existing 
+products, but this technical improvement is not sufficient enough to pass the stringent 
+criterion of Novelty and Non-obviousness set aside for the grant of a patent. Such small 
+innovations can still be legally protected in some countries and termed as ‗Utility 
+Models‘ or ‗Petty Patents‘ or ‗Innovation Patents‘. 
+ In this case, the criterion of Novelty and Non-obviousness are diluted or relinquished. 
+But the requirement of industrial application or utility is the same as that for patents. 
+ Utility Model is a helpful tool for Micro, Small and Medium Enterprises (MSME) since 
+the grant of a Utility Model is usually less rigorous and involves minimal cost. 
+ MSMEs do not have deep pockets to carry out intensive R&D leading to the grant of 
+patents. But their innovations are good enough for improving their products/processes 
+and bringing more financial rewards. Such inventions pass the requirements set aside for 
+Utility Models but not for patents. 
+  Page 36
+https://vtucod e.in
+RM& IPR– BRMK557
+
+ 
+ 
+ 
+ The life of the Utility Model is less as compared to the patents. It varies from 7-15 years 
+in different countries. 
+ Nearly 80 countries, including France, Germany, Japan, South Korea, China, Finland, 
+Russian Federation and Spain, provide protection for Utility Models under their IPR 
+laws. 
+ India till date does not recognize utility patents. If these small patents are recognized 
+under IP protection in India, it will catapult the number of patents (filed and granted) on 
+annual basis. 
+  Page 37
+https://vtucod e.in
+RM& IPR– BRMK557

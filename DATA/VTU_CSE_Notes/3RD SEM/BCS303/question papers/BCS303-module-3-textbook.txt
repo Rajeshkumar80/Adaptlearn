@@ -1,0 +1,1962 @@
+6.1 
+c 
+ER 
+A cooperating process is one that can affect or be affected by other processes 
+executing in the system. Cooperating processes can either directly share a 
+logical address space (that is, both code and data) or be allowed to share data 
+only through files or messages. The former case is achieved through the use of 
+threads, discussed in Chapter 4. Concurrent access to shared data may result in 
+data inconsistency, however. In this chapter, we discuss various mechanisms 
+to ensure the orderly execution of cooperating processes that share a logical 
+address space, so that data consistency is maintained. 
+To introduce the critical-section problem, whose solutions can be used to 
+ensure the consistency of shared data. 
+To present both software and hardware solutions of the critical-section 
+problem. 
+To introduce the concept of an atomic transaction and describe mecha-
+nisms to ensure atomicity. 
+In Chapter 3, we developed a model of a system consisting of cooperating 
+sequential processes or threads, all running asynchronously and possibly 
+sharing data. We illustrated this model with the producer-consumer problem, 
+which is representative of operating systems. Specifically, in Section 3.4.1, we 
+described how a bounded buffer could be used to enable processes to share 
+memory. 
+Let's return to our consideration of the bounded buffer. As we pointed 
+out, our original solution allowed at most BUFFER_SIZE - 1 items in the buffer 
+at the same time. Suppose we want to modify the algorithm to remedy this 
+deficiency. One possibility is to add an integer variable counter, initialized to 
+0. counter is incremented every time we add a new item to the buffer and is 
+225 
+
+226 
+Chapter 6 
+decremented every time we remove one item from the buffer. The code for the 
+producer process can be modified as follows: 
+while (true) { 
+} 
+I* produce an item in nextProduced *I 
+while (counter == BUFFER_SIZE) 
+; I* do nothing *I 
+buffer[in] = nextProduced; 
+in = (in + 1) % BUFFER_SIZE ; 
+counter++; 
+The code for the consumer process can be modified as follows: 
+while (true) { 
+} 
+while (counter == 0) 
+; I* do nothing *I 
+nextConsumed = buffer[out]; 
+out = (out + 1) % BUFFER_SIZE; 
+counter--; 
+I* consume the item in nextConsumed *I 
+Although both the producer and consumer routines shown above are 
+correct separately, they may not function correctly when executed concurrently. 
+As an illustration, suppose that the value of the variable counter is currently 
+5 and that the producer and consumer processes execute the statements 
+"counter++" and "counter--" concurrently. Following the execution of these 
+two statements, the value of the variable counter may be 4, 5, or 6! The only 
+correct result, though, is counter == 5, which is generated correctly if the 
+producer and consumer execute separately. 
+We can show that the value of counter may be incorrect as follows. Note 
+that the statement" counter++" may be implemented in machine language (on 
+a typical machine) as 
+register1 = counter 
+register1 = register1 + 1 
+counter= register1 
+where register1 is one of the local CPU registers. Similarly, the statement 
+register2"counter--" is implemented as follows: 
+register2 = counter 
+register2 = register2 ~ 1 
+counter= register2 
+where again register2 is on eo£ the local CPU registers. Even though register1 and 
+register2 may be the same physical register (an accumulator, say), remember 
+that the contents of this register will be saved and restored by the interrupt 
+handler (Section 1.2.3). 
+
+6.2 
+6.2 
+227 
+The concurrent execution of "counter++" and "counter--" is equivalent 
+to a sequential execution in which the lower-level statements presented 
+previously are interleaved in some arbitrary order (but the order within each 
+high-level statement is preserved). One such interleaving is 
+To: 
+producer 
+execute 
+register1 =counter 
+{register1 = 5} 
+T1: 
+producer 
+execute 
+register1 = register1 + 1 {register1 = 6} 
+T2: 
+consumer execute 
+register2 = counter 
+{register2 = 5} 
+T3: 
+consumer execute 
+register2 = register2 
+1 {register2 = 4} 
+T4: 
+producer 
+execute 
+counter= register1 
+{counter = 6} 
+Ts: 
+consumer execute 
+counter = register2 
+{counter = 4} 
+Notice that we have arrived at the incorrect state "counter == 4", indicating 
+that four buffers are full, when, in fact, five buffers are full. If we reversed the 
+order of the statements at T4 and T5, we would arrive at the incorrect state 
+"counter== 6". 
+We would arrive at this incorrect state because we allowed both processes 
+to manipulate the variable counter concurrently. A situation like this, where 
+several processes access and manipulate the same data concurrently and the 
+outcome of the execution depends on the particular order in which the access 
+takes place, is called a 
+To guard against the race condition 
+above, we need to ensure that only one process at a time can be manipulating 
+the variable counter. To make such a guarantee, we require that the processes 
+be synchronized in some way. 
+Situations such as the one just described occur frequently in operating 
+systems as different parts of the system manipulate resources. Furthermore, 
+with the growth of multicore systems, there is an increased emphasis on 
+developing multithreaded applications wherein several threads-which are 
+quite possibly sharing data-are rmming in parallel on different processing 
+cores. Clearly, we want any changes that result from such activities not 
+to interfere with one another. Because of the importance of this issue, a 
+major portion of this chapter is concerned with 
+and 
+amongst cooperating processes. 
+Consider a system consisting of n processes {Po, P1 , ... , P11 _ I}. Each process 
+has a segment of code, called a cdticall 
+in which the process may 
+be changing common variables, updating a table, writing a file, and so on. 
+The important feature of the system is that, when one process is executing in 
+its critical section, no other process is to be allowed to execute in its critical 
+section. That is, no two processes are executing in their critical sections at the 
+same time. The critical-section problem is to design a protocol that the processes 
+can use to cooperate. Each process must request permission to enter its critical 
+section. The section of code implementing this request is the 
+The 
+critical section may be followed by an exit 
+The remaining code is the 
+The general structure of a typical process Pi is shown in 
+
+228 
+Chapter 6 
+do { 
+I entry section I 
+critical section 
+I exit section I 
+remainder section 
+} while (TRUE); 
+Figure 6.1 
+General structure of a typical process A. 
+Figure 6.1. The entry section and exit section are enclosed in boxes to highlight 
+these important segments of code. 
+A solution to the critical-section problem must satisfy the following three 
+requirements: 
+1. Mutual exclusion. If process Pi is executing in its critical section, then no 
+other processes can be executing in their critical sections. 
+2. Progress. If no process is executing in its critical section and some 
+processes wish to enter their critical sections, then only those processes 
+that are not executing in their remainder sections can participate in 
+deciding which will enter its critical section next, and this selection carmot 
+be postponed indefinitely. 
+Bounded waiting. There exists a bound, or limit, on the number of times 
+that other processes are allowed to enter their critical sections after a 
+process has made a request to enter its critical section and before that 
+request is granted. 
+We assume that each process is executing at a nonzero speed. However, we can 
+make no assumption concerning the relative 
+of the n processes. 
+At a given point in time, many kernel-mode processes may be active in the 
+operating system. As a result, the code implementing an operating system 
+(kernel code) is subject to several possible race conditions. Consider as an 
+example a kernel data structure that maintains a list of all open files in the 
+system. This list must be modified when a new file is opened or closed (adding 
+the file to the list or removing it from the list). If two processes were to open files 
+simultaneously, the separate updates to this list could result in a race condition. 
+Other kernel data structures that are prone to possible race conditions include 
+structures for maintaining memory allocation, for maintaining process lists, 
+and for interrupt handling. It is up to kernel developers to ensure that the 
+operating system is free from such race conditions. 
+Two general approaches are used to handle critical sections in operating 
+systems: (1) preemptive kernels and (2) nonpreemptive kernels. A preemptive 
+kernel allows a process to be preempted while it is running in kernel mode. 
+A nonpreemptive kernel does not allow a process running in kernel mode 
+
+6.3 
+6.3 
+229 
+to be preempted; a kernel-mode process will run until it exits kernel mode, 
+blocks, or voluntarily yields control of the CPU. Obviously, a nonpreemptive 
+kernel is essentially free from race conditions on kernel data structures, as only 
+one process is active in the kernel at a time. We cannot say the same about 
+preemptive kernels, so they must be carefully designed to ensure that shared 
+kernel data are free from race conditions. Preemptive kernels are especially 
+difficult to design for SMP architectures, since in these environments it is 
+possible for two kernel-mode processes to run simultaneously on different 
+processors. 
+Why, then, would anyone favor a preemptive kernel over a nonpreemptive 
+one? A preemptive kernel is more suitable for real-time programming, as it will 
+allow a real-time process to preempt a process currently running in the kernel. 
+Furthermore, a preemptive kernel may be more responsive, since there is less 
+risk that a kernel-mode process will run for an arbitrarily long period before 
+relinquishing the processor to waiting processes. Of course, this effect can be 
+minimized by designing kernel code that does not behave in this way. Later in 
+this chapter, we explore how various operating systems manage preemption 
+within the kernel. 
+Next, we illustrate a classic software-based solution to the critical-section 
+problem known as Peterson's solution. Because of the way modern computer 
+architectures perform basic machine-language instructions, such as load and 
+store, there are no guarantees that Peterson's solution will work correctly on 
+such architectures. Howeve1~ we present the solution because it provides a good 
+algorithmic description of solving the critical-section problem and illustrates 
+some of the complexities involved in designing software that addresses the 
+requirements of mutual exclusion, progress, and bomcded waiting. 
+Peterson's solution is restricted to two processes that alternate execution 
+between their critical sections and remainder sections. The processes are 
+numbered Po and P1. For convenience, when presenting Pi, we use Pj to 
+denote the other process; that is, j equals 1 - i. 
+Peterson's solution requires the two processes to share two data items: 
+int turn; 
+boolean flag[2]; 
+The variable turn indicates whose turn it is to enter its critical section. That is, 
+if turn == i, then process Pi is allowed to execute in its critical section. The 
+flag array is used to indicate if a process is ready to enter its critical section. 
+For example, if flag [i] is true, this value indicates that Pi is ready to enter 
+its critical section. With an explanation of these data structures complete, we 
+are now ready to describe the algorithm shown in Figure 6.2. 
+To enter the critical section, process Pi first sets flag [i] to be true and 
+then sets turn to the value j, thereby asserting that if the other process wishes 
+to enter the critical section, it can do so. If both processes try to enter at the same 
+time, turn will be set to both i and j at roughly the sance time. Only one of these 
+assignments will last; the other will occur but will be overwritten immediately. 
+
+230 
+Chapter 6 
+do { 
+flag [i] = TRUE; 
+turn= j; 
+while (flag[j] && turn 
+j); 
+critical section 
+I flag [i] = FALSE; I 
+remainder section 
+} while (TRUE); 
+Figure 6.2 The structure of process A in Peterson's solution. 
+The eventual value of turn determines which of the two processes is allowed 
+to enter its critical section first. 
+We now prove that this solution is correct. We need to show that: 
+Mutual exclusion is preserved. 
+The progress requirement is satisfied. 
+The bounded-waiting requirement is met. 
+To prove property 1, we note that each P; enters its critical section only 
+if either flag [j] == false or turn == i. Also note that, if both processes 
+can be executing in their critical sections at the same time, then flag [0] == 
+flag [1] ==true. These two observations imply that Po and P1 could not have 
+successfully executed their while statements at about the same time, since the 
+value of turn can be either 0 or 1 but camwt be both. Hence, one of the processes 
+-say, Pi -must have successfully executed the while statencent, whereas P; 
+had to execute at least one additional statement ("turn== j"). However, at 
+that time, flag [j] == true and turn == j, and this condition will persist as 
+long as Pi is in its critical section; as a result, mutual exclusion is preserved. 
+To prove properties 2 and 3, we note that a process P; can be prevented from 
+entering the critical section only if it is stuck in the while loop with the condition 
+flag [j] ==true and turn=== j; this loop is the only one possible. If Pi is not 
+ready to enter the critical section, then flag [j] ==false, and P; can enter its 
+critical section. If Pj has set flag [j] to true and is also executing in its while 
+statement, then either turn === i or turn === j. If turn == i, then P; will enter 
+the critical section. If turn== j, then Pi will enter the critical section. However, 
+once Pi exits its critical section, it will reset flag [j] to false, allowing P; to 
+enter its critical section. If Pi resets flag [j] to true, it must also set turn to i. 
+Thus, since P; does not change the value of the variable turn while executing 
+the while statement, P; will enter the critical section (progress) after at most 
+one entry by P1 (bounded waiting). 
+
+6.4 
+6.4 
+231 
+do { 
+acquire lock 
+critical section 
+I release lock I 
+remainder section 
+} while (TRUE); 
+Figure 6.3 Solution to the critical-section problem using locks. 
+We have just described one software-based solution to the critical-section 
+problem. However, as mentioned, software-based solutions such as Peterson's 
+are not guaranteed to work on modern computer architectures. Instead, we 
+can generally state that any solution to the critical-section problem requires a 
+simple tool-a lock. Race conditions are prevented by requiring that critical 
+regions be protected by locks. That is, a process must acquire a lock before 
+entering a critical section; it releases the lock when it exits the critical section. 
+This is illustrated in Figure 6.3. 
+In the following discussions, we explore several more solutions to the 
+critical-section problem using techniques ranging from hardware to software-
+based APis available to application programmers. All these solutions are based 
+on the premise of locking; however, as we shall see, the designs of such locks 
+can be quite sophisticated. 
+We start by presenting some simple hardware instructions that are available 
+on many systems and showing how they can be used effectively in solving the 
+critical-section problem. Hardware features can make any programming task 
+easier and improve system efficiency. 
+The critical-section problem could be solved simply in a uniprocessor envi-
+ronment if we could prevent interrupts from occurring while a shared variable 
+was being modified. In this manner, we could be sure that the current sequence 
+of instructions would be allowed to execute in order without preemption. No 
+other instructions would be run, so no unexpected modifications could be 
+made to the shared variable. This is often the approach taken by nonpreemptive 
+kernels. 
+Unfortunately, this solution is not as feasible in a multiprocessor environ-
+ment. Disabling interrupts on a multiprocessor can be time consuming, as the 
+boolean TestAndSet(boolean *target) { 
+boolean rv = *target; 
+*target = TRUE; 
+return rv; 
+} 
+Figure 6.4 The definition of the TestAndSet () instruction. 
+
+232 
+Chapter 6 
+do { 
+while (TestAndSet(&lock)) 
+; II do nothing 
+II critical section 
+lock = FALSE; 
+II remainder section 
+} while (TRUE); 
+Figure 6.5 Mutual-exclusion implementation with TestAndSet (). 
+message is passed to all the processors. This message passing delays entry into 
+each critical section, and system efficiency decreases. Also consider the effect 
+on a system's clock if the clock is kept updated by interrupts. 
+Many modern computer systems therefore provide special hardware 
+instructions that allow us either to test and modify the content of a word or 
+to swap the contents of two words 
+is, as one unin.terruptible 
+unit. We can use these special instructions to solve the critical-section problem 
+in a relatively simple manner. Rather than discussing one specific instruction 
+for one specific machine, we abstract the main concepts behind these types of 
+instructions by describing the TestAndSet () and Swap() instructions. 
+The TestAndSet () instruction can be defined as shown in Figure 6.4. The 
+important characteristic of this instruction is that it is executed atomically. 
+Thus, if two TestAndSet () instructions are executed simultaneously (each on 
+a different CPU), they will be executed sequentially in some arbitrary order. If 
+the machine supports the TestAndSet () instruction, then we can implement 
+mutual exclusion by declaring a Boolean variable lock, initialized to false. 
+The structure of process P; is shown in Figure 6.5. 
+The Swap() instruction, in contrast to the TestAndSet () instruction, 
+operates on the contents of two words; it is defined as shown in Figure 6.6. 
+Like the TestAndSet () instruction, it is executed atomically. If the machine 
+supports the Swap() instruction, then mutual exclusion can be provided as 
+follows. A global Boolean variable lock is declared and is initialized to false. 
+In addition, each process has a local Boolean variable key. The structure of 
+process P; is shown in Figure 6.7. 
+Although these algorithms satisfy the mutual-exclusion requirement, they 
+do not satisfy the bounded-waiting requirement. In Figure 6.8, we present 
+another algorithm using the TestAndSet () instruction that satisfies all the 
+critical-section requirements. The common data structures are 
+void Swap(boolean *a, boolean *b) { 
+boolean temp = *a; 
+*a 
+*b; 
+*b = temp; 
+} 
+Figure 6.6 The definition of the Swap () instruction. 
+
+6.4 
+do { 
+key = TRUE; 
+while (key == TRUE) 
+Swap(&lock, &key); 
+II critical section 
+lock = FALSE; 
+II remainder section 
+} while (TRUE); 
+Figure 6.7 Mutual-exclusion implementation with the Swap() instruction. 
+boolean waiting[n]; 
+boolean lock; 
+233 
+These data structures are initialized to false. To prove that the mutual-
+exclusion requirement is met, we note that process P; can enter its critical 
+section only if either waiting [i] == false or key == false. The value 
+of key can become false only if the TestAndSet () is executed. The first 
+process to execute the TestAndSet () will find key== false; all others must 
+wait. The variable waiting [i] can become false only if another process 
+leaves its critical section; only one waiting [i] is set to false, maintaining the 
+mutual-exclusion requirement. 
+do { 
+waiting[i] = TRUE; 
+key = TRUE; 
+while (waiting[i] && key) 
+key= TestAndSet(&lock); 
+waiting[i] = FALSE; 
+II critical section 
+j = (i + 1) % n; 
+while ((j != i) && !waiting[j]) 
+j = (j + 1) % n; 
+if (j == i) 
+lock = FALSE; 
+else 
+waiting[j] = FALSE; 
+II remainder section 
+} while (TRUE) ; 
+Figure 6.8 Bounded-waiting mutual exclusion with TestAndSet (). 
+
+234 
+Chapter 6 
+6.5 
+To prove that the progress requirement is met, we note that the arguments 
+presented for mutual exclusion also apply here, since a process exiting the 
+critical section either sets lock to false or sets waiting[j] to false. Both 
+allow a process that is waiting to enter its critical section to proceed. 
+To prove that the bounded-waiting requirement is met, we note that, when 
+a process leaves its critical section, it scans the array waiting in the cyclic 
+ordering (i + 1, i + 2, ... , n 
+1, 0, ... , i 
+1). It designates the first process in this 
+ordering that is in the entry section (waiting[j] ==true) as the next one to 
+enter the critical section. Any process waiting to enter its critical section will 
+thus do so within n - 1 turns. 
+Unfortunately for hardware designers, implementing atomic TestAnd-
+Set () instructions on multiprocessors is not a trivial task. Such implementa-
+tions are discussed in books on computer architecture. 
+The hardware-based solutions to the critical-section problem presented in 
+Section 6.4 are complicated for application programmers to use. To overcmrte 
+this difficulty, we can use a synchronization tool called a 
+A semaphore S is an integer variable that, apart from initialization, is 
+accessed only through two standard atomic operations: wait () and signal (). 
+The wait () operation was originally termed P (from the Dutch proberen, "to 
+test"); signal() was originally called V (from verhogen, "to increment"). The 
+definition of wait () is as follows: 
+wait(S) { 
+} 
+while S <= 0 
+II no-op 
+s--· ' 
+The definition of signal() is as follows: 
+signal(S) { 
+S++; 
+} 
+All modifications to the integer value of the semaphore in the wait () and 
+signal() operations must be executed indivisibly. That is, when one process 
+modifies the semaphore value, no other process can simultaneously modify 
+that same semaphore value. In addition, in the case of wait (S), the testing of 
+the integer value of S (S :S 0), as well as its possible modification (S--), must 
+be executed without interruption. We shall see how these operations can be 
+implemented in Section 6.5.2; first, let us see how semaphores can be used. 
+6.5.1 Usage 
+Operating systems often distinguish between counting and binary semaphores. 
+The value of a counting semaphore can range over an unrestricted domain. 
+The value of a binary semaphore can range only between 0 and 1. On some 
+
+6.5 
+235 
+systems, binary semaphores are lmown as mutex locks, as they are locks that 
+provide mutual exclusion. 
+We can use binary semaphores to deal with the critical-section problem £or 
+mlJltiple processes. Then processes share a semaphore, mutex, initialized to 1. 
+Each process Pi is organized as shown in Figure 6.9. 
+Counting semaphores can be used to control access to a given resource 
+consisting of a finite number o£ instances. The semaphore is initialized to the 
+number of resources available. Each process that wishes to use a resource 
+performs a wait() operation on the semaphore (thereby decrementing the 
+count). When a process releases a resource, it performs a signal() operation 
+(incrementing the count). When the count for the semaphore goes to 0, all 
+resources are being used. After that, processes that wish to use a resource will 
+block until the count becomes greater than 0. 
+We can also use semaphores to solve various synchronization problems. 
+For example, consider two concurrently numing processes: P1 with a statement 
+51 and P2 with a statement 52. Suppose we require that 52 be executed only 
+after 51 has completed. We can implement this scheme readily by letting P1 
+and P2 share a common semaphore synch, initialized to 0, and by inserting the 
+statements 
+51; 
+signal(synch) ; 
+in process P1 and the statements 
+wait(synch); 
+52; 
+in process P2. Because synch is initialized to 0, P2 will execute 52 only after P1 
+has invoked signal (synch), which is after statement 51 has been executed. 
+6.5.2 Implementation 
+The main disadvantage of the semaphore definition given here is thatit requires 
+While a process is in its critical section, any other process that 
+tries to enter its critical section must loop continuously in the entry code. This 
+continual looping is clearly a problem in a real multiprogramming system, 
+do { 
+wait (mutex) ; 
+II critical section 
+signal(mutex); 
+II remainder section 
+} while (TRUE); 
+Figure 6.9 Mutual-exclusion implementation with semaphores. 
+
+236 
+Chapter 6 
+where a single CPU is shared among ncany processes. Busy waiting wastes 
+CPU cycles that some other process might be able to use productively. This 
+type of semaphore is also called a 
+because the process "spins" while 
+waiting for the lock. (Spinlocks do have an advantage in that no context switch 
+is required when a process must wait on a lock, and a context switch may 
+take considerable time. Thus, when locks are expected to be held for short 
+times, spinlocks are useful; they are often employed on multiprocessor systems 
+where one thread can "spin" on one processor while another thread performs 
+its critical section on another processor.) 
+To overcome the need for busy waiting, we can modify the definition of 
+the wait() and signal() semaphore operations. When a process executes the 
+wait () operation and finds that the semaphore value is not positive, it must 
+wait. However, rather than engaging in busy waiting, the process can block 
+itself. The block operation places a process into a waiting queue associated 
+with the semaphore, and the state of the process is switched to the waiting 
+state. Then control is transferred to the CPU scheduler, which selects another 
+process to execute. 
+A process that is blocked, waiting on a semaphore S, should be restarted 
+when some other process executes a signal() operation. The process is 
+restarted by a wakeup () operation, which changes the process from the waiting 
+state to the ready state. The process is then placed in the ready queue. (The 
+CPU may or may not be switched from the running process to the newly ready 
+process, depending on the CPU-scheduling algorithm.) 
+To implement semaphores under this definition, we define a semaphore as 
+a "C' struct: 
+typedef struct { 
+int value; 
+struct process *list; 
+} semaphore; 
+Each semaphore has an integer value and a list of processes list. When 
+a process must wait on a semaphore, it is added to the list of processes. A 
+signal() operation removes one process from the list of waiting processes 
+and awakens that process. 
+The wait() semaphore operation can now be defined as 
+wait(semaphore *S) { 
+S->value--; 
+} 
+if (S->value < 0) { 
+} 
+add this process to S->list; 
+block(); 
+The signal () semaphore operation can now be defined as 
+
+signal(semaphore *S) { 
+S->value++; 
+if (S->value <= 0) { 
+6.5 
+remove a process P fron< S->list; 
+wakeup(P); 
+} 
+} 
+237 
+The block() operation suspends the process that invokes it. The wakeup(P) 
+operation resumes the execution of a blocked process P. These two operations 
+are provided by the operating system as basic system calls. 
+Note that in this implementation, semaphore values may be negative, 
+although semaphore values are never negative under the classical definition of 
+semaphores with busy waiting. If a semaphore value is negative, its magnitude 
+is the number of processes waiting on that semaphore. This fact results from 
+switching the order of the decrement and the test in the implementation of the 
+wait () operation. 
+The list of waiting processes can be easily implemented by a link field in 
+each process control block (PCB). Each semaphore contains an integer value and 
+a pointer to a list of PCBs. One way to add and rernove processes from the list 
+so as to ensure bounded waiting is to use a FIFO queue, where the semaphore 
+contains both head and tail pointers to the queue. In general, howeve1~ the list 
+can use any queueing strategy. Correct usage of semaphores does not depend 
+on a particular queueing strategy for the semaphore lists. 
+It is critical that semaphores be executed atomically. We must guarantee 
+that no two processes can execute wait() and signal() operations on the 
+same semaphore at the same time. This is a critical-section problem; and 
+in a single-processor environment (that is, where only one CPU exists), we 
+can solve it by simply inhibiting interrupts during the time the wait() and 
+signal() operations are executing. This scheme works in a single-processor 
+environment because, once interrupts are inhibited, instructions from different 
+processes cannot be interleaved. Only the currently running process executes 
+until interrupts are reenabled and the scheduler can regain control. 
+In a multiprocessor environment, interrupts must be disabled on every 
+processor; otherwise, instructions from different processes (running on differ-
+ent processors) may be interleaved in some arbitrary way. Disabling interrupts 
+on every processor can be a difficult task and furthermore can seriously dimin-
+ish performance. Therefore, SMP systems must provide alternative locking 
+techniques-such as spinlocks-to ensure that wait() and signal() are 
+performed atomically. 
+It is important to admit that we have not completely eliminated busy 
+waiting with this definition of the wait () and signal () operations. Rather, 
+we have moved busy waiting from the entry section to the critical sections 
+of application programs. Furthermore, we have limited busy waiting to the 
+critical sections of the wait () and signal () opera times, and these sections are 
+short (if properly coded, they sbould be no more than about ten instructions). 
+Thus, the critical section is almost never occupied, and busy waiting occurs 
+rarely, and then for only a short time. An entirely different situation exists 
+with application programs whose critical sections may be long (minutes or 
+
+238 
+Chapter 6 
+even hours) or may almost always be occupied. In such casesf busy waiting is 
+extremely inefficient. 
+6.5.3 Deadlocks and Starvation 
+The implementation of a semaphore with a waiting queue may result in a 
+situation where two or more processes are waiting indefinitely for an event 
+that can be caused only by one of the waiting processes. The event in question 
+is the execution of a signal() 
+When such a state is reached, these 
+processes are said to be 
+To illustrate this, we consider a system consisting of two processes, Po and 
+P1, each accessing two semaphores, S and Q, set to the value 1: 
+Po 
+wait(S); 
+wait(Q); 
+signal(S); 
+signal(Q); 
+pl 
+wait(Q); 
+wait(S); 
+signal(Q); 
+signal(S); 
+Suppose that Po executes wait (S) and then P1 executes wait (Q). When Po 
+executes wait (Q), it must wait until P1 executes signal (Q). Similarly, when 
+P1 executes wait (S), it must wait until Po executes signal(S). Since these 
+signal() operations cam1ot be executed, Po and P1 are deadlocked. 
+We say that a set of processes is in a deadlock state when every process 
+in the set is waiting for an event that can be caused only by another process 
+in the set. The events with which we are mainly concerned here are resource 
+acquisition and release. However, other types of events may result in deadlocks, 
+as we show in Chapter 7. In that chapter, we describe various mechanisms for 
+dealing with the deadlock problem. 
+Another problem related to deadlocks is 
+or 
+a situation in which processes wait indefinitely within the semaphore. 
+Indefinite blocking may occur if we remove processes from the list associated 
+with a semaphore in LIFO (last-in, first-out) order. 
+6.5.4 Priority Inversion 
+A scheduling challenge arises when a higher-priority process needs to read 
+or modify kernel data that are currently being accessed by a lower-priority 
+process-or a chain of lower-priority processes. Since kernel data are typically 
+protected with a lock, the higher-priority process will have to wait for a 
+lower-priority one to finish with the resource. The situation becomes more 
+complicated if the lower-priority process is preempted in favor of another 
+process with a higher priority. As an example, assume we have three processes, 
+Lf M, and H, whose priorities follow the order L < M < H. Assume that 
+process H requires resource R, which is currently being accessed by process L. 
+Ordinarily, process H would wait for L to finish using resource R. However, 
+now suppose that process M becomes runnable, thereby preempting process 
+
+6.6 
+6.6 
+239 
+PRIORITY INVERSION AND THE MARS PATHFINDER 
+Priority inversion can be more than a scheduling inconvenience. On systems 
+with tight time constraints (such as real-time systems-see Chapter 19), 
+priority inversion can cause a process to take longer than it should to 
+accomplish a task. When that happens, other failures can cascade, resulting 
+in system failure. 
+Consider the Mars Pathfinde1~ a NASA space probe that landed a robot, the 
+Sojourner rove1~ on Mars in 1997 to conduct experiments. Shortly after the 
+Sojourner began operating, it started to experience frequent computer resets. 
+Each reset reinitialized all hardware and software, including communica-
+tions. If the problem had not been solved, the Sojourner would have failed in 
+its mission. 
+The problem was caused by the fact that one high-priority task, "bcdist," 
+was taking longer than expected to complete its work. This task was being 
+forced to wait for a shared resource that was held by the lower-priority 
+"ASI/MET" task, which in turn was preempted by multiple medium-priority 
+tasks. The "bcdist" task would stall waiting for the shared resource, and 
+ultimately the "bc_sched" task would discover the problem and perform the 
+reset. The Sojourner was suffering from a typical case of priority inversion. 
+The operating system on the Sojourner was VxWorks (see Section 19.6), 
+which had a global variable to enable priority inheritance on all semaphores. 
+After testing, the variable was set on the Sojourner (on Mars!), and the 
+problem was solved. 
+A full description of the problem, its detection, and its solu-
+tion was written by the software team lead and is available at 
+research.microsoft.com/ mbj /MarsYathfinder I Authoritative_Account.html. 
+L. Indirectly, a process with a lower priority-process M-has affected how 
+long process H must wait for L to relinquish resource R. 
+This problem is known as 
+It occurs only in systems with 
+more than two priorities, so one solution is to have only two priorities. That is 
+insufficient for most general-purpose operating systems, however. Typically 
+these systems solve the problem by implementing a 
+2Tic?x,u" 
+:. According to this protocol, all processes that are accessing resources 
+needed by a higher-priority process inherit the higher priority until they are 
+finished with the resources in question. When they are finished, their priorities 
+revert to their original values. In the exan1.ple above, a priority-inheritance 
+protocol would allow process L to temporarily inherit the priority of process 
+H, thereby preventing process M from preempting its execution. When process 
+L had finished using resource R, it would relinquish its inherited priority from 
+Hand assume its original priority. Because resource R would now be available, 
+process H-not M-would run next. 
+In this section, we present a number of synchronization problems as examples 
+of a large class of concurrency-control problems. These problems are used for 
+
+240 
+Chapter 6 
+do { 
+II produce an item in nextp 
+wait(empty); 
+wait(mutex); 
+II add nextp to buffer 
+signal(mutex); 
+signal(full); 
+} while (TRUE); 
+Figure 6.10 The structure of the producer process. 
+testing nearly every newly proposed synchronization scheme. In our solutions 
+to the problems, we use semaphores for synchronization. 
+6.6.1 The Bounded-Buffer Problem 
+The bounded-buffer problem was introduced in Section 6.1; it is commonly used 
+to illustrate the power of synchronization primitives. Here, we present a 
+general structure of this scheme without committing ourselves to any particular 
+implementation; we provide a related programming project in the exercises at 
+the end of the chapter. 
+We assume that the pool consists of n buffers, each capable of holding 
+one item. The mutex semaphore provides mutual exclusion for accesses to the 
+buffer pool and is initialized to the value 1. The empty and full semaphores 
+comct the number of empty and full buffers. The semaphore empty is initialized 
+to the value n; the semaphore full is initialized to the value 0. 
+The code for the producer process is shown in Figure 6.10; the code for 
+the consumer process is shown in Figure 6.11. Note the symmetry between 
+the producer and the consumer. We can interpret this code as the producer 
+producing full buffers for the consumer or as the consumer producing empty 
+buffers for the producer. 
+do { 
+wait (full); 
+wait (mutex) ; 
+II remove an item from buffer to nextc 
+signal(mutex); 
+signal(empty); 
+II consume the item in nextc 
+} while (TRUE); 
+Figure 6.11 The structure of the consumer process. 
+
+6.6 
+241 
+6.6.2 The Readers-Writers Problem 
+Suppose that a database is to be shared among several concurrent processes. 
+Some of these processes may want only to read the database, whereas others 
+may want to update (that is, to read and write) the database. We distinguish 
+between these two types of processes by referring to the former as readers 
+and to the latter as writers. Obviously, if two readers access the shared data 
+simultaneously, no adverse effects will result. However, if a writer and some 
+other process (either a reader or a writer) access the database simultaneously, 
+chaos may ensue. 
+To ensure that these difficulties do not arise, we require that the writers 
+have exclusive access to the shared database while writing to the database. This 
+synchronization problem is referred to as the readers-writers problem. Since it 
+was originally stated, it has been used to test nearly every new synchronization 
+primitive. The readers-writers problem has several variations, all involving 
+priorities. The simplest one, referred to as the first readers-writers problem, 
+requires that no reader be kept waiting unless a writer has already obtained 
+permission to use the shared object. In other words, no reader should wait for 
+other readers to finish simply because a writer is waiting. The second readers-
+writers problem requires that, once a writer is ready, that writer performs its 
+write as soon as possible. In other words, if a writer is waiting to access the 
+object, no new readers may start reading. 
+A solution to either problem may result in starvation. In the first case, 
+writers may starve; in the second case, readers may starve. For this reason, 
+other variants of the problem have been proposed. Next, we present a solution 
+to the first readers-writers problem. Refer to the bibliographical notes at the 
+end of the chapter for references describing starvation-free solutions to the 
+second readers-writers problem. 
+In the solution to the first readers-writers problem, the reader processes 
+share the following data structures: 
+semaphore mutex, wrt; 
+int readcount; 
+The semaphores mutex and wrt are initialized to 1; readcount is initialized 
+to 0. The semaphore wrt is common to both reader and writer processes. 
+The mutex semaphore is used to ensure mutual exclusion when the variable 
+readcount is updated. The readcount variable keeps track of how many 
+processes are currently reading the object. The semaphore wrt functions as a 
+mutual-exclusion semaphore for the writers. It is also used by the first or last 
+reader that enters or exits the critical section. It is not used by readers who 
+enter or exit while other readers are in their critical sections. 
+The code for a writer process is shown in Figure 6.12; the code for a reader 
+process is shown in Figure 6.13. Note that, if a writer is in the critical section 
+and n readers are waiting, then one reader is queued on wrt, and n- 1 readers 
+are queued on mutex. Also observe that, when a writer executes signal ( wrt), 
+we may resume the execution of either the waiting readers or a single waiting 
+writer. The selection is made by the scheduler. 
+The readers-writers problem and its solutions have been generalized to 
+provide 
+locks on some systems. Acquiring a reader-writer lock 
+
+242 
+Chapter 6 
+do { 
+wait(wrt); 
+II writing is performed 
+signal(wrt); 
+} while (TRUE); 
+Figure 6. i 2 The structure of a writer process. 
+requires specifying the mode of the lock either read or write access. When a 
+process wishes only to read shared data, it requests the reader-writer lock 
+in read mode; a process wishing to modify the shared data must request the 
+lock in write mode. Multiple processes are permitted to concurrently acquire 
+a reader-writer lock in read mode, but only one process may acquire the lock 
+for writing, as exclusive access is required for writers. 
+Reader-writer locks are most useful in the following situations: 
+In applications where it is easy to identify which processes only read shared 
+data and which processes only write shared data. 
+In applications that have more readers than writers. This is because reader-
+writer locks generally require more overhead to establish than semaphores 
+or mutual-exclusion locks. The increased concurrency of allowing multiple 
+readers compensates for the overhead involved in setting up the reader-
+writer lock. 
+6.6.3 The Dining-Philosophers Problem 
+Consider five philosophers who spend their lives thinking and eating. The 
+philosophers share a circular table surrounded by five chairs, each belonging 
+do { 
+wait (mutex); 
+readcount++; 
+if (readcount 
+1) 
+wait (wrt); 
+signal(mutex); 
+II reading is performed 
+wait(mutex); 
+readcount--; 
+if (readcount 
+0) 
+signal(wrt); 
+signal(mutex); 
+} while (TRUE); 
+Figure 6.13 The structure of a reader process. 
+
+6.6 
+243 
+Figure 6.14 The situation of the dining philosophers. 
+to one philosopher. In the center of the table is a bowl of rice, and the table is laid 
+with five single chopsticks (Figure 6.14). When a philosopher thinks, she does 
+not interact with her colleagues. From time to time, a philosopher gets hungry 
+and tries to pick up the two chopsticks that are closest to her (the chopsticks 
+that are between her and her left and right neighbors). A philosopher may pick 
+up only one chopstick at a time. Obviously, she cam1ot pick up a chopstick that 
+is already in the hand of a neighbor. When a htmgry philosopher has both her 
+chopsticks at the same time, she eats without releasing her chopsticks. When 
+she is finished eating, she puts down both of her chopsticks and starts thinking 
+again. 
+The dining-philosophers problem is considered a classic synchronization 
+problem neither because of its practical importance nor because computer 
+scientists dislike philosophers but because it is an example of a large class 
+of concurrency-control problems. It is a simple representation of the need 
+to allocate several resources among several processes in a deadlock-free and 
+starvation-free mam1er. 
+One simple solution is to represent each chopstick with a semaphore. A 
+philosopher tries to grab a chopstick by executing await () operation on that 
+semaphore; she releases her chopsticks by executing the signal() operation 
+on the appropriate semaphores. Thus, the shared data are 
+semaphore chopstick[5]; 
+where all the elements of chopstick are initialized to 1. The structure of 
+philosopher i is shown in Figure 6.15. 
+Although this solution guarantees that no two neighbors are eating 
+simultaneously, it nevertheless must be rejected because it could create a 
+deadlock. Suppose that all five philosophers become hungry simultaneously 
+and each grabs her left chopstick. All the elements of chopstick will now be 
+equal to 0. When each philosopher tries to grab her right chopstick, she will be 
+delayed forever. 
+Several possible remedies to the deadlock problem are listed next. 
+Allow at most four philosophers to be sitting simultaneously at the table. 
+
+244 
+Chapter 6 
+6.7 
+do { 
+wait(chopstick[i]); 
+wait(chopstick[(i+l) % 5]); 
+I I eat 
+signal(chopstick[i]); 
+signal(chopstick[(i+l) % 5]); 
+II think 
+} while (TRUE); 
+Figure 6.15 The structure of philosopher i. 
+Allow a philosopher to pick up her chopsticks only if both chopsticks are 
+available (to do this, she must pick them up in a critical section). 
+Use an asymmetric solution; that is, an odd philosopher picks up first her 
+left chopstick and then her right chopstick, whereas an even philosopher 
+picks up her right chopstick and then her left chopstick 
+In Section 6.7, we present a solution to the dining-philosophers problem 
+that ensures freedom from deadlocks. Note, however, that any satisfactory 
+solution to the dining-philosophers problem must guard against the possibility 
+that one of the philosophers will starve to death. A deadlock-free solution does 
+not necessarily eliminate the possibility of starvation. 
+Although semaphores provide a convenient and effective mechanism for 
+process synchronization, using them incorrectly can result in timing errors 
+that are difficult to detect, since these errors happen only if some particular 
+execution sequences take place and these sequences do not always occur. 
+We have seen an example of such errors in the use of counters in our 
+solution to the producer-consumer problem (Section 6.1). In that example, 
+the timing problem happened only rarely, and even then the counter value 
+appeared to be reasonable-off by only 1. Nevertheless, the solution is 
+obviously not an acceptable one. It is for this reason that semaphores were 
+introduced in the first place. 
+Unfortunately, such timing errors can still occur when semaphores are 
+used. To illustrate how, we review the semaphore solution to the critical-section 
+problem. All processes share a semaphore variable mutex, which is initialized 
+to 1. Each process must execute wait (mutex) before entering the critical section 
+and signal (mutex) afterward. If this sequence is not observed, two processes 
+may be in their critical sections simultaneously. Next, we examine the various 
+difficulties that may result. Note that these difficulties will arise even if a 
+single process is not well behaved. This situation may be caused by an honest 
+programming error or an uncooperative programmer. 
+
+7.1 
+CH 
+ER 
+In a multiprogramming environment, several processes may compete for a 
+finite number of resources. A process requests resources; if the resources are 
+not available at that time, the process enters a waiting state. Sometimes, a 
+waiting process is never again able to change state, because the resources it 
+has requested are held by other waiting processes. This situation is called 
+a deadlock We discussed this issue briefly in Chapter 6 in cmmection with 
+semaphores. 
+Perhaps the best illustration of a deadlock can be drawn from a law passed 
+by the Kansas legislature early in the 20th century. It said, in part: "When two 
+trains approach each other at a crossing, both shall come to a full stop and 
+neither shall start up again until the other has gone." 
+In this chapter, we describe methods that an operating system can use 
+to prevent or deal with deadlocks. Although some applications can identify 
+programs that may deadlock, operating systems typically do not provide 
+deadlock-prevention facilities, and it remains the responsibility of program-
+mers to ensure that they design deadlock-free programs. Deadlock problems 
+can only become more common, given current trends, including larger num-
+bers of processes, multithreaded programs, many more resources withirt a 
+system, and an emphasis on long-lived file and database servers rather than 
+batch systems. 
+To develop a description of deadlocks, which prevent sets of concurrent 
+processes from completing their tasks. 
+To present a number of different methods for preventing or avoiding 
+deadlocks in a computer system. 
+A system consists of a finite number of resources to be distributed among 
+a number of competing processes. The resources are partitioned into several 
+283 
+
+284 
+Chapter 7 
+types, each consisting of some number of identical instances. Memory space, 
+CPU cycles, files, and I/0 devices (such as printers and DVD drives) are examples 
+of resource types. If a system has two CPUs, then the resource type CPU has 
+two instances. Similarly, the resource type printer may have five instances. 
+If a process requests an instance of a resource type, the allocation of any 
+instance of the type will satisfy the request. If it will not, then the instances are 
+not identical, and the resource type classes have not been defined properly. For 
+example, a system may have two printers. These two printers may be defined to 
+be in the same resource class if no one cares which printer prints which output. 
+However, if one printer is on the ninth floor and the other is in the basement, 
+then people on the ninth floor may not see both printers as equivalent, and 
+separate resource classes may need to be defined for each printer. 
+A process must request a resource before using it and must release the 
+resource after using it. A process may request as many resources as it requires 
+to carry out its designated task. Obviously, the number of resources requested 
+may not exceed the total number of resources available in the system. In other 
+words, a process cannot request three printers if the system has only two. 
+Under the normal mode of operation, a process may utilize a resource in 
+only the following sequence: 
+Request. The process requests the resource. If the request cannot be 
+granted immediately (for example, if the resource is being used by another 
+process), then the requesting process must wait until it can acquire the 
+resource. 
+Use. The process can operate on the resource (for example, if the resource 
+is a printer, the process can print on the printer). 
+Release. The process releases the resource. 
+The request and release of resources are system calls, as explained in 
+Chapter 2. Examples are the request() and release() device, open() and 
+close() file, and allocate() and free() memory system calls. Request and 
+release of resources that are not managed by the operating system can be 
+accomplished through the wait() and signal() operations on semaphores 
+or through acquisition and release of a mutex lock. For each use of a kernel-
+managed resource by a process or thread, the operating system checks to 
+make sure that the process has requested and has been allocated the resource. 
+A system table records whether each resource is free or allocated; for each 
+resource that is allocated, the table also records the process to which it is 
+allocated. If a process requests a resource that is currently allocated to another 
+process, it can be added to a queue of processes waiting for this resource. 
+A set of processes is in a deadlocked state when every process in the set is 
+waiting for an event that can be caused only by another process in the set. The 
+events with which we are mainly concerned here are resource acquisition and 
+release. The resources may be either physical resources (for example, printers, 
+tape drives, memory space, and CPU cycles) or logical resources (for example, 
+files, semaphores, and monitors). However, other types of events may result in 
+deadlocks (for example, the IPC facilities discussed in Chapter 3). 
+To illustrate a deadlocked state, consider a system with three CD RW drives. 
+Suppose each of three processes holds one of these CD RW drives. If each process 
+
+7.2 
+7.2 
+285 
+now requests another drive, the three processes will be in a deadlocked state. 
+Each is waiting for the event "CD RW is released," which can be caused only 
+by one of the other waiting processes. This example illustrates a deadlock 
+involving the same resource type. 
+Deadlocks may also involve different resource types. For example, consider 
+a system with one printer and one DVD drive. Suppose that process P; is holding 
+the DVD and process Pi is holding the printer. If P; requests the printer and P1 
+requests the DVD drive, a deadlock occurs. 
+A programmer who is developing multithreaded applications must pay 
+particular attention to this problem. Multithreaded programs are good candi-
+dates for deadlock because multiple threads can compete for shared resources. 
+In a deadlock, processes never finish executing, and system resources are tied 
+up, preventing other jobs from starting. Before we discuss the various methods 
+for dealing with the deadlock problem, we look more closely at features that 
+characterize deadlocks. 
+7.2.1 Necessary Conditions 
+A deadlock situation can arise if the following four conditions hold simultane-
+ously in a system: 
+Mutual exclusion. At least one resource must be held in a nonsharable 
+mode; that is, only one process at a time can use the resource. If another 
+DEADLOCK WITH MUTEX LOCKS 
+Let's see how deadlock can occur in a multithreaded Pthread program 
+using mutex locks. The pthread....mutex_ini t () function initializes 
+an unlocked mutex. Mutex locks are acquired and released using 
+pthread....mutex_lock() 
+and 
+pthread....mutex_unlock (), 
+respec-
+tively. If a thread attempts to acquire a locked mutex, the call to 
+pthread....mutex_lock 0 blocks the thread until the owner of the mutex 
+lock invokes pthread....mutex_unlock (). 
+Two mutex locks are created in the following code example: 
+I* Create and initialize the mutex locks *I 
+pthread....mutex_t first....mutex; 
+pthread....mutex_t second_nmtex; 
+pthread....mutex_ini t (&first....mutex, NULL) ; 
+pthread....mutex_ini t (&second....mutex, NULL) ; 
+Next, two threads-thread_one and thread_two-'-are created, and both 
+these threads have access to both mutex locks. thread_one and thread_ two 
+run in the functions do_work_one () and do_work_two (), respectively, as 
+shown in Figure 7.1. 
+
+286 
+Chapter 7 
+DEADLOCK WITH MUTEX LOCKS (Continued) 
+I* thread_one runs in this function *I 
+void *do_work_one(void *param) 
+{ 
+} 
+pthread_mutex_lock(&first_mutex); 
+pthread_mutex_lock(&second_mutex); 
+I** 
+* Do some work 
+*I 
+pthread_mutex:_unlock (&second_mutex) ; 
+pthread_mutex_unlock(&first_mutex); 
+pthread_exit ( 0) ; 
+I* thread_two runs in this function *I 
+void *do_work_two(void *param) 
+{ 
+} 
+pthread_mutex_lock (&second_mutex) ; 
+pthread_mutex_lock(&first_mutex); 
+I** 
+* Do some work 
+*I 
+pthread_mutex_unlock (&first_mutex) ; 
+pthread_mutex_unlock (&second_mutex) ; 
+pthread_exi t ( 0) ; 
+Figure 7.1 
+Deadlock example. 
+In this example, thread_one attempts to acquire the mutex locks in the 
+order (1) first_mutex, (2) second_mutex, while thread_two attempts to 
+acquire the mutex locks in the order (1) second__mutex, (2) first_mutex. 
+Deadlock is possible if thread_one acquires first __mutex while thread_ two 
+aacquites second__mutex. 
+Note that, even though deadlock is possible, it will not occur if thread_one 
+is able to acquire and release the mutex locks for first_mutex and sec-
+ond_mutex before thread_two attemptsto acquire the locks. This example 
+illustrates a problem with handling deadlocks: it is difficult to identify and 
+test for deadlocks that may occur only under certain circumstances. 
+process requests that resource, the requesting process must be delayed 
+until the resource has been released. 
+Hold and wait. A process must be holding at least one resource and 
+waiting to acquire additional resources that are cmrently being held by 
+other processes. 
+
+7.2 
+287 
+No preemption. Resources cannot be preempted; that is, a resource can 
+be released only voluntarily by the process holding it, after that process 
+has completed its task. 
+Circular wait. A set { P0, Pl, ... , P11 } of waiting processes must exist such 
+that Po is waiting for a resource held by P1, P1 is waiting for a resource 
+held by P2, ... , Pn-1 is waiting for a resource held by P,v and P11 is waiting 
+for a resource held by Po. 
+We emphasize that all four conditions must hold for a deadlock to 
+occur. The circular-wait condition implies the hold-and-wait condition, so the 
+four conditions are not completely independent. We shall see in Section 7.4, 
+however, that it is useful to consider each condition separately. 
+7.2.2 Resource-Allocation Graph 
+Deadlocks can be described more precisely in terms of a directed graph called 
+a 
+graph. This graph consists of a set of vertices V 
+and a set of edges E. The set of vertices Vis partitioned into two different types 
+of nodes: P == { P1, P2, ... , Pn}, the set consisting of all the active processes in the 
+system, and R == {R1, R2, ... , RmL the set consisting of all resource types in the 
+system. 
+A directed edge from process g to resource type Rj is denoted by P; -+ Rj; 
+it signifies that process P; has requested an instance of resource type Rj and 
+is currently waiting for that resource. A directed edge from resource type Rj 
+to process P; is denoted by R1 -+ P;; it signifies that an instance of resource 
+type R1 has been allocated to process P;. A directed edge P; -+ Rj is called a 
+edge; a directed edge R1 -+ P; is called an 
+Pictorially we represent each process P; as a circle and each resource type 
+Rj as a rectangle. Since resource type Ri may have more than one instance, we 
+represent each such instance as a dot within the rectangle. Note that a request 
+edge points to only the rectangle R1, whereas an assignment edge must also 
+designate one of the dots in the rectangle. 
+When process P; requests an instance of resource type Ri, a request edge 
+is inserted in the resource-allocation graph. When this request can be fulfilled, 
+the request edge is instantaneously transformed to an assignment edge. When 
+the process no longer needs access to the resource, it releases the resource; as a 
+result, the assignment edge is deleted. 
+The resource-allocation graph shown in Figure 7.2 depicts the following 
+situation. 
+The sets P, K and E: 
+o P == {P1, P2, P3} 
+oR== {R1, R2, R3, ~} 
+0 E == {Pl-+ RlF p2-+ R3F Rl-+ p2F R2-+ p2F R2-+ Pl, R3-+ P3} 
+Resource instances: 
+o One instance of resource type R1 
+o Two instances of resource type R2 
+
+288 
+Chapter 7 
+Figure 7.2 Resource-allocation graph. 
+o One instance of resource type R3 
+o Three instances of resource type ~ 
+Process states: 
+o Process P1 is holding an instance of resource type R2 and is waiting for 
+an instance of resource type R1 . 
+o Process P2 is holding an instance of R1 and an instance of R2 and is 
+waiting for an instance of R3. 
+o Process P3 is holding an instance of R3. 
+Given the definition of a resource-allocation graph, it can be shown that, if 
+the graph contains no cycles, then no process in the system is deadlocked. If 
+the graph does contain a cycle, then a deadlock may exist. 
+If each resource type has exactly one instance, then a cycle implies that a 
+deadlock has occurred. If the cycle involves only a set of resource types, each 
+of which has only a single instance, then a deadlock has occurred. Each process 
+involved in the cycle is deadlocked. In this case, a cycle in the graph is both a 
+necessary and a sufficient condition for the existence of deadlock. 
+If each resource type has several instances, then a cycle does not necessarily 
+imply that a deadlock has occurred. In this case, a cycle in. the graph is a 
+necessary but not a sufficient condition for the existence of deadlock. 
+To illustrate this concept, we return to the resource-allocation graph 
+depicted in Figure 7.2. Suppose that process P3 requests an instance of resource 
+type R2. Since no resource instance is currently available, a request edge P3 ---+ 
+R2 is added to the graph (Figure 7.3). At this point, two minimal cycles exist in 
+the system: 
+P1 ---+ R 1 ---+ P2 ---+ R3 ---+ P3 ---+ R2 ---+ P1 
+P2 ---+ R3 ---+ P3 ---+ R2 ---+ P2 
+
+7.2 Deadlock Characterization 
+289 
+Figure 7.3 Resource-allocation graph with a deadlock. 
+Processes P1, Pz, and P3 are deadlocked. Process Pz is waiting for the resource 
+R3, which is held by process P3. Process P3 is waiting for either process P1 or 
+process Pz to release resource R2. In addition, process P1 is waiting for process 
+Pz to release resource R1. 
+Now consider the resource-allocation graph in Figure 7.4. In this example, 
+we also have a cycle: 
+However, there is no deadlock. Observe that process P4 may release its instance 
+of resource type R2. That resource can then be allocated to P3, breaking the cycle. 
+In summary, if a resource-allocation graph does not have a cycle, then the 
+system is not in a deadlocked state. If there is a cycle, then the system may or 
+may not be in a deadlocked state. This observation is important when we deal 
+with the deadlock problem. 
+Figure 7.4 Resource-allocation graph with a cycle but no deadlock. 
+
+290 
+Chapter 7 
+7.3 
+Generally speaking, we can deal with the deadlock problem in one of three 
+ways: 
+We can use a protocol to prevent or avoid deadlocks, ensuring that the 
+system will never enter a deadlocked state. 
+We can allow the system to enter a deadlocked state, detect it, and recover. 
+We can ignore the problem altogether and pretend that deadlocks never 
+occur in the system. 
+The third solution is the one used by most operating systems, including UNIX 
+and Windows; it is then up to the application developer to write programs that 
+handle deadlocks. 
+Next, we elaborate briefly on each of the three methods for handling 
+deadlocks. Then, in Sections 7.4 through 7.7, we present detailed algorithms. 
+Before proceeding, we should mention that some researchers have argued that 
+none of the basic approaches alone is appropriate for the entire spectrum of 
+resource-allocation problems in operating systems. The basic approaches can 
+be combined, however, allowing us to select an optimal approach for each class 
+of resources in a system. 
+To ensure that deadlocks never occur, the 
+prevention or a deadlock-avoidance scheme. 
+provides 
+a set of methods for ensuring that at least one of the necessary conditions 
+(Section 7.2.1) cannot hold. These methods prevent deadlocks by constraining 
+how requests for resources can be made. We discuss these methods in 
+Section 7.4. 
+requires that the operating system be given in 
+advance additional information concerning which resources a process will 
+request and use during its lifetime. With this additional knowledge, it can 
+decide for each request whether or not the process should wait. To decide 
+whether the current request can be satisfied or must be delayed, the system 
+must consider the resources currently available, the resources currently allo-
+cated to each process, and the future requests and releases of each process. We 
+discuss these schemes in Section 7.5. 
+If a system does not employ either a deadlock-prevention or a deadlock-
+avoidance algorithm, then a deadlock situation may arise. In this environment, 
+the system can provide an algorithm that examines the state of the system to 
+determine whether a deadlock has occurred and an algorithm to recover from 
+the deadlock (if a deadlock has indeed occurred). We discuss these issues in 
+Section 7.6 and Section 7.7. 
+In the absence of algorithms to detect and recover from deadlocks, we may 
+arrive at a situation in which the system is in a deadlock state yet has no way 
+of recognizing what has happened. In this case, the undetected deadlock will 
+result in deterioration of the system's performance, because resources are being 
+held by processes that cannot run and because more and more processes, as 
+they make requests for resources, will enter a deadlocked state. Eventually, the 
+system will stop functioning and will need to be restarted manually. 
+
+7.4 
+7.4 
+291 
+Although this method may not seem to be a viable approach to the deadlock 
+problem, it is nevertheless used in most operating systems, as mentioned 
+earlier. In many systems, deadlocks occur infrequently (say, once per year); 
+thus, this method is cheaper than the prevention, avoidance, or detection and 
+recovery methods, which must be used constantly. Also, in some circumstances, 
+a system is in a frozen state but not in a deadlocked state. We see this situation, 
+for example, with a real-time process running at the highest priority (or any 
+process running on a nonpreemptive scheduler) and never returning control 
+to the operating system. The system must have manual recovery methods for 
+such conditions and may simply use those techniques for deadlock recovery. 
+As we noted in Section 7.2.1, for a deadlock to occur, each of the four necessary 
+conditions must hold. By ensuring that at least one of these conditions cannot 
+hold, we can prevent the occurrence of a deadlock. We elaborate on this 
+approach by examining each of the four necessary conditions separately. 
+7.4.1 
+Mutual Exclusion 
+The mutual-exclusion condition must hold for nonsharable resources. For 
+example, a printer cannot be simultaneously shared by several processes. 
+Sharable resources, in contrast, do not require mutually exclusive access and 
+thus cannot be involved in a deadlock. Read-only files are a good example of 
+a sharable resource. If several processes attempt to open a read-only file at the 
+same time, they can be granted simultaneous access to the file. A process never 
+needs to wait for a sharable resource. In general, however, we cannot prevent 
+deadlocks by denying the mutual-exclusion condition, because some resources 
+are intrinsically nonsharable. 
+7.4.2 Hold and Wait 
+To ensure that the hold-and-wait condition never occurs in the system, we must 
+guarantee that, whenever a process requests a resource, it does not hold any 
+other resources. One protocol that can be used requires each process to request 
+and be allocated all its resources before it begins execution. We can implement 
+this provision by requiring that system calls requesting resources for a process 
+precede all other system calls. 
+An alternative protocol allows a process to request resources only when it 
+has none. A process may request some resources and use them. Before it can 
+request any additional resources, however, it must release all the resources that 
+it is currently allocated. 
+To illustrate the difference between these two protocols, we consider a 
+process that copies data from a DVD drive to a file on disk, sorts the file, and 
+then prints the results to a printer. If all resources must be requested at the 
+beginning of the process, then the process must initially request the DVD drive, 
+disk file, and printer. It will hold the printer for its entire execution, even though 
+it needs the printer only at the end. 
+The second method allows the process to request initially only the DVD 
+drive and disk file. It copies from the DVD drive to the disk and then releases 
+
+292 
+Chapter 7 
+both the DVD drive and the disk file. The process must then again request the 
+disk file and the printer. After copying the disk file to the printer, it releases 
+these two resources and terminates. 
+Both these protocols have two main disadvantages. First, resource utiliza-
+tion may be low, since resources may be allocated but unused for a long period. 
+In the example given, for instance, we can release the DVD drive and disk file, 
+and then again request the disk file and printe1~ only if we can be sure that our 
+data will remain on the disk file. Otherwise, we must request all resources at 
+the beginning for both protocols. 
+Second, starvation is possible. A process that needs several popular 
+resources may have to wait indefinitely, because at least one of the resources 
+that it needs is always allocated to some other process. 
+7.4.3 No Preemption 
+The third necessary condition for deadlocks is that there be no preemption 
+of resources that have already been allocated. To ensure that this condition 
+does not hold, we can use the following protocol. If a process is holding 
+some resources and requests another resource that cannot be immediately 
+allocated to it (that is, the process must wait), then all resources the process is 
+currently holding are preempted. In other words, these resources are implicitly 
+released. The preempted resources are added to the list of resources for which 
+the process is waiting. The process will be restarted only when it can regain its 
+old resources, as well as the new ones that it is requesting. 
+Alternatively, if a process requests some resources, we first check whether 
+they are available. If they are, we allocate them. If they are not, we check 
+whether they are allocated to some other process that is waiting for additional 
+resources. If so, we preempt the desired resources from the waiting process and 
+allocate them to the requesting process. If the resources are neither available 
+nor held by a waiting process, the requesting process must wait. While it is 
+waiting, some of its resources may be preempted, but only if another process 
+requests them. A process can be restarted only when it is allocated the new 
+resources it is requesting and recovers any resources that were preempted 
+while it was waiting. 
+This protocol is often applied to resources whose state can be easily saved 
+and restored later, such as CPU registers and memory space. It cannot generally 
+be applied to such resources as printers and tape drives. 
+7 .4.4 Circular Wait 
+The fourth and final condition for deadlocks is the circular-wait condition. One 
+way to ensure that this condition never holds is to impose a total ordering of 
+all resource types and to require that each process requests resources in an 
+increasing order of enumeration. 
+To illustrate, we let R = { R1, R2, ... , Rm} be the set of resource types. We 
+assign to each resource type a unique integer number, which allows us to 
+compare two resources and to determine whether one precedes another in our 
+ordering. Formally, we define a one-to-one hmction F: R ___,. N, where N is the 
+set of natural numbers. For example, if the set of resource types R includes 
+tape drives, disk drives, and printers, then the function F might be defined as 
+follows: 
+
+7.4 
+F (tape drive) = 1 
+F (disk drive) = 5 
+F (printer) = 12 
+293 
+We can now consider the following protocol to prevent deadlocks: Each 
+process can request resources only in an increasing order of enumeration. That 
+is, a process can initially request any number of instances of a resource type 
+-say, R;. After that, the process can request instances of resource type Rj if 
+and only if F(Rj) > F(R;). For example, using the function defined previously, 
+a process that wants to use the tape drive and printer at the same time must 
+first request the tape drive and then request the printer. Alternatively, we can 
+require that a process requesting an instance of resource type Rj must have 
+released any resources R; such that F(Ri) ::=:: F(Rj). It must also be noted that if 
+several iilstances of the same resource type are needed, a single request for all 
+of them must be issued. 
+If these two protocols are used, then the circular-wait condition cannot 
+hold. We can demonstrate this fact by assuming that a circular wait exists 
+(proof by contradiction). Let the set of processes involved in the circular wait be 
+{ P0, P1, ... , P11 }, where Pi is waiting for a resource R;, which is held by process 
+Pi+l· (Modulo arithmetic is used on the indexes, so that P 11 is waiting for 
+a resource R11 held by P0 .) Then, since process Pi+l is holding resource Ri 
+while requesting resource Ri+l' we must have F(Ri) < F(R;H) for all i. But 
+this condition means that F(Ro) < F(R1) < ... < F(R11) < F (Ro). By transitivity, 
+F(Ro) < F(Ro), which is impossible. Therefore, there can be no circular wait. 
+We can accomplish this scheme in an application program by developing 
+an ordering among all synchronization objects in the system. All requests for 
+synchronization objects must be made in increasing order. For example, if the 
+lock ordering in the Pthread program shown in Figure 7.1 was 
+F (first_mutex) = 1 
+F (second_mutex) = 5 
+then thread_ two could not request the locks out of order. 
+Keep in mind that developing an ordering, or hierarchy, does not in itself 
+prevent deadlock. It is up to application developers to write programs that 
+follow the ordering. Also note that the function F should be defined according 
+to the normal order of usage of the resources in a system. For example, because 
+the tape drive is usually needed before the printer, it would be reasonable to 
+define F(tape drive) < F(printer). 
+Although ensuring that resources are acquired in the proper order is the 
+responsibility of application developers, certain software can be used to verify 
+that locks are acquired in the proper order and to give appropriate warnings 
+when locks are acquired out of order and deadlock is possible. One lock-order 
+verifier, which works on BSD versions of UNIX such as FreeBSD, is known as 
+witness. Witness uses mutual-exclusion locks to protect critical sections, as 
+described in Chapter 6; it works by dynamically maintaining the relationship 
+of lock orders in a system. Let's use the program shown in Figure 7.1 as an 
+example. Assume that thread_one is the first to acquire the locks and does so in 
+the order (1) first_mutex, (2) second_mutex. Wih1ess records the relationship 
+that first_mutex must be acquired before second_mutex. If thread_two later 
+
+294 
+Chapter 7 
+7.5 
+acquires the locks out of order, witness generates a warning message on the 
+system console. 
+It is also important to note that imposing a lock ordering does not guarantee 
+deadlock prevention if locks can be acquired dynamically. For example, assume 
+we have a function that transfers funds between two accounts. To prevent a 
+race condition, each account has an associated semaphore that is obtained from 
+a get Lock () function such as the following: 
+void transaction(Account from, Account to, double amount) 
+{ 
+} 
+Semaphore lock1, lock2; 
+lock1 
+getLock(from); 
+lock2 = getLock(to); 
+wait(lock1); 
+wait(lock2); 
+withdraw(from, amount); 
+deposit(to, amount); 
+signal(lock2); 
+signal (lock1) ; 
+Deadlock is possible if two threads simultaneously invoke the trans action () 
+function, transposing different accounts. That is, one thread might invoke 
+transaction(checkingAccount, savingsAccount, 25); 
+and another might invoke 
+transaction(savingsAccount, checkingAccount, 50); 
+We leave it as an exercise for students to fix this situation. 
+Deadlock-prevention algorithms, as discussed in Section 7.4, prevent deadlocks 
+by restraining how requests can be made. The restraints ensure that at least 
+one of the necessary conditions for deadlock cannot occur and, hence, that 
+deadlocks cannot hold. Possible side effects of preventing deadlocks by this 
+method, however, are low device utilization and reduced system throughput. 
+An alternative method for avoiding deadlocks is to require additional 
+information about how resources are to be requested. For example, in a system 
+with one tape drive and one printer, the system might need to know that 
+process P will request first the tape drive and then the printer before releasing 
+both resources, whereas process Q will request first the printer and then the 
+tape drive. With this knowledge of the complete sequence of requests and 
+releases for each process, the system can decide for each request whether or 
+not the process should wait in order to avoid a possible future deadlock. Each 
+request requires that in making this decision the system consider the resources 
+
+7.5 Deadlock Avoidance 
+295 
+currently available, the resources currently allocated to each process, and the 
+future requests and releases of each process. 
+The various algorithms that use this approach differ in the amount and type 
+of information required. The simplest and most useful model requires that each 
+process declare the maximum number of resources of each type that it may need. 
+Given this a priori information, it is possible to construct an algorithm that 
+ensures that the system will never enter a deadlocked state. Such an algorithm 
+defines the deadlock-avoidance approach. A deadlock-avoidance algorithm 
+dynamically examines the resource-allocation state to ensure that a circular-
+wait condition can never exist. The resource-allocation state is defined by the 
+number of available and allocated resources and the maximum demands of 
+the processes. In the following sections, we explore two deadlock-avoidance 
+algorithms. 
+7.5.1 Safe State 
+A state is safe if the system can allocate resources to each process (up to its 
+maximum) in some order and still avoid a deadlock. More formally, a system 
+is in a safe state only if there exists a safe sequence. A sequence of processes 
+<P1, P2, ... , Pn> is a safe sequence for the current allocation state if, for each 
+Pi, the resource requests that Pi can still make can be satisfied by the currently 
+available resources plus the resources held by all Pj, with j < i. In this situation, 
+if the resources that Pi needs are not immediately available, then Pi can wait 
+until all Pj have finished. When they have finished, Pi can obtain all of its 
+needed resources, complete its designated task, return its allocated resources, 
+and terminate. When Pi terminates, Pi+l can obtain its needed resources, and 
+so on. If no such sequence exists, then the system state is said to be unsafe. 
+A safe state is not a deadlocked state. Conversely, a deadlocked state is 
+an unsafe state. Not all unsafe states are deadlocks, however (Figure 7.5). 
+An unsafe state may lead to a deadlock. As long as the state is safe, the 
+operating system can avoid unsafe (and deadlocked) states. In an unsafe state, 
+the operating system cannot prevent processes from requesting resources in 
+such a way that a deadlock occurs. The behavior of the processes controls 
+unsafe states. 
+Figure 7.5 Safe, unsafe, and deadlocked state spaces. 
+
+296 
+Chapter 7 Deadlocks 
+To illustrate, we consider a system with twelve magnetic tape drives and 
+three processes: Po, P1, and P2. Process Po requires ten tape drives, process P1 
+may need as many as four tape drives, and process P2 may need up to nine tape 
+drives. Suppose that, at time to, process Po is holding five tape drives, process 
+P1 is holding two tape drives, and process P2 is holding two tape drives. (Thus, 
+there are three free tape drives.) 
+Maximum Needs 
+Current Needs 
+10 
+4 
+9 
+5 
+2 
+2 
+At time t0, the system is in a safe state. The sequence <P1, P0, P2> satisfies 
+the safety condition. Process P1 can immediately be allocated all its tape drives 
+and then return them (the system will then have five available tape drives); 
+then process Po can get all its tape drives and return them (the system will then 
+have ten available tape drives); and finally process P2 can get all its tape drives 
+and return them (the system will then have all twelve tape drives available). 
+A system can go from a safe state to an unsafe state. Suppose that, at time 
+t1, process P2 requests and is allocated one more tape drive. The system is no 
+longer in a safe state. At this point, only process P1 can be allocated all its tape 
+drives. When it returns them, the system will have only four available tape 
+drives. Since process Po is allocated five tape drives but has a maximum of ten, 
+it may request five more tape drives. If it does so, it will have to wait, because 
+they are unavailable. Similarly, process P2 may request six additional tape 
+drives and have to wait, resulting in a deadlock. Our mistake was in granting 
+the request from process P2 for one more tape drive. If we had made P2 wait 
+until either of the other processes had finished and released its resources, then 
+we could have avoided the deadlock. 
+Given the concept of a safe state, we can define avoidance algorithms that 
+ensure that the system will never deadlock. The idea is simply to ensure that the 
+system will always remain in a safe state. Initially, the system is in a safe state. 
+Whenever a process requests a resource that is currently available, the system 
+must decide whether the resource can be allocated immediately or whether 
+the process must wait. The request is granted only if the allocation leaves the 
+system in a safe state. 
+In this scheme, if a process requests a resource that is currently available, 
+it may still have to wait. Thus, resource utilization may be lower than it would 
+otherwise be. 
+7.5.2 Resource-Allocation-Graph Algorithm 
+If we have a resource-allocation system with only one instance of each resource 
+type, we can use a variant of the resource-allocation graph defined in Section 
+7.2.2 for deadlock avoidance. In addition to the request and assignment edges 
+already described, we introduce a new type of edge, called a claim edge. 
+A claim edge Pi ~ Rj indicates that process Pi may request resource Rj at 
+some time in the future. This edge resembles a request edge in direction but is 
+represented in the graph by a dashed line. When process Pi requests resource 
+
+7.5 
+297 
+Figure 7.6 Resource-allocation graph for deadlock avoidance. 
+R1, the claim edge P; -+ R1 is converted to a request edge. Similarly, when a 
+resource R1 is released by P;, the assignment edge Rj -+ P; is reconverted to a 
+claim edge P; -+ Rj. 
+We note that the resources must be claimed a priori in the system. That is, 
+before process P; starts executing, all its claim edges must already appear in 
+the resource-allocation graph. We can relax this condition by allowing a claim 
+edge P; -+ R1 to be added to the graph only if all the edges associated with 
+process P; are claim edges. 
+Now suppose that process P; requests resource Rj. The request can be 
+granted only if converting the request edge P; -+ Rj to an assignment edge 
+R1 -+ P; does not result in the formation of a cycle in the resource-allocation 
+graph. We check for safety by using a cycle-detection algorithm. An algorithm 
+for detecting a cycle in this graph requires an order of n2 operations, where n 
+is the number of processes in the system. 
+If no cycle exists, then the allocation of the resource will leave the system 
+in a safe state. If a cycle is found, then the allocation will put the system in 
+an unsafe state. In that case, process P; will have to wait for its requests to be 
+satisfied. 
+To illustrate this algorithm, we consider the resource-allocation graph of 
+Figure 7.6. Suppose that P2 requests R2 . Although R2 is currently free, we 
+cannot allocate it to P2, since this action will create a cycle in the graph (Figure 
+7.7). A cycle, as mentioned, indicates that the system is in an unsafe state. If P1 
+requests R2, and P2 requests R1, then a deadlock will occur. 
+Figure 7.7 An unsafe state in a resource-allocation graph. 
+
+298 
+Chapter 7 
+7.5.3 Banker's Algorithm 
+The resource-allocation-graph algorithm is not applicable to a resource-
+allocation system with multiple instances of each resource type. The deadlock-
+avoidance algorithm that we describe next is applicable to such a system but 
+is less efficient than the resource-allocation graph scheme. This algorithm is 
+commonly known as the banker's algorithm. The name was chosen because the 
+algorithm. could be used in a banking system to ensure that the bank never 
+allocated its available cash in such a way that it could no longer satisfy the 
+needs of all its customers. 
+When a new process enters the system, it must declare the maximum 
+number of instances of each resource type that it may need. This nun1.ber may 
+not exceed the total number of resources in the system. When a user requests 
+a set of resources, the system must determine whether the allocation of these 
+resources will leave the system in a safe state. If it will, the resources are 
+allocated; otherwise, the process must wait until some other process releases 
+enough resources. 
+Several data structures must be maintained to implement the banker's 
+algorithm. These data structures encode the state of the resource-allocation 
+system. We need the following data structures, where n is the number of 
+processes in the system and m is the number of resource types: 
+Available. A vector of length m indicates the number of available resources 
+of each type. If Available[j] equals k, then k instances of resource type Ri 
+are available. 
+Max. An n x m matrix defines the maximum demand of each process. 
+If Max[i] [j] equals k, then process P; may request at most k instances of 
+resource type Ri. 
+Allocation. An 11 x m matrix defines the number of resources of each type 
+currently allocated to each process. If Allocation[i][j] equals lc, then process 
+P; is currently allocated lc instances of resource type Rj. 
+Need. An n x m matrix indicates the remaining resource need of each 
+process. If Need[i][j] equals k, then process P; may need k more instances of 
+resource type Ri to complete its task. Note that Need[i][j] equals Max[i][j] 
+- Allocation [i][j]. 
+These data structures vary over time in both size and value. 
+To simplify the presentation of the banker's algorithm, we next establish 
+some notation. Let X andY be vectors of length 11. We say that X::= Y if and 
+only if X[i] ::= Y[i] for all i = 1, 2, ... , n. For example, if X = (1,7,3,2) and Y = 
+(0,3,2,1), then Y ::=X. In addition, Y < X if Y ::=X andY# X. 
+We can treat each row in the matrices Allocation and Need as vectors 
+and refer to them as Allocation; and Need;. The vector Allocation; specifies 
+the resources currently allocated to process P;; the vector Need; specifies the 
+additional resources that process P; may still request to complete its task. 
+7.5.3.1 
+Safety Algorithm 
+We can now present the algorithm for finding out whether or not a systern is 
+in a safe state. This algorithm can be described as follows: 
+
+7.5 
+299 
+Let Work and Finish be vectors of length m and n, respectively. Initialize 
+Work= Available and Finish[i] =false for i = 0, 1, ... , n - 1. 
+Find an index i such that both 
+a. Finish[i] ==false 
+b. Need; ::; Work 
+If no such i exists, go to step 4. 
+Work = Work + Allocation; 
+Finish[i] = true 
+Go to step 2. 
+If Finish[i] ==true for all i, then the system is in a safe state. 
+This algorithm may require an order of m x n2 operations to determine whether 
+a state is safe. 
+7.5.3.2 
+Resource-Request Algorithm 
+Next, we describe the algorithm for determining whether requests can be safely 
+granted. 
+Let Request; be the request vector for process P;. If Request; [j] == k, then 
+process P; wants k instances of resource type Rj. When a request for resources 
+is made by process P;, the following actions are taken: 
+If Request; ::::; Need;, go to step 2. Otherwise, raise an error condition, since 
+the process has exceeded its maximum claim. 
+If Request; ::; Available, go to step 3. Otherwise, P; must wait, since the 
+resources are not available. 
+Have the system pretend to have allocated the requested resources to 
+process P; by modifyil1.g the state as follows: 
+Available= Available- Request;; 
+Allocation; =Allocation; +Request;; 
+Need; =Need;- Request;; 
+If the resulting resource-allocation state is safe, the transaction is com-
+pleted, and process P; is allocated its resources. However, if the new state 
+is unsafe, then P; must wait for Request;, and the old resource-allocation 
+state is restored. 
+7.5.3.3 An Illustrative Example 
+To illustrate the use of the banker's algorithm, consider a system with five 
+processes Po through P4 and three resource types A, B, and C. Resource type A 
+has ten instances, resource type B has five instances, and resource type C has 
+seven instances. Suppose that, at time T0, the following snapshot of the system 
+has been taken: 
+
+300 
+Chapter 7 
+Allocation 
+Max 
+Available 
+ABC 
+ABC 
+ABC 
+Po 
+010 
+753 
+332 
+pl 
+200 
+322 
+p2 
+302 
+902 
+p3 
+2 11 
+222 
+p4 
+002 
+433 
+The content of the matrix Need is defined to be Max - Allocation and is as 
+follows: 
+Need 
+ABC 
+Po 
+743 
+pl 
+122 
+p2 
+600 
+p3 
+011 
+p4 
+431 
+We claim that the system is currently in a safe state. Indeed, the sequence 
+< Plt P3, P4, P2, Po> satisfies the safety criteria. Suppose now that process 
+P1 requests one additional instance of resource type A and two instances of 
+resource type C, so Request1 = (1,0,2). To decide whether this request can be 
+immediately granted, we first check that Request1 s Available-that is, that 
+(1,0,2) s (3,3,2), which is true. We then pretend that this request has been 
+fulfilled, and we arrive at the following new state: 
+Allocation 
+Need 
+Available 
+ABC 
+ABC 
+ABC 
+Po 
+010 
+743 
+230 
+pl 
+302 
+020 
+p2 
+302 
+600 
+p3 
+211 
+0 11 
+p4 
+002 
+431 
+We must determine whether this new system state is safe. To do so, we 
+execute our safety algorithm and find that the sequence <P1, P3, P4, Po, P2> 
+satisfies the safety requirement. Hence, we can immediately grant the request 
+of process P1. 
+You should be able to see, however, that when the system is in this state, a 
+request for (3,3,0) by P4 cannot be granted, since the resources are not available. 
+Furthermore, a request for (0,2,0) by Po cannot be granted, even though the 
+resources are available, since the resulting state is unsafe. 
+We leave it as a programming exercise for students to implement the 
+banker's algorithm. 
+
+7.6 
+7.6 
+301 
+If a system does not employ either a deadlock-prevention or a deadlock-
+avoidance algorithm, then a deadlock situation may occur. In this environment, 
+the system may provide: 
+An algorithm that examines the state of the system to determine whether 
+a deadlock has occurred 
+An algorithm to recover from the deadlock 
+In the following discussion, we elaborate on these two requirements as they 
+pertain to systems with only a single instance of each resource type, as well as to 
+systems with several instances of each resource type. At this point, however, we 
+note that a detection-and-recovery scheme requires overhead that includes not 
+only the run-time costs of maintaining the necessary information and executing 
+the detection algorithm but also the potential losses inherent in recovering from 
+a deadlock. 
+7.6.1 Single Instance of Each Resource Type 
+If all resources have only a single instance, then we can define a deadlock-
+detection algorithm that uses a variant of the resource-allocation graph, called 
+a wait-for graph. We obtain this graph from the resource-allocation graph by 
+removing the resource nodes and collapsing the appropriate edges. 
+More precisely, an edge from Pi to Pi in a wait-for graph implies that 
+process Pz is waiting for process P1 to release a resource that P; needs. An edge 
+Pz --+ Pi exists iil a wait-for graph if and only if the corresponding resource-
+allocation graph contains two edges Pz --+ Rq and Rq --+ Pi for some resource 
+Rq. For example, in Figure 7.8, we present a resource-allocation graph and the 
+corresponding wait-for graph. 
+As before, a deadlock exists in the system if and only if the wait-for graph 
+contains a cycle. To detect deadlocks, the system needs to maintain the wait-for 
+graph and periodically invoke an algorithm that searches for a cycle in the graph. 
+An algorithm to detect a cycle in a graph requires an order of n2 operations, 
+where n is the number of vertices in the graph. 
+7.6.2 Several Instances of a Resource Type 
+The wait-for graph scheme is not applicable to a resource-allocation system 
+with multiple instances of each resource type. We turn now to a deadlock-
+detection algorithm that is applicable to such a system. The algorithm employs 
+several time-varying data structures that are similar to those used in the 
+banker's algorithm (Section 7.5.3): 
+Available. A vector of length nz indicates the number of available resources 
+of each type. 
+Allocation. Ann x nz matrix defines the number of resources of each type 
+currently allocated to each process. 
+
+302 
+Chapter 7 
+(a) 
+(b) 
+Figure 7.8 (a) Resource-allocation graph. (b) Corresponding wait-for graph. 
+Request. An n x m matrix indicates the current request of each process. 
+If Request[i][j] equals k, then process P; is requesting k more instances of 
+resource type Rj. 
+The:::: relation between two vectors is defined as in Section 7.5.3. To simplify 
+notation, we again treat the rows in the matrices Allocation and Request as 
+vectors; we refer to them as Allocation; and Request;. The detection algorithm 
+described here simply investigates every possible allocation sequence for the 
+processes that remain to be completed. Compare this algorithm with the 
+banker's algorithm of Section 7.5.3. 
+Let Work and Finish be vectors of length m and n, respectively. Initialize 
+Work= Available. Fori= 0, 1, ... , n-1, if Allocation; # 0, then Finish[i] =false; 
+otherwise, Finish[i] = tme. 
+2. Find an index i such that both 
+a. Finish[i] ==false 
+b. Request; :::: Work 
+If no such i exists, go to step 4. 
+Work= Work+ Allocation; 
+Finish[i] = true 
+Go to step 2. 
+4. If Finish[i] ==false for some i, 0 :::: i < n, then the system is in a deadlocked 
+state. Moreover, if Finish[i] ==false, then process P; is deadlocked. 
+This algorithm requires an order o£ m x n2 operations to detect whether the 
+system is in a deadlocked state. 
+
+7.6 
+303 
+You may wonder why we reclaim the resources of process P; (in step 3) 
+as soon as we determine that Request; :S Work (in step 2b). We know that P; 
+is currently not involved in a deadlock (since Request; :S Work). Thus, we take 
+an optimistic attitude and assume that P; will require no more resources to 
+complete its task; it will thus soon return all currently allocated resources to 
+the system. If our assumption is incorrect, a deadlock may occur later. That 
+deadlock will be detected the next tince the deadlock-detection algorithm is 
+invoked. 
+To illustrate this algorithm, we consider a system with five processes Po 
+through P4 and three resource types A, B, and C. Resource type A has seven 
+instances, resource type B has two instances, and resource type C has six 
+instances. Suppose that, at time T0, we have the following resource-allocation 
+state: 
+Allocation 
+Request 
+Available 
+ABC 
+ABC 
+ABC 
+Po 
+0 1 0 
+000 
+000 
+pl 
+200 
+202 
+p2 
+303 
+000 
+p3 
+2 11 
+100 
+p4 
+002 
+002 
+We claim that the system is not in a deadlocked state. Indeed, if we execute 
+our algorithm, we will find that the sequence <Po, P2, P3, Plt P4> results in 
+Finish[i] == true for all i. 
+Suppose now that process P2 makes one additional request for an instance 
+of type C. The Request matrix is modified as follows: 
+Request 
+ABC 
+Po 
+000 
+pl 
+202 
+p2 
+001 
+p3 
+100 
+p4 
+002 
+We claim that the system is now deadlocked. Although we can reclaim the 
+resources held by process Po, the number of available resources is not sufficient 
+to fulfill the requests of the other processes. Thus, a deadlock exists, consisting 
+of processes P1, P2, P3, and P4. 
+7.6.3 Detection-Algorithm Usage 
+When should we invoke the detection algorithm? The answer depends on two 
+factors: 
+1. How often is a deadlock likely to occur? 
+How many processes will be affected by deadlock when it happens? 
+
+304 
+Chapter 7 
+7.7 
+If deadlocks occur frequently, then the detection algorithm should be invoked 
+frequently. Resources allocated to deadlocked processes will be idle until the 
+deadlock can be broken. In addition, the number of processes involved in the 
+deadlock cycle may grow. 
+Deadlocks occur only when some process makes a request that cannot be 
+granted immediately. This request may be the final request that completes a 
+chain of waiting processes. In the extreme, then, we can invoke the deadlock-
+detection algorithm every time a request for allocation cannot be granted 
+immediately. In this case, we can identify not only the deadlocked set of 
+processes but also the specific process that "caused" the deadlock (In reality, 
+each of the deadlocked processes is a link in the cycle in the resource graph, so 
+all of them, jointly, caused the deadlock) If there are many different resource 
+types, one request may create many cycles in the resource graph, each cycle 
+completed by the most recent request and "caused" by the one identifiable 
+process. 
+Of course, invoking the deadlock-detection algorithm for every resource 
+request will incur considerable overhead in computation time. A less expensive 
+alternative is simply to invoke the algorithm at defined intervals-for example, 
+once per hour or whenever CPU utilization drops below 40 percent. (A deadlock 
+eventually cripples system throughput and causes CPU utilization to drop.) If 
+the detection algorithm is invoked at arbitrary points in time, the resource 
+graph may contain many cycles. In this case, we generally cannot tell which of 
+the many deadlocked processes "caused" the deadlock 
+When a detection algorithm determines that a deadlock exists, several alter-
+natives are available. One possibility is to inform the operator that a deadlock 
+has occurred and to let the operator deal with the deadlock manually. Another 
+possibility is to let the system recover from the deadlock automatically. There 
+are two options for breaking a deadlock One is simply to abort one or more 
+processes to break the circular wait. The other is to preempt some resources 
+from one or more of the deadlocked processes. 
+7.7.1 Process Termination 
+To eliminate deadlocks by aborting a process, we use one of two methods. In 
+both methods, the system reclaims all resources allocated to the terminated 
+processes. 
+Abort all deadlocked processes. This method clearly will break the 
+deadlock cycle, but at great expense; the deadlocked processes may have 
+computed for a long time, and the results of these partial computations 
+must be discarded and probably will have to be recomputed later. 
+Abort one process at a time until the deadlock cycle is eliminated. This 
+method incurs considerable overhead, since after each process is aborted, a 
+deadlock-detection algorithnc rnust be invoked to determine whether any 
+processes are still deadlocked. 
+
+7.7 
+305 
+Aborting a process may not be easy. If the process was in the midst of 
+updating a file, terminating it will leave that file in an incorrect state. Similarly, 
+if the process was in the midst of printing data on a printer, the system must 
+reset the printer to a correct state before printing the next job. 
+If the partial termination method is used, then we must determine which 
+deadlocked process (or processes) should be terminated. This determination is 
+a policy decision, similar to CPU-scheduling decisions. The question is basically 
+an economic one; we should abort those processes whose termination will incur 
+the minimum cost. Unfortunately, the term minimum cost is not a precise one. 
+Many factors may affect which process is chosen, including: 
+1. What the priority of the process is 
+2. How long the process has computed and how much longer the process 
+will compute before completing its designated task 
+How many and what types of resources the process has used (for example, 
+whether the resources are simple to preempt) 
+How many more resources the process needs in order to complete 
+5. How many processes will need to be terminated 
+Whether the process is interactive or batch 
+7.7.2 Resource Preemption 
+To eliminate deadlocks using resource preemption, we successively preempt 
+some resources from processes and give these resources to other processes 1-m til 
+the deadlock cycle is broken. 
+If preemption is required to deal with deadlocks, then three issues need to 
+be addressed: 
+Selecting a victim. Which resources and which processes are to be 
+preempted? As in process termil<ation, we must determine the order of 
+preemption to minimize cost. Cost factors may include such parameters 
+as the number of resources a deadlocked process is holding and the 
+amount of time the process has thus far consumed during its execution. 
+Rollback. If we preempt a resource from a process, what should be done 
+with that process? Clearly, it cannot contil<ue with its normal execution; it 
+is missing some needed resource. We must roll back the process to some 
+safe state and restart it from that state. 
+Since, in general, it is difficult to determine what a safe state is, the 
+simplest solution is a total rollback: abort the process and then restart 
+it. Although it is more effective to roll back the process only as far as 
+necessary to break the deadlock, this method requires the system to keep 
+more information about the state of all running processes. 
+Starvation. How do we ensure that starvation will not occur? That is, 
+how can we guarantee that resources will not always be preempted from 
+the same process? 
+
+306 
+Chapter 7 
+7.8 
+In a system where victim selection is based primarily on cost factors, 
+it may happen that the same process is always picked as a victim. As 
+a result, this process never completes its designated task, a starvation 
+situation that must be dealt with in any practical system. Clearly, we 
+must ensure that a process can be picked as a victim" only a (small) finite 
+number of times. The most common solution is to include the number of 
+rollbacks in the cost factor. 
+A deadlocked state occurs when two or more processes are waiting indefinitely 
+for an event that can be caused only by one of the waiting processes. There are 
+three principal methods for dealing with deadlocks: 
+Use some protocol to prevent or avoid deadlocks, ensuring that the system 
+will never enter a deadlocked state. 
+Allow the system to enter a deadlocked state, detect it, and then recover. 
+Ignore the problem altogether and pretend that deadlocks never occur in 
+the system. 
+The third solution is the one used by most operating systems, including UNIX 
+and Windows. 
+A deadlock can occur only if four necessary conditions hold simultaneously 
+in the system: mutual exclusion, hold and wait, no preemption, and circular 
+wait. To prevent deadlocks, we can ensure that at least one of the necessary 
+conditions never holds. 
+A method for avoiding deadlocks, rather than preventing them, requires 
+that the operating system have a priori information about how each process 
+will utilize system resources. The banker's algorithm, for example, requires 
+a priori information about the maximunl. number of each resource class that 
+each process may request. Using this information, we can define a deadlock-
+avoidance algorithm. 
+If a system does not employ a protocol to ensure that deadlocks will never 
+occur, then a detection-and-recovery scheme may be employed. A deadlock-
+detection algorithm must be invoked to detennine whether a deadlock 
+has occurred. If a deadlock is detected, the system must recover either by 
+terminating some of the deadlocked processes or by preempting resources 
+from some of the deadlocked processes. 
+Where preemption is used to deal with deadlocks, three issues must be 
+addressed: selecting a victim, rollback, and starvation. In a system that selects 
+victims for rollback primarily on the basis of cost factors, starvation may occur, 
+and the selected process can never complete its designated task. 
+Researchers have argued that none of the basic approaches alone is appro-
+priate for the entire spectrum of resource-allocation problems in operating 
+systems. The basic approaches can be combined, however, allowing us to select 
+an optimal approach for each class of resources in a system. 
