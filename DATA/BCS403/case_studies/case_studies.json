@@ -1,0 +1,27 @@
+[
+  {
+    "case_study_id": "CS_BCS403_01",
+    "subject": "BCS403",
+    "module": 1,
+    "topic": "ER Model",
+    "scenario": "Company Database Enterprise Schema",
+    "entities": [
+      "EMPLOYEE (Ssn, Fname, Lname, Bdate, Address, Sex, Salary, Super_ssn, Dno)",
+      "DEPARTMENT (Dnumber, Dname, Mgr_ssn, Mgr_start_date)",
+      "PROJECT (Pnumber, Pname, Plocation, Dnum)",
+      "DEPENDENT (Essn, Dependent_name, Sex, Bdate, Relationship)"
+    ],
+    "relationships": [
+      "WORKS_FOR (EMPLOYEE N : 1 DEPARTMENT)",
+      "MANAGES (EMPLOYEE 1 : 1 DEPARTMENT)",
+      "CONTROLS (DEPARTMENT 1 : N PROJECT)",
+      "WORKS_ON (EMPLOYEE M : N PROJECT with attribute Hours)",
+      "DEPENDENTS_OF (EMPLOYEE 1 : N DEPENDENT identifying relationship)"
+    ],
+    "inputs": "Company organization chart, department budget codes, project schedules",
+    "outputs": "Conceptual ER Diagram and Normalized 3NF/BCNF Relational Tables",
+    "constraints": "Every department must have exactly one manager; an employee works for exactly one department",
+    "source": "Elmasri Navathe DBMS Chapter 3 / VTU BCS403 Module 1 Question Bank",
+    "page": 65
+  }
+]

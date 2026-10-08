@@ -1,0 +1,511 @@
+{
+  "schema_version": "2.0.0",
+  "description": "VTU CSE Academic Tables Database preserving technical parameters, matrices, and comparisons",
+  "total_tables": 10,
+  "tables": [
+    {
+      "table_id": "TBL_BCS301_01",
+      "subject_code": "BCS301",
+      "module": 1,
+      "topic": "Probability Distributions",
+      "title": "Standard Discrete Probability Distributions Comparison",
+      "headers": [
+        "Distribution",
+        "PMF P(X=x)",
+        "Mean E[X]",
+        "Variance Var(X)",
+        "Parameter Constraints"
+      ],
+      "rows": [
+        [
+          "Binomial",
+          "(nCx) p^x (1-p)^(n-x)",
+          "np",
+          "np(1-p)",
+          "0 <= p <= 1, x in {0,1,..,n}"
+        ],
+        [
+          "Poisson",
+          "(e^-lambda * lambda^x) / x!",
+          "lambda",
+          "lambda",
+          "lambda > 0, x in {0,1,2,..}"
+        ],
+        [
+          "Geometric",
+          "(1-p)^(x-1) * p",
+          "1/p",
+          "(1-p)/p^2",
+          "0 < p <= 1, x in {1,2,3,..}"
+        ],
+        [
+          "Uniform (Discrete)",
+          "1 / n",
+          "(n+1)/2",
+          "(n^2 - 1)/12",
+          "x in {1,2,..,n}"
+        ]
+      ],
+      "source": "Axler Linear Algebra / VTU MCS Lecture Notes Module 1",
+      "page": 42
+    },
+    {
+      "table_id": "TBL_BCS302_01",
+      "subject_code": "BCS302",
+      "module": 2,
+      "topic": "Flip-Flops",
+      "title": "Flip-Flop Characteristic and Excitation Summary",
+      "headers": [
+        "Flip-Flop Type",
+        "Inputs",
+        "Next State Equation Q(next)",
+        "Excitation Q -> 0",
+        "Excitation Q -> 1"
+      ],
+      "rows": [
+        [
+          "SR",
+          "S, R",
+          "S + R'Q (SR=0)",
+          "S=0, R=X (if Q=0)",
+          "S=1, R=0 (if Q=0)"
+        ],
+        [
+          "JK",
+          "J, K",
+          "J Q' + K' Q",
+          "J=0, K=X (if Q=0)",
+          "J=1, K=X (if Q=0)"
+        ],
+        [
+          "D",
+          "D",
+          "D",
+          "D=0",
+          "D=1"
+        ],
+        [
+          "T",
+          "T",
+          "T XOR Q",
+          "T=0 (if Q=0)",
+          "T=1 (if Q=0)"
+        ]
+      ],
+      "source": "Mano & Ciletti Digital Design / BCS302 Module 2 Notes",
+      "page": 118
+    },
+    {
+      "table_id": "TBL_BCS303_01",
+      "subject_code": "BCS303",
+      "module": 2,
+      "topic": "CPU Scheduling",
+      "title": "CPU Scheduling Algorithms Comparative Matrix",
+      "headers": [
+        "Algorithm",
+        "Preemptive?",
+        "Starvation Risk?",
+        "Average Waiting Time",
+        "Primary Application"
+      ],
+      "rows": [
+        [
+          "FCFS (First-Come First-Served)",
+          "No",
+          "No (Convoy effect)",
+          "High",
+          "Batch systems"
+        ],
+        [
+          "SJF (Shortest Job First)",
+          "Optional (SRTF)",
+          "Yes (Long jobs)",
+          "Optimal (Minimum)",
+          "Long-term batch scheduling"
+        ],
+        [
+          "Round Robin (RR)",
+          "Yes",
+          "No",
+          "Moderate",
+          "Interactive time-sharing OS"
+        ],
+        [
+          "Priority Scheduling",
+          "Yes / No",
+          "Yes (Low priority)",
+          "Variable",
+          "Real-time & mission-critical"
+        ],
+        [
+          "Multi-Level Feedback Queue",
+          "Yes",
+          "No (Aging prevents)",
+          "Low",
+          "General-purpose modern OS (Linux, Windows)"
+        ]
+      ],
+      "source": "Silberschatz OS Concepts 10th Ed Chapter 5",
+      "page": 215
+    },
+    {
+      "table_id": "TBL_BCS304_01",
+      "subject_code": "BCS304",
+      "module": 5,
+      "topic": "Graph Algorithms",
+      "title": "Asymptotic Time Complexity of Graph Algorithms",
+      "headers": [
+        "Algorithm",
+        "Problem Solved",
+        "Adjacency Matrix",
+        "Adjacency List (Binary Heap)",
+        "Fibonacci Heap"
+      ],
+      "rows": [
+        [
+          "BFS / DFS",
+          "Graph Traversal",
+          "O(V^2)",
+          "O(V + E)",
+          "-"
+        ],
+        [
+          "Dijkstra",
+          "Single-Source Shortest Path (Non-negative)",
+          "O(V^2)",
+          "O((V + E) log V)",
+          "O(E + V log V)"
+        ],
+        [
+          "Bellman-Ford",
+          "SSSP with Negative Edge Weights",
+          "O(V^3)",
+          "O(V * E)",
+          "-"
+        ],
+        [
+          "Floyd-Warshall",
+          "All-Pairs Shortest Path",
+          "O(V^3)",
+          "O(V^3)",
+          "-"
+        ],
+        [
+          "Prim's MST",
+          "Minimum Spanning Tree",
+          "O(V^2)",
+          "O(E log V)",
+          "O(E + V log V)"
+        ],
+        [
+          "Kruskal's MST",
+          "Minimum Spanning Tree",
+          "O(E log E)",
+          "O(E log V) (Union-Find)",
+          "-"
+        ]
+      ],
+      "source": "CLRS Introduction to Algorithms 3rd Ed Chapter 22-25",
+      "page": 654
+    },
+    {
+      "table_id": "TBL_BCS401_01",
+      "subject_code": "BCS401",
+      "module": 1,
+      "topic": "Asymptotic Analysis",
+      "title": "Master Theorem Recurrence Case Summary",
+      "headers": [
+        "Case",
+        "Condition on f(n) vs n^(log_b a)",
+        "Solution T(n)",
+        "Representative Recurrence Example"
+      ],
+      "rows": [
+        [
+          "Case 1",
+          "f(n) = O(n^(log_b a - epsilon)), epsilon > 0",
+          "Theta(n^(log_b a))",
+          "T(n) = 8T(n/2) + 1000n^2 => Theta(n^3)"
+        ],
+        [
+          "Case 2",
+          "f(n) = Theta(n^(log_b a) * log^k n), k >= 0",
+          "Theta(n^(log_b a) * log^(k+1) n)",
+          "T(n) = 2T(n/2) + 10n => Theta(n log n)"
+        ],
+        [
+          "Case 3",
+          "f(n) = Omega(n^(log_b a + epsilon)) & regularity",
+          "Theta(f(n))",
+          "T(n) = 2T(n/2) + n^2 => Theta(n^2)"
+        ]
+      ],
+      "source": "CLRS Algorithms Chapter 4 / BCS401 Module 1",
+      "page": 94
+    },
+    {
+      "table_id": "TBL_BCS403_01",
+      "subject_code": "BCS403",
+      "module": 3,
+      "topic": "Database Normalization",
+      "title": "Relational Normal Forms Hierarchy & Guarantees",
+      "headers": [
+        "Normal Form",
+        "Functional Dependency Condition",
+        "Multi-Valued Dep (MVD)?",
+        "Join Lossless?",
+        "Dependency Preserved?"
+      ],
+      "rows": [
+        [
+          "1NF",
+          "All attribute values are atomic / scalar",
+          "Not addressed",
+          "Yes",
+          "Yes"
+        ],
+        [
+          "2NF",
+          "In 1NF and no partial dependencies on candidate key",
+          "Not addressed",
+          "Yes",
+          "Yes"
+        ],
+        [
+          "3NF",
+          "In 2NF and no transitive dependencies (X superkey OR Y prime)",
+          "Not addressed",
+          "Yes",
+          "Always guaranteed"
+        ],
+        [
+          "BCNF",
+          "For every X -> Y, X must be a superkey",
+          "Not addressed",
+          "Yes",
+          "Not always preserved"
+        ],
+        [
+          "4NF",
+          "In BCNF and for every non-trivial MVD X ->-> Y, X is superkey",
+          "Yes",
+          "Yes",
+          "Not always preserved"
+        ]
+      ],
+      "source": "Elmasri Navathe Fundamentals of Database Systems Chapter 14",
+      "page": 482
+    },
+    {
+      "table_id": "TBL_BCS502_01",
+      "subject_code": "BCS502",
+      "module": 1,
+      "topic": "OSI Reference Model",
+      "title": "OSI 7-Layer Architecture and Data Units",
+      "headers": [
+        "Layer Number & Name",
+        "Protocol Data Unit (PDU)",
+        "Primary Responsibilities",
+        "Key Protocols"
+      ],
+      "rows": [
+        [
+          "7. Application",
+          "Data / Message",
+          "Network services to user applications",
+          "HTTP, HTTPS, DNS, SMTP, FTP"
+        ],
+        [
+          "6. Presentation",
+          "Data",
+          "Data representation, encryption, compression",
+          "SSL/TLS, JPEG, ASCII, MPEG"
+        ],
+        [
+          "5. Session",
+          "Data",
+          "Dialog control, session checkpointing",
+          "NetBIOS, RPC, PPTP"
+        ],
+        [
+          "4. Transport",
+          "Segment (TCP) / Datagram (UDP)",
+          "End-to-end reliability, port addressing, flow control",
+          "TCP, UDP, SCTP"
+        ],
+        [
+          "3. Network",
+          "Packet",
+          "Logical addressing (IP) and path determination (routing)",
+          "IPv4, IPv6, ICMP, OSPF, BGP"
+        ],
+        [
+          "2. Data Link",
+          "Frame",
+          "Physical MAC addressing, framing, hop-to-hop error control",
+          "Ethernet (802.3), Wi-Fi (802.11), PPP"
+        ],
+        [
+          "1. Physical",
+          "Bit",
+          "Transmission of raw bitstream over physical media",
+          "RS-232, 1000BASE-T, Fiber Optics"
+        ]
+      ],
+      "source": "Forouzan Data Communications and Networking / BCS502 M1",
+      "page": 38
+    },
+    {
+      "table_id": "TBL_BCS503_01",
+      "subject_code": "BCS503",
+      "module": 1,
+      "topic": "Automata Theory",
+      "title": "Chomsky Hierarchy of Formal Grammars & Automata",
+      "headers": [
+        "Type",
+        "Grammar Name",
+        "Production Rule Form",
+        "Recognizing Automaton",
+        "Example Language"
+      ],
+      "rows": [
+        [
+          "Type 3",
+          "Regular Grammar",
+          "A -> aB or A -> a",
+          "Finite State Automaton (DFA / NFA)",
+          "a*b*"
+        ],
+        [
+          "Type 2",
+          "Context-Free Grammar (CFG)",
+          "A -> alpha, alpha in (V union T)*",
+          "Pushdown Automaton (PDA)",
+          "{a^n b^n | n >= 0}"
+        ],
+        [
+          "Type 1",
+          "Context-Sensitive Grammar (CSG)",
+          "alpha A beta -> alpha gamma beta, |gamma| >= |A|",
+          "Linear Bounded Automaton (LBA)",
+          "{a^n b^n c^n | n >= 1}"
+        ],
+        [
+          "Type 0",
+          "Unrestricted Grammar",
+          "alpha -> beta, alpha != epsilon",
+          "Turing Machine",
+          "Turing-recognizable languages"
+        ]
+      ],
+      "source": "Hopcroft, Motwani & Ullman Automata Theory Chapter 9",
+      "page": 390
+    },
+    {
+      "table_id": "TBL_BCS601_01",
+      "subject_code": "BCS601",
+      "module": 2,
+      "topic": "Compiler Parsing",
+      "title": "Bottom-Up LR Parsing Tables Comparison",
+      "headers": [
+        "Parser Type",
+        "Item Construction",
+        "Parsing Table Size",
+        "Conflict Resolution Power",
+        "Practical Grammars Supported"
+      ],
+      "rows": [
+        [
+          "LR(0)",
+          "LR(0) items (no lookahead in items)",
+          "Small (# of states)",
+          "Weak (frequent shift-reduce conflicts)",
+          "Very limited"
+        ],
+        [
+          "SLR(1)",
+          "LR(0) items + Follow(A) lookaheads",
+          "Small (# of states)",
+          "Moderate (conflicts if Follow sets overlap)",
+          "Simple arithmetic grammars"
+        ],
+        [
+          "LALR(1)",
+          "Core merged LR(1) items",
+          "Small (same state count as LR(0))",
+          "Strong (resolves most programming grammar conflicts)",
+          "Yacc, Bison, Production C/Java Compilers"
+        ],
+        [
+          "Canonical LR(1)",
+          "Full LR(1) items [A -> alpha . beta, a]",
+          "Large (thousands of states)",
+          "Most powerful deterministic CFG parser",
+          "Theoretical / reference"
+        ]
+      ],
+      "source": "Aho, Lam, Sethi, Ullman Compilers (Dragon Book) Chapter 4",
+      "page": 252
+    },
+    {
+      "table_id": "TBL_BCS602_01",
+      "subject_code": "BCS602",
+      "module": 1,
+      "topic": "Supervised Learning",
+      "title": "Machine Learning Supervised Algorithms Matrix",
+      "headers": [
+        "Algorithm",
+        "Learning Paradigm",
+        "Hypothesis Space",
+        "Loss Function",
+        "Interpretability"
+      ],
+      "rows": [
+        [
+          "Linear Regression",
+          "Parametric regression",
+          "Linear hyperplanes",
+          "Mean Squared Error (MSE)",
+          "High"
+        ],
+        [
+          "Logistic Regression",
+          "Parametric classification",
+          "Sigmoid probabilistic boundary",
+          "Cross-Entropy Log Loss",
+          "High"
+        ],
+        [
+          "Decision Tree (ID3/C4.5)",
+          "Non-parametric hierarchical",
+          "Axis-aligned orthogonal splits",
+          "Entropy / Gini Impurity",
+          "High"
+        ],
+        [
+          "Support Vector Machine",
+          "Margin maximization",
+          "Linear or RBF kernel hyperplanes",
+          "Hinge Loss + L2 Regularization",
+          "Medium"
+        ],
+        [
+          "Random Forest",
+          "Ensemble bagging",
+          "Ensemble of decorrelated trees",
+          "Aggregated voting / averaging",
+          "Medium-Low"
+        ],
+        [
+          "Multi-Layer Perceptron (ANN)",
+          "Deep parametric",
+          "Universal function approximator",
+          "Cross-Entropy / MSE + Backprop",
+          "Low (Black-box)"
+        ]
+      ],
+      "source": "Bishop Pattern Recognition and Machine Learning Chapter 1-4",
+      "page": 178
+    }
+  ]
+}

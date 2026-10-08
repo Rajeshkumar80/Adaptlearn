@@ -1,0 +1,26 @@
+[
+  {
+    "equation_id": "EQ_BCS602_01",
+    "subject": "BCS602",
+    "module": 1,
+    "topic": "Supervised Learning",
+    "name": "Mean Squared Error (MSE) Loss Function",
+    "page": 42,
+    "latex": "J(w, b) = \\frac{1}{2m} \\sum_{i=1}^{m} \\left( f_{w,b}(x^{(i)}) - y^{(i)} \\right)^2",
+    "plain_text": "J(w, b) = (1 / (2*m)) * sum((f(x^(i)) - y^(i))^2)",
+    "variables": "m: training samples, f(x): predicted hypothesis, y: true label",
+    "source": "Tom Mitchell / Bishop PRML / BCS602 Module 1"
+  },
+  {
+    "equation_id": "EQ_BCS602_02",
+    "subject": "BCS602",
+    "module": 2,
+    "topic": "Decision Trees",
+    "name": "Information Entropy & Gain",
+    "page": 68,
+    "latex": "H(S) = -\\sum_{i=1}^{c} p_i \\log_2(p_i), \\quad \\text{Gain}(S, A) = H(S) - \\sum_{v \\in \\text{Values}(A)} \\frac{|S_v|}{|S|} H(S_v)",
+    "plain_text": "H(S) = -sum(p_i * log2(p_i)), Gain(S, A) = H(S) - sum((|Sv|/|S|) * H(Sv))",
+    "variables": "S: sample set, p_i: proportion of class i, A: attribute",
+    "source": "Tom Mitchell Machine Learning / BCS602 Module 2"
+  }
+]

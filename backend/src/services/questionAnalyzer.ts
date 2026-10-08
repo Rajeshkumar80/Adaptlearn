@@ -20,11 +20,23 @@ export type QuestionType =
 
 export type EstimatedDepth = "short" | "medium" | "deep";
 
+export type QuestionIntent =
+  | "CONVERSATIONAL"
+  | "PYQ"
+  | "MODEL_PAPER"
+  | "QUESTION_BANK"
+  | "SYLLABUS"
+  | "DIAGRAM"
+  | "FORMULA"
+  | "CODE"
+  | "CONCEPT_EXPLANATION";
+
 export interface QuestionAnalysis {
   subject: string;
   module: number;
   topic: string;
   questionType: QuestionType;
+  intent: QuestionIntent;
   requiresExample: boolean;
   requiresDiagram: boolean;
   diagramHelpful: boolean;
@@ -93,10 +105,66 @@ export function classifyQuestionType(question: string): QuestionType {
   if (/\b(short note|brief note|briefly explain)\b/i.test(q)) {
     return "short answer";
   }
-  if (/\b(explain in detail|comprehensive explanation)\b/i.test(q)) {
-    return "long answer";
-  }
   return "explain";
+}
+
+// ── Question Intent Classifier (Phases H & I) ───────────────────────────────────
+export function isConversationalQuery(question: string): boolean {
+  const clean = question.trim().toLowerCase().replace(/[^a-z0-9\s]/g, "");
+  const words = clean.split(/\s+/).filter(Boolean);
+  if (words.length > 12) return false;
+
+  // If query contains academic keywords, it's not purely conversational
+  if (/\b(bcs\d+|vtu|module|exam|marks|syllabus|diagram|algorithm|database|system|compiler|process|memory|network|function|circuit)\b/i.test(clean)) {
+    return false;
+  }
+
+  // Pure conversational checks
+  if (/^(hi|hello|hey|greetings|good\s+(morning|afternoon|evening)|who\s+are\s+you|what\s+are\s+you|thank\s+you|thanks|how\s+are\s+you|help\s+me|tell\s+me\s+about\s+yourself)$/i.test(clean)) {
+    return true;
+  }
+
+  // General capabilities inquiries (Section 22)
+  if (/\b(what can you do|what do you do|how can you help|who are you|what are you)\b/i.test(clean) && !/\b(bcs\d+|vtu\s+\d+|module\s+\d+)\b/i.test(clean)) {
+    return true;
+  }
+
+  // Greetings with assistant name or compound greeting (e.g. "hello adaptlearn good morning")
+  if (/^(hello|hi|hey|good\s+(morning|afternoon|evening))\s+(adaptlearn|assistant|there)?(\s+.*)?$/i.test(clean) && !/\b(bcs\d+|vtu\s+\d+|module\s+\d+|algorithm|database|operating system)\b/i.test(clean)) {
+    return true;
+  }
+
+  return words.length <= 4 && /^(hi|hello|hey|greetings|thanks|thankyou)(\s+adaptlearn)?$/i.test(clean);
+}
+
+export function classifyQuestionIntent(question: string): QuestionIntent {
+  const q = question.toLowerCase();
+
+  if (isConversationalQuery(question)) {
+    return "CONVERSATIONAL";
+  }
+  if (/\b(previous\s+year\s+questions?|pyqs?|past\s+papers?|vtu\s+papers?|past\s+exams?|asked\s+in\s+vtu)\b/i.test(q)) {
+    return "PYQ";
+  }
+  if (/\b(model\s+papers?|model\s+questions?|sample\s+papers?|sample\s+questions?)\b/i.test(q)) {
+    return "MODEL_PAPER";
+  }
+  if (/\b(question\s+bank|important\s+questions?|qb\s+solutions?)\b/i.test(q)) {
+    return "QUESTION_BANK";
+  }
+  if (/\b(syllabus|curriculum|what\s+are\s+the\s+modules|list\s+modules|module\s+topics|course\s+outcomes)\b/i.test(q)) {
+    return "SYLLABUS";
+  }
+  if (/\b(formula|mathematical\s+equation|latex|derive\s+the\s+formula)\b/i.test(q)) {
+    return "FORMULA";
+  }
+  if (/\b(write\s+a\s+program|c\s+program|python\s+code|java\s+program|source\s+code\s+for|implement\s+in\s+c)\b/i.test(q)) {
+    return "CODE";
+  }
+  if (/\b(draw\s+a?\s*diagram|only\s+diagram|neat\s+sketch\s+of|flowchart\s+of|circuit\s+diagram\s+of)\b/i.test(q) && !/\b(explain|what\s+is)\b/i.test(q)) {
+    return "DIAGRAM";
+  }
+  return "CONCEPT_EXPLANATION";
 }
 
 // ── Key-Point & Entity Extraction (Task 5) ───────────────────────────────────
@@ -230,6 +298,7 @@ export function analyzeQuestion(
     module: detectedModule,
     topic: cleanTopic.slice(0, 80),
     questionType: qType,
+    intent: classifyQuestionIntent(question),
     requiresExample,
     requiresDiagram,
     diagramHelpful,

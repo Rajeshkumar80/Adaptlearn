@@ -1,0 +1,14 @@
+[
+  {
+    "equation_id": "EQ_BCS503_01",
+    "subject": "BCS503",
+    "module": 2,
+    "topic": "Regular Languages",
+    "name": "Pumping Lemma Condition for Regular Languages",
+    "page": 80,
+    "latex": "w = xyz, \\quad |y| \\ge 1, \\quad |xy| \\le p, \\quad \\forall i \\ge 0: x y^i z \\in L",
+    "plain_text": "w = xyz, |y| >= 1, |xy| <= p, for all i >= 0: x*(y^i)*z in L",
+    "variables": "p: pumping length, w: string in L with |w| >= p",
+    "source": "Hopcroft Ullman Automata Theory / BCS503 Module 2"
+  }
+]

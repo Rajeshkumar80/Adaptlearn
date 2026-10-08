@@ -1,0 +1,23 @@
+[
+  {
+    "case_study_id": "CS_BCS303_01",
+    "subject": "BCS303",
+    "module": 3,
+    "topic": "Deadlocks",
+    "scenario": "Banker's Algorithm Deadlock Avoidance in Multiprogramming OS",
+    "entities": [
+      "Processes P0 through P4",
+      "Resource types A (10 instances), B (5 instances), C (7 instances)"
+    ],
+    "relationships": [
+      "Allocation Matrix: current resources held by processes",
+      "Max Matrix: maximum future claims",
+      "Need Matrix: Need[i,j] = Max[i,j] - Allocation[i,j]"
+    ],
+    "inputs": "Available vector = [3, 3, 2], Allocation and Max matrices",
+    "outputs": "Safe sequence <P1, P3, P4, P0, P2> guaranteeing no deadlock state",
+    "constraints": "Work vector >= Need[i] before allocating resources to Pi",
+    "source": "Silberschatz OS Concepts Chapter 8 / BCS303 Module 3",
+    "page": 328
+  }
+]

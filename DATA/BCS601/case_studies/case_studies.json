@@ -1,0 +1,26 @@
+[
+  {
+    "case_study_id": "CS_BCS601_01",
+    "subject": "BCS601",
+    "module": 3,
+    "topic": "OpenStack Cloud Architecture",
+    "scenario": "University Private Cloud Deployment using OpenStack Microservices",
+    "entities": [
+      "Keystone (Identity Service)",
+      "Nova (Compute Controller)",
+      "Neutron (Software-Defined Networking)",
+      "Glance (VM Image Repository)",
+      "Cinder (Block Storage)"
+    ],
+    "relationships": [
+      "Nova queries Keystone for token validation",
+      "Nova requests Neutron to assign tenant VLAN and floating IP",
+      "Nova attaches Cinder volume to KVM hypervisor instance"
+    ],
+    "inputs": "Multi-tenant resource quotas: 64 vCPUs, 256 GB RAM, 2 TB SSD storage",
+    "outputs": "Automated VM self-service provisioning via Horizon Web Dashboard",
+    "constraints": "Tenants isolated via Open vSwitch VXLAN tunnels",
+    "source": "OpenStack Architecture Manual / BCS601 Module 3 Notes",
+    "page": 175
+  }
+]

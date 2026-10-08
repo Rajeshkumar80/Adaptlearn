@@ -1,0 +1,14 @@
+[
+  {
+    "equation_id": "EQ_BCS702_01",
+    "subject": "BCS702",
+    "module": 2,
+    "topic": "Convolutional Neural Networks",
+    "name": "Convolutional Layer Output Spatial Dimension",
+    "page": 112,
+    "latex": "O = \\left\\lfloor \\frac{W - F + 2P}{S} \\right\\rfloor + 1",
+    "plain_text": "Output_Dimension = floor((W - F + 2*P) / S) + 1",
+    "variables": "W: input dimension, F: filter kernel size, P: padding, S: stride",
+    "source": "Deep Learning Goodfellow / BCS702 Module 2"
+  }
+]

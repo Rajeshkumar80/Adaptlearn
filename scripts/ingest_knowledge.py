@@ -760,7 +760,7 @@ def main():
     print("=" * 60)
 
     for code, info in sorted(target_subjects.items()):
-        print(f"\n▸ {code}: {info['name']} (Sem {info['semester']})")
+        print(f"\n> {code}: {info['name']} (Sem {info['semester']})")
         entry = ingest_subject(code, info, stats, dry_run=args.dry_run)
         manifest_entries.append(entry)
 
@@ -770,7 +770,7 @@ def main():
         print(f"  Modules: {len(mods)}, Q-Bank solutions: {qbs}")
         if errs:
             for e in errs[:3]:
-                print(f"  ⚠ {e}")
+                print(f"  [WARN] {e}")
 
     # ── Write knowledge_manifest.json ─────────────────────────────────────
     if not args.dry_run:

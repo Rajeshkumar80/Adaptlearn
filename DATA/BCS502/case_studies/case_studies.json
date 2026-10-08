@@ -1,0 +1,22 @@
+[
+  {
+    "case_study_id": "CS_BCS502_01",
+    "subject": "BCS502",
+    "module": 3,
+    "topic": "Routing Protocols",
+    "scenario": "Campus Network OSPF Link-State Routing Deployment",
+    "entities": [
+      "Core Layer 3 Switches (Backbone Area 0)",
+      "Distribution Routers (Engineering Area 1, Admin Area 2, Hostel Area 3)"
+    ],
+    "relationships": [
+      "Link-State Advertisements (LSA) flooding across routers",
+      "Dijkstra Shortest Path Tree computation from root router"
+    ],
+    "inputs": "Subnet masks /24, link bandwidth metrics (1 Gbps cost 1, 100 Mbps cost 10)",
+    "outputs": "Loop-free routing tables with fast convergence under link failure (< 2 seconds)",
+    "constraints": "All non-backbone areas must directly connect to Area 0",
+    "source": "Kurose Ross / Forouzan Networks / BCS502 Module 3",
+    "page": 240
+  }
+]

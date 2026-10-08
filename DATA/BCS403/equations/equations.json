@@ -1,0 +1,14 @@
+[
+  {
+    "equation_id": "EQ_BCS403_01",
+    "subject": "BCS403",
+    "module": 2,
+    "topic": "Relational Model",
+    "name": "Relational Division Operator",
+    "page": 115,
+    "latex": "R \\div S = \\pi_{R - S}(R) - \\pi_{R - S}((\\pi_{R - S}(R) \\times S) - R)",
+    "plain_text": "R / S = pi_{R-S}(R) - pi_{R-S}((pi_{R-S}(R) x S) - R)",
+    "variables": "R, S: relation schemas",
+    "source": "Elmasri Navathe DBMS / BCS403 Module 2"
+  }
+]

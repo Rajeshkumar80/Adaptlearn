@@ -1,0 +1,26 @@
+[
+  {
+    "equation_id": "EQ_BCS502_01",
+    "subject": "BCS502",
+    "module": 1,
+    "topic": "Physical Layer & Channel Capacity",
+    "name": "Shannon Channel Capacity Formula",
+    "page": 35,
+    "latex": "C = B \\times \\log_2(1 + \\text{SNR})",
+    "plain_text": "C = B * log2(1 + SNR)",
+    "variables": "C: capacity (bps), B: bandwidth (Hz), SNR: signal to noise ratio",
+    "source": "Forouzan Data Communications / BCS502 Module 1"
+  },
+  {
+    "equation_id": "EQ_BCS502_02",
+    "subject": "BCS502",
+    "module": 1,
+    "topic": "Physical Layer & Channel Capacity",
+    "name": "Nyquist Bit Rate Formula for Noiseless Channels",
+    "page": 38,
+    "latex": "\\text{BitRate} = 2 \\times B \\times \\log_2(L)",
+    "plain_text": "BitRate = 2 * B * log2(L)",
+    "variables": "B: bandwidth in Hz, L: number of discrete signal levels",
+    "source": "Forouzan Data Communications / BCS502 Module 1"
+  }
+]

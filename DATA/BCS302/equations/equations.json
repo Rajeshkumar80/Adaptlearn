@@ -1,0 +1,14 @@
+[
+  {
+    "equation_id": "EQ_BCS302_01",
+    "subject": "BCS302",
+    "module": 5,
+    "topic": "Basic Processing Unit and Pipelining",
+    "name": "Pipelining Speedup Ratio",
+    "page": 210,
+    "latex": "S_k = \\frac{n \\times t_n}{(k + n - 1) \\times t_k}",
+    "plain_text": "S_k = (n * t_n) / ((k + n - 1) * t_k)",
+    "variables": "n: number of instructions, k: pipeline stages, t_n: non-pipelined clock, t_k: pipelined clock",
+    "source": "Stallings Computer Organization / BCS302 Module 5"
+  }
+]

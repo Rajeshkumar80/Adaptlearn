@@ -1,0 +1,1025 @@
+<!-- PROVENANCE: subject_code=BBOC407 | subject_name=Biology for Computer Engineers | semester=4 | module=3 | source_type=MODULE_NOTES | source_file=module3.md | extraction_method=STRUCTURED_MARKDOWN_DIRECT | confidence=0.98 -->
+
+# BBOC407 — Module 3
+
+## Bioprocess Technology
+
+**Subject:** BBOC407 (Biology for Engineers)
+**Module:** Module 3
+**Content type:** module_notes
+**Sources:** BBOC407-Module-3-pdf.txt
+
+---
+
+BIOENGINEERING DESIGN 
+Brain as a CPU system. Eye as a Camera system. Heart as a pump system. 
+Lungs as purification system. Kidney as a filtration system. 
+ 
+BRAIN AS CPU SYSTEM 
+ The human brain can be thought of as a highly sophisticated and complex 
+information processing system, similar to a computer's Central Processing 
+Unit (CPU). Both the brain and CPU receive and process inputs, store 
+information, and perform calculations to produce outputs.  
+ However, there are significant differences between the two, such as the 
+way they store and process information and the fact that the human brain 
+has the ability to learn and adapt, while a computer's CPU does not. 
+ Additionally, the human brain is capable of performing tasks such as 
+perception, thought, and emotion, which are beyond the scope of a 
+computer's CPU. 
+ In the human brain, information is processed in a distributed manner 
+across multiple regions, each with specialized functions, rather than being 
+processed sequentially in a single centralized location. 
+ Brain architecture is comprised of billions of connections between  
+individual neurons across different areas of the brain. These connections 
+enable lightning-fast communication among neurons that specialize in 
+different kinds of brain functions. 
+ Just like how a computer's CPU has an arithmetic logic unit (ALU) to 
+perform mathematical calculations, the human brain has specialized 
+regions for processing mathematical and logical operations. The 
+prefrontal cortex, for example, is responsible for higher-level cognitive 
+functions such as decision making and problem solving. 
+ 
+BASICS FOR 
+COMPARISON 
+BRAIN  
+COMPUTER 
+Construction  
+Neurons and synapses  
+ICs, transistors, diode, 
+capacitors, transistors. 
+Memory growth  
+Increase each time by 
+connecting synaptic links.  
+Increases by adding more 
+memory chips.  
+Information storage  
+Stored in electrochemical 
+and electric impulses. 
+Stored in numeric and 
+symbolic form. 
+Structural organization  
+Brain is self-organizing self- 
+maintaining and reliable. 
+Computers perform a 
+monotonous job and can’t 
+correct itself. 
+Transmission information  
+Use chemicals to fire the 
+action potential in the 
+neurons. 
+Communication is achieved 
+through electrical coded 
+signals.  
+ 
+Module-3
+HUMAN ORGAN SYSTEMS AND BIO DESIGNS
+
+The nervous system has two main parts: The central nervous system is made up 
+of the brain and spinal cord. The peripheral nervous system is made up of 
+nerves that branch off from the spinal cord and extend to all parts of the body. 
+CNS: 
+ CNS includes the brain and spinal cord. The brain is the body's "control 
+center." The central nervous system (CNS) is made up of the brain and 
+spinal cord. It is one of 2 parts of the nervous system. The other part is 
+the peripheral nervous system, which consists of nerves that connect the 
+brain and spinal cord to the rest of the body.  
+ The central nervous system is the body’s processing center. The brain 
+controls most of the functions of the body, including awareness, 
+movement, thinking, speech, and the 5 senses of seeing, hearing, feeling, 
+tasting and smelling. 
+ The spinal cord is an extension of the brain. It carries messages to and 
+from the brain via the network of peripheral nerves connected to it. 
+ Nerves also connect the spinal cord to a part of the brain called the 
+brainstem. 
+ The nervous system is made up of basic units called neurons. 
+ The neurons are arranged in networks that carry electrical or chemical 
+messages to and from the brain. 
+ The brain and spinal cord are protected from damage by a clear liquid 
+called cerebrospinal fluid, 3 layers of membranes called the meninges, 
+and the hard bones of the skull and backbone. 
+ The brain is made up of different parts. These include the cerebrum, the 
+cerebellum, the thalamus, the hypothalamus and the brainstem. 
+ The cerebrum is the largest part of the brain. It controls intelligence, 
+memory, personality, emotion, speech, and ability to feel and move. It is 
+divided into left and right hemispheres, linked by a band of nerve fibers 
+in the center of the brain called the corpus callosum. 
+ 
+PNS:  
+ The peripheral nervous system includes all of the nerves that branch out 
+from the brain and spinal cord and extend to other parts of the body, 
+including muscles and organs. 
+ The primary role of the PNS is to connect the CNS to the organs, limbs, 
+and skin. The nerves of the PNS extend from the central nervous system 
+to the outermost areas of the body. 
+ The peripheral system allows the brain and spinal cord to receive and 
+send information to other areas of the body, which allows us to react to  
+stimuli. 
+ The PNS is then subdivided into the autonomic nervous system and the 
+somatic nervous system.  
+
+ The autonomic has involuntary control of internal organs, blood vessels, 
+smooth and cardiac muscles.  
+ The somatic has voluntary control of skin, bones, joints, and skeletal 
+muscle. The two systems function together, by way of nerves from the 
+PNS entering and becoming part of the CNS, and vice versa. 
+ The somatic system is responsible for transmitting sensory information as 
+well as for controlling voluntary movement. This system contains two 
+major types of neurons: 
+ Motor neurons: Also called efferent neurons, motor neurons carry 
+information from the brain and spinal cord to muscle fibers throughout 
+the body. These motor neurons allow us to take physical action in 
+response to stimuli in the environment. 
+ Sensory neurons: Also called afferent neurons, sensory neurons carry 
+information from the nerves to the central nervous system. The sensory  
+neurons allow us to take in sensory information and send it to the brain  
+and spinal cord. 
+ The autonomic system is further divided into two branches: 
+ Sympathetic system: By regulating the flight-or-fight response, the 
+sympathetic system prepares the body to expend energy to respond to 
+environmental threats. When action is needed, the sympathetic system 
+triggers a response by accelerating heart rate, increasing breathing rate, 
+boosting blood flow to muscles, activating sweat secretion, and dilating 
+the pupils. 
+ Parasympathetic system: This helps maintain normal body functions 
+and conserve physical resources. Once a threat has passed, this system 
+will slow the heart rate, slow breathing, reduce blood flow to muscles, 
+and constrict the pupils. This allows the body to return to a normal resting 
+state. 
+ 
+SIGNAL TRANSMISSION: 
+ Electric currents in the vastly complex system of billions of nerves in our 
+body allow us to sense the world, control parts of our body, and think. 
+These are representative of the three major functions of nerves. 
+ First, nerves carry messages from our sensory organs and others to the 
+central nervous system, consisting of the brain and spinal cord. 
+ Second, nerves carry messages from the central nervous system to 
+muscles and other organs. 
+ Third, nerves transmit and process signals within the central nervous 
+system. 
+ Nerve cells are called as neurons, Signals arrive at the Cell body across 
+synapses or through dendrites, stimulating the neuron to generate its own 
+
+signal, sent along its long axon to other nerve or muscle cells. 
+ A neuron sending a signal (i.e., a presynaptic neuron) releases a chemical 
+called a neurotransmitter, which binds to a receptor on the surface of the 
+receiving (i.e., postsynaptic) neuron. Neurotransmitters are released from 
+presynaptic terminals, which may branch to communicate with several 
+postsynaptic neurons. 
+ Axon terminals are where neurotransmission begins. Hence, it is at axon 
+terminals where the neuron sends its OUTPUT to other neurons. At 
+electrical synapses, the OUTPUT will be the electrical signal itself. At 
+chemical synapses, the OUTPUT will be neurotransmitter. 
+ The correct outline for the sequence of transmission of an electrical 
+impulse through a neuron is dendrites, cell body, axon, axon terminal. 
+ 
+ 
+ 
+ 
+ 
+ELECTRO ENCEPHALO GRAM[EEG] 
+ An electroencephalogram (EEG) is a test that measures electrical activity 
+in the brain using small, metal discs (electrodes) attached to the scalp. 
+ Brain cells communicate via electrical impulses and are active all the 
+time, even during asleep.  
+ This activity shows up as wavy lines on an EEG recording. 
+ An EEG is one of the main diagnostic tests for epilepsy. An EEG can also 
+play a role in diagnosing other brain disorders. 
+ An EEG can find changes in brain activity that might be useful in 
+diagnosing brain disorders, especially epilepsy or another seizure 
+disorder. 
+  An EEG might also be helpful for diagnosing or treating:  
+ Brain tumors 
+ Brain damage from head injury 
+ Brain dysfunction that can have a variety of causes 
+(encephalopathy) 
+ Sleep disorders 
+
+ Inflammation of the brain (herpes encephalitis) 
+ Stroke 
+ EEG can detect abnormal electrical discharges such as sharp waves, 
+spikes or spike-and-wave complexes that are seen in people with 
+epilepsy, thus it is often used to inform the medical diagnosis.  
+ EEG can detect the onset and spatio-temporal evolution of seizures and 
+the presence of status epileptics. 
+  It is also used to help diagnose sleep disorders, depth of anesthesia, 
+coma, encephalopathies, cerebral hypoxia after cardiac arrest, and brain 
+death.  
+ EEG used to be a first- line method of diagnosis for tumors, stroke and 
+other focal brain disorders, but this use has decreased with the advent of 
+high-resolution anatomical imaging techniques such as magnetic 
+resonance imaging (MRI) and computed tomography (CT).  
+ Despite limited spatial resolution, EEG continues to be a valuable tool for 
+research and diagnosis. 
+ROBOTIC ARMS FOR PROSTHETICS: 
+ Robotic prosthetic limb is a well-established research area that integrates 
+advanced mechatronics, intelligent sensing, and control for achieving 
+higher order lost sensorimotor functions while maintaining the physical 
+appearance of amputated limb.  
+ Robotic prosthetic limbs are expected to replace the missing limbs of an 
+amputee restoring the lost functions and providing aesthetic appearance.  
+ The main aspects are enhanced social interaction, comfortable amputee's 
+life, and productive ampute to the society.  
+ With the advancement of sensor technology, in the last few decades 
+significant contributions have been made in this area. 
+ If an arm or leg is missing, an artificial limb can sometimes replace it. 
+The device, which is called a prosthesis, can help you to perform daily 
+activities such as walking, eating, or dressing. 
+ Robotic arms can be used to automate the process of placing goods or 
+products onto pallets. By automating the process, palletizing becomes 
+more accurate, cost-effective, and predictable. The use of robotic arms 
+also frees human workers from performing tasks that present a risk of 
+bodily injury.  
+ENGINEERING SOLUTIONS FOR PARKINSONS DISEASE  
+
+ Parkinson's disease is a progressive disorder that affects the nervous 
+system and the parts of the body controlled by the nerves. 
+  Symptoms start slowly. The first symptom may be a barely noticeable 
+tremor in just one hand. Tremors are common, but the disorder may also 
+cause stiffness or slowing of movement. 
+ In Parkinson's disease, certain nerve cells (neurons) in the brain gradually 
+break down or die. Many of the symptoms are due to a loss of neurons 
+that produce a chemical messenger in your brain called dopamine.  
+ When dopamine levels decrease, it causes a typical brain activity, leading 
+to impaired movement and other symptoms of Parkinson's disease. 
+ Parkinson's disease can't be cured, but medications can help control the 
+symptoms, often dramatically. In some more advanced cases, surgery 
+may be advised. 
+ENGINEERING SOLUTIONS TO THIS DISEASE ARE: 
+Deep Brain Stimulation - Deep Brain Stimulation (DBS) involves surgically 
+implanting a neurotransmitter that sends electrical impulses to specific areas of 
+your brain. 
+ This procedure has helped many people with Parkinson's reduce 
+symptoms such as tremor, rigidity, and bradykinesia.  
+ There are six main types of medications available to treat symptoms of 
+Parkinson disease: levodopa, dopamine agonists, and inhibitors of 
+enzymes that inactivate dopamine inhibitors and catechol-O-methyl 
+transferase [COMT] inhibitors, anticholinergic drugs, and amantadine. 
+ENGINEERING NEURONS are another treatment method for this. 
+ Transplantation of embryonic neurons can restore functional 
+dopaminergic neurons in the brains of patients with Parkinson's disease. 
+But while promising, cell transplantation therapy is still out of reach to 
+most patients, in part because of the inaccessibility of human embryonic 
+tissue. 
+ First obtained neuronal stem cells from mouse cells transfected with a 
+transcription factor that encourages cells to adopt a neuronal fate. They 
+then co-cultured the cells with astrocytes, which release a factor that 
+induces development into dopaminergic neurons. The engineered cells 
+released dopamine, and some maintained the characteristics of 
+dopaminergic neurons for up to two up to two weeks after implantation 
+into mouse brains. 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+EYE AS A CAMERA SYSTEM: 
+ The human eye is a wonderful instrument, relying on refraction and 
+lenses to form images. There are many similarities between the human 
+eye and a camera, including: 
+ A diaphragm to control the amount of light that gets through to the lens. 
+This is the shutter in a camera, and the pupil, at the center of the iris, in 
+the human eye.  
+ A lens to focus the light and create an image. The image is real and 
+inverted. A method of sensing the image.  
+ In a camera, film is used to record the image; in the eye, the image is 
+focused on the retina, and a system of rods and cones is the front end of 
+an image-processing system that converts the image to electrical impulses 
+and sends the information along the optic nerve to the brain. 
+ There are two photoreceptors: RODS AND CONES 
+ These photoreceptors are localized around an area near the centre of the 
+retina called the macula, which is the functional center of the retina. The 
+fovea is located in the center of the macula. The macula is responsible for 
+high-resolution, color vision, provided by different types of 
+photoreceptors. 
+ Photoreceptors in the retina are classified into two groups, named after 
+their physical morphologies. Rod cells are highly sensitive to light and 
+function in night vision, whereas cone cells are capable of detecting a 
+wide spectrum of light photons and are responsible for colour vision. 
+ Rods and cones are structurally compartmentalized. They consist of five 
+principal regions: Outer segment, connecting cilium, Inner segment, 
+
+nuclear region, Synaptic region, Rods are responsible for vision at low 
+light levels (scotopic vision). They do not mediate color vision and have a 
+low spatial acuity. 
+ Cones are active at higher light levels (photopic vision), are capable of 
+color vision and are responsible for high spatial acuity. The central fovea 
+is populated exclusively by cones. 
+ There are3 types of cones which we will refer to as the short-wavelength 
+sensitive cones, the middle- wavelength sensitive cones and the long-
+wavelength sensitive cones or S-cone, M-cones, and L- cones. 
+ 
+ 
+ 
+ 
+OPTICAL CORRECTIONS: 
+ The ability to see images or objects with clear, sharp vision results from 
+light entering the eye. Light rays bend or refract when they hit the retina, 
+sending nerve signals to the optic nerve, which then sends these signals to 
+the brain. The brain processes them into images, allowing you to 
+understand what you see. When these light rays bend incorrectly, it results 
+in a refractive error and typically causes blurry or cloudy vision. 
+
+ Eyeglasses and contact lenses – the most common types of corrective 
+measures – are almost always recommended as the first course of 
+treatment for vision problems. 
+CATARACT 
+ A cataract is a clouding of the normally clear lens of the eye. At first, the 
+cloudiness in your vision caused by a cataract may affect only a small 
+part of the eye's lens and you may be unaware of any vision loss. 
+  As the cataract grows larger, it clouds more of your lens and distorts the 
+light passing through the lens. This may lead to more-noticeable 
+symptoms. A cataract is a cloudy lens.  
+ The lens is positioned behind the colored part of your eye (iris). The lens 
+focuses light that passes into your eye, producing clear, sharp images on 
+the retina — the light-sensitive membrane in the eye that functions like 
+the film in a camera. 
+ As you age, the lenses in your eyes become less flexible, less transparent 
+and thicker. Age-related and other medical conditions cause proteins and 
+fibers within the lenses to break down and clump together, clouding the 
+lenses. 
+ As the cataract continues to develop, the clouding becomes denser. A 
+cataract scatters and blocks the light as it passes through the lens, 
+preventing a sharply defined image from reaching your retina. 
+  As a result, your vision becomes blurred. Cataracts generally develop in 
+both eyes, but not always at the same rate. The cataract in one eye may be 
+more advanced than the other, causing a difference in vision between 
+eyes. 
+  Cataracts may be partial or complete, stationary or progressive, hard or 
+soft. Histologically, the main types of age-related cataracts are nuclear 
+sclerosis, cortical, and posterior subcapsular. 
+ Nuclear sclerosis is the most common type of cataract, and involves the 
+central or 'nuclear' part of the lens. This eventually becomes hard, or 
+'sclerotic', due to condensation on the lens nucleus and the deposition of 
+brown pigment within the lens. 
+  In its advanced stages, it is called a brunescent cataract. In early stages, 
+an increase in sclerosis may cause an increase in refractive index of the 
+lens.  
+ Cortical cataracts are due to the lens cortex (outer layer) becoming 
+opaque. They occur when changes in the fluid contained in the periphery 
+
+of the lens causes fissuring. Symptoms often include problems with glare 
+and light scatter at night.  
+ Posterior subcapsular cataracts are cloudy at the back of the lens adjacent 
+to the capsule (or bag) in which the lens sits. Because light becomes more 
+focused toward the back of the lens, they can cause disproportionate 
+symptoms for their size. 
+ An immature cataract has some transparent protein, but with a mature 
+cataract, all the lens proteinis opaque. 
+  In a hypermature or Morgagnian cataract, the lens proteins have become 
+liquid. 
+  Congenital cataract, which may be detected in adulthood, has a different 
+classification and includes lamellar, polar, and sutural cataracts. 
+LENS MATERIALS: 
+ Corrective spherocylindrical lenses are commonly used to treat refractive 
+errors such as myopia, hyperopia, presbyopia, and astigmatism.  
+ Eyeglasses also serve an important role in protecting the eyes from 
+physical trauma and harmful radiation. Lenses can be produced using a 
+variety of materials and designed with several optical profiles to optimize 
+use in specific applications. 
+Types of lens materials: 
+1.CR-39: The most used plastic lens material for years was CR-39. It was 
+first developed as a replacement for glass lenses during World War II. It 
+still has 55% of world market at age 60. Advantages include light weight, 
+good optical properties, and tinting well. Disadvantages of CR-39 are that 
+it is the thickest material and scratches easily. 
+2.Crown Glass is the most commonly used clear glass for ophthalmic 
+lenses. In general, glass is the most durable material used for lenses. 
+Crown glass is used mainly for single vision lenses and the distance 
+carrier for most glass bifocals and trifocals. It has an index of refraction 
+of 1.523, and an Abbe value of 59. It is approximately 4% thinner than 
+CR-39 resin lenses and is 40% heavier than polycarbonate lenses and is 
+slightly lighter than high index glass. It blocks out about 10% of UV 
+light. 
+3.Flint Glass uses lead oxides in its chemical make up to increase its 
+index of refraction to approximately 1.58 to 1.69. Its Abbe value ranges 
+from 30 to 40. This material is relatively soft, displays a brilliant luster 
+and has chromatic aberration.  
+
+The advantages of glass lenses include optical clarity, resistance to 
+scratches, and it is the least susceptible to chemicals. The disadvantages 
+include that it is the heaviest material and it is less impact resistant than 
+other materials. 
+4.Polycarbonate Lenses: Polycarbonate lenses were first developed by a 
+company named Gentex. Polycarbonate is a thermoplastic which means it 
+is moldable under sufficient heat. In the1950's it was marketed under the 
+name Lexan and due to its extraordinary resistance to impact was 
+originally manufactured for safety devices. 
+ 
+BIONIC EYES: 
+ Bionic eye, electrical prosthesis surgically implanted into a human eye in 
+order to allow for the transduction of light (the change of light from the 
+environment into impulses the brain can process) in people who have 
+sustained severe damage to the retina. 
+ The bionic eye comprises an external camera and transmitter and an 
+internal microchip. The camera is mounted on a pair of eyeglasses, where 
+it serves to organize the visual stimuli of the environment before emitting 
+high-frequency radio waves 
+ The stimulator microchip consists of an electrode array that is surgically 
+implanted into the retina. That functions as an electrical relay in place of 
+degenerated retinal cells.  
+ The radio waves that are emitted by the external camera and transmitter 
+are received by the stimulator, which then fires electrical impulses. The 
+impulses are relayed by the few remaining retinal cells and are transduced 
+as normal to the optic nerve pathway, resulting in vision. 
+ The bionic vision system consists of a camera, attached to a pair of 
+glasses, which transmits high- frequency radio signals to a microchip 
+implanted in the retina.  
+ Electrodes on the implanted chip convert these signals into electrical 
+impulses to stimulate cells in the retina that connect to the optic nerve. 
+It is an expensive treatment and not everyone can afford it 
+ It’s an artificial eye which provide visual sensations to the brain. It 
+consist of electronic systems having image sensors, microprocessors, 
+receivers, radio transmitters and retinal chips. Technology provided by 
+this help the blind people to get vision again. 
+ 
+HEART AS A PUMP SYSTEM: 
+
+ Heart is sort of like a pump, or two pumps in one. The right side of your 
+heart receives blood from the body and pumps it to the lungs. The left 
+side of the heart does the exact opposite: It receives blood from the lungs 
+and pumps it out to the body. 
+  The human heart is very strong and is capable of pumping blood up to 30 
+feet distance. An average heart beats maximum of 70-80 beats per minute 
+and is considered healthy. The efficiency of the heart can be maintained 
+and improved by performing physical activity. 
+  The heart is called a double pump because each side pumps blood to a 
+different circulation. Deoxygenated blood from the body drains to the 
+right side of the heart. This is the first pump that sends blood to the lungs, 
+called the pulmonary circulation, where it becomes oxygenated and 
+releases carbon dioxide. 
+ The blood first enters the right atrium. The blood then flows through the 
+tricuspid valve into the right ventricle. When the heart beats, the ventricle 
+pushes blood through the pulmonic valve into the pulmonary artery. The 
+pulmonary artery carries blood to the lungs where it “picks up” oxygen. 
+ It then leaves the lungs to return to the heart through the pulmonary vein. 
+The blood enters the left atrium. It drops through the mitral valve into the 
+left ventricle. The left ventricle then pumps blood through the aortic valve 
+and into the aorta. 
+  The aorta is the artery that feeds the rest of the body through a system of 
+blood vessels. 
+  Blood returns to the heart from the body via two large blood vessels 
+called the superior vena cava and the inferior vena cava. This blood 
+carries little oxygen, as it is returning from the body where oxygen was 
+used. The vena cava pump blood into the right atrium and the cycle 
+begins all over again. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ The human heart is a four-chambered muscular organ, shaped and sized 
+roughly like a man's closed fist with two-thirds of the mass to the left of 
+midline.  
+ The heart is enclosed in a pericardial sac that is lined with the parietal 
+layers of a serous membrane. The visceral layer of the serous membrane 
+forms the epicardium. 
+ The myocardium of the heart wall is a working muscle that needs a 
+continuous supply of oxygen and nutrients to function efficiently. For this 
+reason, cardiac muscle has an extensive network of blood vessels to bring 
+oxygen to the contracting cells and to remove waste products. 
+ELECTRICAL SIGNALING ECG MONITORING : 
+ The heart's pumping action is controlled by electrical signaling, which 
+generates the rhythm of the heartbeat. This electrical signaling can be 
+monitored using an electrocardiogram (ECG), which records the 
+electrical activity of the heart and provides important information 
+about the heart's function. 
+ An ECG measures the electrical signals produced by the heart as it 
+beats and generates a trace or waveform that reflects the electrical 
+activity of the heart. This trace can be used to diagnose heart 
+conditions and monitor the heart's function. 
+ Some common heart-related issues that can be diagnosed or monitored 
+using an ECG include: 
+ Arrhythmias: Abnormalities in the heart's rhythm or rate can be 
+detected using an ECG 
+
+ Heart disease: Changes in the heart's electrical activity can indicate the 
+presence of heart disease, such as coronary artery disease or heart 
+attacks. 
+ The ECG is a well-established, quick, and easily accessible method 
+for diagnosis and screening of various cardiovascular diseases. It 
+provides specific features that indicate presence of HF or prognosis in 
+HF patients especially to rule out HF in case of a normal ECG. 
+However, use of an ECG as primary diagnostic instrument often only 
+yields insufficient diagnostic specificity. 
+REASONS FOR BLOCKAGES OF BLOOD VESSELS: 
+ Coronary artery disease is a common heart condition. The major blood 
+vessels that supply the heart (coronary arteries) struggle to send enough 
+blood, oxygen and nutrients to the heart muscle. Cholesterol deposits 
+(plaques) in the heart arteries and inflammation are usually the cause of 
+coronary artery disease. 
+ Signs and symptoms of coronary artery disease occur when the heart 
+doesn't get enough oxygen- rich blood. If you have coronary artery 
+disease, reduced blood flow to the heart can cause chest pain (angina) and 
+shortness of breath. A complete blockage of blood flow can cause a heart 
+attack. Coronary artery disease starts when fats, cholesterols and other 
+substances collect on the inner walls of the heart arteries. This condition 
+is called atherosclerosis. The buildup is called plaque. Plaque can cause 
+the arteries to narrow, blocking blood flow. The plaque can also burst, 
+leading to a blood clot. 
+ Besides high cholesterol, damage to the coronary arteries may be caused 
+by: Diabetes or insulin resistance, High blood pressure, Not getting 
+enough exercise (sedentary lifestyle), Smoking or tobacco use. 
+DESIGN OF STENTS: 
+ A stent is a tiny tube that can play a big role in treating your heart disease. 
+It helps keep your arteries-- the blood vessels that carry blood from your 
+heart to other parts of your body, including the heart muscle itself -- open. 
+ Most stents are made out of wire mesh and are permanent. Some are 
+made out of fabric. These are called stent grafts and are often used for 
+larger arteries. 
+ Others are made of a material that dissolves and that your body absorbs 
+over time. They're coated in medicine that slowly releases into your artery 
+to prevent it from being blocked again. 
+
+DESIGN: 
+ Most of these stents are constructed from a nickel titanium alloy. Balloon 
+expandable stents are susceptible to permanent deformation when they 
+are compressed extrinsically, which is not an issue in the coronary tree.  
+ Self-expanding stents do not have this limitation. Furthermore, self- 
+expanding stents have less axial stiffness and are thus more flexible and 
+will conform to the shape of the vessel rather than the vessel conforming 
+to the shape of the stent. 
+  Balloon expandable stents, by virtue of their design, resist expansion by 
+the balloon, but they have less acute recoil when they are placed in a 
+poorly compliant lesion. However, after the initial deployment, the stent 
+is at its maximal diameter and cannot get larger, whereas a self-expanding 
+stent that is appropriately oversized for the vessel will exhibit a chronic 
+outward force on the lesion and may lead to a larger lumen over time. 
+PACE MAKERS: 
+ A pacemaker is a small device that's placed (implanted) in the chest to 
+help control the heartbeat. It's used to prevent the heart from beating too 
+slowly. Implanting a pacemaker in the chest requires a surgical procedure. 
+A pacemaker is also called a cardiac pacing device. 
+ Types: Single chamber pacemaker. This type usually carries electrical 
+impulses to the right ventricle of your heart. 
+ Dual chamber pacemaker. This type carries electrical impulses to the 
+right ventricle and the right atrium of your heart to help control the timing 
+of contractions between the two chambers. 
+ Biventricular pacemaker. Biventricular pacing, also called cardiac 
+resynchronization therapy, is for people who have heart failure and 
+heartbeat problems. This type of pacemaker stimulates both of the lower 
+heart chambers (the right and left ventricles) to make the heart beat more 
+efficiently. 
+ A pacemaker is implanted to help control your heartbeat. A pacemaker 
+may be implanted permanently to correct a chronic slow or irregular 
+heartbeat or to help treat heart failure.  
+ Pacemakers work only when needed. If your heartbeat is too slow 
+(bradycardia), the pacemaker sends electrical signals to your heart to 
+correct the beat. 
+ Some newer pacemakers also have sensors that detect body motion or 
+breathing rate and signal the devices to increase heart rate during 
+exercise, as needed. 
+
+ A pacemaker has two parts: Pulse generator. This small metal container 
+houses a battery and the electrical circuitry that controls the rate of 
+electrical pulses sent to the heart. 
+ Leads (electrodes). One to three flexible, insulated wires are each placed 
+in one or more chambers of the heart and deliver the electrical pulses to 
+adjust the heart rate. However, some newer pacemakers don't require 
+leads. These devices, called leadless pacemakers, are implanted directly 
+into the heart muscle. 
+DEFIBRILLATORS: 
+ Defibrillators are devices that send an electric pulse or shock to the 
+heart to restore a normal heartbeat. They are used to prevent or correct 
+an arrhythmia, an uneven heartbeat that is too slow or too fast.  
+ If the heart suddenly stops, defibrillators can also help it beat again. 
+Different types of defibrillators work in different ways. Automated 
+external defibrillators (AEDs), which are now found in many public 
+spaces, are used to save the lives of people experiencing cardiac arrest.  
+ 
+ Other defibrillators can prevent sudden death among people who have a 
+high risk of a life- threatening arrhythmia. 
+ They include implantable cardioverter defibrillators (ICDs), which are 
+surgically placed inside your body, and wearable cardioverter 
+defibrillators (WCDs), which rest on the body. There are three types of 
+defibrillators: AEDs, ICDs, and WCDs. 
+ An AED is a lightweight, battery-operated, portable device that checks 
+the heart’s rhythm and sends a shock to the heart to restore normal 
+rhythm. The device is used to help people having cardiac arrest. 
+Sticky pads with sensors, called electrodes, are attached to the chest of 
+someone who is having cardiac arrest. The electrodes send information 
+about the person's heart rhythm to a computer in the AED. The 
+computer analyzes the heart rhythm to find out whether an electric 
+shock is needed. If it is needed, the electrodes deliver the shock. 
+ ICDs are placed through surgery in the chest or stomach area, where the 
+device can check for arrhythmias. Arrhythmias can interrupt the flow of 
+blood from your heart to the rest of your body or cause your heart to 
+stop. The ICD sends a shock to restore a normal heart rhythm. 
+ An ICD can give off a low-energy shock that speeds up or slows down 
+an abnormal heart rate, or a high-energy shock to correct a fast or 
+
+irregular heartbeat. If low-energy shocks do not restore your normal 
+heart rhythm, the device may switch to high-energy shocks for 
+defibrillation. 
+ The ICD can also record the heart's electrical activity and heart 
+rhythms.  
+ WCDs have sensors that attach to the skin. They are connected by wires 
+to a unit that checks your heart’s rhythm and delivers shocks when 
+needed. Like an ICD, the WCD can deliver low- and high- energy 
+shocks. The device has a belt attached to a vest that is worn under your 
+clothes.  
+Lungs as purification system (architecture, gas exchange mechanisms, 
+spirometry, abnormal lung physiology - COPD, Ventilators, Heart-lung 
+machine). Kidney as a filtration system (architecture, mechanism of filtration, 
+CKD, dialysis systems). Muscular and Skeletal Systems as scaffolds 
+(architecture, mechanisms, bioengineering solutions for muscular dystrophy and 
+osteoporosis). 
+LUNGS AS A PURIFICATION SYSTEM: 
+Introduction: 
+Every cell in your body needs oxygen to live. The air we breathe contains 
+oxygen and other gases. The respiratory system's main job is to move fresh air 
+into our body while removing waste gases. Once in the lungs, oxygen is moved 
+into the bloodstream and carried through your body. At each cell in your body, 
+oxygen is exchanged for a waste gas called carbon dioxide. Your bloodstream 
+then carries this waste gas back to the lungs where it is removed from the 
+bloodstream and then exhaled. Your lungs and the respiratory system 
+automatically perform this vital process, called gas exchange. 
+In addition to gas exchange, your respiratory system performs other roles 
+important to breathing. 
+These include: 
+ Bringing air to the proper body temperature and moisturizing it to the 
+right humidity level. 
+ Protecting your body from harmful substances. This is done by coughing, 
+sneezing, filtering, or swallowing them. 
+ Supporting your sense of smell. 
+Lungs help in the purification of blood. Arteries carry pure oxygenated blood 
+from the heart to other parts of the body. Veins carry impure venous blood back 
+
+from other parts of the body to the right side of the heart. This impure blood 
+goes to the lungs for purification. 
+When the breath is inhaled, oxygen from the air comes in contact with the 
+impure blood and the blood takes up oxygen. The waste matter in the blood 
+releases carbonic acid and the blood is purified. The purified blood is carried to 
+the heart by the veins. 
+ 
+Architecture: 
+ Trachea: The trachea is the main airway that leads from the larynx (voice 
+box) to the lungs. It is lined with cilia and mucus-secreting glands that 
+help to filter out harmful substances and trap them in the mucus 
+ Bronchi: The trachea branches into two main bronchi. one for each lung. 
+The bronchi is larger airways that continue to branch into smaller airways 
+called bronchioles. 
+ Bronchioles: The bronchioles are smaller airways that eventually lead to 
+the alveoli which are the sites of gas exchange 
+ Alveoli: The alveoli are tiny air sacs that are lined with a network of 
+capillaries. This close proximity of the alveoli and capillaries allows for 
+efficient diffusion of oxygen and carbon dioxide between the air in the 
+alveoli and the bloodstream. 
+Overall, the architecture of the lung is designed to provide a large surface area 
+for gas exchange, while filtering out harmful substances and humidifying the 
+air. The close proximity of the alveoli and capillaries, along with the moist 
+lining of the respiratory tract, ensures that the air is properly purified and the 
+bloodstream is supplied with fresh, oxygen-rich air. 
+ 
+ 
+
+ 
+ 
+ 
+ 
+
+GAS EXCHANGE MECHANISMS: 
+ The gas exchange mechanism in the lung involves the transfer of oxygen 
+from the air in the alveoli to the bloodstream, and the transfer of carbon 
+dioxide from the bloodstream to the air in the alveoli. This process is 
+known as diffusion and occurs due to differences in partial pressures of 
+oxygen and carbon dioxide. 
+ Oxygen Diffusion: The partial pressure of oxygen in the air in the alveoli 
+is higher than the partial pressure of oxygen in the bloodstream. This 
+difference creates a gradient that causes oxygen to diffuse from the 
+alveoli into the bloodstream, where it binds to hemoglobin in red blood 
+cells to form oxyhemoglobin. 
+ Carbon Dioxide Diffusion: The partial pressure of carbon dioxide in the 
+bloodstream is higher than the partial pressure of carbon dioxide in the air 
+in the alveoli. This difference creates a gradient that causes carbon 
+dioxide to diffuse from the bloodstream into the alveoli, where it is 
+exhaled 
+ During gas exchange oxygen moves from the lungs to the bloodstream. 
+At the same time, carbon dioxide passes from the blood to the lungs. This 
+happens in the lungs between the alveoli and a network of tiny blood 
+vessels called capillaries, which are located in the walls of the alveoli. 
+ 
+ 
+SPIROMETRY: 
+ Spirometry is a diagnostic test that measures the function of the lungs by 
+measuring amount and flow rate of air that can be exhaled.  
+ The test is commonly used to diagnose lung conditions such as asthma, 
+chronic obstructive pulmonary disease (COPD), and interstitial lung 
+disease. 
+
+ Principle: The principle behind spirometry is to measure the volume of 
+air that can be exhaled from the lungs in a given time period. By 
+measuring the volume of air exhaled. spirometry can provide information 
+about the functioning of the lungs and the ability of the lungs to move air 
+in and out. 
+ Working: Spirometry is performed using a spirometer, a device that 
+consists of a mouthpiece, a flow sensor, and a volume sensor. The patient 
+is asked to exhale as much air as possible into the spirometer, and the 
+spirometer measures the volume and flow rate of the exhaled air. The 
+volume of air exhaled is displayed on a graph called a flow-volume loop, 
+which provides information about the lung function. 
+The results of spirometry can be used to determine if the lungs are 
+functioning normally and to diagnose lung conditions. For example, a 
+decrease in the volume of air exhaled or a decrease in the flow rate of the 
+exhaled air can indicate a restriction in the airways, which can be a sign of a 
+lung condition such as asthma or COPD. 
+COPD  
+ Chronic Obstructive Pulmonary Disease (COPD) is a group of 
+progressive lung diseases that cause breathing difficulties. It's 
+characterized by persistent airflow limitation that is not fully 
+reversible. 
+  The two main forms of COPD are chronic bronchitis and 
+emphysema Symptoms include breathing difficulty, cough, mucus 
+(sputum) production, and wheezing. It's typically caused by long-term 
+exposure to irritating gases or particulate matter, most often from 
+cigarette smoke. People with COPD are at increased risk of 
+developing heart disease, lung cancer, and a variety of other 
+conditions. 
+Emphysema and chronic bronchitis are the two most common conditions that 
+contribute to COPD These two conditions usually occur together and can 
+vary in severity among individuals with COPD. 
+Symptoms  
+Symptoms COPD symptoms often don't appear until significant lung damage 
+has occurred, and they usually worsen over time, particularly if smoking 
+exposure continues. 
+  Signs and symptoms of COPD may include: 
+
+Shortness of breath, especially during physical activities 
+ Wheezing 
+ Chest tightness 
+ A chronic cough that may produce mucus (sputum) that may be clear, 
+white, yellow, or greenish 
+ Frequent respiratory infections 
+ Lack of energy 
+ Unintended weight loss (in later stages) 
+ Swelling in ankles, feet, or legs 
+Tests may include: 
+ Lung (pulmonary) function tests. 
+ Chest X-ray. 
+ CT scan. 
+ Arterial blood gas analysis. 
+ Laboratory tests. 
+ Medications  
+Several kinds of medications are used to treat the symptoms and complications 
+of COPD few are listed below:  
+Bronchodilators, Inhaled steroids, Combination inhalers, Oral steroids, 
+Phosphodiesterase-4 inhibitors, Theophylline, Antibiotics.  
+VENTILATOR: 
+A ventilator is a device that supports or takes over the breathing process, 
+pumping air into the lungs. Types of ventilator: 
+ Face mask ventilators 
+ Mechanical ventilators 
+ Manual resuscitator bags 
+ Tracheostomy ventilators 
+Ventilators work by delivering pressurized air or oxygen into the lungs through 
+a breathing tube or mask. The pressure can be adjusted to match the patient's 
+needs and to help maintain adequate oxygen levels in the blood. 
+While ventilators can be lifesaving for individuals with acute respiratory failure. 
+ 
+ 
+
+ 
+HEART LUNG MACHINE: 
+ A heart-lung machine is an apparatus that does the work both of the heart 
+(i.e., pumps blood) and the lungs (i.e., oxygenates the blood) during, for 
+example, open-heart surgery. 
+ The basic function of the machine is to oxygenate the body's venous 
+supply of blood and then to pump it back into the arterial system. 
+ Blood returning to the heart is diverted through the machine before 
+returning to the arterial oxygenators, temperature regulators, and filters. 
+The heart-lung machine also provides intracardiac suction, filteration and 
+temperature control.  
+ 
+ 
+ Blood drains by gravity or with the use of gentle suction into the 
+oxygenator venous reservoir. Arterial pump that pumps the blood from 
+the venous reservoir  and delivers blood to the membrane oxygenator 
+which is attached to the lower part of the venous reservoir. 
+ Once oxygen, carbon dioxide, and heat exchange have occurred the blood 
+is directed to an arterial blood filter..  
+ The oxygenated blood is introduced back into the patient's circulatory 
+system through cannulae (a large tube connected to the circuit) placed in 
+the ascending aorta.  
+
+ The one on the far left is used to pump a cardioplegia solution with a 
+mixture of blood and additives, used to arrest the heart.  
+KIDNEY AS FILTRATION SYSTEM: 
+ Kidneys remove wastes and extra fluid from the body. Kidneys also 
+remove acid that is produced by the cells of the body and maintain a 
+healthy balance of water, salts, and minerals- such as sodium, calcium, 
+phosphorus, and potassium in the blood. Without this balance, nerves, 
+muscles, and other tissues in the body may not work normally. 
+Architecture: 
+ The kidneys are two bean-shaped organs, each about the size of a fist. 
+They are located just below the rib cage, one on each side of the spine. 
+Healthy kidneys filter about a half cup of blood every minute, 
+removing wastes and extra water to make urine.  
+ The urine flows from the kidneys to the bladder through two thin 
+tubes of muscles called ureters, one on each side of the bladder. Your 
+bladder stores urine. Kidneys, Ureters, and bladder are part of your 
+urinary tract. 
+ The renal parenchyma is divided into outer cortex and inner medulla. 
+The cortex extends into the medulla, dividing it into triangular shapes 
+– these are known as renal pyramids. 
+ The apex of a renal pyramid is called a renal papilla. Each renal 
+papilla is associated with a structure known as the minor calyx, which 
+collects urine from the pyramids. Several minor calices merge to form 
+a major calyx. Urine passes through the major calices into the renal 
+pelvis, a flattened and funnel-shaped structure. From the renal pelvis, 
+urine drains into the ureter, which transports it to the bladder for 
+storage. 
+ 
+ 
+
+ 
+ 
+MECHANISM OF FILTRATION: 
+ Each kidney is made up of about a million filtering units called nephrons. 
+Each nephron includes a filter, called the glomerulus, and a tubule.  
+ The nephrons work through a two-step process: the glomerulus filters 
+blood, and the tubule returns needed substances to your blood and 
+removes wastes. 
+ Bowmans Capsule- this is a cup shaped structure that surrounds the 
+glomerulus and filters waste and excess fluid from the bloodstream into 
+the renal tube. 
+ Glomerulus: A network of tiny blood vessels within the Bowman's 
+capsule that filters waste and excess fluid from the bloodstream. 
+ Proximal convoluted tubule: A segment of the renal tubule that reabsorbs 
+important substances, such as glucose, amino acids, and electrolytes, back 
+into the bloodstream. 
+ Loop of Henle: A U-shaped segment of the renal tubule that is critical for 
+the reabsorption of ions and water. 
+ Distal convoluted tubule: A segment of the renal tubule that regulates the 
+levels of electrolytes and other important substances in the bloodstream. 
+ Collecting duct: A series of ducts that collect the filtrate from the renal 
+tubules and transport it to the renal pelvis, where it drains into the ureter 
+and eventually into the bladder. 
+
+ 
+ 
+ 
+The nephrons are surrounded by a network of blood vessels, including the 
+afferent arteriole and the efferent arteriole, which bring blood into and out of the 
+glomerulus, respectively. The filtrate produced by the nephron passes through 
+the renal tubules, where it is modified by reabsorption and secretion, before 
+being eliminated from the body as urine. 
+URINE FORMATION  
+ Blood enters the kidney through the renal arteries and flows into tiny 
+filtering units called glomeruli. At the glomerulus, the pressure in the 
+blood vessels causes a portion of the plasma and dissolved substances to 
+filter out and enter a structure called Bowman's capsule. 
+ In Bowman's capsule, the filtrate is then transferred into the renal tubules, 
+which are the main filtering units of the kidneys. 
+ In the renal tubules, the filtrate passes through a series of specialized 
+cells, such as proximal tubular cells and distal tubular cells, which 
+reabsorb important substances such as glucose, amino acids, and 
+electrolytes back into the bloodstream. 
+ At the same time, the renal tubules secrete waste products, such as urea 
+and creatinine, back into the filtrate. Finally, the filtered fluid, now 
+known as urine. 
+
+CKD 
+ Chronic kidney disease includes conditions that damage your kidneys and 
+decrease their ability to keep you healthy by filtering wastes from your 
+blood.  
+ If kidney disease worsens, wastes can build to high levels in your blood 
+and make you feel sick. You may develop complications like high blood 
+pressure, anemia (low blood count),weak bones, poor nutritional health, 
+nerve damage.  
+Symptoms: 
+ People with CKD may not feel ill or notice any symptoms. The only way 
+to find out for sure if you have CKD is through specific blood and urine 
+tests.  
+ These tests include the measurement of both the creatinine level in the 
+blood and the protein in the urine 
+Treatment: 
+Depending on the cause, some types of kidney disease can be treated. Often, 
+though, chronic kidney disease has no cure. Treatment usually consists of 
+measures to help control signs and symptoms, reduce complications, and slow 
+the progression of the disease. 
+ If your kidneys become severely damaged, you might need treatment for end-
+stage kidney disease. 
+ 
+DIALYSIS: 
+Dialysis is a procedure to remove waste products and excess fluid from the 
+blood when the kidneys stop working properly. It often involves diverting blood 
+to a machine to be cleaned. 
+There are 2 main types of dialysis: 
+ Hemodialysis involves diverting blood into an external machine, where 
+it's filtered before being returned to the body. During hemodialysis. 
+blood is removed from the body, passed through a dialysis machine that 
+filters out waste and excess fluids, and then returned to the body. 
+Haemodialysis typically takes place in a hospital or dialysis centre, and is 
+typically performed three times a week for three to four hours at a time 
+
+ Peritoneal dialysis is a type of dialysis that uses the lining of the 
+abdomen, called peritoneum, to filter waste and excess fluids from the 
+blood. A sterile solution is introduced into the abdomen. where it absorbs 
+waste and excess fluids, and is then drained and replaced with fresh 
+solution. Peritoneal dialysis can be performed at home. 
+Artificial Kidney 
+ While much progress has been made in developing an artificial kidney, it 
+is still in the experimental stage and is not yet widely available. Further 
+research and development is needed to improve the efficiency and safety 
+of artificial kidney devices, and to ensure that they can be widely adopted 
+as a treatment for chronic kidney disease. There are currently two main 
+approaches to developing an artificial kidney: 
+  a biological approach and a technological approach. The biological 
+approach involves using living cells, such as kidney cells or stem cells, to 
+create a functional, implantable artificial kidney. The technological 
+approach involves using synthetic materials, such as silicon or polymer, 
+to create a dialysis device that can filter the blood and remove waste and 
+excess fluids. 
+ It's important to note that while the development of an artificial kidney 
+holds great promise, it is not a cure for chronic kidney disease and 
+patients with kidney failure will still need dialysis or kidney 
+transplantation in the meantime. 
+QUESTION BANK  
+L1  
+1. Define dialysis. 
+2. What is spirometry?  
+3. Define ventilators ? 
+4. Define heart lung machine? 
+5. What is chronic obstructive pulmonary disease?  
+6. What is CKD?  
+ 
+L2  
+1. Explain the architecture of the lungs as a purification system. Discuss the 
+different parts of the respiratory system and their role in filtering harmful 
+substances and facilitating gas exchange. 
+
+2. Describe the gas exchange mechanism in the lungs. Discuss the process  
+of oxygen diffusion into the bloodstream and carbon dioxide diffusion out 
+of the bloodstream in the alveoli. 
+3. Discuss the principle and working of spirometry as a diagnostic test for 
+evaluating lung function. Explain how spirometry results can be 
+interpreted and used in the diagnosis of lung conditions. 
+4. Explain the concept of abnormal lung physiology, focusing on Chronic 
+Obstructive Pulmonary Disease (COPD) as an example. Discuss the 
+causes, symptoms, and treatment options for COPD. 
+5. Describe the architecture of the kidney and its functional units, known as 
+nephrons. Discuss the role of each component of the nephron in the 
+filtration, reabsorption, and secretion processes. 
+6. Explain the mechanism of filtration in the kidneys, including the steps 
+involved in the formation of urine. Discuss the importance of filtration, 
+reabsorption, and secretion in maintaining the balance of fluids and 
+electrolytes in the body. 
+7. Discuss the concept of Chronic Kidney Disease (CKD), including its 
+causes, symptoms, and potential complications. Describe the treatment 
+options available for 
+managing 
+CKD, emphasizing  the 
+importance  of  regular  check-ups and lifestyle modifications. 
+8. Compare and contrast the two main types of dialysis systems: 
+hemodialysis and peritoneal dialysis. 
+9. Describe how muscular systems can be used as scaffolds in regenerative 
+medicine. Provide examples  of their applications in the treatment of 
+damaged heart tissue and skeletal muscle injuries. 
+10. Explain the architecture of skeletal muscles, including the organization of 
+muscle fibers, connective tissue layers, and the role of sarcomeres in 
+muscle contraction. 
+11. Discuss the mechanisms involved in using muscle cells and scaffolds for 
+tissue regeneration in regenerative medicine. Explain the steps involved 
+in growing muscle tissue using hydrogel or artificial scaffold. 
+12. Explore the bioengineering solutions being developed for muscular 
+dystrophy. Explain how gene therapy, stem cell therapy, exoskeleton 
+technology, and tissue engineering can potentially improve the lives of 
+individuals affected by the disease. 
+13. Explain hart lung machine with a labelled diagram. 
+ 
+ 
+ 
+
+QUESTION BANK 
+BTL L1 QUESTIONS  
+1. What are pace makers?  
+2. What is Parkinsons Disease? 
+3. Define EEG. 
+4. What are stents? 
+5. What are defibrillators?  
+BTL L2 QUESTIONS  
+1. “Brain as CPU system’’ justify the statement. 
+2. Write short note on CNS. 
+3. Write short note on PNS. 
+4. How is signal transmitted within the body. 
+5. Explain EEG and its diagnostic uses. 
+6. What are the engineering solutions for Parkinsons disease. 
+7. How is cataract caused? Explain. 
+8. Explain how heart acts as a pump system.  
+9. Explain the different types of lens materials. 
+10. Write a short note on bionic eyes. 
+11. What are the reasons for heart blockages? Mention the uses of stents. 
+12. Explain the types and parts of Pace makers.  
+13. Write a short note on defibrillators.

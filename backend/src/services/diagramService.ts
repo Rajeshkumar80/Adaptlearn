@@ -199,6 +199,141 @@ export function generateStructuredDiagramSpecification(
     };
   }
 
+  // 4. ER Diagrams & Attribute Types (BCS403 Module 1)
+  if (/\b(er\s+diagram|er\s+model|entity\s+relationship|attribute\s+types?|company\s+er)\b/i.test(qLower)) {
+    const isCompany = /\b(company|employee|department|project)\b/i.test(qLower);
+    if (isCompany) {
+      return {
+        title: "Company Database Entity-Relationship (ER) Schema",
+        diagramType: "flowchart",
+        components: ["EMPLOYEE Entity", "WORKS_FOR Relationship", "DEPARTMENT Entity", "CONTROLS Relationship", "PROJECT Entity", "DEPENDENT Entity"],
+        connections: [
+          "EMPLOYEE --- WORKS_FOR",
+          "WORKS_FOR --- DEPARTMENT",
+          "DEPARTMENT --- CONTROLS",
+          "CONTROLS --- PROJECT",
+          "EMPLOYEE === DEPENDENTS_OF === DEPENDENT"
+        ],
+        mermaidCode: `flowchart TD\n  EMP["[Entity] EMPLOYEE (SSN, Name, Salary)"] --- WF{"<Relationship> WORKS_FOR (M:1)"}\n  WF --- DEPT["[Entity] DEPARTMENT (Dnumber, Dname)"]\n  DEPT --- CTRL{"<Relationship> CONTROLS (1:N)"}\n  CTRL --- PROJ["[Entity] PROJECT (Pnumber, Pname)"]\n  EMP === DEP_OF{{"<<Identifying Rel>> DEPENDENTS_OF"}} === DEP[["[[Weak Entity]] DEPENDENT (Name, Relationship)"]]`,
+        drawingGuide: "Draw EMPLOYEE and DEPARTMENT entities in rectangles connected by WORKS_FOR diamond. Draw 1:N cardinality and link DEPENDENT weak entity with double lines."
+      };
+    }
+
+    return {
+      title: "Entity-Relationship (ER) Diagram & Attribute Representation",
+      diagramType: "flowchart",
+      components: [
+        "Entity Set (Rectangle)",
+        "Key Attribute (Underlined Oval)",
+        "Simple/Atomic Attribute (Standard Oval)",
+        "Composite Attribute (Divided Oval)",
+        "Multivalued Attribute (Double Oval)",
+        "Derived Attribute (Dashed Oval)",
+        "Relationship (Diamond)"
+      ],
+      connections: [
+        "Entity --- Key Attribute",
+        "Entity --- Simple Attribute",
+        "Entity --- Composite Attribute",
+        "Entity --- Multivalued Attribute",
+        "Entity --- Derived Attribute",
+        "Entity --- Relationship"
+      ],
+      mermaidCode: `flowchart TD\n  E["[Entity Set: STUDENT]"] --- K(["Key: (USN)"]):::keyAttr\n  E --- S(["Simple: Gender"]):::stdAttr\n  E --- C(["Composite: Name"]):::compAttr\n  C --- F(["First_Name"])\n  C --- L(["Last_Name"])\n  E --- M((["Multivalued: {Phone_No}"]))\n  E --- D[/"Derived: Age (from DOB)"/]\n  E --- R{"Relationship: ENROLLED_IN"} --- C2["[Entity: COURSE]"]\n  classDef keyAttr stroke-width:3px;\n  classDef compAttr stroke-dasharray: 5 5;`,
+      drawingGuide: "Draw the central Entity in a rectangle. Connect Key Attribute (underlined text in oval), Composite Attribute (branching ovals), Multivalued Attribute (double oval), and Derived Attribute (dashed oval)."
+    };
+  }
+
+  // 5. OSI 7-Layer Reference Model (BCS502 Module 1)
+  if (/\b(osi|osi\s+model|7\s+layer|iso[\s\-_]osi)\b/i.test(qLower)) {
+    return {
+      title: "ISO-OSI 7-Layer Reference Model Architecture",
+      diagramType: "flowchart",
+      components: [
+        "Layer 7: Application Layer",
+        "Layer 6: Presentation Layer",
+        "Layer 5: Session Layer",
+        "Layer 4: Transport Layer",
+        "Layer 3: Network Layer",
+        "Layer 2: Data Link Layer",
+        "Layer 1: Physical Layer"
+      ],
+      connections: [
+        "L7 --> L6 --> L5 --> L4 --> L3 --> L2 --> L1"
+      ],
+      mermaidCode: `flowchart TD\n  L7["Layer 7: Application (HTTP, DNS, SMTP) — User Interface"] --> L6["Layer 6: Presentation (SSL/TLS, ASCII) — Syntax & Encryption"]\n  L6 --> L5["Layer 5: Session (RPC, NetBIOS) — Dialog Control"]\n  L5 --> L4["Layer 4: Transport (TCP, UDP) — End-to-End Delivery & Ports"]\n  L4 --> L3["Layer 3: Network (IPv4, IPv6, Routers) — Logical Addressing & Routing"]\n  L3 --> L2["Layer 2: Data Link (Ethernet, Switches, MAC) — Framing & Error Control"]\n  L2 --> L1["Layer 1: Physical (Bits, Cables, Hubs) — Electrical & Physical Specs"]`,
+      drawingGuide: "Draw 7 horizontal stacked rectangular layers labeled Layer 7 down to Layer 1, showing Data/Segment/Packet/Frame/Bit PDU progression."
+    };
+  }
+
+  // 6. Process State Transition Model (BCS303 Module 2)
+  if (/\b(process\s+state|process\s+transition|state\s+diagram\s+of\s+process)\b/i.test(qLower)) {
+    return {
+      title: "Operating System 5-State Process Model",
+      diagramType: "state",
+      components: ["New", "Ready", "Running", "Waiting (Blocked)", "Terminated"],
+      connections: [
+        "New --> Ready",
+        "Ready --> Running",
+        "Running --> Ready",
+        "Running --> Waiting",
+        "Waiting --> Ready",
+        "Running --> Terminated"
+      ],
+      mermaidCode: `flowchart LR\n  NEW(["New"]) -->|Admitted| READY["Ready Queue"]\n  READY -->|Scheduler Dispatch| RUN["Running (CPU)"]\n  RUN -->|Interrupt / Time Slice Expired| READY\n  RUN -->|I/O or Event Wait| WAIT["Waiting / Blocked"]\n  WAIT -->|I/O Completion| READY\n  RUN -->|Exit| TERM(["Terminated"])`,
+      drawingGuide: "Draw Ready and Running states in the center with bidirectional arrows for dispatch and interrupt. Draw Waiting below for I/O block, New on the left, and Terminated on the right."
+    };
+  }
+
+  // 7. ARM Processor Architecture & Dataflow Model (BCS402 Module 5)
+  if (/\b(arm\s+processor|arm\s+architecture|arm\s+core|arm\s+cortex|barrel\s+shifter)\b/i.test(qLower)) {
+    return {
+      title: "ARM Core Dataflow and Functional Architecture",
+      diagramType: "flowchart",
+      components: ["Instruction Decoder", "Register Bank (r0-r15)", "Barrel Shifter", "ALU", "Address Register", "Data Out / Data In"],
+      connections: [
+        "Instruction Decoder --> Register Bank",
+        "Register Bank --> Barrel Shifter",
+        "Barrel Shifter --> ALU",
+        "ALU --> Address Register",
+        "Address Register --> Memory Address Bus"
+      ],
+      mermaidCode: `flowchart TD\n  DEC["Instruction Decoder & Control Logic"] --> REGS["Register File (37 Registers: r0-r15, CPSR, SPSR)"]\n  REGS -->|Bus A| ALU["Arithmetic Logic Unit (ALU)"]\n  REGS -->|Bus B| BS["Barrel Shifter (32-bit Shift in Single Cycle)"]\n  BS --> ALU\n  ALU -->|Result Bus| REGS\n  ALU --> ADDR["Memory Address Register (MAR)"]\n  ADDR --> MAB["32-bit Memory Address Bus"]`,
+      drawingGuide: "Draw the Register File feeding Bus A and Bus B. Bus B passes through the Barrel Shifter before joining Bus A at the ALU."
+    };
+  }
+
+  // 8. 8051 Microcontroller Architecture Block Diagram (BCS402 Module 1)
+  if (/\b(8051|8051\s+architecture|8051\s+block\s+diagram)\b/i.test(qLower)) {
+    return {
+      title: "8051 Microcontroller Internal Architecture Block Diagram",
+      diagramType: "flowchart",
+      components: ["CPU (ALU + Acc + B)", "128 Bytes On-Chip RAM", "4 KB On-Chip ROM", "Timers/Counters (Timer 0, Timer 1)", "4 Parallel I/O Ports (P0-P3)", "Full-Duplex UART", "Interrupt Controller"],
+      connections: [
+        "CPU <--> Internal Bus",
+        "RAM <--> Internal Bus",
+        "ROM <--> Internal Bus",
+        "Timers <--> Internal Bus",
+        "I/O Ports <--> Internal Bus",
+        "UART <--> Internal Bus"
+      ],
+      mermaidCode: `flowchart TD\n  subgraph CORE ["8051 Processing Core"]\n    ALU["ALU + Accumulator (A) + Register B"]\n    PC["Program Counter (16-bit) + DPTR"]\n  end\n  BUS["8-bit Internal Data & Control Bus"]\n  RAM["128 Bytes Internal RAM + SFRs"]\n  ROM["4 KB On-Chip Flash/ROM"]\n  TIMERS["Timers / Counters (T0, T1)"]\n  PORTS["I/O Ports: Port 0, Port 1, Port 2, Port 3"]\n  SERIAL["Serial Data TXD/RXD (UART)"]\n  INT["Interrupt Controller (5 Sources, 2 Levels)"]\n  CORE <--> BUS\n  BUS <--> RAM\n  BUS <--> ROM\n  BUS <--> TIMERS\n  BUS <--> PORTS\n  BUS <--> SERIAL\n  BUS <--> INT`,
+      drawingGuide: "Draw a central 8-bit internal bus. Connect the CPU core, 128B RAM, 4KB ROM, Timer 0/1, Interrupt control, and Ports P0-P3 as modular peripheral blocks attached to the bus."
+    };
+  }
+
+  // 9. Deep Learning Convolutional Neural Network (BCS702 Module 3)
+  if (/\b(cnn|convolutional\s+neural\s+network|convolutional\s+layer|pooling\s+layer)\b/i.test(qLower)) {
+    return {
+      title: "Convolutional Neural Network (CNN) Layer Architecture",
+      diagramType: "flowchart",
+      components: ["Input Image", "Conv2D Layer (Filters)", "ReLU Activation", "MaxPooling Layer", "Flatten Layer", "Fully Connected Dense", "Softmax Output"],
+      connections: ["Input --> Conv2D --> ReLU --> MaxPool --> Conv2D_2 --> Flatten --> Dense --> Output"],
+      mermaidCode: `flowchart LR\n  IN["Input Image (H x W x C)"] --> CONV1["Conv2D (Filters + Stride)"]\n  CONV1 --> RELU1["ReLU Activation: max(0, x)"]\n  RELU1 --> POOL1["Max Pooling (Spatial Subsampling 2x2)"]\n  POOL1 --> CONV2["Conv2D (Deep Feature Maps)"]\n  CONV2 --> FLAT["Flatten (1D Vector Transformation)"]\n  FLAT --> FC["Fully Connected Dense Layer"]\n  FC --> SOFT["Softmax Output (Class Probabilities)"]`,
+      drawingGuide: "Draw an input image square transforming into smaller thicker rectangular feature map blocks after convolution, followed by 2x2 max-pooling subsampling, flattening to a 1D column vector, and class outputs."
+    };
+  }
+
   // Default dynamic pipeline
   const comps = verifiedConcepts.slice(0, 4);
   const nodes = comps.length >= 2 ? comps : ["Input Parameter Ingestion", "Processing & Protocol State", "Output Dispatch"];

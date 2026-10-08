@@ -1,0 +1,14 @@
+[
+  {
+    "equation_id": "EQ_BCS303_01",
+    "subject": "BCS303",
+    "module": 4,
+    "topic": "Virtual Memory & Demand Paging",
+    "name": "Effective Memory Access Time (EAT)",
+    "page": 320,
+    "latex": "EAT = (1 - p) \\times m + p \\times S",
+    "plain_text": "EAT = (1 - p) * m + p * S",
+    "variables": "p: page fault rate, m: memory access time, S: fault service time",
+    "source": "Silberschatz OS Concepts / BCS303 Module 4"
+  }
+]

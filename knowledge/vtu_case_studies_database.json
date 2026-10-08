@@ -1,0 +1,221 @@
+{
+  "schema_version": "2.0.0",
+  "description": "VTU CSE Practical & Enterprise Case Studies Database",
+  "total_case_studies": 10,
+  "case_studies": [
+    {
+      "case_study_id": "CS_BCS403_01",
+      "subject": "BCS403",
+      "module": 1,
+      "topic": "ER Model",
+      "scenario": "Company Database Enterprise Schema",
+      "entities": [
+        "EMPLOYEE (Ssn, Fname, Lname, Bdate, Address, Sex, Salary, Super_ssn, Dno)",
+        "DEPARTMENT (Dnumber, Dname, Mgr_ssn, Mgr_start_date)",
+        "PROJECT (Pnumber, Pname, Plocation, Dnum)",
+        "DEPENDENT (Essn, Dependent_name, Sex, Bdate, Relationship)"
+      ],
+      "relationships": [
+        "WORKS_FOR (EMPLOYEE N : 1 DEPARTMENT)",
+        "MANAGES (EMPLOYEE 1 : 1 DEPARTMENT)",
+        "CONTROLS (DEPARTMENT 1 : N PROJECT)",
+        "WORKS_ON (EMPLOYEE M : N PROJECT with attribute Hours)",
+        "DEPENDENTS_OF (EMPLOYEE 1 : N DEPENDENT identifying relationship)"
+      ],
+      "inputs": "Company organization chart, department budget codes, project schedules",
+      "outputs": "Conceptual ER Diagram and Normalized 3NF/BCNF Relational Tables",
+      "constraints": "Every department must have exactly one manager; an employee works for exactly one department",
+      "source": "Elmasri Navathe DBMS Chapter 3 / VTU BCS403 Module 1 Question Bank",
+      "page": 65
+    },
+    {
+      "case_study_id": "CS_BCS403_02",
+      "subject": "BCS403",
+      "module": 1,
+      "topic": "ER Model",
+      "scenario": "Hospital Patient Care and Ward Management System",
+      "entities": [
+        "PATIENT (Patient_id, Name, DOB, Contact, Blood_group, Emergency_contact)",
+        "DOCTOR (Doctor_id, Name, Specialization, License_number, Department_id)",
+        "WARD (Ward_number, Ward_type, Total_beds, Available_beds)",
+        "APPOINTMENT (Appt_id, Patient_id, Doctor_id, Appt_date, Diagnosis)"
+      ],
+      "relationships": [
+        "TREATS (DOCTOR 1 : N PATIENT)",
+        "ASSIGNED_TO (PATIENT N : 1 WARD with Bed_number, Admission_date)",
+        "SCHEDULES (PATIENT 1 : N APPOINTMENT with DOCTOR)"
+      ],
+      "inputs": "Patient medical history records, doctor shift schedules, ward occupancy registers",
+      "outputs": "Normalized 3NF Healthcare Database Schema and Integrity Constraints",
+      "constraints": "A patient cannot be admitted to multiple beds simultaneously; doctor specialization must match appointment department",
+      "source": "Silberschatz Database System Concepts Chapter 2 / BCS403 Case Studies",
+      "page": 88
+    },
+    {
+      "case_study_id": "CS_BCS403_03",
+      "subject": "BCS403",
+      "module": 4,
+      "topic": "Transaction Processing",
+      "scenario": "Banking Enterprise Distributed Transaction & ACID Compliance",
+      "entities": [
+        "ACCOUNT (Acc_number, Cust_id, Acc_type, Balance, Branch_code)",
+        "CUSTOMER (Cust_id, Name, Phone, Aadhaar, Pan_number)",
+        "TRANSACTION (Txn_id, Source_acc, Dest_acc, Amount, Timestamp, Txn_type, Status)"
+      ],
+      "relationships": [
+        "OWNS (CUSTOMER 1 : N ACCOUNT)",
+        "PERFORMS (ACCOUNT 1 : N TRANSACTION)"
+      ],
+      "inputs": "Concurrent fund transfer requests: Txn 1 transfers Rs 5000 from A to B; Txn 2 reads balance of B",
+      "outputs": "Strict Two-Phase Locking (Strict 2PL) schedule preventing dirty reads and lost updates with WAL logging",
+      "constraints": "Balance >= Minimum_balance (Rs 1000); total money invariant conserved across accounts",
+      "source": "Elmasri Navathe DBMS Chapter 21 / VTU BCS403 Module 4 Notes",
+      "page": 750
+    },
+    {
+      "case_study_id": "CS_BCS303_01",
+      "subject": "BCS303",
+      "module": 3,
+      "topic": "Deadlocks",
+      "scenario": "Banker's Algorithm Deadlock Avoidance in Multiprogramming OS",
+      "entities": [
+        "Processes P0 through P4",
+        "Resource types A (10 instances), B (5 instances), C (7 instances)"
+      ],
+      "relationships": [
+        "Allocation Matrix: current resources held by processes",
+        "Max Matrix: maximum future claims",
+        "Need Matrix: Need[i,j] = Max[i,j] - Allocation[i,j]"
+      ],
+      "inputs": "Available vector = [3, 3, 2], Allocation and Max matrices for 5 processes",
+      "outputs": "Safe sequence <P1, P3, P4, P0, P2> guaranteeing absence of deadlock",
+      "constraints": "Work vector >= Need[i] before allocating resources to Pi",
+      "source": "Silberschatz OS Concepts Chapter 8 / BCS303 Module 3",
+      "page": 328
+    },
+    {
+      "case_study_id": "CS_BCS303_02",
+      "subject": "BCS303",
+      "module": 4,
+      "topic": "Virtual Memory",
+      "scenario": "Demand Paging and Page Replacement Under High Memory Pressure",
+      "entities": [
+        "Physical Memory Frames: Frame 0 through Frame 3 (4 frames total)",
+        "Process Virtual Page Reference String: 7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1"
+      ],
+      "relationships": [
+        "Page Table: Maps Virtual Page Number (VPN) to Physical Frame Number (PFN) with Valid/Invalid bit",
+        "Page Fault Handler: Traps to OS kernel on Invalid bit access, swaps page in from swap partition"
+      ],
+      "inputs": "Reference string with 20 memory accesses, compare FIFO vs LRU vs Optimal replacement policies",
+      "outputs": "Page fault counts: Optimal = 9 faults, LRU = 12 faults, FIFO = 15 faults (Demonstrates Belady's Anomaly risk)",
+      "constraints": "Thrashing condition occurs if sum of working sets exceeds available physical frames",
+      "source": "Silberschatz OS Concepts Chapter 10 / BCS303 Module 4",
+      "page": 402
+    },
+    {
+      "case_study_id": "CS_BCS502_01",
+      "subject": "BCS502",
+      "module": 3,
+      "topic": "Routing Protocols",
+      "scenario": "Campus Network OSPF Link-State Routing Deployment",
+      "entities": [
+        "Core Layer 3 Switches (Backbone Area 0)",
+        "Distribution Routers (Engineering Area 1, Admin Area 2, Hostel Area 3)"
+      ],
+      "relationships": [
+        "Link-State Advertisements (LSA) flooded within non-backbone areas",
+        "Area Border Routers (ABR) summarize routes into Backbone Area 0"
+      ],
+      "inputs": "Subnet topology: 10.1.0.0/16 (CSE), 10.2.0.0/16 (Admin), 10.3.0.0/16 (Hostels)",
+      "outputs": "Converged Shortest Path First (SPF) routing table with zero routing loops and fast sub-second failover",
+      "constraints": "All non-backbone areas must physically or virtually connect to Area 0",
+      "source": "Forouzan Data Communications Chapter 20 / BCS502 Module 3",
+      "page": 580
+    },
+    {
+      "case_study_id": "CS_BCS502_02",
+      "subject": "BCS502",
+      "module": 4,
+      "topic": "Transport Layer",
+      "scenario": "TCP Congestion Control Dynamics in High-Bandwidth Latency-Sensitive WAN",
+      "entities": [
+        "Sender TCP Stack (Congestion Window cwnd, Slow Start Threshold ssthresh)",
+        "Receiver TCP Stack (Advertised Receive Window rwnd)",
+        "Intermediate Bottleneck Router (Buffer capacity 64 packets)"
+      ],
+      "relationships": [
+        "Slow Start Phase: cwnd doubles every RTT (exponential growth)",
+        "Congestion Avoidance Phase: cwnd increases by 1 MSS every RTT (additive increase)",
+        "Fast Retransmit & Fast Recovery (TCP Reno): On 3 duplicate ACKs, ssthresh = cwnd/2, cwnd = ssthresh + 3"
+      ],
+      "inputs": "Transmission of 100MB file over 1 Gbps link with 50ms RTT and 0.1% packet loss",
+      "outputs": "Throughput analysis comparing TCP Tahoe (resets cwnd to 1 on packet loss) vs TCP Reno (Fast Recovery)",
+      "constraints": "Effective window = min(cwnd, rwnd) prevents receiver buffer overflow",
+      "source": "Kurose & Ross Computer Networking Chapter 3 / BCS502 M4",
+      "page": 272
+    },
+    {
+      "case_study_id": "CS_BCS601_01",
+      "subject": "BCS601",
+      "module": 1,
+      "topic": "Lexical Analysis",
+      "scenario": "Compiler Lexical Analyzer for C-Subset Programming Language",
+      "entities": [
+        "Source Code Characters: int main() { float x = 3.14; return 0; }",
+        "Tokens: <KEYWORD, int>, <ID, main>, <LPAREN>, <RPAREN>, <LBRACE>, <KEYWORD, float>, <ID, x>, <ASSIGN>, <NUM, 3.14>, <SEMICOLON>"
+      ],
+      "relationships": [
+        "Regular expressions specify token patterns",
+        "DFA recognizes lexemes with longest-match (maximal munch) rule",
+        "Symbol table stores identifiers and attributes"
+      ],
+      "inputs": "High-level source code buffer with whitespace and comments",
+      "outputs": "Clean token stream passed directly to LR parser syntax analyzer",
+      "constraints": "Disambiguate keywords from identifiers; track line and column numbers for error reporting",
+      "source": "Aho Sethi Ullman Compilers Chapter 3 / BCS601 Module 1",
+      "page": 112
+    },
+    {
+      "case_study_id": "CS_BCS602_01",
+      "subject": "BCS602",
+      "module": 2,
+      "topic": "Decision Trees",
+      "scenario": "Network Intrusion Detection System Using Decision Tree Classifier",
+      "entities": [
+        "Network Connection Features: duration, protocol_type, service, flag, src_bytes, dst_bytes, count, serror_rate",
+        "Class Labels: Normal vs Attack (DoS, Probe, R2L, U2R)"
+      ],
+      "relationships": [
+        "Information Gain / Gini Impurity determines best feature split at each tree node",
+        "Post-pruning minimizes decision tree overfitting on noisy network traffic"
+      ],
+      "inputs": "NSL-KDD benchmark training dataset containing 125,973 labeled connection records",
+      "outputs": "Interpretable if-then rule set achieving 94.2% detection rate with <1.5% false positive rate",
+      "constraints": "Real-time packet inspection requirement (<5 microseconds classification latency per packet)",
+      "source": "Bishop Machine Learning / Mitchell ML Chapter 3 / BCS602 M2",
+      "page": 85
+    },
+    {
+      "case_study_id": "CS_BCS613A_01",
+      "subject": "BCS613A",
+      "module": 1,
+      "topic": "Blockchain Architecture",
+      "scenario": "Merkle Tree State Verification and SPV in Bitcoin Ledger",
+      "entities": [
+        "Transactions: Tx0 through Tx7 (8 transactions in block)",
+        "Cryptographic Hashes: H(Tx0) through H(Tx7) using SHA-256 double hash",
+        "Block Header: Version, PreviousBlockHash, MerkleRoot, Timestamp, Bits (Difficulty), Nonce"
+      ],
+      "relationships": [
+        "Binary Merkle tree pairs adjacent hashes up to single 32-byte Merkle Root",
+        "Simplified Payment Verification (SPV) client verifies transaction presence using O(log N) authentication path"
+      ],
+      "inputs": "Proof request for transaction Tx3 with 2000 transactions in block",
+      "outputs": "Audit path of only 11 intermediate hashes (352 bytes) instead of downloading entire 1.5MB block",
+      "constraints": "Any single-bit mutation in Tx3 invalidates root hash with cryptographic certainty",
+      "source": "Arvind Narayanan Bitcoin and Cryptocurrency Technologies Chapter 1",
+      "page": 32
+    }
+  ]
+}

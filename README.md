@@ -95,54 +95,68 @@ Frontend receives event → pulse animation on unlocked card + live counter upda
   6. Evaluate achievement badges
 - **Response:** Updated learning state and any newly unlocked achievements
 
-### 6. AI Tutor, Query Understanding & RAG Pipeline (`src/routes/ai.ts`, `src/services/ai.ts`, `src/services/groundingValidator.ts`)
+### 6. AI Tutor, Query Understanding & RAG Pipeline (`src/routes/ai.ts`, `src/services/ai.ts`, `src/services/groundingValidator.ts`, `src/services/completenessValidator.ts`, `src/services/diagramService.ts`)
 - **Endpoints:**
   - `POST /api/ai/ask` — Grounded student query answering with citations and follow-up MCQ
   - `POST /api/ai/mcq-response` — Verifies MCQ answer and updates learning state
+  - `POST /api/ai/pyq` — Specialized previous year questions retrieval (exact/related exam questions, no essays)
+  - `POST /api/ai/model-paper` — Official model question paper retrieval
+  - `POST /api/ai/syllabus` — Direct canonical module and topic breakdown from master curriculum
 - **Rate Limit:** 15 requests/minute per user
 
-#### Multi-Source Knowledge Base
-The RAG system indexes five verified academic sources:
-1. **Curriculum Evidence:** Module breakdowns, course outcomes (COs), unit boundaries
-2. **Academic Evidence:** Verified VTU module notes, textbook chapters, reference notes
-3. **Exam Evidence:** University question banks, previous-year question papers (PYQs) with step-by-step solutions
-4. **Practice Evidence:** Model question papers and high-yield question sets
-5. **Visual Knowledge:** Indexed diagrams and architectural figures with topic mappings
+#### Multi-Source Knowledge Base & Master Curriculum
+The system indexes the complete **VTU CSE 2022 Scheme (Semesters 3 to 7)** curriculum (`knowledge/vtu_2022_scheme_master.json`):
+- **67 Verified Courses:** 20 core (theory, IPCC, lab), 18 professional electives, 9 open electives, 12 ability enhancement / skill labs, 8 project & human values courses.
+- **335 Syllabus Modules:** Granular module taxonomy directly parsed from official VTU scheme specifications (`DATA/scheme/38csesch.txt`).
+- **Question-Level Examination Database:** 1,748 individual university past exam and model questions (`knowledge/pyq_database.json`) indexed with marks, year, session, Bloom's level, and course outcomes.
+- **Visual Knowledge Graph:** 439 cataloged figures across 22 subjects (`knowledge/diagram_knowledge_graph.json`) + verified native Mermaid schematics and VTU drawing guidelines.
+- **Multi-Source Evidence Hierarchy:**
+  1. **Primary Syllabus Notes (1.15x weight):** Concise module notes as primary factual anchor (`[PRIMARY SOURCE]`).
+  2. **Question Banks (1.25x weight):** Exam-oriented structure, high-frequency marks templates.
+  3. **Textbook Notes (1.00x weight):** Prescribed reference textbooks for deep conceptual elaboration (`[ADDITIONAL REFERENCE]`).
+  4. **PYQ & Model Papers (1.20x weight):** Historic university exam sessions and pattern tracking.
+  5. **Diagram Intelligence:** 439 indexed figures + verified native Mermaid schematics & drawing instructions.
 
-#### Retrieval & Grounding Workflow
+#### Retrieval, Completeness & Grounding Workflow
 ```text
 Student Question
        ↓
-Query Understanding
-  → Subject code resolution (e.g. "normalization" → BCS403)
-  → Module number detection
-  → Question type classification (12 types: definition, explanation, comparison, code, etc.)
+Dual-Layer Router
+  → Conversational query (Hello, Who are you) → Direct instant response (<15ms)
+  → Academic query → Question Analyzer
+       ↓
+Question Analyzer
+  → Intent Classification (9 intents: PYQ, MODEL_PAPER, QUESTION_BANK, SYLLABUS, DIAGRAM, COMPARISON, DEFINITION, NUMERICAL, EXPLANATION)
+  → Subject code resolution (150+ aliases → canonical codes like BCS403)
+  → Module number & subtopic extraction
   → Mark estimation (2M, 5M, 10M, 15M)
-  → Key entities & terminology extraction
        ↓
-Multi-Source Candidate Retrieval
-  → Dense vector search (384-dim HNSW index) + keyword matching
-  → Candidates pooled from module notes, textbook notes, and question banks
-  → Cross-source reranking and relevance scoring
+Specialized Handler / Multi-Source RAG
+  → SYLLABUS queries → Direct metadata return (zero RAG overhead)
+  → PYQ / Model Paper queries → Specialized exam extraction
+  → Academic queries → Hybrid BM25 (acronym-aware) + 384-dim dense vector search
        ↓
-Context Construction
-  → Structured context window with chunk identifiers and source attribution
+Cross-Source Reranking & Concept Completeness Loop
+  → Lecture notes prioritized as primary source
+  → CompletenessValidator audits required concepts (e.g. ER attribute types, addressing modes)
+  → Missing key concepts trigger targeted re-retrieval (max 2 retries)
        ↓
-Generation & Anti-Hallucination Validation
-  → Answer generated according to VTU examination conventions
-  → GroundingValidator inspects factual claims against retrieved evidence
-  → If unsupported claims detected: automatic retry with strict grounding guidance
-    (up to 2 retries / 3 total attempts)
-  → Verified output formatted with inline citations [^1] and paired follow-up MCQ
+Visual Knowledge Augmentation
+  → Injects relevant textbook figure metadata & verified Mermaid diagrams
+       ↓
+Ollama VTU Generation & Anti-Hallucination Validation
+  → System contract enforces strict identity ("AdaptLearn"), student-friendly tone, and marks calibration
+  → GroundingValidator audits factual claims against retrieved evidence
+  → Verified response returned with non-leaking citations and follow-up BKT practice MCQ
 ```
 
 #### VTU Answer Conventions
-Answers are generated according to VTU valuation schemes:
+Answers strictly adhere to VTU valuation schemes:
 - **Marks-Aware Depth:**
-  - **2M:** Crisp, unambiguous definition or statement
-  - **5M:** Focused explanation, key points, syntax/equations
-  - **10M:** Detailed explanation, step-by-step procedure, code/diagram reference
-  - **15M:** In-depth breakdown, architecture, comparisons, and practical applications
+  - **2M:** Crisp, unambiguous definition or statement (50–90 words)
+  - **5M:** Focused explanation, key points, syntax/equations (150–250 words)
+  - **10M:** Detailed explanation, step-by-step procedure, code/diagram reference (350–550 words)
+  - **15M:** In-depth breakdown, architecture, comparisons, and practical applications (600–900 words)
 - **Follow-up MCQ:** Each response generates a context-grounded multiple-choice question feeding back into `/api/learning-state/update` for continuous BKT mastery tracking.
 
 ### 7. Tests & Anti-Cheat (`src/routes/tests.ts`)
@@ -398,10 +412,30 @@ The entire platform undergoes rigorous regression and integration validation acr
 | **Phase 3 Regression** | Knowledge ingestion, vector persistence, BKT mastery | 10 / 10 | Passed |
 | **Phase 4 Pipeline** | RAG retrieval, query classification, grounding validator, retry mechanism | 57 / 57 | Passed |
 | **Final Integration** | End-to-end flow from query to verified, cited VTU answer | 10 / 10 | Passed |
-| **Total Test Suite** | Full platform verification | **77 / 77** | **100% Passed** |
+| **Master VTU Goals** | Conversational bypass, ER completeness, PYQ purity, Syllabus metadata, Cross-subject reject | 8 / 8 | Passed |
+| **Sem 3–7 Acceptance** | 67-course catalog, Sem 3-7 representation, 1748 PYQs, 439 diagrams | 12 / 12 | Passed |
+| **Total Test Suite** | Full platform verification | **97 / 97** | **100% Passed** |
 
 - **Backend Build:** 0 TypeScript compile errors
 - **Frontend Build:** 0 Next.js App Router build errors (19 pages verified)
+
+### Master Documentation & Audits (Semesters 3–7)
+All authoritative system documentation and validation ledgers are located in the [`docs/`](docs/) directory:
+- [`docs/FINAL_ADAPTLEARN_ARCHITECTURE.md`](docs/FINAL_ADAPTLEARN_ARCHITECTURE.md) — Comprehensive End-to-End System Architecture (Sem 3–7)
+- [`docs/FINAL_RAG_PIPELINE.md`](docs/FINAL_RAG_PIPELINE.md) — Multi-Source RAG Pipeline & Acronym-Aware Retrieval Manual
+- [`docs/FINAL_VTU_ANSWER_RULES.md`](docs/FINAL_VTU_ANSWER_RULES.md) — VTU Evaluation Scheme & Marks-to-Depth Calibration Rules
+- [`docs/FINAL_VTU_CSE_2022_SEM3_TO_SEM7_MASTER.md`](docs/FINAL_VTU_CSE_2022_SEM3_TO_SEM7_MASTER.md) — Authoritative 67-Course Curriculum Inventory
+- [`docs/REAL_EXECUTION_STATUS.md`](docs/REAL_EXECUTION_STATUS.md) — Plan vs Actual Physical Execution Audit Ledger
+- [`docs/FINAL_ADAPTLEARN_KNOWLEDGE_AUDIT.md`](docs/FINAL_ADAPTLEARN_KNOWLEDGE_AUDIT.md) — Master Multi-Source Knowledge & Grounding Audit
+- [`docs/LOCAL_LLM_BENCHMARK_REPORT.md`](docs/LOCAL_LLM_BENCHMARK_REPORT.md) — Local 8B LLM (llama3.1:8b) RTX 4050 GPU Benchmark Report
+- [`docs/TEXTBOOK_VISUAL_RECONCILIATION_REPORT.md`](docs/TEXTBOOK_VISUAL_RECONCILIATION_REPORT.md) — Textbook Visual Extraction & Mathematical Invariant Audit
+- [`docs/TEXTBOOK_COMPLETENESS_REPORT.md`](docs/TEXTBOOK_COMPLETENESS_REPORT.md) — 57 Reference Textbooks (37,642 Pages) Audit
+- [`docs/DIAGRAM_COVERAGE_REPORT.md`](docs/DIAGRAM_COVERAGE_REPORT.md) — Unified Visual Knowledge Graph Coverage (11,171 Figures)
+- [`docs/QUESTION_PAPER_COVERAGE_REPORT.md`](docs/QUESTION_PAPER_COVERAGE_REPORT.md) — Granular University Exam Paper Coverage (1,748 Questions)
+- [`docs/RAG_RETRIEVAL_VALIDATION_REPORT.md`](docs/RAG_RETRIEVAL_VALIDATION_REPORT.md) — 24 Mandatory Verification Queries Test Report
+- [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md) — Complete Project Report & Evaluation Summary
+- [`knowledge/pyq_database.json`](knowledge/pyq_database.json) — Granular Question-Level Examination Database (1,748 Questions)
+- [`knowledge/diagram_knowledge_graph.json`](knowledge/diagram_knowledge_graph.json) — Unified Visual Knowledge Graph (11,171 Figures)
 
 ---
 

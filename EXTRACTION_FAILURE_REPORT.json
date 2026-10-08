@@ -1,0 +1,9 @@
+{
+  "report_id": "EXTRACTION_FAILURE_REPORT",
+  "generated_at": "2026-10-08T06:21:24.432095",
+  "total_failures_logged": 0,
+  "total_documents_converted": 183,
+  "total_words_converted": 2159453,
+  "failures": [],
+  "resolution_policy": "Zero silent data loss. Any unreadable pages logged for targeted OCR or manual reconciliation."
+}

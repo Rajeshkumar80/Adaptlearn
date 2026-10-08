@@ -213,11 +213,13 @@ export function resolveModuleNumber(
     // High confidence keyword triggers
     if (tLower.includes("addressing mode") && (q.includes("addressing mode") || q.includes("addressing modes"))) score += 15;
     if (tLower.includes("k-map") && (q.includes("k-map") || q.includes("kmap") || q.includes("karnaugh"))) score += 15;
-    if (tLower.includes("tree") && (q.includes("tree") || q.includes("bst"))) score += 15;
+    if (tLower.includes("tree") && (q.includes("tree") || q.includes("bst") || q.includes("inorder") || q.includes("preorder"))) score += 20;
+    if ((tLower.includes("graph") || tLower.includes("hashing")) && (q.includes("graph") || q.includes("bfs") || q.includes("dfs"))) score += 18;
     if (tLower.includes("schedul") && (q.includes("schedul") || q.includes("round robin"))) score += 15;
     if (tLower.includes("normalization") && q.includes("normalization")) score += 15;
     if (tLower.includes("arm") && q.includes("arm")) score += 15;
     if (tLower.includes("8051") && q.includes("8051")) score += 15;
+    if ((tLower.includes("syntax") || tLower.includes("parsing")) && (q.includes("parsing") || q.includes("ll(1)") || q.includes("lr") || q.includes("parser") || q.includes("syntax"))) score += 18;
     if (tLower.includes("compiler") && (q.includes("compiler") || q.includes("lexical") || q.includes("phase") || q.includes("phases"))) score += 15;
 
     if (score > bestScore) {
@@ -249,13 +251,16 @@ function stem(word: string): string {
   return w;
 }
 
+const VALID_2CHAR_TERMS = new Set(["er", "ai", "ip", "os", "db", "ui", "io", "ml"]);
+
 function tokenize(text: string): Set<string> {
   const words = text
     .toLowerCase()
     .replace(/k[\s\-_]+map/g, " kmap ")
+    .replace(/\be[\s\-_]?r\b/g, " er entity ")
     .replace(/[^a-z0-9]/g, " ")
     .split(/\s+/)
-    .filter(w => w.length > 2 && !STOP_WORDS.has(w));
+    .filter(w => (w.length > 2 || VALID_2CHAR_TERMS.has(w)) && !STOP_WORDS.has(w));
   return new Set(words.map(stem));
 }
 
@@ -431,9 +436,10 @@ export function buildStructuredContext(
   }
   const keyConcepts = Array.from(keyConceptSet);
 
-  // Group candidates by source type
+  // Group candidates by source type: Notes first, Question Banks for solutions, Textbooks for deep reference
   const qBankCandidate = topCandidates.find(c => c.isQBank);
-  const primaryModuleCandidate = topCandidates.find(c => !c.isQBank && c.moduleNumber === moduleNumber);
+  const primaryModuleCandidate = topCandidates.find(c => !c.isQBank && c.moduleNumber === moduleNumber && !c.sourceFile.includes("textbook"))
+    || topCandidates.find(c => !c.isQBank && c.moduleNumber === moduleNumber);
   const secondaryCandidates = topCandidates.filter(c => c !== qBankCandidate && c !== primaryModuleCandidate);
 
   const contextBlocks: string[] = [

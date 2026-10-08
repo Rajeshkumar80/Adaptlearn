@@ -1,0 +1,38 @@
+[
+  {
+    "equation_id": "EQ_BCS301_01",
+    "subject": "BCS301",
+    "module": 1,
+    "topic": "Probability Distributions",
+    "name": "Poisson Distribution PMF",
+    "page": 45,
+    "latex": "P(X = k) = \\frac{\\lambda^k e^{-\\lambda}}{k!}",
+    "plain_text": "P(X = k) = (lambda^k * e^(-lambda)) / k!",
+    "variables": "k: number of occurrences, lambda: expected event rate",
+    "source": "BCS301 Module 1 Syllabus & Higher Engineering Mathematics"
+  },
+  {
+    "equation_id": "EQ_BCS301_02",
+    "subject": "BCS301",
+    "module": 1,
+    "topic": "Probability Distributions",
+    "name": "Normal Distribution Probability Density Function",
+    "page": 58,
+    "latex": "f(x) = \\frac{1}{\\sigma \\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x - \\mu}{\\sigma}\\right)^2}",
+    "plain_text": "f(x) = (1 / (sigma * sqrt(2*pi))) * exp(-0.5 * ((x - mu)/sigma)^2)",
+    "variables": "mu: mean, sigma: standard deviation",
+    "source": "BCS301 Module 1 Notes"
+  },
+  {
+    "equation_id": "EQ_BCS301_03",
+    "subject": "BCS301",
+    "module": 2,
+    "topic": "Markov Chains",
+    "name": "Stationary Distribution Condition",
+    "page": 82,
+    "latex": "\\pi P = \\pi, \\quad \\sum_{i} \\pi_i = 1",
+    "plain_text": "pi * P = pi, sum(pi_i) = 1",
+    "variables": "pi: stationary probability vector, P: transition matrix",
+    "source": "BCS301 Module 2 Notes"
+  }
+]

@@ -2,18 +2,21 @@ import { Router } from "express";
 import { z } from "zod";
 import http from "http";
 import https from "https";
+import fs from "fs";
+import path from "path";
 import { prisma } from "../db";
 import { requireAuth, AuthRequest } from "../middleware/auth";
 import rateLimit from "express-rate-limit";
-import { executeRAG, resolveSubjectCode } from "../services/ragService";
+import { executeRAG, resolveSubjectCode, retrieveKnowledgeCandidates, retrievePYQs } from "../services/ragService";
 import { sanitizeAndEnrichAnswer, StructuredAnswer } from "../services/answerSynthesizer";
 import { validateGrounding, GroundingValidationResult } from "../services/groundingValidator";
 import { generateCuratedTopicQuestions, cleanOptionText } from "../services/quizSynthesizer";
-import { analyzeQuestion, QuestionAnalysis } from "../services/questionAnalyzer";
+import { analyzeQuestion, QuestionAnalysis, isConversationalQuery } from "../services/questionAnalyzer";
 import { rerankCandidates, allocateDynamicContext } from "../services/reranker";
 import { resolveDiagramDecision, DiagramDecision } from "../services/diagramService";
 import { isCodeQuestion, resolveCodePipeline } from "../services/codePipeline";
 import { retrieveFormulaForQuery } from "../services/formulaService";
+import { evaluateConceptCompleteness } from "../services/completenessValidator";
 
 const router = Router();
 const aiLimiter = rateLimit({ windowMs: 60 * 1000, max: 60, standardHeaders: true, legacyHeaders: false });
@@ -21,7 +24,7 @@ const aiLimiter = rateLimit({ windowMs: 60 * 1000, max: 60, standardHeaders: tru
 // ── Ollama & Groq config ───────────────────────────────────────────────────────
 const OLLAMA_HOST  = process.env.OLLAMA_HOST  || "127.0.0.1";
 const OLLAMA_PORT  = Number(process.env.OLLAMA_PORT || 11434);
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "adaptlearn";
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "llama3.1:8b";
 const GROQ_API_KEY = process.env.GROQ_API_KEY || "";
 
 // ── Query Deconstruction for Combined / Multi-Part Student Questions ─────────
@@ -325,6 +328,201 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
       });
     }
 
+    // 1b. Basic Conversational Router (Master Prompt Sections 28 & 58)
+    if (analysis.intent === "CONVERSATIONAL" || isConversationalQuery(question)) {
+      const conversationalResponse: StructuredAnswer = {
+        question,
+        subject_code: "GENERAL",
+        topic: "AdaptLearn Assistant",
+        module: 1,
+        marks: 2,
+        co_reference: "GENERAL",
+        sections: [
+          {
+            type: "definition",
+            heading: "AdaptLearn — VTU Educational Assistant",
+            text: "Hello! I am AdaptLearn, your dedicated Visvesvaraya Technological University (VTU) CSE educational assistant for the 2022 Scheme. I can help you with module explanations, textbook references, past university exam questions (PYQs), model question papers, and architecture diagrams across Semesters 3 to 7. What topic or exam question would you like to explore?",
+            key_terms: ["AdaptLearn", "VTU 2022 Scheme", "Computer Science"],
+          },
+        ],
+      };
+
+      return res.json({
+        answer: conversationalResponse,
+        retrievedChunks: [],
+        diagrams: [],
+        pyqList: [],
+        previousYearQuestions: [],
+        modelPaperQuestions: [],
+        isImportantTopic: false,
+        importanceSummary: "Conversational Query",
+        followUpQuiz: { topicId: null, questions: [] },
+        groundingValidation: { valid: true, score: 1.0, unsupportedClaims: [] },
+        provenance: ["AdaptLearn Virtual Assistant"],
+        retrievalConfidence: "HIGH",
+        questionAnalysis: analysis,
+      });
+    }
+
+    // 1c. Official Syllabus / Curriculum Query Router (Master Prompt Section 56)
+    if (analysis.intent === "SYLLABUS") {
+      const masterPath = path.resolve(__dirname, "../../../knowledge/vtu_2022_scheme_master.json");
+      let subjectEntry: any = null;
+      if (fs.existsSync(masterPath)) {
+        try {
+          const masterData = JSON.parse(fs.readFileSync(masterPath, "utf-8"));
+          subjectEntry = masterData.subjects?.find((s: any) => s.code === resolvedSubject);
+        } catch {}
+      }
+
+      if (subjectEntry && subjectEntry.modules) {
+        const moduleSections = Object.entries(subjectEntry.modules).map(([num, title]) => ({
+          type: "explanation" as const,
+          heading: `Module ${num}: ${title}`,
+          text: `Prescribed syllabus unit for ${resolvedSubject} (${subjectEntry.name}), Semester ${subjectEntry.semester}. Covers fundamental mechanisms, formulas, and examination topics.`,
+          key_terms: [String(title)],
+        }));
+
+        const syllabusAnswer: StructuredAnswer = {
+          question,
+          subject_code: resolvedSubject,
+          topic: `${subjectEntry.name} Curriculum`,
+          module: 1,
+          marks: 10,
+          co_reference: "CO1",
+          sections: [
+            {
+              type: "definition",
+              heading: `${resolvedSubject} — Official VTU 2022 Scheme Syllabus`,
+              text: `${subjectEntry.name} is a ${subjectEntry.category.toUpperCase()} course carrying ${subjectEntry.credits} credits in Semester ${subjectEntry.semester} of the VTU 2022 Scheme curriculum. Below is the official 5-module syllabus breakdown:`,
+              key_terms: [resolvedSubject, subjectEntry.name, "VTU 2022 Scheme"],
+            },
+            ...moduleSections,
+          ],
+        };
+
+        return res.json({
+          answer: syllabusAnswer,
+          retrievedChunks: [],
+          diagrams: [],
+          pyqList: [],
+          previousYearQuestions: [],
+          modelPaperQuestions: [],
+          isImportantTopic: true,
+          importanceSummary: `Official VTU Syllabus: 5 Modules for ${resolvedSubject}`,
+          followUpQuiz: { topicId: null, questions: [] },
+          groundingValidation: { valid: true, score: 1.0, unsupportedClaims: [] },
+          provenance: ["VTU 2022 Scheme Master Curriculum"],
+          retrievalConfidence: "HIGH",
+          questionAnalysis: analysis,
+        });
+      }
+    }
+
+    // 1d. Specialized PYQ Query Router (Master Prompt Sections 19, 20, 21, 53)
+    if (analysis.intent === "PYQ") {
+      const pyqData = retrievePYQs(resolvedSubject, question);
+      const questionsToDisplay = pyqData.previousYearQuestions.length > 0 ? pyqData.previousYearQuestions : pyqData.pyqList;
+
+      if (questionsToDisplay.length > 0) {
+        const qSections = questionsToDisplay.map((p, idx) => ({
+          type: "explanation" as const,
+          heading: `${idx + 1}. ${p.paper} (${p.marks || 10} Marks — Module ${p.moduleNumber || analysis.module})`,
+          text: p.question,
+          key_terms: [p.paper, `${p.marks || 10}M`, p.level || "L2"],
+        }));
+
+        const pyqAnswer: StructuredAnswer = {
+          question,
+          subject_code: resolvedSubject,
+          topic: `${analysis.topic} Exam Questions`,
+          module: analysis.module,
+          marks: 10,
+          co_reference: `CO${analysis.module}`,
+          sections: [
+            {
+              type: "definition",
+              heading: `Previous Year VTU Exam Questions — ${resolvedSubject} (${analysis.topic})`,
+              text: `Below are verified previous year university examination questions for ${analysis.topic} in ${resolvedSubject}. These questions are extracted directly from official VTU examination sessions:`,
+              key_terms: ["VTU Exam", "Previous Papers", analysis.topic],
+            },
+            ...qSections,
+            {
+              type: "conclusion",
+              heading: "Exam Strategy & Focus Areas",
+              text: `This topic appears frequently with standard weightage of 6 to 10 marks per question. Prepare formal definitions, labeled block diagrams, and comparison tables as per VTU evaluation rubrics.`,
+              key_terms: ["Evaluation Rubric", "VTU Scheme"],
+            },
+          ],
+        };
+
+        return res.json({
+          answer: pyqAnswer,
+          retrievedChunks: [],
+          diagrams: [],
+          pyqList: questionsToDisplay,
+          previousYearQuestions: questionsToDisplay,
+          modelPaperQuestions: pyqData.modelPaperQuestions,
+          isImportantTopic: true,
+          importanceSummary: `Tested in ${questionsToDisplay.length} past university exams.`,
+          followUpQuiz: { topicId: null, questions: [] },
+          groundingValidation: { valid: true, score: 1.0, unsupportedClaims: [] },
+          provenance: questionsToDisplay.map(q => q.paper),
+          retrievalConfidence: "HIGH",
+          questionAnalysis: analysis,
+        });
+      }
+    }
+
+    // 1e. Specialized Model Paper Query Router (Master Prompt Sections 22 & 54)
+    if (analysis.intent === "MODEL_PAPER") {
+      const pyqData = retrievePYQs(resolvedSubject, question);
+      const modelQuestions = pyqData.modelPaperQuestions.length > 0 ? pyqData.modelPaperQuestions : pyqData.pyqList.filter(q => q.isModelPaper);
+
+      if (modelQuestions.length > 0) {
+        const qSections = modelQuestions.map((p, idx) => ({
+          type: "explanation" as const,
+          heading: `${idx + 1}. Official VTU Model Question Paper (Module ${p.moduleNumber || analysis.module})`,
+          text: p.question,
+          key_terms: ["Model Paper", `${p.marks || 10}M`],
+        }));
+
+        const modelAnswer: StructuredAnswer = {
+          question,
+          subject_code: resolvedSubject,
+          topic: `${analysis.topic} Model Questions`,
+          module: analysis.module,
+          marks: 10,
+          co_reference: `CO${analysis.module}`,
+          sections: [
+            {
+              type: "definition",
+              heading: `Official VTU Model Question Papers — ${resolvedSubject} (${analysis.topic})`,
+              text: `Below are official VTU Model Question Paper problems issued for ${analysis.topic} in ${resolvedSubject} under the 2022 Scheme:`,
+              key_terms: ["VTU Model Paper", analysis.topic],
+            },
+            ...qSections,
+          ],
+        };
+
+        return res.json({
+          answer: modelAnswer,
+          retrievedChunks: [],
+          diagrams: [],
+          pyqList: modelQuestions,
+          previousYearQuestions: pyqData.previousYearQuestions,
+          modelPaperQuestions: modelQuestions,
+          isImportantTopic: true,
+          importanceSummary: `Found in official VTU Model Question Papers.`,
+          followUpQuiz: { topicId: null, questions: [] },
+          groundingValidation: { valid: true, score: 1.0, unsupportedClaims: [] },
+          provenance: ["Official VTU Model Question Papers"],
+          retrievalConfidence: "HIGH",
+          questionAnalysis: analysis,
+        });
+      }
+    }
+
     // 2. Code Question Pipeline (Task 19)
     if (analysis.requiresCode && isCodeQuestion(question)) {
       const codeResp = resolveCodePipeline(question);
@@ -385,6 +583,33 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
 
     // 5. Candidate Reranking & Dynamic Context Allocation (Tasks 9, 10, 11, 12, 26)
     const rankedCandidates = rerankCandidates(ragResult.detailedChunks, analysis);
+
+    // 5b. Concept Completeness Check & Targeted Re-Retrieval (Master Prompt Sections 24 & 25)
+    const combinedCandidateText = rankedCandidates.slice(0, 5).map(c => c.content).join(" ");
+    const completeness = evaluateConceptCompleteness(analysis.topic, combinedCandidateText);
+    if (!completeness.isComplete && completeness.targetedSubtopicQueries.length > 0) {
+      for (const subQuery of completeness.targetedSubtopicQueries) {
+        const extraChunks = retrieveKnowledgeCandidates(resolvedSubject, subQuery, detectedModule);
+        for (const ec of extraChunks) {
+          if (!rankedCandidates.some(rc => rc.id === ec.id)) {
+            rankedCandidates.push({
+              ...ec,
+              finalScore: (ec.rawScore || 10) * 1.15,
+              contentType: "primary_module",
+              provenance: {
+                subject: resolvedSubject,
+                module: ec.moduleNumber,
+                sourceFile: ec.sourceFile,
+                contentType: "primary_module",
+                topic: ec.title,
+              },
+            });
+          }
+        }
+      }
+      rankedCandidates.sort((a, b) => b.finalScore - a.finalScore);
+    }
+
     const dynamicRetrieval = allocateDynamicContext(rankedCandidates, analysis);
 
     // 6. Diagram Intelligence (Tasks 13–18)

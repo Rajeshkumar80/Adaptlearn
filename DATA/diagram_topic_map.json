@@ -1,12 +1,15 @@
 {
   "BCS402": [
     {
-      "tag": "BCS402-http-protocol-m1-diagram",
-      "topic": "HTTP Protocol",
+      "tag": "BCS402-arm-processor-m1-diagram",
+      "topic": "ARM Processor Architecture",
       "keywords": [
-        "HTTP",
-        "web",
-        "request"
+        "ARM",
+        "processor",
+        "architecture",
+        "registers",
+        "pipeline",
+        "Cortex"
       ],
       "module": 1,
       "file": "diagrams/4TH SEM/BCS402/BCS402-module-1-pdf-p33-i1.png",
@@ -14,12 +17,14 @@
       "caption": "Microcontrollers  BCS402  33          Web link: http://infocenter.arm.com/help/topic/com.arm.doc.dui0056d/Cabbfgc8.html    Memory Management:    \uf0d8 Emb"
     },
     {
-      "tag": "BCS402-http-protocol-m1-diagram",
-      "topic": "HTTP Protocol",
+      "tag": "BCS402-8051-m1-diagram",
+      "topic": "8051 Microcontroller Architecture",
       "keywords": [
-        "HTTP",
-        "web",
-        "request"
+        "8051",
+        "microcontroller",
+        "architecture",
+        "ALU",
+        "registers"
       ],
       "module": 1,
       "file": "diagrams/4TH SEM/BCS402/BCS402-module-1-pdf-p19-i1.png",
@@ -27,12 +32,14 @@
       "caption": "Microcontrollers  BCS402  19      Web link:  https://www.youtube.com/watch?v=-o0ybJmyT2U&t=162s  https://www.youtube.com/watch?v=ceYtN0B91WM  https://"
     },
     {
-      "tag": "BCS402-http-protocol-m1-diagram",
-      "topic": "HTTP Protocol",
+      "tag": "BCS402-8051-m1-diagram",
+      "topic": "8051 Microcontroller Architecture",
       "keywords": [
-        "HTTP",
-        "web",
-        "request"
+        "8051",
+        "microcontroller",
+        "architecture",
+        "ALU",
+        "registers"
       ],
       "module": 1,
       "file": "diagrams/4TH SEM/BCS402/BCS402-module-1-pdf-p12-i1.png",
@@ -40,12 +47,15 @@
       "caption": "Microcontrollers  BCS402  12          Figure: Memory Remapping  Web link: https://en.wikipedia.org/wiki/Booting  http://osnet.cs.nchu.edu.tw/powpoint/"
     },
     {
-      "tag": "BCS402-parse-tree-ast-m1-diagram",
-      "topic": "Parse Tree / AST",
+      "tag": "BCS402-arm-processor-m1-diagram",
+      "topic": "ARM Processor Architecture",
       "keywords": [
-        "parse tree",
-        "AST",
-        "grammar"
+        "ARM",
+        "processor",
+        "architecture",
+        "registers",
+        "pipeline",
+        "Cortex"
       ],
       "module": 1,
       "file": "diagrams/4TH SEM/BCS402/BCS402-module-1-pdf-p3-i1.png",
@@ -53,13 +63,15 @@
       "caption": "Microcontrollers  BCS402  3      As a result, a RISC design places greater demands on the compiler.  In contrast, the traditional complex instruction "
     },
     {
-      "tag": "BCS402-stack-m1-diagram",
-      "topic": "Stack",
+      "tag": "BCS402-arm-processor-m1-diagram",
+      "topic": "ARM Processor Architecture",
       "keywords": [
-        "stack",
-        "LIFO",
-        "push",
-        "pop"
+        "ARM",
+        "processor",
+        "architecture",
+        "registers",
+        "pipeline",
+        "Cortex"
       ],
       "module": 1,
       "file": "diagrams/4TH SEM/BCS402/BCS402-module-1-pdf-p17-i1.png",
@@ -67,12 +79,14 @@
       "caption": "Microcontrollers  BCS402  17      \uf0b7 Register r13 is traditionally used as the stack pointer (sp) and stores the head of the stack in  the current proc"
     },
     {
-      "tag": "BCS402-transformer-attention-m1-diagram",
-      "topic": "Transformer / Attention",
+      "tag": "BCS402-8051-m1-diagram",
+      "topic": "8051 Microcontroller Architecture",
       "keywords": [
-        "transformer",
-        "attention",
-        "BERT"
+        "8051",
+        "microcontroller",
+        "architecture",
+        "ALU",
+        "registers"
       ],
       "module": 1,
       "file": "diagrams/4TH SEM/BCS402/BCS402-module-1-pdf-p10-i1.png",
@@ -80,13 +94,14 @@
       "caption": "Microcontrollers  BCS402  10      Interrupt Controllers: When a peripheral or device requires attention, it raises an interrupt to the  processor. An "
     },
     {
-      "tag": "BCS402-stack-m4-diagram",
-      "topic": "Stack",
+      "tag": "BCS402-8051-m4-diagram",
+      "topic": "8051 Microcontroller Architecture",
       "keywords": [
-        "stack",
-        "LIFO",
-        "push",
-        "pop"
+        "8051",
+        "microcontroller",
+        "architecture",
+        "ALU",
+        "registers"
       ],
       "module": 4,
       "file": "diagrams/4TH SEM/BCS402/BCS402-module-4-pdf-p13-i1.png",
@@ -94,13 +109,14 @@
       "caption": "MICROCONTROLLER(BCS402)    13    There is an advantage  using separate stacks for each mode rather than   using a single stack .  Errant tasks can be "
     },
     {
-      "tag": "BCS402-stack-m4-diagram",
-      "topic": "Stack",
+      "tag": "BCS402-8051-m4-diagram",
+      "topic": "8051 Microcontroller Architecture",
       "keywords": [
-        "stack",
-        "LIFO",
-        "push",
-        "pop"
+        "8051",
+        "microcontroller",
+        "architecture",
+        "ALU",
+        "registers"
       ],
       "module": 4,
       "file": "diagrams/4TH SEM/BCS402/BCS402-module-4-pdf-p13-i2.png",
@@ -108,13 +124,14 @@
       "caption": "MICROCONTROLLER(BCS402)    13    There is an advantage  using separate stacks for each mode rather than   using a single stack .  Errant tasks can be "
     },
     {
-      "tag": "BCS402-stack-m4-diagram",
-      "topic": "Stack",
+      "tag": "BCS402-8051-m4-diagram",
+      "topic": "8051 Microcontroller Architecture",
       "keywords": [
-        "stack",
-        "LIFO",
-        "push",
-        "pop"
+        "8051",
+        "microcontroller",
+        "architecture",
+        "ALU",
+        "registers"
       ],
       "module": 4,
       "file": "diagrams/4TH SEM/BCS402/BCS402-module-4-pdf-p14-i1.png",
@@ -122,13 +139,14 @@
       "caption": "MICROCONTROLLER(BCS402)    14  Example to set up Supervisor mode stack:  The processor core starts in supervisor mode so the SVC stack   setup involve"
     },
     {
-      "tag": "BCS402-stack-m4-diagram",
-      "topic": "Stack",
+      "tag": "BCS402-8051-m4-diagram",
+      "topic": "8051 Microcontroller Architecture",
       "keywords": [
-        "stack",
-        "LIFO",
-        "push",
-        "pop"
+        "8051",
+        "microcontroller",
+        "architecture",
+        "ALU",
+        "registers"
       ],
       "module": 4,
       "file": "diagrams/4TH SEM/BCS402/BCS402-module-4-pdf-p14-i3.png",
@@ -136,13 +154,14 @@
       "caption": "MICROCONTROLLER(BCS402)    14  Example to set up Supervisor mode stack:  The processor core starts in supervisor mode so the SVC stack   setup involve"
     },
     {
-      "tag": "BCS402-stack-m4-diagram",
-      "topic": "Stack",
+      "tag": "BCS402-8051-m4-diagram",
+      "topic": "8051 Microcontroller Architecture",
       "keywords": [
-        "stack",
-        "LIFO",
-        "push",
-        "pop"
+        "8051",
+        "microcontroller",
+        "architecture",
+        "ALU",
+        "registers"
       ],
       "module": 4,
       "file": "diagrams/4TH SEM/BCS402/BCS402-module-4-pdf-p14-i4.png",
@@ -150,13 +169,14 @@
       "caption": "MICROCONTROLLER(BCS402)    14  Example to set up Supervisor mode stack:  The processor core starts in supervisor mode so the SVC stack   setup involve"
     },
     {
-      "tag": "BCS402-stack-m4-diagram",
-      "topic": "Stack",
+      "tag": "BCS402-8051-m4-diagram",
+      "topic": "8051 Microcontroller Architecture",
       "keywords": [
-        "stack",
-        "LIFO",
-        "push",
-        "pop"
+        "8051",
+        "microcontroller",
+        "architecture",
+        "ALU",
+        "registers"
       ],
       "module": 4,
       "file": "diagrams/4TH SEM/BCS402/BCS402-module-4-pdf-p12-i1.png",

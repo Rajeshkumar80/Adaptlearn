@@ -1,0 +1,14 @@
+[
+  {
+    "equation_id": "EQ_BCS703_01",
+    "subject": "BCS703",
+    "module": 2,
+    "topic": "Asymmetric Cryptography",
+    "name": "RSA Encryption and Decryption",
+    "page": 165,
+    "latex": "C \\equiv M^e \\pmod{n}, \\quad M \\equiv C^d \\pmod{n}, \\quad ed \\equiv 1 \\pmod{\\phi(n)}",
+    "plain_text": "C = (M^e) mod n, M = (C^d) mod n, where e*d = 1 mod phi(n)",
+    "variables": "n = p*q, phi(n) = (p-1)*(q-1), e: public key, d: private key",
+    "source": "Stallings Cryptography & Network Security / BCS703 Module 2"
+  }
+]

@@ -1,3360 +1,884 @@
 {
-  "schema_version": "1.0",
-  "generated_by": "scripts/ingest_knowledge.py",
+  "schema_version": "2.0.0",
+  "description": "VTU CSE 2022 Scheme Authoritative Knowledge & Semantic Chunk Manifest",
+  "generated_at": "2026-10-08T06:26:21.971889",
+  "total_subjects": 67,
+  "total_semantic_chunks": 739,
+  "total_indexed_pyq": 1748,
+  "total_indexed_diagrams": 439,
+  "total_indexed_equations": 15,
+  "total_indexed_case_studies": 4,
   "subjects": [
-    {
-      "subject_code": "BBOC407",
-      "subject_name": "Biology for Engineers",
-      "semester": 4,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Biomolecules and Cell Biology",
-          "topics": [
-            "CELL BASIC UNIT OF LIFE",
-            "A cell which is having no nucleus, instead some bacteria have a region within",
-            "They are single celled microorganisms. ex: archaea, bacteria & cyanobacteria.",
-            "Prokaryotic generally reproduce by binary fission, a form of asexual",
-            "The cell size ranges from 0.1- 0.5µm in diameter.",
-            "Eukaryotic cells are characterized by a true nucleus.",
-            "This broad category involves plants, fungi, protozoans & animals.",
-            "The plasma membrane is responsible for monitoring the transport of nutrients &",
-            "It Is also responsible for cell to cell communication.",
-            "They reproduce sexually as well as asexually."
-          ],
-          "sources": [
-            "BBOC407-Module-1-pdf.txt"
-          ],
-          "content_chars": 54066
-        },
-        {
-          "module": 2,
-          "title": "Genetics and Molecular Biology",
-          "topics": [
-            "BIOMOLECULES AND THEIR APPLICATIONS"
-          ],
-          "sources": [
-            "BBOC407-Module-2-pdf.txt"
-          ],
-          "content_chars": 69280
-        },
-        {
-          "module": 3,
-          "title": "Bioprocess Technology",
-          "topics": [
-            "BIOENGINEERING DESIGN",
-            "BRAIN AS CPU SYSTEM",
-            "BASICS FOR",
-            "COMPARISON",
-            "COMPUTER",
-            "HUMAN ORGAN SYSTEMS AND BIO DESIGNS",
-            "ENGINEERING SOLUTIONS FOR PARKINSONS DISEASE",
-            "CATARACT",
-            "URINE FORMATION",
-            "QUESTION BANK"
-          ],
-          "sources": [
-            "BBOC407-Module-3-pdf.txt"
-          ],
-          "content_chars": 53431
-        },
-        {
-          "module": 4,
-          "title": "Plant and Animal Biotechnology",
-          "topics": [
-            "ULTRASONOGRAPHY",
-            "PLANT BURRS AND VELCRO",
-            "QUESTION BANK",
-            "Define echolocation.",
-            "What is ultrasonography.",
-            "What are sonars?",
-            "What is photosynthesis?",
-            "Define bionic leaf.",
-            "Explain the working principle of ultrasonography and discuss its",
-            "Compare and contrast biological echolocation and technological"
-          ],
-          "sources": [
-            "BBOC407-Module-4-pdf.txt"
-          ],
-          "content_chars": 59674
-        },
-        {
-          "module": 5,
-          "title": "Environmental Biotechnology",
-          "topics": [
-            "TRENDS IN BIOENGINEERING"
-          ],
-          "sources": [
-            "BBOC407-Module-5-pdf.txt"
-          ],
-          "content_chars": 82319
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 8,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 0,
-        "previous_papers": 1,
-        "textbook_notes": 0,
-        "textbooks": 0,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
-    },
     {
       "subject_code": "BCS301",
       "subject_name": "Mathematics for Computer Science",
       "semester": 3,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Linear Algebra",
-          "topics": [
-            "Discrete probability distribution",
-            "The probability distribution of a finite random variable is given by",
-            "A random variable X has the following probability function:",
-            "A random variable x has the density function 𝑷(𝑿) = {𝒌𝒙𝟐,  𝒙= 𝟎, 𝟏, 𝟐, 𝟑",
-            "Four coins are tossed. Find the expectation of the number of heads.",
-            "Binomial distribution",
-            "Find mean and standard deviation of Binomial distribution.",
-            "Mean and standard deviation of a binomial distribution are 2 and 𝟐/√𝟑",
-            "In a large number of parts manufactured by a machine, the mean number of",
-            "Fit a binomial distribution to the following data:"
-          ],
-          "sources": [
-            "BCS301-module-1-pdf.txt"
-          ],
-          "content_chars": 43830
-        },
-        {
-          "module": 2,
-          "title": "Calculus",
-          "topics": [
-            "If 𝑛< 𝑚, then 3.24 implies that 𝑇is not surjective. As discussed above,"
-          ],
-          "sources": [
-            "R1_Linear_Algebra_Done_Right_Axler.txt"
-          ],
-          "content_chars": 119123,
-          "fallback": true
-        },
-        {
-          "module": 3,
-          "title": "Probability and Statistics",
-          "topics": [],
-          "sources": [
-            "R1_Linear_Algebra_Done_Right_Axler.txt"
-          ],
-          "content_chars": 119107,
-          "fallback": true
-        },
-        {
-          "module": 4,
-          "title": "Numerical Methods",
-          "topics": [
-            "Now the formula"
-          ],
-          "sources": [
-            "R1_Linear_Algebra_Done_Right_Axler.txt"
-          ],
-          "content_chars": 118917,
-          "fallback": true
-        },
-        {
-          "module": 5,
-          "title": "Graph Theory",
-          "topics": [],
-          "sources": [
-            "R1_Linear_Algebra_Done_Right_Axler.txt"
-          ],
-          "content_chars": 118978,
-          "fallback": true
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 17,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 1,
-        "previous_papers": 1,
-        "textbook_notes": 0,
-        "textbooks": 4,
-        "course_outcomes": 1,
-        "written_answers": 5
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          "module2.md (fallback)",
-          "module3.md (fallback)",
-          "module4.md (fallback)",
-          "module5.md (fallback)"
-        ],
-        "qbank_solutions": 0,
-        "errors": [
-          "Empty/unusable TXT: BCS301-module-2-pdf.txt (34 bytes)",
-          "Empty/unusable TXT: BCS301-module-3-pdf.txt (32 bytes)",
-          "Empty/unusable TXT: BCS301-module-4-pdf.txt (44 bytes)",
-          "Empty/unusable TXT: BCS301-module-5-pdf.txt (64 bytes)"
-        ]
-      }
+      "category": "core",
+      "modules_count": 5,
+      "chunks_count": 24,
+      "pyq_count": 75,
+      "diagrams_count": 0,
+      "equations_count": 3,
+      "case_studies_count": 0,
+      "status": "PASS"
     },
     {
       "subject_code": "BCS302",
-      "subject_name": "Digital Design and Computer Organization",
+      "subject_name": "Digital Design & Computer Organization",
       "semester": 3,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Introduction to Digital Design — Boolean Algebra and K-Maps",
-          "topics": [
-            "Digital Systems and Binary Numbers",
-            "BI NA RY L O G IC",
-            "NOT: This operation is represented by a prime (sometimes by an overbar). For",
-            "Digital Systems and Binary Numbers",
-            "PR O BL E MS",
-            "F  ABC",
-            "G  A  B  C  D",
-            "Digital Systems and Binary Numbers",
-            "Perform the following division in binary: 111011 ÷ 101.",
-            "Do the following conversion problems:"
-          ],
-          "sources": [
-            "BCS302-module-1-textbook.txt"
-          ],
-          "content_chars": 111787,
-          "question_bank_topics": [
-            "Minimize the following boolean function-",
-            "Minimize the following boolean function",
-            "Write Verilog code for the following digital circuits.",
-            "Develop Verilog code for the following combinational logic circuts using Structu",
-            "Explain Binary Adder (Parallel Adder) with a neat diagram",
-            "What is Decoder? Explain 2 x 4 decoder with a neat diagram.",
-            "What is Multiplexer? Explain 4 : 1 Multiplexer with a neat diagram.",
-            "Implement the following boolean function using 4: 1 multiplexer,"
-          ]
-        },
-        {
-          "module": 2,
-          "title": "Combinational and Sequential Logic",
-          "topics": [
-            "INT R OD U C T IO N",
-            "CO MB IN AT IO N A L C IR C U I TS",
-            "Combinational Logic",
-            "A NA LY S IS P R O C E D U R E",
-            "DE S IG N P R O C E D U R E",
-            "From the specifications of the circuit, determine the required number of inputs",
-            "Combinational Logic",
-            "Draw the logic diagram and verify the correctness of the design (manually or by",
-            "Combinational Logic",
-            "BINA RY A D D E R – S U B T R A CT O R"
-          ],
-          "sources": [
-            "BCS302-module-2-textbook.txt"
-          ],
-          "content_chars": 135464
-        },
-        {
-          "module": 5,
-          "title": "Basic Processing Unit and Pipelining",
-          "topics": [
-            "SOME FUNDAMENTAL CONCEPTS",
-            "Fetch contents of memory-location pointed to by PC. Content of this location is",
-            "Increment PC by 4.",
-            "Carry out the actions specified by instruction (in the IR).",
-            "SINGLE BUS ORGANIZATION",
-            "REGISTER TRANSFERS",
-            "PERFORMING AN ARITHMETIC OR LOGIC OPERATION",
-            "FETCHING A WORD FROM MEMORY",
-            "EXECUTION OF A COMPLETE INSTRUCTION",
-            "Instruction Pipeline"
-          ],
-          "sources": [
-            "BCS302-module-5-pdf.txt"
-          ],
-          "content_chars": 21095,
-          "question_bank_topics": [
-            "Explain synchronous bus transfer during input operation",
-            "Illustrate the sequence of operation required to execute the instruction ADD (R3",
-            "With a neat diagram, Explain multiple bus organization of computer and functiona"
-          ]
-        },
-        {
-          "module": 3,
-          "title": "Basic Structure of Computers — Addressing Modes",
-          "topics": [
-            "Computer Components and Functions",
-            "Bus Interconnection Structures",
-            "Instruction Cycles and Processing",
-            "Addressing Modes",
-            "Immediate Addressing",
-            "Direct and Indirect Addressing",
-            "Register and Register Indirect Addressing",
-            "Displacement Addressing",
-            "Stack Addressing",
-            "Instruction Formats"
-          ],
-          "sources": [
-            "R1_Computer_Organization_and_Architecture_Stallings.txt"
-          ],
-          "content_chars": 176257,
-          "fallback": true
-        },
-        {
-          "module": 4,
-          "title": "Input/Output and Memory Organization",
-          "topics": [
-            "Cache Memory Principles",
-            "Cache Mapping Functions (Direct, Associative, Set-Associative)",
-            "Internal Memory and Semiconductor RAM",
-            "Input/Output Modules",
-            "Programmed I/O",
-            "Interrupt-Driven I/O",
-            "Direct Memory Access (DMA)"
-          ],
-          "sources": [
-            "R1_Computer_Organization_and_Architecture_Stallings.txt"
-          ],
-          "content_chars": 239766,
-          "fallback": true
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 6,
-        "module_txts": 6,
-        "question_papers": 19,
-        "question_bank_solutions": 1,
-        "question_banks": 1,
-        "important_questions": 1,
-        "model_papers": 1,
-        "previous_papers": 1,
-        "textbook_notes": 0,
-        "textbooks": 4,
-        "course_outcomes": 1,
-        "written_answers": 5
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          5,
-          "module3.md (fallback)",
-          "module4.md (fallback)"
-        ],
-        "qbank_solutions": 33,
-        "errors": [
-          "Empty/unusable TXT: BCS302-module-3-textbook.txt (78 bytes)",
-          "Empty/unusable TXT: BCS302-module-4-textbook.txt (56 bytes)",
-          "Empty/unusable TXT: BCS302-module-5-textbook.txt (38 bytes)"
-        ]
-      }
+      "category": "core",
+      "modules_count": 5,
+      "chunks_count": 27,
+      "pyq_count": 237,
+      "diagrams_count": 1,
+      "equations_count": 1,
+      "case_studies_count": 0,
+      "status": "PASS"
     },
     {
       "subject_code": "BCS303",
       "subject_name": "Operating Systems",
       "semester": 3,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Introduction to Operating Systems",
-          "topics": [
-            "INTRODUCTION TO OPERATING SYSTEM",
-            "Asymmetric multiprocessing",
-            "Symmetric multiprocessing",
-            "Asymmetric clustering – one system is in hot-standby mode while the others are",
-            "Symmetric clustering – two or more systems are running applications, and are",
-            "User mode",
-            "Kernel mode (supervisor mode, system mode, or privileged mode).",
-            "OPERATING SYSTEM SERVICES",
-            "Deepak D, Asst. Prof., Dept. of CS&E, Canara Engineering College, Mangaluru",
-            "Deepak D, Asst. Prof., Dept. of CS&E, Canara Engineering College, Mangaluru"
-          ],
-          "sources": [
-            "BCS303-module-1-pdf.txt"
-          ],
-          "content_chars": 65939
-        },
-        {
-          "module": 2,
-          "title": "Process Management and Scheduling",
-          "topics": [
-            "OPERATING SYSTEMS",
-            "PROCESS MANAGEMENT",
-            "New - The process is in the stage of being created.",
-            "Running – Instructions are being executed.",
-            "Terminated - The process has completed its execution.",
-            "PROCESS MANAGEMENT",
-            "Shared Memory systems",
-            "Message passing systems.",
-            "Naming",
-            "Synchronization"
-          ],
-          "sources": [
-            "BCS303-module-2-pdf.txt"
-          ],
-          "content_chars": 47341
-        },
-        {
-          "module": 3,
-          "title": "Process Synchronization and Deadlocks",
-          "topics": [
-            "OPERATING SYSTEMS",
-            "PROCESS SYNCHRONIZATION",
-            "Mutual exclusion ispreserved",
-            "Progress requirement is satisfied",
-            "Bounded-waiting requirement is met",
-            "To prove Mutual exclusion",
-            "To prove Progress and Bounded-waiting",
-            "SYNCHRONIZATIONHARDWARE",
-            "Deepak D, Asst. Prof., Dept. of CS&E, Canara Engineering College, Mangaluru",
-            "To prove the mutual exclusionrequirement"
-          ],
-          "sources": [
-            "BCS303-module-3-pdf.txt"
-          ],
-          "content_chars": 58167
-        },
-        {
-          "module": 4,
-          "title": "Memory Management",
-          "topics": [
-            "OPERATING SYSTEMS",
-            "MEMORY MANAGEMENT",
-            "Initially, all routines are kept on disk in a relocatable-load format.",
-            "Firstly, the main-program is loaded into memory and is executed.",
-            "Finally, control is passed to the newly loaded-routine.",
-            "An unused routine is never loaded.",
-            "Does not require special support from the OS.",
-            "Context-switch time is fairly high.",
-            "If we want to swap a process, we must be sure that it is completely idle.",
-            "KB/40000 KB per second = 1/4 second"
-          ],
-          "sources": [
-            "BCS303-module-4-pdf.txt"
-          ],
-          "content_chars": 49053
-        },
-        {
-          "module": 5,
-          "title": "File Systems and I/O Systems",
-          "topics": [
-            "OPERATING SYSTEMS",
-            "Deepak D, Asst. Prof., Dept. of CS&E, Canara Engineering College, Mangaluru",
-            "FILE CONCEPT",
-            "Deepak D, Asst. Prof., Dept. of CS&E, Canara Engineering College, Mangaluru",
-            "Creating a file:Two steps are necessary to create a file,",
-            "Deepak D, Asst. Prof., Dept. of CS&E, Canara Engineering College, Mangaluru",
-            "A per-process table",
-            "A system-wide table",
-            "Access rights: Each process opens a file in an access mode. This information is",
-            "Deepak D, Asst. Prof., Dept. of CS&E, Canara Engineering College, Mangaluru"
-          ],
-          "sources": [
-            "BCS303-module-5-pdf.txt"
-          ],
-          "content_chars": 92546
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 22,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 1,
-        "previous_papers": 1,
-        "textbook_notes": 1,
-        "textbooks": 2,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
+      "category": "core",
+      "modules_count": 5,
+      "chunks_count": 19,
+      "pyq_count": 123,
+      "diagrams_count": 5,
+      "equations_count": 1,
+      "case_studies_count": 1,
+      "status": "PASS"
     },
     {
       "subject_code": "BCS304",
       "subject_name": "Data Structures and Applications",
       "semester": 3,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Introduction to Data Structures — Arrays and Strings",
-          "topics": [
-            "DATA STRUCTURE",
-            "BASIC TERMINOLOGY",
-            "CLASSIFICATION OF DATA STRUCTURES",
-            "Linear Data Structure",
-            "Non-linear Data Structure",
-            "Linear Data Structure:",
-            "Non-linear Data Structure:",
-            "OPERATIONS ON DATA STRUCTURES",
-            "REVIEW OF POINTERS AND DYNAMIC MEMORY ALLOCATION",
-            "DYNAMIC MEMORY ALLOCATION"
-          ],
-          "sources": [
-            "BCS304-module-1-pdf.txt"
-          ],
-          "content_chars": 56146
-        },
-        {
-          "module": 2,
-          "title": "Stacks and Queues",
-          "topics": [
-            "QUEUES ABSTRACT DATA TYPE",
-            "DEFINITION",
-            "QUEUE REPRESENTATION USING ARRAY",
-            "Queue Create",
-            "Boolean IsEmptyQ(queue) ::= front ==rear",
-            "Boolean IsFullQ(queue) ::= rear == MAX_QUEUE_SIZE-1",
-            "CIRCULAR QUEUES",
-            "CIRCULAR QUEUES USING DYNAMIC ARRAYS",
-            "MULTIPLE STACKS AND QUEUES",
-            "LINKED LIST"
-          ],
-          "sources": [
-            "BCS304-module-2-pdf.txt"
-          ],
-          "content_chars": 24276
-        },
-        {
-          "module": 3,
-          "title": "Linked Lists",
-          "topics": [
-            "Inverting a singly linked list:",
-            "Finding the length of a circular list",
-            "SPARSE MATRIX REPRESENTATON",
-            "An information field INFO which contains the data of N",
-            "A pointer field LLINK (FORW) which contains the location of the next node in",
-            "A pointer field RLINK (BACK) which contains the location of the",
-            "DEFINITION",
-            "Root",
-            "Edge",
-            "Parent"
-          ],
-          "sources": [
-            "BCS304-module-3-pdf.txt"
-          ],
-          "content_chars": 27982
-        },
-        {
-          "module": 5,
-          "title": "Graphs and Hashing",
-          "topics": [
-            "INTRODUCTION",
-            "EFFICIENT",
-            "BINARY",
-            "SEARCH",
-            "Hashing",
-            "Hash Function",
-            "Computation of key should be simple.",
-            "Hash Table",
-            "HASHING",
-            "Types of Hash Functions"
-          ],
-          "sources": [
-            "BCS304-module-5-pdf.txt"
-          ],
-          "content_chars": 18626
-        },
-        {
-          "module": 4,
-          "title": "Trees",
-          "topics": [
-            "Binary Trees",
-            "Binary Search Trees (BST)",
-            "Tree Traversals (Inorder, Preorder, Postorder)",
-            "Random Binary Search Trees",
-            "Balanced Search Trees",
-            "Scapegoat Trees",
-            "Red-Black Trees"
-          ],
-          "sources": [
-            "R3_Open_Data_Structures_Morin.txt"
-          ],
-          "content_chars": 96112,
-          "fallback": true
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 12,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 1,
-        "previous_papers": 1,
-        "textbook_notes": 0,
-        "textbooks": 6,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          5,
-          "module4.md (fallback)"
-        ],
-        "qbank_solutions": 0,
-        "errors": [
-          "Empty/unusable TXT: BCS304-module-4-pdf.txt (48 bytes)"
-        ]
-      }
+      "category": "core",
+      "modules_count": 5,
+      "chunks_count": 26,
+      "pyq_count": 144,
+      "diagrams_count": 57,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PASS"
     },
     {
       "subject_code": "BCS306A",
       "subject_name": "Object Oriented Programming with Java",
       "semester": 3,
-      "modules": [
-        {
-          "module": 3,
-          "title": "Exception Handling and Multithreading",
-          "topics": [],
-          "sources": [
-            "BCS306A-module-3-pdf.txt"
-          ],
-          "content_chars": 23851
-        },
-        {
-          "module": 4,
-          "title": "Packages and I/O Streams",
-          "topics": [
-            "OUTPUT"
-          ],
-          "sources": [
-            "BCS306A-module-4-pdf.txt"
-          ],
-          "content_chars": 13316
-        },
-        {
-          "module": 5,
-          "title": "Collections and Generics",
-          "topics": [
-            "It is the thread from which other “child” threads",
-            "Often, it must be the last thread to finish",
-            "Although",
-            "To do so, you must obtain a reference to it by",
-            "Its general form is shown here:",
-            "OUTPUT"
-          ],
-          "sources": [
-            "BCS306A-module-5-pdf.txt"
-          ],
-          "content_chars": 23613
-        },
-        {
-          "module": 1,
-          "title": "Introduction to Java — Classes and Objects",
-          "topics": [
-            "Network Circle,",
-            "Boylston Street, Suite 900",
-            "Creating and Destroying Objects. . . . . . . . . . . . . . . . . . .5",
-            "Methods Common to All Objects. . . . . . . . . . . . . . . . . .33",
-            "CONTENTS",
-            "Classes and Interfaces. . . . . . . . . . . . . . . . . . . . . . . . . . .67",
-            "Enums and Annotations . . . . . . . . . . . . . . . . . . . . . . . .147",
-            "CONTENTS",
-            "General Programming . . . . . . . . . . . . . . . . . . . . . . . . .209",
-            "CONTENTS"
-          ],
-          "sources": [
-            "R1_Effective_Java_Joshua_Bloch.txt"
-          ],
-          "content_chars": 119822,
-          "fallback": true
-        },
-        {
-          "module": 2,
-          "title": "Inheritance and Interfaces",
-          "topics": [
-            "Use the == operator to check if the argument is a reference to this object.",
-            "Use the instanceof operator to check if the argument has the correct type.",
-            "Cast the argument to the correct type. Because this cast was preceded by an",
-            "For each “significant” field in the class, check if that field of the argument",
-            "METHODS COMMON TO ALL OBJECTS",
-            "When you are finished writing your equals method, ask yourself three",
-            "METHODS COMMON TO ALL OBJECTS",
-            "Store some constant nonzero value, say, 17, in an int variable called result.",
-            "METHODS COMMON TO ALL OBJECTS",
-            "Return result."
-          ],
-          "sources": [
-            "R1_Effective_Java_Joshua_Bloch.txt"
-          ],
-          "content_chars": 119476,
-          "fallback": true
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 12,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 0,
-        "previous_papers": 1,
-        "textbook_notes": 0,
-        "textbooks": 8,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          3,
-          4,
-          5,
-          "module1.md (fallback)",
-          "module2.md (fallback)"
-        ],
-        "qbank_solutions": 0,
-        "errors": [
-          "Empty/unusable TXT: BCS306A-module-1-pdf.txt (100 bytes)",
-          "Empty/unusable TXT: BCS306A-module-2-pdf.txt (78 bytes)"
-        ]
-      }
+      "category": "PEC",
+      "modules_count": 5,
+      "chunks_count": 27,
+      "pyq_count": 102,
+      "diagrams_count": 8,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PASS"
+    },
+    {
+      "subject_code": "BCS306B",
+      "subject_name": "Object Oriented Programming with C++",
+      "semester": 3,
+      "category": "PEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCSL305",
+      "subject_name": "Data Structures Lab",
+      "semester": 3,
+      "category": "laboratory",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCSL358A",
+      "subject_name": "Data Analytics with Excel",
+      "semester": 3,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCSL358B",
+      "subject_name": "R Programming",
+      "semester": 3,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCSL358C",
+      "subject_name": "Project Management with Git",
+      "semester": 3,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCSL358D",
+      "subject_name": "Data Visualization with Python",
+      "semester": 3,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BSCK307",
+      "subject_name": "Social Connect and Responsibility",
+      "semester": 3,
+      "category": "common",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BBOC407",
+      "subject_name": "Biology for Computer Engineers",
+      "semester": 4,
+      "category": "core",
+      "modules_count": 5,
+      "chunks_count": 10,
+      "pyq_count": 71,
+      "diagrams_count": 17,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PASS"
     },
     {
       "subject_code": "BCS401",
-      "subject_name": "Analysis and Design of Algorithms",
+      "subject_name": "Analysis & Design of Algorithms",
       "semester": 4,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Introduction to Algorithms and Complexity",
-          "topics": [
-            "ALGORITHM",
-            "ALGORITHM",
-            "Do some research on al-Khorezmi (also al-Khwarizmi), the man from whose",
-            "Given that the ofﬁcial purpose of the U.S. patent system is the promotion",
-            "Design an algorithm for computing",
-            "The Analysis Framework",
-            "Asymptotic Notations and Basic Efficiency Classes",
-            "Mathematical Analysis of Non recursive Algorithms",
-            "Mathematical Analysis of Recursive Algorithms",
-            "ALGORITHM"
-          ],
-          "sources": [
-            "BCS401-module-1-textbook.txt"
-          ],
-          "content_chars": 112660
-        },
-        {
-          "module": 2,
-          "title": "Divide and Conquer",
-          "topics": [
-            "Design a linear-time algorithm to determine two extreme points of the convex",
-            "What modiﬁcation needs to be made in the brute-force algorithm for the",
-            "Write a program implementing the brute-force algorithm for the convex-hull",
-            "Consider the following small instance of the linear programming problem:",
-            "Exhaustive Search",
-            "Insertion Sort",
-            "Topological Sorting",
-            "Mergesort",
-            "Quicksort",
-            "Binary Tree Traversals and Related Properties"
-          ],
-          "sources": [
-            "BCS401-module-2-textbook.txt"
-          ],
-          "content_chars": 76981
-        },
-        {
-          "module": 3,
-          "title": "Greedy Algorithms",
-          "topics": [
-            "DEFINITION",
-            "Which of the following binary trees are AVL trees?",
-            "Draw diagrams of the single L-rotation and of the double RL-rotation in their",
-            "For each of the following lists, construct an AVL tree by inserting their ele-",
-            "Write a program for constructing an AVL tree for a given list of n distinct",
-            "Let TB and T2-3 be, respectively, a classical binary search tree and a 2-3 tree",
-            "For a 2-3 tree containing real numbers, design an algorithm for computing",
-            "Write a program for constructing a 2-3 tree for a given list of n integers.",
-            "DEFINITION",
-            "ALGORITHM"
-          ],
-          "sources": [
-            "BCS401-module-3-textbook.txt"
-          ],
-          "content_chars": 55424
-        },
-        {
-          "module": 4,
-          "title": "Dynamic Programming",
-          "topics": [
-            "ALGORITHM",
-            "ALGORITHM",
-            "ALGORITHM",
-            "What does dynamic programming have in common with divide-and-conquer?",
-            "Solve the instance 5, 1, 2, 10, 6 of the coin-row problem.",
-            "Apply the dynamic programming algorithm to ﬁnd all the solutions to the",
-            "Binomial coefﬁcient",
-            "Longest path in a dag",
-            "Maximum square submatrix",
-            "World Series odds"
-          ],
-          "sources": [
-            "BCS401-module-4-textbook.txt"
-          ],
-          "content_chars": 80545
-        },
-        {
-          "module": 5,
-          "title": "Backtracking and Branch-and-Bound",
-          "topics": [
-            "Find a tight lower bound for sorting an array by exchanging its adjacent",
-            "Give an adversary-argument proof that the time efﬁciency of any algorithm",
-            "What is the minimum number of comparisons needed for a comparison-based",
-            "Find the product of matrices A and B through a transformation to a product",
-            "Find a tight lower-bound class for the problem of ﬁnding two closest numbers",
-            "Find a tight lower-bound class for the number placement problem (Problem 9",
-            "Prove by mathematical induction that",
-            "Consider the problem of ﬁnding the median of a three-element set {a, b, c}",
-            "Jigsaw puzzle",
-            "A game of chess can be posed as the following decision problem: given a"
-          ],
-          "sources": [
-            "BCS401-module-5-textbook.txt"
-          ],
-          "content_chars": 104932
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 16,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 1,
-        "previous_papers": 1,
-        "textbook_notes": 0,
-        "textbooks": 4,
-        "course_outcomes": 1,
-        "written_answers": 4
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
+      "category": "core",
+      "modules_count": 5,
+      "chunks_count": 28,
+      "pyq_count": 88,
+      "diagrams_count": 0,
+      "equations_count": 1,
+      "case_studies_count": 0,
+      "status": "PASS"
     },
     {
       "subject_code": "BCS402",
-      "subject_name": "Microcontrollers and Embedded Systems",
+      "subject_name": "Microcontrollers",
       "semester": 4,
-      "modules": [
-        {
-          "module": 1,
-          "title": "8051 Microcontroller Architecture",
-          "topics": [
-            "MICROCONTROLLER AND EMBEDDED SYSTEMS",
-            "MICROPROCESSORS VERSUS MICROCONTROLLERS",
-            "THE RISC DESIGN PHILOSOPHY",
-            "THE ARM DESIGN PHILOSOPHY",
-            "EMBEDDED SYSTEM HARDWARE",
-            "EMBEDDED SYSTEM SOFTWARE",
-            "ARM CORE",
-            "REGISTERS",
-            "CURRENT PROGRAM STATUS REGISTER",
-            "PIPELINE"
-          ],
-          "sources": [
-            "BCS402-module-1-pdf.txt"
-          ],
-          "content_chars": 51848
-        },
-        {
-          "module": 1,
-          "title": "8051 Microcontroller Architecture",
-          "topics": [
-            "Dhrystone MIPS version 2.1 is a small benchmarking program.",
-            "ARM Embedded Systems",
-            "The RISC design philosophy",
-            "The ARM Design Philosophy",
-            "The ARM Design Philosophy",
-            "ARM Embedded Systems",
-            "Embedded System Hardware",
-            "Embedded System Hardware",
-            "FLASHROM",
-            "ARM Embedded Systems"
-          ],
-          "sources": [
-            "BCS402-Module-1-textbook.txt"
-          ],
-          "content_chars": 62277
-        },
-        {
-          "module": 2,
-          "title": "8051 Instruction Set and Programming",
-          "topics": [
-            "Introduction to the ARM Instruction Set",
-            "ARM ISA",
-            "Introduction to the ARM Instruction Set",
-            "ARM ISA",
-            "Introduction to the ARM Instruction Set",
-            "Data Processing Instructions",
-            "Data Processing Instructions",
-            "Introduction to the ARM Instruction Set",
-            "Data Processing Instructions",
-            "Introduction to the ARM Instruction Set"
-          ],
-          "sources": [
-            "BCS402-Module-2-textbook.txt"
-          ],
-          "content_chars": 53211
-        },
-        {
-          "module": 3,
-          "title": "Timers, Counters and Serial Communication",
-          "topics": [
-            "Overview of C Compilers and Optimization:",
-            "Basic C Data Types",
-            "Local Variable Types",
-            "Function Argument Types",
-            "Signed versus Unsigned Types",
-            "C Looping Structures",
-            "Loops with a Fixed Number of Iterations",
-            "Loops Using a Variable Number of Iterations",
-            "Loop Unrolling",
-            "Register Allocation"
-          ],
-          "sources": [
-            "BCS402-module-3-pdf.txt"
-          ],
-          "content_chars": 24885
-        },
-        {
-          "module": 3,
-          "title": "Timers, Counters and Serial Communication",
-          "topics": [
-            "Efﬁcient C Programming",
-            "Overview of C Compilers and Optimization",
-            "Basic C Data Types",
-            "Basic C Data Types",
-            "Efﬁcient C Programming",
-            "Basic C Data Types",
-            "Efﬁcient C Programming",
-            "Basic C Data Types",
-            "Efﬁcient C Programming",
-            "Basic C Data Types"
-          ],
-          "sources": [
-            "BCS402-Module-3-textbook.txt"
-          ],
-          "content_chars": 58357
-        },
-        {
-          "module": 4,
-          "title": "Interrupts and Interfacing",
-          "topics": [
-            "Exception handling",
-            "ARM Processor Exceptions and Modes",
-            "Vector Table",
-            "Exception Priorities",
-            "Link Register Offsets",
-            "Interrupts",
-            "Assigning Interrupts",
-            "Interrupt Latency",
-            "IRQ and FIQ Exceptions",
-            "Enabling and Disabling FIQ and IRQ Exceptions"
-          ],
-          "sources": [
-            "BCS402-module-4-pdf.txt"
-          ],
-          "content_chars": 21158
-        },
-        {
-          "module": 4,
-          "title": "Interrupts and Interfacing",
-          "topics": [
-            "Exception and Interrupt Handling",
-            "Exception Handling",
-            "Exception Handling",
-            "introduced the vector table—a table of addresses that the ARM core branches to",
-            "Exception and Interrupt Handling",
-            "Exception Handling",
-            "Exception and Interrupt Handling",
-            "Exception Handling",
-            "Exception and Interrupt Handling",
-            "Interrupts"
-          ],
-          "sources": [
-            "BCS402-Module-4-textbook.txt"
-          ],
-          "content_chars": 52796
-        },
-        {
-          "module": 5,
-          "title": "ARM Architecture and Embedded Systems",
-          "topics": [
-            "Caches",
-            "The Memory Hierarchy and Cache Memory",
-            "The Memory Hierarchy and Cache Memory",
-            "Caches",
-            "The Memory Hierarchy and Cache Memory",
-            "Caches",
-            "Cache Architecture",
-            "Cache Architecture",
-            "Caches",
-            "Cache Architecture"
-          ],
-          "sources": [
-            "BCS402-Module-5-textbook.txt"
-          ],
-          "content_chars": 41795
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 9,
-        "module_txts": 9,
-        "question_papers": 15,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 1,
-        "previous_papers": 1,
-        "textbook_notes": 0,
-        "textbooks": 0,
-        "course_outcomes": 1,
-        "written_answers": 3
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          1,
-          2,
-          3,
-          3,
-          4,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": [
-          "Empty/unusable TXT: BCS402-module-2-pdf.txt (60 bytes)"
-        ]
-      }
+      "category": "core",
+      "modules_count": 5,
+      "chunks_count": 27,
+      "pyq_count": 110,
+      "diagrams_count": 12,
+      "equations_count": 1,
+      "case_studies_count": 0,
+      "status": "PASS"
     },
     {
       "subject_code": "BCS403",
       "subject_name": "Database Management Systems",
       "semester": 4,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Introduction to DBMS and ER Model",
-          "topics": [
-            ": Introduction to Databases",
-            "Introduction",
-            "STUDENT file: stores data on each student.",
-            "COURSE file: stores data on each course.",
-            "SECTION file: stores data on each section of a course.",
-            "PREREQUISITE file :stores the prerequisites of each course.",
-            "Characteristics of the Database Approach",
-            "Self-Describing Nature of a Database System",
-            "Insulation between Programs and Data, and Data Abstraction",
-            "Support of Multiple Views of the Data"
-          ],
-          "sources": [
-            "BCS403-module-1-pdf-1.txt"
-          ],
-          "content_chars": 94149
-        },
-        {
-          "module": 2,
-          "title": "Relational Model and SQL",
-          "topics": [
-            ": The Relational Data Model",
-            "Relational Model Concepts",
-            "Domains, Attributes, Tuples, and Relations",
-            "Characteristics of Relations",
-            "Ordering of Tuples in a Relation",
-            "Ordering of Values within a Tuple and an Alternative Definition of a Relation",
-            "Values and NULLs in the Tuples",
-            "Interpretation (Meaning) of a Relation",
-            "Relational Model Notation",
-            "Relational Model Constraints and Relational Database Schemas"
-          ],
-          "sources": [
-            "BCS403-module-2-pdf-1.txt"
-          ],
-          "content_chars": 63047
-        },
-        {
-          "module": 3,
-          "title": "Normalization",
-          "topics": [
-            "Objectives",
-            "Introduction to DB design",
-            "The logical (or conceptual) level",
-            "The implementation (or physical storage) level",
-            "Informal Design Guidelines for Relation Schemas",
-            "Making sure that the semantics of the attributes is clear in the schema",
-            "Reducing the redundant information in tuples",
-            "Reducing the NULL values in tuples",
-            "Disallowing the possibility of generating spurious tuples",
-            "Imparting Clear Semantics to Attributes in Relations"
-          ],
-          "sources": [
-            "BCS403-module-3-pdf-1.txt"
-          ],
-          "content_chars": 65932
-        },
-        {
-          "module": 4,
-          "title": "Transactions and Concurrency Control",
-          "topics": [
-            "More Complex SQL Retrieval Queries",
-            "Comparisons Involving NULL and Three-Valued Logic",
-            "Unknown value.",
-            "FROM EMPLOYEE",
-            "Nested Queries, Tuples, and Set/Multiset Comparisons",
-            "FROM EMPLOYEE",
-            "FROM EMPLOYEE",
-            "FROM EMPLOYEE AS E",
-            "FROM DEPENDENT AS D",
-            "Correlated Nested Queries"
-          ],
-          "sources": [
-            "BCS403-module-4-pdf-1.txt"
-          ],
-          "content_chars": 65454
-        },
-        {
-          "module": 5,
-          "title": "Indexing, Hashing and File Organization",
-          "topics": [
-            "Introduction to Concurrency Control",
-            "Two-Phase Locking Techniques for Concurrency Control",
-            "Types of Locks and System Lock Tables",
-            "Binary Locks",
-            "A transaction",
-            "Shared/Exclusive (or Read/Write) Locks",
-            "A transaction T must issue the operation unlock(X) after all read_item(X) and",
-            "Guaranteeing Serializability by Two-Phase Locking",
-            "Variations of Two-Phase Locking",
-            "Dealing with Deadlock and Starvation"
-          ],
-          "sources": [
-            "BCS403-module-5-pdf-1.txt"
-          ],
-          "content_chars": 107348
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 10,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 1,
-        "previous_papers": 1,
-        "textbook_notes": 0,
-        "textbooks": 6,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
+      "category": "core",
+      "modules_count": 5,
+      "chunks_count": 26,
+      "pyq_count": 120,
+      "diagrams_count": 49,
+      "equations_count": 1,
+      "case_studies_count": 1,
+      "status": "PASS"
     },
     {
       "subject_code": "BCS405A",
       "subject_name": "Discrete Mathematical Structures",
       "semester": 4,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Mathematical Logic",
-          "topics": [
-            "Davis Drive",
-            "Shenton Way #01-01",
-            "Dodds Street",
-            "Birchmount Road",
-            "EcyO'-",
-            "Madrid",
-            "CHAPTER",
-            "Exercises",
-            "Operations on Sets",
-            "Exercises"
-          ],
-          "sources": [
-            "T1_Discrete_Mathematics_for_Computer_Science.txt"
-          ],
-          "content_chars": 118321,
-          "fallback": true
-        },
-        {
-          "module": 2,
-          "title": "Set Theory and Relations",
-          "topics": [
-            "How many numbers between 1 and 1000 are not divisible by 3, 7, or 9?",
-            "How many integers between 500 and 10,000 are divisible by 5 or 7?",
-            "Determine how many numbers between 1 and 21,000,000,000, including 1 and",
-            "How many numbers between 1 and 21,000,000, including both 1 and 21,000,000, are",
-            "Sets, Proof Templates, and Induction",
-            "Sets, Proof Templates, and Induction",
-            "Since 0 E T by the base step, by the inductive step, 0 + 1 = 1 E T.",
-            "Apply the inductive step again: since 1 E T, 1 + 1 = 2 E T.",
-            "And again: since 2 c T, 2 + 1 = 3 E T.",
-            "Sets, Proof Templates, and Induction"
-          ],
-          "sources": [
-            "T1_Discrete_Mathematics_for_Computer_Science.txt"
-          ],
-          "content_chars": 119068,
-          "fallback": true
-        },
-        {
-          "module": 3,
-          "title": "Functions and Algebraic Structures",
-          "topics": [
-            "I(-0) =",
-            "This formula is of the form --,(0 V fl), where 0 = -(p A -q)",
-            "Now work \"inward.\" Again, by the law of double negation, --",
-            "Find the expression tree for the formula",
-            "Find the expression tree for the formula",
-            "Find the expression tree for the formula",
-            "Find the expression tree for the formula",
-            "Find the expression tree for the formula",
-            "Let 0 = \"The home team is ahead.\" Let 7' = \"The fans are happy.\" Let X = \"The",
-            "Construct the truth table for"
-          ],
-          "sources": [
-            "T1_Discrete_Mathematics_for_Computer_Science.txt"
-          ],
-          "content_chars": 118948,
-          "fallback": true
-        },
-        {
-          "module": 4,
-          "title": "Graph Theory",
-          "topics": [
-            "Let M = {1, 2 ...",
-            "Find the elements in each of the following relations defined on R:",
-            "List the 16 elements of the relation Between as defined in Example 4.",
-            "Let U = (0, 11.",
-            "Prove Theorem 2(c).",
-            "Let A = {1, 2, 3 ...",
-            "Let R, S, and T be binary relations on a set X.",
-            "Let X = {0, 1). Let B = 'P(X x X) be the set of all binary relations on X.",
-            "Let A = {a, b, c, d}. Define the relations R1 and R2 on A as",
-            "Find a set A with n elements and a relation R on A such that R 1 , R2 ."
-          ],
-          "sources": [
-            "T1_Discrete_Mathematics_for_Computer_Science.txt"
-          ],
-          "content_chars": 118173,
-          "fallback": true
-        },
-        {
-          "module": 5,
-          "title": "Combinatorics and Recurrence",
-          "topics": [
-            "Each input corresponds to some output.",
-            "Each input corresponds to only one output.",
-            "Functions",
-            "Functions",
-            "MRFQDSXKVOFZ",
-            "Which of the following are functions? If not, why not?",
-            "Let X={0,1 ...",
-            "What are the domain and range of the addition function on the real numbers? On",
-            "Which of the following represent a partial function? A (total) function?",
-            "Let X = {a, b}."
-          ],
-          "sources": [
-            "T1_Discrete_Mathematics_for_Computer_Science.txt"
-          ],
-          "content_chars": 118368,
-          "fallback": true
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 4,
-        "module_txts": 5,
-        "question_papers": 14,
-        "question_bank_solutions": 0,
-        "question_banks": 1,
-        "important_questions": 0,
-        "model_papers": 1,
-        "previous_papers": 1,
-        "textbook_notes": 0,
-        "textbooks": 2,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          "module1.md (fallback)",
-          "module2.md (fallback)",
-          "module3.md (fallback)",
-          "module4.md (fallback)",
-          "module5.md (fallback)"
-        ],
-        "qbank_solutions": 0,
-        "errors": [
-          "Empty/unusable TXT: BCS405A-module-1-written.txt (130 bytes)",
-          "Empty/unusable TXT: BCS405A-module-2-written.txt (120 bytes)",
-          "Empty/unusable TXT: BCS405A-module-3-written.txt (130 bytes)",
-          "Empty/unusable TXT: BCS405A-module-4-written.txt (104 bytes)",
-          "Empty/unusable TXT: BCS405A-module-5-written.txt (172 bytes)"
-        ]
-      }
+      "category": "PEC",
+      "modules_count": 5,
+      "chunks_count": 23,
+      "pyq_count": 94,
+      "diagrams_count": 4,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PASS"
+    },
+    {
+      "subject_code": "BCS405B",
+      "subject_name": "Graph Theory",
+      "semester": 4,
+      "category": "PEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS405C",
+      "subject_name": "Optimization Technique",
+      "semester": 4,
+      "category": "PEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS405D",
+      "subject_name": "Linear Algebra",
+      "semester": 4,
+      "category": "PEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS456A",
+      "subject_name": "Green IT and Sustainability",
+      "semester": 4,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS456B",
+      "subject_name": "Capacity Planning for IT",
+      "semester": 4,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS456C",
+      "subject_name": "UI/UX",
+      "semester": 4,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCSL404",
+      "subject_name": "Analysis & Design of Algorithms Lab",
+      "semester": 4,
+      "category": "laboratory",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCSL456D",
+      "subject_name": "Technical writing using LATEX",
+      "semester": 4,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BUHK408",
+      "subject_name": "Universal Human Values Course",
+      "semester": 4,
+      "category": "common",
+      "modules_count": 5,
+      "chunks_count": 10,
+      "pyq_count": 20,
+      "diagrams_count": 1,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PASS"
     },
     {
       "subject_code": "BCS501",
-      "subject_name": "Software Engineering and Project Management",
+      "subject_name": "Software Engineering & Project Management",
       "semester": 5,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Introduction to Software Engineering",
-          "topics": [
-            "--INTRODUCTION",
-            "The Nature of software",
-            "Software",
-            "Data structures: Enable the programs to adequately manipulate information.",
-            "Software Application Domains",
-            "System Software:",
-            "Application Software:",
-            "Engineering/Scientific Software:",
-            "Embedded Software:",
-            "Product-line Software:"
-          ],
-          "sources": [
-            "BCS501-module-1-pdf-1.txt"
-          ],
-          "content_chars": 54966
-        },
-        {
-          "module": 2,
-          "title": "Requirements Engineering",
-          "topics": [
-            "—UNDERSTANDING REQUIREMENTS",
-            "REQUIREMENTS ENGINEERING",
-            "Requirements Engineering Task",
-            "ESTABLISHING THE GROUNDWORK",
-            "Identifying Stakeholders",
-            "Recognizing Multiple ViewPoints",
-            "Working toward Collaboration",
-            "Asking the First Questions",
-            "ELICITING REQUIREMENTS",
-            "DEVELOPING USE CASES"
-          ],
-          "sources": [
-            "BCS501-module-2-pdf-1.txt"
-          ],
-          "content_chars": 51680
-        },
-        {
-          "module": 3,
-          "title": "Software Design",
-          "topics": [
-            "---AGILE DEVELOPMENT",
-            "WHAT IS AGILITY?",
-            "AGILITY AND THE COST OF CHANGE",
-            "WHAT IS AN AGILE PROCESS?",
-            "Analysis, design, construction, and testing are not as predictable.",
-            "Agility Principles",
-            "Business people and developers must work together daily throughout the project.",
-            "Working software is the primary measure of progress.",
-            "Continuous attention to technical excellence and good design enhances agility.",
-            "Simplicity—the art of maximizing the amount of work not done—is essential."
-          ],
-          "sources": [
-            "BCS501-module-3-pdf-1.txt"
-          ],
-          "content_chars": 69098
-        },
-        {
-          "module": 4,
-          "title": "Software Testing",
-          "topics": [
-            "INTRODUCTION TO SOFTWARE PROJECT MANAGEMENT",
-            "WHY IS SOFTWARE PROJECT MANAGEMENT IMPORTANT ?",
-            "Time: amount of time required to complete the project.",
-            "Cost: calculated from the time variable",
-            "Scope: Requirements specified for the end result.",
-            "Risk: Potential points of failure.",
-            "Complexity Management",
-            "Requirement Management",
-            "Time and Budget Control",
-            "Risk Management"
-          ],
-          "sources": [
-            "BCS501-module-4-pdf-1.txt"
-          ],
-          "content_chars": 51299
-        },
-        {
-          "module": 5,
-          "title": "Project Management",
-          "topics": [
-            "INTRODUCTION",
-            "THE PLACE OF SOFTWARE QUALITY IN PROJECT PLANNING",
-            "THE IMPORTANCE OF SOFTWARE QUALITY",
-            "DEFINING SOFTWARE QUALITY",
-            "Definition/Description",
-            "Scale o Unit of Measurement:",
-            "Test",
-            "Minimally Acceptable",
-            "Target Range",
-            "Current Value"
-          ],
-          "sources": [
-            "BCS501-module-5-pdf-1.txt"
-          ],
-          "content_chars": 88021
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 20,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 1,
-        "previous_papers": 1,
-        "textbook_notes": 1,
-        "textbooks": 4,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
+      "category": "core",
+      "modules_count": 5,
+      "chunks_count": 18,
+      "pyq_count": 97,
+      "diagrams_count": 14,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PASS"
     },
     {
       "subject_code": "BCS502",
       "subject_name": "Computer Networks",
       "semester": 5,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Introduction to Computer Networks — Physical Layer",
-          "topics": [
-            "DATA COMMUNICATIONS",
-            "Components",
-            "Sender: The device that sends the message, such as a computer or smartphone.",
-            "Data Representation",
-            "Data Flow",
-            "NETWORKS",
-            "Network Criteria",
-            "Performance: This is evaluated by:",
-            "Reliability: This includes:",
-            "Physical Structures"
-          ],
-          "sources": [
-            "BCS502-module-1-pdf-1.txt"
-          ],
-          "content_chars": 77534
-        },
-        {
-          "module": 2,
-          "title": "Data Link Layer",
-          "topics": [
-            "PART III",
-            "INTRODUCTION",
-            "ERROR DETECTION AND CORRECTION",
-            "BLOCK CODING",
-            "The receiver has (or can find) a list of valid codewords.",
-            "The original codeword has changed to an invalid one.",
-            "PART III",
-            "ERROR DETECTION AND CORRECTION",
-            "The Hamming distance d(000, 011) is 2 because (000 ⊕ 011) is 011 (two 1s).",
-            "PART III"
-          ],
-          "sources": [
-            "BCS502-module-2-textbook.txt"
-          ],
-          "content_chars": 146129
-        },
-        {
-          "module": 3,
-          "title": "Network Layer",
-          "topics": [
-            "Packetizing",
-            "Routing",
-            "Forwarding",
-            "Error Control",
-            "Flow Control",
-            "Congestion Control",
-            "Quality of Service",
-            "Security",
-            "PACKET SWITCHING",
-            "Source A sends a request packet to router R1."
-          ],
-          "sources": [
-            "BCS502-module-3-pdf-1.txt"
-          ],
-          "content_chars": 85563
-        },
-        {
-          "module": 4,
-          "title": "Transport Layer",
-          "topics": [
-            "INTRODUCTION",
-            "Detecting and discarding corrupted packets.",
-            "Keeping track of lost and discarded packets and resending them.",
-            "Recognizing duplicate packets and discarding them.",
-            "Buffering out-of-order packets until the missing packets arrive.",
-            "INTRODUCTION",
-            "USER DATAGRAM PROTOCOL",
-            "TRANSMISSION CONTROL PROTOCOL",
-            "Empty chambers (white) that can be filled by the sending process.",
-            "Sent but unacknowledged bytes (colored), which remain in the buffer until"
-          ],
-          "sources": [
-            "BCS502-module-4-pdf-1.txt"
-          ],
-          "content_chars": 72828
-        },
-        {
-          "module": 5,
-          "title": "Application Layer",
-          "topics": [
-            "Client-Server Paradigm: One program (client) requests services, while the other",
-            "Peer-to-Peer (P2P) Paradigm: Both programs can request and provide services.",
-            "WORLD WIDE WEB AND HTTP",
-            "Protocol: This is like choosing the \"vehicle\" or method to reach the web page.",
-            "The client opens a TCP connection and sends a request.",
-            "The server sends the response and closes the connection.",
-            "Each object suffers a delivery delay of two RTTs— one RTT to establish the TCP",
-            "The server includes the cookie in the response that it sends to the client.",
-            "The browser establishes a TCP",
-            "The Web cache checks to see if it has a copy"
-          ],
-          "sources": [
-            "BCS502-module-5-pdf-1.txt"
-          ],
-          "content_chars": 81020
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 18,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 1,
-        "previous_papers": 1,
-        "textbook_notes": 1,
-        "textbooks": 4,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
+      "category": "core",
+      "modules_count": 5,
+      "chunks_count": 16,
+      "pyq_count": 73,
+      "diagrams_count": 35,
+      "equations_count": 2,
+      "case_studies_count": 1,
+      "status": "PASS"
     },
     {
       "subject_code": "BCS503",
       "subject_name": "Theory of Computation",
       "semester": 5,
-      "modules": [],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 4,
-        "question_papers": 19,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 1,
-        "previous_papers": 1,
-        "textbook_notes": 0,
-        "textbooks": 0,
-        "course_outcomes": 1,
-        "written_answers": 4
-      },
-      "ingestion_results": {
-        "modules_created": [],
-        "qbank_solutions": 0,
-        "errors": [
-          "Empty/unusable TXT: BCS503-module-1-textbook.txt (100 bytes)",
-          "Empty/unusable TXT: BCS503-module-3-textbook.txt (142 bytes)",
-          "Empty/unusable TXT: BCS503-module-4-textbook.txt (86 bytes)",
-          "Empty/unusable TXT: BCS503-module-5-textbook.txt (114 bytes)",
-          "Missing module 1 TXT",
-          "Missing module 2 TXT",
-          "Missing module 3 TXT",
-          "Missing module 4 TXT",
-          "Missing module 5 TXT"
-        ]
-      }
+      "category": "core",
+      "modules_count": 5,
+      "chunks_count": 69,
+      "pyq_count": 211,
+      "diagrams_count": 0,
+      "equations_count": 1,
+      "case_studies_count": 0,
+      "status": "PASS"
+    },
+    {
+      "subject_code": "BCS508",
+      "subject_name": "Environmental Studies and E-waste Management",
+      "semester": 5,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS515A",
+      "subject_name": "Computer Graphics",
+      "semester": 5,
+      "category": "PEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
     },
     {
       "subject_code": "BCS515B",
-      "subject_name": "Cloud Computing and DevOps",
+      "subject_name": "Artificial Intelligence",
       "semester": 5,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Introduction to Cloud Computing",
-          "topics": [
-            "WHAT IS AI?",
-            "Acting humanly: The Turing Test approach",
-            "Thinking humanly: The cognitive modeling approach",
-            "Thinking rationally: The “laws of thought” approach",
-            "Acting rationally: The rational agent approach",
-            "Acting humanly: The Turing Test approach",
-            "Thinking humanly: The cognitive modeling approach",
-            "Thinking rationally: The “laws of thought” approach",
-            "Acting rationally: The rational agent approach",
-            "THE STATE OF THE ART"
-          ],
-          "sources": [
-            "BCS515B-module-1-pdf.txt"
-          ],
-          "content_chars": 43076
-        },
-        {
-          "module": 2,
-          "title": "Cloud Architecture and Virtualization",
-          "topics": [
-            "PROBLEM-SOLVING AGENTS",
-            "Well-defined problems and solutions",
-            "EXAMPLE PROBLEMS (Toy problems)",
-            "Vacuum world",
-            "Toy problem devised by Donald Knuth",
-            "SEARCHING FOR SOLUTIONS",
-            "Infrastructure for search algorithms",
-            "Measuring problem-solving performance",
-            "UNINFORMED SEARCH STRATEGIES",
-            "Breadth-first search:"
-          ],
-          "sources": [
-            "BCS515B-module-2-pdf.txt"
-          ],
-          "content_chars": 30289
-        },
-        {
-          "module": 3,
-          "title": "Cloud Deployment Models",
-          "topics": [
-            "INFORMED SEARCH STRATEGIES",
-            "Greedy best-first search",
-            "A* search: Minimizing the total estimated solution cost",
-            "Memory-bounded Heuristic Search",
-            "Heuristic Functions",
-            "KNOWLEDGE-BASED AGENTS",
-            "THE WUMPUS WORLD",
-            "LOGIC",
-            "PROPOSITIONAL LOGIC: A VERY SIMPLE LOGIC",
-            "Syntax"
-          ],
-          "sources": [
-            "BCS515B-module-3-pdf.txt"
-          ],
-          "content_chars": 17655
-        },
-        {
-          "module": 4,
-          "title": "DevOps Fundamentals",
-          "topics": [
-            "REPRESENTATION REVISITED",
-            "The language of thought:",
-            "Combining the best of formal and natural languages",
-            "SYNTAX AND SEMANTICS OF FIRST-ORDER LOGIC",
-            "Models for first-order logic:",
-            "Symbols and interpretations",
-            "Term:",
-            "Atomic sentences",
-            "Complex sentences",
-            "Equality"
-          ],
-          "sources": [
-            "BCS515B-module-4-pdf.txt"
-          ],
-          "content_chars": 40266
-        },
-        {
-          "module": 5,
-          "title": "Containerization and Orchestration",
-          "topics": [
-            "Backward Chaining",
-            "RESOLUTION",
-            "CLASSICAL PLANNING",
-            "ALGORITHMS FOR PLANNING AS STATE-SPACE SEARCH",
-            "Planning Graphs:"
-          ],
-          "sources": [
-            "BCS515B-module-5-pdf.txt"
-          ],
-          "content_chars": 31132
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 18,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 1,
-        "previous_papers": 1,
-        "textbook_notes": 1,
-        "textbooks": 6,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
+      "category": "PEC",
+      "modules_count": 5,
+      "chunks_count": 17,
+      "pyq_count": 33,
+      "diagrams_count": 13,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PASS"
     },
     {
-      "subject_code": "BCS601",
-      "subject_name": "Compiler Design",
-      "semester": 6,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Introduction to Compilers — Lexical Analysis",
-          "topics": [
-            "EVOLUTION OF DISTRIBUTED COMPUTING",
-            "SCALABLE COMPUTING OVER THE INTERNET",
-            "Technology Trigger – Early development and research.",
-            "Peak of Inflated Expectations – High expectations but unproven benefits.",
-            "Trough of Disillusionment – Realization of limitations.",
-            "Slope of Enlightenment – Gradual improvements.",
-            "Plateau of Productivity – Mainstream adoption.",
-            "Technologies for Network-Based Systems",
-            "Energy and Power Efficiency – Reducing power consumption while increasing",
-            "Memory and Storage Bottlenecks – Optimizing data movement to avoid bandwidth"
-          ],
-          "sources": [
-            "BCS601-module-1-pdf-1.txt"
-          ],
-          "content_chars": 48447
-        },
-        {
-          "module": 2,
-          "title": "Syntax Analysis",
-          "topics": [
-            "Implementation Levels of Virtualization",
-            "Better Resource Utilization – Maximizes hardware efficiency by running multiple",
-            "Cost Savings – Reduces hardware, power, and maintenance costs.",
-            "Scalability & Flexibility – Easily scale resources as needed.",
-            "Improved Security & Isolation – VMs are isolated from each other, reducing",
-            "Levels of Virtualization Implementation",
-            "Instruction Set Architecture Level:",
-            "Instruction Emulation:",
-            "Virtual ISA (V-ISA):",
-            "Code Interpretation:"
-          ],
-          "sources": [
-            "BCS601-module-2-pdf-1.txt"
-          ],
-          "content_chars": 81804
-        },
-        {
-          "module": 3,
-          "title": "Syntax-Directed Translation",
-          "topics": [
-            "Cloud Computing and Service Models",
-            "Public, Private, and Hybrid Clouds",
-            "Data-Center Networking Structure",
-            "Cloud Ecosystem and Enabling Technologies",
-            "Shifting Computing to Data Centers – Moving resources from local machines to",
-            "Service Provisioning & Economics – Efficient resource utilization with SLAs and",
-            "Scalability – Cloud platforms must support increasing user demands seamlessly.",
-            "High-Quality Services – Standardizing QoS for interoperability across cloud",
-            "Infrastructure-as-a-Service (IaaS)",
-            "Platform-as-a-Service (PaaS) and Software-as-a-Service (SaaS)"
-          ],
-          "sources": [
-            "BCS601-module-3-pdf-1.txt"
-          ],
-          "content_chars": 46464
-        },
-        {
-          "module": 4,
-          "title": "Intermediate Code Generation",
-          "topics": [
-            "SECURITY, THE TOP CONCERN FOR CLOUD USERS",
-            "CLOUD SECURITY RISKS",
-            "How can cloud resources be prevented from nefarious use?",
-            "What security risks do cloud users face?",
-            "Broad Categories of Cloud Security Risks",
-            "Threats to system availability (disruptions to cloud service reliability).",
-            "Cloud Security Alliance (CSA) Reports on Security Threats",
-            "Abuse of cloud resources (e.g., using AWS for cyberattacks).",
-            "Insecure APIs (exposing cloud services to unauthorized access).",
-            "Malicious insiders (employees misusing privileged access)."
-          ],
-          "sources": [
-            "BCS601-module-4-pdf-1.txt"
-          ],
-          "content_chars": 53298
-        },
-        {
-          "module": 5,
-          "title": "Code Generation and Optimization",
-          "topics": [
-            "Features of Cloud and Grid Platform",
-            "Cloud Capabilities and Platform Features",
-            "Traditional Features Common to Grids and Clouds",
-            "Workflow",
-            "Data Transport",
-            "Security, Privacy, and Availability",
-            "Data Features and Databases",
-            "Program Library",
-            "Blobs and Drives",
-            "DPFS – Distributed Parallel File Systems"
-          ],
-          "sources": [
-            "BCS601-module-5-pdf-1.txt"
-          ],
-          "content_chars": 100713
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 18,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 1,
-        "previous_papers": 0,
-        "textbook_notes": 1,
-        "textbooks": 2,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
-    },
-    {
-      "subject_code": "BCS602",
-      "subject_name": "Machine Learning",
-      "semester": 6,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Introduction to Machine Learning",
-          "topics": [
-            "NEED FOR MACHINE LEARNING",
-            "MACHINE LEARNING EXPLAINED",
-            "Collection of data",
-            "MACHINE LEARNING IN RELATION TO OTHER FIELDS",
-            "Velocity: It refers to the speed at which the data is generated and processed.",
-            "TYPES OF MACHINE LEARNING",
-            "Supervised Learning",
-            "Unsupervised Learning",
-            "Semi-supervised Learning",
-            "Reinforcement Learning"
-          ],
-          "sources": [
-            "BCS602-module-1-pdf-1.txt"
-          ],
-          "content_chars": 68906
-        },
-        {
-          "module": 2,
-          "title": "Supervised Learning",
-          "topics": [
-            "INTRODUCTION",
-            "Decision Theory",
-            "Decision Theory",
-            "INTRODUCTION",
-            "Decision Theory",
-            "INTRODUCTION",
-            "Decision Theory",
-            "INTRODUCTION",
-            "Decision Theory",
-            "INTRODUCTION"
-          ],
-          "sources": [
-            "T1_Pattern_Recognition_and_Machine_Learning_Bishop.txt"
-          ],
-          "content_chars": 118872,
-          "fallback": true
-        },
-        {
-          "module": 3,
-          "title": "Unsupervised Learning",
-          "topics": [
-            "PROBABILITY DISTRIBUTIONS",
-            "The Gaussian Distribution",
-            "PROBABILITY DISTRIBUTIONS",
-            "The Gaussian Distribution",
-            "PROBABILITY DISTRIBUTIONS",
-            "The Gaussian Distribution",
-            "PROBABILITY DISTRIBUTIONS",
-            "The Gaussian Distribution",
-            "PROBABILITY DISTRIBUTIONS",
-            "The Gaussian Distribution"
-          ],
-          "sources": [
-            "T1_Pattern_Recognition_and_Machine_Learning_Bishop.txt"
-          ],
-          "content_chars": 118662,
-          "fallback": true
-        },
-        {
-          "module": 4,
-          "title": "Ensemble Methods and Model Evaluation",
-          "topics": [
-            "LINEAR MODELS FOR REGRESSION",
-            "The Bias-Variance Decomposition",
-            "LINEAR MODELS FOR REGRESSION",
-            "The Bias-Variance Decomposition",
-            "LINEAR MODELS FOR REGRESSION",
-            "Bayesian Linear Regression",
-            "Bayesian Linear Regression",
-            "LINEAR MODELS FOR REGRESSION",
-            "Bayesian Linear Regression",
-            "LINEAR MODELS FOR REGRESSION"
-          ],
-          "sources": [
-            "T1_Pattern_Recognition_and_Machine_Learning_Bishop.txt"
-          ],
-          "content_chars": 118803,
-          "fallback": true
-        },
-        {
-          "module": 5,
-          "title": "Neural Networks and Deep Learning Basics",
-          "topics": [
-            "LINEAR MODELS FOR CLASSIFICATION",
-            "Probabilistic Discriminative Models",
-            "LINEAR MODELS FOR CLASSIFICATION",
-            "Probabilistic Discriminative Models",
-            "LINEAR MODELS FOR CLASSIFICATION",
-            "Probabilistic Discriminative Models",
-            "LINEAR MODELS FOR CLASSIFICATION",
-            "Probabilistic Discriminative Models",
-            "LINEAR MODELS FOR CLASSIFICATION",
-            "The Laplace Approximation"
-          ],
-          "sources": [
-            "T1_Pattern_Recognition_and_Machine_Learning_Bishop.txt"
-          ],
-          "content_chars": 119156,
-          "fallback": true
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 6,
-        "module_txts": 6,
-        "question_papers": 11,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 0,
-        "previous_papers": 1,
-        "textbook_notes": 0,
-        "textbooks": 4,
-        "course_outcomes": 1,
-        "written_answers": 5
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          "module2.md (fallback)",
-          "module3.md (fallback)",
-          "module4.md (fallback)",
-          "module5.md (fallback)"
-        ],
-        "qbank_solutions": 0,
-        "errors": [
-          "Empty/unusable TXT: BCS602-module-1-textbook.txt (100 bytes)",
-          "Empty/unusable TXT: BCS602-module-2-textbook.txt (98 bytes)",
-          "Empty/unusable TXT: BCS602-module-4-textbook.txt (66 bytes)",
-          "Empty/unusable TXT: BCS602-module-5-textbook.txt (94 bytes)",
-          "Empty/unusable TXT: BCSS602-module-3-textbook.txt (134 bytes)"
-        ]
-      }
-    },
-    {
-      "subject_code": "BCS613A",
-      "subject_name": "Mobile Application Development",
-      "semester": 6,
-      "modules": [
-        {
-          "module": 4,
-          "title": "Data Storage and Networking",
-          "topics": [
-            "Solidity: The most popular programming language for writing Ethereum smart",
-            "Ganache: A personal blockchain for Ethereum development. It helps developers",
-            "Infura: A cloud-based service that provides scalable access to Ethereum nodes.",
-            "MetaMask: A browser extension that acts as a wallet and interface for Ethereum",
-            "Soft Fork",
-            "Hard Fork",
-            "Nonce-This is a value that is incremented every time a transaction is sent from",
-            "Storageroot This field represents the root node of a Merkle Patricia tree that",
-            "R (32 bytes)",
-            "S (32 bytes)"
-          ],
-          "sources": [
-            "BCS613-module-4-pdf.txt"
-          ],
-          "content_chars": 71528
-        },
-        {
-          "module": 1,
-          "title": "Introduction to Mobile Computing",
-          "topics": [
-            "Single Point of Control:",
-            "Scalability Issues:",
-            "Distributed Control:",
-            "Fault Tolerance:",
-            "CAP THEOREM",
-            "BYZANTINE GENERAL PROBLEM",
-            "CONSENSUS",
-            "CONSENSUS MECHANISMS",
-            "TYPES OF CONSENSUS MECHANISM",
-            "THE HISTORY OF BLOCKCHAIN"
-          ],
-          "sources": [
-            "BCS613A-module-1-pdf.txt"
-          ],
-          "content_chars": 58650
-        },
-        {
-          "module": 2,
-          "title": "Android Development Basics",
-          "topics": [
-            "DECENTRALIZATION USING BLOCKCHAIN",
-            "Disintermediation:",
-            "Contest-driven decentralization",
-            "ROUTES TO DECENTRALIZATION",
-            "What is being decentralized?",
-            "What level of decentralization is required?",
-            "What blockchain is used?",
-            "What security mechanism is used?",
-            "Money transfer system",
-            "Disintermediation"
-          ],
-          "sources": [
-            "BCS613A-module-2-pdf.txt"
-          ],
-          "content_chars": 137938
-        },
-        {
-          "module": 3,
-          "title": "Activities, Intents and UI Design",
-          "topics": [
-            "BITCOIN",
-            "BITCOIN DEFINITION",
-            "THE TRANSACTION LIFECYCLE OF A BITCOIN",
-            "The wallet software signs the transaction using the sender's private key.",
-            "Mining nodes (miners) who are listening for the transactions verify and include",
-            "Next, the mining starts, which is the process through which the blockchain is",
-            "Finally, the confirmations start to appear in the receiver's wallet and after",
-            "TRANSACTION POOL",
-            "THE TRANSACTION DATA STRUCTURE",
-            "THE SCRIPT LANGUAGE"
-          ],
-          "sources": [
-            "BCS613A-module-3-pdf.txt"
-          ],
-          "content_chars": 111592
-        },
-        {
-          "module": 5,
-          "title": "Advanced Android Topics",
-          "topics": [
-            "MODULAR APPROACH",
-            "PRIVACY AND CONFIDENTIALITY",
-            "IDENTITY",
-            "AUDITABILITY",
-            "INTEROPERABILITY",
-            "PORTABILITY",
-            "FABRIC",
-            "MEMBERSHIP SERVICES",
-            "User identity validation.",
-            "User registration."
-          ],
-          "sources": [
-            "BCS613A-module-5-pdf.txt"
-          ],
-          "content_chars": 44347
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 4,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 0,
-        "previous_papers": 0,
-        "textbook_notes": 0,
-        "textbooks": 2,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          4,
-          1,
-          2,
-          3,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
-    },
-    {
-      "subject_code": "BCS613C",
-      "subject_name": "Natural Language Processing",
-      "semester": 6,
-      "modules": [
-        {
-          "module": 4,
-          "title": "Semantics and Discourse",
-          "topics": [
-            "Solidity: The most popular programming language for writing Ethereum smart",
-            "Ganache: A personal blockchain for Ethereum development. It helps developers",
-            "Infura: A cloud-based service that provides scalable access to Ethereum nodes.",
-            "MetaMask: A browser extension that acts as a wallet and interface for Ethereum",
-            "Soft Fork",
-            "Hard Fork",
-            "Nonce-This is a value that is incremented every time a transaction is sent from",
-            "Storageroot This field represents the root node of a Merkle Patricia tree that",
-            "R (32 bytes)",
-            "S (32 bytes)"
-          ],
-          "sources": [
-            "BCS613-module-4-pdf.txt"
-          ],
-          "content_chars": 71528
-        },
-        {
-          "module": 1,
-          "title": "Introduction to NLP",
-          "topics": [
-            "Single Point of Control:",
-            "Scalability Issues:",
-            "Distributed Control:",
-            "Fault Tolerance:",
-            "CAP THEOREM",
-            "BYZANTINE GENERAL PROBLEM",
-            "CONSENSUS",
-            "CONSENSUS MECHANISMS",
-            "TYPES OF CONSENSUS MECHANISM",
-            "THE HISTORY OF BLOCKCHAIN"
-          ],
-          "sources": [
-            "BCS613A-module-1-pdf.txt"
-          ],
-          "content_chars": 58650
-        },
-        {
-          "module": 2,
-          "title": "Text Processing and Morphology",
-          "topics": [
-            "DECENTRALIZATION USING BLOCKCHAIN",
-            "Disintermediation:",
-            "Contest-driven decentralization",
-            "ROUTES TO DECENTRALIZATION",
-            "What is being decentralized?",
-            "What level of decentralization is required?",
-            "What blockchain is used?",
-            "What security mechanism is used?",
-            "Money transfer system",
-            "Disintermediation"
-          ],
-          "sources": [
-            "BCS613A-module-2-pdf.txt"
-          ],
-          "content_chars": 137938
-        },
-        {
-          "module": 3,
-          "title": "Syntax and Parsing",
-          "topics": [
-            "BITCOIN",
-            "BITCOIN DEFINITION",
-            "THE TRANSACTION LIFECYCLE OF A BITCOIN",
-            "The wallet software signs the transaction using the sender's private key.",
-            "Mining nodes (miners) who are listening for the transactions verify and include",
-            "Next, the mining starts, which is the process through which the blockchain is",
-            "Finally, the confirmations start to appear in the receiver's wallet and after",
-            "TRANSACTION POOL",
-            "THE TRANSACTION DATA STRUCTURE",
-            "THE SCRIPT LANGUAGE"
-          ],
-          "sources": [
-            "BCS613A-module-3-pdf.txt"
-          ],
-          "content_chars": 111592
-        },
-        {
-          "module": 5,
-          "title": "NLP Applications",
-          "topics": [
-            "MODULAR APPROACH",
-            "PRIVACY AND CONFIDENTIALITY",
-            "IDENTITY",
-            "AUDITABILITY",
-            "INTEROPERABILITY",
-            "PORTABILITY",
-            "FABRIC",
-            "MEMBERSHIP SERVICES",
-            "User identity validation.",
-            "User registration."
-          ],
-          "sources": [
-            "BCS613A-module-5-pdf.txt"
-          ],
-          "content_chars": 44347
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 4,
-        "module_txts": 5,
-        "question_papers": 14,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 0,
-        "previous_papers": 0,
-        "textbook_notes": 1,
-        "textbooks": 0,
-        "course_outcomes": 0,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          4,
-          1,
-          2,
-          3,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
-    },
-    {
-      "subject_code": "BCS701",
-      "subject_name": "Internet of Things",
-      "semester": 7,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Introduction to IoT",
-          "topics": [
-            "Introduction",
-            "Physical Design of IoT",
-            "Things of IoT",
-            "IoT Protocol",
-            "Ethernet:",
-            "GHz band. 802.11ac operates in the 5G hertz band.",
-            "WiMAX:",
-            "LR-WPAN:",
-            "Logical design of IoT",
-            "IoT functional block"
-          ],
-          "sources": [
-            "BCS701-module-1-pdf.txt"
-          ],
-          "content_chars": 40223
-        },
-        {
-          "module": 2,
-          "title": "IoT Architecture and Protocols",
-          "topics": [
-            "M2M area network (local machines)",
-            "Communication network (connects different areas)",
-            "Application (where data is used)",
-            "Differences between IoT and M2M",
-            "Communication Protocols",
-            "Machines in M2M vs Things in IoT",
-            "Hardware vs Software Emphasis",
-            "Data Collection & Analysis",
-            "Applications",
-            "SDN and NFV for IoT"
-          ],
-          "sources": [
-            "BCS701-module-2-pdf.txt"
-          ],
-          "content_chars": 28189
-        },
-        {
-          "module": 3,
-          "title": "IoT Physical Devices and Endpoints",
-          "topics": [
-            "Introduction",
-            "IoT Design Methodology",
-            "Step 1: Purpose & Requirements Specification",
-            "Step 2: Process Specification",
-            "Step 3: Domain Model Specification",
-            "Step 4: Information Model Specification",
-            "Step 5: Service Specifications",
-            "Step 6: IoT Level Specification",
-            "Step 7: Functional View Specification",
-            "Step 8: Operational View Specification"
-          ],
-          "sources": [
-            "BCS701-module-3-pdf.txt"
-          ],
-          "content_chars": 39271
-        },
-        {
-          "module": 4,
-          "title": "IoT Platforms and Data Analytics",
-          "topics": [
-            "What is an IoT Device?",
-            "Basic Building Blocks of an IoT Device",
-            "Exemplary Device: Raspberry Pi",
-            "About the Board",
-            "Linux on Raspberry Pi",
-            "Rasberry Pi Interfaces",
-            "Serial",
-            "Programming Raspberry Pi with Python",
-            "Controlling LED with Rasberry Pi",
-            "Interfacing an LED and Switch with Raspberry Pi"
-          ],
-          "sources": [
-            "BCS701-module-4-pdf.txt"
-          ],
-          "content_chars": 30153
-        },
-        {
-          "module": 5,
-          "title": "IoT Security and Case Studies",
-          "topics": [
-            "Introduction",
-            "Apache Hadoop",
-            "MapReduce Programming Model",
-            "Hadoop MapReduce Job Execution",
-            "MapReduce Job Execution Workflow Figure 5.6 shows the MapReduce job execution",
-            "Navigate to the Hadoop directory: $cd hadoop-1.0.4",
-            "Format the NameNode: $bin/hadoop namenode -format",
-            "Start HDFS daemons: $bin/start-dfs.sh",
-            "Start MapReduce daemons: $bin/start-mapred.sh",
-            "Check the status of daemons: $jps"
-          ],
-          "sources": [
-            "BCS701-module-5-pdf.txt"
-          ],
-          "content_chars": 34078
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 12,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 0,
-        "previous_papers": 0,
-        "textbook_notes": 1,
-        "textbooks": 4,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
-    },
-    {
-      "subject_code": "BCS702",
-      "subject_name": "Deep Learning",
-      "semester": 7,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Introduction to Deep Learning",
-          "topics": [
-            "Parallel Hardware",
-            "Classifications of Parallel Computers",
-            "SIMD Systems",
-            "MIMD Systems",
-            "Asynchronous Execution:",
-            "No Global Clock or Lockstep Execution:",
-            "Independent Control Units:",
-            "Scalability:",
-            "Shared-Memory MIMD Systems:",
-            "Distributed-Memory MIMD Systems:"
-          ],
-          "sources": [
-            "BCS702-module-1-pdf-1.txt"
-          ],
-          "content_chars": 45531
-        },
-        {
-          "module": 2,
-          "title": "Convolutional Neural Networks",
-          "topics": [
-            "GPU Programming",
-            "GPU Programming",
-            "Programming Hybrid Systems",
-            "Input and Output",
-            "MIMD systems",
-            "GPUs and I/O",
-            "Performance",
-            "Speedup and Efficiency in MIMD Systems",
-            "Amdahl’s Law",
-            "Scalability in MIMD Systems"
-          ],
-          "sources": [
-            "BCS702-module-2-pdf-1.txt"
-          ],
-          "content_chars": 18493
-        },
-        {
-          "module": 3,
-          "title": "Recurrent Neural Networks",
-          "topics": [
-            "Getting Started",
-            "Compilation and Execution",
-            "MPI Programs",
-            "MPI_Init and MPI_Finalize",
-            "Communicators, MPI_Comm_size, and MPI_Comm_rank",
-            "SPMD Programs",
-            "Communication",
-            "MPI_Send",
-            "Message Matching",
-            "The status_p Argument"
-          ],
-          "sources": [
-            "BCS702-module-3-pdf.txt"
-          ],
-          "content_chars": 52517
-        },
-        {
-          "module": 4,
-          "title": "Generative Models",
-          "topics": [
-            "Getting started",
-            "Compiling and running OpenMP programs",
-            "The program",
-            "Error checking",
-            "The Trapezoidal Rule",
-            "A First OpenMP Version",
-            "Identified",
-            "No communication among jobs in the first collection (1a), but each job in (1a)",
-            "Assumption: Number of trapezoids (n) is much larger than the number of cores.",
-            "Its rank and the total number of threads,"
-          ],
-          "sources": [
-            "BCS702-module-4-pdf.txt"
-          ],
-          "content_chars": 51754
-        },
-        {
-          "module": 5,
-          "title": "Advanced Deep Learning Topics",
-          "topics": [
-            "GPUs and GPGPU",
-            "GPUs architectures",
-            "Heterogeneous computing",
-            "CUDA hello",
-            "The source code",
-            "Compiling and running the program",
-            "Threads, Blocks, and Grids in CUDA",
-            "NVIDIA Compute Capabilities and Device Architectures",
-            "Vector addition",
-            "The Kernel – Vector Addition in CUDA"
-          ],
-          "sources": [
-            "BCS702-module-5-pdf.txt"
-          ],
-          "content_chars": 53033
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 12,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 0,
-        "previous_papers": 0,
-        "textbook_notes": 1,
-        "textbooks": 4,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
-    },
-    {
-      "subject_code": "BCS703",
-      "subject_name": "Information and Network Security",
-      "semester": 7,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Introduction to Cryptography",
-          "topics": [
-            "Security Transformation:",
-            "Secret Information:",
-            "Design a strong security algorithm",
-            "Generate secret keys",
-            "Develop secure key distribution methods",
-            "Specify protocols for communication using the algorithm and secret",
-            "Information Access Threats:",
-            "Service Threats:",
-            "Gatekeeper Functions:",
-            "Internal Controls:"
-          ],
-          "sources": [
-            "BCS703-module-1-pdf.txt"
-          ],
-          "content_chars": 81079
-        },
-        {
-          "module": 2,
-          "title": "Symmetric Key Cryptography",
-          "topics": [
-            "Key distribution – how to have secure communications",
-            "Digital signatures – how to verify a message comes",
-            "Ciphertext: This is the scrambled message produced as output. It depends on the",
-            "Generates a pair of keys to be used for the encryption and decryption",
-            "Places one of the two keys in a public register or other accessible file.",
-            "If Bob wishes to send a confidential message to Alice, Bob encrypts",
-            "When Alice receives the message, she decrypts it using her private",
-            "The two keys can be applied in either order:",
-            "Select two prime numbers, p = 17 and q = 11.",
-            "Calculate n = pq = 17 * 11 = 187."
-          ],
-          "sources": [
-            "BCS703-module-2-pdf.txt"
-          ],
-          "content_chars": 14705
-        },
-        {
-          "module": 3,
-          "title": "Asymmetric Key Cryptography",
-          "topics": [
-            "Password Protection – Store hash of passwords instead of the actual passwords.",
-            "Intrusion",
-            "Initialize n-bit hash to 0.",
-            "A can select a key and physically deliver it to B.",
-            "A third party can select the key and physically deliver it to A and B.",
-            "Using the newly minted session key for encryption, B sends a nonce, N2, to A.",
-            "Also using Ks, A responds with f(N2), where f is a function that performs some",
-            "When one host wishes to set up a connection to another host, it",
-            "The SSM saves that packet and applies to the KDC for permission to",
-            "The communication between the SSM and the KDC is encrypted using a"
-          ],
-          "sources": [
-            "BCS703-module-3-pdf.txt"
-          ],
-          "content_chars": 39249
-        },
-        {
-          "module": 4,
-          "title": "Authentication and Digital Signatures",
-          "topics": [
-            "USER AUTHENTICATION",
-            "KERBEROS",
-            "PCBC encryption: Encryption in version 4 makes use of a nonstandard mode of DES",
-            "REMOTE USER AUTHENTICATION USING ASYMMETRICENCRYPTION",
-            "Using IP Security (IPsec) — Figure 17.1(a):",
-            "Using Security Above TCP — Figure 17.1(b):",
-            "Application-Specific Security — Figure 17.1(c):",
-            "TLS-specific protocols –",
-            "Fragmentation: Messages split into blocks ≤16,384 bytes.",
-            "Compression: Optional, lossless."
-          ],
-          "sources": [
-            "BCS703-module-4-pdf.txt"
-          ],
-          "content_chars": 62340
-        },
-        {
-          "module": 5,
-          "title": "Network Security",
-          "topics": [
-            "The next level consists of professional bulk spammers. These attackers operate",
-            "LOCATION",
-            "IP SECURITY OVERVIEW",
-            "Only authorized users are able to access the VPN.",
-            "No eavesdropper on the Internet can read the transmitted data.",
-            "TRANSPORT AND TUNNEL MODES",
-            "AH/ESP fields are added to the original packet.",
-            "IP SECURITY POLICY",
-            "Security Parameters Index (SPI)",
-            "IP Destination Address"
-          ],
-          "sources": [
-            "BCS703-module-5-pdf.txt"
-          ],
-          "content_chars": 58198
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 12,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 0,
-        "previous_papers": 0,
-        "textbook_notes": 1,
-        "textbooks": 2,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
-    },
-    {
-      "subject_code": "BCS714D",
-      "subject_name": "Blockchain Technology",
-      "semester": 7,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Introduction to Blockchain",
-          "topics": [
-            "Quantitative data is provided in numerical form, like the weight,",
-            "Qualitative  data  is  descriptive,  but  non-numerical,  like  the  name,",
-            "Composition: The composition of data deals with the structure of data,",
-            "Condition: The condition of data deals with the state of data, that is,",
-            "Context: The context of data deals with \"Where has this data been",
-            "Accuracy",
-            "Validity",
-            "Reliability",
-            "Timeliness",
-            "Relevance"
-          ],
-          "sources": [
-            "BCS714D-module-1-pdf.txt"
-          ],
-          "content_chars": 72550
-        },
-        {
-          "module": 2,
-          "title": "Blockchain Architecture and Consensus",
-          "topics": [
-            "PARAMETERS",
-            "HADOOP",
-            "Massive data storage.",
-            "Faster data processing.",
-            "HDFS:",
-            "MapReduce:",
-            "HIVE",
-            "SQOOP",
-            "HBASE",
-            "FLUME"
-          ],
-          "sources": [
-            "BCS714D-module-2-pdf.txt"
-          ],
-          "content_chars": 60350
-        },
-        {
-          "module": 3,
-          "title": "Ethereum and Smart Contracts",
-          "topics": [
-            "What is MongoDB?",
-            "Cross-platform.",
-            "Open source.",
-            "Non-relational.",
-            "Distributed.",
-            "NoSQL.",
-            "Document-oriented data store.",
-            "WHY MongoDB?",
-            "Full index support",
-            "Rich query language"
-          ],
-          "sources": [
-            "BCS714D-module-3-pdf.txt"
-          ],
-          "content_chars": 54865
-        },
-        {
-          "module": 4,
-          "title": "Hyperledger and Enterprise Blockchain",
-          "topics": [
-            "What is HIVE?",
-            "Summarization",
-            "Querying",
-            "Analysis",
-            "HDFS for Storage.",
-            "MapReduce for execution.",
-            "Stores metadata/schemas in an RDBMS.",
-            "Hive is not RDBMS.",
-            "It is not designed to support OLTP (Online Transaction Processing).",
-            "It is not designed for real-time queries."
-          ],
-          "sources": [
-            "BCS714D-module-4-pdf.txt"
-          ],
-          "content_chars": 48999
-        },
-        {
-          "module": 5,
-          "title": "Blockchain Applications and Use Cases",
-          "topics": [
-            "SPARK",
-            "Introduction to Big Data Tool-Spark",
-            "Spark HDFS file system for data storage: Storae is at an HDFS or Hadoop",
-            "Spark standard API enables the creation of applications using Scala, Java,",
-            "Spark resource management can be a stand-alone server or it can be on a",
-            "Features of Spark",
-            "Spark provisions for creating applications that use the complex data. In-memory",
-            "Execution engine uses both in-memory and on-disk computing. Intermediate",
-            "Provides high performance when an application accesses memory cache from the",
-            "Contains API to define Resilient Distributed Datasets (RDDs). RDD is a"
-          ],
-          "sources": [
-            "BCS714D-module-5-pdf.txt"
-          ],
-          "content_chars": 36101
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 12,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 0,
-        "previous_papers": 0,
-        "textbook_notes": 1,
-        "textbooks": 4,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
-    },
-    {
-      "subject_code": "BCV654C",
-      "subject_name": "Integrated Waste Management",
-      "semester": 6,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Introduction to Waste Management",
-          "topics": [
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "WASTE GENERATION AND COMPOSITION",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "WASTE CHARACTERISTICS",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM"
-          ],
-          "sources": [
-            "BCV654C-module-1-pdf-1.txt"
-          ],
-          "content_chars": 47009
-        },
-        {
-          "module": 2,
-          "title": "Solid Waste Management",
-          "topics": [
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "COMPOSTING",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "ANAEROBIC DIGESTION"
-          ],
-          "sources": [
-            "BCV654C-module-2-pdf-1.txt"
-          ],
-          "content_chars": 43477
-        },
-        {
-          "module": 3,
-          "title": "Liquid Waste Management",
-          "topics": [
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "ENERGY RECOVERY FROM WASTE",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "BASIC TECHNIQUES OF ENERGY RECOVERY",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "TECHNOLOGICAL OPTIONS",
-            "Anaerobic Digestion (AD)",
-            "Landfill Gas Recovery",
-            "Incineration"
-          ],
-          "sources": [
-            "BCV654C-module-3-pdf-1.txt"
-          ],
-          "content_chars": 62103
-        },
-        {
-          "module": 4,
-          "title": "Hazardous Waste Management",
-          "topics": [
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "Cranes for Pre-sorting:"
-          ],
-          "sources": [
-            "BCV654C-module-4-pdf-1.txt"
-          ],
-          "content_chars": 46812
-        },
-        {
-          "module": 5,
-          "title": "Smart City Waste Solutions",
-          "topics": [
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM",
-            "INTEGRATED WASTE MANAGEMENT SYSTEM"
-          ],
-          "sources": [
-            "BCV654C-module-5-pdf-1.txt"
-          ],
-          "content_chars": 29123
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 6,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 1,
-        "previous_papers": 1,
-        "textbook_notes": 0,
-        "textbooks": 0,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
-    },
-    {
-      "subject_code": "BESK508",
-      "subject_name": "Environmental Studies",
+      "subject_code": "BCS515C",
+      "subject_name": "Unix System Programming",
       "semester": 5,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Environmental Science Basics",
-          "topics": [
-            "The term ‘Environment’ has been derived from the French word which means",
-            "Biosphere is",
-            "Atmosphere consists of 79 per cent Nitrogen and 21 per cent Oxygen by",
-            "Which of the following is a biotic component of an ecosystem?",
-            "In an ecosystem, the flow of energy is",
-            "Which Pyramid is always upright",
-            "In complex ecosystems the degree of species diversity is",
-            "The organisms who directly feed on producers are called",
-            "The sequence of eating and being eaten in an ecosystem is called",
-            "Which of the following is a producer in an ecosystem"
-          ],
-          "sources": [
-            "BESK508-module-1-mcq-1.txt"
-          ],
-          "content_chars": 13799
-        },
-        {
-          "module": 2,
-          "title": "Natural Resources",
-          "topics": [
-            "ADVANCES IN ENERGY SYSTEM",
-            "AND NATURAL RESOURCE",
-            "MANAGEMENT",
-            "Which of the following supplies maximum amount of hydrogen gas?",
-            "In terms of greenhouse gas emissions, how good or bad is hydrogen fuel?",
-            "Which of the following use hydrogen as fuel?",
-            "Which of the following is the most popular application of hydrogen fuel cell?",
-            "How is hydrogen gas produced from fossil fuels?",
-            "What is the major drawback of steam-methane reforming technique to produce",
-            "How does electrolysis produce hydrogen?"
-          ],
-          "sources": [
-            "BESK508-module-2-mcq-1.txt"
-          ],
-          "content_chars": 14539
-        },
-        {
-          "module": 3,
-          "title": "Ecosystems and Biodiversity",
-          "topics": [
-            "Ground water characteristics must be monitored at least once in a",
-            "Ground water samples should be collected at least up to a distance",
-            "How should the monitoring wells be arranged in the absence of bore wells?",
-            "The directions of the ground water flow have to be established with",
-            "When did the Central Pollution Control Board established?",
-            "Who appoints the chairman of the Central Pollution Control Board?",
-            "Where is the head office of the Central Pollution Control Board?",
-            "What is the full form of NAMP?",
-            "When did the National Green Tribunal Act constituted?",
-            "Groundwater containing bacteria and viruses can result in"
-          ],
-          "sources": [
-            "BESK508-module-3-mcq-1.txt"
-          ],
-          "content_chars": 26427
-        },
-        {
-          "module": 4,
-          "title": "Environmental Pollution",
-          "topics": [
-            "Which of the following doesn’t control aquifer behaviour?",
-            "An aquifer can hold water",
-            "When would the dam become irrelevant?",
-            "Groundwater is a source of trouble at which place?",
-            "An associated protection of rising water-table is the development of",
-            "How many cubic kilometers of land ice decrease in Antarctica since 2002?",
-            "Which one of the following is the reason for a sea level rise?",
-            "What is the full form of IPCC?",
-            "Which one of the following is a result of climate change?",
-            "How food production reduced due to climate change?"
-          ],
-          "sources": [
-            "BESK508-module-4-mcq-1.txt"
-          ],
-          "content_chars": 21676
-        },
-        {
-          "module": 5,
-          "title": "Social Issues and Environment",
-          "topics": [
-            "Remote sensing uses which of the following waves in its procedure?",
-            "The relation between velocity, wavelength and frequency can be given as",
-            "Which of the following is not a principle of remote sensing?",
-            "Which among the following waves is having less wavelength range?",
-            "In visible region, the blue light is having a wave length range of",
-            "Which of the following is not a classification of scattering principle?",
-            "Polar orbiting satellites are generally placed at an altitude range of",
-            "Which of the following field is used by the EM waves?",
-            "Which one of the following statement is incorrect regarding the electromagnetic",
-            "The changes in the reflectivity/emissivity with time, is called:"
-          ],
-          "sources": [
-            "BESK508-module-5-mcq-1.txt"
-          ],
-          "content_chars": 8793
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 0,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 0,
-        "previous_papers": 0,
-        "textbook_notes": 0,
-        "textbooks": 0,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
+      "category": "PEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS515D",
+      "subject_name": "Distributed Systems",
+      "semester": 5,
+      "category": "PEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS586",
+      "subject_name": "Mini Project",
+      "semester": 5,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCSL504",
+      "subject_name": "Web Technology Lab",
+      "semester": 5,
+      "category": "laboratory",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
     },
     {
       "subject_code": "BRMK557",
       "subject_name": "Research Methodology and IPR",
       "semester": 5,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Introduction to Research Methodology",
-          "topics": [
-            "MEANING OF RESEARCH",
-            "OBJECTIVES OF ENGINEERING RESEARCH",
-            "MOTIVATION IN ENGINEERING RESEARCH",
-            "TYPES OF ENGINEERING RESEARCH",
-            "ENGINEERING RESEARCH PROCESS",
-            "FINDING AND SOLVING A WORTHWHILE PROBLEM",
-            "ETHICS IN ENGINEERING RESEARCH",
-            "ETHICS IN ENGINEERING RESEARCH PRACTICE",
-            "TYPES OF RESEARCH MISCONDUCT",
-            "ETHICAL ISSUES RELATED TO AUTHORSHIP"
-          ],
-          "sources": [
-            "BRMK557-module-1-pdf.txt"
-          ],
-          "content_chars": 33007
-        },
-        {
-          "module": 2,
-          "title": "Research Design",
-          "topics": [
-            "ATTRIBUTIONS AND CITATIONS",
-            "LITERATURE REVIEW AND TECHNICAL READING",
-            "NEW AND EXISTING KNOWLEDGE",
-            "ANALYSIS AND SYNTHESIS OF PRIOR ART",
-            "BIBLIOGRAPHIC DATABASES",
-            "INTRODUCTION TO TECHNICAL READING",
-            "CONCEPTUALIZING RESEARCH",
-            "CRITICAL AND CREATIVE READING",
-            "TAKING NOTES WHILE READING",
-            "READING MATHEMATICS AND ALGORITHMS"
-          ],
-          "sources": [
-            "BRMK557-module-2-pdf.txt"
-          ],
-          "content_chars": 45108
-        },
-        {
-          "module": 3,
-          "title": "Data Collection and Analysis",
-          "topics": [
-            "PROCESS OF PATENTING",
-            "INTRODUCTION TO INTELLECTUAL PROPERTY",
-            "ROLE OF IP IN THE ECONOMIC AND CULTURAL DEVELOPMENT OF THE",
-            "SOCIETY",
-            "IP GOVERNANCE",
-            "IP AS A GLOBAL INDICATOR OF INNOVATION",
-            "ORIGIN OF IP",
-            "HISTORY OF IP IN INDIA",
-            "MAJOR AMENDMENTS IN IP LAWS AND ACTS IN INDIA",
-            "PATENTS"
-          ],
-          "sources": [
-            "BRMK557-module-3-pdf.txt"
-          ],
-          "content_chars": 60395
-        },
-        {
-          "module": 4,
-          "title": "Technical Writing",
-          "topics": [
-            "TRADEMARKS",
-            "COPYRIGHTS AND RELATED RIGHTS",
-            "CLASSES OF COPYRIGHTS",
-            "CRITERIA FOR COPYRIGHT",
-            "OWNERSHIP OF COPYRIGHT",
-            "COPYRIGHTS OF THE AUTHOR",
-            "COPYRIGHT INFRINGEMENTS",
-            "COPYRIGHT INFRINGEMENT IS A CRIMINAL OFFENCE",
-            "COPYRIGHT INFRINGEMENT IS A COGNIZABLE OFFENCE",
-            "FAIR USE DOCTRINE"
-          ],
-          "sources": [
-            "BRMK557-module-4-pdf.txt"
-          ],
-          "content_chars": 39428
-        },
-        {
-          "module": 5,
-          "title": "Intellectual Property Rights",
-          "topics": [
-            "AND CASE STUDIES ON PATENTS",
-            "INDUSTRIAL DESIGNS",
-            "ELIGIBILITY CRITERIA",
-            "ACTS AND LAWS TO GOVERN INDUSTRIAL DESIGNS",
-            "DESIGN RIGHTS",
-            "ENFORCEMENT OF DESIGN RIGHTS",
-            "PROTECTION TERM",
-            "PROCEDURE FOR REGISTRATION OF INDUSTRIAL DESIGNS",
-            "DURATION OF THE REGISTRATION OF A DESIGN",
-            "IMPORTANCE OF DESIGN REGISTRATION"
-          ],
-          "sources": [
-            "BRMK557-module-5-pdf.txt"
-          ],
-          "content_chars": 26380
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 10,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 1,
-        "previous_papers": 1,
-        "textbook_notes": 0,
-        "textbooks": 0,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
+      "category": "other",
+      "modules_count": 5,
+      "chunks_count": 10,
+      "pyq_count": 85,
+      "diagrams_count": 3,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PASS"
     },
     {
-      "subject_code": "BUHK408",
-      "subject_name": "Universal Human Values",
-      "semester": 4,
-      "modules": [
-        {
-          "module": 1,
-          "title": "Course Introduction and Value Education",
-          "topics": [
-            "You want to live in relationship (harmony) with others or",
-            "You want to live in opposition with others or",
-            "You believe, living has to be necessarily in opposition with others, i.e. there",
-            "Those lacking physical facility, unhappy and deprived",
-            "Those having physical facility, and yet unhappy",
-            "Right understanding in every child,",
-            "The capacity to live in relationship with other human beings, and",
-            "Discover our natural acceptance",
-            "Become aware of “what I am”",
-            "Can make effort to ensure harmony and happiness within by ensuring that"
-          ],
-          "sources": [
-            "BUHK408-Module-1-pdf.txt"
-          ],
-          "content_chars": 30957
-        },
-        {
-          "module": 2,
-          "title": "Understanding Harmony",
-          "topics": [],
-          "sources": [
-            "BUHK408-Module-2-pdf.txt"
-          ],
-          "content_chars": 21204
-        },
-        {
-          "module": 3,
-          "title": "Understanding Human Relationships",
-          "topics": [
-            "Relationship is – between one Self (I1) and another Self (I2)",
-            "There are feelings in relationship – in one Self (I1) for the other Self (I2)",
-            "These feelings can be recognised – they are definite",
-            "The fulfilment of these feelings and their right evaluation lead to mutual",
-            "Relationship is – between one Self (I1) and another Self (I2)",
-            "There are feelings in relationship – in one Self (I1) for the other Self (I2)",
-            "These feelings can be recognised – they are definite",
-            "Our purpose is the same – As I have a natural acceptance to live with",
-            "Our programme is same – As my programme to achieve continuous",
-            "Our potential is same – As I am endowed with natural acceptance and the"
-          ],
-          "sources": [
-            "BUHK408-Module-3-pdf.txt"
-          ],
-          "content_chars": 35324
-        },
-        {
-          "module": 4,
-          "title": "Understanding Society and Nature",
-          "topics": [
-            "Physical order – this includes units like air, water, metal and so on.",
-            "Bio order",
-            "Animal order– this includes animals and birds.",
-            "Human order– this has human being only.",
-            "Units are Energised in Space",
-            "Units are Self-organised in Space",
-            "Units Recognise their Relationship and Fulfil it with Every Other Unit in Space",
-            "Self-exploration: Verifying the proposals on our own right and living",
-            "Self-awareness: Being aware of one‟s desires, thoughts and expectations every",
-            "Self-evaluation- Evaluating one‟s competence vis-à-vis the natural acceptance"
-          ],
-          "sources": [
-            "BUHK408-Module-4-pdf.txt"
-          ],
-          "content_chars": 15351
-        },
-        {
-          "module": 5,
-          "title": "Implications of Value-based Living",
-          "topics": [
-            "Self-Direction: Independent thought and action; choosing, creating, exploring.",
-            "Stimulation: Excitement, novelty, and challenge in life.",
-            "Hedonism: Pleasure and sensuous gratification for oneself.",
-            "Benevolence: Preserving and enhancing the welfare of those with whom one is in",
-            "BASIS FOR THE HOLISTIC ALTERNATIVE TOWARDS UNIVERSAL HUMAN",
-            "VISION FOR THE HOLISTIC ALTERNATIVE",
-            "The five dimensions of human Endeavour towards a fragmented society.",
-            "The steps of organization from family to world family, each anchored in right",
-            "Competence of actualizing one understands in real life."
-          ],
-          "sources": [
-            "BUHK408-Module-5-pdf.txt"
-          ],
-          "content_chars": 22263
-        }
-      ],
-      "sources_discovered": {
-        "module_pdfs": 5,
-        "module_txts": 5,
-        "question_papers": 21,
-        "question_bank_solutions": 0,
-        "question_banks": 0,
-        "important_questions": 0,
-        "model_papers": 1,
-        "previous_papers": 1,
-        "textbook_notes": 0,
-        "textbooks": 0,
-        "course_outcomes": 1,
-        "written_answers": 0
-      },
-      "ingestion_results": {
-        "modules_created": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "qbank_solutions": 0,
-        "errors": []
-      }
+      "subject_code": "BAI654D",
+      "subject_name": "Introduction to Artificial Intelligence",
+      "semester": 6,
+      "category": "OEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BAIL657C",
+      "subject_name": "Generative AI",
+      "semester": 6,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS601",
+      "subject_name": "Cloud Computing (Open Stack /Google)",
+      "semester": 6,
+      "category": "core",
+      "modules_count": 5,
+      "chunks_count": 33,
+      "pyq_count": 33,
+      "diagrams_count": 1,
+      "equations_count": 0,
+      "case_studies_count": 1,
+      "status": "PASS"
+    },
+    {
+      "subject_code": "BCS602",
+      "subject_name": "Machine Learning",
+      "semester": 6,
+      "category": "core",
+      "modules_count": 5,
+      "chunks_count": 27,
+      "pyq_count": 10,
+      "diagrams_count": 4,
+      "equations_count": 2,
+      "case_studies_count": 0,
+      "status": "PASS"
+    },
+    {
+      "subject_code": "BCS613A",
+      "subject_name": "Blockchain Technology",
+      "semester": 6,
+      "category": "PEC",
+      "modules_count": 5,
+      "chunks_count": 25,
+      "pyq_count": 0,
+      "diagrams_count": 20,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PASS"
+    },
+    {
+      "subject_code": "BCS613B",
+      "subject_name": "Computer Vision",
+      "semester": 6,
+      "category": "PEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS613C",
+      "subject_name": "Compiler Design",
+      "semester": 6,
+      "category": "PEC",
+      "modules_count": 5,
+      "chunks_count": 19,
+      "pyq_count": 0,
+      "diagrams_count": 20,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PASS"
+    },
+    {
+      "subject_code": "BCS613D",
+      "subject_name": "Advanced Java",
+      "semester": 6,
+      "category": "PEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS654A",
+      "subject_name": "Introduction to Data Structures",
+      "semester": 6,
+      "category": "OEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS654B",
+      "subject_name": "Fundamentals of Operating Systems",
+      "semester": 6,
+      "category": "OEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS685",
+      "subject_name": "Project Phase I",
+      "semester": 6,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCSL606",
+      "subject_name": "Machine Learning Lab",
+      "semester": 6,
+      "category": "laboratory",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCSL657B",
+      "subject_name": "React",
+      "semester": 6,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCSL657D",
+      "subject_name": "Devops",
+      "semester": 6,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCV654C",
+      "subject_name": "Integrated Waste Management for a Smart City",
+      "semester": 6,
+      "category": "OEC",
+      "modules_count": 5,
+      "chunks_count": 22,
+      "pyq_count": 22,
+      "diagrams_count": 76,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PASS"
+    },
+    {
+      "subject_code": "BIKS609",
+      "subject_name": "Indian Knowledge System",
+      "semester": 6,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BIS654C",
+      "subject_name": "Mobile Application Development",
+      "semester": 6,
+      "category": "OEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BISL657A",
+      "subject_name": "Tosca \u2013 Automated Software Testing",
+      "semester": 6,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BAD714D",
+      "subject_name": "Social Network Analysis",
+      "semester": 7,
+      "category": "PEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS701",
+      "subject_name": "Internet of Things",
+      "semester": 7,
+      "category": "core",
+      "modules_count": 5,
+      "chunks_count": 89,
+      "pyq_count": 0,
+      "diagrams_count": 15,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PASS"
+    },
+    {
+      "subject_code": "BCS702",
+      "subject_name": "Parallel Computing",
+      "semester": 7,
+      "category": "core",
+      "modules_count": 5,
+      "chunks_count": 111,
+      "pyq_count": 0,
+      "diagrams_count": 28,
+      "equations_count": 1,
+      "case_studies_count": 0,
+      "status": "PASS"
+    },
+    {
+      "subject_code": "BCS703",
+      "subject_name": "Cryptography & Network Security",
+      "semester": 7,
+      "category": "core",
+      "modules_count": 5,
+      "chunks_count": 17,
+      "pyq_count": 0,
+      "diagrams_count": 28,
+      "equations_count": 1,
+      "case_studies_count": 0,
+      "status": "PASS"
+    },
+    {
+      "subject_code": "BCS714A",
+      "subject_name": "Deep Learning",
+      "semester": 7,
+      "category": "PEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS714B",
+      "subject_name": "Natural Language Processing",
+      "semester": 7,
+      "category": "PEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS714D",
+      "subject_name": "Big Data Analytics",
+      "semester": 7,
+      "category": "PEC",
+      "modules_count": 5,
+      "chunks_count": 19,
+      "pyq_count": 0,
+      "diagrams_count": 28,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PASS"
+    },
+    {
+      "subject_code": "BCS755A",
+      "subject_name": "Introduction to DBMS",
+      "semester": 7,
+      "category": "OEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS755B",
+      "subject_name": "Introduction to Algorithms",
+      "semester": 7,
+      "category": "OEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS755C",
+      "subject_name": "Software Engineering",
+      "semester": 7,
+      "category": "OEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS755D",
+      "subject_name": "Data Mining and Data Warehousing",
+      "semester": 7,
+      "category": "OEC",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "subject_code": "BCS786",
+      "subject_name": "Major Project Phase-II",
+      "semester": 7,
+      "category": "other",
+      "modules_count": 0,
+      "chunks_count": 0,
+      "pyq_count": 0,
+      "diagrams_count": 0,
+      "equations_count": 0,
+      "case_studies_count": 0,
+      "status": "PARTIAL"
     }
   ]
 }

@@ -1,0 +1,14 @@
+[
+  {
+    "equation_id": "EQ_BCS401_01",
+    "subject": "BCS401",
+    "module": 2,
+    "topic": "Divide and Conquer",
+    "name": "Master Theorem for Divide-and-Conquer Recurrences",
+    "page": 95,
+    "latex": "T(n) = a T(n/b) + f(n), \\quad c = \\log_b a",
+    "plain_text": "T(n) = a * T(n/b) + f(n), where c = log_b(a)",
+    "variables": "a >= 1: subproblems, b > 1: factor of division, f(n): combination cost",
+    "source": "CLRS Algorithms / BCS401 Module 2"
+  }
+]

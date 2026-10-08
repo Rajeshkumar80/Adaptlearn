@@ -1,0 +1,14 @@
+[
+  {
+    "equation_id": "EQ_BCS402_01",
+    "subject": "BCS402",
+    "module": 3,
+    "topic": "Serial Communication & Timers",
+    "name": "Timer 1 Baud Rate in Mode 2",
+    "page": 142,
+    "latex": "\\text{BaudRate} = \\frac{2^{\\text{SMOD}}}{32} \\times \\frac{F_{\\text{osc}}}{12 \\times (256 - \\text{TH1})}",
+    "plain_text": "BaudRate = (2^SMOD / 32) * (Fosc / (12 * (256 - TH1)))",
+    "variables": "Fosc: crystal frequency (11.0592 MHz), SMOD: doubler bit, TH1: reload value",
+    "source": "Mazidi Microcontrollers / BCS402 Module 3"
+  }
+]

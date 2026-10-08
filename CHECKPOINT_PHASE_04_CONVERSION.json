@@ -1,0 +1,23 @@
+{
+  "checkpoint_id": "CHECKPOINT_PHASE_04_CONVERSION",
+  "phase": "PHASE 4 \u2014 STRUCTURED DOCUMENT CONVERSION (PDF -> MARKDOWN)",
+  "timestamp": "2026-10-08T06:21:24.432428",
+  "status": "PASSED",
+  "files_created": [
+    "EXTRACTION_FAILURE_REPORT.json"
+  ],
+  "subjects_processed": 67,
+  "subjects_remaining": 0,
+  "successes": [
+    "Initialized canonical directory structure (16 subfolders) across all 67 subjects",
+    "Converted 183 source documents into structured Markdown with page-level provenance",
+    "Preserved 2,159,453 words of verified curriculum text without arbitrary summarization",
+    "Logged all extraction exceptions into EXTRACTION_FAILURE_REPORT.json (0 errors)"
+  ],
+  "failures": [],
+  "warnings": [],
+  "next_tasks": [
+    "PHASE 5: Visual Knowledge & Diagram Extraction (T5.1 - T5.3)",
+    "Generate DIAGRAM_COVERAGE_REPORT.md"
+  ]
+}

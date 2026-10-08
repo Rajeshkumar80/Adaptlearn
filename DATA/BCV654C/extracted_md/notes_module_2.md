@@ -1,0 +1,958 @@
+<!-- PROVENANCE: subject_code=BCV654C | subject_name=Integrated Waste Management for a Smart City | semester=6 | module=2 | source_type=MODULE_NOTES | source_file=module2.md | extraction_method=STRUCTURED_MARKDOWN_DIRECT | confidence=0.98 -->
+
+# BCV654C — Module 2
+
+## Solid Waste Management
+
+**Subject:** BCV654C (Integrated Waste Management)
+**Module:** Module 2
+**Content type:** module_notes
+**Sources:** BCV654C-module-2-pdf-1.txt
+
+---
+
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+ 
+ 
+Organic waste is biodegradable waste of plant or animal origin that can decompose in nature without 
+too much difficulty and be transformed into another type of organic material. 
+The "organic fraction of municipal solid waste" (OFMSW) refers to the biodegradable component of 
+household waste, like food scraps, coffee grounds, yard waste, and paper products, which can be broken 
+down by microorganisms, making it suitable for biological treatment methods like composting or 
+anaerobic digestion; 
+ 
+OFMSW and its biological treatment: 
+ 
+Composition: OFMSW includes food waste, plant material, paper, and other organic materials from 
+households and businesses. 
+Importance: Separating OFMSW from other waste allows for its effective recycling through 
+composting or anaerobic digestion, which can produce valuable biogas and compost. 
+Challenges: Contamination with non-biodegradable materials like plastic can hinder the composting 
+process, so proper waste sorting is crucial. 
+ 
+Benefits of biological treatment: 
+Resource recovery: Converts waste into valuable products like compost (for soil amendment) or 
+biogas (renewable energy source). 
+Reduced landfill waste: Diverting organic materials from landfills minimizes methane emissions. 
+ 
+The organic waste fraction of municipal solid waste should be treated because when left untreated, it 
+significantly contributes to greenhouse gas emissions (particularly methane) when decomposing in 
+landfills, contaminates soil and water, attracts pests, and wastes valuable nutrients that could be recycled 
+as fertilizer; proper treatment allows for resource recovery through composting or anaerobic digestion, 
+mitigating these environmental impacts and creating beneficial by-products like compost or renewable 
+energy. 
+ 
+Why to treat organic waste? 
+• Greenhouse gas reduction: Organic waste decomposing in landfills produces methane, a potent 
+greenhouse gas, which contributes significantly to climate change. 
+• Environmental pollution: Leachate from decomposing organic waste can pollute groundwater if not 
+properly managed. 
+• Odour and pest control: Unmanaged organic waste attracts pests and generates unpleasant odours. 
+• Resource recovery: Organic waste can be composted to produce valuable soil amendment or used 
+for anaerobic digestion to generate biogas, a renewable energy source. 
+• Sustainability and circular economy: Treating organic waste aligns with the principles of a circular 
+economy by maximizing resource reuse and minimizing waste generation. 
+ 
+MODULE-2 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+TREATMENT METHODS: 
+The following are the major treatment methods adopted for organic waste as shown in figure 1. 
+o Direct Land Application: Involves applying raw or partially treated organic waste directly onto the 
+soil surface, where naturally occurring microorganisms break down the organic matter, converting it 
+into nutrients that can be utilized by plants, essentially acting as a fertilizer while simultaneously 
+improving soil health and structure; 
+o Composting: Aerobic decomposition of organic matter to produce nutrient-rich compost for soil 
+amendment. 
+o Anaerobic digestion: Breakdown of organic material in the absence of oxygen to generate biogas 
+(methane) for energy production. 
+ 
+Fig 1: Treatment of Organic Waste. 
+ 
+DIRECT LAND APPLICATION OF ORGANIC WASTE: 
+"Direct land application" of this organic fraction means directly applying the untreated organic waste 
+to soil as a fertilizer, often used in agricultural settings, but with potential concerns regarding nutrient 
+imbalances and contamination and shown in figure 2.. This method is commonly used in agriculture to 
+improve soil fertility, enhance microbial activity, and recycle nutrients. 
+ 
+Steps for Direct Land Application 
+o Organic waste sources: Manure, food scraps, crop residues, sewage sludge, and green waste. Need to 
+remove contaminants (plastics, metals, non-biodegradable materials). 
+o Spreading organic waste directly on top of the soil. Followed by mixing waste into the soil to enhance 
+decomposition and minimize nutrient loss. 
+o For Liquid waste, directly injecting organic slurry into the soil to reduce odour and nutrient runoff. 
+o Soil microorganisms (bacteria, fungi, actinomycetes) break down organic matter and further, releases 
+essential nutrients increasing soil microbial diversity and activity, improving overall fertility. 
+o Boosts natural biological processes, supporting plant growth and crop yield. 
+ 
+Fig 2: Direct Land Application 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+Factors affecting direct land application in waste management include: Waste composition, soil type, 
+climate conditions, regulatory restrictions, land availability, potential contaminant levels in the waste, 
+public perception, the presence of heavy metals or hazardous materials, application rates, and the 
+intended use of the land; all of which must be considered to ensure safe and environmentally responsible 
+land application practices. 
+• Waste composition: The type of waste being applied directly to land significantly impacts its 
+suitability, with organic waste generally being more readily accepted than inorganic or hazardous 
+materials. 
+• Soil characteristics: Soil type, texture, and drainage capacity determine how well the waste can be 
+incorporated and the potential for nutrient leaching or contaminant migration. 
+• Climate and weather: Rainfall patterns and temperature can influence the decomposition rate of 
+organic waste and the potential for nutrient runoff. 
+• Regulations and legal frameworks: Local regulations regarding land application practices, 
+including permissible contaminant levels, must be adhered to. 
+• Land availability: Access to suitable land with appropriate soil conditions is critical for direct land 
+application. 
+• Contaminant levels: Testing for heavy metals, pathogens, and other hazardous substances in the 
+waste is essential to prevent environmental contamination. 
+• Public perception: Community acceptance of land application practices can be impacted by 
+concerns about potential odors, aesthetics, and environmental risks. 
+ 
+Examples of specific factors depending on the type of waste: 
+• Manure application: Nutrient content, pathogen levels, application timing, and potential for 
+ammonia volatilization. 
+• Compost application: Carbon-to-nitrogen ratio, maturity level, particle size, and potential for 
+nutrient leaching. 
+• Biosolids application: Heavy metal content, pathogen levels, and potential for soil amendment 
+benefits. 
+Advantages: 
+o Simple and cost-effective method, especially for small-scale operations. 
+o Provides nutrients to the soil, potentially improving soil health. 
+o Enhances soil water-holding capacity, reducing the need for irrigation. 
+o Carbon sequestration helps mitigate climate change by storing atmospheric CO₂ in the soil. 
+o Reduces landfill waste and mitigates environmental pollution. 
+ 
+Disadvantages: 
+o Potential for nutrient imbalances and excessive nitrogen loading if not properly managed. 
+o May introduce pests, pathogens, and weed seeds if not properly composted. 
+o Potential for odour issues and aesthetic concerns. 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+Important considerations for direct land application: 
+• Waste quality: Proper source separation is crucial to ensure the organic fraction is not contaminated 
+with non-biodegradable materials. Use well-composted materials when possible to reduce pathogens. 
+• Application rates: Applying the right amount of organic waste to avoid nutrient excess and 
+recommended to apply waste during dry weather to prevent runoff. 
+• Soil analysis: Monitoring soil nutrient levels to adjust application rates accordingly. Mix waste into 
+the soil to minimize nutrient loss and odour. 
+ 
+COMPOSTING 
+Composting is a biological process that breaks down organic waste into a nutrient-rich fertilizer. It's a 
+natural, economical, and eco-friendly way to treat organic waste. This process relies on microorganisms 
+(bacteria, fungi, and actinomycetes) to break down organic matter under controlled conditions. 
+In municipal solid waste management, composting involves collecting the organic fraction of waste (like 
+food scraps, yard waste) and allowing it to decompose naturally through the activity of microorganisms 
+under controlled conditions, like proper moisture and aeration, to produce a usable compost material that 
+can be used as fertilizer for soil improvement; this process typically involves steps like collection, 
+sorting, pre-processing, mixing, turning the compost pile to ensure proper oxygenation, and monitoring 
+the temperature to ensure optimal decomposition. 
+ 
+Steps in Composting: 
+o The first step is to separate the organic waste from other waste components like plastics and metals 
+through sorting at the household or collection facility. 
+o The majority of composting methods used in municipal settings are aerobic, meaning they rely on 
+oxygen-loving microbes to break down organic matter, producing carbon dioxide, water, and heat 
+as by-products. 
+o The collected organic waste is typically placed in a compost pile or bin where the material is turned 
+regularly to facilitate proper aeration and even decomposition as shown in figure 3. 
+o Maintaining a balanced carbon-to-nitrogen ratio is crucial for optimal composting; "brown" 
+materials like leaves and wood chips provide carbon, while "green" materials like food scraps and 
+grass clippings provide nitrogen. 
+o After the initial decomposition, the compost may go through a maturation phase where it is allowed 
+to further stabilize and cure before being ready for use as a soil amendment. 
+ 
+ 
+Fig 3: Composting in Bins 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+Factors that affect composting include temperature, moisture, carbon-to-nitrogen ratio, aeration, and 
+composition of waste. 
+• Optimal temperature: 131–160°F (55–71°C) is ideal for beneficial microorganisms 
+• Temperature rise: Microbial activity increases during compression, which causes a temperature rise 
+• Pathogen destruction: High temperatures kill pathogens that are harmful to plants, animals, and 
+humans 
+• Ideal moisture: The pile should feel like a wrung-out sponge 
+• Too dry: Slows down the composting process 
+• Too wet: Creates an anaerobic environment that slows down decomposition and causes bad odors 
+• High carbon-to-nitrogen ratio: Limits the growth of bacteria and other microorganisms, slowing 
+decomposition. 
+• Forced aeration: Air is passed through the pile continuously or periodically 
+• Contained odours: If air is drawn down the pile, odours from the compost are contained in the 
+system 
+• Texture of raw materials: Affects the composting process 
+• Volume of waste: Affects the temperature 
+ 
+Advantages: 
+• Enhances soil structure, aeration, and moisture retention. The compost is a stable product that can be 
+safely handled and stored. 
+• Provides slow-release nutrients (N, P, K) for plants. The compost can be used as a fertilizer or soil 
+amendment. 
+• High temperatures kill harmful bacteria, parasites, and weed seeds. 
+• Reduces methane emissions compared to landfill disposal. 
+• Diverts organic waste from landfills and reduces overall waste volume. 
+ 
+Disadvantages (Challenges): 
+• Insufficient oxygen leads to anaerobic conditions and foul odours 
+• Too much or too little moisture slows down microbial activity. 
+• Full composting can take weeks to months, depending on conditions. 
+• Large-scale composting requires land and regular monitoring. 
+ 
+Types of Composting: There are several types of composting methods used to convert organic waste 
+into nutrient-rich compost: 
+ 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+Backyard or Home Composting 
+This is a small-scale composting method suitable for households or small gardens. It involves 
+composting kitchen scraps, yard waste, and other organic materials in a designated compost bin or pile. 
+ 
+Vermicomposting 
+Vermicomposting utilises earthworms to break down organic waste. Worms consume organic matter, 
+and their castings (worm poop) create nutrient-rich compost. It can be done in small-scale setups like 
+worm bins as shown in figure 4. 
+ 
+ 
+Fig 4: Vermicomposting 
+Aerobic Composting 
+Aerobic composting is a process of decomposing organic materials using oxygen-dependent 
+microorganisms, such as bacteria and fungi, in the presence of air. This method typically involves 
+creating a compost pile or using a compost bin with adequate airflow as shown in figure 5. The 
+microorganisms break down the organic waste, generating heat as a by-product, which speeds up the 
+decomposition process. This method helps to control odours, suppress pathogens and weed seeds, and 
+maintain a balanced carbon-to-nitrogen (C: N) ratio. 
+ 
+Fig 5: Aerobic Composting 
+Fig 6: Anaerobic Composting 
+ 
+Anaerobic Composting 
+Anaerobic composting is a process of organic waste decomposition that occurs in the absence of oxygen. 
+Unlike aerobic composting, which relies on the activity of oxygen-dependent microorganisms, anaerobic 
+composting involves the breakdown of organic matter by anaerobic bacteria in an oxygen-deprived 
+environment. As shown in figure 6, this process typically occurs in sealed containers or anaerobic 
+digesters. Anaerobic composting tends to be slower and less efficient than aerobic composting, and it 
+can produce odours and methane gas, a potent greenhouse gas. 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+Windrow Composting 
+Windrow composting involves creating long, narrow piles or rows of organic waste. These rows are 
+periodically turned and aerated to promote decomposition. Windrow composting is often used in large- 
+scale operations as shown in figure 7. 
+ 
+Fig 7: Windrow Composting 
+Fig 8: In-Vessel Composting 
+ 
+In-vessel Composting 
+In-vessel composting is done in enclosed containers or structures, such as compost tumblers or specially- 
+designed composting machines as shown if figure 8. The controlled environment allows for faster and 
+more efficient decomposition. 
+ 
+Aerated Static Pile Composting 
+In aerated static pile composting, organic waste is piled into a heap and then aerated using blowers or 
+pipes to maintain proper oxygen levels as shown in figure 9. This method ensures 
+efficient decomposition and odour control. 
+ 
+Fig 9: Aerated Static Pile Composting 
+ 
+Bokashi Composting 
+Bokashi composting is a fermentation process that involves adding a specialised mixture of beneficial 
+microorganisms to organic waste as shown in figure 10. The waste is fermented in an airtight container, 
+producing a nutrient-rich compost. 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fig 10: Bokashi Composting 
+Comparison: Direct Land Application vs. Composting: 
+ 
+Aspect 
+irect Land Application 
+Composting 
+Decomposition Site 
+In soil (natural conditions) 
+In controlled compost piles 
+Processing Time 
+Immediate application, 
+slow breakdown 
+4–12 weeks (faster breakdown) 
+Pathogen Risk 
+Higher (raw waste) Lower (high heat kills pathogens) 
+Odour Control 
+Potential odour issues 
+Better odour management 
+Nutrient Release 
+Fast but variable release 
+Slow, steady nutrient supply 
+ 
+ANAEROBIC DIGESTION 
+Anaerobic digestion is a biological process that treats organic waste by breaking it down into biogas and 
+other organic compounds. It's a common method for treating waste in both developed and developing 
+countries. 
+Aerobic digestion in municipal solid waste treatment involves exposing the organic fraction of the waste 
+to oxygen-rich conditions, allowing aerobic bacteria to break down the organic matter into carbon 
+dioxide, water, and a stable compost-like material, essentially mimicking a natural composting process 
+where microorganisms actively consume the organic material in the presence of oxygen; this method is 
+often used to treat food scraps, yard waste, and other biodegradable components of municipal solid 
+waste. 
+The figure 11 shows the working of anaerobic digestion. 
+1. Pre-treatment: The waste is homogenized and any contamination is removed. 
+2. Anaerobic reactor: The waste is placed in an airtight reactor without oxygen. 
+3. Anaerobic digestion: Microorganisms break down the waste into biogas and other organic 
+compounds. 
+4. Biogas capture: The biogas is cleaned and captured in a storage balloon. 
+5. Biogas use: The biogas can be used to generate heat, electricity, or vehicle fuel. 
+6. Sludge treatment: The remaining sludge can be used as fertilizer, animal bedding, or for crop 
+irrigation. 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+ 
+ 
+Fig 11: Working of Anaerobic Digestion 
+ 
+The process of biological Decomposition of Anaerobic Digestion is shown in figure 12. 
+ 
+ 
+ 
+1. Waste Collection & Pre-Treatment 
+o Organic waste sources: food waste, manure, sewage sludge, crop residues, and industrial 
+byproducts. 
+o Sorting & pre-treatment: Remove contaminants (plastics, metals) and adjust moisture & particle 
+size. 
+ 
+ 
+ 
+2. Biological 
+Decomposition 
+in 
+an 
+Anaerobic 
+Reactor 
+(Four 
+Key 
+Stages) 
+a) Hydrolysis: Complex organic matter (carbohydrates, proteins, fats) is broken down into simpler 
+molecules 
+(sugars, 
+amino 
+acids, 
+fatty 
+acids). 
+b) Acidogenesis: Microorganisms convert these molecules into organic acids, alcohols, and 
+hydrogen. 
+c) Acetogenesis: Organic acids are further converted into acetate, hydrogen, and carbon dioxide. 
+d) Methanogenesis: Methanogenic bacteria produce methane (CH₄) and carbon dioxide (CO₂) 
+from acetate and hydrogen. 
+ 
+ 
+ 
+3. End Products of Anaerobic Digestion 
+o Biogas: A renewable energy source (50-70% methane, 30-50% CO₂) used for electricity, heat, or 
+fuel. 
+o Digestate: A nutrient-rich residue that can be used as an organic fertilizer for soil improvement. 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+ 
+Fig 12: Biological Decomposition of Anaerobic Digestion 
+ 
+Factors affecting anaerobic digestion included are C/N ratio, F/M ratio, pH, temperature, Organic 
+Loading Rate, Hydraulic Loading Rate, presence of toxins (Inherent component, or a by-product of the 
+metabolism). 
+Benefits of Anaerobic Digestion as a Biological Treatment 
+• Renewable Energy Production: Converts organic waste into biogas, reducing fossil fuel 
+dependence. 
+• Organic Waste Management: Reduces the volume of waste material, diverts waste from landfills 
+and thus reducing methane emissions. 
+• Nutrient Recycling: Digestate is a valuable fertilizer that enhances soil health. 
+• Odour & Pathogen Reduction: Controlled conditions significantly reduce unpleasant odours and 
+kill harmful pathogens. 
+• Carbon Footprint Reduction: Captures methane emissions that would otherwise contribute to 
+climate change. 
+ 
+Challenges & Considerations 
+• High Initial Investment: Setting up an anaerobic digestion plant requires costly infrastructure. 
+• Complex Operation & Maintenance: Requires technical expertise for proper management. The 
+quality of the end products determines whether they can be recycled or disposed of. 
+• Process Stability: Sensitive to temperature, pH, and feedstock composition. 
+• Nutrient Imbalance: Excess nitrogen or acidic conditions can disrupt microbial activity. 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+• Biogas Purification Needed: Raw biogas contains impurities (H₂S, moisture) that require cleaning 
+before use. 
+ 
+Comparison: Anaerobic Digestion vs. Composting 
+Aspect 
+Anaerobic Digestion (AD) 
+Composting 
+Oxygen Requirement 
+Anaerobic (No oxygen) 
+Aerobic (Needs oxygen) 
+Main Product 
+Biogas (energy) + 
+Digestate (fertilizer) 
+Compost (fertilizer only) 
+Pathogen  Reduction 
+High (biogas process kills 
+pathogens) 
+Moderate (requires temps) 
+Odour Control 
+Better controlled 
+Opposable odours if not 
+Managed well 
+Energy Production 
+Yes (biogas) 
+No energy output 
+Nutrient Recycling 
+Yes (digestate applied to soil) 
+Yes (compost applied to soil) 
+ 
+MUNICIPAL SOLID WASTE RULES 
+Features of MSW Rules, 2016 (as per CPCB Notes) 
+1. Applicability: 
+• Applies  to  all  generators,  including  residential,  commercial,  industrial,  and  institutional 
+establishments. 
+• Covers urban and rural areas, special economic zones (SEZs), airports, railway stations, and places 
+of worship. 
+2. Waste Segregation at Source: 
+• Waste must be segregated into three categories: 
+Biodegradable Waste (wet waste) 
+Non-Biodegradable Waste (dry waste) 
+Domestic Hazardous Waste (batteries, electronic waste, etc.) 
+• Segregation is the responsibility of households, offices, and all other waste generators. 
+3. Collection and Transportation: 
+• Local bodies must ensure door-to-door collection. 
+• Transportation must be in covered vehicles to prevent spillage and littering. 
+4. Processing and Disposal: 
+• Waste must be treated using appropriate technologies: 
+o Composting, vermicomposting, anaerobic digestion, or bio-methanation for organic waste. 
+o Material recovery facilities (MRFs) for recyclables. 
+o Waste-to-Energy (WTE) plants for non-recyclables. 
+o Sanitary landfilling only for residual and inert waste. 
+• Open dumping is strictly prohibited. 
+5. Role of Waste Generators: 
+• Households and institutions must segregate waste at the source. 
+• Bulk waste generators (such as large hotels, offices, and institutions) must process their waste. 
+• Plastic waste must be managed as per Plastic Waste Management Rules, 2016. 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+6. Extended Producer Responsibility (EPR): 
+• Manufacturers and brand owners must take responsibility for collecting and recycling their product 
+packaging waste (e.g., plastic, multi-layered packaging). 
+7. Role of Urban Local Bodies (ULBs): 
+• Ensure scientific waste management, including proper treatment and disposal. 
+• Impose penalties for non-compliance. 
+• Create awareness campaigns. 
+8. Prohibition of Open Burning of Waste: 
+• Burning of solid waste is banned, and violators are subject to fines. 
+9. Promotion of Decentralized Waste Processing: 
+• Cities are encouraged to set up decentralized composting and biogas plants. 
+10. Time-Bound Compliance Targets: 
+• Deadlines set for phased implementation of waste processing facilities and landfills. 
+Penalties for Non-Compliance: 
+• Non-compliance with MSW Rules, 2016, can lead to fines imposed by local authorities. 
+ 
+Fig 13: Highlights of MSW Rules, 2016 
+ 
+The MSW Rules, 2016 aim to promote sustainable waste management by enforcing segregation, 
+processing, and disposal of municipal solid waste in an eco-friendly manner as shown in figure 13. The 
+rules emphasize scientific waste management and the shared responsibility of citizens, businesses, 
+and local authorities. 
+ 
+The Ministry of Environment, Forest and Climate Change (MoEF) will monitor the implementation 
+of Solid Waste Management Rules in India. Besides, the ministry will create a Central Monitoring 
+Committee under the Chairmanship of the Secretary, MoEF. 
+ 
+Areas of Applications of Solid Waste Management Rules in India 
+The rules shall apply to the following areas – 
+• Outgrowths in urban agglomerations, 
+• Every urban local body 
+• Notified areas 
+• Census towns as stated by the Census Commissioner and Registrar General of India 
+• Notified industrial townships 
+• Airports 
+• Areas under the control of Indian Railways 
+• Airbases 
+• Ports and harbours 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+• Special economic zones 
+• Defence establishments 
+• Pilgrim places of historical and religious importance as may be notified by the respective State 
+governments from time to time 
+• State and Central government organisations 
+• Every institutional, domestic, commercial and any other non-residential solid waste generator 
+ 
+Duties of various authorities and personnel involved in effective Solid Waste Management Rules, 
+2016 implementation 
+1. Duties of waste generators 
+By definition, as stated in the Solid Waste Management Rules, 2016, waste generator means every 
+individual or group of persons, every residential and non-residential premise such as defence 
+establishments and Indian Railways. Every waste generator must perform the following duties to 
+efficiently execute these rules. 
+(a) Segregate and store the waste generated in three categories: non-biodegradable, bio-degradable and 
+domestic hazardous wastes in specific bins. Subsequently, this segregated waste must be handover to 
+authorised waste collectors or waste pickers. 
+(b) Securely wrap the used sanitary waste and place them in the non- bio-degradable or dry waste bin. 
+(c) Separately store and dispose of demolition, construction, horticulture and garden waste. 
+(d) No waste generator shall burn, throw, or bury solid waste in open public spaces, streets, water bodies, 
+or drain. 
+(e) All waste generators must pay a user fee for solid waste management. As per the definition in Solid 
+Management Rules, 2016, a user fee is a fee imposed on the waste generator by the local body and any 
+entity indicated in rule 2 to offer waste management facilities. 
+(f) Organising an event with more than one hundred people at a place without licence without informing 
+the local body isn’t allowed. Applicant must obtain approval by informing at least three working days 
+in advance. 
+(g) Every street vendor must have suitable containers for storage of waste generated and shall submit 
+the waste at a waste storage depot, vehicle, or container as mentioned by the local body. 
+(h) All resident welfare and market associations or gated institutions and communities having more than 
+5,000 sqm area or hotels and restaurants in partnership with the local body shall ensure effective 
+management of the generated waste within an year from the date of publication of SWM rules. 
+ 
+2. Duties of the Ministry of Environment, Forest and Climate Change (MoEF) 
+Besides monitoring the implementation of Solid Waste Management Rules, 2016 in India, the ministry 
+will set up a Central Monitoring Committee under the Chairmanship of Secretary, MoEF, which will 
+meet at least once yearly to review and monitor the implementation of these rules. The Committee must 
+be renewed every three years. 
+ 
+3. Duties of Ministry of Agriculture, Government of India (GoI) 
+The Ministry of Agriculture, through appropriate mechanisms, must – 
+(a) Offer flexibility in Fertiliser Control Order for selling and manufacturing compost. 
+(b) Publicise usage of compost on farmland. 
+(c) Establish laboratories to test compost quality produced by local authorities or their authorised 
+agencies. 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+(d) Issue guidelines for maintaining the ratio of use and quality of compost and chemical fertilisers while 
+using compost on farmland. 
+4. Duties of the Central Pollution Control Board 
+The Central Pollution Control Board must – 
+(a) Co-ordinate with the Pollution Control Committees (PCC) and the State Pollution Control Boards 
+(SPCB) for implementing Solid Waste Management Rules and adhering to the prescribed standards 
+set up by local authorities. 
+(b) Establishing the regulations for ambient air, groundwater, noise pollution, and leachate regarding all 
+disposal facilities and solid waste processing. 
+(c) Review environmental norms and standards mentioned for solid waste processing units or treatment 
+technologies and improve them when required. 
+(d) Review the implementation of prescribed environmental standards at least once a year and compile 
+the data monitored. 
+(e) Review the proposals of PCC or SPCB on using new technologies for recycling, processing and 
+treatment of solid waste. Additionally, prescribe emission norms and performance standards within six 
+months. 
+(f) Monitor the implementation of these rules by local bodies. 
+(g) Publish guidelines for maintaining buffer zone and on environmental aspects of disposal and 
+processing of solid waste to allow local bodies to adhere to the provisions of these rules. 
+(h) Guide Union Territories or States on inter-state movement of waste. 
+ 
+5. Duties of Pollution Control Committee (PCC) or State Pollution Control Board (SPCB) 
+The Pollution Control Committee or State Pollution Control Board must- 
+(a) Enforce Solid Waste Management Rules, 2016, in their state and review implementation of these 
+rules at least two times in a year. 
+(b) Monitor environmental standards and adhere to Schedule I and II conditions for waste processing 
+and disposal sites. 
+(c) Analyse the authorisation proposal and make such inquiries as considered fit after receiving an 
+application in Form I from the LB or any other authorised agency. 
+(d) Grant authorisation within two months in Form II to the local body. 
+(e) Synchronise the authorisation validity with the validity of the consent. 
+(f) In case of new technologies, where PCC, CPCB or SPCB has not prescribed any standards, shall 
+approach CPCB to get standards specified. 
+(g) PCC or SPCB may instruct local bodies on the safe disposal and handling of domestic hazardous 
+waste collected by the waste generators at hazardous waste deposition units. 
+(h) PCC or SPCB will regulate the Inter-State movement of waste. 
+ 
+The process to get authorisation under Solid Waste Management Rules, 2016 
+To get the authorisation, every local authority of census towns and village panchayat must apply Form 
+1 to establish a waste processing, treatment, or disposal facility. If waste exceeds five metric tonnes per 
+day, then the following documents are required: – 
+• Documents showing land ownership for solid waste processing site 
+• Project report on Solid Waste Management 
+• Municipal Solid Waste Annual Report of the previous year 
+• Work order or authorisation issued to the operator of the solid waste processing facility 
+• A permit from district level site selection committee 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+• Technical details of waste to energy plant or recycling plant 
+• Once the complete application and supporting documents are submitted, SPCB examines the proposal 
+for authorisation 
+• After that, SPCB must issue authorisation within two months under Form 2 to village panchayat and 
+local authorities running waste treatment, processing, or disposal facility. 
+• In case of cancellation of authorisation due to the facility failing to fulfil the conditions specified 
+under the rules, the local body or operator should be served with proper notice. 
+ 
+When can the authorisation get cancelled or suspended? 
+According to new Solid Waste Management Rules, PCC or SPCB can suspend or cancel the 
+authorisation issued under clause (a) at any time if the local operator or body of the facility fails to run 
+the facility according to the norms specified: provided that no such authorisation shall be cancelled or 
+suspended without giving notice to the local operator or body. 
+Renewal of the authorisation 
+On receiving the renewal application, PCC or SPCB renew the authorisation for the next five years. This 
+is done after scrutinising every application on merit and according to the condition that the facility’s 
+operator has fulfilled all the provisions of the standards, rules, or conditions mentioned in the consents, 
+authorisation, or environment clearance. 
+However, PCC or SPCB shall refuse to grant or renew an authorisation after offering enough chances to 
+the applicant of being heard and for reasons thereof to be recorded in writing. 
+ 
+6. Duty of brand owners or manufacturers of disposable products and sanitary napkins and diapers 
+(a) All manufacturers of disposable products like plastic packaging, glass and so on or brand owners 
+introducing such products in the market must offer required financial assistance to local authorities for 
+setting up of solid waste management system. 
+(b) All such brand owners who market or sell their products in non-biodegradable packaging material 
+must establish a system to gather back the packaging waste generated due to their production. 
+(c) Brand owners, manufacturers, or marketing companies of diapers and sanitary napkins must explore 
+the odds of utilising all recyclable materials in their products. Alternatively, they shall offer a wrapper 
+or pouch for disposal of each diaper or napkin along with the packet of their sanitary products. 
+(d) All such brand owners, manufacturers or marketing companies must be aware of the masses for 
+wrapping and disposal of their products. 
+ 
+Criteria mentioned in Solid Waste Management Rules for duties regarding establishing solid 
+waste processing and treatment facility 
+(1) The concerned department of the allocation of the land assignment will be held responsible for 
+offering suitable land for the establishment of the solid waste treatment and processing facilities and 
+notify such sites by the Union Territory Administration or State Government. 
+(2) The facility’s operator must design and establish the facility according to the technical guidelines 
+issued by the CPCB regarding this at regular intervals and the manual on SWM prepared by the Ministry 
+of Urban Development. 
+(3) The facility’s operator must get necessary approvals from the PCC or SPCB. 
+(4) The PCC or SPCB must analyse the environmental standards of the operation of these facilities. 
+(5) The operator of the facility will be responsible for the secure and environment-friendly operations of 
+the SW processing and/or treatment untis according to the norms set up by the CPCB at regular intervals 
+and the manual on Municipal SWM issued by the Ministry of Urban Development and updated regularly. 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+(6) The solid waste processing and treatment plant operator must submit an annual report in Form III 
+every year by 30th April to the PCC or SPCB and the concerned local body. 
+ 
+Time Frame for Implementation of Solid Waste Management Rules: 
+(a) Identifying landfill: 1 year 
+(b) Ensure segregation of waste: 2 years 
+(c) Cities up to 1 million population: 2 Years 
+(d) Procurement of waste processing facilities: 2 years 
+(e) Setting up sanitary landfills: 3 years 
+(f) Bioremediation/capping of old landfills: 5 years 
+(g) Million plus cities: 3 years 
+ 
+An essential revision of parameters and existing standards made under Solid Waste Management 
+Rules, 2016 
+Under Solid Waste Management Rules, 2016, essential updates clearly state that the deposit site should 
+be 200 meters from a pond, 100 meters from the river, 200 meters from habitations, highways, water 
+supply wells and public parks and 20 km away from airbase or airports. 
+Updates are made on the emission standards, including furan, dioxin and particulate matter reduction 
+limits. 
+The compost standards were also updated to comply with the Fertiliser Control Order. 
+ 
+Conclusion 
+It will take some years to observe the drastic change that Solid Waste Management Rules 2016 will 
+bring to India. Seeing how segregation at source works on the ground is challenging and exciting. 
+Awareness campaigns with NGOs, communities, students and other stakeholders may work wonders to 
+push for better implementation of SWM Rules. Moreover, the rules need to focus on awakening people 
+about concerns, issues and management of solid waste. 
+SWACHH BHARAT MISSION was initiated by Prime Minister Narendra Modi to spread awareness 
+and cleanliness across the country and was launched on October 2, 2014. 
+ 
+Objectives of Swachh Bharat Mission 
+• Hygiene and cleanliness should be promoted comprehensively. 
+• To reduce the number of people and households who defecate in the open. 
+• Raising the standard of living in rural communities. 
+• Encourage the use of environmentally appropriate sanitation. 
+• To raise public awareness about health and hygiene concerns 
+• To assist India in realising the aim of sustainable development. 
+• To encourage the use of cost-effective and efficient sanitation solutions. 
+• To concentrate on scientific waste management strategies for both solid and liquid waste. 
+• To have a positive impact on social inclusion and gender equality. 
+ 
+Mission Approach: 
+• Elimination of open defecation 
+• Eradication of Manual Scavenging 
+• Modern and Scientific Municipal Solid Waste Management 
+• To effect behavioural change regarding healthy sanitation practices 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+• Generate awareness about sanitation and its linkage with public health 
+• Capacity Augmentation for ULB’s 
+• To create an enabling environment for private sector participation in Capex 
+ 
+Components: 
+• Household toilets, including conversion of insanitary latrines into pour‐flush latrines; 
+• Community toilets 
+• Public toilets 
+• Solid waste management 
+• IEC & Public Awareness 
+• Capacity building and Administrative & Office Expenses (A&OE) 
+ 
+Strategy 
+• Comprehensive Sanitation Planning, which includes 
+– (a) City Level Sanitation Plans 
+– (b) State Sanitation Concept As per Annexure IV 
+– (c) Sate Sanitation Strategy 
+• Behavioural Change Strategy and IEC 
+• Enabling Environment for Private sector participation 
+• Capacity Building 
+ 
+Special focus group 
+• Manual scavengers in urban areas (Employment in Sanitary toilets). 
+• Integration of Informal sector workers in waste management (rag pickers) 
+• Temporary accommodation for migrants and the homeless in urban areas 
+• Adequate provision for toilets either on the premises or linked to a public / community toilet. 
+• Mandating that construction labour in urban areas have access to toilets at all sites. 
+• Priority shall be accorded pro‐actively to cover households with vulnerable sections such as 
+pensioners, girl children, pregnant and lactating mothers. 
+ 
+Mission Management Structure: 
+• National Advisory and Review Committee (National Level, Headed by Secretary, MoUD) 
+• SBM National Mission Directorate (Headed by National Mission Director) 
+• High Powered Committee (State level, Headed by State’s Chief Secretary) 
+• SBM State Mission Directorate 
+• District Level Review and Monitoring Committee (DLRMC) 
+• Urban Local Body level 
+ 
+SMART CITIES PROGRAM 
+The objective of SCM is to promote cities that provide core infrastructure and give a decent quality of 
+life to its citizens, a clean and sustainable environment through the application of 'Smart' solutions and 
+the components are shown in figure 12. 
+Smart City Mission 
+• Smart Cities Mission is to promote cities that provide core infrastructure and give a decent quality of 
+life to its citizens, a clean and sustainable environment and application of ‘Smart’ Solutions. 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+• The Union Ministry of Urban Development is responsible for implementing the mission in 
+collaboration with the state governments. 
+• The government of India has a vision of developing 100 smart cities by modernizing the existing mid‐ 
+sized cities. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fig 15: Smart City Mission 
+ 
+Core Infra structure Elements. 
+• Adequate water supply. 
+• Assured electricity supply. 
+• Sanitation, including solid waste management. 
+• Efficient urban mobility and public transport. 
+• Affordable housing, especially for the poor. 
+• Robust IT connectivity and digitalization. 
+• Good governance, especially e‐Governance and citizen participation. 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+• Sustainable Environment. 
+• Safety and security of citizens, particularly women, children and the elderly. 
+• Health and Education. 
+ 
+SMART CITY WASTE MANAGEMENT 
+“Enhancing neighbourhoods, reducing costs with smart city waste management.” 
+As cities work to cost-efficiently manage waste in public spaces, smart city waste management programs 
+can help to improve efficiency, reduce costs and enhance the beauty of public areas. 
+ 
+Components of Integrated Waste Management in a Smart City as shown in figure 16: 
+• Source Segregation: 
+Encouraging citizens to separate waste at home into categories like dry waste (plastics, paper), wet 
+waste (food scraps), and hazardous materials, enabling efficient recycling and treatment. 
+• Smart Bins with Sensors: 
+Using IoT-enabled waste bins that monitor fill levels, providing real-time data to optimize collection 
+routes and reduce unnecessary pickups. 
+• Waste Tracking System: 
+Monitoring the movement of waste from collection points to processing facilities through digital 
+platforms, ensuring accountability and transparency. 
+• Optimized Collection Routes: 
+Utilizing data analytics to plan efficient collection routes based on waste generation patterns, 
+minimizing fuel consumption and vehicle emissions. 
+• Community Engagement: 
+Educating citizens about proper waste disposal practices through mobile apps, awareness campaigns, 
+and incentives for responsible waste management. 
+• Waste-to-Energy Initiatives: 
+Exploring technologies to convert organic waste into energy sources like biogas, contributing to 
+renewable energy generation. 
+Benefits of Integrated Waste Management in Smart Cities: 
+• Reduced Environmental Impact: 
+Minimizing landfill waste, reducing greenhouse gas emissions, and conserving natural resources. 
+• Cost Efficiency: 
+Optimizing waste collection operations, reducing transportation costs, and maximizing recycling 
+revenue. 
+• Improved Public Health: 
+Reducing potential disease vectors by managing waste effectively. 
+• Citizen Empowerment: 
+Fostering a sense of community responsibility towards waste management by providing accessible 
+information and feedback mechanisms. 
+Examples of Smart Waste Management Technologies: 
+• Waste App: 
+Mobile applications for citizens to report waste collection issues, schedule pickups, and access 
+recycling information. 
+• Waste Compactor Monitoring: 
+Sensors on waste compactors to track fill levels and optimize collection schedules. 
+
+ 
+INTEGRATED WASTE MANAGEMENT SYSTEM 
+ 
+ 
+ 
+ 
+• Drone Surveillance: 
+Aerial monitoring of waste collection areas to identify illegal dumping and potential environmental 
+hazards. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fig 14: Components of Integrated Waste Management in a Smart City 
+The benefits of a smart waste management system include: 
+• Lower costs. By having crews only make trips to bins that need attention, rather than visiting every 
+bin on a regular basis, cities can reduce the cost of labor and fuel. 
+• Less wear and tear. Fewer trips also allows cities to extend the life of waste management vehicles 
+and other assets. 
+• Improved cleanliness in public areas. Smart city waste management technology allows crews to 
+empty bins before they become overflowing with trash or recycling, and before infestation becomes 
+an issue. Smart waste sensors can also alert crews when bins develop unpleasant smells which can 
+then be treated to eliminate odors. 
+• Reduced congestion and carbon emissions. Trash and recycling collection vehicles typically make 
+many stops during a route, adding to congestion problems on city streets. By enabling crews to make 
+fewer trips, smart waste management technologies help minimize congestion and reduce the 
+pollutants emitted by trash and recycling collection vehicles. 
+ 
+More effective management. With detailed data about the status of bins throughout the city, public 
+works departments can more easily manage the many vendors who are typically employed to handle 
+different kinds of trash and recycling collection throughout the city
