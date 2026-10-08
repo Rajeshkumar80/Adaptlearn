@@ -28,7 +28,6 @@ const studentNav = [
   { href: "/student/progress", label: "How I Learn", icon: TrendingUp },
   { href: "/student/notes", label: "Notes", icon: BookOpen },
   { href: "/student/assignments", label: "Assignments", icon: ClipboardList },
-  { href: "/student/roadmap", label: "Roadmap", icon: Route },
   { href: "/student/tests", label: "Tests", icon: FileText },
 ];
 
