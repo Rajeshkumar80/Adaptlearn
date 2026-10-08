@@ -40,6 +40,7 @@ model User {
   testsCreated   Test[]        @relation("TestsCreatedBy")
   chatSessions   ChatSession[]
   studyTasks     StudyTask[]
+  planTasks      PlanTask[]    @relation("UserPlanTasks")
   subTopicProgress SubTopicProgress[]
   activityLogs   ActivityLog[]
   studentTargets StudentTarget[]
@@ -375,12 +376,51 @@ model JournalEntry {
 }
 
 model StudyPlan {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  date      String
-  plan      Json
-  createdAt DateTime @default(now())
+  id               String     @id @default(cuid())
+  userId           String
+  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subjects         Json       @default("[]")
+  examDate         DateTime?
+  targetFinishDate DateTime?
+  hoursPerDay      Float      @default(2.0)
+  mode             String     @default("3-2-1")
+  status           String     @default("ACTIVE")
+  date             String?
+  plan             Json?
+  tasks            PlanTask[]
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @default(now()) @updatedAt
+
+  @@index([userId])
+}
+
+model PlanTask {
+  id                String    @id @default(cuid())
+  planId            String
+  plan              StudyPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  userId            String
+  user              User      @relation("UserPlanTasks", fields: [userId], references: [id], onDelete: Cascade)
+  subjectCode       String
+  moduleNumber      Int?
+  topicId           String?
+  topicName         String
+  subTopicId        String?
+  subTopicName      String?
+  scheduledDate     String
+  scheduledSlot     String?
+  minutes           Int       @default(30)
+  type              String    @default("learn")
+  status            String    @default("PENDING")
+  completedAt       DateTime?
+  order             Int       @default(0)
+  todoText          String?
+  subPoints         Json?
+  selfCheckQuestion String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @default(now()) @updatedAt
+
+  @@index([userId, scheduledDate])
+  @@index([planId])
 }
 
 model Achievement {
