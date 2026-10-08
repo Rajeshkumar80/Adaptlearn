@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Trophy, Flag } from "lucide-react";
+import { CheckCircle2, ChevronRight, Clock, FileText, Play } from "lucide-react";
 import { api, errorMessage } from "@/lib/api";
 import {
   Badge,
@@ -12,50 +11,48 @@ import {
   ErrorState,
   LoadingRows,
   PageShell,
-  PageTitle,
-  Toast,
 } from "@/components/ui";
+import { TestTakingView } from "./TestTakingView";
+import { TestResultView } from "./TestResultView";
 
 interface AvailableTest {
   id: string;
   subjectCode: string;
   title: string;
   durationMin: number;
-  _count: { questions: number };
-  results: { score: number; totalMarks: number; submittedAt: string }[];
-}
-
-interface TakeTest {
-  id: string;
-  subjectCode: string;
-  title: string;
-  durationMin: number;
-  questions: { id: string; text: string; options: string[]; marks: number }[];
-}
-
-interface TestResult {
-  score: number;
+  moduleNumber: number | null;
+  difficulty: string;
+  attemptLimit: number;
   totalMarks: number;
-  submittedAt: string;
+  _count: { questions: number };
+  results: Array<{
+    id: string;
+    attemptNumber: number;
+    score: number;
+    totalMarks: number;
+    status: string;
+    submittedAt: string;
+    integrityWarnings: number;
+  }>;
 }
 
-export default function TestsPage() {
+export default function StudentTestsPage() {
   const [tests, setTests] = useState<AvailableTest[]>([]);
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const [active, setActive] = useState<TakeTest | null>(null);
-  const [selections, setSelections] = useState<Record<string, number>>({});
-  const [submitting, setSubmitting] = useState(false);
-  const [lastResult, setLastResult] = useState<TestResult | null>(null);
-  const [toast, setToast] = useState("");
-  const [toastKind, setToastKind] = useState<"success" | "error" | "info">("success");
+  const [error, setError] = useState("");
+
+  // Active taking or result viewing states
+  const [activeTest, setActiveTest] = useState<any | null>(null);
+  const [currentAttemptNumber, setCurrentAttemptNumber] = useState(1);
+  const [activeResult, setActiveResult] = useState<any | null>(null);
+  const [activeResultMeta, setActiveResultMeta] = useState<{ title: string; subject: string } | null>(null);
 
   async function load() {
     setLoading(true);
     setError("");
     try {
       const res = await api.get<{ tests: AvailableTest[] }>("/tests/available");
-      setTests(res.data.tests);
+      setTests(res.data.tests || []);
     } catch (err) {
       setError(errorMessage(err));
     } finally {
@@ -67,168 +64,132 @@ export default function TestsPage() {
     load();
   }, []);
 
-  async function start(t: AvailableTest) {
-    setError("");
-    setSelections({});
-    setLastResult(null);
+  async function startTest(testId: string) {
     try {
-      const res = await api.get<{ test: TakeTest }>(`/tests/${t.id}/take`);
-      setActive(res.data.test);
+      const res = await api.get(`/tests/${testId}/take`);
+      setActiveTest(res.data.test);
+      setCurrentAttemptNumber(res.data.currentAttemptNumber || 1);
     } catch (err) {
-      setError(errorMessage(err));
+      alert(errorMessage(err));
     }
   }
 
-  async function submitTest() {
-    if (!active) return;
-    setSubmitting(true);
-    setError("");
-    try {
-      const answers = active.questions.map((q) => ({
-        questionId: q.id,
-        selectedIndex: selections[q.id] ?? -1,
-      }));
-      const res = await api.post<{ result: TestResult }>(`/tests/${active.id}/submit`, {
-        answers,
-      });
-      setLastResult(res.data.result);
-      setActive(null);
-      setToastKind("success");
-      setToast(
-        `Score: ${res.data.result.score}/${res.data.result.totalMarks} — mastery updated.`
-      );
-      await load();
-    } catch (err) {
-      setToastKind("error");
-      setToast(errorMessage(err));
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
-  if (active) {
+  // 1. In Active Test View
+  if (activeTest) {
     return (
-      <div>
-        <PageTitle
-          title={active.title}
-          subtitle={`${active.subjectCode} · ${active.questions.length} questions · ${active.durationMin} min`}
+      <PageShell>
+        <TestTakingView
+          test={activeTest}
+          attemptNumber={currentAttemptNumber}
+          onCancel={() => setActiveTest(null)}
+          onSubmitted={(result) => {
+            setActiveResult(result);
+            setActiveResultMeta({ title: activeTest.title, subject: activeTest.subjectCode });
+            setActiveTest(null);
+            load();
+          }}
         />
-        <div className="space-y-4">
-          {active.questions.map((q, qi) => (
-            <Card key={q.id}>
-              <p className="text-[14px] font-semibold text-[var(--text-primary)]">
-                <span className="tnum mr-2 text-[var(--accent-primary)]">{qi + 1}.</span>
-                {q.text}
-              </p>
-              <div className="mt-3 grid gap-2">
-                {q.options.map((opt, oi) => {
-                  const selected = selections[q.id] === oi;
-                  return (
-                    <button
-                      key={oi}
-                      onClick={() =>
-                        setSelections((s) => ({ ...s, [q.id]: oi }))
-                      }
-                      className={`rounded-[2px] border px-3 py-2 text-left text-[13px] transition-colors ${
-                        selected
-                          ? "border-[var(--accent-primary)] bg-[var(--accent-soft)] font-semibold text-[var(--accent-primary)]"
-                          : "border-[var(--border-default)] bg-[var(--bg-primary)] hover:border-[var(--accent-primary)]"
-                      }`}
-                    >
-                      {String.fromCharCode(65 + oi)}. {opt}
-                    </button>
-                  );
-                })}
-              </div>
-            </Card>
-          ))}
-        </div>
-        <div className="mt-6 flex items-center justify-between">
-          <Button variant="ghost" onClick={() => setActive(null)}>
-            Cancel
-          </Button>
-          <Button onClick={submitTest} disabled={submitting}>
-            <Trophy className="h-4 w-4" />
-            {submitting ? "Grading…" : "Submit test"}
-          </Button>
-        </div>
-      </div>
+      </PageShell>
     );
   }
 
+  // 2. In Result View
+  if (activeResult && activeResultMeta) {
+    return (
+      <PageShell>
+        <TestResultView
+          testTitle={activeResultMeta.title}
+          subjectCode={activeResultMeta.subject}
+          result={activeResult}
+          onBack={() => {
+            setActiveResult(null);
+            setActiveResultMeta(null);
+          }}
+        />
+      </PageShell>
+    );
+  }
+
+  // 3. Tests List View
   return (
     <PageShell>
-      <PageTitle
-        title="Tests"
-        subtitle="Auto-graded quizzes set by your teacher — results feed your mastery model."
-      />
-      {error && <ErrorState message={error} onRetry={load} />}
+      <div className="mb-6 border-b border-[var(--border-default)] pb-4">
+        <h1 className="font-display text-[26px] font-semibold text-[var(--text-primary)]">Assessments & Quizzes</h1>
+        <p className="mt-1 text-[13px] text-[var(--text-muted)]">
+          Complete syllabus assessments with instant AI feedback, rubric evaluations, and memory state updates.
+        </p>
+      </div>
 
       {loading ? (
-        <LoadingRows rows={3} />
+        <LoadingRows rows={4} />
+      ) : error ? (
+        <ErrorState message={error} onRetry={load} />
       ) : tests.length === 0 ? (
         <EmptyState
-          title="No tests available"
-          body="Your teacher hasn't published a test for your class yet."
+          title="No assessments available"
+          body="Your teachers have not published any assessments for your class yet."
         />
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {tests.map((t) => {
-            const last = t.results[t.results.length - 1];
+            const attemptsUsed = t.results?.length || 0;
+            const maxAttempts = t.attemptLimit || 3;
+            const hasAttemptsLeft = attemptsUsed < maxAttempts;
+            const bestResult = t.results && t.results.length > 0
+              ? [...t.results].sort((a, b) => b.score - a.score)[0]
+              : null;
+
             return (
-              <Card key={t.id} className="flex flex-wrap items-center gap-4">
+              <Card key={t.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-3.5">
                 <div className="min-w-0 flex-1">
-                  <p className="text-[12px] text-[var(--text-muted)]">{t.subjectCode}</p>
-                  <h2 className="font-display text-[18px] font-semibold text-[var(--text-primary)]">
-                    {t.title}
-                  </h2>
-                  <p className="text-[12px] text-[var(--text-muted)]">
-                    {t._count.questions} questions · {t.durationMin} min
+                  <div className="flex items-center gap-2">
+                    <span className="text-[14px] font-semibold text-[var(--text-primary)] truncate">{t.title}</span>
+                    <Badge tone="navy">{t.subjectCode}</Badge>
+                    {t.moduleNumber && <Badge tone="brass">Module {t.moduleNumber}</Badge>}
+                    <Badge tone={t.difficulty === "HARD" ? "error" : t.difficulty === "MEDIUM" ? "warning" : "success"}>
+                      {t.difficulty}
+                    </Badge>
+                  </div>
+
+                  <p className="text-[11px] text-[var(--text-muted)] mt-1 flex items-center gap-3">
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5" /> {t.durationMin} mins
+                    </span>
+                    <span>·</span>
+                    <span>{t._count.questions} questions</span>
+                    <span>·</span>
+                    <span>{t.totalMarks} marks</span>
+                    <span>·</span>
+                    <span className={attemptsUsed >= maxAttempts ? "text-amber-400 font-semibold" : "text-[var(--text-secondary)]"}>
+                      Attempts: {attemptsUsed}/{maxAttempts}
+                    </span>
                   </p>
                 </div>
-                {last && (
-                  <div className="text-right">
-                    <p className="text-[11px] text-[var(--text-muted)]">Last attempt</p>
-                    <p className="font-display text-[20px] font-semibold text-[var(--status-running)]">
-                      {last.score}
-                      <span className="text-[12px] text-[var(--text-muted)]">
-                        /{last.totalMarks}
-                      </span>
-                    </p>
-                    <p className="text-[10px] text-[var(--text-muted)]">
-                      {new Date(last.submittedAt).toLocaleDateString()}
-                    </p>
-                  </div>
-                )}
-                {last ? (
-                  <Button variant="outline" disabled>
-                    <Flag className="h-4 w-4" />
-                    Attempted
+
+                <div className="flex items-center gap-2.5 shrink-0">
+                  {bestResult && (
+                    <div className="text-right mr-2 hidden sm:block">
+                      <p className="text-[10px] text-[var(--text-muted)] uppercase">Best Score</p>
+                      <p className="text-xs font-bold text-[var(--accent-primary)]">
+                        {bestResult.score} / {bestResult.totalMarks}
+                      </p>
+                    </div>
+                  )}
+
+                  <Button
+                    onClick={() => startTest(t.id)}
+                    disabled={!hasAttemptsLeft}
+                    className="text-xs py-1.5 px-3"
+                  >
+                    <Play className="w-3.5 h-3.5 mr-1" />
+                    {attemptsUsed === 0 ? "Start Test" : hasAttemptsLeft ? "Retake Test" : "Completed"}
                   </Button>
-                ) : (
-                  <Button onClick={() => start(t)} disabled={!t._count.questions}>
-                    <Flag className="h-4 w-4" />
-                    Start
-                  </Button>
-                )}
+                </div>
               </Card>
             );
           })}
         </div>
       )}
-
-      <AnimatePresence>
-        {toast && (
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 40 }}
-            transition={{ duration: 0.24 }}
-          >
-            <Toast kind={toastKind}>{toast}</Toast>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </PageShell>
   );
 }

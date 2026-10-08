@@ -10,7 +10,7 @@ async function verifyNotesE2EFlow() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email: "teacher1@adaptlearn.dev", password: "Teacher@123" }),
   });
-  const { token: teacherToken, user: teacherUser } = await teacherLogin.json();
+  const { token: teacherToken, user: teacherUser } = (await teacherLogin.json()) as any;
   if (!teacherToken) throw new Error("Teacher login failed");
   console.log(`[1] Teacher authenticated: ${teacherUser.name} (${teacherUser.role})`);
 
@@ -20,7 +20,7 @@ async function verifyNotesE2EFlow() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email: "demo.student@adaptlearn.dev", password: "Student@123" }),
   });
-  const { token: studentToken, user: studentUser } = await studentLogin.json();
+  const { token: studentToken, user: studentUser } = (await studentLogin.json()) as any;
   if (!studentToken) throw new Error("Student login failed");
   console.log(`[2] Student authenticated: ${studentUser.name} (Semester: ${studentUser.semester})`);
 
@@ -34,7 +34,7 @@ async function verifyNotesE2EFlow() {
     headers: { Authorization: `Bearer ${teacherToken}` },
     body: badForm,
   });
-  const badJson = await badUploadRes.json();
+  const badJson = (await badUploadRes.json()) as any;
   console.log(`[3] Spoofed PDF rejected: HTTP ${badUploadRes.status} -> ${badJson.error}`);
   if (badUploadRes.status !== 400) throw new Error("Spoofed PDF was not rejected with HTTP 400");
 
@@ -54,7 +54,7 @@ async function verifyNotesE2EFlow() {
     headers: { Authorization: `Bearer ${teacherToken}` },
     body: goodForm,
   });
-  const uploadJson = await uploadRes.json();
+  const uploadJson = (await uploadRes.json()) as any;
   console.log(`[4] Valid PDF uploaded: HTTP ${uploadRes.status} -> ID: ${uploadJson.note?.id}`);
   if (uploadRes.status !== 201 || !uploadJson.note?.id) throw new Error("Valid PDF upload failed");
   const testNoteId = uploadJson.note.id;
@@ -63,7 +63,7 @@ async function verifyNotesE2EFlow() {
   const listRes = await fetch("http://localhost:8001/api/notes?subject=BCS701&module=1", {
     headers: { Authorization: `Bearer ${studentToken}` },
   });
-  const listJson = await listRes.json();
+  const listJson = (await listRes.json()) as any;
   const foundNote = listJson.notes?.find((n: any) => n.id === testNoteId);
   console.log(`[5] Student query /api/notes?subject=BCS701&module=1: count=${listJson.notes?.length}, foundTestNote=${!!foundNote}`);
   if (!foundNote) throw new Error("Student could not find the uploaded note");
