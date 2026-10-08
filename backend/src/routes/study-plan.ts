@@ -12,28 +12,16 @@ import {
 const router = Router();
 
 // GET /api/study-plan/styles - plan style metadata and descriptions
-router.get("/styles", requireAuth, (_req, res) => {
-  res.json({ styles: PLAN_STYLES });
-});
+router.get("/styles", requireAuth, (_req, res) => { res.json({ styles: PLAN_STYLES }); });
 
 // GET /api/study-plan/subjects - available subjects with topic counts and student mastery
 router.get("/subjects", requireAuth, async (req: AuthRequest, res) => {
   try {
-    const subjects = await prisma.subject.findMany({
-      orderBy: { code: "asc" },
-      include: {
-        _count: { select: { modules: true } },
-      }
-    });
-
-    const topics = await prisma.topic.findMany({
-      select: { subjectCode: true, id: true }
-    });
-
-    const userStates = await prisma.learningState.findMany({
-      where: { userId: req.user!.id },
-      select: { topicId: true, mastery: true }
-    });
+    const [subjects, topics, userStates] = await Promise.all([
+      prisma.subject.findMany({ orderBy: { code: "asc" }, include: { _count: { select: { modules: true } } } }),
+      prisma.topic.findMany({ select: { subjectCode: true, id: true } }),
+      prisma.learningState.findMany({ where: { userId: req.user!.id }, select: { topicId: true, mastery: true } }),
+    ]);
     const stateMap = new Map(userStates.map(s => [s.topicId, s.mastery]));
 
     const result = subjects.map(s => {
@@ -41,20 +29,13 @@ router.get("/subjects", requireAuth, async (req: AuthRequest, res) => {
       const totalMastery = subTopics.reduce((acc, t) => acc + (stateMap.get(t.id) ?? 0.2), 0);
       const avgMastery = subTopics.length > 0 ? totalMastery / subTopics.length : 0;
       return {
-        code: s.code,
-        name: s.name,
-        semester: s.semester,
-        credits: s.credits,
-        moduleCount: s._count.modules,
-        topicCount: subTopics.length,
+        code: s.code, name: s.name, semester: s.semester, credits: s.credits,
+        moduleCount: s._count.modules, topicCount: subTopics.length,
         avgMastery: Math.round(avgMastery * 100) / 100
       };
     });
-
     res.json({ subjects: result });
-  } catch (err: any) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err: any) { res.status(500).json({ error: err.message }); }
 });
 
 // GET /api/study-plan/active - retrieve active plan and all its tasks
@@ -256,19 +237,29 @@ router.patch("/tasks/:id", requireAuth, async (req: AuthRequest, res) => {
       data: { status, completedAt }
     });
 
-    // If completed and topicId exists, update learning state / mastery gain
+    let unlocked: any[] = [];
     if (status === "COMPLETED" && task.topicId) {
-      await prisma.learningState.upsert({
-        where: { userId_topicId: { userId: req.user!.id, topicId: task.topicId } },
-        update: { timesReviewed: { increment: 1 }, lastReviewedAt: new Date(), mastery: { increment: 0.05 } },
-        create: { userId: req.user!.id, topicId: task.topicId, mastery: 0.35, stability: 1.0, timesReviewed: 1, lastReviewedAt: new Date() }
-      });
+      const { markTaskCompleteAndCheckUnlocks } = await import("../services/unlockEngine");
+      unlocked = await markTaskCompleteAndCheckUnlocks(req.user!.id, task.topicId);
     }
 
-    res.json({ task: updated });
+    res.json({ task: updated, unlocked });
   } catch (err: any) {
     res.status(400).json({ error: err.message });
   }
+});
+
+// POST /api/study-plan/reorder - reorder tasks within plan
+router.post("/reorder", requireAuth, async (req: AuthRequest, res) => {
+  try {
+    const { taskIds } = z.object({ taskIds: z.array(z.string()) }).parse(req.body);
+    await Promise.all(
+      taskIds.map((id, index) =>
+        prisma.planTask.updateMany({ where: { id, userId: req.user!.id }, data: { order: index } })
+      )
+    );
+    res.json({ success: true });
+  } catch (err: any) { res.status(400).json({ error: err.message }); }
 });
 
 // POST /api/study-plan/reschedule-missed - forward reschedule overdue tasks

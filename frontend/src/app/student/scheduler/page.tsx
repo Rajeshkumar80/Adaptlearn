@@ -1,316 +1,298 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { CalendarClock, Clock, Check, Trash2 } from "lucide-react";
+import React, { useState, useEffect } from "react";
 import { api, errorMessage } from "@/lib/api";
-import { Button, Card, EmptyState, ErrorState, Input, PageShell, Select } from "@/components/ui";
-import { useSubjects } from "@/lib/subjects";
+import { PageShell, Card, Button, Badge } from "@/components/ui";
+import { Calendar, Layers, BarChart3, Plus } from "lucide-react";
+import { SchedulerConfigForm } from "@/components/scheduler/SchedulerConfigForm";
+import { SubjectProgressRing } from "@/components/scheduler/SubjectProgressRing";
+import { PlanComparisonModal } from "@/components/scheduler/PlanComparisonModal";
+import { MergedRoadmapGraph } from "@/components/scheduler/MergedRoadmapGraph";
+import { SchedulerTaskCard } from "@/components/scheduler/SchedulerTaskCard";
 
-interface ScheduleItem {
-  topicId: string;
-  topicName: string;
-  subjectCode: string;
-  moduleNumber: number | null;
-  priority: number;
-  allocatedMinutes: number;
-  reasons: string[];
-}
-
-interface PlanResponse {
-  subjectCode: string;
-  moduleNumber: number | null;
-  totalAllocatedMinutes: number;
-  created: number;
-  schedule: ScheduleItem[];
-}
-
-interface StudyTask {
+interface PlanTask {
   id: string;
   subjectCode: string;
-  subjectName: string;
   moduleNumber: number | null;
+  topicId: string | null;
   topicName: string;
+  scheduledDate: string;
+  scheduledSlot: string | null;
   minutes: number;
-  date: string;
-  done: boolean;
+  type: "learn" | "revise" | "test";
+  status: "PENDING" | "COMPLETED" | "SKIPPED" | "MISSED";
   order: number;
+  todoText?: string;
+  subPoints?: string[];
+  selfCheckQuestion?: string;
 }
 
-export default function SchedulerPage() {
-  const { subjects, loading } = useSubjects();
-  const [semester, setSemester] = useState(5);
-  const [subjectCode, setSubjectCode] = useState("");
-  const [moduleNumber, setModuleNumber] = useState("");
-  const [minutes, setMinutes] = useState("60");
-  const [plan, setPlan] = useState<PlanResponse | null>(null);
-  const [tasks, setTasks] = useState<StudyTask[]>([]);
-  const [error, setError] = useState("");
-  const [busy, setBusy] = useState(false);
+interface ActivePlan {
+  id: string;
+  subjects: string[];
+  examDate?: string;
+  targetFinishDate?: string;
+  hoursPerDay: number;
+  mode: string;
+  progressPercent: number;
+  totalTasks: number;
+  completedTasks: number;
+  tasks: PlanTask[];
+}
 
-  const semSubjects = subjects.filter((s) => s.semester === semester);
-  const semesters = Array.from(new Set(subjects.map((s) => s.semester))).sort((a, b) => a - b);
+export default function UnifiedSchedulerPage() {
+  const [activePlan, setActivePlan] = useState<ActivePlan | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [showConfig, setShowConfig] = useState<boolean>(false);
+  const [showComparison, setShowComparison] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<"plan" | "roadmap">("plan");
+  const [tickingId, setTickingId] = useState<string | null>(null);
+  const [draggedTaskId, setDraggedTaskId] = useState<string | null>(null);
+
+  const loadActivePlan = async () => {
+    try {
+      await api.post("/study-plan/reschedule-missed").catch(() => {});
+      const res = await api.get<{ plan: ActivePlan | null }>("/study-plan/active");
+      setActivePlan(res.data.plan);
+    } catch {
+      // Graceful fallback
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    api
-      .get<{ tasks: StudyTask[] }>("/planner")
-      .then((res) => setTasks(res.data.tasks))
-      .catch(() => {});
+    loadActivePlan();
   }, []);
 
-  useEffect(() => {
-    if (semSubjects.length > 0 && !semSubjects.some((s) => s.code === subjectCode)) {
-      setSubjectCode(semSubjects[0].code);
-      setModuleNumber("");
-    }
-  }, [semSubjects, subjectCode]);
-
-  async function generate() {
-    setError("");
-    setBusy(true);
+  const handleToggleTask = async (task: PlanTask) => {
+    const newStatus = task.status === "COMPLETED" ? "PENDING" : "COMPLETED";
+    setTickingId(task.id);
     try {
-      const res = await api.post<PlanResponse>("/planner", {
-        subjectCode,
-        moduleNumber: moduleNumber ? Number(moduleNumber) : undefined,
-        minutes: Number(minutes),
+      await api.patch(`/study-plan/tasks/${task.id}`, { status: newStatus });
+      setActivePlan((prev) => {
+        if (!prev) return null;
+        const updatedTasks = prev.tasks.map((t) =>
+          t.id === task.id ? { ...t, status: newStatus as any } : t
+        );
+        const completed = updatedTasks.filter((t) => t.status === "COMPLETED").length;
+        return {
+          ...prev,
+          completedTasks: completed,
+          progressPercent: Math.round((completed / updatedTasks.length) * 100),
+          tasks: updatedTasks,
+        };
       });
-      setPlan(res.data);
-      const list = await api.get<{ tasks: StudyTask[] }>("/planner");
-      setTasks(list.data.tasks);
     } catch (err) {
-      setError(errorMessage(err));
+      console.error(err);
     } finally {
-      setBusy(false);
+      setTickingId(null);
     }
-  }
+  };
 
-  async function toggleDone(task: StudyTask) {
-    await api.patch(`/planner/${task.id}`, { done: !task.done });
-    setTasks((ts) => ts.map((t) => (t.id === task.id ? { ...t, done: !t.done } : t)));
-  }
+  const handleDragStart = (id: string) => {
+    setDraggedTaskId(id);
+  };
 
-  async function removeTask(task: StudyTask) {
-    await api.delete(`/planner/${task.id}`);
-    setTasks((ts) => ts.filter((t) => t.id !== task.id));
-  }
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
 
-  const moduleOptions = subjects.find((s) => s.code === subjectCode)?.modules ?? [];
-  const open = tasks.filter((t) => !t.done);
-  const done = tasks.filter((t) => t.done);
-  const totalMin = tasks.reduce((s, t) => s + (t.done ? 0 : t.minutes), 0);
+  const handleDrop = async (targetId: string) => {
+    if (!draggedTaskId || draggedTaskId === targetId || !activePlan) return;
+    const taskList = [...activePlan.tasks];
+    const dragIdx = taskList.findIndex((t) => t.id === draggedTaskId);
+    const dropIdx = taskList.findIndex((t) => t.id === targetId);
+    if (dragIdx === -1 || dropIdx === -1) return;
+
+    const [moved] = taskList.splice(dragIdx, 1);
+    taskList.splice(dropIdx, 0, moved);
+
+    setActivePlan({ ...activePlan, tasks: taskList });
+    setDraggedTaskId(null);
+
+    try {
+      await api.post("/study-plan/reorder", { taskIds: taskList.map((t) => t.id) });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Group tasks by scheduled date
+  const groupedTasks = (activePlan?.tasks || []).reduce<Record<string, PlanTask[]>>((acc, t) => {
+    const d = t.scheduledDate;
+    if (!acc[d]) acc[d] = [];
+    acc[d].push(t);
+    return acc;
+  }, {});
+
+  const dates = Object.keys(groupedTasks).sort();
+  const selectedSubject = activePlan?.subjects?.[0] || "BCS701";
 
   return (
     <PageShell>
-      <div className="mb-6 border-b border-[var(--border-default)] pb-4">
-        <h1 className="font-display text-[26px] font-semibold text-[var(--text-primary)]">Scheduler</h1>
-        <p className="mt-1 text-[13px] text-[var(--text-muted)]">
-          Pick a subject (and module) and how many minutes you want to study — the
-          planner divides the time across that scope&apos;s topics by mastery, PYQ
-          importance, prerequisites, and your forgetting curve. Tasks persist and
-          you can tick them off as you finish.
-        </p>
-      </div>
-
-      <Card className="mb-6">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[var(--border-default)]">
           <div>
-            <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-[var(--text-muted)]">
-              Semester
-            </label>
-            <Select
-              value={semester}
-              onChange={(e) => {
-                setSemester(Number(e.target.value));
-                setSubjectCode("");
-                setModuleNumber("");
-              }}
-            >
-              {semesters.map((sem) => (
-                <option key={sem} value={sem}>
-                  Sem {sem}
-                </option>
-              ))}
-            </Select>
-          </div>
-          <div>
-            <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-[var(--text-muted)]">
-              Subject
-            </label>
-            <Select
-              value={subjectCode}
-              onChange={(e) => {
-                setSubjectCode(e.target.value);
-                setModuleNumber("");
-              }}
-            >
-              {loading ? (
-                <option disabled>Loading…</option>
-              ) : semSubjects.length === 0 ? (
-                <option value="">No subjects for Sem {semester}</option>
-              ) : (
-                semSubjects.map((s) => (
-                  <option key={s.code} value={s.code}>
-                    {s.code} — {s.name}
-                  </option>
-                ))
+            <div className="flex items-center gap-2">
+              <h1 className="font-display text-2xl font-bold text-[var(--text-primary)]">
+                Unified Study Scheduler & Roadmap
+              </h1>
+              {activePlan && (
+                <Badge tone="navy" className="text-xs font-mono uppercase">
+                  {activePlan.mode}
+                </Badge>
               )}
-            </Select>
-          </div>
-          <div>
-            <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-[var(--text-muted)]">
-              Module (optional)
-            </label>
-            <Select value={moduleNumber} onChange={(e) => setModuleNumber(e.target.value)}>
-              <option value="">All modules</option>
-              {moduleOptions.map((m) => (
-                <option key={m.id} value={m.moduleNumber}>
-                  Module {m.moduleNumber} — {m.name}
-                </option>
-              ))}
-            </Select>
-          </div>
-          <div>
-            <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-[var(--text-muted)]">
-              Minutes to study
-            </label>
-            <div className="relative">
-              <Clock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-muted)]" />
-              <Input
-                type="number"
-                min={10}
-                max={600}
-                step={5}
-                value={minutes}
-                onChange={(e) => setMinutes(e.target.value)}
-                className="pl-9"
-              />
             </div>
+            <p className="text-xs text-[var(--text-muted)] mt-1">
+              Deterministic spacing, forgetting curve protection, and live prerequisite roadmap.
+            </p>
           </div>
-          <div className="flex items-end">
-            <Button onClick={generate} disabled={busy || !subjectCode} className="w-full">
-              <CalendarClock className="h-4 w-4" />
-              {busy ? "Planning…" : "Plan session"}
+          <div className="flex items-center gap-2">
+            <Button variant="outline" className="text-xs py-1.5 px-3" onClick={() => setShowComparison(true)}>
+              <Layers className="w-3.5 h-3.5 mr-1" />
+              Compare Strategies
+            </Button>
+            <Button className="text-xs py-1.5 px-3" onClick={() => setShowConfig(!showConfig)}>
+              {showConfig ? "Close Config" : <><Plus className="w-3.5 h-3.5 mr-1" /> New Study Plan</>}
             </Button>
           </div>
         </div>
-      </Card>
 
-      {error && <ErrorState message={error} onRetry={generate} />}
-
-      {plan && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2 }}
-          className="mb-8"
-        >
-          <div className="mb-4 flex items-center gap-3">
-            <p className="text-[13px] text-[var(--text-muted)]">
-              {plan.subjectCode}
-              {plan.moduleNumber ? ` · Module ${plan.moduleNumber}` : " · all modules"} →{" "}
-              <span className="tnum font-semibold text-[var(--accent-primary)]">
-                {plan.totalAllocatedMinutes} minutes
-              </span>{" "}
-              across {plan.schedule.length} topics
-              {plan.created > 0
-                ? ` · ${plan.created} new task${plan.created > 1 ? "s" : ""} added`
-                : " · everything already planned for today"}
-            </p>
+        {/* Plan Config Form Drawer */}
+        {showConfig && (
+          <div className="animate-in fade-in slide-in-from-top-2 duration-300">
+            <SchedulerConfigForm
+              onPlanGenerated={(data) => {
+                setActivePlan(data.plan);
+                setShowConfig(false);
+                loadActivePlan();
+              }}
+              onCancel={() => setShowConfig(false)}
+            />
           </div>
-          <div className="ledger-card divide-y divide-[var(--border-default)]">
-            {plan.schedule.length === 0 && (
-              <p className="px-4 py-6 text-center text-[13px] text-[var(--text-muted)]">
-                Nothing scheduled — no topics found in this scope.
-              </p>
-            )}
-            {plan.schedule.map((item, i) => (
-              <div key={item.topicId} className="flex flex-wrap items-center gap-3 px-4 py-3">
-                <span className="tnum w-7 text-[13px] font-semibold text-[var(--accent-primary)]">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-[13px] font-semibold text-[var(--text-primary)]">
-                    {item.topicName}
-                  </p>
-                  <p className="text-[11px] text-[var(--text-muted)]">
-                    {item.subjectCode}
-                    {item.moduleNumber ? ` · Module ${item.moduleNumber}` : ""}
-                    {item.reasons.length > 0 && ` · ${item.reasons.join(", ")}`}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="tnum font-display text-[18px] font-semibold text-[var(--accent-primary)]">
-                    {item.allocatedMinutes}
-                    <span className="ml-0.5 text-[11px] font-normal text-[var(--text-muted)]">min</span>
-                  </p>
-                </div>
-              </div>
-            ))}
+        )}
+
+        {/* Subject Progress Rings */}
+        {activePlan && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            {(activePlan.subjects || []).map((subCode) => {
+              const subTasks = activePlan.tasks.filter((t) => t.subjectCode === subCode);
+              const done = subTasks.filter((t) => t.status === "COMPLETED").length;
+              const pct = subTasks.length > 0 ? Math.round((done / subTasks.length) * 100) : 0;
+              return (
+                <SubjectProgressRing
+                  key={subCode}
+                  code={subCode}
+                  name={`Subject ${subCode}`}
+                  percent={pct}
+                  completedTasks={done}
+                  totalTasks={subTasks.length}
+                />
+              );
+            })}
           </div>
-        </motion.div>
-      )}
+        )}
 
-      <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="font-display text-[18px] font-semibold text-[var(--text-primary)]">Today&apos;s plan</h2>
-        <p className="text-[12px] text-[var(--text-muted)]">
-          {open.length} open · {done.length} done ·{" "}
-          <span className="tnum font-semibold text-[var(--accent-primary)]">{totalMin} min</span> remaining
-        </p>
-      </div>
-
-      {tasks.length === 0 ? (
-        <EmptyState
-          title="Nothing planned yet"
-          body="Pick a subject above, set your minutes, and the planner builds today's list."
-        />
-      ) : (
-        <div className="ledger-card divide-y divide-[var(--border-default)]">
-          {[...open, ...done].map((task) => (
-            <div
-              key={task.id}
-              className={`flex items-center gap-3 px-4 py-3 ${
-                task.done ? "opacity-50" : ""
-              }`}
-            >
-              <button
-                onClick={() => toggleDone(task)}
-                className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-[2px] border transition-colors ${
-                  task.done
-                    ? "border-[var(--accent-primary)] bg-[var(--accent-primary)] text-white"
-                    : "border-[var(--border-default)] text-transparent hover:border-[var(--accent-primary)]"
-                }`}
-                title={task.done ? "Mark not done" : "Mark done"}
-              >
-                <Check className="h-4 w-4" />
-              </button>
-              <div className="min-w-0 flex-1">
-                <p
-                  className={`truncate text-[13px] font-semibold ${
-                    task.done ? "text-[var(--text-muted)] line-through" : "text-[var(--text-primary)]"
-                  }`}
-                >
-                  {task.topicName}
-                </p>
-                <p className="text-[11px] text-[var(--text-muted)]">
-                  {task.subjectCode} — {task.subjectName}
-                  {task.moduleNumber ? ` · Module ${task.moduleNumber}` : ""} ·{" "}
-                  {new Date(task.date).toLocaleDateString()}
-                </p>
-              </div>
-              <span className="tnum shrink-0 text-[13px] font-semibold text-[var(--accent-primary)]">
-                {task.minutes} min
-              </span>
-              <button
-                onClick={() => removeTask(task)}
-                className="shrink-0 text-[var(--text-muted)] transition-colors hover:text-[var(--status-error)]"
-                title="Remove task"
-              >
-                <Trash2 className="h-4 w-4" />
-              </button>
-            </div>
-          ))}
+        {/* View Switcher Tabs */}
+        <div className="flex border-b border-[var(--border-default)] gap-4">
+          <button
+            onClick={() => setActiveTab("plan")}
+            className={`pb-2.5 text-xs font-semibold flex items-center gap-2 border-b-2 transition-all ${
+              activeTab === "plan"
+                ? "border-[var(--accent-primary)] text-[var(--accent-primary)]"
+                : "border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+            }`}
+          >
+            <Calendar className="w-3.5 h-3.5" />
+            Adaptive Schedule & To-Dos
+          </button>
+          <button
+            onClick={() => setActiveTab("roadmap")}
+            className={`pb-2.5 text-xs font-semibold flex items-center gap-2 border-b-2 transition-all ${
+              activeTab === "roadmap"
+                ? "border-[var(--accent-primary)] text-[var(--accent-primary)]"
+                : "border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+            }`}
+          >
+            <BarChart3 className="w-3.5 h-3.5" />
+            Knowledge Graph & Prerequisite Map
+          </button>
         </div>
-      )}
+
+        {/* Tab 1: Schedule Week Board */}
+        {activeTab === "plan" && (
+          <div className="space-y-6">
+            {!activePlan && !loading && (
+              <Card className="p-8 text-center">
+                <Calendar className="w-10 h-10 text-[var(--text-muted)] mx-auto mb-3" />
+                <h3 className="text-base font-bold text-[var(--text-primary)]">No Active Study Plan</h3>
+                <p className="text-xs text-[var(--text-muted)] mt-1 max-w-sm mx-auto">
+                  Generate your personalised adaptive plan based on your exam date and VTU syllabus.
+                </p>
+                <Button className="mt-4 text-xs py-1.5 px-3" onClick={() => setShowConfig(true)}>
+                  Create Study Plan Now
+                </Button>
+              </Card>
+            )}
+
+            {dates.map((dateStr) => {
+              const dayTasks = groupedTasks[dateStr] || [];
+              const isToday = dateStr === new Date().toISOString().slice(0, 10);
+
+              return (
+                <div key={dateStr} className="space-y-3">
+                  <div className="flex items-center justify-between pb-1 border-b border-[var(--border-default)]">
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold text-xs text-[var(--text-primary)]">
+                        {dateStr}
+                      </span>
+                      {isToday && (
+                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400">
+                          Today
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-[11px] text-[var(--text-muted)]">
+                      {dayTasks.length} tasks · {dayTasks.reduce((s, t) => s + t.minutes, 0)} min
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {dayTasks.map((task) => (
+                      <SchedulerTaskCard
+                        key={task.id}
+                        task={task}
+                        onToggle={handleToggleTask}
+                        onDragStart={handleDragStart}
+                        onDragOver={handleDragOver}
+                        onDrop={handleDrop}
+                      />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Tab 2: Merged Roadmap Graph */}
+        {activeTab === "roadmap" && (
+          <MergedRoadmapGraph subjectCode={selectedSubject} />
+        )}
+
+        {/* Strategy Comparison Modal */}
+        {showComparison && (
+          <PlanComparisonModal
+            currentMode={activePlan?.mode || "3-2-1"}
+            onSelectMode={(mode) => {
+              setShowConfig(true);
+            }}
+            onClose={() => setShowComparison(false)}
+          />
+        )}
+      </div>
     </PageShell>
   );
 }
