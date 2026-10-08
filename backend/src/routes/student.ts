@@ -23,12 +23,23 @@ const photoUpload = multer({
   },
 });
 
+import { computeStudentIntelligence } from "../services/intelligenceService";
+
 router.get("/profile", requireAuth, async (req: AuthRequest, res) => {
   const user = await prisma.user.findUnique({
     where: { id: req.user!.id },
     include: { class: true, learningStates: { include: { topic: true } }, studySessions: true, achievements: true },
   });
   res.json({ user });
+});
+
+router.get("/intelligence", requireAuth, async (req: AuthRequest, res) => {
+  try {
+    const intelligence = await computeStudentIntelligence(req.user!.id);
+    res.json({ intelligence });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 router.get("/notes", requireAuth, async (req: AuthRequest, res) => {

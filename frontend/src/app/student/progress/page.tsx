@@ -39,20 +39,6 @@ const C = {
   grid: "#d8cdb4",
 };
 
-interface GraphState {
-  topicId: string;
-  topicName: string;
-  subjectCode: string;
-  moduleNumber: number;
-  mastery: number;
-  stability: number;
-  lastReviewedAt: string | null;
-  retention: number;
-  correctCount: number;
-  wrongCount: number;
-  timesReviewed: number;
-}
-
 import {
   calculateRetentionAt,
   generateProjectionPoints,
@@ -241,7 +227,7 @@ export default function ProgressPage() {
               </h2>
               <p className="text-[12px] text-[var(--text-muted)]">
                 {curve
-                  ? `Projected retention for "${curve.topic.topicName}" — now ${Math.round(curve.topic.retention * 100)}%`
+                  ? `Projected retention for "${curve.topic.topicName}" — now ${Math.round((curve.topic.retention ?? 1.0) * 100)}%`
                   : "Review a topic to unlock your forgetting curve."}
               </p>
             </div>
