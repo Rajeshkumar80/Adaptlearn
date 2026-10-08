@@ -10,18 +10,28 @@ router.get("/mastery/graph", requireAuth, async (req: AuthRequest, res) => {
     include: { topic: true },
   });
   res.json({
-    states: states.map(s => ({
-      topicId: s.topicId,
-      topicName: s.topic.name,
-      subjectCode: s.topic.subjectCode,
-      moduleNumber: s.topic.moduleNumber,
-      mastery: s.mastery,
-      stability: s.stability,
-      lastReviewedAt: s.lastReviewedAt,
-      correctCount: s.correctCount,
-      wrongCount: s.wrongCount,
-      timesReviewed: s.timesReviewed,
-    })),
+    states: states.map(s => {
+      let retention = s.retention ?? 1.0;
+      if (s.lastReviewedAt) {
+        const daysSince = Math.max(0, (Date.now() - new Date(s.lastReviewedAt).getTime()) / (1000 * 3600 * 24));
+        const stab = Math.max(0.1, s.stability || 0.5);
+        retention = Math.max(0.05, Math.min(1.0, Math.exp(-daysSince / (stab * 10))));
+      }
+      return {
+        topicId: s.topicId,
+        topicName: s.topic.name,
+        subjectCode: s.topic.subjectCode,
+        moduleNumber: s.topic.moduleNumber,
+        mastery: Number.isFinite(s.mastery) ? s.mastery : 0.2,
+        stability: Number.isFinite(s.stability) ? s.stability : 0.5,
+        retention: Math.round(retention * 100) / 100,
+        forgettingRisk: Math.round((1 - retention) * 100) / 100,
+        lastReviewedAt: s.lastReviewedAt,
+        correctCount: s.correctCount,
+        wrongCount: s.wrongCount,
+        timesReviewed: s.timesReviewed,
+      };
+    }),
   });
 });
 

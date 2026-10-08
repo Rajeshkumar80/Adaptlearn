@@ -53,8 +53,13 @@ interface GraphState {
   timesReviewed: number;
 }
 
-const retentionAt = (topic: GraphState, day: number) =>
-  Math.max(0, Math.round(topic.retention * Math.exp(-0.1 * day * (1 - topic.stability)) * 100) / 100);
+import {
+  calculateRetentionAt,
+  generateProjectionPoints,
+  TopicRetentionState,
+} from "@/lib/forgetting-curve";
+
+export type GraphState = TopicRetentionState;
 
 function severityFor(mastery: number): "success" | "warning" | "error" {
   if (mastery >= 0.7) return "success";
@@ -85,7 +90,7 @@ export default function ProgressPage() {
 
   const avgMastery = useMemo(() => {
     if (states.length === 0) return 0;
-    return states.reduce((a, s) => a + s.mastery, 0) / states.length;
+    return states.reduce((a, s) => a + (Number.isFinite(s.mastery) ? s.mastery : 0.2), 0) / states.length;
   }, [states]);
 
   const distribution = useMemo(() => {
@@ -103,23 +108,20 @@ export default function ProgressPage() {
   }, [states]);
 
   const weakest = useMemo(
-    () => [...states].sort((a, b) => a.mastery - b.mastery).slice(0, 5),
+    () => [...states].sort((a, b) => (a.mastery || 0) - (b.mastery || 0)).slice(0, 5),
     [states]
   );
 
   const totalReviews = useMemo(
-    () => states.reduce((a, s) => a + s.timesReviewed, 0),
+    () => states.reduce((a, s) => a + (s.timesReviewed || 0), 0),
     [states]
   );
 
   const curve = useMemo(() => {
     const topic =
-      states.find((s) => s.topicId === curveTopicId) ?? weakest[0] ?? null;
-    if (!topic || !topic.lastReviewedAt) return null;
-    const days = Array.from({ length: 8 }, (_, d) => ({
-      day: `D+${d}`,
-      retention: retentionAt(topic, d),
-    }));
+      states.find((s) => s.topicId === curveTopicId) ?? weakest[0] ?? states[0] ?? null;
+    if (!topic) return null;
+    const days = generateProjectionPoints(topic);
     return { topic, days };
   }, [states, curveTopicId, weakest]);
 
@@ -132,8 +134,8 @@ export default function ProgressPage() {
   const insight = useMemo(() => {
     if (weakest.length === 0) return null;
     const t = weakest[0];
-    const day3 = retentionAt(t, 3);
-    const pct = Math.round(t.mastery * 100);
+    const day3 = calculateRetentionAt(t, 3);
+    const pct = Math.round((t.mastery || 0.2) * 100);
     return {
       topic: t,
       text:

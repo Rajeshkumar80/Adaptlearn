@@ -78,4 +78,5 @@ desktop.ini
 *.tmp
 *.temp
 *.orig
+*.png
 .gstack/
