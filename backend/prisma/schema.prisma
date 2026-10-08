@@ -41,6 +41,8 @@ model User {
   chatSessions   ChatSession[]
   studyTasks     StudyTask[]
   subTopicProgress SubTopicProgress[]
+  activityLogs   ActivityLog[]
+  studentTargets StudentTarget[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -154,6 +156,13 @@ model LearningState {
   wrongCount     Int       @default(0)
   timesReviewed  Int       @default(0)
   lastReviewedAt DateTime?
+  retention          Float     @default(1.0)
+  forgettingRisk     Float     @default(0.0)
+  confidence         Float     @default(0.5)
+  learningVelocity   Float     @default(0.0)
+  timeSpentSec       Int       @default(0)
+  avgResponseTimeSec Float     @default(0.0)
+  priority           Float     @default(0.5)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -167,10 +176,14 @@ model StudySession {
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   topicId     String
   topic       Topic     @relation(fields: [topicId], references: [id], onDelete: Cascade)
-  durationMin Int       @default(0)
-  method      String    @default("study")
-  correct     Boolean?
-  createdAt   DateTime  @default(now())
+  durationMin     Int       @default(0)
+  method          String    @default("study")
+  correct         Boolean?
+  responseTimeSec Float?
+  confidence      Float?
+  subjectCode     String?
+  moduleNumber    Int?
+  createdAt       DateTime  @default(now())
 }
 
 model Document {
@@ -216,8 +229,13 @@ model Notes {
   id                  String   @id @default(cuid())
   subjectCode         String
   moduleNumber        Int?
+  topicId             String?
+  topicName           String?
   title               String
+  description         String   @default("")
   fileUrl             String
+  fileSize            Int      @default(0)
+  isPublished         Boolean  @default(true)
   uploadedByTeacherId String
   uploadedBy          User     @relation("NotesUploadedBy", fields: [uploadedByTeacherId], references: [id], onDelete: Cascade)
   classId             String?
@@ -263,6 +281,14 @@ model Test {
   title               String
   durationMin         Int          @default(30)
   isActive            Boolean      @default(false)
+  moduleNumber        Int?
+  topicIds            Json?
+  difficulty          String       @default("MEDIUM")
+  attemptLimit        Int          @default(3)
+  startTime           DateTime?
+  endTime             DateTime?
+  totalMarks          Float        @default(20)
+  integrityThreshold  Int          @default(4)
   createdByTeacherId  String
   teacher             User         @relation("TestsCreatedBy", fields: [createdByTeacherId], references: [id], onDelete: Cascade)
   classId             String?
@@ -279,26 +305,38 @@ model Question {
   testId       String
   test         Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
   text         String
-  options      Json
-  correctIndex Int
-  marks        Int      @default(2)
-  topicId      String?
+  options          Json
+  correctIndex     Int          @default(0)
+  marks            Int          @default(2)
+  topicId          String?
+  questionType     String       @default("MCQ")
+  rubric           Json?
+  expectedKeywords Json?
+  modelAnswer      String?
 
   createdAt DateTime @default(now())
 }
 
 model TestResult {
-  id          String   @id @default(cuid())
-  testId      String
-  test        Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
-  studentId   String
-  student     User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  score       Float
-  totalMarks  Float
-  answers     Json?
-  submittedAt DateTime @default(now())
+  id                   String   @id @default(cuid())
+  testId               String
+  test                 Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  studentId            String
+  student              User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  attemptNumber        Int      @default(1)
+  score                Float
+  totalMarks           Float
+  answers              Json?
+  status               String   @default("SUBMITTED")
+  startedAt            DateTime @default(now())
+  submittedAt          DateTime @default(now())
+  timeTakenSec         Int      @default(0)
+  integrityWarnings    Int      @default(0)
+  evaluationDetails    Json?
+  teacherFeedback      String?
+  teacherMarksOverride Float?
 
-  @@unique([testId, studentId])
+  @@unique([testId, studentId, attemptNumber])
 }
 
 model CheatFlag {
@@ -307,10 +345,13 @@ model CheatFlag {
   test      Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
   studentId String
   student   User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  type      String
-  severity  String   @default("LOW")
-  details   String   @default("")
-  createdAt DateTime @default(now())
+  type          String
+  severity      String   @default("LOW")
+  details       String   @default("")
+  attemptNumber Int      @default(1)
+  eventCount    Int      @default(1)
+  actionTaken   String   @default("WARNING")
+  createdAt     DateTime @default(now())
 }
 
 model Notification {
@@ -389,10 +430,50 @@ model StudyTask {
   topicId      String?
   topicName    String
   minutes      Int
-  date         String
-  done         Boolean  @default(false)
-  order        Int      @default(0)
-  createdAt    DateTime @default(now())
+  date             String
+  done             Boolean   @default(false)
+  order            Int       @default(0)
+  taskType         String    @default("learn")
+  difficulty       String    @default("medium")
+  priority         String    @default("medium")
+  reason           String    @default("")
+  planType         String    @default("3-2-1")
+  status           String    @default("pending")
+  feedback         String?
+  estimatedMinutes Int       @default(20)
+  masteryBefore    Float?
+  masteryAfter     Float?
+  completedAt      DateTime?
+  createdAt        DateTime  @default(now())
 
   @@index([userId])
+}
+
+model ActivityLog {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  eventType   String
+  subjectCode String?
+  topicId     String?
+  durationSec Int?
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  @@index([userId, eventType])
+}
+
+model StudentTarget {
+  id                 String   @id @default(cuid())
+  userId             String
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subjectCode        String
+  examDate           DateTime?
+  targetMastery      Float    @default(0.85)
+  dailyStudyHours    Float    @default(2.0)
+  preferredStudyTime String   @default("EVENING")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@unique([userId, subjectCode])
 }

@@ -84,8 +84,16 @@ router.post("/:id/submit", requireAuth, async (req: AuthRequest, res) => {
     const test = await prisma.test.findFirst({ where: { id: req.params.id, isActive: true }, include: { questions: true } });
     if (!test) { res.status(404).json({ error: "Test not found" }); return; }
 
-    const existing = await prisma.testResult.findUnique({ where: { testId_studentId: { testId: test.id, studentId: req.user!.id } } });
-    if (existing) { res.status(409).json({ error: "Already submitted" }); return; }
+    const pastAttempts = await prisma.testResult.findMany({
+      where: { testId: test.id, studentId: req.user!.id },
+      orderBy: { attemptNumber: "asc" },
+    });
+    const attemptCount = pastAttempts.length;
+    if (attemptCount >= (test.attemptLimit || 3)) {
+      res.status(409).json({ error: `Maximum attempt limit reached (${test.attemptLimit || 3} attempts allowed)` });
+      return;
+    }
+    const attemptNumber = attemptCount + 1;
 
     let score = 0;
     let totalMarks = test.questions.reduce((s, q) => s + q.marks, 0);
@@ -97,10 +105,28 @@ router.post("/:id/submit", requireAuth, async (req: AuthRequest, res) => {
       return { questionId: q.id, selectedIndex: a.selectedIndex, correct };
     });
 
-    const result = await prisma.testResult.create({ data: { testId: test.id, studentId: req.user!.id, score, totalMarks, answers } });
+    const result = await prisma.testResult.create({
+      data: {
+        testId: test.id,
+        studentId: req.user!.id,
+        attemptNumber,
+        score,
+        totalMarks,
+        answers,
+      },
+    });
 
     for (const ev of body.cheatEvents || []) {
-      await prisma.cheatFlag.create({ data: { testId: test.id, studentId: req.user!.id, type: ev.type, severity: ev.severity || "MEDIUM", details: ev.details || "" } });
+      await prisma.cheatFlag.create({
+        data: {
+          testId: test.id,
+          studentId: req.user!.id,
+          attemptNumber,
+          type: ev.type,
+          severity: ev.severity || "MEDIUM",
+          details: ev.details || "",
+        },
+      });
     }
 
     res.json({ result });

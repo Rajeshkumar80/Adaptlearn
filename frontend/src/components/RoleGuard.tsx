@@ -29,7 +29,7 @@ export function RoleGuard({ role }: { role: "STUDENT" | "TEACHER" }) {
       <div className="flex h-screen items-center justify-center">
         <div className="flex items-center gap-3">
           <div className="skeleton h-6 w-6 rounded-full" />
-          <p className="text-[13px]" style={{ color: "var(--text-muted)" }}>Loading…</p>
+          <p className="text-[13px]" style={{ color: "var(--text-muted)" }}>Opening the ledger…</p>
         </div>
       </div>
     );
