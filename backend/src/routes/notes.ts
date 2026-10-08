@@ -5,60 +5,213 @@ import fs from "fs";
 import { z } from "zod";
 import { prisma } from "../db";
 import { requireAuth, requireTeacher, AuthRequest } from "../middleware/auth";
+import {
+  SECURE_NOTES_DIR,
+  MAX_NOTE_FILE_SIZE,
+  validatePdfMagicBytes,
+  sanitizeStoredFileName,
+  canUserAccessNote,
+} from "../services/notesStorage";
 
 const router = Router();
-const uploadsDir = path.resolve(__dirname, "../../uploads");
-fs.mkdirSync(uploadsDir, { recursive: true });
 
+// Configure multer with memory storage to validate magic bytes BEFORE saving to disk
 const upload = multer({
-  storage: multer.diskStorage({
-    destination: (_req, _file, cb) => cb(null, uploadsDir),
-    filename: (_req, file, cb) => cb(null, `${Date.now()}-${file.originalname.replace(/[^\w.\-]/g, "_")}`),
-  }),
-  limits: { fileSize: 25 * 1024 * 1024 },
-  fileFilter: (_req, file, cb) => {
-    const ok = file.originalname.toLowerCase().endsWith(".pdf") || file.mimetype === "application/pdf";
-    ok ? cb(null, true) : cb(new Error("Only PDF files are accepted"));
-  },
+  storage: multer.memoryStorage(),
+  limits: { fileSize: MAX_NOTE_FILE_SIZE },
 });
 
-const noteSchema = z.object({
+const noteUploadSchema = z.object({
   subjectCode: z.string().min(1),
-  moduleNumber: z.coerce.number().int().min(1).optional(),
+  moduleNumber: z.coerce.number().int().min(1).max(5).optional(),
   title: z.string().min(1),
+  description: z.string().optional().default(""),
   classId: z.string().optional(),
 });
 
-router.post("/", requireAuth, requireTeacher, upload.single("file"), async (req: AuthRequest, res) => {
-  if (!req.file) { res.status(400).json({ error: "file required" }); return; }
-  try {
-    const body = noteSchema.parse(req.body);
-    const note = await prisma.notes.create({
-      data: {
-        subjectCode: body.subjectCode,
-        moduleNumber: body.moduleNumber || null,
-        title: body.title,
-        fileUrl: `/uploads/${req.file.filename}`,
-        classId: body.classId || null,
-        uploadedByTeacherId: req.user!.id,
-      },
+// POST /api/notes - upload note (Teachers/Admins only)
+router.post(
+  "/",
+  requireAuth,
+  requireTeacher,
+  (req, res, next) => {
+    upload.single("file")(req, res, (err: any) => {
+      if (err) {
+        if (err.code === "LIMIT_FILE_SIZE") {
+          return res.status(413).json({ error: "File exceeds 25 MB limit" });
+        }
+        return res.status(400).json({ error: err.message });
+      }
+      next();
     });
-    res.status(201).json({ note, chunksIngested: 0 });
-  } catch (err: any) { res.status(400).json({ error: err.message }); }
+  },
+  async (req: AuthRequest, res) => {
+    if (!req.file) {
+      return res.status(400).json({ error: "File required" });
+    }
+
+    // 1. Validate %PDF- magic bytes
+    if (!validatePdfMagicBytes(req.file.buffer)) {
+      return res.status(400).json({
+        error: "Invalid file type: File must be a valid PDF (magic bytes check failed)",
+      });
+    }
+
+    try {
+      const body = noteUploadSchema.parse(req.body);
+
+      // 2. Save file with sanitised name in secure storage
+      const storedFileName = sanitizeStoredFileName(req.file.originalname);
+      const secureFilePath = path.join(SECURE_NOTES_DIR, storedFileName);
+      fs.writeFileSync(secureFilePath, req.file.buffer);
+
+      // 3. Persist record in database
+      const note = await prisma.notes.create({
+        data: {
+          subjectCode: body.subjectCode,
+          moduleNumber: body.moduleNumber || null,
+          title: body.title,
+          description: body.description || "",
+          filePath: secureFilePath,
+          fileUrl: `/api/notes/stream/${storedFileName}`,
+          fileSize: req.file.size,
+          classId: body.classId || null,
+          uploadedByTeacherId: req.user!.id,
+          isPublished: true,
+        },
+      });
+
+      res.status(201).json({ note });
+    } catch (err: any) {
+      res.status(400).json({ error: err.message });
+    }
+  }
+);
+
+// GET /api/notes/:id/stream - authenticated streaming endpoint
+router.get("/:id/stream", requireAuth, async (req: AuthRequest, res) => {
+  try {
+    const access = await canUserAccessNote(req.user as any, req.params.id);
+
+    if (!access.allowed) {
+      return res.status(403).json({ error: access.reason || "Forbidden" });
+    }
+
+    const note = access.note!;
+    const filePath = note.filePath || path.join(SECURE_NOTES_DIR, path.basename(note.fileUrl));
+
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ error: "Note file not found on disk" });
+    }
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", `inline; filename="${encodeURIComponent(note.title)}.pdf"`);
+    res.setHeader("Content-Length", note.fileSize || fs.statSync(filePath).size);
+
+    const stream = fs.createReadStream(filePath);
+    stream.pipe(res);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-router.get("/", requireAuth, requireTeacher, async (req: AuthRequest, res) => {
-  const { subject, module } = req.query as { subject?: string; module?: string };
-  const notes = await prisma.notes.findMany({
-    where: { uploadedByTeacherId: req.user!.id, subjectCode: subject || undefined, moduleNumber: module ? Number(module) : undefined },
-    orderBy: { createdAt: "desc" },
-  });
-  res.json({ notes });
+// GET /api/notes/:id/download - authenticated attachment download
+router.get("/:id/download", requireAuth, async (req: AuthRequest, res) => {
+  try {
+    const access = await canUserAccessNote(req.user as any, req.params.id);
+
+    if (!access.allowed) {
+      return res.status(403).json({ error: access.reason || "Forbidden" });
+    }
+
+    const note = access.note!;
+    const filePath = note.filePath || path.join(SECURE_NOTES_DIR, path.basename(note.fileUrl));
+
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ error: "Note file not found on disk" });
+    }
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", `attachment; filename="${encodeURIComponent(note.title)}.pdf"`);
+    const stream = fs.createReadStream(filePath);
+    stream.pipe(res);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
+// GET /api/notes - list notes visible to caller
+router.get("/", requireAuth, async (req: AuthRequest, res) => {
+  try {
+    const { subject, module } = req.query as { subject?: string; module?: string };
+    const user = req.user!;
+
+    if (user.role === "TEACHER" || user.role === "ADMIN") {
+      const notes = await prisma.notes.findMany({
+        where: {
+          uploadedByTeacherId: user.role === "TEACHER" ? user.id : undefined,
+          subjectCode: subject || undefined,
+          moduleNumber: module ? Number(module) : undefined,
+        },
+        orderBy: { createdAt: "desc" },
+      });
+      return res.json({ notes });
+    }
+
+    // Student notes listing: only notes for student's semester/class
+    const studentUser = await prisma.user.findUnique({
+      where: { id: user.id },
+      select: { semester: true, classId: true },
+    });
+
+    // Subjects in student semester
+    const semSubjects = studentUser?.semester
+      ? await prisma.subject.findMany({ where: { semester: studentUser.semester }, select: { code: true } })
+      : [];
+    const allowedSubjectCodes = semSubjects.map((s) => s.code);
+
+    const notes = await prisma.notes.findMany({
+      where: {
+        isPublished: true,
+        OR: [{ classId: null }, { classId: studentUser?.classId ?? "__none__" }],
+        subjectCode: subject
+          ? subject
+          : allowedSubjectCodes.length > 0
+          ? { in: allowedSubjectCodes }
+          : undefined,
+        moduleNumber: module ? Number(module) : undefined,
+      },
+      orderBy: { createdAt: "desc" },
+    });
+
+    res.json({ notes });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// DELETE /api/notes/:id - teacher deletes note
 router.delete("/:id", requireAuth, requireTeacher, async (req: AuthRequest, res) => {
-  const r = await prisma.notes.deleteMany({ where: { id: req.params.id, uploadedByTeacherId: req.user!.id } });
-  res.json({ deleted: r.count });
+  try {
+    const note = await prisma.notes.findFirst({
+      where: { id: req.params.id, uploadedByTeacherId: req.user!.id },
+    });
+
+    if (!note) {
+      return res.status(404).json({ error: "Note not found or unauthorized" });
+    }
+
+    if (note.filePath && fs.existsSync(note.filePath)) {
+      try {
+        fs.unlinkSync(note.filePath);
+      } catch {}
+    }
+
+    await prisma.notes.delete({ where: { id: note.id } });
+    res.json({ success: true });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 export default router;
