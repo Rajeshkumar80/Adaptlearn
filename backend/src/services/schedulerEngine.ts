@@ -1,101 +1,18 @@
-export type PlanMode = '3-2-1' | '80/20' | 'balanced' | 'crunch';
+import { calculateRetention, DEFAULT_INITIAL_STABILITY } from "./forgettingModel";
+import {
+  PlanMode,
+  PlanTopicInput,
+  PlanTaskItem,
+  SchedulerInput,
+  SchedulerOutput,
+  PLAN_STYLES,
+  REVIEW_THRESHOLD,
+} from "./schedulerTypes";
 
-export interface PlanTopicInput {
-  id: string;
-  subjectCode: string;
-  moduleNumber: number;
-  name: string;
-  order: number;
-  pyqImportance: number; // 0 to 100
-  mastery: number; // 0.0 to 1.0
-  retention: number; // 0.0 to 1.0
-  prerequisiteIds: string[];
-}
-
-export interface AllocationConfig {
-  mode: PlanMode;
-  learnRatio: number;
-  reviseRatio: number;
-  testRatio: number;
-  description: string;
-}
-
-/**
- * Plan style configurations (Assumptions list A)
- */
-export const PLAN_STYLES: Record<PlanMode, AllocationConfig> = {
-  '3-2-1': {
-    mode: '3-2-1',
-    learnRatio: 3 / 6, // 50%
-    reviseRatio: 2 / 6, // 33.3%
-    testRatio: 1 / 6, // 16.7%
-    description: '3 parts learn, 2 parts revise, 1 part test per topic'
-  },
-  '80/20': {
-    mode: '80/20',
-    learnRatio: 0.50,
-    reviseRatio: 0.30,
-    testRatio: 0.20,
-    description: 'Pareto principle: schedule top 20% high-yield topics first'
-  },
-  'balanced': {
-    mode: 'balanced',
-    learnRatio: 0.50,
-    reviseRatio: 0.30,
-    testRatio: 0.20,
-    description: 'Balanced progression across modules and subjects'
-  },
-  'crunch': {
-    mode: 'crunch',
-    learnRatio: 0.30,
-    reviseRatio: 0.40,
-    testRatio: 0.30,
-    description: 'Exam sprint: high-yield revision and active recall tests'
-  }
-};
-
-export interface PlanTaskItem {
-  subjectCode: string;
-  moduleNumber: number;
-  topicId: string;
-  topicName: string;
-  scheduledDate: string; // YYYY-MM-DD
-  scheduledSlot: string; // MORNING | AFTERNOON | EVENING | NIGHT
-  minutes: number;
-  type: 'learn' | 'revise' | 'test';
-  order: number;
-}
-
-export interface SchedulerInput {
-  topics: PlanTopicInput[];
-  startDate: string; // YYYY-MM-DD
-  targetDate: string; // YYYY-MM-DD
-  isExamDate?: boolean;
-  hoursPerDay: number;
-  mode: PlanMode;
-  preferredSlot?: string;
-  taskQuantumMin?: number; // default 30
-}
-
-export interface SchedulerOutput {
-  planId?: string;
-  mode: PlanMode;
-  totalPlannedMinutes: number;
-  availableMinutes: number;
-  studyDaysCount: number;
-  bufferDaysCount: number;
-  taskCounts: {
-    learn: number;
-    revise: number;
-    test: number;
-    total: number;
-  };
-  tasks: PlanTaskItem[];
-}
+export * from "./schedulerTypes";
 
 /**
  * Topological sort of topics respecting prerequisite chains.
- * If A is a prerequisite of B, A appears strictly before B.
  */
 export function topologicalSortTopics(topics: PlanTopicInput[], mode: PlanMode): PlanTopicInput[] {
   const topicMap = new Map<string, PlanTopicInput>(topics.map(t => [t.id, t]));
@@ -116,57 +33,42 @@ export function topologicalSortTopics(topics: PlanTopicInput[], mode: PlanMode):
     }
   }
 
-  // Priority scoring for tie-breaking in Kahn's algorithm
   const getPriorityScore = (t: PlanTopicInput): number => {
     const yieldScore = t.pyqImportance * (1 - t.mastery + 0.1);
-    if (mode === '80/20' || mode === 'crunch') {
-      return yieldScore;
-    }
-    // For 3-2-1 and balanced, preserve module and syllabus order
+    if (mode === '80/20' || mode === 'crunch') return yieldScore;
     return -(t.moduleNumber * 100 + t.order);
   };
 
   const readyQueue: PlanTopicInput[] = [];
   for (const t of topics) {
-    if ((inDegree.get(t.id) || 0) === 0) {
-      readyQueue.push(t);
-    }
+    if ((inDegree.get(t.id) || 0) === 0) readyQueue.push(t);
   }
 
   const sorted: PlanTopicInput[] = [];
-
   while (readyQueue.length > 0) {
-    // Sort ready queue by priority score descending
     readyQueue.sort((a, b) => getPriorityScore(b) - getPriorityScore(a));
     const current = readyQueue.shift()!;
     sorted.push(current);
 
-    const neighbors = adj.get(current.id) || [];
-    for (const neighborId of neighbors) {
+    for (const neighborId of adj.get(current.id) || []) {
       const deg = (inDegree.get(neighborId) || 0) - 1;
       inDegree.set(neighborId, deg);
       if (deg === 0) {
-        const neighborTopic = topicMap.get(neighborId);
-        if (neighborTopic) readyQueue.push(neighborTopic);
+        const neighbor = topicMap.get(neighborId);
+        if (neighbor) readyQueue.push(neighbor);
       }
     }
   }
 
-  // If cycle detected (should not occur in DAG), append any remaining
   if (sorted.length < topics.length) {
     for (const t of topics) {
-      if (!sorted.some(s => s.id === t.id)) {
-        sorted.push(t);
-      }
+      if (!sorted.some(s => s.id === t.id)) sorted.push(t);
     }
   }
 
   return sorted;
 }
 
-/**
- * Generates date strings between start (inclusive) and target (inclusive).
- */
 export function generateDates(startDateStr: string, targetDateStr: string): string[] {
   const dates: string[] = [];
   const current = new Date(startDateStr);
@@ -179,16 +81,21 @@ export function generateDates(startDateStr: string, targetDateStr: string): stri
 }
 
 /**
- * Core deterministic allocation math.
+ * Calculates date offset in days when retention drops below threshold: R = exp(-t/S) < threshold
+ */
+export function calculateDaysUntilReviewNeeded(stability: number, threshold: number = REVIEW_THRESHOLD): number {
+  const s = Math.max(0.5, stability || DEFAULT_INITIAL_STABILITY);
+  const days = -s * Math.log(threshold);
+  return Math.max(1, Math.round(days));
+}
+
+/**
+ * Core deterministic planner engine (T2.3).
  */
 export function allocateStudyTasks(input: SchedulerInput): SchedulerOutput {
   const quantum = input.taskQuantumMin ?? 30;
-  const config = PLAN_STYLES[input.mode] || PLAN_STYLES['3-2-1'];
   const allDates = generateDates(input.startDate, input.targetDate);
-
-  if (allDates.length === 0) {
-    allDates.push(input.startDate);
-  }
+  if (allDates.length === 0) allDates.push(input.startDate);
 
   const bufferDaysCount = input.isExamDate && allDates.length > 1 ? 1 : 0;
   const studyDates = bufferDaysCount > 0 ? allDates.slice(0, -1) : allDates;
@@ -197,18 +104,12 @@ export function allocateStudyTasks(input: SchedulerInput): SchedulerOutput {
   const dailyMinutes = Math.max(30, Math.round(input.hoursPerDay * 60));
   const availableMinutes = studyDaysCount * dailyMinutes;
   const tasksPerDay = Math.max(1, Math.floor(dailyMinutes / quantum));
-  const maxTotalTasks = studyDaysCount * tasksPerDay;
 
-  // Filter & sort topics based on mode
   let sortedTopics = topologicalSortTopics(input.topics, input.mode);
-
   if (input.mode === '80/20' && sortedTopics.length > 3) {
-    // 80/20: Prioritize the top topics, but ensure any prerequisite of a chosen topic is also included
     const cutoffCount = Math.max(1, Math.ceil(sortedTopics.length * 0.20));
     const highYieldSet = new Set<string>();
-    
-    // Pick top candidates by importance
-    const byYield = [...sortedTopics].sort((a, b) => 
+    const byYield = [...sortedTopics].sort((a, b) =>
       (b.pyqImportance * (1 - b.mastery)) - (a.pyqImportance * (1 - a.mastery))
     );
     for (let i = 0; i < cutoffCount; i++) {
@@ -217,85 +118,131 @@ export function allocateStudyTasks(input: SchedulerInput): SchedulerOutput {
     }
     sortedTopics = sortedTopics.filter(t => highYieldSet.has(t.id));
   }
+  if (sortedTopics.length === 0) sortedTopics = input.topics;
 
-  if (sortedTopics.length === 0) {
-    sortedTopics = input.topics;
+  // Track scheduled tasks per day to respect daily capacity
+  const dayBuckets = new Map<string, PlanTaskItem[]>();
+  for (const date of studyDates) dayBuckets.set(date, []);
+
+  const revisionDatesSummary: Array<{
+    topicId: string;
+    topicName: string;
+    computedRevisionDate: string;
+    retentionAtRevision: number;
+  }> = [];
+
+  const preferredSlot = input.preferredSlot || "EVENING";
+  const slotCycle = ["MORNING", "AFTERNOON", "EVENING", "NIGHT"];
+  // Reorder slots so student's preferredSlot is primary for heavy tasks
+  const orderedSlots = [
+    preferredSlot,
+    ...slotCycle.filter(s => s !== preferredSlot)
+  ];
+
+  let orderIndex = 0;
+
+  // 1. Initial learning passes for sorted topics (3 parts in 3-2-1)
+  const topicLearnedDay = new Map<string, number>();
+  const learnParts = input.mode === "3-2-1" ? 3 : input.mode === "crunch" ? 1 : 2;
+
+  for (let topicIdx = 0; topicIdx < sortedTopics.length; topicIdx++) {
+    const topic = sortedTopics[topicIdx];
+    for (let p = 0; p < learnParts; p++) {
+      const assignedDayIdx = studyDates.findIndex(d => (dayBuckets.get(d)?.length || 0) < tasksPerDay);
+      if (assignedDayIdx === -1) break;
+
+      const date = studyDates[assignedDayIdx];
+      const currentDayTasks = dayBuckets.get(date)!;
+      const slot = currentDayTasks.length === 0 ? preferredSlot : orderedSlots[currentDayTasks.length % orderedSlots.length];
+
+      currentDayTasks.push({
+        subjectCode: topic.subjectCode,
+        moduleNumber: topic.moduleNumber,
+        topicId: topic.id,
+        topicName: topic.name,
+        scheduledDate: date,
+        scheduledSlot: slot,
+        minutes: quantum,
+        type: "learn",
+        order: orderIndex++
+      });
+      if (!topicLearnedDay.has(topic.id)) {
+        topicLearnedDay.set(topic.id, assignedDayIdx);
+      }
+    }
   }
 
-  // Determine proportions per topic
-  // 3-2-1 mode has 3 learn, 2 revise, 1 test
-  const slots: Array<{ topic: PlanTopicInput; type: 'learn' | 'revise' | 'test' }> = [];
-
+  // 2. Insert revision blocks where predicted retention < threshold (T1.1)
+  const reviseParts = input.mode === "3-2-1" ? 2 : input.mode === "crunch" ? 2 : 1;
   for (const topic of sortedTopics) {
-    if (input.mode === '3-2-1') {
-      slots.push({ topic, type: 'learn' });
-      slots.push({ topic, type: 'learn' });
-      slots.push({ topic, type: 'learn' });
-      slots.push({ topic, type: 'revise' });
-      slots.push({ topic, type: 'revise' });
-      slots.push({ topic, type: 'test' });
-    } else if (input.mode === 'crunch') {
-      slots.push({ topic, type: 'learn' });
-      slots.push({ topic, type: 'revise' });
-      slots.push({ topic, type: 'revise' });
-      slots.push({ topic, type: 'test' });
-    } else {
-      // balanced / 80-20
-      slots.push({ topic, type: 'learn' });
-      slots.push({ topic, type: 'learn' });
-      slots.push({ topic, type: 'revise' });
-      slots.push({ topic, type: 'test' });
-    }
-  }
+    const learnedDayIdx = topicLearnedDay.get(topic.id);
+    if (learnedDayIdx === undefined) continue;
 
-  // Adjust slots to fit capacity
-  let selectedSlots = slots;
-  if (slots.length > maxTotalTasks) {
-    selectedSlots = slots.slice(0, maxTotalTasks);
-  } else if (slots.length < maxTotalTasks && sortedTopics.length > 0) {
-    // Fill remaining capacity with revision and test blocks for topics needing it most
-    let idx = 0;
-    while (selectedSlots.length < maxTotalTasks) {
-      const topic = sortedTopics[idx % sortedTopics.length];
-      const type = idx % 2 === 0 ? 'revise' : 'test';
-      selectedSlots.push({ topic, type });
-      idx++;
-    }
-  }
+    const stability = topic.stability ?? 1.5;
+    const daysUntilDecay = calculateDaysUntilReviewNeeded(stability, REVIEW_THRESHOLD);
+    const revisionDayIdx = Math.min(studyDaysCount - 1, learnedDayIdx + daysUntilDecay);
+    const revisionDate = studyDates[revisionDayIdx];
 
-  const slotTimes = ['MORNING', 'AFTERNOON', 'EVENING', 'NIGHT'];
-  const preferred = input.preferredSlot || 'EVENING';
-  const slotIndexStart = Math.max(0, slotTimes.indexOf(preferred));
-
-  const tasks: PlanTaskItem[] = [];
-  let currentDayIdx = 0;
-  let currentSlotOffset = 0;
-
-  for (let i = 0; i < selectedSlots.length; i++) {
-    const item = selectedSlots[i];
-    const date = studyDates[currentDayIdx];
-    const slotName = slotTimes[(slotIndexStart + currentSlotOffset) % slotTimes.length];
-
-    tasks.push({
-      subjectCode: item.topic.subjectCode,
-      moduleNumber: item.topic.moduleNumber,
-      topicId: item.topic.id,
-      topicName: item.topic.name,
-      scheduledDate: date,
-      scheduledSlot: slotName,
-      minutes: quantum,
-      type: item.type,
-      order: i
+    const retentionAtRev = calculateRetention(revisionDayIdx - learnedDayIdx, stability);
+    revisionDatesSummary.push({
+      topicId: topic.id,
+      topicName: topic.name,
+      computedRevisionDate: revisionDate,
+      retentionAtRevision: retentionAtRev
     });
 
-    currentSlotOffset++;
-    if (currentSlotOffset >= tasksPerDay) {
-      currentSlotOffset = 0;
-      currentDayIdx = Math.min(studyDates.length - 1, currentDayIdx + 1);
+    for (let r = 0; r < reviseParts; r++) {
+      const targetDay = Math.min(studyDaysCount - 1, revisionDayIdx + r);
+      const targetDate = studyDates[targetDay];
+      const revBucket = dayBuckets.get(targetDate)!;
+      if (revBucket.length < tasksPerDay) {
+        revBucket.push({
+          subjectCode: topic.subjectCode,
+          moduleNumber: topic.moduleNumber,
+          topicId: topic.id,
+          topicName: topic.name,
+          scheduledDate: targetDate,
+          scheduledSlot: orderedSlots[revBucket.length % orderedSlots.length],
+          minutes: quantum,
+          type: "revise",
+          order: orderIndex++,
+          revisionTriggeredByRetention: true
+        });
+      }
     }
   }
 
-  const totalPlannedMinutes = tasks.reduce((sum, t) => sum + t.minutes, 0);
+  // 3. Fill remaining capacity according to plan style
+  let fillerTopicIdx = 0;
+  for (const date of studyDates) {
+    const bucket = dayBuckets.get(date)!;
+    while (bucket.length < tasksPerDay && sortedTopics.length > 0) {
+      const topic = sortedTopics[fillerTopicIdx % sortedTopics.length];
+      const taskType = input.mode === "crunch"
+        ? (bucket.length % 2 === 0 ? "test" : "revise")
+        : (bucket.length % 4 === 0 ? "test" : bucket.length % 4 === 1 ? "revise" : "learn");
+      bucket.push({
+        subjectCode: topic.subjectCode,
+        moduleNumber: topic.moduleNumber,
+        topicId: topic.id,
+        topicName: topic.name,
+        scheduledDate: date,
+        scheduledSlot: orderedSlots[bucket.length % orderedSlots.length],
+        minutes: quantum,
+        type: taskType,
+        order: orderIndex++
+      });
+      fillerTopicIdx++;
+    }
+  }
+
+  // Flatten tasks in chronological and slot order
+  const allTasks: PlanTaskItem[] = [];
+  for (const date of studyDates) {
+    allTasks.push(...(dayBuckets.get(date) || []));
+  }
+
+  const totalPlannedMinutes = allTasks.reduce((sum, t) => sum + t.minutes, 0);
 
   return {
     mode: input.mode,
@@ -304,11 +251,12 @@ export function allocateStudyTasks(input: SchedulerInput): SchedulerOutput {
     studyDaysCount,
     bufferDaysCount,
     taskCounts: {
-      learn: tasks.filter(t => t.type === 'learn').length,
-      revise: tasks.filter(t => t.type === 'revise').length,
-      test: tasks.filter(t => t.type === 'test').length,
-      total: tasks.length
+      learn: allTasks.filter(t => t.type === "learn").length,
+      revise: allTasks.filter(t => t.type === "revise").length,
+      test: allTasks.filter(t => t.type === "test").length,
+      total: allTasks.length
     },
-    tasks
+    revisionDatesSummary,
+    tasks: allTasks
   };
 }

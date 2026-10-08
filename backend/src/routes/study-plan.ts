@@ -120,10 +120,20 @@ router.post("/generate", requireAuth, async (req: AuthRequest, res) => {
       return res.status(400).json({ error: "No topics found for chosen subjects" });
     }
 
-    // Fetch student learning state
-    const states = await prisma.learningState.findMany({
-      where: { userId, topicId: { in: rawTopics.map(t => t.id) } }
-    });
+    // Fetch student learning state & behavioral profile
+    const [states, behavior] = await Promise.all([
+      prisma.learningState.findMany({
+        where: { userId, topicId: { in: rawTopics.map(t => t.id) } }
+      }),
+      (async () => {
+        try {
+          const { getStudentBehaviorMetrics } = await import("../services/behaviorEngine");
+          return await getStudentBehaviorMetrics(userId);
+        } catch {
+          return null;
+        }
+      })()
+    ]);
     const stateMap = new Map(states.map(s => [s.topicId, s]));
 
     const planTopics: PlanTopicInput[] = rawTopics.map(t => {
@@ -137,9 +147,13 @@ router.post("/generate", requireAuth, async (req: AuthRequest, res) => {
         pyqImportance: t.pyqImportance,
         mastery: st ? st.mastery : 0.2,
         retention: st ? st.retention : 1.0,
+        stability: st?.stability ?? 1.5,
         prerequisiteIds: t.prerequisites.map(p => p.id)
       };
     });
+
+    const studentSlot = input.preferredSlot ||
+      (behavior && behavior.preferredStudyWindow !== "INSUFFICIENT_DATA" ? behavior.preferredStudyWindow : "EVENING");
 
     const allocation = allocateStudyTasks({
       topics: planTopics,
@@ -148,7 +162,7 @@ router.post("/generate", requireAuth, async (req: AuthRequest, res) => {
       isExamDate: input.isExamDate,
       hoursPerDay: input.hoursPerDay,
       mode: input.mode as PlanMode,
-      preferredSlot: input.preferredSlot
+      preferredSlot: studentSlot
     });
 
     // Archive previous active plans
@@ -236,19 +250,8 @@ router.patch("/tasks/:id", requireAuth, async (req: AuthRequest, res) => {
     if (status === "COMPLETED" && task.topicId) {
       await prisma.learningState.upsert({
         where: { userId_topicId: { userId: req.user!.id, topicId: task.topicId } },
-        update: {
-          timesReviewed: { increment: 1 },
-          lastReviewedAt: new Date(),
-          mastery: { increment: 0.05 }
-        },
-        create: {
-          userId: req.user!.id,
-          topicId: task.topicId,
-          mastery: 0.35,
-          stability: 1.0,
-          timesReviewed: 1,
-          lastReviewedAt: new Date()
-        }
+        update: { timesReviewed: { increment: 1 }, lastReviewedAt: new Date(), mastery: { increment: 0.05 } },
+        create: { userId: req.user!.id, topicId: task.topicId, mastery: 0.35, stability: 1.0, timesReviewed: 1, lastReviewedAt: new Date() }
       });
     }
 
