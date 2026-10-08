@@ -184,21 +184,31 @@ router.post("/generate", requireAuth, async (req: AuthRequest, res) => {
       }
     });
 
+    const { enrichTasksWithLlm } = await import("../services/planEnricher");
+    const dbTopicContexts = rawTopics.map(t => ({ id: t.id, name: t.name, moduleNumber: t.moduleNumber }));
+    const enrichment = await enrichTasksWithLlm(input.subjectCodes.join(", "), dbTopicContexts);
+
     // Create tasks
-    const taskData = allocation.tasks.map((t, idx) => ({
-      planId: studyPlan.id,
-      userId,
-      subjectCode: t.subjectCode,
-      moduleNumber: t.moduleNumber,
-      topicId: t.topicId,
-      topicName: t.topicName,
-      scheduledDate: t.scheduledDate,
-      scheduledSlot: t.scheduledSlot,
-      minutes: t.minutes,
-      type: t.type,
-      status: "PENDING",
-      order: idx
-    }));
+    const taskData = allocation.tasks.map((t, idx) => {
+      const enrich = t.topicId ? enrichment.enrichedMap.get(t.topicId) : undefined;
+      return {
+        planId: studyPlan.id,
+        userId,
+        subjectCode: t.subjectCode,
+        moduleNumber: t.moduleNumber,
+        topicId: t.topicId,
+        topicName: t.topicName,
+        scheduledDate: t.scheduledDate,
+        scheduledSlot: t.scheduledSlot,
+        minutes: t.minutes,
+        type: t.type,
+        status: "PENDING",
+        order: idx,
+        todoText: enrich?.todoText || `Study ${t.topicName}`,
+        subPoints: enrich?.subPoints || [],
+        selfCheckQuestion: enrich?.selfCheckQuestion || `Explain the core concepts of ${t.topicName}.`
+      };
+    });
 
     await prisma.planTask.createMany({
       data: taskData
@@ -267,27 +277,20 @@ router.post("/reschedule-missed", requireAuth, async (req: AuthRequest, res) => 
     const today = new Date().toISOString().slice(0, 10);
     const missed = await prisma.planTask.findMany({
       where: {
-        userId: req.user!.id,
-        status: "PENDING",
-        scheduledDate: { lt: today }
+        userId: req.user!.id, status: "PENDING", scheduledDate: { lt: today }
       },
       orderBy: { scheduledDate: "asc" }
     });
 
-    if (missed.length === 0) {
-      return res.json({ rescheduledCount: 0, message: "No overdue tasks" });
-    }
+    if (missed.length === 0) return res.json({ rescheduledCount: 0, message: "No overdue tasks" });
 
     // Reschedule them to today
     await prisma.planTask.updateMany({
       where: { id: { in: missed.map(m => m.id) } },
       data: { scheduledDate: today, status: "PENDING" }
     });
-
     res.json({ rescheduledCount: missed.length, newDate: today });
-  } catch (err: any) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err: any) { res.status(500).json({ error: err.message }); }
 });
 
 export default router;
