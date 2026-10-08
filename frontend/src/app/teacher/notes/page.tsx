@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Upload, FileText, Trash2 } from "lucide-react";
-import { api, errorMessage, BACKEND_URL } from "@/lib/api";
+import { api, errorMessage, BACKEND_URL, getToken } from "@/lib/api";
 import {
   Button,
   Card,
@@ -32,6 +32,7 @@ export default function TeacherNotesPage() {
   const [subjectCode, setSubjectCode] = useState("");
   const [moduleNumber, setModuleNumber] = useState("");
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [classId, setClassId] = useState("");
   const [classes, setClasses] = useState<{ id: string; name: string }[]>([]);
   const [notes, setNotes] = useState<Note[]>([]);
@@ -97,6 +98,7 @@ export default function TeacherNotesPage() {
       form.append("subjectCode", subjectCode);
       if (moduleNumber) form.append("moduleNumber", moduleNumber);
       form.append("title", title.trim());
+      if (description.trim()) form.append("description", description.trim());
       if (classId) form.append("classId", classId);
       const res = await api.post<{ note: Note }>("/notes", form, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -106,6 +108,7 @@ export default function TeacherNotesPage() {
         `Uploaded "${res.data.note.title}" — chunked and retrievable by the AI tutor.`
       );
       setTitle("");
+      setDescription("");
       if (fileRef.current) fileRef.current.value = "";
       await load();
     } catch (err) {
@@ -206,10 +209,20 @@ export default function TeacherNotesPage() {
               ))}
             </Select>
           </div>
-          <div className="flex items-end">
+          <div>
+            <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-[var(--text-muted)]">
+              Description (optional)
+            </label>
+            <Input
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Brief summary or lecture notes scope"
+            />
+          </div>
+          <div className="flex items-end sm:col-span-2">
             <Button onClick={upload} disabled={uploading} className="w-full">
               <Upload className="h-4 w-4" />
-              {uploading ? "Embedding…" : "Upload & embed"}
+              {uploading ? "Uploading & securing…" : "Upload note"}
             </Button>
           </div>
         </div>
@@ -241,7 +254,7 @@ export default function TeacherNotesPage() {
                 </p>
               </div>
               <a
-                href={`${BACKEND_URL}${n.fileUrl}`}
+                href={`${BACKEND_URL}/api/notes/${n.id}/stream?token=${getToken()}`}
                 target="_blank"
                 rel="noreferrer"
                 className="text-[12px] font-semibold text-[var(--accent-primary)] hover:underline"

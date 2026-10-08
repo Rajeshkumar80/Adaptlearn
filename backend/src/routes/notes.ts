@@ -115,6 +115,44 @@ router.get("/:id/stream", requireAuth, async (req: AuthRequest, res) => {
   }
 });
 
+// GET /api/notes/stream/:filename - authenticated stream by filename
+router.get("/stream/:filename", requireAuth, async (req: AuthRequest, res) => {
+  try {
+    const filename = sanitizeStoredFileName(req.params.filename);
+    const note = await prisma.notes.findFirst({
+      where: {
+        OR: [
+          { filePath: { endsWith: filename } },
+          { fileUrl: { contains: filename } },
+        ],
+      },
+    });
+
+    if (!note) {
+      return res.status(404).json({ error: "Note not found" });
+    }
+
+    const access = await canUserAccessNote(req.user as any, note.id);
+    if (!access.allowed) {
+      return res.status(403).json({ error: access.reason || "Forbidden" });
+    }
+
+    const filePath = note.filePath || path.join(SECURE_NOTES_DIR, filename);
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ error: "Note file not found on disk" });
+    }
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", `inline; filename="${encodeURIComponent(note.title)}.pdf"`);
+    res.setHeader("Content-Length", note.fileSize || fs.statSync(filePath).size);
+
+    const stream = fs.createReadStream(filePath);
+    stream.pipe(res);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // GET /api/notes/:id/download - authenticated attachment download
 router.get("/:id/download", requireAuth, async (req: AuthRequest, res) => {
   try {
