@@ -25,7 +25,7 @@ const studentNav = [
   { href: "/student/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/student/tutor", label: "AI Tutor", icon: MessageSquareText },
   { href: "/student/scheduler", label: "Scheduler", icon: CalendarClock },
-  { href: "/student/progress", label: "How I Learn", icon: TrendingUp },
+  { href: "/student/progress", label: "Learning Intelligence", icon: TrendingUp },
   { href: "/student/notes", label: "Notes", icon: BookOpen },
   { href: "/student/assignments", label: "Assignments", icon: ClipboardList },
   { href: "/student/tests", label: "Tests", icon: FileText },
