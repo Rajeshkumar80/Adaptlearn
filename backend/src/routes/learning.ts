@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../db";
 import { requireAuth, AuthRequest } from "../middleware/auth";
+import { getStudentBehaviorMetrics, logActivityEvent } from "../services/behaviorEngine";
 
 const router = Router();
 
@@ -51,6 +52,36 @@ router.get("/leaderboard", requireAuth, async (_req, res) => {
     .sort((a, b) => b.avgMastery - a.avgMastery)
     .slice(0, 50);
   res.json({ leaderboard: board });
+});
+
+router.get("/behavior", requireAuth, async (req: AuthRequest, res) => {
+  try {
+    const metrics = await getStudentBehaviorMetrics(req.user!.id);
+    res.json({ metrics });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.post("/activity", requireAuth, async (req: AuthRequest, res) => {
+  try {
+    const { eventType, subjectCode, topicId, durationSec, metadata } = req.body;
+    if (!eventType || typeof eventType !== "string") {
+      res.status(400).json({ error: "eventType string required" });
+      return;
+    }
+    const logged = await logActivityEvent({
+      userId: req.user!.id,
+      eventType,
+      subjectCode,
+      topicId,
+      durationSec,
+      metadata,
+    });
+    res.status(201).json({ activity: logged });
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
+  }
 });
 
 export default router;
