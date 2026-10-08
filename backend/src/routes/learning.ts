@@ -4,6 +4,7 @@ import { requireAuth, AuthRequest } from "../middleware/auth";
 import { getStudentBehaviorMetrics, logActivityEvent } from "../services/behaviorEngine";
 import { getTopicsDueForRecall, generateRecallQuiz } from "../services/recallQuizService";
 import { updateStability } from "../services/forgettingModel";
+import { selectBanditAction, updateBanditReward } from "../services/banditPolicy";
 
 const router = Router();
 
@@ -202,6 +203,39 @@ router.post("/recall/submit", requireAuth, async (req: AuthRequest, res) => {
       before,
       after,
     });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get("/recommendation/:topicId", requireAuth, async (req: AuthRequest, res) => {
+  try {
+    const state = await prisma.learningState.findUnique({
+      where: { userId_topicId: { userId: req.user!.id, topicId: req.params.topicId } },
+    });
+
+    const context = {
+      mastery: state?.mastery ?? 0.2,
+      retention: state?.retention ?? 1.0,
+      studyStreakDays: 1,
+    };
+
+    const decision = await selectBanditAction(req.user!.id, req.params.topicId, context);
+    res.json({ decision });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.post("/recommendation/reward", requireAuth, async (req: AuthRequest, res) => {
+  try {
+    const { topicId, action, reward } = req.body;
+    if (!topicId || !action || typeof reward !== "number") {
+      res.status(400).json({ error: "topicId, action, and numerical reward required" });
+      return;
+    }
+    const result = await updateBanditReward(req.user!.id, topicId, action, reward);
+    res.json({ result });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
