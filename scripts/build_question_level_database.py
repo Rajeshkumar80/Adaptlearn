@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+
+import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 """
 Build Question-Level Indexed Database (knowledge/pyq_database.json).
 Parses every model paper and previous year paper across all semesters.

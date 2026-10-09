@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+
+import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 """
 Phase 2: Subject-by-Subject Knowledge Audit & Multi-Source Matrix Builder.
 Audits all 67 courses across the 18 required categories under Rule 0.3 and Rule 6.

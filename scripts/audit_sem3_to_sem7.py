@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+
+import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 """
 Authoritative VTU CSE 2022 Scheme Semesters 3 to 7 Curriculum Audit Script.
 Analyzes local knowledge, DATA, question papers, diagrams, textbooks, and notes.

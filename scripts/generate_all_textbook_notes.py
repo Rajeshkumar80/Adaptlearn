@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+
+import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 """
 Generate comprehensive, module-aligned textbook_notes.md for all VTU subjects.
 Extracts and structures textbook content from DATA/VTU_CSE_Textbooks/ and DATA/VTU_CSE_Notes/.

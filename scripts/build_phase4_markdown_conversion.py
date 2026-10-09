@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+
+import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 """
 Phase 4: Structured Document Conversion Engine (PDF -> Markdown with Page-Level Provenance).
 Builds standardized canonical subject directory architecture:

@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+
+import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 """
 Phase 1: Canonical VTU CSE 2022 Scheme Curriculum Master Builder and Gap Auditor.
 Authoritative source: DATA/scheme/38csesch.txt, DATA/VTU_CSE_CourseOutcomes/

@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+
+import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 """
 Generate FINAL_DATA_ACQUISITION_REPORT.md auditing all acquired, extracted,
 and ingested academic sources across VTU CSE 2022 Scheme Semesters 3 to 7.

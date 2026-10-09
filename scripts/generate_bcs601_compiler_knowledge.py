@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+
+import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 """
 Generate clean, authoritative Compiler Design (BCS601) knowledge base
 from the Dragon Book (Aho, Lam, Sethi, Ullman) and official VTU Course Outcomes.
@@ -624,7 +631,7 @@ An **LL(1) parser** is a deterministic top-down parser that scans input from Lef
 
 **Rules for FOLLOW:**
 1. Add `$` to `FOLLOW(S)`, where `S` is start symbol.
-2. If `A -> αBβ`, add `FIRST(β) \ {ε}` to `FOLLOW(B)`.
+2. If `A -> αBβ`, add `FIRST(β) \\ {ε}` to `FOLLOW(B)`.
 3. If `A -> αB` or `A -> αBβ` with `ε ∈ FIRST(β)`, add `FOLLOW(A)` to `FOLLOW(B)`.
 
 ---

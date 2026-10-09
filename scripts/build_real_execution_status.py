@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+
+import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 """
 Build REAL_EXECUTION_STATUS.json, REAL_EXECUTION_STATUS.md, Named Checkpoints,
 and FINAL_ADAPTLEARN_KNOWLEDGE_AUDIT.md based on actual filesystem evidence.

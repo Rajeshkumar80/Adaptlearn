@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+
+import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 """
 Extract and generate structured syllabus-aligned module notes for BCS503 (Theory of Computation).
 Uses pymupdf to extract text from available PDFs and combines with official syllabus topics.

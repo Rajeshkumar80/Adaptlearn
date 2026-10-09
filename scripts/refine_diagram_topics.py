@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+
+import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 """
 Refine diagram topic labels in DATA/diagram_topic_map.json for BCS402.
 Ensures ARM Architecture and 8051 Microcontroller diagrams are accurately tagged.
