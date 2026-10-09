@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { api, errorMessage } from "./api";
+import { getCached, setCached } from "./cache";
 
 export interface Subject {
   id: string;
@@ -11,17 +12,36 @@ export interface Subject {
   modules: { id: string; moduleNumber: number; name: string }[];
 }
 
+const CACHE_KEY = "vtu_subjects";
+
 export function useSubjects() {
-  const [subjects, setSubjects] = useState<Subject[]>([]);
+  const cached = getCached<Subject[]>(CACHE_KEY, 300_000);
+  const [subjects, setSubjects] = useState<Subject[]>(cached || []);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!cached);
 
   useEffect(() => {
+    let mounted = true;
     api
       .get<{ subjects: Subject[] }>("/vtu/subjects")
-      .then((res) => setSubjects(res.data.subjects))
-      .catch((err) => setError(errorMessage(err)))
-      .finally(() => setLoading(false));
+      .then((res) => {
+        if (!mounted) return;
+        const data = res.data.subjects || [];
+        setSubjects(data);
+        setCached(CACHE_KEY, data);
+        setError("");
+      })
+      .catch((err) => {
+        if (!mounted) return;
+        if (!cached) setError(errorMessage(err));
+      })
+      .finally(() => {
+        if (mounted) setLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return { subjects, error, loading };

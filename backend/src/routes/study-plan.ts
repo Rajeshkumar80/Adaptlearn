@@ -72,6 +72,45 @@ router.get("/active", requireAuth, async (req: AuthRequest, res) => {
   }
 });
 
+// GET /api/study-plan/all - retrieve all saved & active study plans for the user
+router.get("/all", requireAuth, async (req: AuthRequest, res) => {
+  try {
+    const plans = await prisma.studyPlan.findMany({
+      where: { userId: req.user!.id },
+      orderBy: { createdAt: "desc" },
+      include: {
+        tasks: {
+          select: { id: true, status: true }
+        }
+      }
+    });
+
+    const formatted = plans.map((p) => {
+      const totalTasks = p.tasks.length;
+      const completedTasks = p.tasks.filter((t) => t.status === "COMPLETED").length;
+      const progressPercent = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+      return {
+        id: p.id,
+        subjects: p.subjects,
+        examDate: p.examDate,
+        targetFinishDate: p.targetFinishDate,
+        hoursPerDay: p.hoursPerDay,
+        mode: p.mode,
+        status: p.status,
+        createdAt: p.createdAt,
+        updatedAt: p.updatedAt,
+        totalTasks,
+        completedTasks,
+        progressPercent
+      };
+    });
+
+    res.json({ plans: formatted });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // POST /api/study-plan/generate - generate and persist a new study plan
 router.post("/generate", requireAuth, async (req: AuthRequest, res) => {
   try {
@@ -89,7 +128,7 @@ router.post("/generate", requireAuth, async (req: AuthRequest, res) => {
     const startDate = new Date().toISOString().slice(0, 10);
 
     // Fetch topics for selected subjects
-    const rawTopics = await prisma.topic.findMany({
+    let rawTopics = await prisma.topic.findMany({
       where: { subjectCode: { in: input.subjectCodes } },
       orderBy: [{ subjectCode: "asc" }, { moduleNumber: "asc" }, { order: "asc" }],
       include: {
@@ -98,7 +137,26 @@ router.post("/generate", requireAuth, async (req: AuthRequest, res) => {
     });
 
     if (rawTopics.length === 0) {
-      return res.status(400).json({ error: "No topics found for chosen subjects" });
+      // Auto-heal: seed standard 5 modules for selected subjects
+      for (const sc of input.subjectCodes) {
+        for (let m = 1; m <= 5; m++) {
+          await prisma.topic.create({
+            data: {
+              subjectCode: sc,
+              moduleNumber: m,
+              name: `${sc} Module ${m} Core Topics`,
+              description: `VTU Curriculum module ${m} for ${sc}`,
+              order: 1,
+              pyqImportance: 0.8,
+            },
+          });
+        }
+      }
+      rawTopics = await prisma.topic.findMany({
+        where: { subjectCode: { in: input.subjectCodes } },
+        orderBy: [{ subjectCode: "asc" }, { moduleNumber: "asc" }, { order: "asc" }],
+        include: { prerequisites: { select: { id: true } } },
+      });
     }
 
     // Fetch student learning state & behavioral profile
@@ -146,10 +204,10 @@ router.post("/generate", requireAuth, async (req: AuthRequest, res) => {
       preferredSlot: studentSlot
     });
 
-    // Archive previous active plans
+    // Keep previous active plans saved
     await prisma.studyPlan.updateMany({
       where: { userId, status: "ACTIVE" },
-      data: { status: "ARCHIVED" }
+      data: { status: "SAVED" }
     });
 
     const parsedTargetDate = new Date(input.targetDate);
@@ -165,13 +223,19 @@ router.post("/generate", requireAuth, async (req: AuthRequest, res) => {
       }
     });
 
-    const { enrichTasksWithLlm } = await import("../services/planEnricher");
-    const dbTopicContexts = rawTopics.map(t => ({ id: t.id, name: t.name, moduleNumber: t.moduleNumber }));
-    const enrichment = await enrichTasksWithLlm(input.subjectCodes.join(", "), dbTopicContexts);
+    let enrichmentMap = new Map<string, any>();
+    try {
+      const { enrichTasksWithLlm } = await import("../services/planEnricher");
+      const dbTopicContexts = rawTopics.map(t => ({ id: t.id, name: t.name, moduleNumber: t.moduleNumber }));
+      const enrichment = await enrichTasksWithLlm(input.subjectCodes.join(", "), dbTopicContexts);
+      enrichmentMap = enrichment.enrichedMap;
+    } catch (llmErr) {
+      console.warn("LLM enrichment bypassed, using deterministic curriculum to-dos:", llmErr);
+    }
 
     // Create tasks
     const taskData = allocation.tasks.map((t, idx) => {
-      const enrich = t.topicId ? enrichment.enrichedMap.get(t.topicId) : undefined;
+      const enrich = t.topicId ? enrichmentMap.get(t.topicId) : undefined;
       return {
         planId: studyPlan.id,
         userId,
@@ -185,9 +249,13 @@ router.post("/generate", requireAuth, async (req: AuthRequest, res) => {
         type: t.type,
         status: "PENDING",
         order: idx,
-        todoText: enrich?.todoText || `Study ${t.topicName}`,
-        subPoints: enrich?.subPoints || [],
-        selfCheckQuestion: enrich?.selfCheckQuestion || `Explain the core concepts of ${t.topicName}.`
+        todoText: enrich?.todoText || `Review ${t.topicName} concepts and exam patterns`,
+        subPoints: enrich?.subPoints || [
+          `Understand key definitions and core theory of ${t.topicName}`,
+          `Trace step-by-step algorithms and structural formulas`,
+          `Practice VTU question bank problems and diagrams`,
+        ],
+        selfCheckQuestion: enrich?.selfCheckQuestion || `Explain the core concepts and exam applications of ${t.topicName}.`
       };
     });
 
@@ -200,8 +268,16 @@ router.post("/generate", requireAuth, async (req: AuthRequest, res) => {
       orderBy: [{ scheduledDate: "asc" }, { order: "asc" }]
     });
 
+    const fullPlan = {
+      ...studyPlan,
+      progressPercent: 0,
+      totalTasks: createdTasks.length,
+      completedTasks: 0,
+      tasks: createdTasks,
+    };
+
     res.status(201).json({
-      plan: studyPlan,
+      plan: fullPlan,
       summary: {
         totalPlannedMinutes: allocation.totalPlannedMinutes,
         availableMinutes: allocation.availableMinutes,
@@ -281,7 +357,275 @@ router.post("/reschedule-missed", requireAuth, async (req: AuthRequest, res) => 
       data: { scheduledDate: today, status: "PENDING" }
     });
     res.json({ rescheduledCount: missed.length, newDate: today });
-  } catch (err: any) { res.status(500).json({ error: err.message }); }
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/study-plan/:id/activate - switch user active plan to this saved plan
+router.post("/:id/activate", requireAuth, async (req: AuthRequest, res) => {
+  try {
+    const userId = req.user!.id;
+    const plan = await prisma.studyPlan.findFirst({
+      where: { id: req.params.id, userId },
+    });
+
+    if (!plan) {
+      return res.status(404).json({ error: "Study plan not found" });
+    }
+
+    // Set other active plans to SAVED
+    await prisma.studyPlan.updateMany({
+      where: { userId, id: { not: plan.id }, status: "ACTIVE" },
+      data: { status: "SAVED" },
+    });
+
+    // Set this plan to ACTIVE
+    const activated = await prisma.studyPlan.update({
+      where: { id: plan.id },
+      data: { status: "ACTIVE" },
+      include: {
+        tasks: {
+          orderBy: [{ scheduledDate: "asc" }, { order: "asc" }],
+        },
+      },
+    });
+
+    const totalTasks = activated.tasks.length;
+    const completedTasks = activated.tasks.filter((t) => t.status === "COMPLETED").length;
+    const progressPercent = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+    res.json({
+      plan: {
+        ...activated,
+        progressPercent,
+        totalTasks,
+        completedTasks,
+      },
+      message: "Study plan activated successfully",
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/study-plan/:id/switch-mode - apply selected strategy from comparison modal
+router.post("/:id/switch-mode", requireAuth, async (req: AuthRequest, res) => {
+  try {
+    const { mode } = z
+      .object({
+        mode: z.enum(["3-2-1", "80/20", "balanced", "crunch"]),
+      })
+      .parse(req.body);
+
+    const userId = req.user!.id;
+    const plan = await prisma.studyPlan.findFirst({
+      where: { id: req.params.id, userId },
+      include: { tasks: true },
+    });
+
+    if (!plan) {
+      return res.status(404).json({ error: "Study plan not found" });
+    }
+
+    // Determine subject codes
+    let subjectCodes: string[] = [];
+    if (Array.isArray(plan.subjects)) {
+      subjectCodes = plan.subjects as string[];
+    } else if (typeof plan.subjects === "string") {
+      try {
+        const parsed = JSON.parse(plan.subjects);
+        subjectCodes = Array.isArray(parsed) ? parsed : [plan.subjects];
+      } catch {
+        subjectCodes = [plan.subjects];
+      }
+    }
+    if (subjectCodes.length === 0) {
+      subjectCodes = Array.from(new Set(plan.tasks.map((t) => t.subjectCode)));
+    }
+    if (subjectCodes.length === 0) {
+      subjectCodes = ["BCS701"];
+    }
+
+    // Determine targetDate
+    const targetDate = plan.examDate
+      ? plan.examDate.toISOString().slice(0, 10)
+      : plan.targetFinishDate
+      ? plan.targetFinishDate.toISOString().slice(0, 10)
+      : (() => {
+          const d = new Date();
+          d.setDate(d.getDate() + 14);
+          return d.toISOString().slice(0, 10);
+        })();
+
+    const startDate = new Date().toISOString().slice(0, 10);
+
+    // Fetch topics
+    let rawTopics = await prisma.topic.findMany({
+      where: { subjectCode: { in: subjectCodes } },
+      orderBy: [{ subjectCode: "asc" }, { moduleNumber: "asc" }, { order: "asc" }],
+      include: { prerequisites: { select: { id: true } } },
+    });
+
+    if (rawTopics.length === 0) {
+      for (const sc of subjectCodes) {
+        for (let m = 1; m <= 5; m++) {
+          await prisma.topic.create({
+            data: {
+              subjectCode: sc,
+              moduleNumber: m,
+              name: `${sc} Module ${m} Core Topics`,
+              description: `VTU Curriculum module ${m} for ${sc}`,
+              order: 1,
+              pyqImportance: 0.8,
+            },
+          });
+        }
+      }
+      rawTopics = await prisma.topic.findMany({
+        where: { subjectCode: { in: subjectCodes } },
+        orderBy: [{ subjectCode: "asc" }, { moduleNumber: "asc" }, { order: "asc" }],
+        include: { prerequisites: { select: { id: true } } },
+      });
+    }
+
+    const [states, behavior] = await Promise.all([
+      prisma.learningState.findMany({
+        where: { userId, topicId: { in: rawTopics.map((t) => t.id) } },
+      }),
+      (async () => {
+        try {
+          const { getStudentBehaviorMetrics } = await import("../services/behaviorEngine");
+          return await getStudentBehaviorMetrics(userId);
+        } catch {
+          return null;
+        }
+      })(),
+    ]);
+    const stateMap = new Map(states.map((s) => [s.topicId, s]));
+
+    const planTopics: PlanTopicInput[] = rawTopics.map((t) => {
+      const st = stateMap.get(t.id);
+      return {
+        id: t.id,
+        subjectCode: t.subjectCode,
+        moduleNumber: t.moduleNumber,
+        name: t.name,
+        order: t.order,
+        pyqImportance: t.pyqImportance,
+        mastery: st ? st.mastery : 0.2,
+        retention: st ? st.retention : 1.0,
+        stability: st?.stability ?? 1.5,
+        prerequisiteIds: t.prerequisites.map((p) => p.id),
+      };
+    });
+
+    const studentSlot =
+      behavior && behavior.preferredStudyWindow !== "INSUFFICIENT_DATA"
+        ? behavior.preferredStudyWindow
+        : "EVENING";
+
+    const allocation = allocateStudyTasks({
+      topics: planTopics,
+      startDate,
+      targetDate,
+      isExamDate: Boolean(plan.examDate),
+      hoursPerDay: plan.hoursPerDay,
+      mode: mode as PlanMode,
+      preferredSlot: studentSlot,
+    });
+
+    // Delete existing tasks for this plan
+    await prisma.planTask.deleteMany({
+      where: { planId: plan.id },
+    });
+
+    const taskData = allocation.tasks.map((t, idx) => ({
+      planId: plan.id,
+      userId,
+      subjectCode: t.subjectCode,
+      moduleNumber: t.moduleNumber,
+      topicId: t.topicId,
+      topicName: t.topicName,
+      scheduledDate: t.scheduledDate,
+      scheduledSlot: t.scheduledSlot,
+      minutes: t.minutes,
+      type: t.type,
+      status: "PENDING",
+      order: idx,
+      todoText: `Review ${t.topicName} concepts and exam patterns`,
+      subPoints: [
+        `Understand key definitions and core theory of ${t.topicName}`,
+        `Trace step-by-step algorithms and structural formulas`,
+        `Practice VTU question bank problems and diagrams`,
+      ],
+      selfCheckQuestion: `Explain the core concepts and exam applications of ${t.topicName}.`,
+    }));
+
+    await prisma.planTask.createMany({
+      data: taskData,
+    });
+
+    await prisma.studyPlan.update({
+      where: { id: plan.id },
+      data: { mode },
+    });
+
+    const updatedTasks = await prisma.planTask.findMany({
+      where: { planId: plan.id },
+      orderBy: [{ scheduledDate: "asc" }, { order: "asc" }],
+    });
+
+    const updatedPlan = {
+      ...plan,
+      mode,
+      progressPercent: 0,
+      totalTasks: updatedTasks.length,
+      completedTasks: 0,
+      tasks: updatedTasks,
+    };
+
+    res.json({
+      plan: updatedPlan,
+      message: `Plan strategy successfully switched to ${mode.toUpperCase()}`,
+    });
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// DELETE /api/study-plan/:id - remove study plan
+router.delete("/:id", requireAuth, async (req: AuthRequest, res) => {
+  try {
+    const userId = req.user!.id;
+    const plan = await prisma.studyPlan.findFirst({
+      where: { id: req.params.id, userId },
+    });
+
+    if (!plan) {
+      return res.status(404).json({ error: "Study plan not found" });
+    }
+
+    const wasActive = plan.status === "ACTIVE";
+    await prisma.studyPlan.delete({ where: { id: plan.id } });
+
+    if (wasActive) {
+      const remaining = await prisma.studyPlan.findFirst({
+        where: { userId },
+        orderBy: { createdAt: "desc" },
+      });
+      if (remaining) {
+        await prisma.studyPlan.update({
+          where: { id: remaining.id },
+          data: { status: "ACTIVE" },
+        });
+      }
+    }
+
+    res.json({ success: true, message: "Study plan deleted" });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 export default router;

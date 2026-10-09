@@ -26,9 +26,10 @@ export interface SubjectItem {
 interface SchedulerConfigFormProps {
   onPlanGenerated: (data: any) => void;
   onCancel?: () => void;
+  initialMode?: string;
 }
 
-export function SchedulerConfigForm({ onPlanGenerated, onCancel }: SchedulerConfigFormProps) {
+export function SchedulerConfigForm({ onPlanGenerated, onCancel, initialMode }: SchedulerConfigFormProps) {
   const [subjects, setSubjects] = useState<SubjectItem[]>([]);
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
   const [isExamDate, setIsExamDate] = useState<boolean>(true);
@@ -39,7 +40,7 @@ export function SchedulerConfigForm({ onPlanGenerated, onCancel }: SchedulerConf
   const [targetDate, setTargetDate] = useState<string>(defaultTarget.toISOString().slice(0, 10));
 
   const [hoursPerDay, setHoursPerDay] = useState<number>(2.0);
-  const [mode, setMode] = useState<string>("3-2-1");
+  const [mode, setMode] = useState<string>(initialMode || "3-2-1");
   const [preferredSlot, setPreferredSlot] = useState<string>("EVENING");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");

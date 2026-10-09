@@ -194,6 +194,16 @@
     "semester": "V",
     "type": "subject"
   },
+  "BESK508": {
+    "official_name": "Environmental Studies",
+    "semester": "V",
+    "type": "subject"
+  },
+  "BCV654C": {
+    "official_name": "Integrated Waste Management",
+    "semester": "VI",
+    "type": "subject"
+  },
   "BNSK559": {
     "official_name": "National Service Scheme (NSS)",
     "semester": "V",

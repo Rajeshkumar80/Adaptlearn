@@ -98,6 +98,7 @@ export default function SideNav() {
             <Link
               key={item.href}
               href={item.href}
+              prefetch={true}
               className="flex items-center gap-3 border-l-2 px-5 py-2.5 text-[13px] font-medium transition-all duration-200"
               style={{
                 borderColor: active ? "var(--accent-primary)" : "transparent",

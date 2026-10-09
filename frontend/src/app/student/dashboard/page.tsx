@@ -88,24 +88,44 @@ interface Notification {
   createdAt: string;
 }
 
+import { getCached, setCached } from "@/lib/cache";
+
 export default function StudentDashboard() {
   const { user } = useAuth();
-  const [intel, setIntel] = useState<StudentIntelligence | null>(null);
-  const [notifs, setNotifs] = useState<Notification[]>([]);
+  const cachedIntel = getCached<StudentIntelligence>("student_intelligence");
+  const cachedNotifs = getCached<Notification[]>("student_notifs");
+
+  const [intel, setIntel] = useState<StudentIntelligence | null>(cachedIntel);
+  const [notifs, setNotifs] = useState<Notification[]>(cachedNotifs || []);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!cachedIntel);
 
   useEffect(() => {
+    let mounted = true;
     Promise.all([
       api.get<{ intelligence: StudentIntelligence }>("/student/intelligence"),
       api.get<{ notifications: Notification[] }>("/notifications/mine"),
     ])
       .then(([iRes, nRes]) => {
+        if (!mounted) return;
         setIntel(iRes.data.intelligence);
-        setNotifs(nRes.data.notifications.slice(0, 5));
+        setCached("student_intelligence", iRes.data.intelligence);
+        const topNotifs = nRes.data.notifications.slice(0, 5);
+        setNotifs(topNotifs);
+        setCached("student_notifs", topNotifs);
+        setError("");
       })
-      .catch((err) => setError(errorMessage(err)))
-      .finally(() => setLoading(false));
+      .catch((err) => {
+        if (!mounted) return;
+        if (!cachedIntel) setError(errorMessage(err));
+      })
+      .finally(() => {
+        if (mounted) setLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   if (loading) {

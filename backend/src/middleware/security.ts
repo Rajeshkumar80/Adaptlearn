@@ -7,6 +7,13 @@ export function applySecurity(app: Express): void {
     helmet({
       crossOriginResourcePolicy: { policy: "cross-origin" },
       crossOriginEmbedderPolicy: false,
+      frameguard: false,
+      contentSecurityPolicy: {
+        directives: {
+          ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+          "frame-ancestors": ["'self'", "http://localhost:3000", "http://localhost:3001"],
+        },
+      },
     })
   );
   app.use(cors({ origin: true, credentials: true }));

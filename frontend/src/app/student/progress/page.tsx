@@ -9,29 +9,50 @@ import { BehavioralCurveSection } from "./BehavioralCurveSection";
 import { KnowledgeHeatmapMatrix } from "./KnowledgeHeatmapMatrix";
 import { IntelligenceActionQueues } from "./IntelligenceActionQueues";
 import { TopicRetentionState } from "@/lib/forgetting-curve";
+import { getCached, setCached } from "@/lib/cache";
+
+const CACHE_PROGRESS = "learning_intelligence_progress";
 
 export default function LearningIntelligencePage() {
-  const [intel, setIntel] = useState<any | null>(null);
-  const [states, setStates] = useState<TopicRetentionState[]>([]);
-  const [behavior, setBehavior] = useState<any | null>(null);
-  const [loading, setLoading] = useState(true);
+  const cached = getCached<{ intel: any; states: TopicRetentionState[]; behavior: any }>(CACHE_PROGRESS);
+
+  const [intel, setIntel] = useState<any | null>(cached?.intel || null);
+  const [states, setStates] = useState<TopicRetentionState[]>(cached?.states || []);
+  const [behavior, setBehavior] = useState<any | null>(cached?.behavior || null);
+  const [loading, setLoading] = useState(!cached);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    setLoading(true);
+    let mounted = true;
+    if (!cached) setLoading(true);
     setError("");
+
     Promise.all([
       api.get("/student/intelligence"),
       api.get("/learning/mastery/graph"),
       api.get("/learning/behavior"),
     ])
       .then(([intelRes, graphRes, behavRes]) => {
-        setIntel(intelRes.data.intelligence);
-        setStates(graphRes.data.states || []);
-        setBehavior(behavRes.data.metrics);
+        if (!mounted) return;
+        const newIntel = intelRes.data.intelligence;
+        const newStates = graphRes.data.states || [];
+        const newBehavior = behavRes.data.metrics;
+        setIntel(newIntel);
+        setStates(newStates);
+        setBehavior(newBehavior);
+        setCached(CACHE_PROGRESS, { intel: newIntel, states: newStates, behavior: newBehavior });
       })
-      .catch((err) => setError(errorMessage(err)))
-      .finally(() => setLoading(false));
+      .catch((err) => {
+        if (!mounted) return;
+        if (!cached) setError(errorMessage(err));
+      })
+      .finally(() => {
+        if (mounted) setLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return (

@@ -36,9 +36,14 @@ interface AvailableTest {
   }>;
 }
 
+import { getCached, setCached } from "@/lib/cache";
+
+const CACHE_TESTS = "student_tests_available";
+
 export default function StudentTestsPage() {
-  const [tests, setTests] = useState<AvailableTest[]>([]);
-  const [loading, setLoading] = useState(true);
+  const cachedTests = getCached<AvailableTest[]>(CACHE_TESTS);
+  const [tests, setTests] = useState<AvailableTest[]>(cachedTests || []);
+  const [loading, setLoading] = useState(!cachedTests);
   const [error, setError] = useState("");
 
   // Active taking or result viewing states
@@ -47,21 +52,23 @@ export default function StudentTestsPage() {
   const [activeResult, setActiveResult] = useState<any | null>(null);
   const [activeResultMeta, setActiveResultMeta] = useState<{ title: string; subject: string } | null>(null);
 
-  async function load() {
-    setLoading(true);
+  async function load(silent = false) {
+    if (!silent && !cachedTests) setLoading(true);
     setError("");
     try {
       const res = await api.get<{ tests: AvailableTest[] }>("/tests/available");
-      setTests(res.data.tests || []);
+      const fetched = res.data.tests || [];
+      setTests(fetched);
+      setCached(CACHE_TESTS, fetched);
     } catch (err) {
-      setError(errorMessage(err));
+      if (!cachedTests) setError(errorMessage(err));
     } finally {
       setLoading(false);
     }
   }
 
   useEffect(() => {
-    load();
+    load(Boolean(cachedTests));
   }, []);
 
   async function startTest(testId: string) {

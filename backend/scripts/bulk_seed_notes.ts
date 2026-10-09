@@ -123,14 +123,25 @@ async function bulkSeedNotes() {
       moduleNumber = parseInt(modMatch[1], 10);
     }
 
+    const title = moduleNumber
+      ? `${subjectCode} Module ${moduleNumber} Notes`
+      : `${subjectCode} Study Notes (${fileName.replace(/\.pdf$/i, "")})`;
+
+    const existing = await prisma.notes.findFirst({
+      where: {
+        subjectCode,
+        title,
+      },
+    });
+    if (existing) {
+      stats.bySubject[subjectCode] = (stats.bySubject[subjectCode] || 0) + 1;
+      continue;
+    }
+
     // Copy to secure notes directory
     const storedName = sanitizeStoredFileName(fileName);
     const securePath = path.join(SECURE_NOTES_DIR, storedName);
     fs.writeFileSync(securePath, fileBuffer);
-
-    const title = moduleNumber
-      ? `${subjectCode} Module ${moduleNumber} Notes`
-      : `${subjectCode} Study Notes (${fileName.replace(/\.pdf$/i, "")})`;
 
     // Insert into database
     await prisma.notes.create({

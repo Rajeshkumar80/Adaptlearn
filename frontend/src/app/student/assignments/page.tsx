@@ -38,10 +38,15 @@ interface Assignment {
   submissions: Submission[];
 }
 
+import { getCached, setCached } from "@/lib/cache";
+
+const CACHE_ASSIGNMENTS = "student_assignments";
+
 export default function AssignmentsPage() {
-  const [assignments, setAssignments] = useState<Assignment[]>([]);
+  const cachedAssignments = getCached<Assignment[]>(CACHE_ASSIGNMENTS);
+  const [assignments, setAssignments] = useState<Assignment[]>(cachedAssignments || []);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!cachedAssignments);
   const [submittingId, setSubmittingId] = useState("");
   const [uploadingId, setUploadingId] = useState("");
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -50,21 +55,23 @@ export default function AssignmentsPage() {
   const [toastKind, setToastKind] = useState<"success" | "error" | "info">("success");
   const fileRefs = useRef<Record<string, HTMLInputElement | null>>({});
 
-  async function load() {
-    setLoading(true);
+  async function load(silent = false) {
+    if (!silent && !cachedAssignments) setLoading(true);
     setError("");
     try {
       const res = await api.get<{ assignments: Assignment[] }>("/student/assignments");
-      setAssignments(res.data.assignments);
+      const fetched = res.data.assignments || [];
+      setAssignments(fetched);
+      setCached(CACHE_ASSIGNMENTS, fetched);
     } catch (err) {
-      setError(errorMessage(err));
+      if (!cachedAssignments) setError(errorMessage(err));
     } finally {
       setLoading(false);
     }
   }
 
   useEffect(() => {
-    load();
+    load(Boolean(cachedAssignments));
   }, []);
 
   function notify(kind: "success" | "error" | "info", msg: string) {

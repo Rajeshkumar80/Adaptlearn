@@ -78,7 +78,7 @@ async function callGroq(messages: { role: string; content: string }[], timeoutMs
       return;
     }
     const payload = JSON.stringify({
-      model: "llama-3.1-8b-instant",
+      model: process.env.GROQ_MODEL || "qwen/qwen3.8-27b",
       messages,
       temperature: 0.1,
       response_format: { type: "json_object" },
@@ -101,6 +101,10 @@ async function callGroq(messages: { role: string; content: string }[], timeoutMs
         res.on("end", () => {
           try {
             const parsed = JSON.parse(raw);
+            if (res.statusCode && res.statusCode >= 400) {
+              reject(new Error(`Groq HTTP ${res.statusCode}: ${parsed?.error?.message || raw}`));
+              return;
+            }
             resolve(parsed?.choices?.[0]?.message?.content || "");
           } catch {
             reject(new Error("Failed to parse Groq response"));
@@ -135,10 +139,14 @@ export async function executeStructuredLlm<T>(options: {
   for (let attempt = 1; attempt <= 2; attempt++) {
     let rawOutput = "";
     try {
-      rawOutput = await callOllama(messages, 20000);
+      if (GROQ_API_KEY) {
+        rawOutput = await callGroq(messages, 8000);
+      } else {
+        rawOutput = await callOllama(messages, 5000);
+      }
     } catch {
       try {
-        rawOutput = await callGroq(messages, 15000);
+        rawOutput = GROQ_API_KEY ? await callOllama(messages, 5000) : await callGroq(messages, 8000);
       } catch {
         // Fall through to retry or fallback
       }

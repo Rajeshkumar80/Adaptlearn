@@ -104,6 +104,8 @@ router.get("/:id/stream", requireAuth, async (req: AuthRequest, res) => {
       return res.status(404).json({ error: "Note file not found on disk" });
     }
 
+    res.removeHeader("X-Frame-Options");
+    res.setHeader("Content-Security-Policy", "frame-ancestors 'self' http://localhost:3000 http://localhost:3001");
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Disposition", `inline; filename="${encodeURIComponent(note.title)}.pdf"`);
     res.setHeader("Content-Length", note.fileSize || fs.statSync(filePath).size);
@@ -142,6 +144,8 @@ router.get("/stream/:filename", requireAuth, async (req: AuthRequest, res) => {
       return res.status(404).json({ error: "Note file not found on disk" });
     }
 
+    res.removeHeader("X-Frame-Options");
+    res.setHeader("Content-Security-Policy", "frame-ancestors 'self' http://localhost:3000 http://localhost:3001");
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Disposition", `inline; filename="${encodeURIComponent(note.title)}.pdf"`);
     res.setHeader("Content-Length", note.fileSize || fs.statSync(filePath).size);
@@ -181,30 +185,45 @@ router.get("/:id/download", requireAuth, async (req: AuthRequest, res) => {
 // GET /api/notes - list notes visible to caller
 router.get("/", requireAuth, async (req: AuthRequest, res) => {
   try {
-    const { subject, module } = req.query as { subject?: string; module?: string };
+    const { subject, module, semester } = req.query as {
+      subject?: string;
+      module?: string;
+      semester?: string;
+    };
     const user = req.user!;
 
     if (user.role === "TEACHER" || user.role === "ADMIN") {
+      let teacherSubjectFilter = subject || undefined;
+      if (!teacherSubjectFilter && semester) {
+        const semSubs = await prisma.subject.findMany({
+          where: { semester: Number(semester) },
+          select: { code: true },
+        });
+        teacherSubjectFilter = semSubs.length > 0 ? (semSubs.map((s) => s.code) as any) : undefined;
+      }
+
       const notes = await prisma.notes.findMany({
         where: {
           uploadedByTeacherId: user.role === "TEACHER" ? user.id : undefined,
-          subjectCode: subject || undefined,
+          subjectCode: Array.isArray(teacherSubjectFilter)
+            ? { in: teacherSubjectFilter }
+            : teacherSubjectFilter,
           moduleNumber: module ? Number(module) : undefined,
         },
-        orderBy: { createdAt: "desc" },
+        orderBy: [{ subjectCode: "asc" }, { moduleNumber: "asc" }, { createdAt: "desc" }],
       });
       return res.json({ notes });
     }
 
-    // Student notes listing: only notes for student's semester/class
+    // Student notes listing
     const studentUser = await prisma.user.findUnique({
       where: { id: user.id },
       select: { semester: true, classId: true },
     });
 
-    // Subjects in student semester
-    const semSubjects = studentUser?.semester
-      ? await prisma.subject.findMany({ where: { semester: studentUser.semester }, select: { code: true } })
+    const targetSemester = semester ? Number(semester) : (subject ? undefined : studentUser?.semester);
+    const semSubjects = targetSemester
+      ? await prisma.subject.findMany({ where: { semester: targetSemester }, select: { code: true } })
       : [];
     const allowedSubjectCodes = semSubjects.map((s) => s.code);
 
@@ -219,7 +238,7 @@ router.get("/", requireAuth, async (req: AuthRequest, res) => {
           : undefined,
         moduleNumber: module ? Number(module) : undefined,
       },
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ subjectCode: "asc" }, { moduleNumber: "asc" }, { createdAt: "desc" }],
     });
 
     res.json({ notes });
