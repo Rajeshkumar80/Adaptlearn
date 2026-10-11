@@ -9,6 +9,24 @@ interface MermaidDiagramProps {
   sketchGuide?: string;
 }
 
+// The local LLM emits invalid mermaid like `Application Layer --> Presentation Layer`
+// (spaces in bare node ids). Rewrite bare multi-word labels to
+// `Application_Layer["Application Layer"]` so the diagram parses; consistent id
+// derivation keeps repeated references to the same label as one node.
+export function sanitizeMermaid(code: string): string {
+  const wrap = (s: string): string => {
+    const t = s.trim().replace(/;+$/, "");
+    if (!t || /^[\w-]+$/.test(t)) return t; // already a bare id
+    if (t.includes("[") || t.includes('"')) return t; // already bracketed/quoted
+    const id = "N" + t.replace(/[^A-Za-z0-9_]+/g, "_").replace(/^_+|_+$/g, "");
+    return `${id}["${t.replace(/"/g, "'")}"]`;
+  };
+  return code
+    .split("\n")
+    .map((line) => (line.includes("-->") ? line.split("-->").map(wrap).join(" --> ") : line))
+    .join("\n");
+}
+
 export default function MermaidDiagram({ code, title, sketchGuide }: MermaidDiagramProps) {
   const [svgContent, setSvgContent] = useState<string>("");
   const [copied, setCopied] = useState(false);
@@ -20,6 +38,7 @@ export default function MermaidDiagram({ code, title, sketchGuide }: MermaidDiag
 
     async function renderChart() {
       if (!code || !code.trim()) return;
+      let id = "";
       try {
         const mermaid = (await import("mermaid")).default;
         mermaid.initialize({
@@ -47,14 +66,18 @@ export default function MermaidDiagram({ code, title, sketchGuide }: MermaidDiag
         if (!cleanCode.startsWith("graph") && !cleanCode.startsWith("flowchart") && !cleanCode.startsWith("sequenceDiagram") && !cleanCode.startsWith("classDiagram") && !cleanCode.startsWith("stateDiagram")) {
           cleanCode = `flowchart TD\n${cleanCode}`;
         }
+        cleanCode = sanitizeMermaid(cleanCode);
 
-        const id = `mermaid-${Math.random().toString(36).substring(2, 9)}`;
+        id = `mermaid-${Math.random().toString(36).substring(2, 9)}`;
         const { svg } = await mermaid.render(id, cleanCode);
         if (isMounted) {
           setSvgContent(svg);
           setRenderError(false);
         }
       } catch (err) {
+        // mermaid leaves its temp error-SVG element (`#d<id>`) in the DOM on
+        // parse failure — that is the pink "Syntax error in text" bomb. Remove it.
+        if (id) document.getElementById(`d${id}`)?.remove();
         console.warn("Mermaid render error:", err);
         if (isMounted) {
           setRenderError(true);
@@ -67,7 +90,7 @@ export default function MermaidDiagram({ code, title, sketchGuide }: MermaidDiag
   }, [code]);
 
   const copyCode = () => {
-    navigator.clipboard.writeText(code);
+    navigator.clipboard.writeText(sanitizeMermaid(code));
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
