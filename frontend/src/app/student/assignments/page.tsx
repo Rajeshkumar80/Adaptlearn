@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Upload, CheckCircle2, Clock, Camera, X } from "lucide-react";
-import { api, errorMessage, BACKEND_URL } from "@/lib/api";
+import { api, errorMessage, BACKEND_URL, getToken } from "@/lib/api";
 import {
   Button,
   Card,
@@ -227,7 +227,7 @@ export default function AssignmentsPage() {
                             {attachmentUrls(sub).map((u, i) => (
                               <a
                                 key={`${u}-${i}`}
-                                href={`${BACKEND_URL}${u}`}
+                                href={`${BACKEND_URL}${u}?token=${getToken()}`}
                                 target="_blank"
                                 rel="noreferrer"
                                 className="block"
@@ -238,7 +238,7 @@ export default function AssignmentsPage() {
                                   </span>
                                 ) : (
                                   <img
-                                    src={`${BACKEND_URL}${u}`}
+                                    src={`${BACKEND_URL}${u}?token=${getToken()}`}
                                     alt={`submission attachment ${i + 1}`}
                                     className="h-20 w-16 rounded-[2px] border border-[var(--border-default)] object-cover"
                                   />
@@ -314,7 +314,7 @@ export default function AssignmentsPage() {
                             {(photos[a.id] ?? []).map((u, i) => (
                               <div key={`${u}-${i}`} className="group relative">
                                 <img
-                                  src={`${BACKEND_URL}${u}`}
+                                  src={`${BACKEND_URL}${u}?token=${getToken()}`}
                                   alt={`upload ${i + 1}`}
                                   className="h-24 w-20 rounded-[2px] border border-[var(--border-default)] object-cover"
                                 />

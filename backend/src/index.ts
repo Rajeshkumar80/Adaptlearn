@@ -37,7 +37,10 @@ export function createApp() {
   const apiLimiter = rateLimit({ windowMs: 60 * 1000, max: 200, standardHeaders: true, legacyHeaders: false });
   app.use("/api", apiLimiter);
 
-  app.use("/uploads", express.static(path.resolve(__dirname, "../uploads")));
+  // Only diagrams are public (non-sensitive, extracted academic figures).
+  // Submission photos are served exclusively via the authenticated
+  // /api/student/submissions/file/:filename route — never statically mounted.
+  app.use("/uploads/diagrams", express.static(path.resolve(__dirname, "../uploads/diagrams")));
 
   // Fallback diagram resolver directly from DATA/diagrams
   app.use("/uploads/diagrams", (req, res, next) => {
@@ -100,9 +103,13 @@ export function createApp() {
       (err as any).code === "LIMIT_FILE_SIZE" ||
       err.message?.startsWith("Only PDF") ||
       err.name === "MulterError";
+    // SECURITY: never echo raw error messages (DB errors, stack internals, file
+    // paths) to clients in production. Client-caused errors (bad upload, etc.)
+    // are safe to show verbatim; everything else is logged server-side only.
+    if (!isClient) console.error("[unhandled]", err);
     res.status(isClient ? 400 : 500).json({
       error: isClient ? err.message : "Internal server error",
-      detail: err.message,
+      ...(isClient || config.nodeEnv !== "production" ? { detail: err.message } : {}),
     });
   });
 

@@ -25,14 +25,14 @@ import {
 import { useAuth } from "@/lib/auth";
 
 const C = {
-  navy: "#1e3a5f",
-  navySoft: "#e9eef5",
-  brass: "#a67c2e",
-  success: "#2f6b4f",
-  error: "#a03a2e",
-  warning: "#a05e1c",
-  inkMuted: "#6e6656",
-  hairline: "#e2e2de",
+  navy: "var(--text-primary)",
+  navySoft: "var(--accent-soft)",
+  brass: "var(--accent-primary)",
+  success: "var(--status-running)",
+  error: "var(--status-error)",
+  warning: "var(--status-warning)",
+  inkMuted: "var(--text-muted)",
+  hairline: "var(--border-subtle)",
 };
 
 interface Analytics {

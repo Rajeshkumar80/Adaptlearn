@@ -12,8 +12,8 @@ function LoginForm() {
   const { login } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [email, setEmail] = useState("demo.student@adaptlearn.dev");
-  const [password, setPassword] = useState("Student@123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -66,6 +66,8 @@ function LoginForm() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
+            placeholder="you@example.com"
             required
           />
           <label className="mb-1 mt-4 block text-[12px] font-semibold" style={{ color: "var(--text-muted)" }}>
@@ -75,6 +77,8 @@ function LoginForm() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
+            placeholder="Password"
             required
           />
           {error && (
@@ -86,7 +90,9 @@ function LoginForm() {
             {busy ? "Signing in…" : "Sign in"}
           </Button>
           <p className="mt-4 text-center text-[11px]" style={{ color: "var(--text-muted)" }}>
-            Demo: demo.student@adaptlearn.dev · teacher1@adaptlearn.dev
+            Student: demo.student@adaptlearn.dev / Student@123
+            <br />
+            Teacher: teacher1@adaptlearn.dev / Teacher@123
           </p>
         </form>
       </div>

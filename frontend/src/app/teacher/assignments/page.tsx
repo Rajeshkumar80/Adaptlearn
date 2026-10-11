@@ -12,7 +12,7 @@ import {
   ImageIcon,
   Clock,
 } from "lucide-react";
-import { api, errorMessage, BACKEND_URL } from "@/lib/api";
+import { api, errorMessage, BACKEND_URL, getToken } from "@/lib/api";
 import {
   Badge,
   Button,
@@ -29,14 +29,14 @@ import {
 import { useSubjects } from "@/lib/subjects";
 
 const C = {
-  navy: "#1e3a5f",
-  navySoft: "#e9eef5",
-  brass: "#a67c2e",
-  success: "#2f6b4f",
-  error: "#a03a2e",
-  warning: "#a05e1c",
-  inkMuted: "#6e6656",
-  hairline: "#e2e2de",
+  navy: "var(--text-primary)",
+  navySoft: "var(--accent-soft)",
+  brass: "var(--accent-primary)",
+  success: "var(--status-running)",
+  error: "var(--status-error)",
+  warning: "var(--status-warning)",
+  inkMuted: "var(--text-muted)",
+  hairline: "var(--border-subtle)",
 };
 
 interface Assignment {
@@ -519,7 +519,7 @@ export default function TeacherAssignmentsPage() {
                                           u.toLowerCase().endsWith(".pdf") ? (
                                             <a
                                               key={`${u}-${i}`}
-                                              href={`${BACKEND_URL}${u}`}
+                                              href={`${BACKEND_URL}${u}?token=${getToken()}`}
                                               target="_blank"
                                               rel="noreferrer"
                                               className="flex h-24 w-20 items-center justify-center rounded-[2px] border border-[var(--border-default)] bg-[var(--bg-secondary)] text-[10px] font-semibold text-[var(--accent-primary)]"
@@ -529,13 +529,13 @@ export default function TeacherAssignmentsPage() {
                                           ) : (
                                             <a
                                               key={`${u}-${i}`}
-                                              href={`${BACKEND_URL}${u}`}
+                                              href={`${BACKEND_URL}${u}?token=${getToken()}`}
                                               target="_blank"
                                               rel="noreferrer"
                                               className="block"
                                             >
                                               <img
-                                                src={`${BACKEND_URL}${u}`}
+                                                src={`${BACKEND_URL}${u}?token=${getToken()}`}
                                                 alt={`${s.student.name} attachment ${i + 1}`}
                                                 className="h-24 w-20 rounded-[2px] border border-[var(--border-default)] object-cover transition-opacity hover:opacity-80"
                                               />

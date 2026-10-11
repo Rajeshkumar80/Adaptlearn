@@ -181,7 +181,14 @@ export function resolveSubjectCode(question: string, provided?: string): string 
     return provided.toUpperCase();
   }
 
-  return "BCS302";
+  // No canonical match: return the user's provided code if present (retrieval
+  // will honestly report insufficient context), otherwise GENERAL. Never guess
+  // a subject — a wrong guess serves unrelated content as authoritative.
+  // ponytail: exact-match only; fuzzy alias table if real student queries need it.
+  if (provided && provided !== "GENERAL" && provided.trim().length > 0) {
+    return provided.trim().toUpperCase();
+  }
+  return "GENERAL";
 }
 
 // ── Module Number Resolver ───────────────────────────────────────────────────
@@ -561,18 +568,18 @@ export function retrievePYQs(
         }
 
         let candidateText = line;
-        if (/^(Q\.\s*\d+|[a-d][\.\s]|\d+[\.\s])/i.test(line) && line.length < 25 && i + 1 < lines.length) {
+        if (/^(Q\.\s*\d+|[a-d][\.\s]|[ivx]+[\)\.]|\d+[\.\s])/i.test(line) && line.length < 25 && i + 1 < lines.length) {
           candidateText = line + " " + lines[i + 1].trim();
         }
 
         const isQuestionLine = (
-          /^(Q\.\s*\d+|[a-d][\.\s]|\d+[\.\s])/i.test(candidateText) ||
-          /^(explain|define|what|describe|simplify|apply|show|demonstrate|differentiate|compare|state|list|write)/i.test(candidateText)
+          /^(Q\.\s*\d+|[a-d][\.\s]|[ivx]+[\)\.]|\d+[\.\s])/i.test(candidateText) ||
+          /^(explain|define|what|describe|discuss|derive|illustrate|elaborate|simplify|apply|show|demonstrate|differentiate|compare|state|list|write)/i.test(candidateText)
         );
 
         if (isQuestionLine && candidateText.length > 15) {
           const cleanQ = candidateText
-            .replace(/^(Q\.\s*\d+\s*[a-d]?\.?|[a-d][\.\s]|\d+[\.\s])\s*/i, "")
+            .replace(/^(Q\.\s*\d+\s*[a-d]?\.?|[a-d][\.\s]|[ivx]+[\)\.]|\d+[\.\s])\s*/i, "")
             .replace(/\bL[1-4]\b/g, "")
             .replace(/\bCO[1-5]\b/g, "")
             .replace(/(\d+)\s*marks?/i, "")

@@ -2,19 +2,29 @@ import { Router } from "express";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import crypto from "crypto";
 import { z } from "zod";
 import { prisma } from "../db";
 import { requireAuth, AuthRequest } from "../middleware/auth";
+import { canUserAccessSubmissionFile } from "../services/submissionsStorage";
 
 const router = Router();
 
 const uploadsDir = path.resolve(__dirname, "../../uploads/submissions");
 fs.mkdirSync(uploadsDir, { recursive: true });
 
+// Filenames are prefixed with the uploader's user id (`<ownerId>__...`) so the
+// authenticated streaming route below can verify ownership without a DB round
+// trip for the common case (student viewing their own just-uploaded photo).
 const photoUpload = multer({
   storage: multer.diskStorage({
     destination: (_req, _file, cb) => cb(null, uploadsDir),
-    filename: (_req, file, cb) => cb(null, `${Date.now()}-${file.originalname.replace(/[^\w.\-]/g, "_")}`),
+    filename: (req, file, cb) => {
+      const ownerId = (req as AuthRequest).user?.id || "anon";
+      const randomSuffix = crypto.randomBytes(6).toString("hex");
+      const cleanName = file.originalname.replace(/[^\w.\-]/g, "_");
+      cb(null, `${ownerId}__${Date.now()}_${randomSuffix}_${cleanName}`);
+    },
   }),
   limits: { fileSize: 10 * 1024 * 1024 },
   fileFilter: (_req, file, cb) => {
@@ -69,7 +79,21 @@ router.get("/assignments", requireAuth, async (req: AuthRequest, res) => {
 router.post("/assignments/upload-photo", requireAuth, photoUpload.array("photos", 6), (req: AuthRequest, res) => {
   const files = (req.files as Express.Multer.File[]) ?? [];
   if (!files.length) { res.status(400).json({ error: "No photos received" }); return; }
-  res.status(201).json({ urls: files.map(f => `/uploads/submissions/${f.filename}`) });
+  res.status(201).json({ urls: files.map(f => `/api/student/submissions/file/${f.filename}`) });
+});
+
+// GET /api/student/submissions/file/:filename - authenticated attachment access.
+// Owner student (id embedded in filename prefix) or the teacher who owns the
+// assignment that submission belongs to (verified via fileUrls membership) may
+// fetch it. Admins may fetch any submission file. Everyone else gets 403.
+router.get("/submissions/file/:filename", requireAuth, async (req: AuthRequest, res) => {
+  const safeName = path.basename(req.params.filename);
+  const access = await canUserAccessSubmissionFile(req.user!, safeName);
+  if (!access.allowed) { res.status(403).json({ error: access.reason || "Forbidden" }); return; }
+
+  const filePath = path.join(uploadsDir, safeName);
+  if (!fs.existsSync(filePath)) { res.status(404).json({ error: "File not found" }); return; }
+  res.sendFile(filePath);
 });
 
 router.post("/assignments/:id/submit", requireAuth, async (req: AuthRequest, res) => {

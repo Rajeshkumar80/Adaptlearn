@@ -145,13 +145,15 @@ router.get("/:id/take", requireAuth, async (req: AuthRequest, res) => {
     where: { id: req.params.id, isActive: true },
     include: {
       questions: {
+        // SECURITY: never send `rubric` / `modelAnswer` / `expectedKeywords` to the
+        // test-taker — they are grading criteria consumed only by evaluator.ts and
+        // must not be visible during an active attempt (answer-key protection).
         select: {
           id: true,
           text: true,
           questionType: true,
           options: true,
           marks: true,
-          rubric: true,
           topicId: true,
         },
         orderBy: { createdAt: "asc" },
@@ -161,6 +163,16 @@ router.get("/:id/take", requireAuth, async (req: AuthRequest, res) => {
 
   if (!test) {
     res.status(404).json({ error: "Test not found" });
+    return;
+  }
+
+  const now = new Date();
+  if (test.startTime && now < test.startTime) {
+    res.status(403).json({ error: "This test has not opened yet", opensAt: test.startTime });
+    return;
+  }
+  if (test.endTime && now > test.endTime) {
+    res.status(403).json({ error: "This test's submission window has closed", closedAt: test.endTime });
     return;
   }
 
@@ -213,6 +225,16 @@ router.post("/:id/submit", requireAuth, async (req: AuthRequest, res) => {
     });
     if (!test) {
       res.status(404).json({ error: "Test not found" });
+      return;
+    }
+
+    const now = new Date();
+    if (test.startTime && now < test.startTime) {
+      res.status(403).json({ error: "This test has not opened yet" });
+      return;
+    }
+    if (test.endTime && now > test.endTime) {
+      res.status(403).json({ error: "This test's submission window has closed" });
       return;
     }
 
@@ -289,8 +311,8 @@ router.patch("/results/:resultId/grade", requireAuth, requireTeacher, async (req
       overrideScore: z.number().min(0).optional(),
     }).parse(req.body);
 
-    const result = await prisma.testResult.findUnique({
-      where: { id: req.params.resultId },
+    const result = await prisma.testResult.findFirst({
+      where: { id: req.params.resultId, test: { createdByTeacherId: req.user!.id } },
     });
     if (!result) {
       res.status(404).json({ error: "Result not found" });
@@ -314,6 +336,12 @@ router.patch("/results/:resultId/grade", requireAuth, requireTeacher, async (req
 
 // GET /api/tests/:id/results - Teacher reviews all submissions for a test
 router.get("/:id/results", requireAuth, requireTeacher, async (req: AuthRequest, res) => {
+  const test = await prisma.test.findFirst({
+    where: { id: req.params.id, createdByTeacherId: req.user!.id },
+    select: { id: true },
+  });
+  if (!test) { res.status(404).json({ error: "Test not found" }); return; }
+
   const results = await prisma.testResult.findMany({
     where: { testId: req.params.id },
     include: {
@@ -327,6 +355,12 @@ router.get("/:id/results", requireAuth, requireTeacher, async (req: AuthRequest,
 // GET /api/tests/:id/integrity-report - Teacher views aggregated integrity report with CSV data
 router.get("/:id/integrity-report", requireAuth, requireTeacher, async (req: AuthRequest, res) => {
   try {
+    const test = await prisma.test.findFirst({
+      where: { id: req.params.id, createdByTeacherId: req.user!.id },
+      select: { id: true },
+    });
+    if (!test) { res.status(404).json({ error: "Test not found" }); return; }
+
     const report = await getTestIntegrityReport(req.params.id);
     res.json(report);
   } catch (err: any) {
