@@ -1,16 +1,15 @@
 import { Router } from "express";
 import { z } from "zod";
-import http from "http";
 import https from "https";
 import fs from "fs";
 import path from "path";
 import { prisma } from "../db";
 import { requireAuth, AuthRequest } from "../middleware/auth";
 import rateLimit from "express-rate-limit";
-import { executeRAG, resolveSubjectCode, retrieveKnowledgeCandidates, retrievePYQs } from "../services/ragService";
+import { executeRAG, retrieveKnowledgeCandidates, retrievePYQs } from "../services/ragService";
 import { sanitizeAndEnrichAnswer, StructuredAnswer } from "../services/answerSynthesizer";
 import { validateGrounding, GroundingValidationResult } from "../services/groundingValidator";
-import { generateCuratedTopicQuestions, cleanOptionText } from "../services/quizSynthesizer";
+import { generateCuratedTopicQuestions } from "../services/quizSynthesizer";
 import { analyzeQuestion, QuestionAnalysis, isConversationalQuery } from "../services/questionAnalyzer";
 import { rerankCandidates, allocateDynamicContext } from "../services/reranker";
 import { resolveDiagramDecision, DiagramDecision } from "../services/diagramService";
@@ -22,9 +21,6 @@ const router = Router();
 const aiLimiter = rateLimit({ windowMs: 60 * 1000, max: 60, standardHeaders: true, legacyHeaders: false });
 
 // ── Ollama & Groq config ───────────────────────────────────────────────────────
-const OLLAMA_HOST  = process.env.OLLAMA_HOST  || "127.0.0.1";
-const OLLAMA_PORT  = Number(process.env.OLLAMA_PORT || 11434);
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "llama3.1:8b";
 const GROQ_API_KEY = process.env.GROQ_API_KEY || "";
 
 // ── Query Deconstruction for Combined / Multi-Part Student Questions ─────────
@@ -136,51 +132,9 @@ Required JSON Structure:
 }
 Output ONLY the JSON object. No markdown code blocks, no text outside.`;
 
-// ── Local Ollama HTTP caller ──────────────────────────────────────────────────
-function ollamaChat(
-  messages: { role: string; content: string }[],
-  timeout = 35000
-): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const body = JSON.stringify({
-      model: OLLAMA_MODEL,
-      messages,
-      stream: false,
-      options: { temperature: 0.25, num_ctx: 3072, num_predict: 1200 },
-    });
-
-    const req = http.request(
-      {
-        host: OLLAMA_HOST,
-        port: OLLAMA_PORT,
-        path: "/api/chat",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Content-Length": Buffer.byteLength(body),
-        },
-      },
-      (res) => {
-        let data = "";
-        res.on("data", d => (data += d));
-        res.on("end", () => {
-          try {
-            resolve(JSON.parse(data)?.message?.content || "");
-          } catch {
-            reject(new Error("Failed to parse Ollama response"));
-          }
-        });
-      }
-    );
-    req.setTimeout(timeout, () => {
-      req.destroy();
-      reject(new Error("Ollama timeout"));
-    });
-    req.on("error", reject);
-    req.write(body);
-    req.end();
-  });
-}
+// ── Local Ollama caller — shared streaming client (keep-alive, single-slot
+//    generation queue, abort propagation, no destructive 25s timeout) ─────────
+import { ollamaGenerate } from "../services/ollamaClient";
 
 // ── Fast Cloud LLM Fallback (Groq) ────────────────────────────────────────────
 function groqChat(
@@ -237,21 +191,35 @@ function groqChat(
 }
 
 // ── Multi-Tier Resilient LLM Invoker ──────────────────────────────────────────
-async function callLLM(messages: { role: string; content: string }[]): Promise<string> {
-  // Tier 1: Try Local Ollama LLM
+// Streaming mode (onToken): Ollama only — silently switching to Groq after the
+// student has already seen local-model tokens would be incoherent.
+// Buffered mode: Ollama → Groq fallback, as before.
+async function callLLM(
+  messages: { role: string; content: string }[],
+  opts: { onToken?: (t: string) => void; signal?: AbortSignal } = {}
+): Promise<string> {
   try {
-    const raw = await ollamaChat(messages, 25000);
+    const raw = await ollamaGenerate(messages, {
+      temperature: 0.25,
+      numCtx: 3072,
+      numPredict: 1200,
+      onToken: opts.onToken,
+      signal: opts.signal,
+    });
     if (raw && raw.trim().length > 50) return raw;
-  } catch {
-    // Local Ollama offline or timed out; fall through to Tier 2
+    if (opts.onToken && raw.length === 0) throw new Error("Ollama returned no output");
+  } catch (err) {
+    if (opts.onToken) throw err;
+    // Local Ollama offline or failed; fall through to Groq (buffered mode only)
   }
 
-  // Tier 2: Try Fast Groq LLM Fallback
-  try {
-    const raw = await groqChat(messages, 20000);
-    if (raw && raw.trim().length > 50) return raw;
-  } catch {
-    // Groq offline; fall through to deterministic synthesizer
+  if (!opts.onToken) {
+    try {
+      const raw = await groqChat(messages, 20000);
+      if (raw && raw.trim().length > 50) return raw;
+    } catch {
+      // Groq offline; fall through to deterministic synthesizer
+    }
   }
 
   return "";
@@ -278,15 +246,28 @@ function bktUpdate(mastery: number, correct: boolean): number {
   return pKnown + (1 - pKnown) * pLearn;
 }
 
-// ── POST /api/ai/ask ──────────────────────────────────────────────────────────
-router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
-  try {
-    const { question, subjectCode, moduleNumber, marks } = z.object({
-      question:     z.string().min(2).max(2000),
-      subjectCode:  z.string().min(1).optional().default("GENERAL"),
-      moduleNumber: z.number().int().min(1).optional(),
-      marks:        z.number().int().optional(),
-    }).parse(req.body);
+// ── POST /api/ai/ask (+ /ask/stream) — shared pipeline ───────────────────────
+interface AskInput {
+  question: string;
+  subjectCode?: string;
+  moduleNumber?: number;
+  marks?: number;
+}
+
+interface AskHooks {
+  onToken?: (t: string) => void;
+  signal?: AbortSignal;
+  onPhase?: (phase: string, info: Record<string, unknown>) => void;
+}
+
+async function runAskPipeline(input: AskInput, hooks: AskHooks = {}): Promise<Record<string, unknown>> {
+  const t0 = Date.now();
+  const { question, subjectCode, moduleNumber, marks } = z.object({
+    question:     z.string().min(2).max(2000),
+    subjectCode:  z.string().min(1).optional().default("GENERAL"),
+    moduleNumber: z.number().int().min(1).optional(),
+    marks:        z.number().int().optional(),
+  }).parse(input);
 
     // 1. Phase 4 Question Analyzer (Task 2 & 3)
     const analysis = analyzeQuestion(question, subjectCode, moduleNumber, marks);
@@ -297,7 +278,7 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
     // Ambiguity Handling (Task 24 & 25)
     if (analysis.isAmbiguous) {
       console.log(`[RAG /ask] Ambiguous query detected: "${question}"`);
-      return res.json({
+      return {
         answer: {
           question,
           subject_code: resolvedSubject,
@@ -325,7 +306,7 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
         groundingValidation: { valid: true, score: 1.0, unsupportedClaims: [] },
         retrievalConfidence: "NONE",
         questionAnalysis: analysis,
-      });
+      };
     }
 
     // 1b. Basic Conversational Router (Master Prompt Sections 28 & 58)
@@ -347,7 +328,7 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
         ],
       };
 
-      return res.json({
+      return {
         answer: conversationalResponse,
         retrievedChunks: [],
         diagrams: [],
@@ -361,7 +342,7 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
         provenance: ["AdaptLearn Virtual Assistant"],
         retrievalConfidence: "HIGH",
         questionAnalysis: analysis,
-      });
+      };
     }
 
     // 1c. Official Syllabus / Curriculum Query Router (Master Prompt Section 56)
@@ -401,7 +382,7 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
           ],
         };
 
-        return res.json({
+        return {
           answer: syllabusAnswer,
           retrievedChunks: [],
           diagrams: [],
@@ -415,7 +396,7 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
           provenance: ["VTU 2022 Scheme Master Curriculum"],
           retrievalConfidence: "HIGH",
           questionAnalysis: analysis,
-        });
+        };
       }
     }
 
@@ -456,7 +437,7 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
           ],
         };
 
-        return res.json({
+        return {
           answer: pyqAnswer,
           retrievedChunks: [],
           diagrams: [],
@@ -470,7 +451,7 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
           provenance: questionsToDisplay.map(q => q.paper),
           retrievalConfidence: "HIGH",
           questionAnalysis: analysis,
-        });
+        };
       }
     }
 
@@ -505,7 +486,7 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
           ],
         };
 
-        return res.json({
+        return {
           answer: modelAnswer,
           retrievedChunks: [],
           diagrams: [],
@@ -519,7 +500,7 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
           provenance: ["Official VTU Model Question Papers"],
           retrievalConfidence: "HIGH",
           questionAnalysis: analysis,
-        });
+        };
       }
     }
 
@@ -556,7 +537,7 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
           ],
         };
 
-        return res.json({
+        return {
           answer: codeAnswer,
           retrievedChunks: [],
           diagrams: [],
@@ -570,7 +551,7 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
           provenance: [`VTU Programming Notes (${codeResp.language.toUpperCase()})`],
           retrievalConfidence: "HIGH",
           questionAnalysis: analysis,
-        });
+        };
       }
     }
 
@@ -578,6 +559,7 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
     const deconstructed = deconstructStudentPrompt(question);
 
     // 4. Execute RAG pipeline over canonical knowledge base
+    const tRetrieval0 = Date.now();
     const ragResult = executeRAG(resolvedSubject, question, moduleNumber);
     const detectedModule = moduleNumber ?? ragResult.moduleNumber ?? analysis.module ?? 1;
 
@@ -630,6 +612,21 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
       `[RAG /ask] Query: "${question.slice(0, 50)}" | Subject: ${resolvedSubject} | Module: ${detectedModule} | Type: ${qType} | Depth: ${analysis.estimatedDepth} | Confidence: ${dynamicRetrieval.retrievalConfidence} | Budget: ${dynamicRetrieval.allocatedBudget}c`
     );
 
+    // Retrieval stage finished — surface real timings to streaming clients
+    const retrievalMs = Date.now() - tRetrieval0;
+    hooks.onPhase?.("retrieval_done", {
+      subject: resolvedSubject,
+      module: detectedModule,
+      questionType: qType,
+      confidence: dynamicRetrieval.retrievalConfidence,
+      retrievalMs,
+      chunks: ragResult.retrievedChunks,
+      diagrams: ragResult.diagrams,
+      pyqList: ragResult.pyqList,
+      isImportantTopic: ragResult.isImportantTopic,
+      importanceSummary: ragResult.importanceSummary,
+    });
+
     // Fetch related topic from DB for BKT binding
     let topic = await prisma.topic.findFirst({
       where: { subjectCode: resolvedSubject, ...(moduleNumber ? { moduleNumber } : {}) },
@@ -665,7 +662,7 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
         ],
       };
 
-      return res.json({
+      return {
         answer:                 fallbackAnswer,
         retrievedChunks:        [],
         diagrams:               [],
@@ -680,7 +677,7 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
         retrievalConfidence:    "NONE",
         diagramDecision,
         questionAnalysis:       analysis,
-      });
+      };
     }
 
     // 9. Build structured context-augmented user prompt (Tasks 11 & 14)
@@ -723,18 +720,22 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
     };
 
     let retryCount = 0;
-    const maxRetries = 2;
+    // ponytail: 1 retry, parse-failure only. Grounding-score retries tripled
+    // latency (3x90s at 12 tok/s) for marginal quality; score is flagged instead.
+    const maxRetries = hooks.onToken ? 0 : 1;
     let currentPrompt = userPromptWithRAG;
 
+    const tLlm0 = Date.now();
     while (retryCount <= maxRetries) {
       const messages = [
         { role: "system", content: SYSTEM },
         { role: "user",   content: currentPrompt },
       ];
 
-      const raw = await callLLM(messages);
+      const raw = await callLLM(messages, { onToken: hooks.onToken, signal: hooks.signal });
 
-      let parsed = parseJsonAnswer(raw);
+      const parsedByModel = parseJsonAnswer(raw);
+      let parsed = parsedByModel;
       if (!parsed || typeof parsed !== "object") {
         parsed = {
           question,
@@ -792,19 +793,20 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
         `[RAG /ask] Attempt ${retryCount + 1}: Valid=${lastValidation.valid}, Score=${lastValidation.groundingScore}, Claims=${lastValidation.unsupportedClaims.length}, Reason=${lastValidation.reason || "OK"}`
       );
 
-      // If LLM returned empty (offline), or answer is valid, or max retries reached: break
-      if (!raw || raw.trim().length === 0 || lastValidation.valid || retryCount === maxRetries) {
+      // Break when: LLM offline/empty, answer valid, streaming (no retry),
+      // retry budget exhausted, or output was parseable (grounding score is
+      // flagged, not retried — a full regeneration is too slow at 12 tok/s).
+      const parseFailed = raw.trim().length > 0 && !parsedByModel;
+      if (!raw || raw.trim().length === 0 || lastValidation.valid || hooks.onToken || retryCount === maxRetries || !parseFailed) {
         enrichedAnswer = candidate;
         break;
       }
 
-      // Retry with targeted correction prompt (Task 16)
+      // Retry once with a correction prompt — only for invalid JSON output
       retryCount++;
-      const issues = lastValidation.unsupportedClaims.length > 0
-        ? lastValidation.unsupportedClaims.join("; ")
-        : lastValidation.reason || "Grounding score below threshold";
-      currentPrompt = `${userPromptWithRAG}\n\nCORRECTION: Your previous response was rejected due to: ${issues}. Regenerate strictly adhering to the VTU syllabus context without generic filler phrases.`;
+      currentPrompt = `${userPromptWithRAG}\n\nCORRECTION: Your previous response was not valid JSON. Regenerate the answer as a single valid JSON object strictly adhering to the VTU syllabus context.`;
     }
+    const llmMs = Date.now() - tLlm0;
 
     if (!enrichedAnswer) {
       enrichedAnswer = sanitizeAndEnrichAnswer(
@@ -829,86 +831,23 @@ router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
       }
     }
 
-    // 8. Generate Topic-Consistent Follow-up Quiz
-    let followUpQuiz: { topicId: string | null; questions: any[] } = {
+    // 8. Follow-up Quiz — deterministic curated generator.
+    // ponytail: dropped the second LLM call here; it added one more full
+    // generation (~30-90s) to every answer. Revisit only if curated quality
+    // measurably disappoints — then run it async AFTER the answer returns.
+    const followUpQuiz: { topicId: string | null; questions: any[] } = {
       topicId: topic?.id ?? `${resolvedSubject}-m1-t1`,
-      questions: [],
-    };
-
-    try {
-      const topicFocus = enrichedAnswer.topic || deconstructed.cleanTopicName || question;
-      const quizSystemPrompt = `You are a VTU engineering exam quiz creator. Create 3 multiple choice questions (MCQs) for university students strictly testing understanding of "${topicFocus}".
-Return ONLY a valid JSON array of 3 objects with this exact structure:
-[
-  {
-    "question": "Question text directly on ${topicFocus}?",
-    "options": [
-      "Option description without prefixes",
-      "Option description without prefixes",
-      "Option description without prefixes",
-      "Option description without prefixes"
-    ],
-    "correctIndex": 0,
-    "explanation": "Clear explanation of why this answer is correct and why other options are incorrect."
-  }
-]
-Requirements:
-1. Exactly 4 options per question.
-2. Do NOT write 'A.', 'B.', '1.', '2.' in the option strings.
-3. 'correctIndex' is 0, 1, 2, or 3.
-4. Output ONLY the JSON array.`;
-
-      const mcqRaw = await callLLM([
-        { role: "system", content: quizSystemPrompt },
-        { role: "user",   content: `Create 3 VTU exam MCQs with explanations strictly on: ${topicFocus}\nSubject: ${resolvedSubject}` },
-      ]);
-
-      const cleaned = mcqRaw.replace(/```(?:json)?|```/g, "").trim();
-      const m = cleaned.match(/\[[\s\S]*\]/);
-      if (m) {
-        const qs = JSON.parse(m[0]);
-        if (Array.isArray(qs) && qs.length > 0) {
-          followUpQuiz.questions = qs.slice(0, 3).map((q: any) => {
-            const rawOpts = Array.isArray(q.options) && q.options.length >= 2 ? q.options : [
-              "Standard architectural specification",
-              "Alternative protocol parameter",
-              "Secondary design consideration",
-              "General operational attribute",
-            ];
-            const cleanOpts = rawOpts.slice(0, 4).map(cleanOptionText);
-            while (cleanOpts.length < 4) {
-              cleanOpts.push(`Option ${String.fromCharCode(65 + cleanOpts.length)}`);
-            }
-            const cIndex = (typeof q.correctIndex === "number" && q.correctIndex >= 0 && q.correctIndex < cleanOpts.length)
-              ? q.correctIndex
-              : 0;
-
-            const exp = q.explanation && String(q.explanation).length > 10
-              ? String(q.explanation).trim()
-              : `Option ${String.fromCharCode(65 + cIndex)} is correct because it directly satisfies the standard definition and operational model of ${topicFocus}.`;
-
-            return {
-              kind: "mcq",
-              question: String(q.question || `What is the core function of ${topicFocus}?`).trim(),
-              options: cleanOpts,
-              correctIndex: cIndex,
-              explanation: exp,
-            };
-          });
-        }
-      }
-    } catch { /* fallback below */ }
-
-    // Fallback if model did not return 3 valid questions
-    if (!followUpQuiz.questions.length || followUpQuiz.questions.length < 3) {
-      followUpQuiz.questions = generateCuratedTopicQuestions(
-        enrichedAnswer.topic || question,
+      questions: generateCuratedTopicQuestions(
+        enrichedAnswer.topic || deconstructed.cleanTopicName || question,
         resolvedSubject,
         question
-      );
-    }
+      ),
+    };
 
-    res.json({
+    const totalMs = Date.now() - t0;
+    console.log(`[RAG /ask] timings: retrieval=${retrievalMs}ms llm=${llmMs}ms total=${totalMs}ms`);
+
+    return {
       answer:                 enrichedAnswer,
       retrievedChunks:        ragResult.retrievedChunks,
       diagrams:               ragResult.diagrams,
@@ -930,10 +869,61 @@ Requirements:
       diagramDecision,
       questionAnalysis:       analysis,
       formula:                formula ?? undefined,
-    });
+      timings:                { retrievalMs, llmMs, totalMs },
+    };
+}
+
+// ── POST /api/ai/ask — buffered JSON response ────────────────────────────────
+router.post("/ask", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
+  try {
+    const payload = await runAskPipeline(req.body as AskInput);
+    res.json(payload);
   } catch (err: any) {
     const msg = String(err.message || err);
     res.status(500).json({ error: "AI request failed", detail: msg });
+  }
+});
+
+// ── POST /api/ai/ask/stream — SSE: phase events, live tokens, final payload ──
+router.post("/ask/stream", requireAuth, aiLimiter, async (req: AuthRequest, res) => {
+  res.writeHead(200, {
+    "Content-Type": "text/event-stream",
+    "Cache-Control": "no-cache, no-transform",
+    Connection: "keep-alive",
+    "X-Accel-Buffering": "no",
+  });
+  const send = (event: string, data: unknown) => {
+    res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
+  };
+
+  // Abort generation when the client disconnects (tab closed / Stop pressed).
+  // res "close" fires on premature socket termination; req "close" alone is
+  // unreliable once the request body has been fully consumed.
+  const controller = new AbortController();
+  res.on("close", () => {
+    if (!res.writableEnded) {
+      console.log("[RAG /ask/stream] client disconnected — aborting generation");
+      controller.abort();
+    }
+  });
+
+  try {
+    const payload = await runAskPipeline(req.body as AskInput, {
+      onToken: (t) => send("token", { t }),
+      signal: controller.signal,
+      onPhase: (phase, info) => send(phase, info),
+    });
+    send("done", payload);
+  } catch (err: any) {
+    if (controller.signal.aborted) {
+      send("aborted", { error: "Client aborted" });
+    } else {
+      const msg = String(err.message || err);
+      console.error("[RAG /ask/stream]", err);
+      send("error", { error: "AI request failed", detail: msg });
+    }
+  } finally {
+    res.end();
   }
 });
 

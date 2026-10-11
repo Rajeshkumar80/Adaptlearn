@@ -38,6 +38,7 @@ async function callOllama(messages: { role: string; content: string }[], timeout
       model: OLLAMA_MODEL,
       messages,
       stream: false,
+      keep_alive: process.env.OLLAMA_KEEP_ALIVE || "30m", // keep the model warm between calls
       options: { temperature: 0.1, num_predict: 1000 },
     });
 

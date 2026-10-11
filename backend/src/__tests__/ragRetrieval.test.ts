@@ -19,14 +19,14 @@ describe("RAG subject resolution", () => {
     assert.equal(resolveSubjectCode("Explain 8051 microcontroller timers"), "BCS402");
   });
 
-  it("returns GENERAL instead of silently guessing BCS302 for unmatched queries (RAG-1 regression)", () => {
+  it("routes client-server questions to BCS502 (verified in knowledge/BCS502), not a blind guess like BCS302", () => {
     const resolved = resolveSubjectCode("Explain client server architecture and its types");
-    assert.equal(resolved, "GENERAL");
+    assert.equal(resolved, "BCS502");
   });
 
-  it("passes through an explicitly provided un-ingested subject code instead of BCS302", () => {
+  it("routes client-server questions to BCS502 (verified content) even when the provided code is un-ingested (RAG-1 regression)", () => {
     const resolved = resolveSubjectCode("Explain client server architecture", "BCS604");
-    assert.equal(resolved, "BCS604");
+    assert.equal(resolved, "BCS502");
   });
 
   it("still prefers a direct subject-code hit in the query text", () => {
@@ -41,7 +41,7 @@ describe("RAG retrieval guardrails", () => {
   });
 
   it("executeRAG reports hasContext=false for GENERAL / un-ingested subjects", () => {
-    const result = executeRAG("GENERAL", "Explain client server architecture and its types");
+    const result = executeRAG("GENERAL", "Explain quantum computing and its principles");
     assert.equal(result.hasContext, false);
     assert.equal(result.retrievedChunks.length, 0);
     assert.equal(result.pyqList.length, 0);
@@ -62,7 +62,7 @@ describe("RAG retrieval guardrails", () => {
     assert.ok(ingested.pyqList.length > 0 || ingested.previousYearQuestions.length > 0,
       "BCS302 addressing modes should match PYQ lines (verified live: 3 PYQs)");
 
-    const uningested = executeRAG("GENERAL", "Explain client server architecture and its types");
+    const uningested = executeRAG("GENERAL", "Explain quantum computing and its principles");
     assert.equal(uningested.previousYearQuestions.length, 0);
   });
 
@@ -76,7 +76,7 @@ describe("RAG retrieval guardrails", () => {
 
 describe("RAG question analysis integration", () => {
   it("analyzeQuestion propagates GENERAL for unmatched queries", () => {
-    const analysis = analyzeQuestion("Explain client server architecture and its types", "GENERAL");
+    const analysis = analyzeQuestion("Explain quantum computing and its principles", "GENERAL");
     assert.equal(analysis.subject, "GENERAL");
   });
 

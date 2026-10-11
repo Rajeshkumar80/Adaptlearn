@@ -1,0 +1,32 @@
+[
+  {
+    "name": "POST /auth/login",
+    "ms": 400,
+    "extra": "role=STUDENT"
+  },
+  {
+    "name": "GET /api/health",
+    "ms": 4,
+    "extra": ""
+  },
+  {
+    "name": "GET /chat (sessions)",
+    "ms": 8,
+    "extra": ""
+  },
+  {
+    "name": "POST /ai/ask \"Explain client server architecture and i...\"",
+    "ms": 45592,
+    "extra": "subject=BCS502 (want BCS502) sections=5 conf=HIGH retr=109ms llm=45470ms"
+  },
+  {
+    "name": "POST /ai/ask \"What is addressing mode? Explain differe...\"",
+    "ms": 30702,
+    "extra": "subject=BCS302 (want BCS302) sections=2 conf=HIGH retr=68ms llm=30625ms"
+  },
+  {
+    "name": "POST /ai/ask/stream (streaming)",
+    "ms": 32298,
+    "extra": "firstToken=115ms tokens=464 retrieval=9ms total=32298ms done=true subject=BCS302"
+  }
+]

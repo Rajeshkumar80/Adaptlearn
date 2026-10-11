@@ -10,7 +10,7 @@ import {
   BookOpen, ChevronsDown, Search, Brain, FileSearch,
   PenLine, CheckCircle2,
 } from "lucide-react";
-import { api, errorMessage } from "@/lib/api";
+import { api, errorMessage, BACKEND_URL, getToken } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import QuizCard, { QuizQuestion } from "./QuizCard";
 import AnswerRenderer, { PYQItem } from "./AnswerRenderer";
@@ -397,18 +397,37 @@ export default function TutorPage() {
     } catch { /* ignore */ }
   }
 
-  const skipStreamingRef = useRef(false);
-
   // ── stop streaming ────────────────────────────────────────────────────────
   function stop() {
     abortRef.current?.abort();
-    skipStreamingRef.current = true;
     setPhase("idle");
     if (thinkTimerRef.current) clearInterval(thinkTimerRef.current);
   }
 
-  function skipStreaming() {
-    skipStreamingRef.current = true;
+  // ── SSE event reader over fetch ───────────────────────────────────────────
+  async function* sseEvents(res: Response) {
+    const reader = res.body!.getReader();
+    const decoder = new TextDecoder();
+    let buf = "";
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += decoder.decode(value, { stream: true });
+      let idx: number;
+      while ((idx = buf.indexOf("\n\n")) >= 0) {
+        const rawEvent = buf.slice(0, idx);
+        buf = buf.slice(idx + 2);
+        let event = "message";
+        const dataLines: string[] = [];
+        for (const line of rawEvent.split("\n")) {
+          if (line.startsWith("event: ")) event = line.slice(7).trim();
+          else if (line.startsWith("data: ")) dataLines.push(line.slice(6));
+        }
+        if (dataLines.length) {
+          try { yield { event, data: JSON.parse(dataLines.join("\n")) }; } catch { /* skip */ }
+        }
+      }
+    }
   }
 
   // ── ask ───────────────────────────────────────────────────────────────────
@@ -428,47 +447,89 @@ export default function TutorPage() {
     const controller = new AbortController();
     abortRef.current = controller;
 
-    let sessionId = activeId;
+    // Session creation and user-message persistence run in parallel with the
+    // AI request — the model no longer waits on two sequential DB roundtrips.
+    const sessionPromise: Promise<string> = activeId
+      ? Promise.resolve(activeId)
+      : api.post<{ session: { id: string } }>("/chat", {})
+          .then(r => { setActiveId(r.data.session.id); return r.data.session.id; });
+    sessionPromise
+      .then(id => api.post(`/chat/${id}/messages`, { role: "user", content: q }))
+      .catch(() => { /* non-fatal */ });
+
+    // kick off thinking phase + timer
+    setPhase("thinking");
+    thinkStartRef.current = Date.now();
+    thinkTimerRef.current = setInterval(() => {
+      setThinkingMs(Date.now() - thinkStartRef.current);
+    }, 100);
+
+    setThinkingText(`Analyzing: "${q}"\nSearching knowledge base…`);
+
+    // Try to extract a VTU subject code from the question (e.g. BCS701)
+    const subjectMatch = q.match(/\b[A-Z]{2,5}\d{3}[A-Z]?\b/);
+    const subjectCode  = subjectMatch ? subjectMatch[0] : "GENERAL";
+
+    // mount a live streaming assistant message placeholder
+    let streamMounted = false;
+    function appendStreamToken(t: string) {
+      if (!streamMounted) {
+        streamMounted = true;
+        setPhase("writing");
+        setMessages(m => [...m, { role: "assistant", content: t, isStreaming: true }]);
+      } else {
+        setMessages(m => {
+          const copy = [...m];
+          const lastIdx = copy.length - 1;
+          if (lastIdx >= 0 && copy[lastIdx].role === "assistant" && copy[lastIdx].isStreaming) {
+            copy[lastIdx] = { ...copy[lastIdx], content: (copy[lastIdx].content as string) + t };
+          }
+          return copy;
+        });
+      }
+    }
 
     try {
-      // ensure session (no subject/module required)
-      if (!sessionId) {
-        const created = await api.post<{ session: { id: string } }>("/chat", {});
-        sessionId = created.data.session.id;
-        setActiveId(sessionId);
+      const res = await fetch(`${BACKEND_URL}/api/ai/ask/stream`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken() || ""}` },
+        body: JSON.stringify({ question: q, subjectCode }),
+        signal: controller.signal,
+      });
+
+      if (!res.ok || !res.body) {
+        const body = await res.json().catch(() => ({}));
+        throw Object.assign(new Error(body.detail || body.error || `Request failed (${res.status})`), { status: res.status });
       }
-      await api.post(`/chat/${sessionId}/messages`, { role: "user", content: q });
 
-      // kick off thinking phase + timer
-      setPhase("thinking");
-      thinkStartRef.current = Date.now();
-      thinkTimerRef.current = setInterval(() => {
-        setThinkingMs(Date.now() - thinkStartRef.current);
-      }, 100);
+      let donePayload: any = null;
 
-      setThinkingText(`Analyzing: "${q}"\nSearching knowledge base…`);
+      for await (const evt of sseEvents(res)) {
+        if (evt.event === "retrieval_done") {
+          setSearchDone(true);
+          setSearchMs(evt.data.retrievalMs ?? Date.now() - thinkStartRef.current);
+          if (thinkTimerRef.current) clearInterval(thinkTimerRef.current);
+          setThinkingMs(Date.now() - thinkStartRef.current);
+        } else if (evt.event === "token") {
+          appendStreamToken(evt.data.t);
+        } else if (evt.event === "done") {
+          donePayload = evt.data;
+        } else if (evt.event === "error") {
+          throw new Error(evt.data.detail || evt.data.error || "AI request failed");
+        } else if (evt.event === "aborted") {
+          throw Object.assign(new Error("aborted"), { name: "AbortError" });
+        }
+      }
 
-      // Try to extract a VTU subject code from the question (e.g. BCS701)
-      const subjectMatch = q.match(/\b[A-Z]{2,5}\d{3}[A-Z]?\b/);
-      const subjectCode  = subjectMatch ? subjectMatch[0] : "GENERAL";
-
-      // call AI
-      const res = await api.post("/ai/ask", {
-        question: q,
-        subjectCode,
-      }, { signal: controller.signal });
-
-      // search phase done
-      const searchElapsed = Date.now() - thinkStartRef.current;
-      setSearchDone(true);
-      setSearchMs(searchElapsed);
+      if (controller.signal.aborted) throw Object.assign(new Error("aborted"), { name: "AbortError" });
+      if (!donePayload) throw new Error("No answer received — the model may be unavailable.");
 
       if (thinkTimerRef.current) clearInterval(thinkTimerRef.current);
       const elapsedMs = Date.now() - thinkStartRef.current;
       setThinkingMs(elapsedMs);
       setPhase("writing");
 
-      const data = res.data as {
+      const data = donePayload as {
         answer: string | Record<string, unknown>;
         retrievedChunks?: ChatMessage["chunks"];
         diagrams?: ChatMessage["diagrams"];
@@ -480,109 +541,7 @@ export default function TutorPage() {
         followUpQuiz?: { topicId: string|null; questions: QuizQuestion[] };
       };
 
-      const finalAnswerObj = typeof data.answer === "object" && data.answer !== null
-        ? (data.answer as any)
-        : null;
-
-      skipStreamingRef.current = false;
-
-      // ── Real Token-Like / Sentence-by-Sentence Streaming Animation ───────────
-      if (finalAnswerObj && Array.isArray(finalAnswerObj.sections) && finalAnswerObj.sections.length > 0) {
-        const fullSections = finalAnswerObj.sections;
-        interface StreamFrame {
-          sections: { type: string; heading: string; text: string; key_terms?: string[] }[];
-        }
-        const frames: StreamFrame[] = [];
-        const currentSections: { type: string; heading: string; text: string; key_terms?: string[] }[] = [];
-
-        for (let sIdx = 0; sIdx < fullSections.length; sIdx++) {
-          const s = fullSections[sIdx];
-          const fullText = String(s.text || "").trim();
-          // Split by sentence endings, bullet points, or newlines for realistic token pacing
-          const clauses = fullText.match(/[^.!?\n]+[.!?\n]+|\S+/g) || [fullText];
-          let accumulatedText = "";
-
-          for (let pIdx = 0; pIdx < clauses.length; pIdx++) {
-            accumulatedText += clauses[pIdx] + (clauses[pIdx].endsWith("\n") ? "" : " ");
-            frames.push({
-              sections: [
-                ...currentSections,
-                {
-                  type: s.type,
-                  heading: s.heading,
-                  text: accumulatedText.trim(),
-                  key_terms: s.key_terms,
-                }
-              ]
-            });
-          }
-
-          currentSections.push({
-            type: s.type,
-            heading: s.heading,
-            text: fullText,
-            key_terms: s.key_terms,
-          });
-        }
-
-        // Subsample frames to ensure dynamic, smooth pacing (~30-40 ticks total)
-        const maxSteps = 36;
-        const stride = Math.max(1, Math.floor(frames.length / maxSteps));
-        const keyFrames: StreamFrame[] = [];
-        for (let i = 0; i < frames.length; i += stride) {
-          keyFrames.push(frames[i]);
-        }
-        if (frames.length > 0 && keyFrames[keyFrames.length - 1] !== frames[frames.length - 1]) {
-          keyFrames.push(frames[frames.length - 1]);
-        }
-
-        // Mount the initial streaming assistant message
-        const initialStreamMsg: ChatMessage = {
-          role: "assistant",
-          content: {
-            ...finalAnswerObj,
-            sections: keyFrames[0]?.sections || [],
-          },
-          thinking: thinkingText,
-          thinkingMs: elapsedMs,
-          chunks: data.retrievedChunks,
-          isImportantTopic: data.isImportantTopic,
-          importanceSummary: data.importanceSummary,
-          isStreaming: true,
-        };
-
-        setMessages(m => [...m, initialStreamMsg]);
-
-        // Accelerating streaming loop: starts steadily at ~50ms, finishes briskly at ~10ms
-        const totalSteps = keyFrames.length;
-        for (let step = 0; step < totalSteps; step++) {
-          if (controller.signal.aborted || skipStreamingRef.current) break;
-
-          const f = keyFrames[step];
-          setMessages(prev => {
-            const copy = [...prev];
-            const lastIdx = copy.length - 1;
-            if (lastIdx >= 0 && copy[lastIdx].role === "assistant") {
-              copy[lastIdx] = {
-                ...copy[lastIdx],
-                content: {
-                  ...finalAnswerObj,
-                  sections: f.sections,
-                },
-                isStreaming: true,
-              };
-            }
-            return copy;
-          });
-
-          // Smooth acceleration curve: slows initially, writes fast at the end
-          const progress = step / Math.max(1, totalSteps - 1);
-          const delay = Math.max(8, Math.round(52 - 44 * Math.pow(progress, 1.6)));
-          await new Promise(r => setTimeout(r, delay));
-        }
-      }
-
-      // Finalize assistant message with full content, diagrams, and quiz
+      // Finalize assistant message with full structured content, diagrams, quiz
       const finalAssistantMsg: ChatMessage = {
         role: "assistant",
         content: data.answer,
@@ -615,7 +574,8 @@ export default function TutorPage() {
         ? JSON.stringify(finalAssistantMsg.content)
         : String(finalAssistantMsg.content);
 
-      await api.post(`/chat/${sessionId}/messages`, {
+      const sessionId = await sessionPromise;
+      api.post(`/chat/${sessionId}/messages`, {
         role: "assistant",
         content: contentForDb,
         chunks: {
@@ -626,8 +586,8 @@ export default function TutorPage() {
         },
         diagrams: finalAssistantMsg.diagrams ?? undefined,
         quiz: finalAssistantMsg.quiz ?? undefined,
-      });
-      await refreshSessions();
+      }).catch(() => { /* non-fatal */ });
+      refreshSessions();
 
     } catch (err: any) {
       if (thinkTimerRef.current) clearInterval(thinkTimerRef.current);
@@ -1029,16 +989,6 @@ export default function TutorPage() {
                   </span>
                 )}
               </p>
-              {phase === "writing" && (
-                <button
-                  type="button"
-                  onClick={skipStreaming}
-                  className="inline-flex items-center gap-1 rounded bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 text-[10.5px] font-bold text-amber-700 dark:text-amber-300 hover:bg-amber-500/25 transition cursor-pointer"
-                  title="Skip writing animation and view complete answer"
-                >
-                  ⚡ Skip to End ⏩
-                </button>
-              )}
             </div>
           </form>
         </div>

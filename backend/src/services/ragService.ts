@@ -142,7 +142,7 @@ export function resolveSubjectCode(question: string, provided?: string): string 
   if (/\b(automata|dfa|nfa|turing machine|cfg|context free|regular expression|regular language|pumping lemma|pushdown|pda|chomsky)\b/i.test(q)) {
     return "BCS503";
   }
-  if (/\b(osi|osi model|tcp|udp|ip address|ipv4|ipv6|routing algorithm|distance vector|link state|ospf|bgp|subnet|packet switching|ethernet|csma|sliding window|crc|data link layer|transport layer|network layer)\b/i.test(q)) {
+  if (/\b(osi|osi model|tcp|udp|ip address|ipv4|ipv6|routing algorithm|distance vector|link state|ospf|bgp|subnet|packet switching|ethernet|csma|sliding window|crc|data link layer|transport layer|network layer|client[\s-]?server)\b/i.test(q)) {
     return "BCS502";
   }
   if (/\b(software engineering|sdlc|waterfall|agile|scrum|srs|black box|white box|unit testing|integration testing)\b/i.test(q)) {
@@ -290,6 +290,97 @@ function extractPhrases(query: string): string[] {
 }
 
 // ── Multi-Source Knowledge Retrieval from knowledge/<subject>/ ───────────────
+// File reads, chunk splitting and tokenization are cached per file (mtime+size
+// invalidated). Previously every /ask re-read and re-tokenized every module
+// file — synchronous fs work blocking the event loop on each request.
+interface CachedFileChunk {
+  file: string;
+  idx: number;
+  raw: string;
+  rawLower: string;
+  tokens: Set<string>;
+  firstLine: string;
+  modNum: number | null;
+  isQBank: boolean;
+}
+
+const _chunkCache = new Map<string, { mtimeMs: number; size: number; chunks: CachedFileChunk[] }>();
+
+function chunkFileContent(content: string, isQBank: boolean): string[] {
+  if (isQBank) return content.split(/\n(?=###?\s+)|---/);
+  const rawParas = content.split(/\n\s*\n+/);
+  const rawChunks: string[] = [];
+  let curr = "";
+  for (const p of rawParas) {
+    const clean = p.trim();
+    if (!clean) continue;
+    if (curr.length + clean.length > 1400 && curr.length > 250) {
+      rawChunks.push(curr);
+      curr = clean;
+    } else {
+      curr = curr ? curr + "\n\n" + clean : clean;
+    }
+  }
+  if (curr) rawChunks.push(curr);
+  return rawChunks;
+}
+
+function getSubjectChunks(subjDir: string): CachedFileChunk[] {
+  let files: string[];
+  try {
+    files = fs.readdirSync(subjDir).filter(f => f.endsWith(".md"));
+  } catch {
+    return [];
+  }
+
+  const all: CachedFileChunk[] = [];
+  for (const file of files) {
+    const fullPath = path.join(subjDir, file);
+    let stat: fs.Stats;
+    try {
+      stat = fs.statSync(fullPath);
+    } catch {
+      continue;
+    }
+    const cached = _chunkCache.get(fullPath);
+    if (cached && cached.mtimeMs === stat.mtimeMs && cached.size === stat.size) {
+      all.push(...cached.chunks);
+      continue;
+    }
+
+    let content = "";
+    try {
+      content = fs.readFileSync(fullPath, "utf-8");
+    } catch {
+      continue;
+    }
+
+    const isQBank = file.includes("question_bank");
+    const mMatch = file.match(/module(\d+)/i);
+    const modNum = mMatch ? parseInt(mMatch[1], 10) : null;
+
+    const chunks: CachedFileChunk[] = [];
+    const rawChunks = chunkFileContent(content, isQBank);
+    for (let idx = 0; idx < rawChunks.length; idx++) {
+      const raw = rawChunks[idx].trim();
+      if (raw.length < 50 || raw.length > 4000) continue;
+      chunks.push({
+        file,
+        idx,
+        raw,
+        rawLower: raw.toLowerCase(),
+        tokens: tokenize(raw),
+        firstLine: raw.split("\n")[0].replace(/^[#\-\*\s]+/, "").trim(),
+        modNum,
+        isQBank,
+      });
+    }
+    _chunkCache.set(fullPath, { mtimeMs: stat.mtimeMs, size: stat.size, chunks });
+    all.push(...chunks);
+  }
+  return all;
+}
+
 export function retrieveKnowledgeCandidates(
   subjectCode: string,
   question: string,
@@ -304,108 +395,63 @@ export function retrieveKnowledgeCandidates(
   const qLower = question.toLowerCase();
 
   try {
-    const files = fs.readdirSync(subjDir).filter(f => f.endsWith(".md"));
+    for (const ch of getSubjectChunks(subjDir)) {
+      // Calculate overlap
+      let overlap = 0;
+      for (const t of qTokens) {
+        if (ch.tokens.has(t)) overlap++;
+      }
 
-    for (const file of files) {
-      const fullPath = path.join(subjDir, file);
-      let content = "";
-      try {
-        content = fs.readFileSync(fullPath, "utf-8");
-      } catch {
+      // Exact phrase bonus
+      let phraseBonus = 0;
+      for (const phrase of qPhrases) {
+        if (ch.rawLower.includes(phrase)) phraseBonus += 8;
+      }
+
+      // Domain-specific keyword alignment
+      let domainBonus = 0;
+      if (qLower.includes("addressing mode") && ch.rawLower.includes("addressing mode")) domainBonus += 15;
+      if (qLower.includes("k-map") && (ch.rawLower.includes("k-map") || ch.rawLower.includes("kmap") || ch.rawLower.includes("karnaugh"))) domainBonus += 15;
+      if (qLower.includes("binary search tree") && ch.rawLower.includes("binary search tree")) domainBonus += 15;
+      if (qLower.includes("round robin") && ch.rawLower.includes("round robin")) domainBonus += 15;
+      if (qLower.includes("normalization") && ch.rawLower.includes("normalization")) domainBonus += 15;
+      if (qLower.includes("osi") && ch.rawLower.includes("osi")) domainBonus += 15;
+      if (qLower.includes("8051") && ch.rawLower.includes("8051")) domainBonus += 15;
+      if (qLower.includes("arm") && ch.rawLower.includes("arm")) domainBonus += 15;
+      if (qLower.includes("compiler") && (ch.rawLower.includes("compiler") || ch.rawLower.includes("lexical") || ch.rawLower.includes("syntax") || ch.rawLower.includes("three-address"))) domainBonus += 15;
+
+      // Cross-domain guard: If query is about compiler, reject unrelated cloud / virtualization chunks
+      if (qLower.includes("compiler") && /\b(virtual machine|virtualization|hypervisor|vmm|data center|cloud computing)\b/i.test(ch.rawLower) && !/\b(compiler|syntax|lexical|parse|intermediate code|symbol table)\b/i.test(ch.rawLower)) {
         continue;
       }
 
-      const isQBank = file.includes("question_bank");
-      let modNum: number | null = null;
-      const mMatch = file.match(/module(\d+)/i);
-      if (mMatch) modNum = parseInt(mMatch[1], 10);
-
-      // Split file into semantic chunks
-      let rawChunks: string[] = [];
-      if (isQBank) {
-        rawChunks = content.split(/\n(?=###?\s+)|---/);
-      } else {
-        const rawParas = content.split(/\n\s*\n+/);
-        let curr = "";
-        for (const p of rawParas) {
-          const clean = p.trim();
-          if (!clean) continue;
-          if (curr.length + clean.length > 1400 && curr.length > 250) {
-            rawChunks.push(curr);
-            curr = clean;
-          } else {
-            curr = curr ? curr + "\n\n" + clean : clean;
-          }
-        }
-        if (curr) rawChunks.push(curr);
+      // Strict topical relevance requirement:
+      // A chunk MUST have token overlap, phrase match, or domain keyword match.
+      // It must NEVER receive a module bonus if it has 0 topical relevance!
+      const hasTopicalRelevance = overlap > 0 || phraseBonus > 0 || domainBonus > 0;
+      if (!hasTopicalRelevance) {
+        continue;
       }
 
-      for (let idx = 0; idx < rawChunks.length; idx++) {
-        const raw = rawChunks[idx].trim();
-        if (raw.length < 50 || raw.length > 4000) continue;
+      let score = overlap * 2 + phraseBonus + domainBonus;
 
-        const rawLower = raw.toLowerCase();
-        const chunkTokens = tokenize(raw);
+      // Module alignment bonus ONLY if topical relevance is established
+      if (detectedModule && ch.modNum === detectedModule) score += 6;
 
-        // Calculate overlap
-        let overlap = 0;
-        for (const t of qTokens) {
-          if (chunkTokens.has(t)) overlap++;
-        }
+      // Question bank solutions priority bonus if question matches
+      if (ch.isQBank && score > 12) score += 8;
 
-        // Exact phrase bonus
-        let phraseBonus = 0;
-        for (const phrase of qPhrases) {
-          if (rawLower.includes(phrase)) phraseBonus += 8;
-        }
-
-        // Domain-specific keyword alignment
-        let domainBonus = 0;
-        if (qLower.includes("addressing mode") && rawLower.includes("addressing mode")) domainBonus += 15;
-        if (qLower.includes("k-map") && (rawLower.includes("k-map") || rawLower.includes("kmap") || rawLower.includes("karnaugh"))) domainBonus += 15;
-        if (qLower.includes("binary search tree") && rawLower.includes("binary search tree")) domainBonus += 15;
-        if (qLower.includes("round robin") && rawLower.includes("round robin")) domainBonus += 15;
-        if (qLower.includes("normalization") && rawLower.includes("normalization")) domainBonus += 15;
-        if (qLower.includes("osi") && rawLower.includes("osi")) domainBonus += 15;
-        if (qLower.includes("8051") && rawLower.includes("8051")) domainBonus += 15;
-        if (qLower.includes("arm") && rawLower.includes("arm")) domainBonus += 15;
-        if (qLower.includes("compiler") && (rawLower.includes("compiler") || rawLower.includes("lexical") || rawLower.includes("syntax") || rawLower.includes("three-address"))) domainBonus += 15;
-
-        // Cross-domain guard: If query is about compiler, reject unrelated cloud / virtualization chunks
-        if (qLower.includes("compiler") && /\b(virtual machine|virtualization|hypervisor|vmm|data center|cloud computing)\b/i.test(rawLower) && !/\b(compiler|syntax|lexical|parse|intermediate code|symbol table)\b/i.test(rawLower)) {
-          continue;
-        }
-
-        // Strict topical relevance requirement:
-        // A chunk MUST have token overlap, phrase match, or domain keyword match.
-        // It must NEVER receive a module bonus if it has 0 topical relevance!
-        const hasTopicalRelevance = overlap > 0 || phraseBonus > 0 || domainBonus > 0;
-        if (!hasTopicalRelevance) {
-          continue;
-        }
-
-        let score = overlap * 2 + phraseBonus + domainBonus;
-
-        // Module alignment bonus ONLY if topical relevance is established
-        if (detectedModule && modNum === detectedModule) score += 6;
-
-        // Question bank solutions priority bonus if question matches
-        if (isQBank && score > 12) score += 8;
-
-        if (score >= 4) {
-          // Extract heading or first line
-          const firstLine = raw.split("\n")[0].replace(/^[#\-\*\s]+/, "").trim();
-          candidates.push({
-            id: `${subjectCode}-${file.replace(/\.md$/, "")}-${idx}`,
-            title: firstLine.slice(0, 80) || `${subjectCode} Module ${modNum ?? detectedModule} Section`,
-            similarity: Math.min(0.99, 0.5 + score * 0.02),
-            moduleNumber: modNum ?? detectedModule,
-            sourceFile: `knowledge/${subjectCode}/${file}`,
-            content: raw,
-            isQBank,
-            rawScore: score,
-          });
-        }
+      if (score >= 4) {
+        candidates.push({
+          id: `${subjectCode}-${ch.file.replace(/\.md$/, "")}-${ch.idx}`,
+          title: ch.firstLine.slice(0, 80) || `${subjectCode} Module ${ch.modNum ?? detectedModule} Section`,
+          similarity: Math.min(0.99, 0.5 + score * 0.02),
+          moduleNumber: ch.modNum ?? detectedModule,
+          sourceFile: `knowledge/${subjectCode}/${ch.file}`,
+          content: ch.raw,
+          isQBank: ch.isQBank,
+          rawScore: score,
+        });
       }
     }
   } catch {
@@ -523,6 +569,66 @@ function findSubjectPaperFolder(subjectCode: string): string | null {
   return null;
 }
 
+// Paper files are parsed once (mtime-invalidated); per-query scoring then runs
+// against precomputed token sets instead of re-reading + re-tokenizing files.
+interface CachedPaperQuestion {
+  session: string;
+  module: number;
+  cleanQ: string;
+  tokens: Set<string>;
+}
+
+const _pyqCache = new Map<string, { mtimeMs: number; size: number; questions: CachedPaperQuestion[] }>();
+
+function getPaperQuestions(filePath: string): CachedPaperQuestion[] {
+  const stat = fs.statSync(filePath);
+  const cached = _pyqCache.get(filePath);
+  if (cached && cached.mtimeMs === stat.mtimeMs && cached.size === stat.size) {
+    return cached.questions;
+  }
+
+  const content = fs.readFileSync(filePath, "utf-8");
+  const lines = content.split("\n");
+  let currentSession = "VTU University Examination";
+  let currentModule = 1;
+  const questions: CachedPaperQuestion[] = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (line.startsWith("## ")) {
+      currentSession = line.replace(/^##\s+/, "").trim();
+    } else if (/Module\s*[–\-—]\s*(\d+)/i.test(line)) {
+      const m = line.match(/Module\s*[–\-—]\s*(\d+)/i);
+      if (m) currentModule = parseInt(m[1], 10);
+    }
+
+    let candidateText = line;
+    if (/^(Q\.\s*\d+|[a-d][\.\s]|[ivx]+[\)\.]|\d+[\.\s])/i.test(line) && line.length < 25 && i + 1 < lines.length) {
+      candidateText = line + " " + lines[i + 1].trim();
+    }
+
+    const isQuestionLine = (
+      /^(Q\.\s*\d+|[a-d][\.\s]|[ivx]+[\)\.]|\d+[\.\s])/i.test(candidateText) ||
+      /^(explain|define|what|describe|discuss|derive|illustrate|elaborate|simplify|apply|show|demonstrate|differentiate|compare|state|list|write)/i.test(candidateText)
+    );
+
+    if (isQuestionLine && candidateText.length > 15) {
+      const cleanQ = candidateText
+        .replace(/^(Q\.\s*\d+\s*[a-d]?\.?|[a-d][\.\s]|[ivx]+[\)\.]|\d+[\.\s])\s*/i, "")
+        .replace(/\bL[1-4]\b/g, "")
+        .replace(/\bCO[1-5]\b/g, "")
+        .replace(/(\d+)\s*marks?/i, "")
+        .trim();
+      if (cleanQ) {
+        questions.push({ session: currentSession, module: currentModule, cleanQ, tokens: tokenize(cleanQ) });
+      }
+    }
+  }
+
+  _pyqCache.set(filePath, { mtimeMs: stat.mtimeMs, size: stat.size, questions });
+  return questions;
+}
+
 export function retrievePYQs(
   subjectCode: string,
   question: string
@@ -553,60 +659,27 @@ export function retrievePYQs(
     if (!fs.existsSync(filePath)) continue;
 
     try {
-      const content = fs.readFileSync(filePath, "utf-8");
-      const lines = content.split("\n");
-      let currentSession = "VTU University Examination";
-      let currentModule = 1;
-
-      for (let i = 0; i < lines.length; i++) {
-        const line = lines[i].trim();
-        if (line.startsWith("## ")) {
-          currentSession = line.replace(/^##\s+/, "").trim();
-        } else if (/Module\s*[–\-—]\s*(\d+)/i.test(line)) {
-          const m = line.match(/Module\s*[–\-—]\s*(\d+)/i);
-          if (m) currentModule = parseInt(m[1], 10);
+      for (const pq of getPaperQuestions(filePath)) {
+        let matchCount = 0;
+        for (const t of qTokens) {
+          if (pq.tokens.has(t)) matchCount++;
         }
 
-        let candidateText = line;
-        if (/^(Q\.\s*\d+|[a-d][\.\s]|[ivx]+[\)\.]|\d+[\.\s])/i.test(line) && line.length < 25 && i + 1 < lines.length) {
-          candidateText = line + " " + lines[i + 1].trim();
-        }
-
-        const isQuestionLine = (
-          /^(Q\.\s*\d+|[a-d][\.\s]|[ivx]+[\)\.]|\d+[\.\s])/i.test(candidateText) ||
-          /^(explain|define|what|describe|discuss|derive|illustrate|elaborate|simplify|apply|show|demonstrate|differentiate|compare|state|list|write)/i.test(candidateText)
-        );
-
-        if (isQuestionLine && candidateText.length > 15) {
-          const cleanQ = candidateText
-            .replace(/^(Q\.\s*\d+\s*[a-d]?\.?|[a-d][\.\s]|[ivx]+[\)\.]|\d+[\.\s])\s*/i, "")
-            .replace(/\bL[1-4]\b/g, "")
-            .replace(/\bCO[1-5]\b/g, "")
-            .replace(/(\d+)\s*marks?/i, "")
-            .trim();
-
-          const lineTokens = tokenize(cleanQ);
-          let matchCount = 0;
-          for (const t of qTokens) {
-            if (lineTokens.has(t)) matchCount++;
-          }
-
-          if (matchCount >= 2 || (qTokens.size <= 3 && matchCount >= 1)) {
-            matchedQuestions.push({
-              paper: currentSession,
-              question: cleanQ.slice(0, 200),
-              marks: 10,
-              moduleNumber: currentModule,
-              level: "L2",
-              co: `CO${currentModule}`,
-              isImportant: item.type === "Important",
-              badge: item.type === "Model"
-                ? "📌 Official VTU Model Paper"
-                : (item.type === "Important" ? "⭐ VTU Important Question" : "📝 VTU Previous Year Exam"),
-              score: matchCount,
-              isModelPaper: item.type === "Model",
-            });
-          }
+        if (matchCount >= 2 || (qTokens.size <= 3 && matchCount >= 1)) {
+          matchedQuestions.push({
+            paper: pq.session,
+            question: pq.cleanQ.slice(0, 200),
+            marks: 10,
+            moduleNumber: pq.module,
+            level: "L2",
+            co: `CO${pq.module}`,
+            isImportant: item.type === "Important",
+            badge: item.type === "Model"
+              ? "📌 Official VTU Model Paper"
+              : (item.type === "Important" ? "⭐ VTU Important Question" : "📝 VTU Previous Year Exam"),
+            score: matchCount,
+            isModelPaper: item.type === "Model",
+          });
         }
       }
     } catch {
