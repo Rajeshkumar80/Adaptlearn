@@ -161,3 +161,39 @@ export function validateGrounding(
     reason,
   };
 }
+
+export interface RequirementCoverageResult {
+  coverageRatio: number;
+  missingRequirements: string[];
+}
+
+/**
+ * Checks each mandatory sub-question is present in the answer (≥ 50% of its
+ * technical tokens). Log-only in the route — no extra generation, no latency.
+ */
+export function validateRequirementCoverage(
+  answer: StructuredAnswer,
+  requirements: string[]
+): RequirementCoverageResult {
+  if (requirements.length === 0) return { coverageRatio: 1, missingRequirements: [] };
+
+  const answerText = (answer.sections || [])
+    .map(s => `${s.heading || ""} ${s.text || ""}`)
+    .join("\n");
+  const answerTokens = extractTechnicalTokens(answerText);
+
+  const missingRequirements = requirements.filter(req => {
+    const reqTokens = extractTechnicalTokens(req);
+    if (reqTokens.size === 0) return false;
+    let hit = 0;
+    for (const t of reqTokens) if (answerTokens.has(t)) hit++;
+    return hit / reqTokens.size < 0.5;
+  });
+
+  return {
+    coverageRatio: Number(
+      ((requirements.length - missingRequirements.length) / requirements.length).toFixed(2)
+    ),
+    missingRequirements,
+  };
+}

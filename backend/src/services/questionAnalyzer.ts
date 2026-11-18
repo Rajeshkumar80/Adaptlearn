@@ -47,6 +47,7 @@ export interface QuestionAnalysis {
   estimatedDepth: EstimatedDepth;
   detectedMarks: number;
   keyPoints: string[];
+  requirements: string[];
   isAmbiguous: boolean;
   ambiguityReason?: string;
   cleanQuery: string;
@@ -208,6 +209,51 @@ export function extractQuestionKeyPoints(question: string): string[] {
   return keyPoints.slice(0, 12);
 }
 
+// ── Mandatory Requirement Decomposition (VTU policy §2 & §10) ─────────────────
+const INSTRUCTION_VERBS =
+  "explain|describe|discuss|define|state|list|write|illustrate|analyse|analyze|evaluate|derive|compare|differentiate|distinguish|show|give|mention|enumerate|draw|sketch|justify|prove|calculate|compute|solve|find|determine|outline|summarise|summarize|elaborate|comment";
+const LEADING_VERB_RE = new RegExp(`^(?:${INSTRUCTION_VERBS})\\b\\s*`, "i");
+const SEGMENT_SPLIT_RE = /(?:\(\s*(?:[ivxlcdm]+|[a-z]|\d+)\s*\)|(?<=[.?!;])\s+)/i;
+const COMPARISON_RE = /^(?:compare|differentiate|distinguish|contrast)\b|\b(?:between|versus|vs)\b/i;
+
+/**
+ * Splits a question into its mandatory sub-questions/requirements so the
+ * generator is told exactly what it must cover and coverage can be checked.
+ * ponytail: heuristic sentence/list split, no extra LLM call.
+ */
+export function extractQuestionRequirements(question: string): string[] {
+  const cleaned = question
+    .replace(/\r?\n/g, " ")
+    .replace(/\b(?:explain|describe|discuss|define|list|write)\s+the\s+following(?:\s+terms)?\s*:?/gi, "")
+    .trim();
+
+  const requirements: string[] = [];
+  const add = (raw: string) => {
+    const req = raw
+      .replace(/^(?:and|also|then)\s+/i, "")
+      .replace(LEADING_VERB_RE, "")
+      .replace(/[.?!;:]+$/, "")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (req.length < 3) return;
+    if (!requirements.some(r => r.toLowerCase() === req.toLowerCase())) requirements.push(req);
+  };
+
+  for (const segment of cleaned.split(SEGMENT_SPLIT_RE).map(s => s.trim()).filter(Boolean)) {
+    const verbMatch = segment.match(LEADING_VERB_RE);
+    // Split comma/"and" lists only when the segment is a list, not a comparison pair.
+    const isList = /,\s*\S/.test(segment) && !COMPARISON_RE.test(segment);
+    if (isList) {
+      const body = verbMatch ? segment.slice(verbMatch[0].length) : segment;
+      body.split(/\s*,\s*|\s+and\s+/i).forEach(add);
+    } else {
+      add(segment);
+    }
+  }
+
+  return requirements.slice(0, 8);
+}
+
 // ── Ambiguity Detection (Task 24 & 25) ─────────────────────────────────────────
 export function detectAmbiguity(question: string, subjectCode?: string): { isAmbiguous: boolean; reason?: string } {
   const clean = question.trim().toLowerCase().replace(/[^a-z0-9\s]/g, "");
@@ -309,6 +355,7 @@ export function analyzeQuestion(
     estimatedDepth,
     detectedMarks,
     keyPoints: extractQuestionKeyPoints(question),
+    requirements: extractQuestionRequirements(question),
     isAmbiguous: ambiguity.isAmbiguous,
     ambiguityReason: ambiguity.reason,
     cleanQuery: cleanTopic,

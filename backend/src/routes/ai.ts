@@ -8,7 +8,7 @@ import { requireAuth, AuthRequest } from "../middleware/auth";
 import rateLimit from "express-rate-limit";
 import { executeRAG, retrieveKnowledgeCandidates, retrievePYQs } from "../services/ragService";
 import { sanitizeAndEnrichAnswer, StructuredAnswer } from "../services/answerSynthesizer";
-import { validateGrounding, GroundingValidationResult } from "../services/groundingValidator";
+import { validateGrounding, validateRequirementCoverage, GroundingValidationResult } from "../services/groundingValidator";
 import { generateCuratedTopicQuestions } from "../services/quizSynthesizer";
 import { analyzeQuestion, QuestionAnalysis, isConversationalQuery } from "../services/questionAnalyzer";
 import { rerankCandidates, allocateDynamicContext } from "../services/reranker";
@@ -109,6 +109,9 @@ Strict Rules:
 - PYQ and Exam Rules:
   * Do NOT invent exam years or claim topics were asked unless confirmed in PREVIOUS YEAR QUESTIONS.
   * Keep Model Paper questions distinct from Previous Year Questions.
+- Sub-Question Rules:
+  * When [MANDATORY QUESTION REQUIREMENTS] is present, cover every listed requirement in its own section or numbered point.
+  * Never silently omit a sub-question; if a requested sub-part cannot be answered from the context, say so explicitly.
 - If the supplied context does not contain enough information, explicitly state in the text that the available source material is insufficient.
 - Prefer factual correctness and syllabus fidelity over verbosity.
 - Write in clear, student-friendly VTU examination style.
@@ -685,6 +688,9 @@ async function runAskPipeline(input: AskInput, hooks: AskHooks = {}): Promise<Re
     if (deconstructed.isMultiPart) {
       promptHeader += `\nNote: The student asked a multi-part question with ${deconstructed.subQuestionsSummary.length} specific requirements:\n${deconstructed.subQuestionsSummary.map((s, idx) => `  ${idx + 1}. ${s}`).join("\n")}\nYou MUST explicitly answer all sub-parts!`;
     }
+    if (analysis.requirements.length > 1) {
+      promptHeader += `\n\n[MANDATORY QUESTION REQUIREMENTS]\nThe question contains ${analysis.requirements.length} mandatory requirements:\n${analysis.requirements.map((r, idx) => `  ${idx + 1}. ${r}`).join("\n")}\nAddress every requirement explicitly. Do not merge or silently omit any of them.`;
+    }
 
     let contextSnippet = dynamicRetrieval.contextString || ragResult.structuredContext || ragResult.textbookExcerpt;
     if (formula && analysis.requiresCalculation) {
@@ -792,6 +798,15 @@ async function runAskPipeline(input: AskInput, hooks: AskHooks = {}): Promise<Re
       console.log(
         `[RAG /ask] Attempt ${retryCount + 1}: Valid=${lastValidation.valid}, Score=${lastValidation.groundingScore}, Claims=${lastValidation.unsupportedClaims.length}, Reason=${lastValidation.reason || "OK"}`
       );
+
+      // Requirement coverage is logged only — regenerating on it would add a
+      // full 45-90s generation at demo-time hardware speed.
+      const reqCoverage = validateRequirementCoverage(candidate, analysis.requirements);
+      if (reqCoverage.missingRequirements.length > 0) {
+        console.log(
+          `[VTU /ask] RequirementCoverage=${reqCoverage.coverageRatio} MissingReq=${reqCoverage.missingRequirements.join(" | ")}`
+        );
+      }
 
       // Break when: LLM offline/empty, answer valid, streaming (no retry),
       // retry budget exhausted, or output was parseable (grounding score is
