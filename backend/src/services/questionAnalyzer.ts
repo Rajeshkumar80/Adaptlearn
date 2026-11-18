@@ -211,10 +211,31 @@ export function extractQuestionKeyPoints(question: string): string[] {
 
 // ── Mandatory Requirement Decomposition (VTU policy §2 & §10) ─────────────────
 const INSTRUCTION_VERBS =
-  "explain|describe|discuss|define|state|list|write|illustrate|analyse|analyze|evaluate|derive|compare|differentiate|distinguish|show|give|mention|enumerate|draw|sketch|justify|prove|calculate|compute|solve|find|determine|outline|summarise|summarize|elaborate|comment";
+  "explain|describe|discuss|define|state|list|write|illustrate|analyse|analyze|evaluate|derive|compare|differentiate|distinguish|identify|classify|show|give|mention|enumerate|draw|sketch|justify|prove|calculate|compute|solve|find|determine|outline|summarise|summarize|elaborate|comment";
 const LEADING_VERB_RE = new RegExp(`^(?:${INSTRUCTION_VERBS})\\b\\s*`, "i");
 const SEGMENT_SPLIT_RE = /(?:\(\s*(?:[ivxlcdm]+|[a-z]|\d+)\s*\)|(?<=[.?!;])\s+)/i;
 const COMPARISON_RE = /^(?:compare|differentiate|distinguish|contrast)\b|\b(?:between|versus|vs)\b/i;
+
+const SETUP_RE = /^(?:consider|given|let|suppose|assume|take|for\s+the\s+relation)\b/i;
+
+/** Split on top-level commas and "and", ignoring commas inside tuples like P1(2,10). */
+function splitTopLevelList(text: string): string[] {
+  const parts: string[] = [];
+  let depth = 0;
+  let current = "";
+  for (const ch of text) {
+    if (ch === "(" || ch === "[") depth++;
+    else if (ch === ")" || ch === "]") depth = Math.max(0, depth - 1);
+    if (ch === "," && depth === 0) {
+      parts.push(current);
+      current = "";
+      continue;
+    }
+    current += ch;
+  }
+  parts.push(current);
+  return parts.flatMap(part => part.split(/\s+and\s+/i));
+}
 
 /**
  * Splits a question into its mandatory sub-questions/requirements so the
@@ -224,6 +245,8 @@ const COMPARISON_RE = /^(?:compare|differentiate|distinguish|contrast)\b|\b(?:be
 export function extractQuestionRequirements(question: string): string[] {
   const cleaned = question
     .replace(/\r?\n/g, " ")
+    .replace(/\(\s*\d{1,2}\s*marks?\s*\)/gi, "")
+    .replace(/\b\d{1,2}\s*marks?\b/gi, "")
     .replace(/\b(?:explain|describe|discuss|define|list|write)\s+the\s+following(?:\s+terms)?\s*:?/gi, "")
     .trim();
 
@@ -240,15 +263,13 @@ export function extractQuestionRequirements(question: string): string[] {
   };
 
   for (const segment of cleaned.split(SEGMENT_SPLIT_RE).map(s => s.trim()).filter(Boolean)) {
+    // Setup data ("Consider the relation ...", FDs) is input, not a sub-question.
+    if (SETUP_RE.test(segment) || segment.includes("->") || segment.includes("→")) continue;
     const verbMatch = segment.match(LEADING_VERB_RE);
+    const body = verbMatch ? segment.slice(verbMatch[0].length) : segment;
     // Split comma/"and" lists only when the segment is a list, not a comparison pair.
     const isList = /,\s*\S/.test(segment) && !COMPARISON_RE.test(segment);
-    if (isList) {
-      const body = verbMatch ? segment.slice(verbMatch[0].length) : segment;
-      body.split(/\s*,\s*|\s+and\s+/i).forEach(add);
-    } else {
-      add(segment);
-    }
+    (isList ? splitTopLevelList(body) : [body]).forEach(add);
   }
 
   return requirements.slice(0, 8);
@@ -316,14 +337,16 @@ export function analyzeQuestion(
     /\b(derive|derivation|prove that)\b/i.test(qLower);
 
   // 3. Depth & marks estimation
+  const marksInText = Number(question.match(/\b(\d{1,2})\s*marks?\b/i)?.[1]);
+  const effectiveMarks = userMarks ?? (marksInText >= 1 && marksInText <= 20 ? marksInText : undefined);
   let estimatedDepth: EstimatedDepth = "medium";
   if (["definition", "short answer", "list"].includes(qType)) {
     estimatedDepth = "short";
-  } else if (["long answer", "architecture", "derive"].includes(qType) || (userMarks && userMarks >= 8)) {
+  } else if (["long answer", "architecture", "derive"].includes(qType) || (effectiveMarks && effectiveMarks >= 8)) {
     estimatedDepth = "deep";
   }
 
-  const detectedMarks = userMarks ?? (
+  const detectedMarks = effectiveMarks ?? (
     estimatedDepth === "short" ? 4 :
     estimatedDepth === "deep" ? 10 : 8
   );

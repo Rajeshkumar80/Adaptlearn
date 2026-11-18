@@ -244,7 +244,10 @@ const STOP_WORDS = new Set([
   "by", "at", "from", "as", "explain", "describe", "discuss", "neat", "diagram", "sketch",
   "suitable", "how", "why", "which", "different", "state", "list", "write", "note", "between",
   "define", "give", "types", "various", "example", "examples", "using", "use", "uses", "used",
-  "their", "following", "terms", "show", "compare", "brief", "briefly", "also", "all"
+  "their", "following", "terms", "show", "compare", "brief", "briefly", "also", "all",
+  // Structural words: matching on these alone does not prove the same question was asked.
+  "algorithm", "algorithms", "data", "dataset", "datasets", "application", "applications",
+  "apply", "applied", "first", "new"
 ]);
 
 function stem(word: string): string {
@@ -264,6 +267,8 @@ function tokenize(text: string): Set<string> {
   const words = text
     .toLowerCase()
     .replace(/k[\s\-_]+map/g, " kmap ")
+    .replace(/\bk\s*[\-_]\s*means?\b/g, " kmeans ")
+    .replace(/\bkmeans\b/g, " kmeans ")
     .replace(/\be[\s\-_]?r\b/g, " er entity ")
     .replace(/[^a-z0-9]/g, " ")
     .split(/\s+/)
@@ -688,16 +693,28 @@ export function retrievePYQs(
   }
 
   matchedQuestions.sort((a, b) => b.score - a.score);
-  const topQuestions = matchedQuestions.slice(0, 4);
+  const seenQuestions = new Set<string>();
+  const uniqueQuestions = matchedQuestions.filter(q => {
+    const key = q.question.toLowerCase().replace(/[^a-z0-9]/g, "");
+    if (seenQuestions.has(key)) return false;
+    seenQuestions.add(key);
+    return true;
+  });
+  const topQuestions = uniqueQuestions.slice(0, 4);
   const previousYearQuestions = topQuestions.filter(q => !q.isModelPaper);
   const modelPaperQuestions = topQuestions.filter(q => q.isModelPaper);
   const isImportant = topQuestions.length >= 2;
 
   let summary = "";
   if (topQuestions.length > 0) {
-    summary = isImportant
-      ? `🔥 High Priority Exam Topic: Tested in ${topQuestions.length} past VTU question papers`
-      : `📝 VTU Exam Match: Asked in ${topQuestions[0].paper}`;
+    // Count distinct papers, not matched questions: several quotes often come
+    // from the same paper and must not inflate the claim.
+    const paperCount = new Set(previousYearQuestions.map(q => q.paper)).size;
+    summary = paperCount >= 2
+      ? `🔥 High Priority Exam Topic: Asked in ${paperCount} past VTU question papers`
+      : paperCount === 1
+        ? `📝 VTU Exam Match: Asked in ${previousYearQuestions[0].paper}`
+        : `📌 Appears in VTU model question papers and important-question lists`;
   }
 
   return {
@@ -756,9 +773,16 @@ export function retrieveAccurateDiagrams(
     };
   });
 
+  const seen = new Set<string>();
   return scored
     .filter(d => d.relevanceScore >= 20)
     .sort((a, b) => b.relevanceScore - a.relevanceScore)
+    .filter(d => {
+      const key = d.url || d.caption;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
     .slice(0, maxResults);
 }
 

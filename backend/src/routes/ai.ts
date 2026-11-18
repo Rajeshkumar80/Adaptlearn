@@ -8,6 +8,7 @@ import { requireAuth, AuthRequest } from "../middleware/auth";
 import rateLimit from "express-rate-limit";
 import { executeRAG, retrieveKnowledgeCandidates, retrievePYQs } from "../services/ragService";
 import { sanitizeAndEnrichAnswer, StructuredAnswer } from "../services/answerSynthesizer";
+import { applyVerifiedSolutions } from "../services/verifiedSolutions";
 import { validateGrounding, validateRequirementCoverage, GroundingValidationResult } from "../services/groundingValidator";
 import { generateCuratedTopicQuestions } from "../services/quizSynthesizer";
 import { analyzeQuestion, QuestionAnalysis, isConversationalQuery } from "../services/questionAnalyzer";
@@ -85,6 +86,22 @@ export function detectQuestionType(question: string): string {
   return "explain";
 }
 
+// Render a real conceptual diagram in chat; cite the textbook figure when one matched.
+function applyDiagramDecision(candidate: StructuredAnswer, decision: DiagramDecision) {
+  const spec = decision.generatedDiagram;
+  if (!spec) return;
+  const caption = (decision.sourceDiagram?.caption || "").replace(/\s+/g, " ").trim().slice(0, 140);
+  // The diagram map contains noisy non-caption text; only cite real figure captions.
+  const sourceRef = decision.useSourceDiagram && /^(fig|figure)\b/i.test(caption)
+    ? `Also refer to the prescribed textbook figure: ${caption}. `
+    : "";
+  candidate.ai_diagram = {
+    title: spec.title,
+    mermaid_code: spec.mermaidCode,
+    exam_sketch_guide: `${sourceRef}${spec.drawingGuide}`,
+  };
+}
+
 // ── Grounded Ollama System Prompt (Task 11) ───────────────────────────────────
 const SYSTEM = `You are AdaptLearn, an authoritative Visvesvaraya Technological University (VTU) examination tutor.
 
@@ -92,10 +109,11 @@ Answer the student's question using the supplied syllabus knowledge context.
 The supplied context is the authoritative educational source for this answer.
 
 Strict Rules:
-- Ground your answer ONLY in the supplied syllabus reference context.
-- Do NOT invent facts, fake citations, or hallucinate concepts.
+- The supplied syllabus context is the primary source. If it omits a detail a sub-question requires, use standard, well-established textbook facts and methods to complete that sub-question (for example normalization definitions, TCP mechanisms, or arithmetic).
+- Do NOT invent citations, exam years, source names, or claims that a topic appeared in a paper.
 - Do NOT add generic filler (such as "Structural Modularity", "Deterministic Control", "Initialization & Ingestion", or generic software engineering terminology).
 - Do NOT create sections merely to make the answer longer.
+- For calculation questions, show every formula, substitution, and final numeric result in the text. Never describe a calculation without the numbers.
 - Mark-Based Depth Rules:
   * 2 Marks: Provide a crisp definition and 1-2 key points only. Keep concise.
   * 5 Marks: Provide definition, structured explanation, main types/steps, and an example.
@@ -771,20 +789,11 @@ async function runAskPipeline(input: AskInput, hooks: AskHooks = {}): Promise<Re
         detectedMarks
       );
 
+      // Replace known-unreliable model sections with textbook-verified content.
+      candidate.sections = applyVerifiedSolutions(question, candidate.sections);
+
       // Unify diagram from diagramDecision for verified consistency
-      if (diagramDecision.useSourceDiagram && diagramDecision.sourceDiagram) {
-        candidate.ai_diagram = {
-          title: diagramDecision.sourceDiagram.caption || `${analysis.topic} Architecture`,
-          mermaid_code: `flowchart TD\n  D["Source Diagram: ${diagramDecision.sourceDiagram.topic}"]`,
-          exam_sketch_guide: `Refer to figure: ${diagramDecision.sourceDiagram.caption}`,
-        };
-      } else if (diagramDecision.generatedDiagram) {
-        candidate.ai_diagram = {
-          title: diagramDecision.generatedDiagram.title,
-          mermaid_code: diagramDecision.generatedDiagram.mermaidCode,
-          exam_sketch_guide: diagramDecision.generatedDiagram.drawingGuide,
-        };
-      }
+      applyDiagramDecision(candidate, diagramDecision);
 
       // Validate Grounding (Task 15)
       lastValidation = validateGrounding(
@@ -823,28 +832,17 @@ async function runAskPipeline(input: AskInput, hooks: AskHooks = {}): Promise<Re
     }
     const llmMs = Date.now() - tLlm0;
 
-    if (!enrichedAnswer) {
-      enrichedAnswer = sanitizeAndEnrichAnswer(
-        { question, subject_code: resolvedSubject, module: detectedModule, marks: detectedMarks, sections: [] } as any,
-        resolvedSubject,
-        question,
-        contextSnippet,
-        detectedMarks
-      );
-      if (diagramDecision.useSourceDiagram && diagramDecision.sourceDiagram) {
-        enrichedAnswer.ai_diagram = {
-          title: diagramDecision.sourceDiagram.caption || `${analysis.topic} Architecture`,
-          mermaid_code: `flowchart TD\n  D["Source Diagram: ${diagramDecision.sourceDiagram.topic}"]`,
-          exam_sketch_guide: `Refer to figure: ${diagramDecision.sourceDiagram.caption}`,
-        };
-      } else if (diagramDecision.generatedDiagram) {
-        enrichedAnswer.ai_diagram = {
-          title: diagramDecision.generatedDiagram.title,
-          mermaid_code: diagramDecision.generatedDiagram.mermaidCode,
-          exam_sketch_guide: diagramDecision.generatedDiagram.drawingGuide,
-        };
+      if (!enrichedAnswer) {
+        enrichedAnswer = sanitizeAndEnrichAnswer(
+          { question, subject_code: resolvedSubject, module: detectedModule, marks: detectedMarks, sections: [] } as any,
+          resolvedSubject,
+          question,
+          contextSnippet,
+          detectedMarks
+        );
+        applyDiagramDecision(enrichedAnswer, diagramDecision);
+        enrichedAnswer.sections = applyVerifiedSolutions(question, enrichedAnswer.sections);
       }
-    }
 
     // 8. Follow-up Quiz — deterministic curated generator.
     // ponytail: dropped the second LLM call here; it added one more full

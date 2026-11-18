@@ -936,6 +936,8 @@ export function sanitizeAndEnrichAnswer(
 
       // Clean Markdown code blocks & raw quotes
       textVal = textVal.replace(/^```(?:json|markdown)?\s*/i, "").replace(/\s*```$/i, "").trim();
+      // The 8B model sometimes emits HTML line breaks; render them as plain text.
+      textVal = textVal.replace(/<br\s*\/?>/gi, "\n").replace(/<\/?(?:b|i|u|strong|em|p|div|span|ul|ol|li)\b[^>]*>/gi, "").trim();
 
       const isPlaceholder = (
         !textVal ||

@@ -147,7 +147,48 @@ export function generateStructuredDiagramSpecification(
     };
   }
 
-  // 2. Addressing Modes
+  // 2. Resource Allocation Graph — deadlock cycle (BCS303 Module 1)
+  if (/\b(deadlock|resource\s+allocation\s+graph|\brag\b)\b/i.test(qLower)) {
+    return {
+      title: "Resource Allocation Graph — Circular Wait / Deadlock",
+      diagramType: "flowchart",
+      components: ["Process P1", "Resource R1", "Process P2", "Resource R2"],
+      connections: [
+        "P1 -->|requests| R2",
+        "R2 -->|allocated to| P2",
+        "P2 -->|requests| R1",
+        "R1 -->|allocated to| P1"
+      ],
+      mermaidCode: `flowchart LR\n  P1["Process P1 (holds R1)"] -->|requests| R2["Resource R2 (held by P2)"]\n  R2 -->|allocated to| P2["Process P2 (holds R2)"]\n  P2 -->|requests| R1["Resource R1 (held by P1)"]\n  R1 -->|allocated to| P1`,
+      drawingGuide: "Draw processes as circles and resources as rectangles. Add request edges P1 to R2 and P2 to R1, plus assignment edges R1 to P1 and R2 to P2. The cycle P1 - R2 - P2 - R1 - P1 indicates deadlock when each resource has a single instance."
+    };
+  }
+
+  // 3. TCP connection lifecycle (BCS502 Module 1)
+  if (/\b(tcp|three[\s-]*way\s+handshake|connection\s+termination|transmission\s+control\s+protocol)\b/i.test(qLower)) {
+    return {
+      title: "TCP Three-Way Handshake and Connection Termination",
+      diagramType: "flowchart",
+      components: ["Client", "Server", "SYN", "SYN + ACK", "ACK", "FIN", "ACK"],
+      connections: ["C --> S (SYN)", "S --> C (SYN + ACK)", "C --> S (ACK)", "C --> S (FIN)", "S --> C (ACK)", "S --> C (FIN)", "C --> S (ACK)"],
+      mermaidCode: `flowchart LR\n  C["Client"] -->|"1. SYN (seq = x)"| S["Server"]\n  S -->|"2. SYN + ACK (seq = y, ack = x+1)"| C\n  C -->|"3. ACK (ack = y+1)"| S\n  C -->|"4. FIN"| S\n  S -->|"5. ACK"| C\n  S -->|"6. FIN"| C\n  C -->|"7. ACK"| S`,
+      drawingGuide: "Draw two vertical timelines labelled Client and Server. Show SYN, SYN+ACK and ACK slanting between them for connection setup, then FIN, ACK, FIN, ACK for termination."
+    };
+  }
+
+  // 4. K-Means iteration loop (BCS602 Module 1)
+  if (/\b(k[\s-]*means|kmeans)\b/i.test(qLower)) {
+    return {
+      title: "K-Means Clustering Iteration Loop",
+      diagramType: "flowchart",
+      components: ["Initialize K centroids", "Assign points to nearest centroid", "Recompute centroids", "Convergence check", "Final clusters"],
+      connections: ["INIT --> ASSIGN", "ASSIGN --> UPDATE", "UPDATE --> CHECK", "CHECK -->|No| ASSIGN", "CHECK -->|Yes| OUT"],
+      mermaidCode: `flowchart TD\n  INIT["Initialize K centroids"] --> ASSIGN["Assign each point to the nearest centroid using Euclidean distance"]\n  ASSIGN --> UPDATE["Recompute each centroid as the mean of its assigned points"]\n  UPDATE --> CHECK{"Centroid positions changed?"}\n  CHECK -->|Yes| ASSIGN\n  CHECK -->|No| OUT["Final K clusters"]`,
+      drawingGuide: "Draw a loop: initialize centroids, assign points by Euclidean distance, recompute centroids, then branch back to assignment if centroids changed, or exit to final clusters if converged."
+    };
+  }
+
+  // 5. Addressing Modes
   if (/\b(addressing\s+modes?|addressing\s+mode)\b/i.test(qLower)) {
     return {
       title: "Effective Address (EA) Generation Model",
@@ -348,7 +389,7 @@ export function generateStructuredDiagramSpecification(
     diagramType: "flowchart",
     components: nodes,
     connections: connLines,
-    mermaidCode: `flowchart TD\n${mermaidLines.join("\n")}\n  ${connLines.join(" --> ")}`,
+    mermaidCode: `flowchart TD\n${mermaidLines.join("\n")}\n  ${connLines.join("\n  ")}`,
     drawingGuide: `Draw ${nodes.length} rectangular boxes connected sequentially by directional arrows from step 1 to step ${nodes.length}.`
   };
 }
@@ -403,24 +444,16 @@ export function resolveDiagramDecision(
     };
   }
 
-  // 1. Check verified VTU source diagram first (Task 15 Priority)
+  // 1. Verified VTU source figure: cited as a drawing reference, but the chat
+  //    can only render Mermaid, so a conceptual diagram is always generated.
   const sourceDiagram = retrieveSourceDiagram(subjectCode, question, moduleNumber);
-  if (sourceDiagram && sourceDiagram.relevanceScore >= 0.5) {
-    return {
-      ...req,
-      useSourceDiagram: true,
-      sourceDiagram,
-      validationStatus: "VALID",
-    };
-  }
-
-  // 2. Fallback to verified deterministic generated diagram specification (Task 16–18)
   const generatedDiagram = generateStructuredDiagramSpecification(topic, verifiedConcepts, question);
   const val = validateDiagramSpecification(generatedDiagram, topic);
 
   return {
     ...req,
-    useSourceDiagram: false,
+    useSourceDiagram: !!sourceDiagram && sourceDiagram.relevanceScore >= 0.5,
+    sourceDiagram: sourceDiagram ?? undefined,
     generatedDiagram,
     validationStatus: val.isValid ? "VALID" : "INVALID",
     validationReason: val.reason,

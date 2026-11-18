@@ -197,13 +197,22 @@ export default function AnswerRenderer({
 
   // Plain text fallback
   if (!answer || !answer.sections?.length) {
+    // The model streams raw JSON; don't dump it into the chat while it composes.
+    if (isStreaming) {
+      return (
+        <div className="flex items-center gap-2 rounded-xl border border-amber-400 bg-amber-500/10 px-3.5 py-2 text-[12px] font-bold text-amber-800 dark:text-amber-200">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500" />
+          </span>
+          Composing your VTU answer…
+        </div>
+      );
+    }
     const text = typeof content === "string" ? content : (answer?.raw ?? JSON.stringify(content));
     return (
       <div className="whitespace-pre-wrap text-[13px] leading-relaxed text-[var(--text-primary)]">
         {text}
-        {isStreaming && (
-          <span className="inline-block w-2 h-4 ml-1 bg-[var(--accent-primary)] animate-pulse align-middle" />
-        )}
       </div>
     );
   }
@@ -428,7 +437,7 @@ export default function AnswerRenderer({
                     : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                 }`}
               >
-                📝 Previous Papers ({pyqs.length})
+                📝 Previous-Year Questions ({pyqs.length})
               </button>
               <button
                 type="button"
